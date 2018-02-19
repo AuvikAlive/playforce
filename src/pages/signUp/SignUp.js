@@ -40,16 +40,16 @@ const SignUp = () => (
             fullWidth
           />
 
-          <Button variant="raised" color="primary" onClick={this.handleOpen}>
+          <Button variant="raised" color="primary">
             Start Trial
           </Button>
 
           <p>
             By singing up you agree to our{' '}
-            <Link to="terms">Terms of service</Link>
+            <Link to="/terms">Terms of service</Link>
           </p>
           <p>
-            Already have an account? <Link to="signIn">Sign In</Link>
+            Already have an account? <Link to="/signIn">Sign In</Link>
           </p>
         </form>
       </Grid>

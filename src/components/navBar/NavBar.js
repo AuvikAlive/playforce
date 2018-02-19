@@ -10,14 +10,14 @@ import Modal from '../modal/Modal'
 import { Logo } from '../logo/Logo'
 
 class NavBar extends Component {
-  state = { open: true }
+  state = { modalOpen: false }
 
-  handleOpen = () => {
-    this.setState({ open: true })
+  openModal = () => {
+    this.setState({ modalOpen: true })
   }
 
-  handleClose = () => {
-    this.setState({ open: false })
+  closeModal = () => {
+    this.setState({ modalOpen: false })
   }
 
   render() {
@@ -38,11 +38,11 @@ class NavBar extends Component {
                 Sign In
               </Button>
             </StyledNavLink>
-            <Button variant="raised" color="primary" onClick={this.handleOpen}>
+            <Button variant="raised" color="primary" onClick={this.openModal}>
               Try Free
             </Button>
 
-            <Modal open={this.state.open} handleClose={this.handleClose}>
+            <Modal open={this.state.modalOpen} handleClose={this.closeModal}>
               <SignUp />
             </Modal>
           </Toolbar>
