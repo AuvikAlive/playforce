@@ -7,11 +7,10 @@ import Button from 'material-ui/Button'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import SignUp from '../../pages/signUp/SignUp'
 import Modal from '../modal/Modal'
-
-import logo from './logo.JPG'
+import { Logo } from '../logo/Logo'
 
 class NavBar extends Component {
-  state = { open: false }
+  state = { open: true }
 
   handleOpen = () => {
     this.setState({ open: true })
@@ -32,7 +31,7 @@ class NavBar extends Component {
               color="inherit"
               className={classes.flex}
             >
-              <img src={logo} alt="logo" className={classes.image} />
+              <Logo className={classes.image} />
             </Typography>
             <StyledNavLink to="/SignIn">
               <Button color="inherit" className={classes.firstButton}>

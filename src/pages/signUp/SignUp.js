@@ -2,8 +2,10 @@ import React from 'react'
 import Grid from 'material-ui/Grid'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+import Typography from 'material-ui/Typography'
 import { Link } from 'react-router-dom'
 import { StyledSignUp } from './StyledSignUp'
+import { Logo } from '../../components/logo/Logo'
 
 const SignUp = () => (
   <StyledSignUp>
@@ -11,6 +13,10 @@ const SignUp = () => (
       <Grid item xs={6} className="left" />
       <Grid item xs={6}>
         <form noValidate autoComplete="off">
+          <Logo />
+          <Typography variant="display1" align="center">
+            Free 30 day full-featured trial
+          </Typography>
           <TextField
             id="fullName"
             label="Full Name"

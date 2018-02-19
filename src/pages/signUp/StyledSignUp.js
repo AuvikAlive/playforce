@@ -8,6 +8,17 @@ export const StyledSignUp = Styled.div`
     padding: 15%;
   }
 
+  img {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 48px;
+  }
+
+  h1 {
+    margin-bottom: 24px;
+  }
+
   button {
     margin-top: 48px;
     margin-bottom: 8px;
