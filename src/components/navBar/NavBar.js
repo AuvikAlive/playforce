@@ -9,7 +9,7 @@ import Modal from '../modal/Modal'
 import logo from './logo.JPG'
 
 class NavBar extends Component {
-  state = { open: true }
+  state = { open: false }
 
   handleOpen = () => {
     this.setState({ open: true })
