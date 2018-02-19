@@ -1,5 +1,12 @@
 import React from 'react'
+import Content from '../../components/content/Content'
+import NavBar from '../../components/navBar/NavBar'
 
-const DashBoard = () => <div>DashBoard</div>
+const Dashboard = () => (
+  <div>
+    <NavBar />
+    <Content>Dashboard</Content>
+  </div>
+)
 
-export default DashBoard
+export default Dashboard

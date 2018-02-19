@@ -10,6 +10,7 @@
     "react-loadable": "^5.3.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
+    "styled-components": "^3.1.6",
     "typeface-roboto": "^0.0.54"
   },
   "scripts": {

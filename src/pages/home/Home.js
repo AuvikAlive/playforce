@@ -1,13 +1,11 @@
 import React from 'react'
-import Button from 'material-ui/Button'
-import AccessAlarmIcon from 'material-ui-icons/AccessAlarm'
+import Content from '../../components/content/Content'
+import NavBar from '../../components/navBar/NavBar'
 
 const Home = () => (
   <div>
-    <Button variant="raised" color="primary">
-      Hello World
-    </Button>
-    <AccessAlarmIcon />
+    <NavBar />
+    <Content>Home</Content>
   </div>
 )
 
