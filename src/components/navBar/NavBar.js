@@ -4,6 +4,7 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
+import { Link } from 'react-router-dom'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import SignUp from '../../pages/signUp/SignUp'
 import Modal from '../modal/Modal'
@@ -31,7 +32,9 @@ class NavBar extends Component {
               color="inherit"
               className={classes.flex}
             >
-              <Logo className={classes.image} />
+              <Link to="/">
+                <Logo className={classes.image} />
+              </Link>
             </Typography>
             <StyledNavLink to="/SignIn">
               <Button color="inherit" className={classes.firstButton}>
