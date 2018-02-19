@@ -4,6 +4,7 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
+import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import Modal from '../modal/Modal'
 
 import logo from './logo.JPG'
@@ -32,9 +33,11 @@ class NavBar extends Component {
             >
               <img src={logo} alt="logo" className={classes.image} />
             </Typography>
-            <Button color="inherit" className={classes.firstButton}>
-              Sign In
-            </Button>
+            <StyledNavLink to="/SignIn">
+              <Button color="inherit" className={classes.firstButton}>
+                Sign In
+              </Button>
+            </StyledNavLink>
             <Button
               variant="raised"
               color="secondary"
