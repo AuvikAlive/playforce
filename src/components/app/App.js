@@ -6,7 +6,7 @@ import pink from 'material-ui/colors/pink'
 
 const theme = createMuiTheme({
   palette: {
-    secondary: { main: pink[700] }
+    primary: { main: pink[700] }
   }
 })
 

@@ -5,6 +5,7 @@ import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
+import SignUp from '../../pages/signUp/SignUp'
 import Modal from '../modal/Modal'
 
 import logo from './logo.JPG'
@@ -38,15 +39,13 @@ class NavBar extends Component {
                 Sign In
               </Button>
             </StyledNavLink>
-            <Button
-              variant="raised"
-              color="secondary"
-              onClick={this.handleOpen}
-            >
+            <Button variant="raised" color="primary" onClick={this.handleOpen}>
               Try Free
             </Button>
 
-            <Modal open={this.state.open} handleClose={this.handleClose} />
+            <Modal open={this.state.open} handleClose={this.handleClose}>
+              <SignUp />
+            </Modal>
           </Toolbar>
         </AppBar>
       </div>
