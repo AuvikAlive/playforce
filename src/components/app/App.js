@@ -1,23 +1,24 @@
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import { PersistGate } from 'redux-persist/es/integration/react'
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
+import { MuiThemeProvider } from 'material-ui/styles'
+import { store, history, persistor } from '../../store/store'
 import { Routes } from './Routes'
-import pink from 'material-ui/colors/pink'
-
-const theme = createMuiTheme({
-  palette: {
-    primary: { main: pink[700] }
-  }
-})
+import { theme } from './theme'
 
 const App = () => (
-  <Router>
-    <MuiThemeProvider theme={theme}>
-      <div className="App">
-        <Routes />
-      </div>
-    </MuiThemeProvider>
-  </Router>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <ConnectedRouter history={history}>
+        <MuiThemeProvider theme={theme}>
+          <div className="App">
+            <Routes />
+          </div>
+        </MuiThemeProvider>
+      </ConnectedRouter>
+    </PersistGate>
+  </Provider>
 )
 
 export default App

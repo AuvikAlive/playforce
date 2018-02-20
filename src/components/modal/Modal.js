@@ -5,9 +5,9 @@ import CloseIcon from 'material-ui-icons/Close'
 import { withRouter } from 'react-router-dom'
 
 const MyModal = ({ open, handleClose, classes, children, history }) => {
-  history.listen(() => {
-    handleClose()
-  })
+  // history.listen(() => {
+  //   handleClose()
+  // })
 
   return (
     <Modal
