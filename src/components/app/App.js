@@ -9,7 +9,7 @@ import { theme } from './theme'
 
 const App = () => (
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}>
         <MuiThemeProvider theme={theme}>
           <div className="App">
