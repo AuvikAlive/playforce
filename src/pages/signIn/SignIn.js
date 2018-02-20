@@ -5,14 +5,20 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { FormControlLabel } from 'material-ui/Form'
 import Checkbox from 'material-ui/Checkbox'
+import { withTheme } from 'material-ui/styles'
 import { Link } from 'react-router-dom'
 import { StyledSignIn } from './StyledSignIn'
 import { Logo } from '../../components/logo/Logo'
 import Modal from '../../components/modal/Modal'
-import SignUp from '../signUp/SignUp'
+import SignUp from '../signUp/SignUpContainer'
 
 class SignIn extends Component {
-  state = { modalOpen: false }
+  state = {
+    modalOpen: false,
+    email: '',
+    password: '',
+    error: ''
+  }
 
   openModal = () => {
     this.setState({ modalOpen: true })
@@ -22,12 +28,49 @@ class SignIn extends Component {
     this.setState({ modalOpen: false })
   }
 
+  onEmailChange = event => {
+    const email = event.target.value
+    this.setState({ email })
+  }
+
+  onPasswordChange = event => {
+    const password = event.target.value
+    this.setState({ password })
+  }
+
+  signIn = () => {
+    const { email, password } = this.state
+    const { firebase, history } = this.props
+
+    this.setState({ error: '' })
+
+    if (email && password) {
+      const p = firebase.login({
+        email,
+        password
+      })
+
+      p
+        .then(value => {
+          history.push('/dashboard')
+        })
+        .catch(error => {
+          this.setState({ error: error.message })
+        })
+    } else {
+      this.setState({ error: 'Please fill up the form properly!' })
+    }
+  }
+
   handleSignUp = event => {
     event.preventDefault()
     this.openModal()
   }
 
   render() {
+    const { error } = this.state
+    const { theme } = this.props
+
     return (
       <StyledSignIn>
         <Grid container spacing={0} className="container">
@@ -41,6 +84,7 @@ class SignIn extends Component {
                 type="email"
                 margin="normal"
                 fullWidth
+                onChange={this.onEmailChange}
               />
 
               <TextField
@@ -49,6 +93,7 @@ class SignIn extends Component {
                 type="password"
                 margin="normal"
                 fullWidth
+                onChange={this.onPasswordChange}
               />
 
               <FormControlLabel
@@ -57,11 +102,17 @@ class SignIn extends Component {
                 label="Keep me signed in"
               />
 
-              <Button
-                variant="raised"
-                color="primary"
-                onClick={this.handleOpen}
-              >
+              {error && (
+                <p
+                  style={{
+                    color: theme.palette.primary.main
+                  }}
+                >
+                  {error}
+                </p>
+              )}
+
+              <Button variant="raised" color="primary" onClick={this.signIn}>
                 Sign In
               </Button>
 
@@ -86,4 +137,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn
+export default withTheme()(SignIn)

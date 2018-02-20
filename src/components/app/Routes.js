@@ -4,7 +4,7 @@ import Loadable from '../loadable/Loadable'
 import Home from '../../pages/home/Home'
 
 const SignIn = Loadable({
-  loader: () => import('../../pages/signIn/SignIn')
+  loader: () => import('../../pages/signIn/SignInContainer')
 })
 const Dashboard = Loadable({
   loader: () => import('../../pages/dashboard/Dashboard')

@@ -35,6 +35,7 @@ class SignUp extends Component {
   signUp = () => {
     const { username, email, password } = this.state
     const { firebase, history } = this.props
+
     this.setState({ error: '' })
 
     if (username && email && password) {

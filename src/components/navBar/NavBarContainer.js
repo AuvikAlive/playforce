@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirebase } from 'react-redux-firebase'
 import { withRouter } from 'react-router'
+import { withFirebase } from 'react-redux-firebase'
 import NavBar from './NavBar'
 
 export default compose(

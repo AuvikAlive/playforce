@@ -7,6 +7,7 @@ export const StyledSignIn = Styled.div`
 
   img {
     position: relative;
+    width: 100%;
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: 48px;
