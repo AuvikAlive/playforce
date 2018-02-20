@@ -1,27 +1,43 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Modal from 'material-ui/Modal'
 import { withStyles } from 'material-ui/styles'
 import CloseIcon from 'material-ui-icons/Close'
 import { withRouter } from 'react-router-dom'
 
-const MyModal = ({ open, handleClose, classes, children, history }) => {
-  // history.listen(() => {
-  //   handleClose()
-  // })
+class MyModal extends Component {
+  state = { unlisten: '' }
 
-  return (
-    <Modal
-      aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description"
-      open={open}
-      onClose={handleClose}
-    >
-      <div style={getModalStyle()} className={classes.paper}>
-        <CloseIcon className={classes.closeIcon} onClick={handleClose} />
-        {children}
-      </div>
-    </Modal>
-  )
+  componentDidMount() {
+    const { history, handleClose } = this.props
+
+    const unlisten = history.listen(() => {
+      handleClose()
+    })
+
+    this.setState({ unlisten })
+  }
+
+  componentWillUnmount() {
+    this.state.unlisten()
+  }
+
+  render() {
+    const { open, classes, children, handleClose } = this.props
+
+    return (
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={open}
+        onClose={handleClose}
+      >
+        <div style={getModalStyle()} className={classes.paper}>
+          <CloseIcon className={classes.closeIcon} onClick={handleClose} />
+          {children}
+        </div>
+      </Modal>
+    )
+  }
 }
 
 const getModalStyle = () => {
