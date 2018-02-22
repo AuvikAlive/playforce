@@ -4,7 +4,7 @@ export const StyledForm = Styled.div`
   height: calc(100vh - 64px);
 
   form {
-    padding: 72px 24px;
+    padding: 0 24px;
     position: relative;
     top: 50%;
     transform: translateY(-50%);

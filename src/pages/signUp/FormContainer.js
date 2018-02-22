@@ -1,6 +1,6 @@
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirebase } from 'react-redux-firebase'
-import SignUp from './SignUp'
+import Form from './Form'
 
-export default compose(withRouter, withFirebase)(SignUp)
+export default compose(withRouter, withFirebase)(Form)

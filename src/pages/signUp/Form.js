@@ -2,27 +2,20 @@ import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import { FormControlLabel } from 'material-ui/Form'
-import Checkbox from 'material-ui/Checkbox'
+import { Link } from 'react-router-dom'
 import { StyledForm } from './StyledForm'
-import { StyledLink } from '../../components/styledLink/StyledLink'
-import Modal from '../../components/modal/Modal'
-import SignUp from '../signUp/SignUp'
 
 class Form extends Component {
   state = {
-    modalOpen: false,
+    username: '',
     email: '',
     password: '',
     error: ''
   }
 
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
+  onNameChange = event => {
+    const username = event.target.value
+    this.setState({ username })
   }
 
   onEmailChange = event => {
@@ -35,17 +28,14 @@ class Form extends Component {
     this.setState({ password })
   }
 
-  signIn = () => {
-    const { email, password } = this.state
+  signUp = () => {
+    const { username, email, password } = this.state
     const { firebase, history } = this.props
 
     this.setState({ error: '' })
 
-    if (email && password) {
-      const p = firebase.login({
-        email,
-        password
-      })
+    if (username && email && password) {
+      const p = firebase.createUser({ email, password }, { username, email })
 
       p
         .then(value => {
@@ -59,18 +49,23 @@ class Form extends Component {
     }
   }
 
-  handleSignUp = event => {
-    event.preventDefault()
-    this.openModal()
-  }
-
   render() {
     const { error } = this.state
 
     return (
       <StyledForm>
         <form noValidate autoComplete="off">
-          <Typography variant="headline">Sign In</Typography>
+          <Typography variant="display1" align="center">
+            Free 30 day full-featured trial
+          </Typography>
+          <TextField
+            id="fullName"
+            label="Full Name"
+            margin="normal"
+            fullWidth
+            onChange={this.onNameChange}
+          />
+
           <TextField
             id="email"
             label="Email"
@@ -89,32 +84,20 @@ class Form extends Component {
             onChange={this.onPasswordChange}
           />
 
-          <FormControlLabel
-            className="checkbox"
-            control={<Checkbox color="primary" />}
-            label="Keep me signed in"
-          />
-
           {error && <p className="error">{error}</p>}
 
-          <Button variant="raised" color="primary" onClick={this.signIn}>
-            Sign In
+          <Button variant="raised" color="primary" onClick={this.signUp}>
+            Start Trial
           </Button>
 
           <p>
-            <StyledLink to="/">Forgot your password?</StyledLink>
+            By singing up you agree to our{' '}
+            <Link to="/terms">Terms of service</Link>
           </p>
-
           <p>
-            Don't have an account?{' '}
-            <StyledLink to="/" onClick={this.handleSignUp}>
-              Sign up for free!
-            </StyledLink>
+            Already have an account? <Link to="/signIn">Sign In</Link>
           </p>
         </form>
-        <Modal open={this.state.modalOpen} handleClose={this.closeModal}>
-          <SignUp />
-        </Modal>
       </StyledForm>
     )
   }

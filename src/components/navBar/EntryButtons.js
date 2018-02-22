@@ -2,7 +2,7 @@ import React from 'react'
 import Button from 'material-ui/Button'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import Modal from '../modal/Modal'
-import SignUp from '../../pages/signUp/SignUpContainer'
+import SignUp from '../../pages/signUp/SignUp'
 
 export const EntryButtons = ({ modalOpen, openModal, closeModal }) => (
   <div>
