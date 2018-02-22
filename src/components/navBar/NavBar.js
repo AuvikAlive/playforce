@@ -59,38 +59,42 @@ class NavBar extends Component {
             />
 
             <Link to="/" className="logo" style={{ flex: 1 }}>
-              <Typography variant="title" color="inherit" align="center">
+              <Typography variant="title" color="inherit">
                 Play Force
               </Typography>
             </Link>
 
-            <Media
-              query="(orientation: landscape)"
-              render={() =>
-                profile.isEmpty && (
-                  <EntryButtons
-                    modalOpen={modalOpen}
-                    openModal={this.openModal}
-                    closeModal={this.closeModal}
-                  />
-                )
-              }
-            />
+            {profile.isLoaded && (
+              <div>
+                <Media
+                  query="(orientation: landscape)"
+                  render={() =>
+                    profile.isEmpty && (
+                      <EntryButtons
+                        modalOpen={modalOpen}
+                        openModal={this.openModal}
+                        closeModal={this.closeModal}
+                      />
+                    )
+                  }
+                />
 
-            <Media
-              query="(orientation: landscape)"
-              render={() =>
-                !profile.isEmpty && (
-                  <UserMenu
-                    anchorEl={anchorEl}
-                    profile={profile}
-                    openMenu={this.openMenu}
-                    closeMenu={this.closeMenu}
-                    signOut={this.signOut}
-                  />
-                )
-              }
-            />
+                <Media
+                  query="(orientation: landscape)"
+                  render={() =>
+                    !profile.isEmpty && (
+                      <UserMenu
+                        anchorEl={anchorEl}
+                        profile={profile}
+                        openMenu={this.openMenu}
+                        closeMenu={this.closeMenu}
+                        signOut={this.signOut}
+                      />
+                    )
+                  }
+                />
+              </div>
+            )}
           </Toolbar>
         </AppBar>
       </StyledNavBar>

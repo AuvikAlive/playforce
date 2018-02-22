@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
 import Drawer from 'material-ui/Drawer'
 import List, { ListItem, ListItemText } from 'material-ui/List'
+import { isEmpty } from 'react-redux-firebase'
+import Button from 'material-ui/Button'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 
 class SideMenu extends Component {
@@ -21,8 +22,16 @@ class SideMenu extends Component {
     this.props.closeDrawer()
     this.state.unlisten()
   }
+
+  signOut = () => {
+    const { firebase, history } = this.props
+
+    firebase.logout()
+    history.push('/signIn')
+  }
+
   render() {
-    const { open, closeDrawer } = this.props
+    const { open, closeDrawer, auth } = this.props
 
     return (
       <Drawer open={open} anchor={'left'} onClick={closeDrawer}>
@@ -47,10 +56,34 @@ class SideMenu extends Component {
               <ListItemText primary="Terms of Service" />
             </ListItem>
           </StyledNavLink>
+
+          {isEmpty(auth) && (
+            <StyledNavLink to="/signIn">
+              <ListItem button>
+                <ListItemText primary="Sign In" />
+              </ListItem>
+            </StyledNavLink>
+          )}
+
+          {isEmpty(auth) && (
+            <StyledNavLink to="/signUp">
+              <ListItem button>
+                <Button variant="raised" color="secondary" fullWidth>
+                  Try Free
+                </Button>
+              </ListItem>
+            </StyledNavLink>
+          )}
+
+          {!isEmpty(auth) && (
+            <ListItem button onClick={this.signOut}>
+              <ListItemText primary="Sign Out" />
+            </ListItem>
+          )}
         </List>
       </Drawer>
     )
   }
 }
 
-export default withRouter(SideMenu)
+export default SideMenu

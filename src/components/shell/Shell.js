@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from '../navBar/NavBarContainer'
-import SideMenu from '../sideMenu/SideMenu'
+import SideMenu from '../sideMenu/SideMenuContainer'
 import Media from 'react-media'
 
 export class Shell extends Component {

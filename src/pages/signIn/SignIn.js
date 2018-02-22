@@ -1,140 +1,27 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Grid from 'material-ui/Grid'
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
-import { FormControlLabel } from 'material-ui/Form'
-import Checkbox from 'material-ui/Checkbox'
-import { withTheme } from 'material-ui/styles'
-import { Link } from 'react-router-dom'
+import Media from 'react-media'
 import { StyledSignIn } from './StyledSignIn'
-import { Logo } from '../../components/logo/Logo'
-import Modal from '../../components/modal/Modal'
-import SignUp from '../signUp/SignUpContainer'
+import Form from './FormContainer'
 
-class SignIn extends Component {
-  state = {
-    modalOpen: false,
-    email: '',
-    password: '',
-    error: ''
-  }
+const SignIn = () => (
+  <StyledSignIn>
+    <Grid container spacing={0} className="container">
+      <Media query="(orientation: portrait)">
+        {matches =>
+          matches ? (
+            <Grid item xs={12}>
+              <Form />
+            </Grid>
+          ) : (
+            <Grid item xs={4}>
+              <Form />
+            </Grid>
+          )
+        }
+      </Media>
+    </Grid>
+  </StyledSignIn>
+)
 
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
-  }
-
-  onEmailChange = event => {
-    const email = event.target.value
-    this.setState({ email })
-  }
-
-  onPasswordChange = event => {
-    const password = event.target.value
-    this.setState({ password })
-  }
-
-  signIn = () => {
-    const { email, password } = this.state
-    const { firebase, history } = this.props
-
-    this.setState({ error: '' })
-
-    if (email && password) {
-      const p = firebase.login({
-        email,
-        password
-      })
-
-      p
-        .then(value => {
-          history.push('/dashboard')
-        })
-        .catch(error => {
-          this.setState({ error: error.message })
-        })
-    } else {
-      this.setState({ error: 'Please fill up the form properly!' })
-    }
-  }
-
-  handleSignUp = event => {
-    event.preventDefault()
-    this.openModal()
-  }
-
-  render() {
-    const { error } = this.state
-    const { theme } = this.props
-
-    return (
-      <StyledSignIn>
-        <Grid container spacing={0} className="container">
-          <Grid item xs={4}>
-            <form noValidate autoComplete="off">
-              <Logo />
-              <Typography variant="headline">Sign In</Typography>
-              <TextField
-                id="email"
-                label="Email"
-                type="email"
-                margin="normal"
-                fullWidth
-                onChange={this.onEmailChange}
-              />
-
-              <TextField
-                id="password"
-                label="Password"
-                type="password"
-                margin="normal"
-                fullWidth
-                onChange={this.onPasswordChange}
-              />
-
-              <FormControlLabel
-                className="checkbox"
-                control={<Checkbox color="primary" />}
-                label="Keep me signed in"
-              />
-
-              {error && (
-                <p
-                  style={{
-                    color: theme.palette.primary.main
-                  }}
-                >
-                  {error}
-                </p>
-              )}
-
-              <Button variant="raised" color="primary" onClick={this.signIn}>
-                Sign In
-              </Button>
-
-              <p>
-                <Link to="/terms">Forgot your password?</Link>
-              </p>
-
-              <p>
-                Don't have an account?{' '}
-                <Link to="/" onClick={this.handleSignUp}>
-                  Sign up for free!
-                </Link>
-              </p>
-            </form>
-          </Grid>
-        </Grid>
-        <Modal open={this.state.modalOpen} handleClose={this.closeModal}>
-          <SignUp />
-        </Modal>
-      </StyledSignIn>
-    )
-  }
-}
-
-export default withTheme()(SignIn)
+export default SignIn
