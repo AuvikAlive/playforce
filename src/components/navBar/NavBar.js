@@ -14,7 +14,7 @@ import SignUp from '../../pages/signUp/SignUpContainer'
 import Modal from '../modal/Modal'
 
 class NavBar extends Component {
-  state = { modalOpen: false, anchorEl: null }
+  state = { modalOpen: true, anchorEl: null }
 
   openModal = () => {
     this.setState({ modalOpen: true })
