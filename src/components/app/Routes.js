@@ -16,6 +16,11 @@ const Terms = Loadable({
   loader: () => import('../../pages/terms/Terms')
 })
 
+SignIn.preload()
+Dashboard.preload()
+Settings.preload()
+Terms.preload()
+
 export const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} />

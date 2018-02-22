@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import ArrowDropDown from 'material-ui-icons/ArrowDropDown'
+import IconButton from 'material-ui/IconButton'
+import MenuIcon from 'material-ui-icons/Menu'
 import { Link } from 'react-router-dom'
+import { StyledNavBar } from './StyledNavBar'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import SignUp from '../../pages/signUp/SignUpContainer'
 import Modal from '../modal/Modal'
-import { Logo } from '../logo/Logo'
 
 class NavBar extends Component {
   state = { modalOpen: false, anchorEl: null }
@@ -40,33 +41,32 @@ class NavBar extends Component {
   }
 
   render() {
-    const { classes, profile } = this.props
+    const { profile } = this.props
     const { anchorEl } = this.state
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Toolbar className={classes.toolBar}>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
-              <Link to="/">
-                <Logo className={classes.image} />
-              </Link>
-            </Typography>
+      <StyledNavBar>
+        <AppBar position="static">
+          <Toolbar className="toolbar">
+            <IconButton color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Link to="/" className="logo">
+              <Typography variant="title" color="inherit">
+                Play Force
+              </Typography>
+            </Link>
 
             {profile.isEmpty && (
               <div>
                 <StyledNavLink to="/SignIn">
-                  <Button color="inherit" className={classes.firstButton}>
+                  <Button color="inherit" className="sign-in">
                     Sign In
                   </Button>
                 </StyledNavLink>
                 <Button
                   variant="raised"
-                  color="primary"
+                  color="secondary"
                   onClick={this.openModal}
                 >
                   Try Free
@@ -97,7 +97,7 @@ class NavBar extends Component {
                   open={Boolean(anchorEl)}
                   onClose={this.closeMenu}
                 >
-                  <Link to="/settings" className={classes.menuLink}>
+                  <Link to="/settings" className="menu-link">
                     <MenuItem onClick={this.closeMenu}>Settings</MenuItem>
                   </Link>
                   <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
@@ -106,38 +106,9 @@ class NavBar extends Component {
             )}
           </Toolbar>
         </AppBar>
-      </div>
+      </StyledNavBar>
     )
   }
 }
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  flex: {
-    flex: 1
-  },
-  toolBar: {
-    // padding: '0 64px'
-  },
-  image: {
-    height: 64
-  },
-  firstButton: {
-    marginRight: 8
-  },
-  menuLink: {
-    outline: 'none',
-    textDecoration: 'none'
-  },
-  paper: {
-    position: 'absolute',
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
-  }
-})
-
-export default withStyles(styles)(NavBar)
+export default NavBar
