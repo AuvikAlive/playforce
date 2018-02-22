@@ -16,6 +16,7 @@ export const UserMenu = ({
       aria-owns={anchorEl ? 'simple-menu' : null}
       aria-haspopup="true"
       onClick={openMenu}
+      style={{ color: 'white' }}
     >
       {profile.username}
       <ArrowDropDown />

@@ -2,12 +2,10 @@ import React from 'react'
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
 import Content from '../../components/content/Content'
-import NavBar from '../../components/navBar/NavBarContainer'
 import { StyledSettings } from './StyledSettings'
 
 const Settings = () => (
   <StyledSettings>
-    <NavBar />
     <Content>
       <Paper elevation={4} className="paper">
         <Grid container spacing={0} className="container">

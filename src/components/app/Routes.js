@@ -1,6 +1,7 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Loadable from '../loadable/Loadable'
+import { Shell } from '../shell/Shell'
 import Home from '../../pages/home/Home'
 
 const SignIn = Loadable({
@@ -22,12 +23,12 @@ Settings.preload()
 Terms.preload()
 
 export const Routes = () => (
-  <Switch>
+  <div>
+    <Route path="/" component={Shell} />
     <Route exact path="/" component={Home} />
     <Route path="/SignIn" component={SignIn} />
     <Route path="/Dashboard" component={Dashboard} />
     <Route path="/Settings" component={Settings} />
     <Route path="/Terms" component={Terms} />
-    <Redirect to="/" />
-  </Switch>
+  </div>
 )

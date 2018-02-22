@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 import { Link } from 'react-router-dom'
+import Media from 'react-media'
 import { StyledNavBar } from './StyledNavBar'
 import { EntryButtons } from './EntryButtons'
 import { UserMenu } from './UserMenu'
@@ -37,39 +38,59 @@ class NavBar extends Component {
   }
 
   render() {
-    const { profile } = this.props
+    const { profile, toggleDrawer } = this.props
     const { modalOpen, anchorEl } = this.state
 
     return (
       <StyledNavBar>
         <AppBar position="static">
           <Toolbar className="toolbar">
-            <IconButton color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Link to="/" className="logo">
-              <Typography variant="title" color="inherit">
+            <Media
+              query="(orientation: portrait)"
+              render={() => (
+                <IconButton
+                  color="inherit"
+                  aria-label="Menu"
+                  onClick={toggleDrawer}
+                >
+                  <MenuIcon />
+                </IconButton>
+              )}
+            />
+
+            <Link to="/" className="logo" style={{ flex: 1 }}>
+              <Typography variant="title" color="inherit" align="center">
                 Play Force
               </Typography>
             </Link>
 
-            {profile.isEmpty && (
-              <EntryButtons
-                modalOpen={modalOpen}
-                openModal={this.openModal}
-                closeModal={this.closeModal}
-              />
-            )}
+            <Media
+              query="(orientation: landscape)"
+              render={() =>
+                profile.isEmpty && (
+                  <EntryButtons
+                    modalOpen={modalOpen}
+                    openModal={this.openModal}
+                    closeModal={this.closeModal}
+                  />
+                )
+              }
+            />
 
-            {!profile.isEmpty && (
-              <UserMenu
-                anchorEl={anchorEl}
-                profile={profile}
-                openMenu={this.openMenu}
-                closeMenu={this.closeMenu}
-                signOut={this.signOut}
-              />
-            )}
+            <Media
+              query="(orientation: landscape)"
+              render={() =>
+                !profile.isEmpty && (
+                  <UserMenu
+                    anchorEl={anchorEl}
+                    profile={profile}
+                    openMenu={this.openMenu}
+                    closeMenu={this.closeMenu}
+                    signOut={this.signOut}
+                  />
+                )
+              }
+            />
           </Toolbar>
         </AppBar>
       </StyledNavBar>
