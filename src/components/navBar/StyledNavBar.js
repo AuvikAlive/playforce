@@ -15,9 +15,4 @@ export const StyledNavBar = Styled.div`
   .sign-in {
     margin-right: 8px;
   }
-
-  .menu-link {
-    outline: none;
-    text-decoration: none;
-  }
 `
