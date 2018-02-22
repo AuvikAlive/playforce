@@ -31,6 +31,10 @@ export const StyledSignUp = Styled.div`
     color: gray;
   }
 
+  .error {
+    color: ${({ theme }) => theme.palette.error.main};
+  }
+
   /* .container {
     height: 100%;
   }

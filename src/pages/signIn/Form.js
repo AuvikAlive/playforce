@@ -4,7 +4,6 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { FormControlLabel } from 'material-ui/Form'
 import Checkbox from 'material-ui/Checkbox'
-import { withTheme } from 'material-ui/styles'
 import { StyledForm } from './StyledForm'
 import { StyledLink } from '../../components/styledLink/StyledLink'
 import Modal from '../../components/modal/Modal'
@@ -67,7 +66,6 @@ class Form extends Component {
 
   render() {
     const { error } = this.state
-    const { theme } = this.props
 
     return (
       <StyledForm>
@@ -97,15 +95,7 @@ class Form extends Component {
             label="Keep me signed in"
           />
 
-          {error && (
-            <p
-              style={{
-                color: theme.palette.primary.main
-              }}
-            >
-              {error}
-            </p>
-          )}
+          {error && <p className="error">{error}</p>}
 
           <Button variant="raised" color="primary" onClick={this.signIn}>
             Sign In
@@ -130,4 +120,4 @@ class Form extends Component {
   }
 }
 
-export default withTheme()(Form)
+export default Form

@@ -4,8 +4,6 @@ import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { Link } from 'react-router-dom'
-import { withTheme } from 'material-ui/styles'
-import { withRouter } from 'react-router'
 import { StyledSignUp } from './StyledSignUp'
 import { Logo } from '../../components/logo/Logo'
 
@@ -55,7 +53,6 @@ class SignUp extends Component {
 
   render() {
     const { error } = this.state
-    const { theme } = this.props
 
     return (
       <StyledSignUp>
@@ -93,15 +90,7 @@ class SignUp extends Component {
                 onChange={this.onPasswordChange}
               />
 
-              {error && (
-                <p
-                  style={{
-                    color: theme.palette.primary.main
-                  }}
-                >
-                  {error}
-                </p>
-              )}
+              {error && <p className="error">{error}</p>}
 
               <Button variant="raised" color="primary" onClick={this.signUp}>
                 Start Trial
@@ -122,4 +111,4 @@ class SignUp extends Component {
   }
 }
 
-export default withRouter(withTheme()(SignUp))
+export default SignUp

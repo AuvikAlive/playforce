@@ -10,6 +10,10 @@ export const StyledForm = Styled.div`
     transform: translateY(-50%);
   }
 
+  .error {
+    color: ${({ theme }) => theme.palette.error.main};
+  }
+
   /* img {
     position: relative;
     width: 100%;
