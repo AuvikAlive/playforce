@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 // import { Link } from 'react-router-dom'
 import Media from 'react-media'
+import { isEmpty, isLoaded } from 'react-redux-firebase'
 import { StyledNavBar } from './StyledNavBar'
 import { EntryButtons } from './EntryButtons'
 import { UserMenu } from './UserMenu'
@@ -69,12 +70,12 @@ class NavBar extends Component {
               {history.location.state && history.location.state.name}
             </Typography>
 
-            {profile.isLoaded && (
+            {isLoaded(profile) && (
               <div>
                 <Media
                   query="(orientation: landscape)"
                   render={() =>
-                    profile.isEmpty && (
+                    isEmpty(profile) && (
                       <EntryButtons
                         modalOpen={modalOpen}
                         openModal={this.openModal}
@@ -87,7 +88,7 @@ class NavBar extends Component {
                 <Media
                   query="(orientation: landscape)"
                   render={() =>
-                    !profile.isEmpty && (
+                    !isEmpty(profile) && (
                       <UserMenu
                         anchorEl={anchorEl}
                         profile={profile}

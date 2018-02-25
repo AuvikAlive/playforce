@@ -2,6 +2,7 @@ import Styled from 'styled-components'
 
 export const StyledUserView = Styled.div`
   position: relative;
+  height: 169px;
 
   .content {
     position: absolute;
