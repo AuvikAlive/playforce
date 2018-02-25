@@ -73,7 +73,9 @@ class Form extends Component {
     return (
       <StyledForm>
         <form noValidate autoComplete="off">
-          <Typography variant="headline">Sign In</Typography>
+          <Typography variant="display1" align="center">
+            Sign In
+          </Typography>
           <TextField
             id="email"
             label="Email"

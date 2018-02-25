@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../navBar/NavBarContainer'
 import SideMenu from '../sideMenu'
 import Routes from '../routes'
+import { Footer } from '../footer/Footer'
 // import Media from 'react-media'
 
 export const Shell = () => (
@@ -15,5 +16,6 @@ export const Shell = () => (
         /> */}
     <SideMenu />
     <Routes />
+    <Footer />
   </div>
 )
