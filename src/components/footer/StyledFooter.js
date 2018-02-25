@@ -1,7 +1,16 @@
 import Styled from 'styled-components'
 
 export const StyledFooter = Styled.footer`
-  display: flex;
+  background-color: rgba(51, 51, 51, 0.08);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  span {
+    flex-grow: 1;
+  }
+  /* display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px 0px;
@@ -9,5 +18,5 @@ export const StyledFooter = Styled.footer`
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: 100%; */
 `
