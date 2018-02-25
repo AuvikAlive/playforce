@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../navBar/NavBarContainer'
 import SideMenu from '../sideMenu/SideMenuContainer'
-import Media from 'react-media'
+// import Media from 'react-media'
 
 export class Shell extends Component {
   state = { drawerOpen: false }
@@ -24,12 +24,13 @@ export class Shell extends Component {
     return (
       <div>
         <NavBar toggleDrawer={this.toggleDrawer} />
-        <Media
+        {/* <Media
           query="(orientation: portrait)"
           render={() => (
             <SideMenu open={drawerOpen} closeDrawer={this.closeDrawer} />
           )}
-        />
+        /> */}
+        <SideMenu open={drawerOpen} closeDrawer={this.closeDrawer} />
       </div>
     )
   }

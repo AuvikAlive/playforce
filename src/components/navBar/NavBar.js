@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
+// import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import Media from 'react-media'
 import { StyledNavBar } from './StyledNavBar'
 import { EntryButtons } from './EntryButtons'
@@ -45,7 +45,7 @@ class NavBar extends Component {
       <StyledNavBar>
         <AppBar position="static">
           <Toolbar className="toolbar">
-            <Media
+            {/* <Media
               query="(orientation: portrait)"
               render={() => (
                 <IconButton
@@ -56,13 +56,20 @@ class NavBar extends Component {
                   <MenuIcon />
                 </IconButton>
               )}
-            />
+            /> */}
+            <IconButton
+              color="inherit"
+              aria-label="Menu"
+              onClick={toggleDrawer}
+            >
+              <MenuIcon />
+            </IconButton>
 
-            <Link to="/" className="logo" style={{ flex: 1 }}>
-              <Typography variant="title" color="inherit">
+            {/* <Link to="/" className="logo" style={{ flex: 1 }}>
+              <Typography variant="title" color="inherit" align="center">
                 Play Force
               </Typography>
-            </Link>
+            </Link> */}
 
             {profile.isLoaded && (
               <div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import { Link } from 'react-router-dom'
+import { StyledLink } from '../../components/styledLink/StyledLink'
 import { StyledForm } from './StyledForm'
 
 class Form extends Component {
@@ -92,10 +92,11 @@ class Form extends Component {
 
           <p>
             By singing up you agree to our{' '}
-            <Link to="/terms">Terms of service</Link>
+            <StyledLink to="/terms">Terms of service</StyledLink>
           </p>
           <p>
-            Already have an account? <Link to="/signIn">Sign In</Link>
+            Already have an account?{' '}
+            <StyledLink to="/signIn">Sign In</StyledLink>
           </p>
         </form>
       </StyledForm>
