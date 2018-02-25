@@ -9,17 +9,17 @@ class SideMenu extends Component {
   state = { unlisten: '' }
 
   componentDidMount() {
-    const { history, closeDrawer } = this.props
+    const { history, closeSideMenu } = this.props
 
     const unlisten = history.listen(() => {
-      closeDrawer()
+      closeSideMenu()
     })
 
     this.setState({ unlisten })
   }
 
   componentWillUnmount() {
-    this.props.closeDrawer()
+    this.props.closeSideMenu()
     this.state.unlisten()
   }
 
@@ -31,11 +31,11 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { open, closeDrawer, auth } = this.props
+    const { open, closeSideMenu, auth } = this.props
 
     return (
-      <Drawer open={open} anchor={'left'} onClick={closeDrawer}>
-        <List onClick={closeDrawer} style={{ width: 300, paddingTop: 0 }}>
+      <Drawer open={open} anchor={'left'} onClick={closeSideMenu}>
+        <List onClick={closeSideMenu} style={{ width: 300, paddingTop: 0 }}>
           {isEmpty(auth) ? (
             <PublicLinks />
           ) : (

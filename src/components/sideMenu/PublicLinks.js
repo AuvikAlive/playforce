@@ -5,17 +5,17 @@ import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 
 export const PublicLinks = () => (
   <div>
-    <StyledNavLink to="/">
+    <StyledNavLink to={{ pathname: '/', state: { name: 'Home' } }}>
       <ListItem button>
         <ListItemText primary="Home" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to="/signIn">
+    <StyledNavLink to={{ pathname: '/SignIn', state: { name: 'Sign In' } }}>
       <ListItem button>
         <ListItemText primary="Sign In" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to="/signUp">
+    <StyledNavLink to={{ pathname: '/SignUp', state: { name: 'Sign Up' } }}>
       <ListItem button>
         <Button variant="raised" color="primary" fullWidth>
           Try For Free

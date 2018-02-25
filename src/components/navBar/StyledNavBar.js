@@ -7,10 +7,9 @@ export const StyledNavBar = Styled.div`
     justify-content: space-between;
   }
 
-  /* .logo {
-    color: white;
-    text-decoration: none;
-  } */
+  .logo {
+    flex-grow: 1;
+  }
 
   .sign-in {
     margin-right: 8px;

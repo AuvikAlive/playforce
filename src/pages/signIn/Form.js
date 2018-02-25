@@ -49,7 +49,10 @@ class Form extends Component {
 
       p
         .then(value => {
-          history.push('/dashboard')
+          history.push({
+            pathname: '/dashboard',
+            state: { name: 'Dashboard' }
+          })
         })
         .catch(error => {
           this.setState({ error: error.message })

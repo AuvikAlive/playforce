@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
-// import Typography from 'material-ui/Typography'
+import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 // import { Link } from 'react-router-dom'
@@ -38,7 +38,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const { profile, toggleDrawer } = this.props
+    const { profile, toggleSideMenu, history } = this.props
     const { modalOpen, anchorEl } = this.state
 
     return (
@@ -60,16 +60,14 @@ class NavBar extends Component {
             <IconButton
               color="inherit"
               aria-label="Menu"
-              onClick={toggleDrawer}
+              onClick={toggleSideMenu}
             >
               <MenuIcon />
             </IconButton>
 
-            {/* <Link to="/" className="logo" style={{ flex: 1 }}>
-              <Typography variant="title" color="inherit" align="center">
-                Play Force
-              </Typography>
-            </Link> */}
+            <Typography variant="title" color="inherit" className="logo">
+              {history.location.state && history.location.state.name}
+            </Typography>
 
             {profile.isLoaded && (
               <div>
