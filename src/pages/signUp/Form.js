@@ -56,7 +56,7 @@ class Form extends Component {
       <StyledForm>
         <form noValidate autoComplete="off">
           <Typography variant="display1" align="center">
-            Free 30 day full-featured trial
+            Sign Up
           </Typography>
           <TextField
             id="fullName"
@@ -87,11 +87,11 @@ class Form extends Component {
           {error && <p className="error">{error}</p>}
 
           <Button variant="raised" color="primary" onClick={this.signUp}>
-            Start Trial
+            Sign Up
           </Button>
 
           <p>
-            By singing up you agree to our{' '}
+            By signing up you agree to our{' '}
             <StyledLink to="/terms">Terms of service</StyledLink>
           </p>
           <p>

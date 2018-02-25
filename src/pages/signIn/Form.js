@@ -110,9 +110,7 @@ class Form extends Component {
 
           <p>
             Don't have an account?{' '}
-            <StyledLink to="/" onClick={this.handleSignUp}>
-              Sign up for free!
-            </StyledLink>
+            <StyledLink to="/SignUp">Sign up for free!</StyledLink>
           </p>
         </form>
         <Modal open={this.state.modalOpen} handleClose={this.closeModal}>

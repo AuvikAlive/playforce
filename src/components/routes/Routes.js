@@ -55,6 +55,12 @@ const routes = [
     pathname: '/Settings',
     name: 'Settings',
     exact: false
+  },
+  {
+    Component: Terms,
+    pathname: '/Terms',
+    name: 'Terms',
+    exact: false
   }
 ]
 
