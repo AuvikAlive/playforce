@@ -1,0 +1,22 @@
+import Styled from 'styled-components'
+
+export const StyledUserView = Styled.div`
+  position: relative;
+
+  .content {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    color: white;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 18px;
+  }
+
+  .background {
+    width: 100%;
+  }
+`

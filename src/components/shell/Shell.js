@@ -5,7 +5,7 @@ import Routes from '../routes'
 // import Media from 'react-media'
 
 export class Shell extends Component {
-  state = { drawerOpen: false }
+  state = { drawerOpen: true }
 
   openDrawer = () => {
     this.setState({ drawerOpen: true })

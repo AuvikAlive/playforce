@@ -7,10 +7,12 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import SettingsIcon from 'material-ui-icons/Settings'
 import HelpIcon from 'material-ui-icons/Help'
 import Divider from 'material-ui/Divider'
+import { UserView } from './userView/UserView'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 
 export const PrivateLinks = ({ signOut }) => (
   <div>
+    <UserView />
     <StyledNavLink to="/dashboard">
       <ListItem button>
         <ListItemIcon>

@@ -35,7 +35,7 @@ class SideMenu extends Component {
 
     return (
       <Drawer open={open} anchor={'left'} onClick={closeDrawer}>
-        <List onClick={closeDrawer}>
+        <List onClick={closeDrawer} style={{ width: 300, paddingTop: 0 }}>
           {isEmpty(auth) ? (
             <PublicLinks />
           ) : (
