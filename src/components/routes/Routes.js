@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import Loadable from '../loadable/Loadable'
-import { Shell } from '../shell/Shell'
 import Home from '../../pages/home/Home'
 
 const SignIn = Loadable({
@@ -26,9 +25,8 @@ Dashboard.preload()
 Settings.preload()
 Terms.preload()
 
-export const Routes = () => (
+export const Routes = ({ auth }) => (
   <div>
-    <Route path="/" component={Shell} />
     <Route exact path="/" component={Home} />
     <Route path="/SignIn" component={SignIn} />
     <Route path="/SignUp" component={SignUp} />

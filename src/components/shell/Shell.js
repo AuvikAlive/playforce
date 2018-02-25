@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../navBar/NavBarContainer'
 import SideMenu from '../sideMenu/SideMenuContainer'
+import Routes from '../routes'
 // import Media from 'react-media'
 
 export class Shell extends Component {
@@ -31,6 +32,7 @@ export class Shell extends Component {
           )}
         /> */}
         <SideMenu open={drawerOpen} closeDrawer={this.closeDrawer} />
+        <Routes />
       </div>
     )
   }

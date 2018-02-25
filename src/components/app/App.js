@@ -5,8 +5,8 @@ import { ConnectedRouter } from 'react-router-redux'
 import { MuiThemeProvider } from 'material-ui/styles'
 import { ThemeProvider } from 'styled-components'
 import { store, history, persistor } from '../../store/store'
-import { Routes } from './Routes'
 import { theme } from './theme'
+import Shell from '../shell'
 
 const App = () => (
   <Provider store={store}>
@@ -15,7 +15,7 @@ const App = () => (
         <MuiThemeProvider theme={theme}>
           <ThemeProvider theme={theme}>
             <div className="App">
-              <Routes />
+              <Shell />
             </div>
           </ThemeProvider>
         </MuiThemeProvider>

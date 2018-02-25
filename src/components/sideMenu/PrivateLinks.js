@@ -50,7 +50,7 @@ export const PrivateLinks = ({ signOut }) => (
         <ListItemText primary="Settings" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to="/terms">
+    <StyledNavLink to="/help">
       <ListItem button>
         <ListItemIcon>
           <HelpIcon />
