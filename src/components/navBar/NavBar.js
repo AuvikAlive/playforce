@@ -44,7 +44,7 @@ class NavBar extends Component {
 
     return (
       <StyledNavBar>
-        <AppBar position="static">
+        <AppBar>
           <Toolbar className="toolbar">
             {/* <Media
               query="(orientation: portrait)"
