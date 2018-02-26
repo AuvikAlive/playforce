@@ -7,7 +7,7 @@ export const StyledNavBar = Styled.div`
     justify-content: space-between;
   }
 
-  .logo {
+  .page-title {
     flex-grow: 1;
   }
 
