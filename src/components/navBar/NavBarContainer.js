@@ -9,11 +9,11 @@ import NavBar from './NavBar'
 const mapStateToProps = ({
   firebase: { profile },
   searchBar: { open: searchBarOpen },
-  router: { location: { state: { name: routeName } } }
+  router: { location: { state: routerState } }
 }) => ({
   profile,
   searchBarOpen,
-  routeName
+  routerState
 })
 
 const mapDispatchToProps = { toggleSideMenu, openSearchBar }

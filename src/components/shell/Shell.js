@@ -8,12 +8,6 @@ import { Footer } from '../footer/Footer'
 export const Shell = () => (
   <div>
     <NavBar />
-    {/* <Media
-          query="(orientation: portrait)"
-          render={() => (
-            <SideMenu open={drawerOpen} closeDrawer={this.closeDrawer} />
-          )}
-        /> */}
     <SideMenu />
     <Routes />
     <Footer />

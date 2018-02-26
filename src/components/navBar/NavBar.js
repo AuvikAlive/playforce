@@ -20,10 +20,12 @@ class NavBar extends Component {
   render() {
     const {
       toggleSideMenu,
-      routeName,
+      routerState,
       searchBarOpen,
       openSearchBar
     } = this.props
+
+    const routeName = routerState ? routerState.name : ''
 
     return (
       <StyledNavBar>
