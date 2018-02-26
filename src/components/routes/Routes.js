@@ -15,6 +15,9 @@ const Dashboard = Loadable({
 const Inspections = Loadable({
   loader: () => import('../../pages/inspections')
 })
+const Sites = Loadable({
+  loader: () => import('../../pages/sites')
+})
 const Settings = Loadable({
   loader: () => import('../../pages/settings/Settings')
 })
@@ -26,6 +29,7 @@ SignIn.preload()
 SignUp.preload()
 Dashboard.preload()
 Inspections.preload()
+Sites.preload()
 Settings.preload()
 Terms.preload()
 
@@ -58,6 +62,12 @@ const routes = [
     Component: Inspections,
     pathname: '/Inspections',
     name: 'Inspections',
+    exact: false
+  },
+  {
+    Component: Sites,
+    pathname: '/Sites',
+    name: 'Sites',
     exact: false
   },
   {
