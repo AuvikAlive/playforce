@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBar from '../navBar/NavBarContainer'
+import NavBar from '../navBar'
 import SideMenu from '../sideMenu'
 import Routes from '../routes'
 import { Footer } from '../footer/Footer'

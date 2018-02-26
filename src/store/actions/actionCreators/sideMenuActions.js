@@ -2,7 +2,7 @@ import {
   OPEN_SIDE_MENU,
   CLOSE_SIDE_MENU,
   TOGGLE_SIDE_MENU
-} from './actionTypes'
+} from '../actionTypes'
 
 export const openSideMenu = () => ({
   type: OPEN_SIDE_MENU

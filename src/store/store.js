@@ -6,7 +6,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/es/storage'
 import firebase from 'firebase'
 import { reactReduxFirebase } from 'react-redux-firebase'
-import { rootReducer } from './reducers/reducers'
+import { rootReducer } from './rootReducer'
 import { firebaseConfig } from '../config/firebase'
 
 const persistedReducer = persistReducer(

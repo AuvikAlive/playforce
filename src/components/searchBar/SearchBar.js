@@ -7,7 +7,7 @@ import CloseIcon from 'material-ui-icons/Close'
 import Input, { InputAdornment } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
 
-export const SearchBar = ({ close }) => (
+export const SearchBar = ({ closeSearchBar }) => (
   <AppBar color="default">
     <Toolbar>
       <FormControl fullWidth>
@@ -24,7 +24,7 @@ export const SearchBar = ({ close }) => (
           }
           endAdornment={
             <InputAdornment position="end">
-              <IconButton onClick={close} onMouseDown={close}>
+              <IconButton onClick={closeSearchBar} onMouseDown={closeSearchBar}>
                 <CloseIcon />
               </IconButton>
             </InputAdornment>
