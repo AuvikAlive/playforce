@@ -1,6 +1,6 @@
 import React from 'react'
 import Typography from 'material-ui/Typography'
-import Content from '../../components/content/Content'
+import { Content } from '../../components/content/Content'
 
 const Terms = () => (
   <Content>

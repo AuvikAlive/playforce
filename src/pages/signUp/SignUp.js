@@ -53,7 +53,7 @@ export class SignUp extends Component {
     const { error } = this.state
 
     return (
-      <StyledForm height={426}>
+      <StyledForm>
         <form noValidate autoComplete="off">
           <Typography variant="display1" align="center">
             Sign Up

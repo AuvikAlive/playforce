@@ -6,5 +6,3 @@ export const Content = ({ className, children }) => (
     {children}
   </StyledContent>
 )
-
-export default Content

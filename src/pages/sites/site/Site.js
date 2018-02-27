@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import IconButton from 'material-ui/IconButton'
-import SearchIcon from 'material-ui-icons/Search'
+import { Content } from '../../../components/content/Content';
 
 export class Site extends Component {
   render() {
-    return <div>A site</div>
+    return <Content>A site</Content>
   }
 }

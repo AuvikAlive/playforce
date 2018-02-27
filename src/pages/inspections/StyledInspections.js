@@ -1,5 +1,5 @@
 import Styled from 'styled-components'
-import Content from '../../components/content/Content'
+import { Content } from '../../components/content/Content'
 
 export const StyledInspections = Styled(Content)`
   .add-icon {

@@ -1,7 +1,7 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
-import Content from '../../components/content/Content'
+import { Content } from '../../components/content/Content'
 import { StyledSettings } from './StyledSettings'
 
 const Settings = () => (
