@@ -4,10 +4,10 @@ import Loadable from '../loadable/LoadableLinear'
 import Home from '../../pages/home/Home'
 
 const SignIn = Loadable({
-  loader: () => import('../../pages/signIn/SignIn'),
+  loader: () => import('../../pages/signIn'),
 })
 const SignUp = Loadable({
-  loader: () => import('../../pages/signUp/SignUp'),
+  loader: () => import('../../pages/signUp'),
 })
 const Dashboard = Loadable({
   loader: () => import('../../pages/dashboard/Dashboard'),

@@ -1,26 +1,20 @@
 import Styled from 'styled-components'
+import { Content } from '../../components/content/Content'
 
-export const StyledForm = Styled.div`
-  height: calc(100vh - 64px);
+export const StyledForm = Styled(Content)`
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: ${({ height }) => height + 48 + 'px'};
+  
   form {
-    padding: 0 24px;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    padding-bottom: 24px;
   }
 
   .error {
     color: ${({ theme }) => theme.palette.error.main};
   }
-
-  /* img {
-    position: relative;
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 48px;
-  } */
 
   .checkbox {
     margin-top: 16px;
