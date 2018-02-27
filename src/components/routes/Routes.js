@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Loadable from '../loadable/LoadableLinear'
 import Home from '../../pages/home/Home'
 
@@ -90,22 +90,25 @@ export const Routes = ({
   setRightNavComponent,
   removeLefNavComponent,
   removeRightNavComponent,
-}) =>
-  routes.map(({ Component, pathname, name, exact }) => (
-    <Route
-      key={name}
-      exact={exact}
-      path={pathname}
-      render={({ location }) => {
-        location.state = { name }
-        return (
-          <Component
-            setLeftNavComponent={setLeftNavComponent}
-            setRightNavComponent={setRightNavComponent}
-            removeLefNavComponent={removeLefNavComponent}
-            removeRightNavComponent={removeRightNavComponent}
-          />
-        )
-      }}
-    />
-  ))
+}) => (
+  <Switch>
+    {routes.map(({ Component, pathname, name, exact }) => (
+      <Route
+        key={name}
+        exact={exact}
+        path={pathname}
+        render={({ location }) => {
+          location.state = { name }
+          return (
+            <Component
+              setLeftNavComponent={setLeftNavComponent}
+              setRightNavComponent={setRightNavComponent}
+              removeLefNavComponent={removeLefNavComponent}
+              removeRightNavComponent={removeRightNavComponent}
+            />
+          )
+        }}
+      />
+    ))}
+  </Switch>
+)

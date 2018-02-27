@@ -3,7 +3,6 @@ import NavBar from '../navBar'
 import SideMenu from '../sideMenu'
 import { Footer } from '../footer/Footer'
 import Routes from '../routes'
-import { StyledContentArea } from './StyledContentArea'
 
 export class Shell extends Component {
   state = {
