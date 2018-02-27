@@ -3,23 +3,22 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirebase } from 'react-redux-firebase'
 import { toggleSideMenu } from '../../store/actions/actionCreators/sideMenuActions'
-import { openSearchBar } from '../../store/actions/actionCreators/searchBarActions'
 import NavBar from './NavBar'
 
 const mapStateToProps = ({
   firebase: { profile },
   searchBar: { open: searchBarOpen },
-  router: { location: { state: routerState } }
+  router: { location: { state: routerState } },
 }) => ({
   profile,
   searchBarOpen,
-  routerState
+  routerState,
 })
 
-const mapDispatchToProps = { toggleSideMenu, openSearchBar }
+const mapDispatchToProps = { toggleSideMenu }
 
 export const NavBarContainer = compose(
   withRouter,
   withFirebase,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(NavBar)

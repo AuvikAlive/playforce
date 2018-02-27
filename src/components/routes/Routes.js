@@ -1,28 +1,28 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Loadable from '../loadable/Loadable'
+import Loadable from '../loadable/LoadableLinear'
 import Home from '../../pages/home/Home'
 
 const SignIn = Loadable({
-  loader: () => import('../../pages/signIn/SignIn')
+  loader: () => import('../../pages/signIn/SignIn'),
 })
 const SignUp = Loadable({
-  loader: () => import('../../pages/signUp/SignUp')
+  loader: () => import('../../pages/signUp/SignUp'),
 })
 const Dashboard = Loadable({
-  loader: () => import('../../pages/dashboard/Dashboard')
+  loader: () => import('../../pages/dashboard/Dashboard'),
 })
 const Inspections = Loadable({
-  loader: () => import('../../pages/inspections')
+  loader: () => import('../../pages/inspections'),
 })
 const Sites = Loadable({
-  loader: () => import('../../pages/sites')
+  loader: () => import('../../pages/sites'),
 })
 const Settings = Loadable({
-  loader: () => import('../../pages/settings/Settings')
+  loader: () => import('../../pages/settings/Settings'),
 })
 const Terms = Loadable({
-  loader: () => import('../../pages/terms/Terms')
+  loader: () => import('../../pages/terms/Terms'),
 })
 
 SignIn.preload()
@@ -38,53 +38,59 @@ const routes = [
     Component: Home,
     pathname: '/',
     name: 'Home',
-    exact: true
+    exact: true,
   },
   {
     Component: SignIn,
     pathname: '/SignIn',
     name: 'SignIn',
-    exact: false
+    exact: false,
   },
   {
     Component: SignUp,
     pathname: '/SignUp',
     name: 'SignUp',
-    exact: false
+    exact: false,
   },
   {
     Component: Dashboard,
     pathname: '/Dashboard',
     name: 'Dashboard',
-    exact: false
+    exact: false,
   },
   {
     Component: Inspections,
     pathname: '/Inspections',
     name: 'Inspections',
-    exact: false
+    exact: false,
   },
   {
     Component: Sites,
     pathname: '/Sites',
     name: 'Sites',
-    exact: false
+    exact: false,
   },
   {
     Component: Settings,
     pathname: '/Settings',
     name: 'Settings',
-    exact: false
+    exact: false,
   },
   {
     Component: Terms,
     pathname: '/Terms',
     name: 'Terms',
-    exact: false
-  }
+    exact: false,
+  },
 ]
 
-export const Routes = ({ auth }) =>
+export const Routes = ({
+  auth,
+  setLeftNavComponent,
+  setRightNavComponent,
+  removeLefNavComponent,
+  removeRightNavComponent,
+}) =>
   routes.map(({ Component, pathname, name, exact }) => (
     <Route
       key={name}
@@ -92,24 +98,14 @@ export const Routes = ({ auth }) =>
       path={pathname}
       render={({ location }) => {
         location.state = { name }
-        return <Component />
+        return (
+          <Component
+            setLeftNavComponent={setLeftNavComponent}
+            setRightNavComponent={setRightNavComponent}
+            removeLefNavComponent={removeLefNavComponent}
+            removeRightNavComponent={removeRightNavComponent}
+          />
+        )
       }}
     />
   ))
-
-// export const Routes = ({ auth }) => (
-//   <div>
-//     <Route exact path="/" component={Home} />
-//     <Route path="/SignIn" component={SignIn} />
-//     <Route path="/SignUp" component={SignUp} />
-//     <Route path="/Dashboard" component={Dashboard} />
-//     <Route
-//       path="/Settings"
-//       render={({ location }) => {
-//         location.state = { name: 'Settings' }
-//         return <Settings />
-//       }}
-//     />
-//     <Route path="/Terms" component={Terms} />
-//   </div>
-// )
