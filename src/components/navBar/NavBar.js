@@ -20,6 +20,7 @@ class NavBar extends Component {
     const {
       leftComponent,
       rightComponent,
+      title,
       toggleSideMenu,
       routerState,
       searchBarOpen,
@@ -46,13 +47,23 @@ class NavBar extends Component {
                 </IconButton>
               )}
 
-              <Typography
-                variant="title"
-                color="inherit"
-                className="page-title"
-              >
-                {routeName}
-              </Typography>
+              {title ? (
+                <Typography
+                  variant="title"
+                  color="inherit"
+                  className="page-title"
+                >
+                  {title}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="title"
+                  color="inherit"
+                  className="page-title"
+                >
+                  {routeName}
+                </Typography>
+              )}
 
               {rightComponent}
             </Toolbar>

@@ -7,8 +7,17 @@ import { StyledMainContent } from './StyledMainContent'
 
 export class Shell extends Component {
   state = {
+    navTitle: null,
     leftNavComponent: null,
     rightNavComponent: null,
+  }
+
+  setNavTitle = title => {
+    this.setState({ navTitle: title })
+  }
+
+  removeNavTitle = title => {
+    this.setState({ navTitle: null })
   }
 
   setLeftNavComponent = component => {
@@ -28,20 +37,23 @@ export class Shell extends Component {
   }
 
   render() {
-    const { leftNavComponent, rightNavComponent } = this.state
+    const { navTitle, leftNavComponent, rightNavComponent } = this.state
 
     return (
       <div>
         <NavBar
+          title={navTitle}
           leftComponent={leftNavComponent}
           rightComponent={rightNavComponent}
         />
         <SideMenu />
         <StyledMainContent>
           <Routes
+            setNavTitle={this.setNavTitle}
+            removeNavTitle={this.removeNavTitle}
             setLeftNavComponent={this.setLeftNavComponent}
-            setRightNavComponent={this.setRightNavComponent}
             removeLefNavComponent={this.removeLefNavComponent}
+            setRightNavComponent={this.setRightNavComponent}
             removeRightNavComponent={this.removeRightNavComponent}
           />
         </StyledMainContent>

@@ -7,6 +7,4 @@ export const StyledModal = Styled(Paper)`
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  width: 90vw;
-  height: 80vh;
 `

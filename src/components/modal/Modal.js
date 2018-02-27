@@ -22,7 +22,7 @@ class MyModal extends Component {
   }
 
   render() {
-    const { open, children, handleClose } = this.props
+    const { open, children, handleClose, hideCloseIcon } = this.props
 
     return (
       <Modal
@@ -32,7 +32,7 @@ class MyModal extends Component {
         onClose={handleClose}
       >
         <StyledModal>
-          <StyledCloseIcon onClick={handleClose} />
+          {!hideCloseIcon && <StyledCloseIcon onClick={handleClose} />}
           {children}
         </StyledModal>
       </Modal>

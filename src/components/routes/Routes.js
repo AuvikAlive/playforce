@@ -84,13 +84,7 @@ const routes = [
   },
 ]
 
-export const Routes = ({
-  auth,
-  setLeftNavComponent,
-  setRightNavComponent,
-  removeLefNavComponent,
-  removeRightNavComponent,
-}) => (
+export const Routes = props => (
   <Switch>
     {routes.map(({ Component, pathname, name, exact }) => (
       <Route
@@ -99,14 +93,7 @@ export const Routes = ({
         path={pathname}
         render={({ location }) => {
           location.state = { name }
-          return (
-            <Component
-              setLeftNavComponent={setLeftNavComponent}
-              setRightNavComponent={setRightNavComponent}
-              removeLefNavComponent={removeLefNavComponent}
-              removeRightNavComponent={removeRightNavComponent}
-            />
-          )
+          return <Component {...props} />
         }}
       />
     ))}
