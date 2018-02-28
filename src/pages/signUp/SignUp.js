@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
+import { CircularProgress } from 'material-ui/Progress'
 import { StyledLink } from '../../components/styledLink/StyledLink'
 import { StyledForm } from '../../components/styledForm/StyledForm'
 
@@ -11,6 +12,7 @@ export class SignUp extends Component {
     email: '',
     password: '',
     error: '',
+    loading: false,
   }
 
   onNameChange = event => {
@@ -33,6 +35,7 @@ export class SignUp extends Component {
     const { firebase, history } = this.props
 
     this.setState({ error: '' })
+    this.setState({ loading: true })
 
     if (username && email && password) {
       const p = firebase.createUser({ email, password }, { username, email })
@@ -50,7 +53,7 @@ export class SignUp extends Component {
   }
 
   render() {
-    const { error } = this.state
+    const { error, loading } = this.state
 
     return (
       <StyledForm>
@@ -85,6 +88,10 @@ export class SignUp extends Component {
           />
 
           {error && <p className="error">{error}</p>}
+
+          <div className="loading">
+            {!error && loading && <CircularProgress />}
+          </div>
 
           <Button variant="raised" color="primary" onClick={this.signUp}>
             Sign Up

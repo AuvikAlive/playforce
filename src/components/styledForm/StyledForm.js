@@ -23,6 +23,11 @@ export const StyledForm = Styled(Content)`
     color: ${({ theme }) => theme.palette.error.main};
   }
 
+  .loading {
+    display: flex;
+    justify-content: center;
+  }
+
   .checkbox {
     margin-top: 16px;
   }

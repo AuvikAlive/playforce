@@ -4,6 +4,7 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { FormControlLabel } from 'material-ui/Form'
 import Checkbox from 'material-ui/Checkbox'
+import { CircularProgress } from 'material-ui/Progress'
 import { StyledForm } from '../../components/styledForm/StyledForm'
 import { StyledLink } from '../../components/styledLink/StyledLink'
 import Modal from '../../components/modal/Modal'
@@ -15,6 +16,7 @@ export class SignIn extends Component {
     email: '',
     password: '',
     error: '',
+    loading: false,
   }
 
   openModal = () => {
@@ -40,6 +42,7 @@ export class SignIn extends Component {
     const { firebase, history } = this.props
 
     this.setState({ error: '' })
+    this.setState({ loading: true })
 
     if (email && password) {
       const p = firebase.login({
@@ -68,7 +71,7 @@ export class SignIn extends Component {
   }
 
   render() {
-    const { error } = this.state
+    const { error, loading } = this.state
 
     return (
       <StyledForm>
@@ -101,6 +104,10 @@ export class SignIn extends Component {
           />
 
           {error && <p className="error">{error}</p>}
+
+          <div className="loading">
+            {!error && loading && <CircularProgress />}
+          </div>
 
           <Button variant="raised" color="primary" onClick={this.signIn}>
             Sign In
