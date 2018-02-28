@@ -9,6 +9,12 @@ export const StyledNavBar = Styled.div`
 
   .page-title {
     flex-grow: 1;
+    padding-left: 16px;
+
+    @media (min-width: 600px) {
+      top: 64px;
+      padding-left: 24px;
+    }
   }
 
   .sign-in {
