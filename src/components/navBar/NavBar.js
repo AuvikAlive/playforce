@@ -22,11 +22,11 @@ class NavBar extends Component {
       rightComponent,
       title,
       toggleSideMenu,
-      routerState,
+      location,
       searchBarOpen,
     } = this.props
 
-    const routeName = routerState ? routerState.name : ''
+    const routeName = location.state ? location.state.name : ''
 
     return (
       <StyledNavBar>

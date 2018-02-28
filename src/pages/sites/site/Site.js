@@ -3,6 +3,8 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
+import List, { ListItem, ListItemText } from 'material-ui/List'
+import Chip from 'material-ui/Chip'
 import { Content } from '../../../components/content/Content'
 import Button from 'material-ui/Button'
 import Modal from '../../../components/modal/Modal'
@@ -22,7 +24,7 @@ export class Site extends Component {
       history,
     } = this.props
 
-    const id = match.params.id
+    const id = parseInt(match.params.id, 10) - 1
     const title = data.sites[id].name
 
     setLeftNavComponent(
@@ -61,9 +63,46 @@ export class Site extends Component {
   }
 
   render() {
+    const { match } = this.props
+
+    const id = parseInt(match.params.id, 10) - 1
+    const site = data.sites[id]
+    const {
+      street,
+      suburb,
+      state,
+      postcode,
+      country,
+      operator,
+      division,
+      inspections,
+    } = site
+    const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
+    const operatorName = data.operators[operator - 1].name
+    const chips = inspections.map(({ type }) => (
+      <Chip component="span" label={type} key={type} />
+    ))
+
     return (
       <Content>
-        A site
+        <Card>
+          <CardContent>
+            <List>
+              <ListItem>
+                <ListItemText primary="Address" secondary={address} />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Operator" secondary={operatorName} />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Division" secondary={division} />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Inspection Types" secondary={chips} />
+              </ListItem>
+            </List>
+          </CardContent>
+        </Card>
         <Modal
           open={this.state.modalOpen}
           handleClose={this.closeModal}
