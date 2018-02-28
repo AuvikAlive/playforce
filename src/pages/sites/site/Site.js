@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
+import Card, { CardContent } from 'material-ui/Card'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Chip from 'material-ui/Chip'
 import { Content } from '../../../components/content/Content'
-import Button from 'material-ui/Button'
+import { Map } from './Map'
 import Modal from '../../../components/modal/Modal'
+import { ModalContent } from './modalContent/ModalContent'
 import { data } from '../data'
 
 export class Site extends Component {
@@ -68,6 +69,8 @@ export class Site extends Component {
     const id = parseInt(match.params.id, 10) - 1
     const site = data.sites[id]
     const {
+      latitidue,
+      longitude,
       street,
       suburb,
       state,
@@ -80,21 +83,27 @@ export class Site extends Component {
     const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
     const operatorName = data.operators[operator - 1].name
     const chips = inspections.map(({ type }) => (
-      <Chip component="span" label={type} key={type} />
+      <Chip
+        style={{ marginTop: 8, marginRight: 8 }}
+        component="span"
+        label={type}
+        key={type}
+      />
     ))
 
     return (
       <Content>
         <Card>
+          <Map lat={latitidue} lng={longitude} />
           <CardContent>
             <List>
-              <ListItem>
+              <ListItem divider>
                 <ListItemText primary="Address" secondary={address} />
               </ListItem>
-              <ListItem>
+              <ListItem divider>
                 <ListItemText primary="Operator" secondary={operatorName} />
               </ListItem>
-              <ListItem>
+              <ListItem divider>
                 <ListItemText primary="Division" secondary={division} />
               </ListItem>
               <ListItem>
@@ -108,17 +117,7 @@ export class Site extends Component {
           handleClose={this.closeModal}
           hideCloseIcon
         >
-          <Card style={{ width: 300, height: 103 }}>
-            <CardContent>Delete this site?</CardContent>
-            <CardActions style={{ justifyContent: 'flex-end' }}>
-              <Button size="small" onClick={this.closeModal}>
-                Cancel
-              </Button>
-              <Button size="small" onClick={this.closeModal}>
-                OK
-              </Button>
-            </CardActions>
-          </Card>
+          <ModalContent closeModal={this.closeModal} />
         </Modal>
       </Content>
     )
