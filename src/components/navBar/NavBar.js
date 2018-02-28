@@ -20,7 +20,9 @@ class NavBar extends Component {
     const {
       leftComponent,
       rightComponent,
+      bottomComponent,
       title,
+      shadow,
       toggleSideMenu,
       location,
       searchBarOpen,
@@ -33,7 +35,7 @@ class NavBar extends Component {
         {searchBarOpen ? (
           <SearchBar />
         ) : (
-          <AppBar>
+          <AppBar className={shadow ? '' : 'disable-shadow'}>
             <Toolbar className="toolbar">
               {leftComponent ? (
                 leftComponent
@@ -67,6 +69,7 @@ class NavBar extends Component {
 
               {rightComponent}
             </Toolbar>
+            {bottomComponent}
           </AppBar>
         )}
       </StyledNavBar>

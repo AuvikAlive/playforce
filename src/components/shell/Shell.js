@@ -10,6 +10,16 @@ export class Shell extends Component {
     navTitle: null,
     leftNavComponent: null,
     rightNavComponent: null,
+    bottomNavComponent: null,
+    navBarShadowEnabled: true,
+  }
+
+  disableNavBarShadow = () => {
+    this.setState({ navBarShadowEnabled: false })
+  }
+
+  enableNavBarShadow = () => {
+    this.setState({ navBarShadowEnabled: true })
   }
 
   setNavTitle = title => {
@@ -24,20 +34,34 @@ export class Shell extends Component {
     this.setState({ leftNavComponent: component })
   }
 
-  setRightNavComponent = component => {
-    this.setState({ rightNavComponent: component })
-  }
-
   removeLefNavComponent = () => {
     this.setState({ leftNavComponent: null })
+  }
+
+  setRightNavComponent = component => {
+    this.setState({ rightNavComponent: component })
   }
 
   removeRightNavComponent = () => {
     this.setState({ rightNavComponent: null })
   }
 
+  setBottomNavComponent = component => {
+    this.setState({ bottomNavComponent: component })
+  }
+
+  removeBottomNavComponent = () => {
+    this.setState({ bottomNavComponent: null })
+  }
+
   render() {
-    const { navTitle, leftNavComponent, rightNavComponent } = this.state
+    const {
+      navTitle,
+      leftNavComponent,
+      rightNavComponent,
+      bottomNavComponent,
+      navBarShadowEnabled,
+    } = this.state
 
     return (
       <div>
@@ -45,6 +69,8 @@ export class Shell extends Component {
           title={navTitle}
           leftComponent={leftNavComponent}
           rightComponent={rightNavComponent}
+          bottomComponent={bottomNavComponent}
+          shadow={navBarShadowEnabled}
         />
         <SideMenu />
         <StyledMainContent>
@@ -55,6 +81,10 @@ export class Shell extends Component {
             removeLefNavComponent={this.removeLefNavComponent}
             setRightNavComponent={this.setRightNavComponent}
             removeRightNavComponent={this.removeRightNavComponent}
+            setBottomNavComponent={this.setBottomNavComponent}
+            removeBottomNavComponent={this.removeBottomNavComponent}
+            disableNavBarShadow={this.disableNavBarShadow}
+            enableNavBarShadow={this.enableNavBarShadow}
           />
         </StyledMainContent>
         <Footer />

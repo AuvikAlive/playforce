@@ -6,9 +6,9 @@ import {
   GoogleMap,
   Marker,
 } from 'react-google-maps'
-import { LoadingIndicator } from '../../../components/loadingIndicator/LoadingIndicator'
+import { LoadingIndicator } from '../../../../components/loadingIndicator/LoadingIndicator'
 
-export const Map = compose(
+export default compose(
   withProps({
     googleMapURL:
       'https://maps.googleapis.com/maps/api/js?key=AIzaSyC4pZJlJSU8OQWQgfin9-Tq4IpxMDEzD28&v=3.exp',
