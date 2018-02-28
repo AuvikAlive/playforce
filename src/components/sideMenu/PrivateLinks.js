@@ -8,15 +8,16 @@ import SettingsIcon from 'material-ui-icons/Settings'
 import HelpIcon from 'material-ui-icons/Help'
 import Divider from 'material-ui/Divider'
 import UserView from './userView'
+import { StyledLinks } from './StyledLinks'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 
 export const PrivateLinks = ({ signOut }) => (
-  <div>
+  <StyledLinks>
     <UserView />
     <StyledNavLink
       to={{ pathname: '/Dashboard', state: { name: 'Dashboard' } }}
     >
-      <ListItem button>
+      <ListItem button className="list-item">
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
@@ -26,7 +27,7 @@ export const PrivateLinks = ({ signOut }) => (
     <StyledNavLink
       to={{ pathname: '/Inspections', state: { name: 'Inspections' } }}
     >
-      <ListItem button>
+      <ListItem button className="list-item">
         <ListItemIcon>
           <AssignmentTurnedInIcon />
         </ListItemIcon>
@@ -34,14 +35,14 @@ export const PrivateLinks = ({ signOut }) => (
       </ListItem>
     </StyledNavLink>
     <StyledNavLink to={{ pathname: '/Sites', state: { name: 'Sites' } }}>
-      <ListItem button>
+      <ListItem button className="list-item">
         <ListItemIcon>
           <LocationOnIcon />
         </ListItemIcon>
         <ListItemText primary="Sites" />
       </ListItem>
     </StyledNavLink>
-    <ListItem button onClick={signOut}>
+    <ListItem button className="list-item" onClick={signOut}>
       <ListItemIcon>
         <ArrowBackIcon />
       </ListItemIcon>
@@ -49,7 +50,7 @@ export const PrivateLinks = ({ signOut }) => (
     </ListItem>
     <Divider />
     <StyledNavLink to={{ pathname: '/Settings', state: { name: 'Settings' } }}>
-      <ListItem button>
+      <ListItem button className="list-item">
         <ListItemIcon>
           <SettingsIcon />
         </ListItemIcon>
@@ -57,12 +58,12 @@ export const PrivateLinks = ({ signOut }) => (
       </ListItem>
     </StyledNavLink>
     <StyledNavLink to={{ pathname: '/Help', state: { name: 'Help' } }}>
-      <ListItem button>
+      <ListItem button className="list-item">
         <ListItemIcon>
           <HelpIcon />
         </ListItemIcon>
         <ListItemText primary="Help" />
       </ListItem>
     </StyledNavLink>
-  </div>
+  </StyledLinks>
 )
