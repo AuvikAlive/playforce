@@ -54,18 +54,6 @@ export class GeneralTab extends Component {
     })
   }
 
-  // onNameChange = event => {
-  //   this.setState({
-  //     name: event.target.value,
-  //   })
-  // }
-
-  // onAdressChange = event => {
-  //   this.setState({
-  //     address: event.target.value,
-  //   })
-  // }
-
   render() {
     const { operator, name, address, division } = this.state
 
@@ -87,6 +75,14 @@ export class GeneralTab extends Component {
                   {option.name}
                 </MenuItem>
               ))}
+              {/* {operators.map(option => (
+                <MenuItem key={option.id} value={option.id}>
+                  <ListItemText inset primary={option.name} />
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                </MenuItem>
+              ))} */}
             </TextField>
 
             <TextField
