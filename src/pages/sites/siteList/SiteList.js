@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
 import List, { ListItem, ListItemText } from 'material-ui/List'
@@ -11,7 +12,8 @@ import { data } from '../data'
 
 export class SiteList extends Component {
   componentDidMount() {
-    const { setRightNavComponent, openSearchBar } = this.props
+    const { openSearchBar } = this.props
+    const { setRightNavComponent } = this.context
 
     setRightNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
@@ -21,7 +23,8 @@ export class SiteList extends Component {
   }
 
   componentWillUnmount() {
-    const { removeRightNavComponent, closeSearchBar } = this.props
+    const { closeSearchBar } = this.props
+    const { removeRightNavComponent } = this.context
 
     removeRightNavComponent()
     closeSearchBar()
@@ -53,4 +56,9 @@ export class SiteList extends Component {
       </Content>
     )
   }
+}
+
+SiteList.contextTypes = {
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }

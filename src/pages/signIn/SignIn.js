@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
@@ -17,6 +18,18 @@ export class SignIn extends Component {
     password: '',
     error: '',
     loading: false,
+  }
+
+  componentDidMount() {
+    const { setNavTitle } = this.context
+
+    setNavTitle('Sign In')
+  }
+
+  componentWillUnmount() {
+    const { removeNavTitle } = this.context
+
+    removeNavTitle()
   }
 
   openModal = () => {
@@ -128,4 +141,9 @@ export class SignIn extends Component {
       </StyledForm>
     )
   }
+}
+
+SignIn.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
 }

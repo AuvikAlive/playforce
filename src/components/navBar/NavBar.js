@@ -24,11 +24,8 @@ class NavBar extends Component {
       title,
       shadow,
       toggleSideMenu,
-      location,
       searchBarOpen,
     } = this.props
-
-    const routeName = location.state ? location.state.name : ''
 
     return (
       <StyledNavBar>
@@ -49,21 +46,13 @@ class NavBar extends Component {
                 </IconButton>
               )}
 
-              {title ? (
+              {title && (
                 <Typography
                   variant="title"
                   color="inherit"
                   className="page-title"
                 >
                   {title}
-                </Typography>
-              ) : (
-                <Typography
-                  variant="title"
-                  color="inherit"
-                  className="page-title"
-                >
-                  {routeName}
                 </Typography>
               )}
 

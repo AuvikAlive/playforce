@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Typography from 'material-ui/Typography'
 import { StyledInspections } from './StyledInspections'
 import Button from 'material-ui/Button'
@@ -8,7 +9,10 @@ import SearchIcon from 'material-ui-icons/Search'
 
 export class Inspections extends Component {
   componentDidMount() {
-    const { setRightNavComponent, openSearchBar } = this.props
+    const { openSearchBar } = this.props
+    const { setNavTitle, setRightNavComponent } = this.context
+
+    setNavTitle('Inspections')
 
     setRightNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
@@ -18,8 +22,10 @@ export class Inspections extends Component {
   }
 
   componentWillUnmount() {
-    const { removeRightNavComponent, closeSearchBar } = this.props
+    const { closeSearchBar } = this.props
+    const { removeNavTitle, removeRightNavComponent } = this.context
 
+    removeNavTitle()
     removeRightNavComponent()
     closeSearchBar()
   }
@@ -41,4 +47,11 @@ export class Inspections extends Component {
       </StyledInspections>
     )
   }
+}
+
+Inspections.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }

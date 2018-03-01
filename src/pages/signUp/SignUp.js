@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
@@ -13,6 +14,18 @@ export class SignUp extends Component {
     password: '',
     error: '',
     loading: false,
+  }
+
+  componentDidMount() {
+    const { setNavTitle } = this.context
+
+    setNavTitle('Sign Up')
+  }
+
+  componentWillUnmount() {
+    const { removeNavTitle } = this.context
+
+    removeNavTitle()
   }
 
   onNameChange = event => {
@@ -109,4 +122,9 @@ export class SignUp extends Component {
       </StyledForm>
     )
   }
+}
+
+SignUp.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
 }

@@ -84,7 +84,7 @@ const routes = [
   },
 ]
 
-export const Routes = props => (
+export const Routes = () => (
   <Switch>
     {routes.map(({ Component, pathname, name, exact }) => (
       <Route
@@ -92,8 +92,8 @@ export const Routes = props => (
         exact={exact}
         path={pathname}
         render={({ location }) => {
-          location.state = { name }
-          return <Component {...props} />
+          // location.state = { name }
+          return <Component />
         }}
       />
     ))}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
@@ -25,13 +26,12 @@ export class SiteDetail extends Component {
   }
 
   componentDidMount() {
+    const { match, history } = this.props
     const {
       setLeftNavComponent,
-      setNavTitle,
       setRightNavComponent,
-      match,
-      history,
-    } = this.props
+      setNavTitle,
+    } = this.context
     const id = parseInt(match.params.id, 10) - 1
     const title = data.sites[id].name
     const site = data.sites[id]
@@ -74,7 +74,7 @@ export class SiteDetail extends Component {
       removeLefNavComponent,
       removeNavTitle,
       removeRightNavComponent,
-    } = this.props
+    } = this.context
 
     removeLefNavComponent()
     removeNavTitle()
@@ -153,4 +153,13 @@ export class SiteDetail extends Component {
       </StyledSiteDetail>
     )
   }
+}
+
+SiteDetail.contextTypes = {
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
 }

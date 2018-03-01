@@ -9,14 +9,11 @@ const SiteEdit = Loadable({
 
 SiteEdit.preload()
 
-export const Site = props => {
+export const Site = () => {
   return (
     <Switch>
-      <Route
-        path={'/sites/:id/edit/:tabstate'}
-        render={() => <SiteEdit {...props} />}
-      />
-      <Route path="/sites/:id" render={() => <SiteDetail {...props} />} />
+      <Route path={'/sites/:id/edit/:tabstate'} component={SiteEdit} />
+      <Route path="/sites/:id" component={SiteDetail} />
     </Switch>
   )
 }
