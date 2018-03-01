@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { StyledGeneralTab } from './StyledGeneralTab'
 import Card, { CardContent } from 'material-ui/Card'
 import { MenuItem } from 'material-ui/Menu'
@@ -16,6 +17,7 @@ export class GeneralTab extends Component {
   }
 
   componentDidMount() {
+    this.context.setNavTitle('Edit Site')
     const { id } = this.props
     const site = data.sites[id]
     const {
@@ -116,4 +118,9 @@ export class GeneralTab extends Component {
       </StyledGeneralTab>
     )
   }
+}
+
+GeneralTab.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
 }

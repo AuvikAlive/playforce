@@ -21,7 +21,7 @@ export class AddInspection extends Component {
   }
 
   componentWillUnmount() {
-    this.context.removeNavTitle()
+    this.context.setNavTitle('Edit Site')
   }
 
   onSelectChange = name => event => {

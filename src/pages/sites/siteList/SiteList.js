@@ -13,7 +13,9 @@ import { data } from '../data'
 export class SiteList extends Component {
   componentDidMount() {
     const { openSearchBar } = this.props
-    const { setRightNavComponent } = this.context
+    const { setRightNavComponent, setNavTitle } = this.context
+
+    setNavTitle('Sites')
 
     setRightNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
@@ -59,6 +61,8 @@ export class SiteList extends Component {
 }
 
 SiteList.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
 }

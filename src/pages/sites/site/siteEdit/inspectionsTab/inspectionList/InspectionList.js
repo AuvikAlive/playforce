@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
@@ -18,6 +19,7 @@ export class InspectionList extends Component {
   }
 
   componentDidMount() {
+    this.context.setNavTitle('Edit Site')
     const { id } = this.props
     const { inspections } = data.sites[id]
 
@@ -68,4 +70,9 @@ export class InspectionList extends Component {
       </StyledInspectionList>
     )
   }
+}
+
+InspectionList.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
 }
