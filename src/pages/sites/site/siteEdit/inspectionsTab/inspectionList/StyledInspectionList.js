@@ -1,7 +1,7 @@
 import Styled from 'styled-components'
-import { Content } from '../../../../../components/content/Content'
+import { Content } from '../../../../../../components/content/Content'
 
-export const StyledInspectionsTab = Styled(Content)`
+export const StyledInspectionList = Styled(Content)`
   display: flex;
   justify-content: center;
   align-items: center;
