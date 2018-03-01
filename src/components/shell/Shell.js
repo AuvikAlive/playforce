@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import NavBar from '../navBar'
 import SideMenu from '../sideMenu'
 import { Footer } from '../footer/Footer'
@@ -6,6 +7,19 @@ import Routes from '../routes'
 import { StyledMainContent } from './StyledMainContent'
 
 export class Shell extends Component {
+  getChildContext() {
+    return {
+      disableNavBarShadow: this.disableNavBarShadow,
+      enableNavBarShadow: this.enableNavBarShadow,
+      setNavTitle: this.setNavTitle,
+      removeNavTitle: this.removeNavTitle,
+      setLeftNavComponent: this.setLeftNavComponent,
+      removeLefNavComponent: this.removeLefNavComponent,
+      setRightNavComponent: this.setRightNavComponent,
+      removeRightNavComponent: this.removeRightNavComponent,
+    }
+  }
+
   state = {
     navTitle: null,
     leftNavComponent: null,
@@ -91,4 +105,15 @@ export class Shell extends Component {
       </div>
     )
   }
+}
+
+Shell.childContextTypes = {
+  disableNavBarShadow: PropTypes.func,
+  enableNavBarShadow: PropTypes.func,
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }

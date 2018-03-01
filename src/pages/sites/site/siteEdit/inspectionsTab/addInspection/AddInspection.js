@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Card, { CardContent } from 'material-ui/Card'
 import { MenuItem } from 'material-ui/Menu'
 import TextField from 'material-ui/TextField'
@@ -16,7 +17,11 @@ export class AddInspection extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
+    this.context.setNavTitle('Add Inspection')
+  }
+
+  componentWillUnmount() {
+    this.context.removeNavTitle()
   }
 
   onSelectChange = name => event => {
@@ -84,4 +89,9 @@ export class AddInspection extends Component {
       </StyledAppInspection>
     )
   }
+}
+
+AddInspection.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
 }
