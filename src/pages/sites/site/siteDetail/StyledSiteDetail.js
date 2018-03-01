@@ -1,7 +1,7 @@
 import Styled from 'styled-components'
 import { Content } from '../../../../components/content/Content'
 
-export const StyledSite = Styled(Content)`
+export const StyledSiteDetail = Styled(Content)`
   display: flex;
   justify-content: center;
   align-items: center;

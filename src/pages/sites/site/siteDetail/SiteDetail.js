@@ -7,7 +7,7 @@ import List, { ListItem, ListItemText } from 'material-ui/List'
 import Chip from 'material-ui/Chip'
 import Button from 'material-ui/Button'
 import EditIcon from 'material-ui-icons/Edit'
-import { StyledSite } from './StyledSite'
+import { StyledSiteDetail } from './StyledSiteDetail'
 import { StyledNavLink } from '../../../../components/styledNavLink/StyledNavLink'
 import Modal from '../../../../components/modal/Modal'
 import Loadable from '../../../../components/loadable/LoadableCircular'
@@ -99,7 +99,7 @@ export class SiteDetail extends Component {
     ))
 
     return (
-      <StyledSite>
+      <StyledSiteDetail>
         <Card className="card">
           <StyledNavLink to={match.url + '/edit'} className="edit-icon">
             <Button variant="fab" color="primary" aria-label="edit inspection">
@@ -131,7 +131,7 @@ export class SiteDetail extends Component {
         >
           <ModalContent closeModal={this.closeModal} />
         </Modal>
-      </StyledSite>
+      </StyledSiteDetail>
     )
   }
 }
