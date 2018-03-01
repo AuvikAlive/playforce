@@ -1,9 +1,8 @@
 import React from 'react'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import { StyledTabs } from './StyledTabs'
-import { StyledTabContent } from './StyledTabContent'
 import { GeneralTab } from './generalTab/GeneralTab'
-import { InspectionsTab } from './inspectionsTab/InspectionsTab'
+import InspectionsTab from './inspectionsTab/InspectionsTab'
 
 class SimpleTabs extends React.Component {
   state = {

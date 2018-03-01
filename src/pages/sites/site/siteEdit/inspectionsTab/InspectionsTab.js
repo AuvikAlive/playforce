@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
-import DeleteIcon from 'material-ui-icons/Delete'
 import Divider from 'material-ui/Divider'
+import Button from 'material-ui/Button'
+import AddIcon from 'material-ui-icons/Add'
+import DeleteIcon from 'material-ui-icons/Delete'
 import { StyledInspectionsTab } from './StyledInspectionsTab'
 import Modal from '../../../../../components/modal/Modal'
 import { ModalContent } from '../../siteDetail/modalContent/ModalContent'
+import { StyledNavLink } from '../../../../../components/styledNavLink/StyledNavLink'
 import { data } from '../../../data'
 
 export class InspectionsTab extends Component {
@@ -30,8 +34,15 @@ export class InspectionsTab extends Component {
   }
 
   render() {
+    const { match } = this.props
+
     return (
       <StyledInspectionsTab>
+        <StyledNavLink to={match.url + '/addInspection'} className="add-icon">
+          <Button variant="fab" color="primary" aria-label="add inspection">
+            <AddIcon />
+          </Button>
+        </StyledNavLink>
         <Paper className="paper">
           <List component="nav" disablePadding>
             {this.state.inspections.map(({ type }, index, list) => {
@@ -60,3 +71,5 @@ export class InspectionsTab extends Component {
     )
   }
 }
+
+export default withRouter(InspectionsTab)
