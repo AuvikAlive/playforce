@@ -1,21 +1,21 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import { StyledTabs } from './StyledTabs'
 import { GeneralTab } from './generalTab/GeneralTab'
 import InspectionsTab from './inspectionsTab/InspectionsTab'
 
 class SimpleTabs extends React.Component {
-  state = {
-    value: 0,
-  }
-
   handleChange = (event, value) => {
-    this.setState({ value })
+    const { match, history } = this.props
+    const urlWithoutParam = match.url.substr(0, match.url.lastIndexOf('/'))
+    const url = urlWithoutParam + `/${value}`
+
+    history.replace(url)
   }
 
   render() {
-    const { value } = this.state
-    const { id } = this.props
+    const { id, match } = this.props
 
     return (
       <StyledTabs>
@@ -23,17 +23,17 @@ class SimpleTabs extends React.Component {
           fullWidth
           centered
           classes={{ root: 'my-root' }}
-          value={value}
+          value={match.params.tabstate}
           onChange={this.handleChange}
         >
-          <Tab className="tab-title" label="General" />
-          <Tab className="tab-title" label="Inspections" />
+          <Tab className="tab-title" value="general" label="General" />
+          <Tab className="tab-title" value="inspections" label="Inspections" />
         </Tabs>
-        {value === 0 && <GeneralTab id={id} />}
-        {value === 1 && <InspectionsTab id={id} />}
+        {match.params.tabstate === 'general' && <GeneralTab id={id} />}
+        {match.params.tabstate === 'inspections' && <InspectionsTab id={id} />}
       </StyledTabs>
     )
   }
 }
 
-export default SimpleTabs
+export default withRouter(SimpleTabs)

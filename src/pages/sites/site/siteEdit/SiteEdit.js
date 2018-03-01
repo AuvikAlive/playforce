@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Tabs from './Tabs'
@@ -41,6 +42,6 @@ export class SiteEdit extends Component {
     const { match } = this.props
     const id = parseInt(match.params.id, 10) - 1
 
-    return <Tabs id={id} />
+    return <Tabs id={id} {...this.props} />
   }
 }

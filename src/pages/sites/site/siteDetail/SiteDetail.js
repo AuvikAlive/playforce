@@ -120,7 +120,7 @@ export class SiteDetail extends Component {
     return (
       <StyledSiteDetail>
         <Card className="card">
-          <StyledNavLink to={match.url + '/edit'} className="edit-icon">
+          <StyledNavLink to={match.url + '/edit/general'} className="edit-icon">
             <Button variant="fab" color="primary" aria-label="edit inspection">
               <EditIcon />
             </Button>

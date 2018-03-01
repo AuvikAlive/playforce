@@ -12,7 +12,10 @@ SiteEdit.preload()
 export const Site = props => {
   return (
     <Switch>
-      <Route path={'/sites/:id/edit'} render={() => <SiteEdit {...props} />} />
+      <Route
+        path={'/sites/:id/edit/:tabstate'}
+        render={() => <SiteEdit {...props} />}
+      />
       <Route path="/sites/:id" render={() => <SiteDetail {...props} />} />
     </Switch>
   )

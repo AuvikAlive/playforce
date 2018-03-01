@@ -1,3 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export const AddInspection = () => <div>Add Inspection</div>
+export class AddInspection extends Component {
+  state = {}
+  render() {
+    return <div>Add Inspections</div>
+  }
+}
