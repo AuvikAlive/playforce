@@ -26,16 +26,15 @@ export class SiteDetail extends Component {
   }
 
   componentDidMount() {
-    const { match, history } = this.props
+    const { match, history, sites } = this.props
     const {
       setLeftNavComponent,
       setRightNavComponent,
       setNavTitle,
     } = this.context
-    const id = parseInt(match.params.id, 10) - 1
-    const title = data.sites[id].name
-    const site = data.sites[id]
-    const { street, suburb, state, postcode, country } = site
+    const id = parseInt(match.params.id, 10)
+    const site = sites[id]
+    const { name, street, suburb, state, postcode, country } = site
     const address = `${street}+${suburb}+${state}+${postcode}+${country}`
     const encodedAddress = encodeURI(address)
 
@@ -45,7 +44,7 @@ export class SiteDetail extends Component {
       </IconButton>,
     )
 
-    setNavTitle(title)
+    setNavTitle(name)
 
     setRightNavComponent(
       <div>
@@ -93,10 +92,10 @@ export class SiteDetail extends Component {
   }
 
   render() {
-    const { match } = this.props
+    const { match, sites } = this.props
 
-    const id = parseInt(match.params.id, 10) - 1
-    const site = data.sites[id]
+    const id = parseInt(match.params.id, 10)
+    const site = sites[id]
     const {
       latitidue,
       longitude,
