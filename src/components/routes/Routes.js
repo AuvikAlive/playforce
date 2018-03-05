@@ -1,5 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { isLoaded } from 'react-redux-firebase'
+import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator'
 import Loadable from '../loadable/LoadableLinear'
 import Home from '../../pages/home/Home'
 
@@ -84,19 +86,15 @@ const routes = [
   },
 ]
 
-export const Routes = () => (
-  <Switch>
-    {routes.map(({ Component, pathname, name, exact }) => (
-      <Route
-        key={name}
-        exact={exact}
-        path={pathname}
-        render={({ location }) => {
-          // location.state = { name }
-          return <Component />
-        }}
-      />
-    ))}
-    <Redirect to="/" />
-  </Switch>
-)
+export const Routes = ({ auth }) => {
+  return isLoaded(auth) ? (
+    <Switch>
+      {routes.map(({ Component, pathname, name, exact }) => (
+        <Route key={name} exact={exact} path={pathname} component={Component} />
+      ))}
+      <Redirect to="/" />
+    </Switch>
+  ) : (
+    <LoadingIndicator style={{ height: 'calc(100vh - 56*2px)' }} />
+  )
+}

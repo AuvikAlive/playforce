@@ -7,7 +7,7 @@ export const Footer = () => (
   <StyledFooter>
     <Toolbar className="toolbar">
       <Typography variant="caption" align="center">
-        © 2018 Play Force Pty Ltd
+        © 2018 Inspection App Pty Ltd
       </Typography>
     </Toolbar>
   </StyledFooter>

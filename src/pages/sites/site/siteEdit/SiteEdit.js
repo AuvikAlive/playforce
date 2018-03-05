@@ -12,11 +12,7 @@ class SiteEditWithoutRouter extends Component {
   componentDidMount() {
     const { history } = this.props
 
-    const {
-      setLeftNavComponent,
-      disableNavBarShadow,
-      setNavTitle,
-    } = this.context
+    const { setLeftNavComponent, disableNavBarShadow } = this.context
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
@@ -30,11 +26,7 @@ class SiteEditWithoutRouter extends Component {
   }
 
   componentWillUnmount() {
-    const {
-      removeLefNavComponent,
-      enableNavBarShadow,
-      removeNavTitle,
-    } = this.context
+    const { removeLefNavComponent, enableNavBarShadow } = this.context
 
     removeLefNavComponent()
     enableNavBarShadow()

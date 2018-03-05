@@ -52,7 +52,10 @@ export class SiteDetail extends Component {
         <a
           target="_blank"
           href={`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`}
-          style={{ color: 'inherit', textDecoration: 'none' }}
+          style={{
+            color: 'inherit',
+            textDecoration: 'none',
+          }}
         >
           <IconButton color="inherit" aria-label="Directions">
             <DirectionsIcon />
