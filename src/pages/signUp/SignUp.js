@@ -51,7 +51,10 @@ export class SignUp extends Component {
     this.setState({ loading: true })
 
     if (username && email && password) {
-      const p = firebase.createUser({ email, password }, { username, email })
+      const p = firebase.createUser(
+        { email, password },
+        { displayName: username, email },
+      )
 
       p
         .then(value => {

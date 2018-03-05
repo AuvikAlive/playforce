@@ -12,7 +12,7 @@ export const UserView = ({ profile }) =>
       <div className="content">
         <Avatar alt="User Name" src={avatar} className="avatar" />
         <Typography variant="title" color="inherit">
-          {profile.username}
+          {profile.displayName}
         </Typography>
         <Typography variant="subheading" color="inherit">
           {profile.email}

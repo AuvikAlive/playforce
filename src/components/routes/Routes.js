@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isLoaded } from 'react-redux-firebase'
-import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator'
+import { LinearProgress } from 'material-ui/Progress'
 import Loadable from '../loadable/LoadableLinear'
 import Home from '../../pages/home/Home'
 
@@ -95,6 +95,6 @@ export const Routes = ({ auth }) => {
       <Redirect to="/" />
     </Switch>
   ) : (
-    <LoadingIndicator style={{ height: 'calc(100vh - 56*2px)' }} />
+    <LinearProgress />
   )
 }

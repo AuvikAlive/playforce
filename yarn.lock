@@ -6000,6 +6000,13 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-firestore@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/redux-firestore/-/redux-firestore-0.3.1.tgz#8b0b392d4d59b0efb1cadd12b1edf22f290d7122"
+  dependencies:
+    lodash "^4.17.4"
+    prop-types "^15.6.0"
+
 redux-persist@^5.9.1:
   version "5.9.1"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.9.1.tgz#83bd4abd526ef768f63fceee338fa9d8ed6552d6"
