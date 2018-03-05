@@ -5,7 +5,7 @@ import Tabs, { Tab } from 'material-ui/Tabs'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { StyledTabs } from './StyledTabs'
-import { GeneralTab } from './generalTab/GeneralTab'
+import GeneralTab from './generalTab'
 import InspectionsTab from './inspectionsTab/InspectionsTab'
 
 class SiteEditWithoutRouter extends Component {
@@ -43,7 +43,7 @@ class SiteEditWithoutRouter extends Component {
 
   render() {
     const { match } = this.props
-    const id = parseInt(match.params.id, 10) - 1
+    const id = parseInt(match.params.id, 10)
 
     return (
       <StyledTabs>

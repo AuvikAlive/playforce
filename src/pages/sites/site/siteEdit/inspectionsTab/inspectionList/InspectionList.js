@@ -10,7 +10,6 @@ import { StyledInspectionList } from './StyledInspectionList'
 import Modal from '../../../../../../components/modal/Modal'
 import { ModalContent } from '../../../siteDetail/modalContent/ModalContent'
 import { StyledNavLink } from '../../../../../../components/styledNavLink/StyledNavLink'
-import { data } from '../../../../data'
 
 export class InspectionList extends Component {
   state = {
@@ -20,8 +19,8 @@ export class InspectionList extends Component {
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
-    const { id } = this.props
-    const { inspections } = data.sites[id]
+    const { id, sites } = this.props
+    const { inspections } = sites[id]
 
     this.setState({ inspections })
   }

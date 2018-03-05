@@ -18,9 +18,11 @@ export class GeneralTab extends Component {
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
-    const { id } = this.props
-    const site = data.sites[id]
+
+    const { id, sites } = this.props
+    const site = sites[id]
     const {
+      name,
       street,
       suburb,
       state,
@@ -35,8 +37,6 @@ export class GeneralTab extends Component {
       id: data.operators[operatorId].id,
       label: data.operators[operatorId].name,
     }
-
-    const name = data.sites[id].name
     const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
 
     this.setState({ operator: operatorData, name, address, division })
