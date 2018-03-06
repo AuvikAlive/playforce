@@ -8,6 +8,7 @@ const mapStateToProps = (
   { firestore: { data: { sites } } },
   { match: { params: { id } } },
 ) => ({
+  id,
   site: sites[id],
 })
 

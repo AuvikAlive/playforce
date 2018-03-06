@@ -90,67 +90,95 @@ export class SiteDetail extends Component {
     this.setState({ modalOpen: false })
   }
 
+  deleteItem = () => {
+    const { firestore, id, history } = this.props
+
+    firestore
+      .delete(`sites/${id}`)
+      .then(() => {
+        firestore.get({ collection: 'sites' })
+        history.goBack()
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   render() {
     const { match, site } = this.props
 
-    const {
-      latitidue,
-      longitude,
-      street,
-      suburb,
-      state,
-      postcode,
-      country,
-      operator,
-      division,
-      inspections,
-    } = site
-    const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
-    const operatorName = data.operators[operator - 1].name
-    const chips = inspections.map(({ type }) => (
-      <Chip
-        style={{ marginTop: 8, marginRight: 8 }}
-        component="span"
-        label={type}
-        key={type}
-      />
-    ))
+    if (site) {
+      const {
+        latitidue,
+        longitude,
+        street,
+        suburb,
+        state,
+        postcode,
+        country,
+        operator,
+        division,
+        inspections,
+      } = site
+      const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
+      const operatorName = data.operators[operator - 1].name
+      const chips = inspections.map(({ type }) => (
+        <Chip
+          style={{ marginTop: 8, marginRight: 8 }}
+          component="span"
+          label={type}
+          key={type}
+        />
+      ))
 
-    return (
-      <StyledSiteDetail>
-        <Card className="card">
-          <StyledNavLink to={match.url + '/edit/general'} className="edit-icon">
-            <Button variant="fab" color="primary" aria-label="edit inspection">
-              <EditIcon />
-            </Button>
-          </StyledNavLink>
-          <Map lat={latitidue} lng={longitude} />
-          <CardContent>
-            <List>
-              <ListItem divider>
-                <ListItemText primary="Address" secondary={address} />
-              </ListItem>
-              <ListItem divider>
-                <ListItemText primary="Operator" secondary={operatorName} />
-              </ListItem>
-              <ListItem divider>
-                <ListItemText primary="Division" secondary={division} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Inspection Types" secondary={chips} />
-              </ListItem>
-            </List>
-          </CardContent>
-        </Card>
-        <Modal
-          open={this.state.modalOpen}
-          handleClose={this.closeModal}
-          hideCloseIcon
-        >
-          <ModalContent closeModal={this.closeModal} />
-        </Modal>
-      </StyledSiteDetail>
-    )
+      return (
+        <StyledSiteDetail>
+          <Card className="card">
+            <StyledNavLink
+              to={match.url + '/edit/general'}
+              className="edit-icon"
+            >
+              <Button
+                variant="fab"
+                color="primary"
+                aria-label="edit inspection"
+              >
+                <EditIcon />
+              </Button>
+            </StyledNavLink>
+            <Map lat={latitidue} lng={longitude} />
+            <CardContent>
+              <List>
+                <ListItem divider>
+                  <ListItemText primary="Address" secondary={address} />
+                </ListItem>
+                <ListItem divider>
+                  <ListItemText primary="Operator" secondary={operatorName} />
+                </ListItem>
+                <ListItem divider>
+                  <ListItemText primary="Division" secondary={division} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Inspection Types" secondary={chips} />
+                </ListItem>
+              </List>
+            </CardContent>
+          </Card>
+          <Modal
+            open={this.state.modalOpen}
+            handleClose={this.closeModal}
+            hideCloseIcon
+          >
+            <ModalContent
+              handleConfirmation={this.deleteItem}
+              closeModal={this.closeModal}
+            />
+          </Modal>
+        </StyledSiteDetail>
+      )
+    } else {
+      return <div />
+    }
   }
 }
 
