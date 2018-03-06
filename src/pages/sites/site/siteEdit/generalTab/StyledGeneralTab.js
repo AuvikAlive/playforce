@@ -15,4 +15,20 @@ export const StyledGeneralTab = Styled(Content)`
     width: 100%;
     position: relative;
   }
+
+  .error {
+    color: ${({ theme }) => theme.palette.error.main};
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+  }
+
+  .error,
+  .loading,
+  .publish-button {
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
 `

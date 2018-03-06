@@ -16,7 +16,7 @@ export class SiteList extends Component {
     const { openSearchBar, firestore } = this.props
     const { setRightNavComponent, setNavTitle } = this.context
 
-    firestore.setListener('sites')
+    firestore.setListener({ collection: 'sites', orderBy: 'name' })
 
     setNavTitle('Sites')
 
@@ -50,7 +50,7 @@ export class SiteList extends Component {
                 {sites.map(({ name, id }, index, list) => {
                   return (
                     <div key={name}>
-                      <StyledNavLink to={`/sites/${index}`}>
+                      <StyledNavLink to={`/sites/${id}`}>
                         <ListItem button>
                           <ListItemText primary={name} />
                         </ListItem>

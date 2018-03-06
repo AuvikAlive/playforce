@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { StyledGeneralTab } from './StyledGeneralTab'
+import Button from 'material-ui/Button'
 import Card, { CardContent } from 'material-ui/Card'
 import { MenuItem } from 'material-ui/Menu'
 import TextField from 'material-ui/TextField'
+import { CircularProgress } from 'material-ui/Progress'
+import { StyledGeneralTab } from './StyledGeneralTab'
 import { data } from '../../../data'
 
 const operators = data.operators
@@ -14,13 +16,15 @@ export class GeneralTab extends Component {
     name: '',
     address: '',
     division: '',
+    error: '',
+    loading: false,
   }
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
 
-    const { id, sites } = this.props
-    const site = sites[id]
+    const { site } = this.props
+
     const {
       name,
       street,
@@ -56,8 +60,30 @@ export class GeneralTab extends Component {
     })
   }
 
+  handleEdit = () => {
+    const { name, address, division, operator } = this.state
+    if (name && address && division && operator) {
+      this.setState({ error: '' })
+      this.setState({ loading: true })
+      const { firestore, match } = this.props
+      const updatedData = { name, address, division, operator: operator.id }
+
+      firestore
+        .update(`sites/${match.params.id}`, updatedData)
+        .then(() => {
+          firestore.get({ collection: 'sites', orderBy: 'name' })
+          this.setState({ loading: false })
+        })
+        .catch(error => {
+          this.setState({ error: error.message })
+        })
+    } else {
+      this.setState({ error: 'Please fill up the form properly!' })
+    }
+  }
+
   render() {
-    const { operator, name, address, division } = this.state
+    const { operator, name, address, division, error, loading } = this.state
 
     return (
       <StyledGeneralTab>
@@ -113,6 +139,24 @@ export class GeneralTab extends Component {
               onChange={this.handleChange('division')}
               margin="normal"
             />
+
+            {error && <p className="error">{error}</p>}
+
+            {!error &&
+              loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="publish-button"
+              onClick={this.handleEdit}
+            >
+              Publish Changes
+            </Button>
           </CardContent>
         </Card>
       </StyledGeneralTab>

@@ -25,7 +25,7 @@ export const history = createHistory()
 const router = routerMiddleware(history)
 
 firebase.initializeApp(firebaseConfig)
-firebase.firestore()
+firebase.firestore().enablePersistence()
 const firebaseStore = reactReduxFirebase(firebase, {
   userProfile: 'users',
   useFirestoreForProfile: true,

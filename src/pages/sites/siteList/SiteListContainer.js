@@ -8,8 +8,8 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 
-const mapStateToProps = (state, props) => ({
-  sites: state.firestore.ordered.sites,
+const mapStateToProps = ({ firestore: { ordered: { sites } } }) => ({
+  sites,
 })
 
 const mapDispatchToProps = { openSearchBar, closeSearchBar }

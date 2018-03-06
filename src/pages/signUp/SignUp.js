@@ -105,9 +105,12 @@ export class SignUp extends Component {
 
           {error && <p className="error">{error}</p>}
 
-          <div className="loading">
-            {!error && loading && <CircularProgress />}
-          </div>
+          {!error &&
+            loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
           <Button variant="raised" color="primary" onClick={this.signUp}>
             Sign Up
