@@ -21,8 +21,6 @@ class SiteEditWithoutRouter extends Component {
     )
 
     disableNavBarShadow()
-
-    // setNavTitle('Edit Site')
   }
 
   componentWillUnmount() {
@@ -30,7 +28,6 @@ class SiteEditWithoutRouter extends Component {
 
     removeLefNavComponent()
     enableNavBarShadow()
-    // removeNavTitle()
   }
 
   handleChange = (event, value) => {

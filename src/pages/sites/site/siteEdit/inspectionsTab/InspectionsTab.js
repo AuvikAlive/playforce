@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
-import AddInspection from './addInspection'
+import Loadable from '../../../../../components/loadable/LoadableLinear'
 import InspectionList from './inspectionList'
+
+const AddInspection = Loadable({
+  loader: () => import('./addInspection'),
+})
+
+AddInspection.preload()
 
 export class InspectionsTab extends Component {
   render() {
