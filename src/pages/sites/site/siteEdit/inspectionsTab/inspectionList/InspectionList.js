@@ -8,21 +8,17 @@ import AddIcon from 'material-ui-icons/Add'
 import DeleteIcon from 'material-ui-icons/Delete'
 import { StyledInspectionList } from './StyledInspectionList'
 import Modal from '../../../../../../components/modal/Modal'
-import { ModalContent } from '../../../siteDetail/modalContent/ModalContent'
+import { ModalContent } from '../../../modalContent/ModalContent'
 import { StyledNavLink } from '../../../../../../components/styledNavLink/StyledNavLink'
 
 export class InspectionList extends Component {
   state = {
-    inspections: [],
     modalOpen: false,
+    deleteIndex: null,
   }
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
-    const { id, sites } = this.props
-    const { inspections } = sites[id]
-
-    this.setState({ inspections })
   }
 
   openModal = () => {
@@ -32,8 +28,32 @@ export class InspectionList extends Component {
   closeModal = () => {
     this.setState({ modalOpen: false })
   }
+
+  deletePrompt = index => () => {
+    this.setState({ deleteIndex: index })
+    this.openModal()
+  }
+
+  deleteItem = () => {
+    const { firestore, site: { inspections }, match } = this.props
+    const { deleteIndex } = this.state
+
+    const updatedInspections = inspections.filter(
+      (item, index) => index !== deleteIndex,
+    )
+
+    firestore
+      .update(`sites/${match.params.id}`, { inspections: updatedInspections })
+      .then(() => {
+        firestore.get({ collection: 'sites', doc: match.params.id })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   render() {
-    const { match } = this.props
+    const { site: { inspections }, match } = this.props
 
     return (
       <StyledInspectionList>
@@ -44,12 +64,12 @@ export class InspectionList extends Component {
         </StyledNavLink>
         <Paper className="paper">
           <List component="nav" disablePadding>
-            {this.state.inspections.map(({ type }, index, list) => {
+            {inspections.map(({ type }, index, list) => {
               return (
                 <div key={type}>
                   <ListItem button>
                     <ListItemText primary={type} />
-                    <ListItemIcon onClick={this.openModal}>
+                    <ListItemIcon onClick={this.deletePrompt(index)}>
                       <DeleteIcon />
                     </ListItemIcon>
                   </ListItem>
@@ -64,7 +84,10 @@ export class InspectionList extends Component {
           handleClose={this.closeModal}
           hideCloseIcon
         >
-          <ModalContent closeModal={this.closeModal} />
+          <ModalContent
+            handleConfirmation={this.deleteItem}
+            closeModal={this.closeModal}
+          />
         </Modal>
       </StyledInspectionList>
     )

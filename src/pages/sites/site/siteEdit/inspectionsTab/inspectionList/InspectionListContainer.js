@@ -3,8 +3,11 @@ import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { InspectionList } from './InspectionList'
 
-const mapStateToProps = (state, props) => ({
-  sites: state.firestore.ordered.sites,
+const mapStateToProps = (
+  { firestore: { data: { sites } } },
+  { match: { params: { id } } },
+) => ({
+  site: sites[id],
 })
 
 export const InspectionListContainer = compose(

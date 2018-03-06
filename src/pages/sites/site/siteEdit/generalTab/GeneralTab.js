@@ -71,7 +71,7 @@ export class GeneralTab extends Component {
       firestore
         .update(`sites/${match.params.id}`, updatedData)
         .then(() => {
-          firestore.get({ collection: 'sites', orderBy: 'name' })
+          firestore.get({ collection: 'sites', doc: match.params.id })
           this.setState({ loading: false })
         })
         .catch(error => {

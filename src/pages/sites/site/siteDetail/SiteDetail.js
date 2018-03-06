@@ -11,9 +11,9 @@ import Chip from 'material-ui/Chip'
 import Button from 'material-ui/Button'
 import { StyledSiteDetail } from './StyledSiteDetail'
 import { StyledNavLink } from '../../../../components/styledNavLink/StyledNavLink'
-import Modal from '../../../../components/modal/Modal'
 import Loadable from '../../../../components/loadable/LoadableCircular'
-import { ModalContent } from './modalContent/ModalContent'
+import Modal from '../../../../components/modal/Modal'
+import { ModalContent } from '../modalContent/ModalContent'
 import { data } from '../../data'
 
 const Map = Loadable({
