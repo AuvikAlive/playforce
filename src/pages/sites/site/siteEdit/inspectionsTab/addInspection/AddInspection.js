@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Card, { CardContent } from 'material-ui/Card'
 import { MenuItem } from 'material-ui/Menu'
 import TextField from 'material-ui/TextField'
+import Button from 'material-ui/Button'
+import { CircularProgress } from 'material-ui/Progress'
 import { StyledAppInspection } from './StyledAddInspection'
 
 const inspectionTypes = ['Routine', 'Operational', 'Comprehensive']
@@ -11,9 +13,11 @@ const assignees = ['Justin Kaese', 'Joe Bloggs', 'Jane Doe']
 
 export class AddInspection extends Component {
   state = {
-    inspectionType: '',
+    type: '',
     frequency: '',
-    assignedTo: '',
+    userAssigned: '',
+    error: '',
+    loading: false,
   }
 
   componentDidMount() {
@@ -30,8 +34,37 @@ export class AddInspection extends Component {
     })
   }
 
+  onPublish = () => {
+    const { type, frequency, userAssigned } = this.state
+    if (type && frequency && userAssigned) {
+      this.setState({ error: '' })
+      this.setState({ loading: true })
+
+      const { firestore, history, id, site: { inspections } } = this.props
+
+      inspections.push({
+        type,
+        frequency,
+        userAssigned,
+      })
+
+      firestore
+        .update(`sites/${id}`, { inspections })
+        .then(() => {
+          firestore.get({ collection: 'sites', doc: id })
+          this.setState({ loading: false })
+          history.goBack()
+        })
+        .catch(error => {
+          this.setState({ error: error.message })
+        })
+    } else {
+      this.setState({ error: 'Please fill up the form properly!' })
+    }
+  }
+
   render() {
-    const { inspectionType, frequency, assignedTo } = this.state
+    const { type, frequency, userAssigned, error, loading } = this.state
 
     return (
       <StyledAppInspection>
@@ -42,8 +75,8 @@ export class AddInspection extends Component {
               id="inspection-type"
               select
               label="Inspection Type"
-              value={inspectionType}
-              onChange={this.onSelectChange('inspectionType')}
+              value={type}
+              onChange={this.onSelectChange('type')}
               margin="normal"
             >
               {inspectionTypes.map(item => (
@@ -74,8 +107,8 @@ export class AddInspection extends Component {
               id="assigned-to"
               select
               label="Assigned To"
-              value={assignedTo}
-              onChange={this.onSelectChange('assignedTo')}
+              value={userAssigned}
+              onChange={this.onSelectChange('userAssigned')}
               margin="normal"
             >
               {assignees.map(item => (
@@ -84,6 +117,24 @@ export class AddInspection extends Component {
                 </MenuItem>
               ))}
             </TextField>
+
+            {error && <p className="error">{error}</p>}
+
+            {!error &&
+              loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="publish-button"
+              onClick={this.onPublish}
+            >
+              Publish
+            </Button>
           </CardContent>
         </Card>
       </StyledAppInspection>

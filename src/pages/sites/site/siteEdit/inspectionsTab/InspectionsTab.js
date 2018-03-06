@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
-import { AddInspection } from './addInspection/AddInspection'
+import AddInspection from './addInspection'
 import InspectionList from './inspectionList'
 
 export class InspectionsTab extends Component {
