@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import { withFirestore } from 'react-redux-firebase'
+import { withFirestore, firestoreConnect } from 'react-redux-firebase'
 import { SiteList } from './SiteList'
 import {
   openSearchBar,
@@ -17,5 +17,6 @@ const mapDispatchToProps = { openSearchBar, closeSearchBar }
 export const SiteListContainer = compose(
   withRouter,
   withFirestore,
+  firestoreConnect(props => [{ collection: 'sites', orderBy: 'name' }]),
   connect(mapStateToProps, mapDispatchToProps),
 )(SiteList)

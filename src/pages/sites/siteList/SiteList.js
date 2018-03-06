@@ -13,10 +13,8 @@ import { Content } from '../../../components/content/Content'
 
 export class SiteList extends Component {
   componentDidMount() {
-    const { openSearchBar, firestore } = this.props
+    const { openSearchBar } = this.props
     const { setRightNavComponent, setNavTitle } = this.context
-
-    firestore.setListener({ collection: 'sites', orderBy: 'name' })
 
     setNavTitle('Sites')
 
@@ -28,10 +26,9 @@ export class SiteList extends Component {
   }
 
   componentWillUnmount() {
-    const { closeSearchBar, firestore } = this.props
+    const { closeSearchBar } = this.props
     const { removeRightNavComponent } = this.context
 
-    firestore.unsetListener('sites')
     removeRightNavComponent()
     closeSearchBar()
   }
