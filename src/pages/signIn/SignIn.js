@@ -72,6 +72,7 @@ export class SignIn extends Component {
         })
         .catch(error => {
           this.setState({ error: error.message })
+          this.setState({ loading: false })
         })
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
@@ -125,9 +126,11 @@ export class SignIn extends Component {
               </div>
             )}
 
-          <Button variant="raised" color="primary" onClick={this.signIn}>
-            Sign In
-          </Button>
+          {!loading && (
+            <Button variant="raised" color="primary" onClick={this.signIn}>
+              Sign In
+            </Button>
+          )}
 
           <p>
             <StyledLink to="/">Forgot your password?</StyledLink>

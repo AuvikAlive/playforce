@@ -76,6 +76,7 @@ export class GeneralTab extends Component {
         })
         .catch(error => {
           this.setState({ error: error.message })
+          this.setState({ loading: false })
         })
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
@@ -148,15 +149,18 @@ export class GeneralTab extends Component {
                   <CircularProgress />
                 </div>
               )}
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="publish-button"
-              onClick={this.handleEdit}
-            >
-              Publish Changes
-            </Button>
+
+            {!loading && (
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="publish-button"
+                onClick={this.handleEdit}
+              >
+                Publish Changes
+              </Button>
+            )}
           </CardContent>
         </Card>
       </StyledGeneralTab>

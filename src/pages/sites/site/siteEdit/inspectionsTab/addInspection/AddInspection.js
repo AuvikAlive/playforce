@@ -57,6 +57,7 @@ export class AddInspection extends Component {
         })
         .catch(error => {
           this.setState({ error: error.message })
+          this.setState({ loading: false })
         })
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
@@ -126,15 +127,18 @@ export class AddInspection extends Component {
                   <CircularProgress />
                 </div>
               )}
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="publish-button"
-              onClick={this.onPublish}
-            >
-              Publish
-            </Button>
+
+            {!loading && (
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="publish-button"
+                onClick={this.onPublish}
+              >
+                Publish
+              </Button>
+            )}
           </CardContent>
         </Card>
       </StyledAppInspection>

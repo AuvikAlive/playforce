@@ -62,6 +62,7 @@ export class SignUp extends Component {
         })
         .catch(error => {
           this.setState({ error: error.message })
+          this.setState({ loading: false })
         })
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
@@ -112,9 +113,11 @@ export class SignUp extends Component {
               </div>
             )}
 
-          <Button variant="raised" color="primary" onClick={this.signUp}>
-            Sign Up
-          </Button>
+          {!loading && (
+            <Button variant="raised" color="primary" onClick={this.signUp}>
+              Sign Up
+            </Button>
+          )}
 
           <p>
             By signing up you agree to our{' '}
