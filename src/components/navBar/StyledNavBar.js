@@ -9,6 +9,7 @@ export const StyledNavBar = Styled.div`
 
   .toolbar {
     justify-content: space-between;
+    min-height: 56px;
   }
 
   .page-title {
