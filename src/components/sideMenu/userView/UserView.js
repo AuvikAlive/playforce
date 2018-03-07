@@ -4,7 +4,9 @@ import Typography from 'material-ui/Typography'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledUserView } from './StyledUserView'
 import avatar from './avatar.jpg'
+import backgroundLowWebp from './backgroundLow.webp'
 import backgroundWebp from './background.webp'
+import backgroundLow from './backgroundLow.png'
 import background from './background.png'
 
 export const UserView = ({ profile }) =>
@@ -20,9 +22,19 @@ export const UserView = ({ profile }) =>
         </Typography>
       </div>
       <picture className="background">
-        <source srcSet={backgroundWebp} type="image/webp" />
-        <source srcSet={background} type="image/jpeg" />
-        <img src={background} alt="background" />
+        <source srcSet={backgroundLowWebp} type="image/webp" />
+        <source
+          srcSet={backgroundWebp}
+          type="image/webp"
+          media="(min-width: 1080px)"
+        />
+        <source srcSet={backgroundLow} type="image/jpeg" />
+        <source
+          srcSet={background}
+          type="image/jpeg"
+          media="(min-width: 1080px)"
+        />
+        <img src={backgroundLow} alt="background" />
       </picture>
     </StyledUserView>
   )
