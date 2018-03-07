@@ -1,16 +1,11 @@
 import Styled from 'styled-components'
+import { Content } from '../../components/content/Content'
+import { centerContentVertically } from '../../styledMixins/centerContentVertically';
 
-export const StyledSettings = Styled.div`
-  .paper {
-    height: calc(100vh - 86px - 96px);
-  }
+export const StyledSettings = Styled(Content)`
+  ${centerContentVertically};
 
-  .container {
-    height: 100%;
-  }
-
-  .left {
-    background: lightgray;
-    padding: 16px;
+  > * {
+    width: 100%;
   }
 `

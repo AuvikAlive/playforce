@@ -21,7 +21,7 @@ const Sites = Loadable({
   loader: () => import('../../pages/sites'),
 })
 const Settings = Loadable({
-  loader: () => import('../../pages/settings/Settings'),
+  loader: () => import('../../pages/settings'),
 })
 const Terms = Loadable({
   loader: () => import('../../pages/terms/Terms'),

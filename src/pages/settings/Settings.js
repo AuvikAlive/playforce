@@ -2,42 +2,55 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
-import { Content } from '../../components/content/Content'
+import IconButton from 'material-ui/IconButton'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import List, { ListItem, ListItemText } from 'material-ui/List'
 import { StyledSettings } from './StyledSettings'
 
-class Settings extends Component {
+export class Settings extends Component {
   componentDidMount() {
-    const { setNavTitle } = this.context
+    const { setNavTitle, setLeftNavComponent } = this.context
+    const { history } = this.props
 
     setNavTitle('Settings')
+    setLeftNavComponent(
+      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
+        <ArrowBackIcon />
+      </IconButton>,
+    )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
+    const { removeNavTitle, removeLefNavComponent } = this.context
 
     removeNavTitle()
+    removeLefNavComponent()
   }
   render() {
     return (
       <StyledSettings>
-        <Content>
-          <Paper elevation={4} className="paper">
-            <Grid container spacing={0} className="container">
-              <Grid item xs={4} className="left">
-                Settings
-              </Grid>
-              <Grid item xs={4} className="right" />
+        <Paper className="paper">
+          <Grid container spacing={0} className="container">
+            <Grid item xs={12}>
+              <List component="nav" disablePadding>
+                <ListItem button>
+                  <ListItemText primary="General settings" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemText primary="Some other settings" />
+                </ListItem>
+              </List>
             </Grid>
-          </Paper>
-        </Content>
+          </Grid>
+        </Paper>
       </StyledSettings>
     )
   }
 }
 
-export default Settings
-
 Settings.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
 }

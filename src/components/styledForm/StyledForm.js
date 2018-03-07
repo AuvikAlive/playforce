@@ -1,19 +1,9 @@
 import Styled from 'styled-components'
 import { Content } from '../../components/content/Content'
+import { centerContentVertically } from '../../styledMixins/centerContentVertically'
 
 export const StyledForm = Styled(Content)`
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  position: relative;
-  min-height: calc(100vh - 56*2px);
-
-  @media (min-width: 600px) {
-    min-height: calc(100vh - 64*2px);
-  }
-  /* min-height: ${({ height }) => height + 48 + 'px'}; */
+  ${centerContentVertically};
   
   form {
     padding-bottom: 24px;

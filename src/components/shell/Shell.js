@@ -76,7 +76,7 @@ export class Shell extends Component {
           shadow={navBarShadowEnabled}
         />
         <SideMenu />
-        <StyledMainContent>
+        <StyledMainContent className="StyledMainContent">
           <Routes />
         </StyledMainContent>
         <Footer />
