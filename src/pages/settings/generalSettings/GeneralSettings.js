@@ -2,9 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Typography from 'material-ui/Typography'
+import Button from 'material-ui/Button'
+import { CircularProgress } from 'material-ui/Progress'
 import { Content } from '../../../components/content/Content'
+import dummy from './avatar.jpg'
 
 export class GeneralSettings extends Component {
+  state = {
+    photoURL: null,
+    error: '',
+    loading: false,
+  }
+
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
@@ -23,8 +34,94 @@ export class GeneralSettings extends Component {
     removeNavTitle()
     removeLefNavComponent()
   }
+
+  upload = () => {
+    this.fileInput.click()
+  }
+
+  getFile = event => {
+    this.setState({ error: '' })
+    this.setState({ loading: true })
+    const { firebase, firestore, uid } = this.props
+    const displayImage = event.target.files[0]
+
+    const storageRef = firebase.storage().ref()
+    const customRef = storageRef.child(`images/${uid}.jpg`)
+
+    customRef.put(displayImage).then(({ downloadURL }) => {
+      firebase
+        .updateProfile({ photoURL: downloadURL })
+        .then(() => {
+          this.setState({ loading: false, photoURL: downloadURL })
+        })
+        .catch(error => {
+          this.setState({ error: error.message })
+          this.setState({ loading: false })
+        })
+
+      // firestore
+      //   .update(`users/${uid}`, { photoURL: downloadURL })
+      //   .then(() => {
+      //     this.setState({ loading: false, photoURL: downloadURL })
+      //   })
+      //   .catch(error => {
+      //     this.setState({ error: error.message })
+      //     this.setState({ loading: false })
+      //   })
+    })
+  }
+
   render() {
-    return <Content>General Settings</Content>
+    const { displayName, photoURL } = this.props
+    const { error, loading } = this.state
+    const avatar = photoURL || dummy
+    return (
+      <Content>
+        <Card>
+          <CardMedia style={{ height: 400 }} image={avatar} />
+          <CardContent>
+            <Typography align="center" variant="headline" component="h2">
+              {displayName}
+            </Typography>
+          </CardContent>
+
+          {error && <p className="error">{error}</p>}
+
+          {!error &&
+            loading && (
+              <div
+                className="loading"
+                style={{ display: 'flex', justifyContent: 'center' }}
+              >
+                <CircularProgress />
+              </div>
+            )}
+
+          {!loading && (
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="upload-button"
+              onClick={this.upload}
+            >
+              Upload Image
+            </Button>
+          )}
+
+          <input
+            name="myFile"
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            ref={input => {
+              this.fileInput = input
+            }}
+            onChange={this.getFile}
+          />
+        </Card>
+      </Content>
+    )
   }
 }
 

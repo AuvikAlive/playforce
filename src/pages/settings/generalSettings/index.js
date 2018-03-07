@@ -1,3 +1,3 @@
-import { GeneralSettings } from './GeneralSettings'
+import { GeneralSettingsContainer } from './GeneralSettingsContainer'
 
-export default GeneralSettings;
+export default GeneralSettingsContainer
