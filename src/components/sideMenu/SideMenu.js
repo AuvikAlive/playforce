@@ -3,6 +3,7 @@ import Drawer from 'material-ui/Drawer'
 import List from 'material-ui/List'
 import { isEmpty } from 'react-redux-firebase'
 import { PublicLinks } from './PublicLinks'
+import UserView from './userView'
 import { PrivateLinks } from './PrivateLinks'
 
 class SideMenu extends Component {
@@ -35,13 +36,18 @@ class SideMenu extends Component {
 
     return (
       <Drawer open={open} anchor={'left'} onClick={closeSideMenu}>
-        <List onClick={closeSideMenu} style={{ width: 300, paddingTop: 0 }}>
-          {isEmpty(auth) ? (
+        {isEmpty(auth) ? (
+          <List onClick={closeSideMenu} style={{ width: 300 }}>
             <PublicLinks />
-          ) : (
-            <PrivateLinks signOut={this.signOut} />
-          )}
-        </List>
+          </List>
+        ) : (
+          <div>
+            <UserView />
+            <List onClick={closeSideMenu} style={{ width: 300 }}>
+              <PrivateLinks signOut={this.signOut} />
+            </List>
+          </div>
+        )}
       </Drawer>
     )
   }
