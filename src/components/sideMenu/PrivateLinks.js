@@ -13,7 +13,7 @@ import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 export const PrivateLinks = ({ signOut }) => (
   <StyledLinks>
     <StyledNavLink
-      to={{ pathname: '/Dashboard', state: { name: 'Dashboard' } }}
+      to={{ pathname: '/dashboard', state: { name: 'Dashboard' } }}
     >
       <ListItem button className="list-item">
         <ListItemIcon>
@@ -23,7 +23,7 @@ export const PrivateLinks = ({ signOut }) => (
       </ListItem>
     </StyledNavLink>
     <StyledNavLink
-      to={{ pathname: '/Inspections', state: { name: 'Inspections' } }}
+      to={{ pathname: '/inspections', state: { name: 'Inspections' } }}
     >
       <ListItem button className="list-item">
         <ListItemIcon>
@@ -32,7 +32,7 @@ export const PrivateLinks = ({ signOut }) => (
         <ListItemText primary="Inspections" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to={{ pathname: '/Sites', state: { name: 'Sites' } }}>
+    <StyledNavLink to={{ pathname: '/sites', state: { name: 'Sites' } }}>
       <ListItem button className="list-item">
         <ListItemIcon>
           <LocationOnIcon />
@@ -47,7 +47,7 @@ export const PrivateLinks = ({ signOut }) => (
       <ListItemText primary="Sign Out" />
     </ListItem>
     <Divider />
-    <StyledNavLink to={{ pathname: '/Settings', state: { name: 'Settings' } }}>
+    <StyledNavLink to={{ pathname: '/settings', state: { name: 'Settings' } }}>
       <ListItem button className="list-item">
         <ListItemIcon>
           <SettingsIcon />
@@ -55,7 +55,7 @@ export const PrivateLinks = ({ signOut }) => (
         <ListItemText primary="Settings" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to={{ pathname: '/Help', state: { name: 'Help' } }}>
+    <StyledNavLink to={{ pathname: '/help', state: { name: 'Help' } }}>
       <ListItem button className="list-item">
         <ListItemIcon>
           <HelpIcon />
