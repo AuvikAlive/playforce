@@ -66,6 +66,7 @@ export class SignUp extends Component {
         })
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
+      this.setState({ loading: false })
     }
   }
 
@@ -73,7 +74,7 @@ export class SignUp extends Component {
     const { error, loading } = this.state
 
     return (
-      <StyledForm>
+      <StyledForm className="StyledForm">
         <form noValidate autoComplete="off">
           <Typography variant="display1" align="center">
             Sign Up

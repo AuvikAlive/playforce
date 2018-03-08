@@ -1,6 +1,6 @@
 import Styled from 'styled-components'
 
-export const StyledTabs = Styled.div`
+export const StyledSiteEdit = Styled.div`
   .my-root {
     background: ${({ theme }) => theme.palette.primary.main};
   }

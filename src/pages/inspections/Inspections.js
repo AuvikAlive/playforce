@@ -32,7 +32,7 @@ export class Inspections extends Component {
 
   render() {
     return (
-      <StyledInspections>
+      <StyledInspections className="StyledInspections">
         <Typography variant="title" align="center">
           Try adding an inspection to get started!
         </Typography>

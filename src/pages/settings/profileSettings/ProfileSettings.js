@@ -65,7 +65,7 @@ export class ProfileSettings extends Component {
     const { displayName, photoURL } = this.props
     const { error, loading } = this.state
     return (
-      <StyledProfileSettings>
+      <StyledProfileSettings className="StyledProfileSettings">
         <Card>
           <CardMedia className="card-media" image={photoURL || avatar} />
           <CardContent>

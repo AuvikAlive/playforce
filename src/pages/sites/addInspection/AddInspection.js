@@ -68,7 +68,7 @@ export class AddInspection extends Component {
     const { type, frequency, userAssigned, error, loading } = this.state
 
     return (
-      <StyledAppInspection>
+      <StyledAppInspection className="StyledAppInspection">
         <Card className="card">
           <CardContent>
             <TextField

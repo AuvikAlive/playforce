@@ -57,7 +57,7 @@ export class InspectionList extends Component {
     const { site: { inspections }, match } = this.props
 
     return (
-      <StyledInspectionList>
+      <StyledInspectionList className="StyledInspectionList">
         <StyledNavLink to={match.url + '/addInspection'} className="add-icon">
           <Button variant="fab" color="primary" aria-label="add inspection">
             <AddIcon />

@@ -10,7 +10,7 @@ export const ModalContent = ({ closeModal, handleConfirmation }) => {
   }
 
   return (
-    <StyledModalContent>
+    <StyledModalContent className="StyledModalContent">
       <Card>
         <CardContent>Delete this site?</CardContent>
         <CardActions className="card-actions">

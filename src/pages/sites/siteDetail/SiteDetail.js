@@ -132,7 +132,7 @@ export class SiteDetail extends Component {
       ))
 
       return (
-        <StyledSiteDetail>
+        <StyledSiteDetail className="StyledSiteDetail">
           <Card className="card">
             <StyledNavLink
               to={match.url + '/edit/general'}

@@ -20,7 +20,7 @@ export class SettingsList extends Component {
   }
   render() {
     return (
-      <StyledSettingsList>
+      <StyledSettingsList className="StyledSettingsList">
         <Paper className="paper">
           <Grid container spacing={0} className="container">
             <Grid item xs={12}>

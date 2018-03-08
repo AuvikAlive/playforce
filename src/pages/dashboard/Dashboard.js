@@ -19,7 +19,7 @@ class Dashboard extends Component {
   }
   render() {
     return (
-      <StyledDashboard>
+      <StyledDashboard className="StyledDashboard">
         <Typography variant="display1" align="center" className="title">
           Dashboard
         </Typography>

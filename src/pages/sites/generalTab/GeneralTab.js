@@ -87,7 +87,7 @@ export class GeneralTab extends Component {
     const { operator, name, address, division, error, loading } = this.state
 
     return (
-      <StyledGeneralTab>
+      <StyledGeneralTab className="StyledGeneralTab">
         <Card className="card">
           <CardContent>
             <TextField
@@ -104,14 +104,6 @@ export class GeneralTab extends Component {
                   {option.name}
                 </MenuItem>
               ))}
-              {/* {operators.map(option => (
-                <MenuItem key={option.id} value={option.id}>
-                  <ListItemText inset primary={option.name} />
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                </MenuItem>
-              ))} */}
             </TextField>
 
             <TextField

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import Tabs, { Tab } from 'material-ui/Tabs'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import { StyledTabs } from './StyledTabs'
+import { StyledSiteEdit } from './StyledSiteEdit'
 import GeneralTab from '../generalTab'
 import InspectionsTab from '../inspectionsTab/InspectionsTab'
 
@@ -43,7 +43,7 @@ class SiteEditWithoutRouter extends Component {
     const id = parseInt(match.params.id, 10)
 
     return (
-      <StyledTabs>
+      <StyledSiteEdit className="StyledSiteEdit">
         <Tabs
           fullWidth
           centered
@@ -56,7 +56,7 @@ class SiteEditWithoutRouter extends Component {
         </Tabs>
         {match.params.tabstate === 'general' && <GeneralTab id={id} />}
         {match.params.tabstate === 'inspections' && <InspectionsTab id={id} />}
-      </StyledTabs>
+      </StyledSiteEdit>
     )
   }
 }
