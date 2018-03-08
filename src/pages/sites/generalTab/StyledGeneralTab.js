@@ -1,5 +1,5 @@
 import Styled from 'styled-components'
-import { Content } from '../../../../../components/content/Content'
+import { Content } from '../../../components/content/Content'
 import { centerTabContentVertically } from '../centerTabContentVertically'
 
 export const StyledGeneralTab = Styled(Content)`

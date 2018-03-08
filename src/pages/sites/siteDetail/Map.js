@@ -6,7 +6,7 @@ import {
   GoogleMap,
   Marker,
 } from 'react-google-maps'
-import { LoadingIndicator } from '../../../../components/loadingIndicator/LoadingIndicator'
+import { LoadingIndicator } from '../../../components/loadingIndicator/LoadingIndicator'
 
 export default compose(
   withProps({

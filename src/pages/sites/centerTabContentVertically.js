@@ -1,4 +1,4 @@
-import { centerContentVertically } from '../../../../styledMixins/centerContentVertically'
+import { centerContentVertically } from '../../styledMixins/centerContentVertically'
 
 export const centerTabContentVertically = `
   ${centerContentVertically};

@@ -8,9 +8,9 @@ import AddIcon from 'material-ui-icons/Add'
 import DeleteIcon from 'material-ui-icons/Delete'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledInspectionList } from './StyledInspectionList'
-import Modal from '../../../../../../components/modal/Modal'
-import { ModalContent } from '../../../modalContent/ModalContent'
-import { StyledNavLink } from '../../../../../../components/styledNavLink/StyledNavLink'
+import Modal from '../../../components/modal/Modal'
+import { ModalContent } from '../modalContent/ModalContent'
+import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class InspectionList extends Component {
   state = {

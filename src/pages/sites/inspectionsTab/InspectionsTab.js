@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../../../components/loadable/LoadableLinear'
-import InspectionList from './inspectionList'
+import Loadable from '../../../components/loadable/LoadableLinear'
+import InspectionList from '../inspectionList'
 
 const AddInspection = Loadable({
-  loader: () => import('./addInspection'),
+  loader: () => import('../addInspection'),
 })
 
 AddInspection.preload()

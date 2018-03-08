@@ -6,7 +6,7 @@ import { MenuItem } from 'material-ui/Menu'
 import TextField from 'material-ui/TextField'
 import { CircularProgress } from 'material-ui/Progress'
 import { StyledGeneralTab } from './StyledGeneralTab'
-import { data } from '../../../data'
+import { data } from '../data'
 
 const operators = data.operators
 

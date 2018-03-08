@@ -1,6 +1,6 @@
 import Styled from 'styled-components'
-import { Content } from '../../../../../../components/content/Content'
-import { centerTabContentVertically } from '../../centerTabContentVertically'
+import { Content } from '../../../components/content/Content'
+import { centerTabContentVertically } from '../centerTabContentVertically'
 
 export const StyledInspectionList = Styled(Content)`
   ${centerTabContentVertically};

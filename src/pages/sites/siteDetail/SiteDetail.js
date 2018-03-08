@@ -10,11 +10,11 @@ import List, { ListItem, ListItemText } from 'material-ui/List'
 import Chip from 'material-ui/Chip'
 import Button from 'material-ui/Button'
 import { StyledSiteDetail } from './StyledSiteDetail'
-import { StyledNavLink } from '../../../../components/styledNavLink/StyledNavLink'
-import Loadable from '../../../../components/loadable/LoadableCircular'
-import Modal from '../../../../components/modal/Modal'
+import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import Loadable from '../../../components/loadable/LoadableCircular'
+import Modal from '../../../components/modal/Modal'
 import { ModalContent } from '../modalContent/ModalContent'
-import { data } from '../../data'
+import { data } from '../data'
 
 const Map = Loadable({
   loader: () => import('./Map'),

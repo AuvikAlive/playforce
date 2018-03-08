@@ -1,6 +1,6 @@
 import Styled from 'styled-components'
-import { Content } from '../../../../components/content/Content'
-import { centerContentVertically } from '../../../../styledMixins/centerContentVertically'
+import { Content } from '../../../components/content/Content'
+import { centerContentVertically } from '../../../styledMixins/centerContentVertically'
 
 export const StyledSiteDetail = Styled(Content)`
   ${centerContentVertically};

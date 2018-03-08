@@ -5,8 +5,8 @@ import Tabs, { Tab } from 'material-ui/Tabs'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { StyledTabs } from './StyledTabs'
-import GeneralTab from './generalTab'
-import InspectionsTab from './inspectionsTab/InspectionsTab'
+import GeneralTab from '../generalTab'
+import InspectionsTab from '../inspectionsTab/InspectionsTab'
 
 class SiteEditWithoutRouter extends Component {
   componentDidMount() {
