@@ -1,12 +1,8 @@
 import Styled from 'styled-components'
-import { Content } from '../../../components/content/Content'
-import { centerContentVertically } from '../../../styledMixins/centerContentVertically'
+import { StyledTabContent } from '../StyledTabContent'
 
-export const StyledSiteDetail = Styled(Content)`
-  ${centerContentVertically};
-
+export const StyledSiteDetail = Styled(StyledTabContent)`
   .card {
-    width: 100%;
     position: relative;
   }
 

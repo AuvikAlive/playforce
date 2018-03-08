@@ -1,18 +1,10 @@
 import Styled from 'styled-components'
-import { Content } from '../../../components/content/Content'
-import { centerTabContentVertically } from '../centerTabContentVertically'
+import { StyledTabContent } from '../StyledTabContent'
 
-export const StyledInspectionList = Styled(Content)`
-  ${centerTabContentVertically};
-
-  .paper {
-    width: 100%;
-    position: relative;
-  }
-
+export const StyledInspectionList = Styled(StyledTabContent)`
   .add-icon {
     position: fixed;
-    right: 24px;
+    left: calc(100% - 24px - 56px);
     bottom: calc(54px/2);
     z-index: 100;
 

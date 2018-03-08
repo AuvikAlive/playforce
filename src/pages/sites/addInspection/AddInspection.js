@@ -133,7 +133,7 @@ export class AddInspection extends Component {
                 fullWidth
                 variant="raised"
                 color="primary"
-                className="publish-button"
+                className="submit-button"
                 onClick={this.onPublish}
               >
                 Publish
