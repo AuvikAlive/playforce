@@ -6,8 +6,8 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
-import { Content } from '../../../components/content/Content'
-import dummy from './avatar.jpg'
+import { StyledProfileSettings } from './StyledProfileSettings'
+import avatar from './avatar.jpg'
 
 export class ProfileSettings extends Component {
   state = {
@@ -64,11 +64,10 @@ export class ProfileSettings extends Component {
   render() {
     const { displayName, photoURL } = this.props
     const { error, loading } = this.state
-    const avatar = photoURL || dummy
     return (
-      <Content>
+      <StyledProfileSettings>
         <Card>
-          <CardMedia style={{ height: '100vw' }} image={avatar} />
+          <CardMedia className="card-media" image={photoURL || avatar} />
           <CardContent>
             <Typography align="center" variant="headline" component="h2">
               {displayName}
@@ -79,10 +78,7 @@ export class ProfileSettings extends Component {
 
           {!error &&
             loading && (
-              <div
-                className="loading"
-                style={{ display: 'flex', justifyContent: 'center' }}
-              >
+              <div className="loading">
                 <CircularProgress />
               </div>
             )}
@@ -92,7 +88,7 @@ export class ProfileSettings extends Component {
               fullWidth
               variant="raised"
               color="primary"
-              className="upload-button"
+              className="submit-button"
               onClick={this.upload}
             >
               Upload Image
@@ -100,7 +96,6 @@ export class ProfileSettings extends Component {
           )}
 
           <input
-            name="myFile"
             type="file"
             accept="image/*"
             style={{ display: 'none' }}
@@ -110,7 +105,7 @@ export class ProfileSettings extends Component {
             onChange={this.getFile}
           />
         </Card>
-      </Content>
+      </StyledProfileSettings>
     )
   }
 }

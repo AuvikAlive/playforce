@@ -21,7 +21,7 @@ export const StyledGeneralTab = Styled(Content)`
 
   .error,
   .loading,
-  .publish-button {
+  .submit-button {
     margin-top: 16px;
     margin-bottom: 8px;
   }

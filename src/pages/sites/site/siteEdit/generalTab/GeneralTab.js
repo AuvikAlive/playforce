@@ -155,7 +155,7 @@ export class GeneralTab extends Component {
                 fullWidth
                 variant="raised"
                 color="primary"
-                className="publish-button"
+                className="submit-button"
                 onClick={this.handleEdit}
               >
                 Publish Changes
