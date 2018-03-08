@@ -11,7 +11,6 @@ import dummy from './avatar.jpg'
 
 export class ProfileSettings extends Component {
   state = {
-    photoURL: null,
     error: '',
     loading: false,
   }
@@ -42,32 +41,23 @@ export class ProfileSettings extends Component {
   getFile = event => {
     this.setState({ error: '' })
     this.setState({ loading: true })
+
     const { firebase, uid } = this.props
     const displayImage = event.target.files[0]
 
     const storageRef = firebase.storage().ref()
-    const customRef = storageRef.child(`images/${uid}.jpg`)
+    const imageRef = storageRef.child(`images/${uid}.jpg`)
 
-    customRef.put(displayImage).then(({ downloadURL }) => {
+    imageRef.put(displayImage).then(({ downloadURL }) => {
       firebase
         .updateProfile({ photoURL: downloadURL })
         .then(() => {
-          this.setState({ loading: false, photoURL: downloadURL })
+          this.setState({ loading: false })
         })
         .catch(error => {
           this.setState({ error: error.message })
           this.setState({ loading: false })
         })
-
-      // firestore
-      //   .update(`users/${uid}`, { photoURL: downloadURL })
-      //   .then(() => {
-      //     this.setState({ loading: false, photoURL: downloadURL })
-      //   })
-      //   .catch(error => {
-      //     this.setState({ error: error.message })
-      //     this.setState({ loading: false })
-      //   })
     })
   }
 
@@ -78,7 +68,7 @@ export class ProfileSettings extends Component {
     return (
       <Content>
         <Card>
-          <CardMedia style={{ height: 400 }} image={avatar} />
+          <CardMedia style={{ height: '100vw' }} image={avatar} />
           <CardContent>
             <Typography align="center" variant="headline" component="h2">
               {displayName}

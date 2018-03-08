@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
-// import IconButton from 'material-ui/IconButton'
-// import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import { StyledSettingsList } from './StyledSettingsList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
@@ -11,21 +9,14 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class SettingsList extends Component {
   componentDidMount() {
     const { setNavTitle } = this.context
-    // const { history } = this.props
 
     setNavTitle('Settings')
-    // setLeftNavComponent(
-    //   <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-    //     <ArrowBackIcon />
-    //   </IconButton>,
-    // )
   }
 
   componentWillUnmount() {
     const { removeNavTitle } = this.context
 
     removeNavTitle()
-    // removeLefNavComponent()
   }
   render() {
     return (
