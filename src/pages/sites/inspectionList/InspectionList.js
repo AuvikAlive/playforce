@@ -7,6 +7,7 @@ import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import DeleteIcon from 'material-ui-icons/Delete'
 import { isEmpty } from 'react-redux-firebase'
+import { LinearProgress } from 'material-ui/Progress'
 import { StyledInspectionList } from './StyledInspectionList'
 import Modal from '../../../components/modal/Modal'
 import { ModalContent } from '../modalContent/ModalContent'
@@ -54,50 +55,55 @@ export class InspectionList extends Component {
   }
 
   render() {
-    const { site: { inspections }, match } = this.props
+    const { site } = this.props
 
-    return (
-      <StyledInspectionList className="StyledInspectionList">
-        <StyledNavLink to={match.url + '/addInspection'} className="add-icon">
-          <Button variant="fab" color="primary" aria-label="add inspection">
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
-        <Paper className="paper">
-          <List component="nav" disablePadding>
-            {isEmpty(inspections) ? (
-              <ListItem>
-                <ListItemText primary="No inspection added" />
-              </ListItem>
-            ) : (
-              inspections.map(({ type }, index, list) => {
-                return (
-                  <div key={type}>
-                    <ListItem button>
-                      <ListItemText primary={type} />
-                      <ListItemIcon onClick={this.deletePrompt(index)}>
-                        <DeleteIcon />
-                      </ListItemIcon>
-                    </ListItem>
-                    {index !== list.length - 1 && <Divider />}
-                  </div>
-                )
-              })
-            )}
-          </List>
-        </Paper>
-        <Modal
-          open={this.state.modalOpen}
-          handleClose={this.closeModal}
-          hideCloseIcon
-        >
-          <ModalContent
-            handleConfirmation={this.deleteItem}
-            closeModal={this.closeModal}
-          />
-        </Modal>
-      </StyledInspectionList>
-    )
+    if (site) {
+      const { site: { inspections }, match } = this.props
+      return (
+        <StyledInspectionList className="StyledInspectionList">
+          <StyledNavLink to={match.url + '/addInspection'} className="add-icon">
+            <Button variant="fab" color="primary" aria-label="add inspection">
+              <AddIcon />
+            </Button>
+          </StyledNavLink>
+          <Paper className="paper">
+            <List component="nav" disablePadding>
+              {isEmpty(inspections) ? (
+                <ListItem>
+                  <ListItemText primary="No inspection added" />
+                </ListItem>
+              ) : (
+                inspections.map(({ type }, index, list) => {
+                  return (
+                    <div key={type}>
+                      <ListItem button>
+                        <ListItemText primary={type} />
+                        <ListItemIcon onClick={this.deletePrompt(index)}>
+                          <DeleteIcon />
+                        </ListItemIcon>
+                      </ListItem>
+                      {index !== list.length - 1 && <Divider />}
+                    </div>
+                  )
+                })
+              )}
+            </List>
+          </Paper>
+          <Modal
+            open={this.state.modalOpen}
+            handleClose={this.closeModal}
+            hideCloseIcon
+          >
+            <ModalContent
+              handleConfirmation={this.deleteItem}
+              closeModal={this.closeModal}
+            />
+          </Modal>
+        </StyledInspectionList>
+      )
+    } else {
+      return <LinearProgress />
+    }
   }
 }
 

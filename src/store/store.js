@@ -3,7 +3,7 @@ import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import thunk from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
+// import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 import storage from 'redux-persist/es/storage'
 import firebase from 'firebase'
 import 'firebase/firestore'
@@ -16,7 +16,7 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage,
-    stateReconciler: hardSet,
+    // stateReconciler: hardSet,
   },
   rootReducer,
 )

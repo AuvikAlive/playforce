@@ -8,7 +8,7 @@ const mapStateToProps = (
   { match: { params: { id } } },
 ) => ({
   id,
-  site: sites[id],
+  site: sites && sites[id],
 })
 
 export const AddInspectionContainer = compose(

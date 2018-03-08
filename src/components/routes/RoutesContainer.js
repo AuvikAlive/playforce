@@ -5,5 +5,5 @@ import { Routes } from './Routes'
 
 export const RoutesContainer = compose(
   withRouter,
-  connect(({ firebase: { auth } }) => ({ auth }))
+  connect(({ firebase: { auth, profile } }) => ({ auth, profile })),
 )(Routes)

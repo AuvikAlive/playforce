@@ -86,8 +86,8 @@ const routes = [
   },
 ]
 
-export const Routes = ({ auth }) => {
-  return isLoaded(auth) ? (
+export const Routes = ({ auth, profile }) => {
+  return isLoaded(profile) ? (
     <Switch>
       {routes.map(({ Component, pathname, name, exact }) => (
         <Route key={name} exact={exact} path={pathname} component={Component} />

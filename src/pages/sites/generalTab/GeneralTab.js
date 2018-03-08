@@ -25,6 +25,20 @@ export class GeneralTab extends Component {
 
     const { site } = this.props
 
+    if (site) {
+      this.setup(site)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { site } = nextProps
+
+    if (site) {
+      this.setup(site)
+    }
+  }
+
+  setup = site => {
     const {
       name,
       street,

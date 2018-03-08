@@ -1,3 +1,3 @@
-import { Sites } from './Sites'
+import { SitesContainer } from './SitesContainer'
 
-export default Sites
+export default SitesContainer

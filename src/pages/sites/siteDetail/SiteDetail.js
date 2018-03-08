@@ -9,6 +9,7 @@ import Card, { CardContent } from 'material-ui/Card'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Chip from 'material-ui/Chip'
 import Button from 'material-ui/Button'
+import { LinearProgress } from 'material-ui/Progress'
 import { StyledSiteDetail } from './StyledSiteDetail'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import Loadable from '../../../components/loadable/LoadableCircular'
@@ -26,8 +27,33 @@ export class SiteDetail extends Component {
   }
 
   componentDidMount() {
-    const { history, site } = this.props
+    const { site } = this.props
+    if (site) {
+      this.setup(site)
+    }
+  }
 
+  componentWillReceiveProps(nextProps) {
+    const { site } = nextProps
+    if (site) {
+      this.setup(site)
+    }
+  }
+
+  componentWillUnmount() {
+    const {
+      removeLefNavComponent,
+      removeNavTitle,
+      removeRightNavComponent,
+    } = this.context
+
+    removeLefNavComponent()
+    removeNavTitle()
+    removeRightNavComponent()
+  }
+
+  setup = site => {
+    const { history } = this.props
     const {
       setLeftNavComponent,
       setRightNavComponent,
@@ -36,15 +62,12 @@ export class SiteDetail extends Component {
     const { name, street, suburb, state, postcode, country } = site
     const address = `${street}+${suburb}+${state}+${postcode}+${country}`
     const encodedAddress = encodeURI(address)
-
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>,
     )
-
     setNavTitle(name)
-
     setRightNavComponent(
       <div>
         <a
@@ -68,18 +91,6 @@ export class SiteDetail extends Component {
         </IconButton>
       </div>,
     )
-  }
-
-  componentWillUnmount() {
-    const {
-      removeLefNavComponent,
-      removeNavTitle,
-      removeRightNavComponent,
-    } = this.context
-
-    removeLefNavComponent()
-    removeNavTitle()
-    removeRightNavComponent()
   }
 
   openModal = () => {
@@ -177,7 +188,7 @@ export class SiteDetail extends Component {
         </StyledSiteDetail>
       )
     } else {
-      return <div />
+      return <LinearProgress />
     }
   }
 }

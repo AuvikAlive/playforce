@@ -8,8 +8,12 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 
-const mapStateToProps = ({ firestore: { ordered: { sites } } }) => ({
+const mapStateToProps = ({
+  firestore: { ordered: { sites } },
+  firebase: { profile: { email } },
+}) => ({
   sites,
+  email,
 })
 
 const mapDispatchToProps = { openSearchBar, closeSearchBar }
@@ -17,6 +21,14 @@ const mapDispatchToProps = { openSearchBar, closeSearchBar }
 export const SiteListContainer = compose(
   withRouter,
   withFirestore,
-  firestoreConnect(props => [{ collection: 'sites', orderBy: 'name' }]),
+  firestoreConnect(({ email }) => {
+    return [
+      {
+        collection: 'sites',
+        orderBy: 'name',
+        // where: ['addedUser', '==', email],
+      },
+    ]
+  }),
   connect(mapStateToProps, mapDispatchToProps),
 )(SiteList)
