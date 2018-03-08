@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirebase, withFirestore } from 'react-redux-firebase'
-import { GeneralSettings } from './GeneralSettings'
+import { ProfileSettings } from './ProfileSettings'
 
 const mapStateToProps = ({
   firebase: { profile: { displayName, photoURL }, auth: { uid } },
@@ -11,8 +11,8 @@ const mapStateToProps = ({
   uid,
 })
 
-export const GeneralSettingsContainer = compose(
+export const ProfileSettingsContainer = compose(
   withFirebase,
   withFirestore,
   connect(mapStateToProps),
-)(GeneralSettings)
+)(ProfileSettings)

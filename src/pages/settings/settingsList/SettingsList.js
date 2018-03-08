@@ -34,9 +34,9 @@ export class SettingsList extends Component {
           <Grid container spacing={0} className="container">
             <Grid item xs={12}>
               <List component="nav" disablePadding>
-                <StyledNavLink to="settings/general">
+                <StyledNavLink to="settings/profile">
                   <ListItem button>
-                    <ListItemText primary="General settings" />
+                    <ListItemText primary="Profile Settings" />
                   </ListItem>
                 </StyledNavLink>
 

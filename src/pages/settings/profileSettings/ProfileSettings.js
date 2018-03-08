@@ -9,7 +9,7 @@ import { CircularProgress } from 'material-ui/Progress'
 import { Content } from '../../../components/content/Content'
 import dummy from './avatar.jpg'
 
-export class GeneralSettings extends Component {
+export class ProfileSettings extends Component {
   state = {
     photoURL: null,
     error: '',
@@ -20,7 +20,7 @@ export class GeneralSettings extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('General Settings')
+    setNavTitle('Profile Settings')
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
@@ -42,7 +42,7 @@ export class GeneralSettings extends Component {
   getFile = event => {
     this.setState({ error: '' })
     this.setState({ loading: true })
-    const { firebase, firestore, uid } = this.props
+    const { firebase, uid } = this.props
     const displayImage = event.target.files[0]
 
     const storageRef = firebase.storage().ref()
@@ -125,7 +125,7 @@ export class GeneralSettings extends Component {
   }
 }
 
-GeneralSettings.contextTypes = {
+ProfileSettings.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
