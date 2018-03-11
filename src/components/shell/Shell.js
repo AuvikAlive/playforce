@@ -9,14 +9,16 @@ import { StyledMainContent } from './StyledMainContent'
 export class Shell extends Component {
   getChildContext() {
     return {
-      disableNavBarShadow: this.disableNavBarShadow,
-      enableNavBarShadow: this.enableNavBarShadow,
       setNavTitle: this.setNavTitle,
       removeNavTitle: this.removeNavTitle,
       setLeftNavComponent: this.setLeftNavComponent,
       removeLefNavComponent: this.removeLefNavComponent,
       setRightNavComponent: this.setRightNavComponent,
       removeRightNavComponent: this.removeRightNavComponent,
+      setSearchComponent: this.setSearchComponent,
+      removeSearchComponent: this.removeSearchComponent,
+      disableNavBarShadow: this.disableNavBarShadow,
+      enableNavBarShadow: this.enableNavBarShadow,
     }
   }
 
@@ -24,6 +26,7 @@ export class Shell extends Component {
     navTitle: null,
     leftNavComponent: null,
     rightNavComponent: null,
+    searchComponent: null,
     navBarShadowEnabled: true,
   }
 
@@ -51,6 +54,14 @@ export class Shell extends Component {
     this.setState({ rightNavComponent: null })
   }
 
+  setSearchComponent = component => {
+    this.setState({ searchComponent: component })
+  }
+
+  removeSearchComponent = () => {
+    this.setState({ searchComponent: null })
+  }
+
   disableNavBarShadow = () => {
     this.setState({ navBarShadowEnabled: false })
   }
@@ -64,6 +75,7 @@ export class Shell extends Component {
       navTitle,
       leftNavComponent,
       rightNavComponent,
+      searchComponent,
       navBarShadowEnabled,
     } = this.state
 
@@ -73,6 +85,7 @@ export class Shell extends Component {
           title={navTitle}
           leftComponent={leftNavComponent}
           rightComponent={rightNavComponent}
+          searchComponent={searchComponent}
           shadow={navBarShadowEnabled}
         />
         <SideMenu />
@@ -92,6 +105,8 @@ Shell.childContextTypes = {
   removeLefNavComponent: PropTypes.func,
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
+  setSearchComponent: PropTypes.func,
+  removeSearchComponent: PropTypes.func,
   disableNavBarShadow: PropTypes.func,
   enableNavBarShadow: PropTypes.func,
 }

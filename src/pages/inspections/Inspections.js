@@ -6,11 +6,16 @@ import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
+import SearchBar from '../../components/searchBar'
 
 export class Inspections extends Component {
   componentDidMount() {
     const { openSearchBar } = this.props
-    const { setNavTitle, setRightNavComponent } = this.context
+    const {
+      setNavTitle,
+      setRightNavComponent,
+      setSearchComponent,
+    } = this.context
 
     setNavTitle('Inspections')
 
@@ -19,15 +24,22 @@ export class Inspections extends Component {
         <SearchIcon />
       </IconButton>,
     )
+
+    setSearchComponent(<SearchBar />)
   }
 
   componentWillUnmount() {
     const { closeSearchBar } = this.props
-    const { removeNavTitle, removeRightNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeRightNavComponent,
+      removeSearchComponent,
+    } = this.context
 
     removeNavTitle()
     removeRightNavComponent()
     closeSearchBar()
+    removeSearchComponent()
   }
 
   render() {
@@ -54,4 +66,6 @@ Inspections.contextTypes = {
   removeNavTitle: PropTypes.func,
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
+  setSearchComponent: PropTypes.func,
+  removeSearchComponent: PropTypes.func,
 }

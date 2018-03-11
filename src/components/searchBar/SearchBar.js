@@ -7,30 +7,49 @@ import CloseIcon from 'material-ui-icons/Close'
 import Input, { InputAdornment } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
 
-export const SearchBar = ({ closeSearchBar }) => (
-  <AppBar color="default">
-    <Toolbar>
-      <FormControl fullWidth>
-        <Input
-          disableUnderline
-          id="search"
-          type="text"
-          startAdornment={
-            <InputAdornment position="start">
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          }
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton onClick={closeSearchBar} onMouseDown={closeSearchBar}>
-                <CloseIcon />
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-    </Toolbar>
-  </AppBar>
-)
+export const SearchBar = ({
+  query,
+  closeSearchBar,
+  setSearchQuery,
+  onSearchEnd,
+}) => {
+  const onSearch = event => {
+    const searchTerm = event.target.value
+    setSearchQuery(searchTerm)
+  }
+
+  const onClose = () => {
+    closeSearchBar()
+    setSearchQuery('')
+    onSearchEnd && onSearchEnd()
+  }
+
+  return (
+    <AppBar color="default">
+      <Toolbar>
+        <FormControl fullWidth>
+          <Input
+            disableUnderline
+            id="search"
+            type="text"
+            onChange={onSearch}
+            startAdornment={
+              <InputAdornment position="start">
+                <IconButton>
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            }
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={onClose} onMouseDown={onClose}>
+                  <CloseIcon />
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </Toolbar>
+    </AppBar>
+  )
+}

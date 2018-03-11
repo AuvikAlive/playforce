@@ -11,9 +11,12 @@ import {
 const mapStateToProps = ({
   firestore: { ordered: { sites } },
   firebase: { profile: { email } },
+  searchBar: { open, query },
 }) => ({
   sites,
   email,
+  open,
+  query,
 })
 
 const mapDispatchToProps = { openSearchBar, closeSearchBar }

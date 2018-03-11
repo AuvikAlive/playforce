@@ -5,7 +5,6 @@ import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 import { StyledNavBar } from './StyledNavBar'
-import SearchBar from '../searchBar'
 
 class NavBar extends Component {
   signOut = () => {
@@ -18,10 +17,10 @@ class NavBar extends Component {
 
   render() {
     const {
+      title,
       leftComponent,
       rightComponent,
-      bottomComponent,
-      title,
+      searchComponent,
       shadow,
       toggleSideMenu,
       searchBarOpen,
@@ -29,8 +28,8 @@ class NavBar extends Component {
 
     return (
       <StyledNavBar>
-        {searchBarOpen ? (
-          <SearchBar />
+        {searchBarOpen && searchComponent ? (
+          searchComponent
         ) : (
           <AppBar className={shadow ? '' : 'disable-shadow'}>
             <Toolbar className="toolbar">
@@ -58,7 +57,6 @@ class NavBar extends Component {
 
               {rightComponent}
             </Toolbar>
-            {bottomComponent}
           </AppBar>
         )}
       </StyledNavBar>

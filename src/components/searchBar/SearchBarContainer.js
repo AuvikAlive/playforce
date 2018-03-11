@@ -1,12 +1,19 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import { closeSearchBar } from '../../store/actions/actionCreators/searchBarActions'
+import {
+  closeSearchBar,
+  setSearchQuery,
+} from '../../store/actions/actionCreators/searchBarActions'
 import { SearchBar } from './SearchBar'
 
-const mapDispatchToProps = { closeSearchBar }
+const mapStateToProps = ({ searchBar: { query } }) => ({
+  query,
+})
+
+const mapDispatchToProps = { closeSearchBar, setSearchQuery }
 
 export const SearchBarContainer = compose(
   withRouter,
-  connect(null, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(SearchBar)

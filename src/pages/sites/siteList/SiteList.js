@@ -8,12 +8,22 @@ import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import SearchBar from '../../../components/searchBar'
 import { Content } from '../../../components/content/Content'
 
 export class SiteList extends Component {
   componentDidMount() {
-    const { openSearchBar } = this.props
-    const { setRightNavComponent, setNavTitle } = this.context
+    const { openSearchBar, open, query, firestore } = this.props
+    const {
+      setNavTitle,
+      setRightNavComponent,
+      setSearchComponent,
+    } = this.context
+
+    if (open && query) {
+      // const { firestore } = this.props
+      firestore.get({ collection: 'sites', where: ['name', '==', query] })
+    }
 
     // firestore.setListener({
     //   collection: 'sites',
@@ -28,21 +38,87 @@ export class SiteList extends Component {
         <SearchIcon />
       </IconButton>,
     )
+
+    setSearchComponent(
+      <SearchBar
+        onSearchEnd={() => {
+          firestore.get({ collection: 'sites', orderBy: 'name' })
+        }}
+      />,
+    )
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.query !== this.props.query) {
+      const { query } = nextProps
+      if (query) {
+        const { firestore } = this.props
+        firestore.get({ collection: 'sites', where: ['name', '==', query] })
+      }
+    }
   }
 
   componentWillUnmount() {
     const { closeSearchBar } = this.props
-    const { removeRightNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeRightNavComponent,
+      removeSearchComponent,
+    } = this.context
 
     // firestore.unsetListener({
     //   collection: 'sites',
     // })
+    removeNavTitle()
     removeRightNavComponent()
     closeSearchBar()
+    removeSearchComponent()
   }
 
   render() {
-    const { sites } = this.props
+    const { sites, open } = this.props
+
+    let content
+
+    if (open) {
+      content = isEmpty(sites) ? (
+        <ListItem>
+          <ListItemText primary="No match found" />
+        </ListItem>
+      ) : (
+        sites.map(({ name, id }, index, list) => {
+          return (
+            <div key={name}>
+              <StyledNavLink to={`/sites/${id}`}>
+                <ListItem button>
+                  <ListItemText primary={name} />
+                </ListItem>
+              </StyledNavLink>
+              {index !== list.length - 1 && <Divider />}
+            </div>
+          )
+        })
+      )
+    } else {
+      content = isEmpty(sites) ? (
+        <ListItem>
+          <ListItemText primary="No inspection added" />
+        </ListItem>
+      ) : (
+        sites.map(({ name, id }, index, list) => {
+          return (
+            <div key={name}>
+              <StyledNavLink to={`/sites/${id}`}>
+                <ListItem button>
+                  <ListItemText primary={name} />
+                </ListItem>
+              </StyledNavLink>
+              {index !== list.length - 1 && <Divider />}
+            </div>
+          )
+        })
+      )
+    }
 
     return (
       <Content>
@@ -50,24 +126,7 @@ export class SiteList extends Component {
           <Grid item xs={12}>
             <Paper className="paper">
               <List component="nav" disablePadding>
-                {isEmpty(sites) ? (
-                  <ListItem>
-                    <ListItemText primary="No inspection added" />
-                  </ListItem>
-                ) : (
-                  sites.map(({ name, id }, index, list) => {
-                    return (
-                      <div key={name}>
-                        <StyledNavLink to={`/sites/${id}`}>
-                          <ListItem button>
-                            <ListItemText primary={name} />
-                          </ListItem>
-                        </StyledNavLink>
-                        {index !== list.length - 1 && <Divider />}
-                      </div>
-                    )
-                  })
-                )}
+                {content}
               </List>
             </Paper>
           </Grid>
@@ -82,4 +141,6 @@ SiteList.contextTypes = {
   removeNavTitle: PropTypes.func,
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
+  setSearchComponent: PropTypes.func,
+  removeSearchComponent: PropTypes.func,
 }
