@@ -12,14 +12,10 @@ import Button from 'material-ui/Button'
 import { LinearProgress } from 'material-ui/Progress'
 import { StyledSiteDetail } from './StyledSiteDetail'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import Loadable from '../../../components/loadable/LoadableCircular'
+import Map from './Map'
 import Modal from '../../../components/modal/Modal'
 import { ModalContent } from '../modalContent/ModalContent'
 import { data } from '../data'
-
-const Map = Loadable({
-  loader: () => import('./Map'),
-})
 
 export class SiteDetail extends Component {
   state = {

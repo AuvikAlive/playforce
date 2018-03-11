@@ -91,6 +91,7 @@ export class GeneralTab extends Component {
         .catch(error => {
           this.setState({ error: error.message })
           this.setState({ loading: false })
+          console.log(error)
         })
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
