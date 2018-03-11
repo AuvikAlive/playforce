@@ -17,7 +17,7 @@ export const StyledNavBar = Styled.div`
     padding-left: 16px;
 
     @media (min-width: 600px) {
-      top: 64px;
+      /* top: 64px; */
       padding-left: 24px;
     }
   }

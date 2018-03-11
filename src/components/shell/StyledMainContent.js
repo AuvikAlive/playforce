@@ -7,6 +7,6 @@ export const StyledMainContent = Styled.div`
   top: 56px;
 
   @media (min-width: 600px) {
-    top: 64px;
+    /* top: 64px; */
   }
 `

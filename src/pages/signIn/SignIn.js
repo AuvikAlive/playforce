@@ -16,6 +16,7 @@ export class SignIn extends Component {
     modalOpen: false,
     email: '',
     password: '',
+    checked: true,
     error: '',
     loading: false,
   }
@@ -50,14 +51,23 @@ export class SignIn extends Component {
     this.setState({ password })
   }
 
+  onCheckboxChange = event => {
+    const checked = event.target.checked
+    this.setState({ checked })
+  }
+
   signIn = () => {
-    const { email, password } = this.state
+    const { email, password, checked } = this.state
     const { firebase, history } = this.props
 
     this.setState({ error: '' })
     this.setState({ loading: true })
 
     if (email && password) {
+      checked
+        ? firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        : firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+
       const p = firebase.login({
         email,
         password,
@@ -86,7 +96,7 @@ export class SignIn extends Component {
   }
 
   render() {
-    const { error, loading } = this.state
+    const { checked, error, loading } = this.state
 
     return (
       <StyledForm className="StyledForm">
@@ -114,7 +124,13 @@ export class SignIn extends Component {
 
           <FormControlLabel
             className="checkbox"
-            control={<Checkbox color="primary" />}
+            control={
+              <Checkbox
+                checked={checked}
+                onChange={this.onCheckboxChange}
+                color="primary"
+              />
+            }
             label="Keep me signed in"
           />
 
