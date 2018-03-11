@@ -14,6 +14,9 @@ const SignUp = Loadable({
 const ResetPassword = Loadable({
   loader: () => import('../../pages/resetPassword'),
 })
+const ConfirmPasswordReset = Loadable({
+  loader: () => import('../../pages/confirmPasswordReset'),
+})
 const Dashboard = Loadable({
   loader: () => import('../../pages/dashboard/Dashboard'),
 })
@@ -33,6 +36,7 @@ const Terms = Loadable({
 SignIn.preload()
 SignUp.preload()
 ResetPassword.preload()
+ConfirmPasswordReset.preload()
 Dashboard.preload()
 Inspections.preload()
 Sites.preload()
@@ -62,6 +66,12 @@ const routes = [
     Component: ResetPassword,
     pathname: '/ResetPassword',
     name: 'ResetPassword',
+    exact: false,
+  },
+  {
+    Component: ConfirmPasswordReset,
+    pathname: '/ConfirmPasswordReset',
+    name: 'ConfirmPasswordReset',
     exact: false,
   },
   {

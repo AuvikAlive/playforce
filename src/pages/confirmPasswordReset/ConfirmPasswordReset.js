@@ -1,24 +1,33 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Card, { CardContent } from 'material-ui/Card'
-import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField'
 import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
-import { StyledResetPassword } from './StyledResetPassword'
+import { StyledConfirmPasswordReset } from './StyledConfirmPasswordReset'
+import { StyledLink } from '../../components/styledLink/StyledLink'
+import { parseQuery } from '../../utilities/parseQuery'
 
-export class ResetPassword extends Component {
+export class ConfirmPasswordReset extends Component {
   state = {
-    email: '',
+    code: '',
     error: '',
-    success: '',
+    success: false,
     loading: false,
   }
 
   componentDidMount() {
     const { setNavTitle } = this.context
 
-    setNavTitle('Reset Password')
+    setNavTitle('Confirm Password Reset')
+
+    const { location, history } = this.props
+
+    const code = parseQuery(location.search)['oobCode']
+      ? parseQuery(location.search)['oobCode']
+      : history.push('/signIn')
+
+    this.setState({ code })
   }
 
   componentWillUnmount() {
@@ -27,35 +36,31 @@ export class ResetPassword extends Component {
     removeNavTitle()
   }
 
-  onEmailChange = event => {
-    const email = event.target.value
-    this.setState({ email })
+  onPasswordChange = event => {
+    const password = event.target.value
+    this.setState({ password })
   }
 
-  sendLink = () => {
-    const { email } = this.state
+  updatePassword = () => {
+    const { password, code } = this.state
     const { firebase } = this.props
 
-    if (email) {
+    if (password) {
       this.setState({ error: '' })
       this.setState({ loading: true })
 
       firebase
         .auth()
-        .sendPasswordResetEmail(email)
+        .confirmPasswordReset(code, password)
         .then(() => {
-          this.setState({
-            success:
-              "Email sent. If you haven't received it, please wait a couple of minutes then try again!",
-          })
-          this.setState({ loading: false })
+          this.setState({ loading: false, success: true })
         })
         .catch(error => {
           this.setState({ error: error.message })
           this.setState({ loading: false })
         })
     } else {
-      this.setState({ error: 'Please enter your email address!' })
+      this.setState({ error: 'Please enter your new password!' })
       this.setState({ loading: false })
     }
   }
@@ -64,25 +69,19 @@ export class ResetPassword extends Component {
     const { error, success, loading } = this.state
 
     return (
-      <StyledResetPassword>
+      <StyledConfirmPasswordReset>
         <Card className="card">
           <CardContent>
-            <Typography align="center">
-              An email with a link to reset your password will be sent to your
-              address
-            </Typography>
             <TextField
-              id="email"
-              label="Email"
-              type="email"
+              id="password"
+              label="Password"
+              type="password"
               margin="normal"
               fullWidth
-              onChange={this.onEmailChange}
+              onChange={this.onPasswordChange}
             />
 
             {error && <p className="error">{error}</p>}
-
-            {success && <p className="success">{success}</p>}
 
             {!error &&
               loading && (
@@ -91,25 +90,33 @@ export class ResetPassword extends Component {
                 </div>
               )}
 
-            {!loading && (
+            {success && (
+              <p className="success">
+                Password updated successfully. You can now{' '}
+                <StyledLink to="/signIn">Sign In</StyledLink> with your new
+                password!
+              </p>
+            )}
+
+            {(!loading || success) && (
               <Button
                 fullWidth
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.sendLink}
+                onClick={this.updatePassword}
               >
-                Send Link
+                Update Password
               </Button>
             )}
           </CardContent>
         </Card>
-      </StyledResetPassword>
+      </StyledConfirmPasswordReset>
     )
   }
 }
 
-ResetPassword.contextTypes = {
+ConfirmPasswordReset.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
 }
