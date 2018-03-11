@@ -39,9 +39,14 @@ export class ResetPassword extends Component {
     if (email) {
       this.setState({ error: '' })
       this.setState({ loading: true })
+
+      const actionCodeSettings = {
+        url: 'https://material-pwa.firebaseapp.com/signIn',
+      }
+
       firebase
         .auth()
-        .sendPasswordResetEmail(email)
+        .sendPasswordResetEmail(email, actionCodeSettings)
         .then(() => {
           this.setState({
             success:
@@ -60,7 +65,7 @@ export class ResetPassword extends Component {
   }
 
   render() {
-    const { error, loading } = this.state
+    const { error, success, loading } = this.state
     return (
       <StyledResetPassword>
         <Card className="card">
@@ -79,6 +84,8 @@ export class ResetPassword extends Component {
             />
 
             {error && <p className="error">{error}</p>}
+
+            {success && <p className="success">{success}</p>}
 
             {!error &&
               loading && (
