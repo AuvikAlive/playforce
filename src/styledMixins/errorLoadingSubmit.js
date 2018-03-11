@@ -1,6 +1,8 @@
+import { theme } from '../theme'
+
 export const errorLoadingSubmit = `
   .error {
-    color: ${({ theme }) => theme.palette.error.main};
+    color: ${theme.palette.error.main};
   }
 
   .loading {

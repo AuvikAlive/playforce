@@ -11,6 +11,9 @@ const SignIn = Loadable({
 const SignUp = Loadable({
   loader: () => import('../../pages/signUp'),
 })
+const ResetPassword = Loadable({
+  loader: () => import('../../pages/resetPassword'),
+})
 const Dashboard = Loadable({
   loader: () => import('../../pages/dashboard/Dashboard'),
 })
@@ -29,6 +32,7 @@ const Terms = Loadable({
 
 SignIn.preload()
 SignUp.preload()
+ResetPassword.preload()
 Dashboard.preload()
 Inspections.preload()
 Sites.preload()
@@ -52,6 +56,12 @@ const routes = [
     Component: SignUp,
     pathname: '/SignUp',
     name: 'SignUp',
+    exact: false,
+  },
+  {
+    Component: ResetPassword,
+    pathname: '/ResetPassword',
+    name: 'ResetPassword',
     exact: false,
   },
   {
@@ -87,7 +97,7 @@ const routes = [
 ]
 
 export const Routes = ({ auth, profile }) => {
-  return isLoaded(profile) ? (
+  return isLoaded(auth) && isLoaded(profile) ? (
     <Switch>
       {routes.map(({ Component, pathname, name, exact }) => (
         <Route key={name} exact={exact} path={pathname} component={Component} />

@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import { MuiThemeProvider } from 'material-ui/styles'
 import { ThemeProvider } from 'styled-components'
 import { store, history, persistor } from '../../store/store'
-import { theme } from './theme'
+import { theme } from '../../theme'
 import Shell from '../shell'
 
 const App = () => (

@@ -11,12 +11,12 @@ export const PublicLinks = () => (
         <ListItemText primary="Home" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to={{ pathname: '/SignIn', state: { name: 'Sign In' } }}>
+    <StyledNavLink to={{ pathname: '/signIn', state: { name: 'Sign In' } }}>
       <ListItem button className="list-item">
         <ListItemText primary="Sign In" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to={{ pathname: '/SignUp', state: { name: 'Sign Up' } }}>
+    <StyledNavLink to={{ pathname: '/signUp', state: { name: 'Sign Up' } }}>
       <ListItem button className="list-item">
         <Button variant="raised" color="primary" fullWidth>
           Try For Free

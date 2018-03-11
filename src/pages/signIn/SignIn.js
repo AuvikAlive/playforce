@@ -150,7 +150,7 @@ export class SignIn extends Component {
           )}
 
           <p>
-            <StyledLink to="/">Forgot your password?</StyledLink>
+            <StyledLink to="/resetPassword">Forgot your password?</StyledLink>
           </p>
 
           <p>
