@@ -7,6 +7,11 @@ import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 import { StyledResetPassword } from './StyledResetPassword'
 
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost'
+    : 'https://material-pwa.firebaseapp.com'
+
 export class ResetPassword extends Component {
   state = {
     email: '',
@@ -41,7 +46,7 @@ export class ResetPassword extends Component {
       this.setState({ loading: true })
 
       const actionCodeSettings = {
-        url: 'https://material-pwa.firebaseapp.com/signIn',
+        url: `${baseUrl}/confirmResetPassword`,
       }
 
       firebase

@@ -11,4 +11,10 @@ export const StyledResetPassword = Styled(Content)`
   }
 
   ${errorLoadingSubmit};
+
+  .success {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: ${({ theme }) => theme.palette.success};
+  }
 `
