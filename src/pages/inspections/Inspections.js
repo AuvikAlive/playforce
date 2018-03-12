@@ -3,11 +3,17 @@ import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../components/loadable/LoadableLinear'
 import InspectionList from './inspectionList'
 
-export const Inspections = () => {
+const AddInspection = Loadable({
+  loader: () => import('./addInspection'),
+})
+
+AddInspection.preload()
+
+export const Inspections = ({ match }) => {
   return (
     <Switch>
-      <Route path="/inspections/add" render={() => <div>Add</div>} />
-      <Route path="/inspections" component={InspectionList} />
+      <Route path={`${match.url}/add`} component={AddInspection} />
+      <Route path={match.url} component={InspectionList} />
     </Switch>
   )
 }

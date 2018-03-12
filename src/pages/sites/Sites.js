@@ -9,11 +9,11 @@ const Site = Loadable({
 
 Site.preload()
 
-export const Sites = ({ email }) => {
+export const Sites = ({ email, match }) => {
   return (
     <Switch>
-      <Route path="/sites/:id" component={Site} />
-      <Route path="/sites" render={() => <SiteList email={email} />} />
+      <Route path={`${match.url}/:id`} component={Site} />
+      <Route path={match.url} render={() => <SiteList email={email} />} />
     </Switch>
   )
 }
