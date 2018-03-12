@@ -48,7 +48,7 @@ export class AuditSummary extends Component {
 
   render() {
     const { summary, error, loading } = this.state
-    const { displayName } = this.props
+    const { profile: { displayName, title, company } } = this.props
 
     return (
       <StyledAuditSummary className="StyledAuditSummary">
@@ -92,27 +92,25 @@ export class AuditSummary extends Component {
                 label="Inspector Name"
                 value={displayName}
                 margin="normal"
-              >
-                {displayName}
-              </TextField>
+              />
 
-              <TextField
-                fullWidth
-                label="Inspector Title"
-                value={displayName}
-                margin="normal"
-              >
-                {displayName}
-              </TextField>
+              {title && (
+                <TextField
+                  fullWidth
+                  label="Inspector Title"
+                  value={title}
+                  margin="normal"
+                />
+              )}
 
-              <TextField
-                fullWidth
-                label="Company Name"
-                value={displayName}
-                margin="normal"
-              >
-                {displayName}
-              </TextField>
+              {company && (
+                <TextField
+                  fullWidth
+                  label="Company Name"
+                  value={company}
+                  margin="normal"
+                />
+              )}
             </form>
             {error && <p className="error">{error}</p>}
 

@@ -13,7 +13,7 @@ export const StyledProfileSettings = Styled(Content)`
     padding-bottom: 16px;
   }
 
-  .submit-button {
+  /* .submit-button {
     margin: 0;
-  }
+  } */
 `
