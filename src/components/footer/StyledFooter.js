@@ -5,8 +5,13 @@ export const StyledFooter = Styled.footer`
   position: relative;
   top: 54px;
 
-  @media (min-width: 600px) {
+  /* @media (min-width: 600px) {
     top: 64px;
+  } */
+
+  .toolbar {
+    justify-content: space-between;
+    min-height: 56px;
   }
 
   span {
