@@ -5860,6 +5860,10 @@ react-scrollbar-size@^2.0.2:
     react-event-listener "^0.5.1"
     stifle "^1.0.2"
 
+react-signature-pad@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-signature-pad/-/react-signature-pad-0.0.6.tgz#335547c1f523a36b8396e5365e2f49521e56b9cf"
+
 react-transition-group@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.2.1.tgz#e9fb677b79e6455fd391b03823afe84849df4a10"

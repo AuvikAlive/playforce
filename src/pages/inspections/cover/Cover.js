@@ -19,8 +19,9 @@ export class Cover extends Component {
     client: '',
     defaultDate: moment().format('YYYY-MM-DD'),
     inspectionDate: '',
-    inspector: 'fixed',
     appliedStandards: [],
+    error: false,
+    loading: false,
   }
 
   componentDidMount() {
@@ -57,7 +58,6 @@ export class Cover extends Component {
       location,
       client,
       defaultDate,
-      inspector,
       appliedStandards,
       error,
       loading,
@@ -66,7 +66,7 @@ export class Cover extends Component {
     const { displayName } = this.props
 
     return (
-      <StyledCover>
+      <StyledCover className="StyledCover">
         <Card>
           {coverImage && (
             <CardMedia className="card-media" image={coverImage} />
@@ -130,7 +130,7 @@ export class Cover extends Component {
                 value={displayName}
                 margin="normal"
               >
-                {inspector}
+                {displayName}
               </TextField>
 
               <TextField

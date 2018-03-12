@@ -19,6 +19,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.0.14",
+    "react-signature-pad": "^0.0.6",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-firestore": "^0.3.2",
