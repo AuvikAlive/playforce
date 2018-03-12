@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import IconButton from 'material-ui/IconButton'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input'
@@ -15,9 +17,16 @@ export class AuditSummary extends Component {
     loading: false,
   }
   componentDidMount() {
-    const { setNavTitle } = this.context
+    const { setNavTitle, setLeftNavComponent } = this.context
+    const { history } = this.props
 
     setNavTitle('Add Audit Summary')
+
+    setLeftNavComponent(
+      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
+        <ArrowBackIcon />
+      </IconButton>,
+    )
 
     const width = document.querySelector('.m-signature-pad--body').clientWidth
 
@@ -25,9 +34,10 @@ export class AuditSummary extends Component {
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
+    const { removeNavTitle, removeLefNavComponent } = this.context
 
     removeNavTitle()
+    removeLefNavComponent()
   }
 
   onInputChange = name => event => {
@@ -122,4 +132,6 @@ export class AuditSummary extends Component {
 AuditSummary.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
 }
