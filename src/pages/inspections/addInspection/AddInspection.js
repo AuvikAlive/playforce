@@ -3,14 +3,16 @@ import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
 import InspectionItems from '../inspectionItems'
 
+const Cover = Loadable({
+  loader: () => import('../cover'),
+})
+
+Cover.preload()
+
 export const AddInspection = ({ match }) => {
   return (
     <Switch>
-      <Route path={`${match.url}/cover`} render={() => <div>cover</div>} />
-      <Route
-        path={`${match.url}/auditSummary`}
-        render={() => <div>audit summary</div>}
-      />
+      <Route path={`${match.url}/cover`} component={Cover} />
       <Route path={match.url} component={InspectionItems} />
     </Switch>
   )
