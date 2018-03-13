@@ -173,7 +173,7 @@ export class Cover extends Component {
           <input
             type="file"
             accept="image/*"
-            capture="environment"
+            // capture="environment"
             style={{ display: 'none' }}
             ref={input => {
               this.fileInput = input
