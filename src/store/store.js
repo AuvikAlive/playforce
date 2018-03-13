@@ -16,7 +16,6 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage,
-    // stateReconciler: hardSet,
   },
   rootReducer,
 )

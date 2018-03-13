@@ -53,9 +53,17 @@ export class AddConditionRating extends Component {
   }
 
   getFile = event => {
-    const image = URL.createObjectURL(event.target.files[0])
+    const reader = new FileReader()
 
-    this.setState({ image })
+    reader.readAsDataURL(event.target.files[0])
+
+    reader.addEventListener(
+      'load',
+      () => {
+        this.setState({ image: reader.result })
+      },
+      false,
+    )
   }
 
   onInputChange = name => event => {

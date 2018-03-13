@@ -4,8 +4,9 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
-import List, { ListItem, ListItemText } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
+import Grid from 'material-ui/Grid'
+import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import { StyledConditionRatingList } from './StyledConditionRatingList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -39,20 +40,30 @@ export class ConditionRatingList extends Component {
       <StyledConditionRatingList className="StyledConditionRatingList">
         <StyledNavLink to={`${match.url}/add`}>
           {conditionRatings.length ? (
-            <List>
+            <Grid container>
               {conditionRatings.map(
-                (
-                  { image, equipment, manufacturer, conditionRating },
-                  index,
-                ) => {
+                ({ image, equipment, manufacturer, condition }, index) => {
                   return (
-                    <ListItem key={index} button>
-                      <ListItemText primary={equipment} />
-                    </ListItem>
+                    <Grid item key={index} xs={12} sm={6}>
+                      <Card>
+                        {image && (
+                          <CardMedia className="card-media" image={image} />
+                        )}
+                      </Card>
+                      <CardContent>
+                        <Typography variant="title">{equipment}</Typography>
+                        <Typography variant="subheading">
+                          {manufacturer}
+                        </Typography>
+                        <Typography variant="subheading">
+                          {condition}
+                        </Typography>
+                      </CardContent>
+                    </Grid>
                   )
                 },
               )}
-            </List>
+            </Grid>
           ) : (
             <Typography variant="title" align="center">
               Try adding an item to get started!

@@ -17,19 +17,24 @@ export class Cover extends Component {
     coverImage: null,
     location: '',
     client: '',
-    defaultDate: moment().format('YYYY-MM-DD'),
-    inspectionDate: '',
+    inspectionDate: moment().format('YYYY-MM-DD'),
     appliedStandards: [],
   }
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { cover } = this.props
+
+    cover && this.setState({ ...cover })
 
     setNavTitle('Add Cover')
 
     setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
+      <IconButton
+        color="inherit"
+        aria-label="Search"
+        onClick={this.addInspectionCover}
+      >
         <ArrowBackIcon />
       </IconButton>,
     )
@@ -47,9 +52,17 @@ export class Cover extends Component {
   }
 
   getFile = event => {
-    const coverImage = URL.createObjectURL(event.target.files[0])
+    const reader = new FileReader()
 
-    this.setState({ coverImage })
+    reader.readAsDataURL(event.target.files[0])
+
+    reader.addEventListener(
+      'load',
+      () => {
+        this.setState({ coverImage: reader.result })
+      },
+      false,
+    )
   }
 
   onInputChange = name => event => {
@@ -58,12 +71,41 @@ export class Cover extends Component {
     })
   }
 
+  addInspectionCover = () => {
+    const { addInspectionCover, history } = this.props
+    const {
+      coverImage,
+      location,
+      client,
+      inspectionDate,
+      appliedStandards,
+    } = this.state
+
+    if (
+      coverImage &&
+      location &&
+      client &&
+      inspectionDate &&
+      appliedStandards
+    ) {
+      addInspectionCover({
+        coverImage,
+        location,
+        client,
+        inspectionDate,
+        appliedStandards,
+      })
+    }
+
+    history.goBack()
+  }
+
   render() {
     const {
       coverImage,
       location,
       client,
-      defaultDate,
+      inspectionDate,
       appliedStandards,
     } = this.state
 
@@ -122,7 +164,7 @@ export class Cover extends Component {
                 className="inspection-date"
                 label="Inspection Date"
                 type="date"
-                defaultValue={defaultDate}
+                defaultValue={inspectionDate}
                 onChange={this.onInputChange('inspectionDate')}
               />
 
