@@ -33,11 +33,11 @@ export class ConditionRatingList extends Component {
   }
 
   render() {
-    const { conditionRatings } = this.props
+    const { match, conditionRatings } = this.props
 
     return (
       <StyledConditionRatingList className="StyledConditionRatingList">
-        <StyledNavLink to="/inspections/add">
+        <StyledNavLink to={`${match.url}/add`}>
           {conditionRatings.length ? (
             <List>
               {conditionRatings.map(
