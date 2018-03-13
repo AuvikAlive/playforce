@@ -62,46 +62,43 @@ export class ProfileSettings extends Component {
   }
 
   publish = () => {
-    const { displayName, displayImage, title, company } = this.state
+    const { displayImage } = this.state
 
-    if (displayName) {
-      this.setState({ error: '' })
-      this.setState({ loading: true })
+    this.setState({ error: '' })
+    this.setState({ loading: true })
 
-      const { firebase, uid } = this.props
+    const { firebase, uid } = this.props
 
-      if (displayImage) {
-        const storageRef = firebase.storage().ref()
-        const imageRef = storageRef.child(`images/${uid}.jpg`)
+    if (displayImage) {
+      const storageRef = firebase.storage().ref()
+      const imageRef = storageRef.child(`images/${uid}.jpg`)
 
-        imageRef.put(displayImage).then(({ downloadURL }) => {
-          firebase
-            .updateProfile({
-              photoURL: downloadURL,
-              displayName,
-              title,
-              company,
-            })
-            .then(() => {
-              this.setState({ loading: false })
-            })
-            .catch(error => {
-              this.setState({ error: error.message })
-              this.setState({ loading: false })
-            })
-        })
-      } else {
-        firebase
-          .updateProfile({ displayName, title, company })
-          .then(() => {
-            this.setState({ loading: false })
-          })
-          .catch(error => {
-            this.setState({ error: error.message })
-            this.setState({ loading: false })
-          })
-      }
+      imageRef.put(displayImage).then(({ downloadURL }) => {
+        this.updateProfile(downloadURL)
+      })
+    } else {
+      this.updateProfile()
     }
+  }
+
+  updateProfile = downloadURL => {
+    const { displayName, photoURL, title, company } = this.state
+    const { firebase } = this.props
+
+    firebase
+      .updateProfile({
+        displayName,
+        title,
+        company,
+        photoURL: downloadURL || photoURL,
+      })
+      .then(() => {
+        this.setState({ loading: false })
+      })
+      .catch(error => {
+        this.setState({ error: error.message })
+        this.setState({ loading: false })
+      })
   }
 
   render() {
