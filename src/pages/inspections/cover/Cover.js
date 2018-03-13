@@ -10,7 +10,6 @@ import { CircularProgress } from 'material-ui/Progress'
 import moment from 'moment'
 import { StyledCover } from './StyledCover'
 
-const locations = ['Location 1', 'Location 2', 'Location 3']
 const clients = ['Client 1', 'Client 2', 'Client 3']
 const standards = ['Standard 1', 'Standard 2', 'Standard 3']
 
@@ -73,7 +72,7 @@ export class Cover extends Component {
       loading,
     } = this.state
 
-    const { displayName } = this.props
+    const { sites, displayName } = this.props
 
     return (
       <StyledCover className="StyledCover">
@@ -103,9 +102,9 @@ export class Cover extends Component {
                 onChange={this.onInputChange('location')}
                 margin="normal"
               >
-                {locations.map(item => (
-                  <MenuItem key={item} value={item}>
-                    {item}
+                {sites.map(({ id, name }) => (
+                  <MenuItem key={id} value={id}>
+                    {name}
                   </MenuItem>
                 ))}
               </TextField>
