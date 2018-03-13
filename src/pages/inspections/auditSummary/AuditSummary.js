@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField'
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
 import { CircularProgress } from 'material-ui/Progress'
+import Button from 'material-ui/Button'
 import SignaturePad from 'react-signature-pad'
 import { StyledAuditSummary } from './StyledAuditSummary'
 
@@ -27,10 +28,6 @@ export class AuditSummary extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
-
-    const width = document.querySelector('.m-signature-pad--body').clientWidth
-
-    this.mySignature.refs.cv.width = width
   }
 
   componentWillUnmount() {
@@ -66,7 +63,7 @@ export class AuditSummary extends Component {
               />
 
               <FormControl fullWidth>
-                <InputLabel>Signature</InputLabel>
+                <InputLabel shrink={false}>Signature</InputLabel>
                 <Input
                   inputComponent={() => (
                     <SignaturePad
@@ -81,7 +78,7 @@ export class AuditSummary extends Component {
                       style={{ cursor: 'pointer' }}
                       onClick={() => this.mySignature.clear()}
                     >
-                      Clear
+                      <Button>Clear</Button>
                     </InputAdornment>
                   }
                 />
