@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { AddConditionRating } from './AddConditionRating'
-import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions'
+import { addConditionRating } from '../../../store/actions/actionCreators/inspectionActions'
 
-const mapDispatchToProps = { addInspectionCover }
+const mapDispatchToProps = { addConditionRating }
 
 export const AddConditionRatingContainer = compose(
   connect(null, mapDispatchToProps),

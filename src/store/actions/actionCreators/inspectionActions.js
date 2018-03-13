@@ -14,7 +14,7 @@ export const addInspectionSummary = payload => ({
   payload,
 })
 
-export const addInspectionRating = payload => ({
+export const addConditionRating = payload => ({
   type: ADD_CONDITION_RATING,
   payload,
 })

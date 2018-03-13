@@ -10,4 +10,8 @@ export const StyledAddConditionRating = Styled(Content)`
   }
 
   ${errorLoadingSubmit};
+
+  .card-media {
+    height: 100vw;
+  }
 `

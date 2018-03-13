@@ -6,7 +6,6 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
-import { CircularProgress } from 'material-ui/Progress'
 import moment from 'moment'
 import { StyledCover } from './StyledCover'
 
@@ -21,8 +20,6 @@ export class Cover extends Component {
     defaultDate: moment().format('YYYY-MM-DD'),
     inspectionDate: '',
     appliedStandards: [],
-    error: false,
-    loading: false,
   }
 
   componentDidMount() {
@@ -68,8 +65,6 @@ export class Cover extends Component {
       client,
       defaultDate,
       appliedStandards,
-      error,
-      loading,
     } = this.state
 
     const { sites, displayName } = this.props
@@ -82,17 +77,15 @@ export class Cover extends Component {
           )}
 
           <CardContent>
-            {!loading && (
-              <Button
-                fullWidth
-                variant="raised"
-                color="primary"
-                className="submit-button"
-                onClick={this.capture}
-              >
-                Capture Image
-              </Button>
-            )}
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="submit-button"
+              onClick={this.capture}
+            >
+              Capture Image
+            </Button>
             <form noValidate>
               <TextField
                 fullWidth
@@ -138,9 +131,7 @@ export class Cover extends Component {
                 label="Inspected By"
                 value={displayName}
                 margin="normal"
-              >
-                {displayName}
-              </TextField>
+              />
 
               <TextField
                 fullWidth
@@ -161,15 +152,6 @@ export class Cover extends Component {
               </TextField>
             </form>
           </CardContent>
-
-          {error && <p className="error">{error}</p>}
-
-          {!error &&
-            loading && (
-              <div className="loading">
-                <CircularProgress />
-              </div>
-            )}
           <input
             type="file"
             accept="image/*"

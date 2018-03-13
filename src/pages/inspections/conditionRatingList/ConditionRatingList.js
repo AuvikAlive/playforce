@@ -41,9 +41,12 @@ export class ConditionRatingList extends Component {
           {conditionRatings.length ? (
             <List>
               {conditionRatings.map(
-                ({ image, equipment, manufacturer, conditionRating }) => {
+                (
+                  { image, equipment, manufacturer, conditionRating },
+                  index,
+                ) => {
                   return (
-                    <ListItem button>
+                    <ListItem key={index} button>
                       <ListItemText primary={equipment} />
                     </ListItem>
                   )
