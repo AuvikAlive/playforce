@@ -19,12 +19,23 @@ export class AuditSummary extends Component {
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { auditSummary } = this.props
+
+    if (auditSummary) {
+      const { summary, signature } = auditSummary
+
+      this.setState({ summary })
+      this.mySignature.fromDataURL(signature)
+    }
 
     setNavTitle('Add Audit Summary')
 
     setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
+      <IconButton
+        color="inherit"
+        aria-label="Search"
+        onClick={this.addInspectionSummary}
+      >
         <ArrowBackIcon />
       </IconButton>,
     )
@@ -41,6 +52,20 @@ export class AuditSummary extends Component {
     this.setState({
       [name]: event.target.value,
     })
+  }
+
+  addInspectionSummary = () => {
+    const { addInspectionSummary, history } = this.props
+    const { summary } = this.state
+
+    if (summary && !this.mySignature.isEmpty()) {
+      addInspectionSummary({
+        summary,
+        signature: this.mySignature.toDataURL(),
+      })
+    }
+
+    history.goBack()
   }
 
   render() {
@@ -63,14 +88,29 @@ export class AuditSummary extends Component {
               />
 
               <FormControl fullWidth>
-                <InputLabel shrink={false}>Signature</InputLabel>
-                <Input
+                <InputLabel
+                  shrink={false}
+                  focused={false}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    width: '100%',
+                  }}
+                >
+                  <div>Signature</div>
+                  <Button onClick={() => this.mySignature.clear()}>
+                    Clear
+                  </Button>
+                </InputLabel>
+                <SignaturePad
+                  ref={input => {
+                    this.mySignature = input
+                  }}
+                />
+                {/* <Input
                   inputComponent={() => (
-                    <SignaturePad
-                      ref={input => {
-                        this.mySignature = input
-                      }}
-                    />
+                    
                   )}
                   endAdornment={
                     <InputAdornment
@@ -81,11 +121,12 @@ export class AuditSummary extends Component {
                       <Button>Clear</Button>
                     </InputAdornment>
                   }
-                />
+                /> */}
               </FormControl>
 
               <TextField
                 fullWidth
+                disabled
                 label="Inspector Name"
                 value={displayName}
                 margin="normal"
@@ -94,6 +135,7 @@ export class AuditSummary extends Component {
               {title && (
                 <TextField
                   fullWidth
+                  disabled
                   label="Inspector Title"
                   value={title}
                   margin="normal"
@@ -103,6 +145,7 @@ export class AuditSummary extends Component {
               {company && (
                 <TextField
                   fullWidth
+                  disabled
                   label="Company Name"
                   value={company}
                   margin="normal"

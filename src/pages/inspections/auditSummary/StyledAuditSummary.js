@@ -15,9 +15,9 @@ export const StyledAuditSummary = Styled(Content)`
     width: 100%;
 
     canvas {
-      padding-top: 32px;
+      margin-top: 64px;
       width: 100%;
-      height: 300px;
+      /* height: 300px; */
     }
   }
 `

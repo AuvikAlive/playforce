@@ -6,7 +6,7 @@ import {
 
 export const initialState = {
   cover: {},
-  summary: {},
+  auditSummary: {},
   conditionRatings: [],
 }
 
@@ -16,7 +16,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return { ...state, cover: payload }
 
     case ADD_INSPECTION_SUMMARY:
-      return { ...state, summary: payload }
+      return { ...state, auditSummary: payload }
 
     case ADD_CONDITION_RATING:
       return {
