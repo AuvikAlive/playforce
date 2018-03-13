@@ -2,12 +2,14 @@ import {
   ADD_INSPECTION_COVER,
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
+  ADD_COMPLIANCE_ISSUE,
 } from '../actions/actionTypes'
 
 export const initialState = {
   cover: {},
   auditSummary: {},
   conditionRatings: [],
+  complianceIssues: [],
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
@@ -22,6 +24,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         conditionRatings: [...state.conditionRatings, payload],
+      }
+
+    case ADD_COMPLIANCE_ISSUE:
+      return {
+        ...state,
+        complianceIssues: [...state.complianceIssues, payload],
       }
 
     default:

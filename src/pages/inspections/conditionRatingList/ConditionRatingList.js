@@ -38,46 +38,43 @@ export class ConditionRatingList extends Component {
 
     return (
       <StyledConditionRatingList className="StyledConditionRatingList">
-        <StyledNavLink to={`${match.url}/add`}>
-          {conditionRatings.length ? (
-            <Grid container>
-              {conditionRatings.map(
-                ({ image, equipment, manufacturer, condition }, index) => {
-                  return (
-                    <Grid item key={index} xs={12} sm={6}>
-                      <Card>
-                        {image && (
-                          <CardMedia className="card-media" image={image} />
-                        )}
-                      </Card>
-                      <CardContent>
-                        <Typography variant="title">{equipment}</Typography>
-                        <Typography variant="subheading">
-                          {manufacturer}
-                        </Typography>
-                        <Typography variant="subheading">
-                          {condition}
-                        </Typography>
-                      </CardContent>
-                    </Grid>
-                  )
-                },
-              )}
-            </Grid>
-          ) : (
-            <Typography variant="title" align="center">
-              Try adding an item to get started!
-            </Typography>
-          )}
+        <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add condition rating"
-            className="add-icon pulse"
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
+        {conditionRatings.length ? (
+          <Grid container>
+            {conditionRatings.map(
+              ({ image, equipment, manufacturer, condition }, index) => {
+                return (
+                  <Grid item key={index} xs={12} sm={6}>
+                    <Card>
+                      {image && (
+                        <CardMedia className="card-media" image={image} />
+                      )}
+                    </Card>
+                    <CardContent>
+                      <Typography variant="title">{equipment}</Typography>
+                      <Typography variant="subheading">
+                        {manufacturer}
+                      </Typography>
+                      <Typography variant="subheading">{condition}</Typography>
+                    </CardContent>
+                  </Grid>
+                )
+              },
+            )}
+          </Grid>
+        ) : (
+          <Typography variant="title" align="center">
+            Try adding an item to get started!
+          </Typography>
+        )}
       </StyledConditionRatingList>
     )
   }
