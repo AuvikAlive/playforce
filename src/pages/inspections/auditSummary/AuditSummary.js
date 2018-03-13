@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input'
+import { InputLabel } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
 import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
@@ -91,12 +91,7 @@ export class AuditSummary extends Component {
                 <InputLabel
                   shrink={false}
                   focused={false}
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    width: '100%',
-                  }}
+                  className="signature-label"
                 >
                   <div>Signature</div>
                   <Button onClick={() => this.mySignature.clear()}>
@@ -108,20 +103,6 @@ export class AuditSummary extends Component {
                     this.mySignature = input
                   }}
                 />
-                {/* <Input
-                  inputComponent={() => (
-                    
-                  )}
-                  endAdornment={
-                    <InputAdornment
-                      position="end"
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => this.mySignature.clear()}
-                    >
-                      <Button>Clear</Button>
-                    </InputAdornment>
-                  }
-                /> */}
               </FormControl>
 
               <TextField

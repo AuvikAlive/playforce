@@ -11,13 +11,19 @@ export const StyledAuditSummary = Styled(Content)`
 
   ${errorLoadingSubmit};
 
+  .signature-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
   .m-signature-pad {
     width: 100%;
 
     canvas {
       margin-top: 64px;
       width: 100%;
-      /* height: 300px; */
     }
   }
 `
