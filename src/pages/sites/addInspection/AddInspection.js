@@ -34,11 +34,10 @@ export class AddInspection extends Component {
     })
   }
 
-  onPublish = () => {
+  onPublish = async () => {
     const { type, frequency, userAssigned } = this.state
     if (type && frequency && userAssigned) {
-      this.setState({ error: '' })
-      this.setState({ loading: true })
+      this.setState({ error: '', loading: true })
 
       const { firestore, history, id, site: { inspections } } = this.props
 
@@ -48,17 +47,15 @@ export class AddInspection extends Component {
         userAssigned,
       })
 
-      firestore
-        .update(`sites/${id}`, { inspections })
-        .then(() => {
-          firestore.get({ collection: 'sites', doc: id })
-          this.setState({ loading: false })
-          history.goBack()
-        })
-        .catch(error => {
-          this.setState({ error: error.message })
-          this.setState({ loading: false })
-        })
+      try {
+        await firestore.update(`sites/${id}`, { inspections })
+        await firestore.get({ collection: 'sites', doc: id })
+
+        this.setState({ loading: false })
+        history.goBack()
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
     }
