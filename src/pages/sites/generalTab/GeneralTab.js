@@ -74,25 +74,22 @@ export class GeneralTab extends Component {
     })
   }
 
-  handleEdit = () => {
+  handleEdit = async () => {
     const { name, address, division, operator } = this.state
     if (name && address && division && operator) {
-      this.setState({ error: '' })
-      this.setState({ loading: true })
+      this.setState({ error: '', loading: true })
+
       const { firestore, match } = this.props
       const updatedData = { name, address, division, operator: operator.id }
 
-      firestore
-        .update(`sites/${match.params.id}`, updatedData)
-        .then(() => {
-          firestore.get({ collection: 'sites', doc: match.params.id })
-          this.setState({ loading: false })
-        })
-        .catch(error => {
-          this.setState({ error: error.message })
-          this.setState({ loading: false })
-          console.log(error)
-        })
+      try {
+        await firestore.update(`sites/${match.params.id}`, updatedData)
+        await firestore.get({ collection: 'sites', doc: match.params.id })
+
+        this.setState({ loading: false })
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
     } else {
       this.setState({ error: 'Please fill up the form properly!' })
     }
