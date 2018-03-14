@@ -56,37 +56,35 @@ export class SignIn extends Component {
     this.setState({ checked })
   }
 
-  signIn = () => {
+  signIn = async () => {
     const { email, password, checked } = this.state
     const { firebase, history } = this.props
 
-    this.setState({ error: '' })
-    this.setState({ loading: true })
+    this.setState({ error: '', loading: true })
 
     if (email && password) {
       checked
         ? firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         : firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
-      const p = firebase.login({
-        email,
-        password,
-      })
+      try {
+        await firebase.login({
+          email,
+          password,
+        })
 
-      p
-        .then(value => {
-          history.push({
-            pathname: '/dashboard',
-            state: { name: 'Dashboard' },
-          })
+        history.push({
+          pathname: '/dashboard',
+          state: { name: 'Dashboard' },
         })
-        .catch(error => {
-          this.setState({ error: error.message })
-          this.setState({ loading: false })
-        })
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
     } else {
-      this.setState({ error: 'Please fill up the form properly!' })
-      this.setState({ loading: false })
+      this.setState({
+        error: 'Please fill up the form properly!',
+        loading: false,
+      })
     }
   }
 
