@@ -97,18 +97,17 @@ export class SiteDetail extends Component {
     this.setState({ modalOpen: false })
   }
 
-  deleteItem = () => {
+  deleteItem = async () => {
     const { firestore, id, history } = this.props
 
-    firestore
-      .delete(`sites/${id}`)
-      .then(() => {
-        firestore.get({ collection: 'sites' })
-        history.goBack()
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    try {
+      await firestore.delete(`sites/${id}`)
+      await firestore.get({ collection: 'sites' })
+
+      history.goBack()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   render() {
