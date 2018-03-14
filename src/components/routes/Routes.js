@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { isLoaded } from 'react-redux-firebase'
+import { isLoaded, isEmpty } from 'react-redux-firebase'
 import { LinearProgress } from 'material-ui/Progress'
 import Loadable from '../loadable/LoadableLinear'
 import Home from '../../pages/home/Home'
@@ -43,7 +43,7 @@ Sites.preload()
 Settings.preload()
 Terms.preload()
 
-const routes = [
+const publicRoutes = [
   {
     Component: Home,
     pathname: '/',
@@ -75,6 +75,21 @@ const routes = [
     exact: false,
   },
   {
+    Component: Terms,
+    pathname: '/Terms',
+    name: 'Terms',
+    exact: false,
+  },
+]
+
+const privateRoutes = [
+  {
+    Component: Home,
+    pathname: '/',
+    name: 'Home',
+    exact: true,
+  },
+  {
     Component: Dashboard,
     pathname: '/Dashboard',
     name: 'Dashboard',
@@ -98,22 +113,35 @@ const routes = [
     name: 'Settings',
     exact: false,
   },
-  {
-    Component: Terms,
-    pathname: '/Terms',
-    name: 'Terms',
-    exact: false,
-  },
 ]
 
 export const Routes = ({ auth, profile }) => {
   return isLoaded(auth) && isLoaded(profile) ? (
-    <Switch>
-      {routes.map(({ Component, pathname, name, exact }) => (
-        <Route key={name} exact={exact} path={pathname} component={Component} />
-      ))}
-      <Redirect to="/" />
-    </Switch>
+    isEmpty(auth) && isEmpty(profile) ? (
+      <Switch>
+        {publicRoutes.map(({ Component, pathname, name, exact }) => (
+          <Route
+            key={name}
+            exact={exact}
+            path={pathname}
+            component={Component}
+          />
+        ))}
+        <Redirect to="/" />
+      </Switch>
+    ) : (
+      <Switch>
+        {privateRoutes.map(({ Component, pathname, name, exact }) => (
+          <Route
+            key={name}
+            exact={exact}
+            path={pathname}
+            component={Component}
+          />
+        ))}
+        <Redirect to="/" />
+      </Switch>
+    )
   ) : (
     <LinearProgress />
   )
