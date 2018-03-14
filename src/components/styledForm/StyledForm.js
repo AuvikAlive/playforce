@@ -1,9 +1,8 @@
 import Styled from 'styled-components'
 import { Content } from '../../components/content/Content'
-import { centerContentVertically } from '../../styledMixins/centerContentVertically'
 
 export const StyledForm = Styled(Content)`
-  ${centerContentVertically};
+  
   
   form {
     padding-bottom: 24px;
