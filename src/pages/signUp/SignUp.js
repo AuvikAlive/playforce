@@ -43,30 +43,27 @@ export class SignUp extends Component {
     this.setState({ password })
   }
 
-  signUp = () => {
+  signUp = async () => {
     const { username, email, password } = this.state
     const { firebase, history } = this.props
 
-    this.setState({ error: '' })
-    this.setState({ loading: true })
+    this.setState({ error: '', loading: true })
 
     if (username && email && password) {
-      const p = firebase.createUser(
-        { email, password },
-        { displayName: username, email },
-      )
-
-      p
-        .then(value => {
-          history.push('/dashboard')
-        })
-        .catch(error => {
-          this.setState({ error: error.message })
-          this.setState({ loading: false })
-        })
+      try {
+        await firebase.createUser(
+          { email, password },
+          { displayName: username, email },
+        )
+        history.push('/dashboard')
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
     } else {
-      this.setState({ error: 'Please fill up the form properly!' })
-      this.setState({ loading: false })
+      this.setState({
+        error: 'Please fill up the form properly!',
+        loading: false,
+      })
     }
   }
 
