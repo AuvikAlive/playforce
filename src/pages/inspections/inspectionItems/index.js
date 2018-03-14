@@ -1,3 +1,3 @@
-import { InspectionItems } from './InspectionItems'
+import { InspectionItemsContainer } from './InspectionItemsContainer'
 
-export default InspectionItems
+export default InspectionItemsContainer

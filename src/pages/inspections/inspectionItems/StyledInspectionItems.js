@@ -8,4 +8,9 @@ export const StyledInspectionItems = Styled(Content)`
   > * {
     width: 100%;
   }
+
+  /* .discard-button {
+    background: ${({ theme }) => theme.palette.error.main};
+    color: white;
+  } */
 `

@@ -1,4 +1,5 @@
 import {
+  DISCARD_INSPECTION,
   ADD_INSPECTION_COVER,
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
@@ -16,6 +17,9 @@ export const initialState = {
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case DISCARD_INSPECTION:
+      return {}
+
     case ADD_INSPECTION_COVER:
       return { ...state, cover: payload }
 

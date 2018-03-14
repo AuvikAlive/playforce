@@ -1,10 +1,15 @@
 import {
+  DISCARD_INSPECTION,
   ADD_INSPECTION_COVER,
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
   ADD_COMPLIANCE_ISSUE,
   ADD_MAINTENANCE_ISSUE,
 } from '../actionTypes'
+
+export const discardInspection = () => ({
+  type: DISCARD_INSPECTION,
+})
 
 export const addInspectionCover = payload => ({
   type: ADD_INSPECTION_COVER,

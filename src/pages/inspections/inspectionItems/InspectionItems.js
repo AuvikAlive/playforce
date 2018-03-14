@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
+import Button from 'material-ui/Button'
 import { StyledInspectionItems } from './StyledInspectionItems'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -30,8 +31,12 @@ export class InspectionItems extends Component {
     removeLefNavComponent()
   }
 
+  publish = () => {
+    console.log('publish')
+  }
+
   render() {
-    const { match } = this.props
+    const { match, discardInspection } = this.props
 
     return (
       <StyledInspectionItems>
@@ -66,6 +71,30 @@ export class InspectionItems extends Component {
                 <ListItemText primary="Identified Maintenance Issues" />
               </ListItem>
             </StyledNavLink>
+
+            <ListItem>
+              <Button
+                fullWidth
+                variant="raised"
+                color="inherit"
+                className="submit-button discard-button"
+                onClick={discardInspection}
+              >
+                Discard
+              </Button>
+            </ListItem>
+
+            <ListItem>
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="submit-button"
+                onClick={this.publish}
+              >
+                Publish Inspection
+              </Button>
+            </ListItem>
           </List>
         </Paper>
       </StyledInspectionItems>
