@@ -228,7 +228,7 @@ export class AddComplianceIssue extends Component {
                 />
               )}
 
-              <Typography variant="headline" className="risk-assessment">
+              <Typography variant="title" className="risk-assessment">
                 Risk Assessment
               </Typography>
 
