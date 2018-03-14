@@ -50,20 +50,60 @@ export class ComplianceIssuesList extends Component {
 
         {complianceIssues.length ? (
           <Grid container>
-            {complianceIssues.map(({ image, issueNumber }, index) => {
-              return (
-                <Grid item key={index} xs={12} sm={6}>
-                  <Card>
-                    {image && (
-                      <CardMedia className="card-media" image={image} />
-                    )}
-                  </Card>
-                  <CardContent>
-                    <Typography variant="subheading">{issueNumber}</Typography>
-                  </CardContent>
-                </Grid>
-              )
-            })}
+            {complianceIssues.map(
+              (
+                {
+                  image,
+                  finding,
+                  standardsClause,
+                  probability,
+                  severity,
+                  riskLevel,
+                  comments,
+                  recommendations,
+                },
+                index,
+              ) => {
+                return (
+                  <Grid item key={index} xs={12} sm={6}>
+                    <Card>
+                      {image && (
+                        <CardMedia className="card-media" image={image} />
+                      )}
+                    </Card>
+                    <CardContent>
+                      <Typography variant="title">
+                        Issue #: {index + 1}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Finding: {finding}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Standards Clause: {standardsClause}
+                      </Typography>
+                      <Typography variant="headline">
+                        Risk Assessment
+                      </Typography>
+                      <Typography variant="subheading">
+                        Probability: {probability}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Injury Severity: {severity}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Risk Level: {riskLevel}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Comments: {comments}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Recommendations: {recommendations}
+                      </Typography>
+                    </CardContent>
+                  </Grid>
+                )
+              },
+            )}
           </Grid>
         ) : (
           <Typography variant="title" align="center">

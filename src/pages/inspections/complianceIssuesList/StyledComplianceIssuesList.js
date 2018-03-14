@@ -17,4 +17,12 @@ export const StyledComplianceIssuesList = Styled(Content)`
     bottom: calc(54px/2);
     z-index: 100;
   }
+
+  .card-media {
+    height: 100vw;
+
+    @media (min-width: 600px) {
+      height: 50vw;
+    }
+  }
 `

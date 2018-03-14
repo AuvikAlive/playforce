@@ -14,4 +14,9 @@ export const StyledAddCompliaceIssue = Styled(Content)`
   .card-media {
     height: 100vw;
   }
+
+  .risk-assessment {
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
 `
