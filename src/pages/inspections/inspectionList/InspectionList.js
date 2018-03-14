@@ -49,12 +49,12 @@ export class InspectionList extends Component {
         <Typography variant="title" align="center">
           Try adding an inspection to get started!
         </Typography>
-        <StyledNavLink to="/inspections/add">
+        <StyledNavLink to="/inspections/add" className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add inspection"
-            className="add-icon pulse"
+            className="pulse"
           >
             <AddIcon />
           </Button>
