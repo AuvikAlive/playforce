@@ -32,31 +32,30 @@ export class ResetPassword extends Component {
     this.setState({ email })
   }
 
-  sendLink = () => {
+  sendLink = async () => {
     const { email } = this.state
     const { firebase } = this.props
 
     if (email) {
-      this.setState({ error: '' })
-      this.setState({ loading: true })
+      this.setState({ error: '', success: '', loading: true })
 
-      firebase
-        .auth()
-        .sendPasswordResetEmail(email)
-        .then(() => {
-          this.setState({
-            success:
-              "Email sent. If you haven't received it, please wait a couple of minutes then try again!",
-          })
-          this.setState({ loading: false })
+      const auth = firebase.auth()
+
+      try {
+        await auth.sendPasswordResetEmail(email)
+        this.setState({
+          success:
+            "Email sent. If you haven't received it, please wait a couple of minutes then try again!",
+          loading: false,
         })
-        .catch(error => {
-          this.setState({ error: error.message })
-          this.setState({ loading: false })
-        })
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
     } else {
-      this.setState({ error: 'Please enter your email address!' })
-      this.setState({ loading: false })
+      this.setState({
+        error: 'Please enter your email address!',
+        loading: false,
+      })
     }
   }
 
