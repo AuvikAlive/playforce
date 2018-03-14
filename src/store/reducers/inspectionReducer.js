@@ -18,7 +18,7 @@ export const initialState = {
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case DISCARD_INSPECTION:
-      return {}
+      return initialState
 
     case ADD_INSPECTION_COVER:
       return { ...state, cover: payload }
