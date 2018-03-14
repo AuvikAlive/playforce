@@ -35,8 +35,15 @@ export class InspectionItems extends Component {
     console.log('publish')
   }
 
+  discard = () => {
+    const { discardInspection, history } = this.props
+
+    discardInspection()
+    history.goBack()
+  }
+
   render() {
-    const { match, discardInspection } = this.props
+    const { match } = this.props
 
     return (
       <StyledInspectionItems>
@@ -78,7 +85,7 @@ export class InspectionItems extends Component {
                 variant="raised"
                 color="inherit"
                 className="submit-button discard-button"
-                onClick={discardInspection}
+                onClick={this.discard}
               >
                 Discard
               </Button>
