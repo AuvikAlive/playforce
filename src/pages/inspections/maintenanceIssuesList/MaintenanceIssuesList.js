@@ -37,7 +37,7 @@ export class MaintenanceIssuesList extends Component {
     const { match, maintenanceIssues } = this.props
 
     return (
-      <StyledMaintenanceIssuesList>
+      <StyledMaintenanceIssuesList className="StyledMaintenanceIssuesList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"

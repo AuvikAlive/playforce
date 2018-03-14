@@ -75,7 +75,7 @@ export class AddMaintenanceIssue extends Component {
     const { image, finding } = this.state
 
     return (
-      <StyledAddMaintenanceIssue>
+      <StyledAddMaintenanceIssue className="StyledAddMaintenanceIssue">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
           <CardContent>

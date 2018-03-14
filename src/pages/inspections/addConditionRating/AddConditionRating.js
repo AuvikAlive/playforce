@@ -92,7 +92,7 @@ export class AddConditionRating extends Component {
     const { image, equipment, manufacturer, condition } = this.state
 
     return (
-      <StyledAddConditionRating>
+      <StyledAddConditionRating className="StyledAddConditionRating">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
           <CardContent>

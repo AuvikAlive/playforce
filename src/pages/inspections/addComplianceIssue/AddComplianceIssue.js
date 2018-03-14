@@ -153,7 +153,7 @@ export class AddComplianceIssue extends Component {
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
     return (
-      <StyledAddCompliaceIssue>
+      <StyledAddCompliaceIssue className="StyledAddCompliaceIssue">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
           <CardContent>

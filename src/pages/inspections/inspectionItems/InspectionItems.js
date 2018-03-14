@@ -46,7 +46,7 @@ export class InspectionItems extends Component {
     const { match } = this.props
 
     return (
-      <StyledInspectionItems>
+      <StyledInspectionItems className="StyledInspectionItems">
         <Paper>
           <List component="nav" disablePadding>
             <StyledNavLink to={`${match.url}/cover`}>

@@ -37,7 +37,7 @@ export class ComplianceIssuesList extends Component {
     const { match, complianceIssues } = this.props
 
     return (
-      <StyledComplianceIssuesList>
+      <StyledComplianceIssuesList className="StyledComplianceIssuesList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
