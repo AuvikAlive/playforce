@@ -3,6 +3,7 @@ import {
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
   ADD_COMPLIANCE_ISSUE,
+  ADD_MAINTENANCE_ISSUE,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -10,6 +11,7 @@ export const initialState = {
   auditSummary: {},
   conditionRatings: [],
   complianceIssues: [],
+  maintenanceIssues: [],
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
@@ -30,6 +32,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         complianceIssues: [...state.complianceIssues, payload],
+      }
+
+    case ADD_MAINTENANCE_ISSUE:
+      return {
+        ...state,
+        maintenanceIssues: [...state.maintenanceIssues, payload],
       }
 
     default:
