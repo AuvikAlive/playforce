@@ -64,7 +64,9 @@ export class AddMaintenanceIssue extends Component {
     const { history, addMaintenanceIssue } = this.props
     const { image, finding } = this.state
 
-    addMaintenanceIssue({ image, finding })
+    if (image && finding) {
+      addMaintenanceIssue({ image, finding })
+    }
 
     history.goBack()
   }

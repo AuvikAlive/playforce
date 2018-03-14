@@ -113,16 +113,26 @@ export class AddComplianceIssue extends Component {
       recommendations,
     } = this.state
 
-    addComplianceIssue({
-      image,
-      finding,
-      standardsClause,
-      probability: probabilities[probability - 1].probability,
-      severity,
-      riskLevel: riskLevels[probability - 1][severity - 1],
-      comments,
-      recommendations,
-    })
+    if (
+      image &&
+      finding &&
+      standardsClause &&
+      probability &&
+      severity &&
+      comments &&
+      recommendations
+    ) {
+      addComplianceIssue({
+        image,
+        finding,
+        standardsClause,
+        probability: probabilities[probability - 1].probability,
+        severity,
+        riskLevel: riskLevels[probability - 1][severity - 1],
+        comments,
+        recommendations,
+      })
+    }
 
     history.goBack()
   }
