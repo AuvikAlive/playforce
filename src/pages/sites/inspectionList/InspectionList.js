@@ -36,7 +36,7 @@ export class InspectionList extends Component {
     this.openModal()
   }
 
-  deleteItem = () => {
+  deleteItem = async () => {
     const { firestore, site: { inspections }, match } = this.props
     const { deleteIndex } = this.state
 
@@ -44,14 +44,14 @@ export class InspectionList extends Component {
       (item, index) => index !== deleteIndex,
     )
 
-    firestore
-      .update(`sites/${match.params.id}`, { inspections: updatedInspections })
-      .then(() => {
-        firestore.get({ collection: 'sites', doc: match.params.id })
+    try {
+      await firestore.update(`sites/${match.params.id}`, {
+        inspections: updatedInspections,
       })
-      .catch(error => {
-        console.log(error)
-      })
+      firestore.get({ collection: 'sites', doc: match.params.id })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   render() {
