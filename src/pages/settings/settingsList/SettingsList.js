@@ -38,6 +38,18 @@ export class SettingsList extends Component {
                     <ListItemText primary="Standards" />
                   </ListItem>
                 </StyledNavLink>
+
+                <StyledNavLink to={`${match.url}/clients`}>
+                  <ListItem button>
+                    <ListItemText primary="Clients" />
+                  </ListItem>
+                </StyledNavLink>
+
+                <StyledNavLink to={`${match.url}/manufacturers`}>
+                  <ListItem button>
+                    <ListItemText primary="Manufacturers" />
+                  </ListItem>
+                </StyledNavLink>
               </List>
             </Grid>
           </Grid>
