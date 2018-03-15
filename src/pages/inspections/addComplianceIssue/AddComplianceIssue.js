@@ -34,6 +34,7 @@ export class AddComplianceIssue extends Component {
     probability: '',
     severity: '',
     comments: '',
+    recommendations: '',
     customFinding: false,
   }
 

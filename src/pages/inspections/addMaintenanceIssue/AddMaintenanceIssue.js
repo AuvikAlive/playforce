@@ -11,6 +11,7 @@ export class AddMaintenanceIssue extends Component {
   state = {
     image: null,
     finding: '',
+    recommendations: '',
   }
 
   componentDidMount() {
@@ -62,17 +63,17 @@ export class AddMaintenanceIssue extends Component {
 
   addMaintenanceIssue = () => {
     const { history, addMaintenanceIssue } = this.props
-    const { image, finding } = this.state
+    const { image, finding, recommendations } = this.state
 
-    if (image && finding) {
-      addMaintenanceIssue({ image, finding })
+    if (image && finding && recommendations) {
+      addMaintenanceIssue({ image, finding, recommendations })
     }
 
     history.goBack()
   }
 
   render() {
-    const { image, finding } = this.state
+    const { image, finding, recommendations } = this.state
 
     return (
       <StyledAddMaintenanceIssue className="StyledAddMaintenanceIssue">
@@ -98,6 +99,16 @@ export class AddMaintenanceIssue extends Component {
                 value={finding}
                 margin="normal"
                 onChange={this.onInputChange('finding')}
+              />
+
+              <TextField
+                fullWidth
+                multiline
+                rows="3"
+                label="Recommendations"
+                value={recommendations}
+                margin="normal"
+                onChange={this.onInputChange('recommendations')}
               />
             </form>
           </CardContent>
