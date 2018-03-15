@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import IconButton from 'material-ui/IconButton'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import Paper from 'material-ui/Paper'
@@ -10,15 +12,23 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class StandardsList extends Component {
   componentDidMount() {
-    const { setNavTitle } = this.context
+    const { setNavTitle, setLeftNavComponent } = this.context
+    const { history } = this.props
 
     setNavTitle('Standards')
+
+    setLeftNavComponent(
+      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
+        <ArrowBackIcon />
+      </IconButton>,
+    )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
+    const { removeNavTitle, removeLefNavComponent } = this.context
 
     removeNavTitle()
+    removeLefNavComponent()
   }
   render() {
     const { match, standards } = this.props
