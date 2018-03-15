@@ -21,15 +21,8 @@ export class SiteList extends Component {
     } = this.context
 
     if (open && query) {
-      // const { firestore } = this.props
       firestore.get({ collection: 'sites', where: ['name', '==', query] })
     }
-
-    // firestore.setListener({
-    //   collection: 'sites',
-    //   orderBy: 'name',
-    //   where: ['addedUser', '==', email],
-    // })
 
     setNavTitle('Sites')
 
@@ -66,9 +59,6 @@ export class SiteList extends Component {
       removeSearchComponent,
     } = this.context
 
-    // firestore.unsetListener({
-    //   collection: 'sites',
-    // })
     removeNavTitle()
     removeRightNavComponent()
     closeSearchBar()
@@ -80,44 +70,29 @@ export class SiteList extends Component {
 
     let content
 
-    if (open) {
-      content = isEmpty(sites) ? (
+    if (isEmpty(sites)) {
+      content = open ? (
         <ListItem>
           <ListItemText primary="No match found" />
         </ListItem>
       ) : (
-        sites.map(({ name, id }, index, list) => {
-          return (
-            <div key={name}>
-              <StyledNavLink to={`/sites/${id}`}>
-                <ListItem button>
-                  <ListItemText primary={name} />
-                </ListItem>
-              </StyledNavLink>
-              {index !== list.length - 1 && <Divider />}
-            </div>
-          )
-        })
-      )
-    } else {
-      content = isEmpty(sites) ? (
         <ListItem>
           <ListItemText primary="No inspection added" />
         </ListItem>
-      ) : (
-        sites.map(({ name, id }, index, list) => {
-          return (
-            <div key={name}>
-              <StyledNavLink to={`/sites/${id}`}>
-                <ListItem button>
-                  <ListItemText primary={name} />
-                </ListItem>
-              </StyledNavLink>
-              {index !== list.length - 1 && <Divider />}
-            </div>
-          )
-        })
       )
+    } else {
+      content = sites.map(({ name, id }, index, list) => {
+        return (
+          <div key={name}>
+            <StyledNavLink to={`/sites/${id}`}>
+              <ListItem button>
+                <ListItemText primary={name} />
+              </ListItem>
+            </StyledNavLink>
+            {index !== list.length - 1 && <Divider />}
+          </div>
+        )
+      })
     }
 
     return (
