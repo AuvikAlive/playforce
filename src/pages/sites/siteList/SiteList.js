@@ -6,10 +6,12 @@ import List, { ListItem, ListItemText } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
+import Button from 'material-ui/Button'
+import AddIcon from 'material-ui-icons/Add'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
-import { Content } from '../../../components/content/Content'
+import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {
   componentDidMount() {
@@ -66,7 +68,7 @@ export class SiteList extends Component {
   }
 
   render() {
-    const { sites, open } = this.props
+    const { match, sites, open } = this.props
 
     let content
 
@@ -96,7 +98,17 @@ export class SiteList extends Component {
     }
 
     return (
-      <Content>
+      <StyledSiteList className="StyledSiteList">
+        <StyledNavLink to={`${match.url}/add`} className="add-icon">
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="add a site"
+            className={isEmpty(sites) ? 'pulse' : ''}
+          >
+            <AddIcon />
+          </Button>
+        </StyledNavLink>
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className="paper">
@@ -106,7 +118,7 @@ export class SiteList extends Component {
             </Paper>
           </Grid>
         </Grid>
-      </Content>
+      </StyledSiteList>
     )
   }
 }
