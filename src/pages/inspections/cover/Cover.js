@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
+import DateRangeIcon from 'material-ui-icons/DateRange'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
-import moment from 'moment'
+import { DatePicker } from 'material-ui-pickers'
 import { StyledCover } from './StyledCover'
 
 const clients = ['Client 1', 'Client 2', 'Client 3']
@@ -17,7 +19,7 @@ export class Cover extends Component {
     coverImage: null,
     location: '',
     client: '',
-    inspectionDate: moment().format('YYYY-MM-DD'),
+    inspectionDate: new Date(),
     appliedStandards: [],
   }
 
@@ -69,6 +71,10 @@ export class Cover extends Component {
     this.setState({
       [name]: event.target.value,
     })
+  }
+
+  onDateChange = date => {
+    this.setState({ inspectionDate: date })
   }
 
   addInspectionCover = () => {
@@ -159,13 +165,19 @@ export class Cover extends Component {
                 ))}
               </TextField>
 
-              <TextField
+              <DatePicker
                 fullWidth
+                keyboard
+                clearable
                 className="inspection-date"
                 label="Inspection Date"
-                type="date"
-                defaultValue={inspectionDate}
-                onChange={this.onInputChange('inspectionDate')}
+                format="DD MMMM YYYY"
+                value={inspectionDate}
+                keyboardIcon={<DateRangeIcon />}
+                leftArrowIcon={<ArrowBackIcon />}
+                rightArrowIcon={<ArrowForwardIcon />}
+                onChange={this.onDateChange}
+                animateYearScrolling={false}
               />
 
               <TextField
