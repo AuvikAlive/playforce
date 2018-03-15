@@ -7,11 +7,19 @@ const ProfileSettings = Loadable({
   loader: () => import('./profileSettings'),
 })
 
-export const Settings = () => {
+const Standards = Loadable({
+  loader: () => import('./standards'),
+})
+
+ProfileSettings.preload()
+Standards.preload()
+
+export const Settings = ({ match }) => {
   return (
     <Switch>
-      <Route path="/settings/profile" component={ProfileSettings} />
-      <Route path="/settings" component={SettingsList} />
+      <Route path={`${match.url}/profile`} component={ProfileSettings} />
+      <Route path={`${match.url}/standards`} component={Standards} />
+      <Route path={match.url} component={SettingsList} />
     </Switch>
   )
 }
