@@ -13,6 +13,22 @@ export const StyledProfileSettings = Styled(Content)`
     padding-bottom: 16px;
   }
 
+  .signature-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .m-signature-pad {
+    width: 100%;
+
+    canvas {
+      margin-top: 64px;
+      width: 100%;
+    }
+  }
+
   /* .submit-button {
     margin: 0;
   } */

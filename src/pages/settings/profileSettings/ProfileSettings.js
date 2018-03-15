@@ -4,6 +4,9 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
+import { FormControl } from 'material-ui/Form'
+import { InputLabel } from 'material-ui/Input'
+import SignaturePad from 'react-signature-pad'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
 import { StyledProfileSettings } from './StyledProfileSettings'
@@ -24,7 +27,7 @@ export class ProfileSettings extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const {
       history,
-      profile: { displayName, photoURL, title = '', company = '' },
+      profile: { displayName, photoURL, title = '', company = '', signature },
     } = this.props
 
     setNavTitle('Profile Settings')
@@ -35,6 +38,7 @@ export class ProfileSettings extends Component {
     )
 
     this.setState({ displayName, photoURL, title, company })
+    signature && this.mySignature.fromDataURL(signature)
   }
 
   componentWillUnmount() {
@@ -94,6 +98,9 @@ export class ProfileSettings extends Component {
         title,
         company,
         photoURL: downloadURL || photoURL,
+        signature: !this.mySignature.isEmpty()
+          ? this.mySignature.toDataURL('image/svg+xml')
+          : undefined,
       })
       this.setState({ loading: false })
     } catch (error) {
@@ -144,6 +151,22 @@ export class ProfileSettings extends Component {
               onChange={this.onInputChange('company')}
               margin="normal"
             />
+
+            <FormControl fullWidth>
+              <InputLabel
+                shrink={false}
+                focused={false}
+                className="signature-label"
+              >
+                <div>Signature</div>
+                <Button onClick={() => this.mySignature.clear()}>Clear</Button>
+              </InputLabel>
+              <SignaturePad
+                ref={input => {
+                  this.mySignature = input
+                }}
+              />
+            </FormControl>
 
             {error && <p className="error">{error}</p>}
 

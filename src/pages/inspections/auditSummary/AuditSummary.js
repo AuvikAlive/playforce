@@ -4,10 +4,9 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
-import { InputLabel } from 'material-ui/Input'
 import { FormControl } from 'material-ui/Form'
+import { InputLabel } from 'material-ui/Input'
 import { CircularProgress } from 'material-ui/Progress'
-import Button from 'material-ui/Button'
 import SignaturePad from 'react-signature-pad'
 import { StyledAuditSummary } from './StyledAuditSummary'
 
@@ -19,14 +18,15 @@ export class AuditSummary extends Component {
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { auditSummary } = this.props
+    const { auditSummary, profile: { signature } } = this.props
 
     if (auditSummary) {
-      const { summary, signature } = auditSummary
+      const { summary } = auditSummary
 
       this.setState({ summary })
-      this.mySignature.fromDataURL(signature)
     }
+
+    signature && this.mySignature.fromDataURL(signature)
 
     setNavTitle('Add Audit Summary')
 
@@ -58,10 +58,9 @@ export class AuditSummary extends Component {
     const { addInspectionSummary, history } = this.props
     const { summary } = this.state
 
-    if (summary && !this.mySignature.isEmpty()) {
+    if (summary) {
       addInspectionSummary({
         summary,
-        signature: this.mySignature.toDataURL(),
       })
     }
 
@@ -94,9 +93,6 @@ export class AuditSummary extends Component {
                   className="signature-label"
                 >
                   <div>Signature</div>
-                  <Button onClick={() => this.mySignature.clear()}>
-                    Clear
-                  </Button>
                 </InputLabel>
                 <SignaturePad
                   ref={input => {
