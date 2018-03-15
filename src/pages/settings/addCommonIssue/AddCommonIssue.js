@@ -6,8 +6,9 @@ import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
+import { InputLabel } from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
-import Typography from 'material-ui/Typography'
+import Grid from 'material-ui/Grid'
 import { StyledAddCommonIssue } from './StyledAddCommonIssue'
 
 const standards = ['Standard 1', 'Standard 2', 'Standard 3']
@@ -112,47 +113,53 @@ export class AddCommonIssue extends Component {
                 ))}
               </TextField>
 
-              <Typography variant="title" className="risk-assessment">
-                Risk Assessment
-              </Typography>
-
-              <TextField
-                fullWidth
-                select
-                label="Probability"
-                value={probability}
-                onChange={this.onInputChange('probability')}
-                margin="normal"
-              >
-                {probabilities.map(({ probability, value }, index) => (
-                  <MenuItem key={index} value={value}>
-                    {probability}
-                  </MenuItem>
-                ))}
-              </TextField>
-
-              <TextField
-                fullWidth
-                select
-                label="Injury Severity"
-                value={severity}
-                onChange={this.onInputChange('severity')}
-                margin="normal"
-              >
-                {severities.map(item => (
-                  <MenuItem key={item} value={item}>
-                    {item}
-                  </MenuItem>
-                ))}
-              </TextField>
-
-              <TextField
-                fullWidth
-                disabled
-                label="Risk Level"
-                value={riskLevel}
-                margin="normal"
-              />
+              <Grid container>
+                <Grid item xs={12}>
+                  <InputLabel className="risk-assessment">
+                    Risk Assessment
+                  </InputLabel>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    fullWidth
+                    select
+                    label="Probability"
+                    value={probability}
+                    onChange={this.onInputChange('probability')}
+                    margin="normal"
+                  >
+                    {probabilities.map(({ probability, value }, index) => (
+                      <MenuItem key={index} value={value}>
+                        {probability}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    fullWidth
+                    select
+                    label="Injury Severity"
+                    value={severity}
+                    onChange={this.onInputChange('severity')}
+                    margin="normal"
+                  >
+                    {severities.map(item => (
+                      <MenuItem key={item} value={item}>
+                        {item}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    disabled
+                    label="Risk Level"
+                    value={riskLevel}
+                    margin="normal"
+                  />
+                </Grid>
+              </Grid>
 
               <TextField
                 fullWidth

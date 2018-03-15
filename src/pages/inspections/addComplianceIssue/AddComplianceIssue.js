@@ -6,7 +6,7 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
-import Typography from 'material-ui/Typography'
+import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import { StyledAddCompliaceIssue } from './StyledAddComplianceIssue'
 
@@ -230,11 +230,12 @@ export class AddComplianceIssue extends Component {
                 />
               )}
 
-              <Typography variant="title" className="risk-assessment">
-                Risk Assessment
-              </Typography>
-
               <Grid container>
+                <Grid item xs={12}>
+                  <InputLabel className="risk-assessment">
+                    Risk Assessment
+                  </InputLabel>
+                </Grid>
                 <Grid item xs={4}>
                   <TextField
                     fullWidth

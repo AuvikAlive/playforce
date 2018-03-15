@@ -10,7 +10,7 @@ export const StyledAddCompliaceIssue = Styled(Content)`
   }
 
   .risk-assessment {
-    margin-top: 16px;
-    margin-bottom: 8px;
+    margin-top: 32px;
+    display: inline-block;
   }
 `
