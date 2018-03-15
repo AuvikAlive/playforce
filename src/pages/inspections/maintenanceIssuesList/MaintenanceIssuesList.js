@@ -43,6 +43,7 @@ export class MaintenanceIssuesList extends Component {
             variant="fab"
             color="primary"
             aria-label="add compliance issue"
+            className={maintenanceIssues.length ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>

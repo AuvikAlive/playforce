@@ -40,7 +40,7 @@ export class StandardsList extends Component {
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={!standards && 'pulse'}
+            className={standards ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>

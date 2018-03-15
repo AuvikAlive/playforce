@@ -43,6 +43,7 @@ export class ConditionRatingList extends Component {
             variant="fab"
             color="primary"
             aria-label="add condition rating"
+            className={conditionRatings.length ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>

@@ -5,6 +5,8 @@ import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
+import Paper from 'material-ui/Paper'
+import List, { ListItem, ListItemText } from 'material-ui/List'
 import { StyledInspectionList } from './StyledInspectionList'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
@@ -44,21 +46,38 @@ export class InspectionList extends Component {
   }
 
   render() {
+    const { match, inspections } = this.props
+
     return (
       <StyledInspectionList className="StyledInspectionList">
-        <Typography variant="title" align="center">
-          Try adding an inspection to get started!
-        </Typography>
-        <StyledNavLink to="/inspections/add" className="add-icon">
+        <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add inspection"
-            className="pulse"
+            className={!inspections && 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
+
+        {inspections ? (
+          <Paper className="paper">
+            <List component="nav" disablePadding>
+              {inspections.map(({ id, location, client }) => {
+                return (
+                  <ListItem key={id} button>
+                    <ListItemText primary={`${location} -  ${client}`} />
+                  </ListItem>
+                )
+              })}
+            </List>
+          </Paper>
+        ) : (
+          <Typography variant="title" align="center">
+            Try adding an inspection to get started!
+          </Typography>
+        )}
       </StyledInspectionList>
     )
   }
