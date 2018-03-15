@@ -61,11 +61,10 @@ export class ProfileSettings extends Component {
     })
   }
 
-  publish = () => {
+  publish = async () => {
     const { displayImage } = this.state
 
-    this.setState({ error: '' })
-    this.setState({ loading: true })
+    this.setState({ error: '', loading: true })
 
     const { firebase, uid } = this.props
 
@@ -73,32 +72,33 @@ export class ProfileSettings extends Component {
       const storageRef = firebase.storage().ref()
       const imageRef = storageRef.child(`images/${uid}.jpg`)
 
-      imageRef.put(displayImage).then(({ downloadURL }) => {
+      try {
+        const { downloadURL } = await imageRef.put(displayImage)
+
         this.updateProfile(downloadURL)
-      })
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
     } else {
       this.updateProfile()
     }
   }
 
-  updateProfile = downloadURL => {
+  updateProfile = async downloadURL => {
     const { displayName, photoURL, title, company } = this.state
     const { firebase } = this.props
 
-    firebase
-      .updateProfile({
+    try {
+      await firebase.updateProfile({
         displayName,
         title,
         company,
         photoURL: downloadURL || photoURL,
       })
-      .then(() => {
-        this.setState({ loading: false })
-      })
-      .catch(error => {
-        this.setState({ error: error.message })
-        this.setState({ loading: false })
-      })
+      this.setState({ loading: false })
+    } catch (error) {
+      this.setState({ error: error.message, loading: false })
+    }
   }
 
   render() {
