@@ -2,14 +2,10 @@ import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
 import { errorLoadingSubmit } from '../../../styledMixins/errorLoadingSubmit'
 
-export const StyledAddCompliaceIssue = Styled(Content)`
+export const StyledAddStandard = Styled(Content)`
   ${errorLoadingSubmit};
 
-  .card-media {
-    height: 100vw;
-  }
-
-  .risk-assessment {
+  .publish-date {
     margin-top: 16px;
     margin-bottom: 8px;
   }
