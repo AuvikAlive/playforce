@@ -13,17 +13,17 @@ import Shell from '../shell'
 const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <ConnectedRouter history={history}>
-        <MuiThemeProvider theme={theme}>
-          <ThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <ConnectedRouter history={history}>
               <div className="App">
                 <Shell />
               </div>
-            </MuiPickersUtilsProvider>
-          </ThemeProvider>
-        </MuiThemeProvider>
-      </ConnectedRouter>
+            </ConnectedRouter>
+          </MuiPickersUtilsProvider>
+        </ThemeProvider>
+      </MuiThemeProvider>
     </PersistGate>
   </Provider>
 )

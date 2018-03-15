@@ -19,21 +19,25 @@ export class SettingsList extends Component {
     removeNavTitle()
   }
   render() {
+    const { match } = this.props
+
     return (
       <StyledSettingsList className="StyledSettingsList">
         <Paper className="paper">
           <Grid container spacing={0} className="container">
             <Grid item xs={12}>
               <List component="nav" disablePadding>
-                <StyledNavLink to="settings/profile">
+                <StyledNavLink to={`${match.url}/profile`}>
                   <ListItem button>
                     <ListItemText primary="Profile Settings" />
                   </ListItem>
                 </StyledNavLink>
 
-                <ListItem button>
-                  <ListItemText primary="Some other settings" />
-                </ListItem>
+                <StyledNavLink to={`${match.url}/standards`}>
+                  <ListItem button>
+                    <ListItemText primary="Standards" />
+                  </ListItem>
+                </StyledNavLink>
               </List>
             </Grid>
           </Grid>
