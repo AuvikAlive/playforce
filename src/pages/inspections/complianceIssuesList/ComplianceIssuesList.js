@@ -85,15 +85,23 @@ export class ComplianceIssuesList extends Component {
                       <Typography variant="headline">
                         Risk Assessment
                       </Typography>
-                      <Typography variant="subheading">
-                        Probability: {probability}
-                      </Typography>
-                      <Typography variant="subheading">
-                        Injury Severity: {severity}
-                      </Typography>
-                      <Typography variant="subheading">
-                        Risk Level: {riskLevel}
-                      </Typography>
+                      <Grid container>
+                        <Grid item xs={4}>
+                          <Typography variant="subheading">
+                            Probability: {probability}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Typography variant="subheading">
+                            Injury Severity: {severity}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Typography variant="subheading">
+                            Risk Level: {riskLevel}
+                          </Typography>
+                        </Grid>
+                      </Grid>
                       <Typography variant="subheading">
                         Comments: {comments}
                       </Typography>
