@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
-import List, { ListItem, ListItemText } from 'material-ui/List'
-import Typography from 'material-ui/Typography'
-import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
+import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
-import { StyledClients } from './StyledClients'
+import { StyledCompany } from './StyledCompany'
 
-export class Clients extends Component {
+export class Company extends Component {
   state = {
-    clients: [],
-    client: '',
+    postalAddress: '',
+    abn: '',
+    phoneNumber: '',
+    website: '',
     error: '',
     loading: false,
   }
@@ -22,7 +22,7 @@ export class Clients extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Clients')
+    setNavTitle('Company Information')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
@@ -44,48 +44,51 @@ export class Clients extends Component {
     })
   }
 
-  publish = () => {
-    const { clients, client } = this.state
-
-    clients.push(client)
-
-    this.setState({ clients, client: '' })
-  }
-
   render() {
-    const { clients, client, error, loading } = this.state
+    const {
+      postalAddress,
+      abn,
+      phoneNumber,
+      website,
+      error,
+      loading,
+    } = this.state
 
     return (
-      <StyledClients className="StyledClients">
+      <StyledCompany className="StyledCompany">
         <Card className="card">
-          {clients.length ? (
-            <List component="nav" disablePadding>
-              {clients.map((client, index) => {
-                return (
-                  <ListItem key={index} button>
-                    <ListItemText primary={client} />
-                  </ListItem>
-                )
-              })}
-            </List>
-          ) : (
-            <ListItem>
-              <ListItemText
-                primary={
-                  <Typography component="span" variant="title" align="center">
-                    Try adding an item to get started!
-                  </Typography>
-                }
-              />
-            </ListItem>
-          )}
           <CardContent>
             <form noValidate>
               <TextField
                 fullWidth
-                label="Client"
-                value={client}
-                onChange={this.onInputChange('client')}
+                label="Postal Address"
+                value={postalAddress}
+                onChange={this.onInputChange('postalAddress')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="ABN"
+                value={abn}
+                onChange={this.onInputChange('abn')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                type="tel"
+                label="Phone Number"
+                value={phoneNumber}
+                onChange={this.onInputChange('phoneNumber')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="Website"
+                value={website}
+                onChange={this.onInputChange('website')}
                 margin="normal"
               />
             </form>
@@ -107,17 +110,17 @@ export class Clients extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Add Client
+                Publish Changes
               </Button>
             )}
           </CardContent>
         </Card>
-      </StyledClients>
+      </StyledCompany>
     )
   }
 }
 
-Clients.contextTypes = {
+Company.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

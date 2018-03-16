@@ -29,7 +29,7 @@ export class SettingsList extends Component {
               <List component="nav" disablePadding>
                 <StyledNavLink to={`${match.url}/profile`}>
                   <ListItem button>
-                    <ListItemText primary="Profile Settings" />
+                    <ListItemText primary="Profile" />
                   </ListItem>
                 </StyledNavLink>
 
@@ -54,6 +54,12 @@ export class SettingsList extends Component {
                 <StyledNavLink to={`${match.url}/commonIssues`}>
                   <ListItem button>
                     <ListItemText primary="Common Issues" />
+                  </ListItem>
+                </StyledNavLink>
+
+                <StyledNavLink to={`${match.url}/companyInformation`}>
+                  <ListItem button>
+                    <ListItemText primary="Company Information" />
                   </ListItem>
                 </StyledNavLink>
               </List>

@@ -19,6 +19,7 @@ export class ProfileSettings extends Component {
     displayImage: null,
     title: '',
     company: '',
+    mobile: '',
     error: '',
     loading: false,
   }
@@ -27,7 +28,14 @@ export class ProfileSettings extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const {
       history,
-      profile: { displayName, photoURL, title = '', company = '', signature },
+      profile: {
+        displayName,
+        photoURL,
+        title = '',
+        company = '',
+        mobile = '',
+        signature,
+      },
     } = this.props
 
     setNavTitle('Profile Settings')
@@ -37,7 +45,7 @@ export class ProfileSettings extends Component {
       </IconButton>,
     )
 
-    this.setState({ displayName, photoURL, title, company })
+    this.setState({ displayName, photoURL, title, company, mobile })
     signature && this.mySignature.fromDataURL(signature)
   }
 
@@ -89,7 +97,7 @@ export class ProfileSettings extends Component {
   }
 
   updateProfile = async downloadURL => {
-    const { displayName, photoURL, title, company } = this.state
+    const { displayName, photoURL, title, company, mobile } = this.state
     const { firebase } = this.props
 
     try {
@@ -97,6 +105,7 @@ export class ProfileSettings extends Component {
         displayName,
         title,
         company,
+        mobile,
         photoURL: downloadURL || photoURL,
         signature: !this.mySignature.isEmpty()
           ? this.mySignature.toDataURL('image/svg+xml')
@@ -109,7 +118,15 @@ export class ProfileSettings extends Component {
   }
 
   render() {
-    const { displayName, photoURL, title, company, error, loading } = this.state
+    const {
+      displayName,
+      photoURL,
+      title,
+      company,
+      mobile,
+      error,
+      loading,
+    } = this.state
 
     return (
       <StyledProfileSettings className="StyledProfileSettings">
@@ -149,6 +166,14 @@ export class ProfileSettings extends Component {
               label="Company"
               value={company}
               onChange={this.onInputChange('company')}
+              margin="normal"
+            />
+
+            <TextField
+              fullWidth
+              label="Mobile"
+              value={mobile}
+              onChange={this.onInputChange('mobile')}
               margin="normal"
             />
 
