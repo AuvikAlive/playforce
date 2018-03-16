@@ -5,13 +5,13 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import DateRangeIcon from 'material-ui-icons/DateRange'
 import Card, { CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import { DatePicker } from 'material-ui-pickers'
-import { StyledAddStandard } from './StyledAddStandard'
+import Button from 'material-ui/Button'
+import { CircularProgress } from 'material-ui/Progress'
+import { StyledEditStandard } from './StyledEditStandard'
 
-export class AddStandard extends Component {
+export class EditStandard extends Component {
   state = {
     code: '',
     title: '',
@@ -22,9 +22,15 @@ export class AddStandard extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, firestore, userId, standardId } = this.props
 
-    setNavTitle('Add a Standard')
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'standards', doc: standardId }],
+    })
+
+    setNavTitle('Edit Standard')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
@@ -35,9 +41,22 @@ export class AddStandard extends Component {
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
+    const { firestore, userId, standardId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'standards', doc: standardId }],
+    })
+  }
+
+  componentWillReceiveProps({ standard }) {
+    const { code, title, publishDate } = standard
+
+    this.setState({ code, title, publishDate })
   }
 
   onInputChange = name => event => {
@@ -52,17 +71,17 @@ export class AddStandard extends Component {
 
   publish = async () => {
     const { code, title, publishDate } = this.state
-    const { firestore, auth } = this.props
+    const { firestore, userId, standardId } = this.props
 
     this.setState({ error: '', loading: true })
 
     if (code && title && publishDate) {
       try {
-        await firestore.add(
+        await firestore.update(
           {
             collection: 'users',
-            doc: auth.uid,
-            subcollections: [{ collection: 'standards' }],
+            doc: userId,
+            subcollections: [{ collection: 'standards', doc: standardId }],
           },
           { code, title, publishDate },
         )
@@ -82,7 +101,7 @@ export class AddStandard extends Component {
     const { code, title, publishDate, error, loading } = this.state
 
     return (
-      <StyledAddStandard className="StyledAddStandard">
+      <StyledEditStandard className="StyledEditStandard">
         <Card>
           <CardContent>
             <form noValidate>
@@ -135,17 +154,17 @@ export class AddStandard extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Publish Standard
+                Publish Changes
               </Button>
             )}
           </CardContent>
         </Card>
-      </StyledAddStandard>
+      </StyledEditStandard>
     )
   }
 }
 
-AddStandard.contextTypes = {
+EditStandard.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

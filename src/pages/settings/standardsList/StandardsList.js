@@ -64,7 +64,7 @@ export class StandardsList extends Component {
             <List component="nav" disablePadding>
               {standards.map(({ id, code, title, date }) => {
                 return (
-                  <StyledNavLink key={id} to={`${match.url}/${code}`}>
+                  <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                     <ListItem button>
                       <ListItemText primary={title} />
                     </ListItem>
