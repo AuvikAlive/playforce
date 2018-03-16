@@ -50,8 +50,25 @@ export class AddStandard extends Component {
     this.setState({ publishDate: date })
   }
 
-  publish = () => {
-    console.log(this.state)
+  publish = async () => {
+    const { code, title, publishDate } = this.state
+    const { firestore, auth } = this.props
+
+    this.setState({ error: '', loading: true })
+
+    try {
+      await firestore.add(
+        {
+          collection: 'users',
+          doc: auth.uid,
+          subcollections: [{ collection: 'standards' }],
+        },
+        { code, title, publishDate },
+      )
+      this.setState({ loading: false })
+    } catch (error) {
+      this.setState({ error: error.message, loading: false })
+    }
   }
 
   render() {

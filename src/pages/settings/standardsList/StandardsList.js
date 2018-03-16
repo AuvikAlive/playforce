@@ -13,7 +13,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class StandardsList extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, firestore, uid } = this.props
 
     setNavTitle('Standards')
 
@@ -22,10 +22,23 @@ export class StandardsList extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListener({
+      collection: 'users',
+      doc: uid,
+      subcollections: [{ collection: 'standards' }],
+    })
   }
 
   componentWillUnmount() {
+    const { firestore, uid } = this.props
     const { removeNavTitle, removeLefNavComponent } = this.context
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: uid,
+      subcollections: [{ collection: 'standards' }],
+    })
 
     removeNavTitle()
     removeLefNavComponent()
@@ -49,9 +62,9 @@ export class StandardsList extends Component {
         {standards ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {standards.map(({ code, title, date }) => {
+              {standards.map(({ id, code, title, date }) => {
                 return (
-                  <StyledNavLink to={`${match.url}/${code}`}>
+                  <StyledNavLink key={id} to={`${match.url}/${code}`}>
                     <ListItem button>
                       <ListItemText primary={title} />
                     </ListItem>
