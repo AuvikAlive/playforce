@@ -12,7 +12,7 @@ import { DatePicker } from 'material-ui-pickers'
 import { StyledCover } from './StyledCover'
 
 const clients = ['Client 1', 'Client 2', 'Client 3']
-const standards = ['Standard 1', 'Standard 2', 'Standard 3']
+// const standards = ['Standard 1', 'Standard 2', 'Standard 3']
 
 export class Cover extends Component {
   state = {
@@ -25,7 +25,7 @@ export class Cover extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { cover } = this.props
+    const { cover, firestore, uid } = this.props
 
     cover && this.setState({ ...cover })
 
@@ -40,10 +40,33 @@ export class Cover extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListener({
+      collection: 'sites',
+      orderBy: 'name',
+    })
+
+    firestore.setListener({
+      collection: 'users',
+      doc: uid,
+      subcollections: [{ collection: 'standards' }],
+    })
   }
 
   componentWillUnmount() {
+    const { firestore, uid } = this.props
     const { removeNavTitle, removeLefNavComponent } = this.context
+
+    firestore.unsetListener({
+      collection: 'sites',
+      orderBy: 'name',
+    })
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: uid,
+      subcollections: [{ collection: 'standards' }],
+    })
 
     removeNavTitle()
     removeLefNavComponent()
@@ -115,7 +138,7 @@ export class Cover extends Component {
       appliedStandards,
     } = this.state
 
-    const { sites, displayName } = this.props
+    const { sites, displayName, standards } = this.props
 
     return (
       <StyledCover className="StyledCover">
@@ -198,11 +221,13 @@ export class Cover extends Component {
                 onChange={this.onInputChange('appliedStandards')}
                 margin="normal"
               >
-                {standards.map(item => (
-                  <MenuItem key={item} value={item}>
-                    {item}
-                  </MenuItem>
-                ))}
+                {standards.map(({ id, title }) => {
+                  return (
+                    <MenuItem key={id} value={title}>
+                      {title}
+                    </MenuItem>
+                  )
+                })}
               </TextField>
             </form>
           </CardContent>
