@@ -5,7 +5,7 @@ import { StandardsList } from './StandardsList'
 
 const mapStateToProps = ({
   firebase: { auth: { uid } },
-  firestore: { ordered: { users } },
+  firestore: { ordered: { users = [] } },
 }) => ({
   uid,
   standards: users,

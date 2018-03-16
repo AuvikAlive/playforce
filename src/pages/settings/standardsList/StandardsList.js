@@ -53,13 +53,13 @@ export class StandardsList extends Component {
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={standards ? '' : 'pulse'}
+            className={standards.length > 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {standards ? (
+        {standards.length > 0 ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
               {standards.map(({ id, code, title, date }) => {

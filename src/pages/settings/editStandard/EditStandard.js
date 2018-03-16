@@ -9,6 +9,8 @@ import TextField from 'material-ui/TextField'
 import { DatePicker } from 'material-ui-pickers'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
+import Modal from '../../../components/modal/Modal'
+import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledEditStandard } from './StyledEditStandard'
 
 export class EditStandard extends Component {
@@ -16,6 +18,7 @@ export class EditStandard extends Component {
     code: '',
     title: '',
     publishDate: new Date(),
+    modalOpen: false,
     error: '',
     loading: false,
   }
@@ -54,9 +57,11 @@ export class EditStandard extends Component {
   }
 
   componentWillReceiveProps({ standard }) {
-    const { code, title, publishDate } = standard
+    if (standard) {
+      const { code, title, publishDate } = standard
 
-    this.setState({ code, title, publishDate })
+      this.setState({ code, title, publishDate })
+    }
   }
 
   onInputChange = name => event => {
@@ -67,6 +72,14 @@ export class EditStandard extends Component {
 
   onDateChange = date => {
     this.setState({ publishDate: date })
+  }
+
+  openModal = () => {
+    this.setState({ modalOpen: true })
+  }
+
+  closeModal = () => {
+    this.setState({ modalOpen: false })
   }
 
   publish = async () => {
@@ -97,8 +110,25 @@ export class EditStandard extends Component {
     }
   }
 
+  delete = async () => {
+    const { history, firestore, userId, standardId } = this.props
+
+    try {
+      await firestore.delete({
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'standards', doc: standardId }],
+      })
+
+      this.setState({ loading: false })
+      history.goBack()
+    } catch (error) {
+      this.setState({ error: error.message, loading: false })
+    }
+  }
+
   render() {
-    const { code, title, publishDate, error, loading } = this.state
+    const { code, title, publishDate, modalOpen, error, loading } = this.state
 
     return (
       <StyledEditStandard className="StyledEditStandard">
@@ -150,6 +180,18 @@ export class EditStandard extends Component {
               <Button
                 fullWidth
                 variant="raised"
+                color="inherit"
+                className="submit-button discard-button"
+                onClick={this.openModal}
+              >
+                Delete Standard
+              </Button>
+            )}
+
+            {!loading && (
+              <Button
+                fullWidth
+                variant="raised"
                 color="primary"
                 className="submit-button"
                 onClick={this.publish}
@@ -159,6 +201,13 @@ export class EditStandard extends Component {
             )}
           </CardContent>
         </Card>
+
+        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
+          <ModalDeleteContent
+            handleConfirmation={this.delete}
+            closeModal={this.closeModal}
+          />
+        </Modal>
       </StyledEditStandard>
     )
   }
