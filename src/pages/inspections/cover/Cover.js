@@ -213,7 +213,12 @@ export class Cover extends Component {
               <TextField
                 fullWidth
                 select
-                label="Applied Standards"
+                disabled={!(standards.length > 0)}
+                label={
+                  standards.length > 0
+                    ? 'Applied Standards'
+                    : 'Add Standards on Settings'
+                }
                 value={appliedStandards}
                 SelectProps={{
                   multiple: true,
