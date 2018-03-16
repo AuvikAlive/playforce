@@ -12,7 +12,7 @@ export const ModalDeleteContent = ({ closeModal, handleConfirmation }) => {
   return (
     <StyledModalDeleteContent className="StyledModalDeleteContent">
       <Card>
-        <CardContent>Delete this site?</CardContent>
+        <CardContent>Delete this item?</CardContent>
         <CardActions className="card-actions">
           <Button size="small" onClick={closeModal}>
             Cancel

@@ -59,7 +59,11 @@ export class StandardsList extends Component {
           </Button>
         </StyledNavLink>
 
-        {standards.length > 0 ? (
+        {standards.length === 0 ? (
+          <Typography variant="title" align="center">
+            Try adding an item to get started!
+          </Typography>
+        ) : (
           <Paper className="paper">
             <List component="nav" disablePadding>
               {standards.map(({ id, code, title, date }) => {
@@ -73,10 +77,6 @@ export class StandardsList extends Component {
               })}
             </List>
           </Paper>
-        ) : (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
         )}
       </StyledStandardList>
     )

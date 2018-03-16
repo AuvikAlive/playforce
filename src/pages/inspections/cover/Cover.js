@@ -9,10 +9,19 @@ import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
+import values from 'lodash/values'
 import { StyledCover } from './StyledCover'
 
-const clients = ['Client 1', 'Client 2', 'Client 3']
-// const standards = ['Standard 1', 'Standard 2', 'Standard 3']
+const defaultClients = [
+  'Default Client 1',
+  'Default Client 2',
+  'Default Client 3',
+]
+const defaultStandards = [
+  'Default Standard 1',
+  'Default Standard 2',
+  'Default Standard 3',
+]
 
 export class Cover extends Component {
   state = {
@@ -41,32 +50,44 @@ export class Cover extends Component {
       </IconButton>,
     )
 
-    firestore.setListener({
-      collection: 'sites',
-      orderBy: 'name',
-    })
-
-    firestore.setListener({
-      collection: 'users',
-      doc: uid,
-      subcollections: [{ collection: 'standards' }],
-    })
+    firestore.setListeners([
+      {
+        collection: 'sites',
+        orderBy: 'name',
+      },
+      {
+        collection: 'users',
+        doc: uid,
+        subcollections: [{ collection: 'standards' }],
+      },
+      {
+        collection: 'users',
+        doc: uid,
+        subcollections: [{ collection: 'clients' }],
+      },
+    ])
   }
 
   componentWillUnmount() {
     const { firestore, uid } = this.props
     const { removeNavTitle, removeLefNavComponent } = this.context
 
-    firestore.unsetListener({
-      collection: 'sites',
-      orderBy: 'name',
-    })
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: uid,
-      subcollections: [{ collection: 'standards' }],
-    })
+    firestore.unsetListeners([
+      {
+        collection: 'sites',
+        orderBy: 'name',
+      },
+      {
+        collection: 'users',
+        doc: uid,
+        subcollections: [{ collection: 'standards' }],
+      },
+      {
+        collection: 'users',
+        doc: uid,
+        subcollections: [{ collection: 'clients' }],
+      },
+    ])
 
     removeNavTitle()
     removeLefNavComponent()
@@ -138,7 +159,15 @@ export class Cover extends Component {
       appliedStandards,
     } = this.state
 
-    const { sites, displayName, standards } = this.props
+    const { sites, displayName, data } = this.props
+
+    let standards = []
+    let clients = []
+
+    if (data) {
+      standards = values(data.standards)
+      clients = values(data.clients)
+    }
 
     return (
       <StyledCover className="StyledCover">
@@ -181,11 +210,21 @@ export class Cover extends Component {
                 onChange={this.onInputChange('client')}
                 margin="normal"
               >
-                {clients.map(item => (
-                  <MenuItem key={item} value={item}>
-                    {item}
-                  </MenuItem>
-                ))}
+                {clients.length > 0
+                  ? clients.map(({ name }, index) => {
+                      return (
+                        <MenuItem key={index} value={name}>
+                          {name}
+                        </MenuItem>
+                      )
+                    })
+                  : defaultClients.map((item, index) => {
+                      return (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      )
+                    })}
               </TextField>
 
               <DatePicker
@@ -213,12 +252,7 @@ export class Cover extends Component {
               <TextField
                 fullWidth
                 select
-                disabled={!(standards.length > 0)}
-                label={
-                  standards.length > 0
-                    ? 'Applied Standards'
-                    : 'Add Standards on Settings'
-                }
+                label="Applied Standards"
                 value={appliedStandards}
                 SelectProps={{
                   multiple: true,
@@ -226,13 +260,21 @@ export class Cover extends Component {
                 onChange={this.onInputChange('appliedStandards')}
                 margin="normal"
               >
-                {standards.map(({ id, title }) => {
-                  return (
-                    <MenuItem key={id} value={title}>
-                      {title}
-                    </MenuItem>
-                  )
-                })}
+                {standards.length > 0
+                  ? standards.map(({ title }, index) => {
+                      return (
+                        <MenuItem key={index} value={title}>
+                          {title}
+                        </MenuItem>
+                      )
+                    })
+                  : defaultStandards.map((item, index) => {
+                      return (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      )
+                    })}
               </TextField>
             </form>
           </CardContent>

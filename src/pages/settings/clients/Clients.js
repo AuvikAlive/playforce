@@ -2,17 +2,21 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import DeleteIcon from 'material-ui-icons/Delete'
 import Card, { CardContent } from 'material-ui/Card'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+import Modal from '../../../components/modal/Modal'
+import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledClients } from './StyledClients'
 
 export class Clients extends Component {
   state = {
     client: '',
+    modalOpen: false,
     error: '',
     loading: false,
   }
@@ -56,6 +60,14 @@ export class Clients extends Component {
     })
   }
 
+  openModal = () => {
+    this.setState({ modalOpen: true })
+  }
+
+  closeModal = () => {
+    this.setState({ modalOpen: false })
+  }
+
   publish = async () => {
     const { client } = this.state
     const { firestore, userId } = this.props
@@ -72,9 +84,9 @@ export class Clients extends Component {
           },
           { name: client },
         )
-        this.setState({ loading: false })
+        this.setState({ loading: false, client: '' })
       } catch (error) {
-        this.setState({ client: '', error: error.message, loading: false })
+        this.setState({ error: error.message, loading: false })
       }
     } else {
       this.setState({
@@ -84,8 +96,30 @@ export class Clients extends Component {
     }
   }
 
+  deletePrompt = id => () => {
+    this.setState({ deleteItemId: id })
+    this.openModal()
+  }
+
+  delete = async () => {
+    const { firestore, userId } = this.props
+    const { deleteItemId } = this.state
+
+    try {
+      await firestore.delete({
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'clients', doc: deleteItemId }],
+      })
+
+      this.setState({ loading: false })
+    } catch (error) {
+      this.setState({ error: error.message, loading: false })
+    }
+  }
+
   render() {
-    const { client, error, loading } = this.state
+    const { client, modalOpen, error, loading } = this.state
     const { clients } = this.props
 
     return (
@@ -93,10 +127,13 @@ export class Clients extends Component {
         <Card className="card">
           {clients.length > 0 ? (
             <List component="nav" disablePadding>
-              {clients.map(({ name }, index) => {
+              {clients.map(({ id, name }) => {
                 return (
-                  <ListItem key={index} button>
+                  <ListItem key={id} button>
                     <ListItemText primary={name} />
+                    <ListItemIcon onClick={this.deletePrompt(id)}>
+                      <DeleteIcon />
+                    </ListItemIcon>
                   </ListItem>
                 )
               })}
@@ -113,15 +150,13 @@ export class Clients extends Component {
             </ListItem>
           )}
           <CardContent>
-            <form noValidate>
-              <TextField
-                fullWidth
-                label="Client"
-                value={client}
-                onChange={this.onInputChange('client')}
-                margin="normal"
-              />
-            </form>
+            <TextField
+              fullWidth
+              label="Client"
+              value={client}
+              onChange={this.onInputChange('client')}
+              margin="normal"
+            />
 
             {error && <p className="error">{error}</p>}
 
@@ -145,6 +180,13 @@ export class Clients extends Component {
             )}
           </CardContent>
         </Card>
+
+        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
+          <ModalDeleteContent
+            handleConfirmation={this.delete}
+            closeModal={this.closeModal}
+          />
+        </Modal>
       </StyledClients>
     )
   }

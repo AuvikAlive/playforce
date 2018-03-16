@@ -5,7 +5,7 @@ import { Cover } from './Cover'
 import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions'
 
 const mapStateToProps = ({
-  firestore: { ordered: { sites = [], users = [] } },
+  firestore: { data: { users }, ordered: { sites = [] } },
   firebase: { profile: { displayName, email }, auth: { uid } },
   inspection: { cover },
 }) => ({
@@ -14,7 +14,7 @@ const mapStateToProps = ({
   email,
   cover,
   uid,
-  standards: users,
+  data: users && users[uid],
 })
 
 const mapDispatchToProps = { addInspectionCover }
