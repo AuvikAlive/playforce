@@ -12,7 +12,6 @@ import { StyledClients } from './StyledClients'
 
 export class Clients extends Component {
   state = {
-    clients: [],
     client: '',
     error: '',
     loading: false,
@@ -20,7 +19,7 @@ export class Clients extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, firestore, userId } = this.props
 
     setNavTitle('Clients')
 
@@ -29,13 +28,26 @@ export class Clients extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'clients' }],
+    })
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'clients' }],
+    })
   }
 
   onInputChange = name => event => {
@@ -44,26 +56,47 @@ export class Clients extends Component {
     })
   }
 
-  publish = () => {
-    const { clients, client } = this.state
+  publish = async () => {
+    const { client } = this.state
+    const { firestore, userId } = this.props
 
-    clients.push(client)
+    if (client) {
+      this.setState({ error: '', loading: true })
 
-    this.setState({ clients, client: '' })
+      try {
+        await firestore.add(
+          {
+            collection: 'users',
+            doc: userId,
+            subcollections: [{ collection: 'clients' }],
+          },
+          { name: client },
+        )
+        this.setState({ loading: false })
+      } catch (error) {
+        this.setState({ client: '', error: error.message, loading: false })
+      }
+    } else {
+      this.setState({
+        error: 'Please fill up the form correctly!',
+        loading: false,
+      })
+    }
   }
 
   render() {
-    const { clients, client, error, loading } = this.state
+    const { client, error, loading } = this.state
+    const { clients } = this.props
 
     return (
       <StyledClients className="StyledClients">
         <Card className="card">
-          {clients.length ? (
+          {clients.length > 0 ? (
             <List component="nav" disablePadding>
-              {clients.map((client, index) => {
+              {clients.map(({ name }, index) => {
                 return (
                   <ListItem key={index} button>
-                    <ListItemText primary={client} />
+                    <ListItemText primary={name} />
                   </ListItem>
                 )
               })}
