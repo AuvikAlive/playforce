@@ -9,7 +9,16 @@ import TextField from 'material-ui/TextField'
 import { StyledAddSite } from './StyledAddSite'
 
 export class AddSite extends Component {
-  state = { name: '' }
+  state = {
+    name: '',
+    street: '',
+    suburb: '',
+    postcode: '',
+    country: '',
+    latitude: '',
+    longitude: '',
+    division: '',
+  }
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
@@ -22,6 +31,17 @@ export class AddSite extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    'geolocation' in navigator &&
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          this.setState({
+            latitude: latitude.toFixed(5),
+            longitude: longitude.toFixed(5),
+          })
+        },
+        error => console.log(error),
+      )
   }
 
   componentWillUnmount() {
@@ -42,7 +62,18 @@ export class AddSite extends Component {
   }
 
   render() {
-    const { name, error, loading } = this.state
+    const {
+      name,
+      street,
+      suburb,
+      postcode,
+      country,
+      latitude,
+      longitude,
+      division,
+      error,
+      loading,
+    } = this.state
 
     return (
       <StyledAddSite className="StyledAddSite">
@@ -54,6 +85,65 @@ export class AddSite extends Component {
                 label="Name"
                 value={name}
                 onChange={this.onInputChange('name')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="Street"
+                value={street}
+                onChange={this.onInputChange('street')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="Suburb"
+                value={suburb}
+                onChange={this.onInputChange('suburb')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="Postcode"
+                value={postcode}
+                onChange={this.onInputChange('postcode')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="Country"
+                value={country}
+                onChange={this.onInputChange('country')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                type="number"
+                label="Latitude"
+                value={latitude}
+                onChange={this.onInputChange('latitude')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                type="number"
+                label="Longitude"
+                value={longitude}
+                onChange={this.onInputChange('longitude')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                type="number"
+                label="Division"
+                value={division}
+                onChange={this.onInputChange('division')}
                 margin="normal"
               />
             </form>
