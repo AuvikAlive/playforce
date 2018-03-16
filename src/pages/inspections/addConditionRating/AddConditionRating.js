@@ -6,9 +6,14 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
+import values from 'lodash/values'
 import { StyledAddConditionRating } from './StyledAddConditionRating'
 
-const manufacturers = ['Manufacturer 1', 'Manufacturer 2', 'Manufacturer 3']
+const defaultManufacturers = [
+  'Default Manufacturer 1',
+  'Default Manufacturer 2',
+  'Default Manufacturer 3',
+]
 const conditions = [
   '1 - Excellent',
   '2 - Good',
@@ -27,6 +32,7 @@ export class AddConditionRating extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     setNavTitle('Add Condition Rating')
 
@@ -39,13 +45,26 @@ export class AddConditionRating extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'manufacturers' }],
+    })
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'manufacturers' }],
+    })
   }
 
   capture = () => {
@@ -90,6 +109,13 @@ export class AddConditionRating extends Component {
 
   render() {
     const { image, equipment, manufacturer, condition } = this.state
+    const { data } = this.props
+
+    let manufacturers = []
+
+    if (data) {
+      manufacturers = values(data.manufacturers)
+    }
 
     return (
       <StyledAddConditionRating className="StyledAddConditionRating">
@@ -123,11 +149,21 @@ export class AddConditionRating extends Component {
                 onChange={this.onInputChange('manufacturer')}
                 margin="normal"
               >
-                {manufacturers.map(item => (
-                  <MenuItem key={item} value={item}>
-                    {item}
-                  </MenuItem>
-                ))}
+                {manufacturers.length > 0
+                  ? manufacturers.map(({ name }, index) => {
+                      return (
+                        <MenuItem key={index} value={name}>
+                          {name}
+                        </MenuItem>
+                      )
+                    })
+                  : defaultManufacturers.map((item, index) => {
+                      return (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      )
+                    })}
               </TextField>
 
               <TextField
