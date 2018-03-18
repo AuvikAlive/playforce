@@ -20,7 +20,7 @@ export class Company extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, company } = this.props
 
     setNavTitle('Company Information')
 
@@ -29,6 +29,15 @@ export class Company extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    const { postalAddress, abn, phoneNumber, website } = company
+
+    this.setState({
+      postalAddress,
+      abn,
+      phoneNumber,
+      website,
+    })
   }
 
   componentWillUnmount() {
@@ -36,6 +45,34 @@ export class Company extends Component {
 
     removeNavTitle()
     removeLefNavComponent()
+  }
+
+  onInputChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    })
+  }
+
+  publish = async () => {
+    const { postalAddress, abn, phoneNumber, website } = this.state
+
+    const { firebase } = this.props
+
+    this.setState({ error: '', loading: true })
+
+    try {
+      await firebase.updateProfile({
+        company: {
+          postalAddress,
+          abn,
+          phoneNumber,
+          website,
+        },
+      })
+      this.setState({ loading: false })
+    } catch (error) {
+      this.setState({ error: error.message, loading: false })
+    }
   }
 
   onInputChange = name => event => {
@@ -110,7 +147,7 @@ export class Company extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Publish Changes
+                Publish
               </Button>
             )}
           </CardContent>

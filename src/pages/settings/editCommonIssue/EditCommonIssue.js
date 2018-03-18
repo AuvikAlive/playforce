@@ -136,9 +136,9 @@ export class EditCommonIssue extends Component {
       comments &&
       recommendations
     ) {
-      try {
-        this.setState({ error: '', loading: true })
+      this.setState({ error: '', loading: true })
 
+      try {
         await firestore.update(
           {
             collection: 'users',
