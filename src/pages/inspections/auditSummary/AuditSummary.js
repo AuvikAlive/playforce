@@ -26,8 +26,6 @@ export class AuditSummary extends Component {
       this.setState({ summary })
     }
 
-    signature && this.mySignature.fromDataURL(signature)
-
     setNavTitle('Add Audit Summary')
 
     setLeftNavComponent(
@@ -69,7 +67,7 @@ export class AuditSummary extends Component {
 
   render() {
     const { summary, error, loading } = this.state
-    const { profile: { displayName, title, company } } = this.props
+    const { profile: { displayName, title, company, signature } } = this.props
 
     return (
       <StyledAuditSummary className="StyledAuditSummary">
@@ -92,13 +90,9 @@ export class AuditSummary extends Component {
                   focused={false}
                   className="signature-label"
                 >
-                  <div>Signature</div>
+                  Signature
                 </InputLabel>
-                <SignaturePad
-                  ref={input => {
-                    this.mySignature = input
-                  }}
-                />
+                <img src={signature} alt="signature" />
               </FormControl>
 
               <TextField
