@@ -53,7 +53,7 @@ export class CommonIssuesList extends Component {
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={commonIssues.length === 0 ? '' : 'pulse'}
+            className={commonIssues.length === 0 ? 'pulse' : ''}
           >
             <AddIcon />
           </Button>
