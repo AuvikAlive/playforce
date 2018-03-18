@@ -17,11 +17,11 @@ const defaultClients = [
   'Default Client 2',
   'Default Client 3',
 ]
-const defaultStandards = [
-  'Default Standard 1',
-  'Default Standard 2',
-  'Default Standard 3',
-]
+// const defaultStandards = [
+//   'Default Standard 1',
+//   'Default Standard 2',
+//   'Default Standard 3',
+// ]
 
 export class Cover extends Component {
   state = {
@@ -156,16 +156,16 @@ export class Cover extends Component {
       location,
       client,
       inspectionDate,
-      appliedStandards,
+      // appliedStandards,
     } = this.state
 
     const { sites, displayName, data } = this.props
 
-    let standards = []
+    // let standards = []
     let clients = []
 
     if (data) {
-      standards = values(data.standards)
+      // standards = values(data.standards)
       clients = values(data.clients)
     }
 
@@ -249,7 +249,7 @@ export class Cover extends Component {
                 margin="normal"
               />
 
-              <TextField
+              {/* <TextField
                 fullWidth
                 select
                 label="Applied Standards"
@@ -272,7 +272,7 @@ export class Cover extends Component {
                         </MenuItem>
                       )
                     })}
-              </TextField>
+              </TextField> */}
             </form>
           </CardContent>
           <input

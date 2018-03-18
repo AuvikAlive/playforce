@@ -20,7 +20,7 @@ export class Company extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, company } = this.props
+    const { history, companyInfo } = this.props
 
     setNavTitle('Company Information')
 
@@ -30,14 +30,16 @@ export class Company extends Component {
       </IconButton>,
     )
 
-    const { postalAddress, abn, phoneNumber, website } = company
+    if (companyInfo) {
+      const { postalAddress, abn, phoneNumber, website } = companyInfo
 
-    this.setState({
-      postalAddress,
-      abn,
-      phoneNumber,
-      website,
-    })
+      this.setState({
+        postalAddress,
+        abn,
+        phoneNumber,
+        website,
+      })
+    }
   }
 
   componentWillUnmount() {
@@ -62,7 +64,7 @@ export class Company extends Component {
 
     try {
       await firebase.updateProfile({
-        company: {
+        companyInfo: {
           postalAddress,
           abn,
           phoneNumber,
