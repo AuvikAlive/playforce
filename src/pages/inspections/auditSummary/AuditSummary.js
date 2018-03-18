@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField'
 import { FormControl } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
 import { CircularProgress } from 'material-ui/Progress'
-import SignaturePad from 'react-signature-pad'
+// import SignaturePad from 'react-signature-pad'
 import { StyledAuditSummary } from './StyledAuditSummary'
 
 export class AuditSummary extends Component {
@@ -18,7 +18,7 @@ export class AuditSummary extends Component {
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { auditSummary, profile: { signature } } = this.props
+    const { auditSummary } = this.props
 
     if (auditSummary) {
       const { summary } = auditSummary
