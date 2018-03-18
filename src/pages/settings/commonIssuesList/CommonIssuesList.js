@@ -13,7 +13,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class CommonIssuesList extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, firestore, userId } = this.props
 
     setNavTitle('Common Issues')
 
@@ -22,13 +22,26 @@ export class CommonIssuesList extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'commonIssues' }],
+    })
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'commonIssues' }],
+    })
   }
   render() {
     const { match, commonIssues } = this.props
@@ -40,30 +53,30 @@ export class CommonIssuesList extends Component {
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={commonIssues ? '' : 'pulse'}
+            className={commonIssues.length === 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {commonIssues ? (
+        {commonIssues.length === 0 ? (
+          <Typography variant="title" align="center">
+            Try adding an item to get started!
+          </Typography>
+        ) : (
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {commonIssues.map(({ id, title }) => {
+              {commonIssues.map(({ id, finding }) => {
                 return (
-                  <StyledNavLink key={id} to={`${match.url}/${id}`}>
+                  <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                     <ListItem button>
-                      <ListItemText primary={title} />
+                      <ListItemText primary={finding} />
                     </ListItem>
                   </StyledNavLink>
                 )
               })}
             </List>
           </Paper>
-        ) : (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
         )}
       </StyledCommonIssuesList>
     )

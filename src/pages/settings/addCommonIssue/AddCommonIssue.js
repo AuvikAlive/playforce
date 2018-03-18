@@ -49,9 +49,16 @@ export class AddCommonIssue extends Component {
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'standards' }],
+    })
   }
 
   onInputChange = name => event => {

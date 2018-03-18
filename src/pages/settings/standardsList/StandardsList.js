@@ -13,7 +13,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class StandardsList extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, uid } = this.props
+    const { history, firestore, userId } = this.props
 
     setNavTitle('Standards')
 
@@ -25,18 +25,18 @@ export class StandardsList extends Component {
 
     firestore.setListener({
       collection: 'users',
-      doc: uid,
+      doc: userId,
       subcollections: [{ collection: 'standards' }],
     })
   }
 
   componentWillUnmount() {
-    const { firestore, uid } = this.props
+    const { firestore, userId } = this.props
     const { removeNavTitle, removeLefNavComponent } = this.context
 
     firestore.unsetListener({
       collection: 'users',
-      doc: uid,
+      doc: userId,
       subcollections: [{ collection: 'standards' }],
     })
 

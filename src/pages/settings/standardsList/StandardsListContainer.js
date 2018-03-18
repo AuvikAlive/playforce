@@ -7,7 +7,7 @@ const mapStateToProps = ({
   firebase: { auth: { uid } },
   firestore: { ordered: { users = [] } },
 }) => ({
-  uid,
+  userId: uid,
   standards: users,
 })
 
