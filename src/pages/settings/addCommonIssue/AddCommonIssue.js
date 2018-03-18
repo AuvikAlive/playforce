@@ -10,27 +10,18 @@ import { InputLabel } from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
 import Grid from 'material-ui/Grid'
 import { StyledAddCommonIssue } from './StyledAddCommonIssue'
+import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
-const standards = ['Standard 1', 'Standard 2', 'Standard 3']
-const probabilities = [
-  { probability: 'A', value: 1 },
-  { probability: 'B', value: 2 },
-  { probability: 'C', value: 3 },
-  { probability: 'D', value: 4 },
-  { probability: 'E', value: 5 },
-]
-const severities = [1, 2, 3, 4, 5]
-const riskLevels = [
-  ['VL (1)', 'VL (2)', 'L (8)', 'L (9)', 'M (14)'],
-  ['VL (3)', 'VL (4)', 'L (10)', 'M (15)', 'M (17)'],
-  ['VL (5)', 'L (11)', 'M (16)', 'H (19)', 'H (20)'],
-  ['VL (6)', 'L (12)', 'M (18)', 'H (21)', 'VH (23)'],
-  ['VL (7)', 'L (13)', 'H (22)', 'VH (24)', 'VH (25)'],
+const defaultStandards = [
+  'Default Standard 1',
+  'Default Standard 2',
+  'Default Standard 3',
 ]
 
 export class AddCommonIssue extends Component {
   state = {
-    appliedStandards: [],
+    finding: '',
+    appliedStandard: '',
     probability: '',
     severity: '',
     comments: '',
@@ -39,7 +30,7 @@ export class AddCommonIssue extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, firestore, userId } = this.props
 
     setNavTitle('Add a Common Issue')
 
@@ -48,6 +39,12 @@ export class AddCommonIssue extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'standards' }],
+    })
   }
 
   componentWillUnmount() {
@@ -63,14 +60,59 @@ export class AddCommonIssue extends Component {
     })
   }
 
-  publish = () => {
-    console.log(this.state)
+  publish = async () => {
+    const {
+      finding,
+      appliedStandard,
+      probability,
+      severity,
+      comments,
+      recommendations,
+    } = this.state
+    const { firestore, userId } = this.props
+
+    if (
+      finding &&
+      appliedStandard &&
+      probability &&
+      severity &&
+      comments &&
+      recommendations
+    ) {
+      this.setState({ error: '', loading: true })
+
+      try {
+        await firestore.add(
+          {
+            collection: 'users',
+            doc: userId,
+            subcollections: [{ collection: 'commonIssues' }],
+          },
+          {
+            finding,
+            appliedStandard,
+            probability,
+            severity,
+            comments,
+            recommendations,
+          },
+        )
+        this.setState({ loading: false })
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
+    } else {
+      this.setState({
+        error: 'Please fill up the form correctly!',
+        loading: false,
+      })
+    }
   }
 
   render() {
     const {
       finding,
-      appliedStandards,
+      appliedStandard,
       probability,
       severity,
       comments,
@@ -81,6 +123,8 @@ export class AddCommonIssue extends Component {
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
+
+    const { standards } = this.props
 
     return (
       <StyledAddCommonIssue className="StyledAddCommonIssue">
@@ -98,19 +142,26 @@ export class AddCommonIssue extends Component {
               <TextField
                 fullWidth
                 select
-                label="Applied Standards"
-                value={appliedStandards}
-                SelectProps={{
-                  multiple: true,
-                }}
-                onChange={this.onInputChange('appliedStandards')}
+                label="Applied Standard"
+                value={appliedStandard}
+                onChange={this.onInputChange('appliedStandard')}
                 margin="normal"
               >
-                {standards.map(item => (
-                  <MenuItem key={item} value={item}>
-                    {item}
-                  </MenuItem>
-                ))}
+                {standards.length > 0
+                  ? standards.map(({ id, title, code }) => {
+                      return (
+                        <MenuItem key={id} value={id}>
+                          {`${title} ${code}`}
+                        </MenuItem>
+                      )
+                    })
+                  : defaultStandards.map((item, index) => {
+                      return (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      )
+                    })}
               </TextField>
 
               <Grid container>
@@ -144,9 +195,9 @@ export class AddCommonIssue extends Component {
                     onChange={this.onInputChange('severity')}
                     margin="normal"
                   >
-                    {severities.map(item => (
-                      <MenuItem key={item} value={item}>
-                        {item}
+                    {severities.map(({ serverity, value }, index) => (
+                      <MenuItem key={index} value={value}>
+                        {serverity}
                       </MenuItem>
                     ))}
                   </TextField>

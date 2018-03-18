@@ -29,7 +29,7 @@ export class Cover extends Component {
     location: '',
     client: '',
     inspectionDate: new Date(),
-    appliedStandards: [],
+    appliedStandards: '',
   }
 
   componentDidMount() {
@@ -254,9 +254,6 @@ export class Cover extends Component {
                 select
                 label="Applied Standards"
                 value={appliedStandards}
-                SelectProps={{
-                  multiple: true,
-                }}
                 onChange={this.onInputChange('appliedStandards')}
                 margin="normal"
               >

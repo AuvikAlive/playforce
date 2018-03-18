@@ -54,9 +54,9 @@ export class AddStandard extends Component {
     const { code, title, publishDate } = this.state
     const { firestore, auth } = this.props
 
-    this.setState({ error: '', loading: true })
-
     if (code && title && publishDate) {
+      this.setState({ error: '', loading: true })
+
       try {
         await firestore.add(
           {
