@@ -4,8 +4,9 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
+import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Paper from 'material-ui/Paper'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
 import { StyledStandardList } from './StyledStandardList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
@@ -71,6 +72,9 @@ export class StandardsList extends Component {
                   <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                     <ListItem button>
                       <ListItemText primary={`${title} ${code}`} />
+                      <ListItemIcon>
+                        <ModeEditIcon />
+                      </ListItemIcon>
                     </ListItem>
                   </StyledNavLink>
                 )

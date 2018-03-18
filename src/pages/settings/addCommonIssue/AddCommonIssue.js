@@ -86,9 +86,9 @@ export class AddCommonIssue extends Component {
       comments &&
       recommendations
     ) {
-      this.setState({ error: '', loading: true })
-
       try {
+        this.setState({ error: '', loading: true })
+
         await firestore.add(
           {
             collection: 'users',
@@ -157,7 +157,7 @@ export class AddCommonIssue extends Component {
                 {standards.length > 0
                   ? standards.map(({ id, title, code }) => {
                       return (
-                        <MenuItem key={id} value={id}>
+                        <MenuItem key={id} value={`${title} ${code}`}>
                           {`${title} ${code}`}
                         </MenuItem>
                       )

@@ -86,9 +86,9 @@ export class EditStandard extends Component {
     const { code, title, publishDate } = this.state
     const { firestore, userId, standardId } = this.props
 
-    this.setState({ error: '', loading: true })
-
     if (code && title && publishDate) {
+      this.setState({ error: '', loading: true })
+
       try {
         await firestore.update(
           {
