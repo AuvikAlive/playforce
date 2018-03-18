@@ -9,23 +9,7 @@ import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import { StyledAddCompliaceIssue } from './StyledAddComplianceIssue'
-
-const findings = ['Finding 1', 'Finding 2', 'Finding 3']
-const probabilities = [
-  { probability: 'A', value: 1 },
-  { probability: 'B', value: 2 },
-  { probability: 'C', value: 3 },
-  { probability: 'D', value: 4 },
-  { probability: 'E', value: 5 },
-]
-const severities = [1, 2, 3, 4, 5]
-const riskLevels = [
-  ['VL (1)', 'VL (2)', 'L (8)', 'L (9)', 'M (14)'],
-  ['VL (3)', 'VL (4)', 'L (10)', 'M (15)', 'M (17)'],
-  ['VL (5)', 'L (11)', 'M (16)', 'H (19)', 'H (20)'],
-  ['VL (6)', 'L (12)', 'M (18)', 'H (21)', 'VH (23)'],
-  ['VL (7)', 'L (13)', 'H (22)', 'VH (24)', 'VH (25)'],
-]
+import { findings, probabilities, severities, riskLevels } from './scales'
 
 export class AddComplianceIssue extends Component {
   state = {
@@ -261,9 +245,9 @@ export class AddComplianceIssue extends Component {
                     onChange={this.onInputChange('severity')}
                     margin="normal"
                   >
-                    {severities.map(item => (
-                      <MenuItem key={item} value={item}>
-                        {item}
+                    {severities.map(({ serverity, value }, index) => (
+                      <MenuItem key={index} value={value}>
+                        {serverity}
                       </MenuItem>
                     ))}
                   </TextField>
