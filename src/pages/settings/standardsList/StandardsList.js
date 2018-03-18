@@ -70,7 +70,7 @@ export class StandardsList extends Component {
                 return (
                   <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                     <ListItem button>
-                      <ListItemText primary={title} />
+                      <ListItemText primary={`${title} ${code}`} />
                     </ListItem>
                   </StyledNavLink>
                 )

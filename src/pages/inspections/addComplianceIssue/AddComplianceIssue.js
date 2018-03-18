@@ -9,7 +9,12 @@ import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import { StyledAddCompliaceIssue } from './StyledAddComplianceIssue'
-import { findings, probabilities, severities, riskLevels } from './scales'
+import {
+  findings,
+  probabilities,
+  severities,
+  riskLevels,
+} from '../../../globals/scales'
 
 export class AddComplianceIssue extends Component {
   state = {

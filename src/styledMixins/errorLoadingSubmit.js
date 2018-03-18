@@ -1,4 +1,4 @@
-import { theme } from '../theme'
+import { theme } from '../globals/theme'
 
 export const errorLoadingSubmit = `
   .error {
