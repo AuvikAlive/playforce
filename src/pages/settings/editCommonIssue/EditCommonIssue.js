@@ -203,11 +203,7 @@ export class EditCommonIssue extends Component {
 
     const { data } = this.props
 
-    let standards = []
-
-    if (data) {
-      standards = values(data.standards)
-    }
+    const standards = data ? values(data.standards) : []
 
     return (
       <StyledCommonIssue className="StyledCommonIssue">

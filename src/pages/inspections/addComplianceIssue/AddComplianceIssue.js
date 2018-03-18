@@ -8,19 +8,23 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
+import values from 'lodash/values'
 import { StyledAddCompliaceIssue } from './StyledAddComplianceIssue'
-import {
-  findings,
-  probabilities,
-  severities,
-  riskLevels,
-} from '../../../globals/scales'
+import { probabilities, severities, riskLevels } from '../../../globals/scales'
+
+const defaultStandards = [
+  'Default Standard 1',
+  'Default Standard 2',
+  'Default Standard 3',
+]
 
 export class AddComplianceIssue extends Component {
   state = {
+    commonIssues: [],
+    commonIssueIndex: '',
     image: null,
     finding: '',
-    standardsClause: '',
+    appliedStandard: '',
     probability: '',
     severity: '',
     comments: '',
@@ -30,6 +34,7 @@ export class AddComplianceIssue extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     setNavTitle('Add Compliance Issue')
 
@@ -42,13 +47,48 @@ export class AddComplianceIssue extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListeners([
+      {
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'standards' }],
+      },
+      {
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'commonIssues' }],
+      },
+    ])
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+
+    firestore.unsetListeners([
+      {
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'standards' }],
+      },
+      {
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'commonIssues' }],
+      },
+    ])
+  }
+
+  componentWillReceiveProps({ data, userId }) {
+    const commonIssues = data.commonIssues && values(data.commonIssues)
+
+    if (commonIssues) {
+      this.setState({ commonIssues })
+    }
   }
 
   capture = () => {
@@ -70,10 +110,23 @@ export class AddComplianceIssue extends Component {
   }
 
   onFindingChange = event => {
-    const finding = event.target.value
-    const standardsClause = `${finding} related standard`
+    const commonIssueIndex = event.target.value
+    const {
+      appliedStandard,
+      probability,
+      severity,
+      comments,
+      recommendations,
+    } = this.state.commonIssues[commonIssueIndex]
 
-    this.setState({ finding, standardsClause })
+    this.setState({
+      commonIssueIndex,
+      appliedStandard,
+      probability,
+      severity,
+      comments,
+      recommendations,
+    })
   }
 
   onInputChange = name => event => {
@@ -87,27 +140,33 @@ export class AddComplianceIssue extends Component {
 
     this.setState({
       customFinding: !customFinding,
-      finding: '',
-      standardsClause: '',
     })
   }
 
   addComplianceIssue = () => {
     const { history, addComplianceIssue } = this.props
     const {
+      commonIssues,
+      commonIssueIndex,
       image,
-      finding,
-      standardsClause,
+      appliedStandard,
       probability,
       severity,
       comments,
       recommendations,
+      customFinding,
     } = this.state
+
+    let { finding } = this.state
+
+    if (!customFinding && finding) {
+      finding = commonIssues[commonIssueIndex].finding
+    }
 
     if (
       image &&
       finding &&
-      standardsClause &&
+      appliedStandard &&
       probability &&
       severity &&
       comments &&
@@ -116,7 +175,7 @@ export class AddComplianceIssue extends Component {
       addComplianceIssue({
         image,
         finding,
-        standardsClause,
+        appliedStandard,
         probability: probabilities[probability - 1].probability,
         severity,
         riskLevel: riskLevels[probability - 1][severity - 1],
@@ -130,9 +189,11 @@ export class AddComplianceIssue extends Component {
 
   render() {
     const {
+      commonIssues,
+      commonIssueIndex,
       image,
       finding,
-      standardsClause,
+      appliedStandard,
       probability,
       severity,
       comments,
@@ -142,6 +203,10 @@ export class AddComplianceIssue extends Component {
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
+
+    const { data } = this.props
+
+    const standards = data && data.standards ? values(data.standards) : []
 
     return (
       <StyledAddCompliaceIssue className="StyledAddCompliaceIssue">
@@ -163,15 +228,19 @@ export class AddComplianceIssue extends Component {
                   fullWidth
                   select
                   label="Finding"
-                  value={finding}
+                  value={commonIssueIndex}
                   onChange={this.onFindingChange}
                   margin="normal"
                 >
-                  {findings.map(item => (
-                    <MenuItem key={item} value={item}>
-                      {item}
-                    </MenuItem>
-                  ))}
+                  {commonIssues.length === 0 ? (
+                    <MenuItem value={''}>No common issue added yet</MenuItem>
+                  ) : (
+                    commonIssues.map(({ finding }, index) => (
+                      <MenuItem key={index} value={index}>
+                        {finding}
+                      </MenuItem>
+                    ))
+                  )}
                 </TextField>
               )}
 
@@ -197,27 +266,30 @@ export class AddComplianceIssue extends Component {
                 {customFinding ? 'Set Commong Findings' : 'Set Custom Finding'}
               </Button>
 
-              {!customFinding && (
-                <TextField
-                  fullWidth
-                  disabled
-                  label="Standards Clause"
-                  value={standardsClause}
-                  margin="normal"
-                />
-              )}
-
-              {customFinding && (
-                <TextField
-                  fullWidth
-                  multiline
-                  rows="3"
-                  label="Standards Clause"
-                  value={standardsClause}
-                  margin="normal"
-                  onChange={this.onInputChange('standardsClause')}
-                />
-              )}
+              <TextField
+                fullWidth
+                select
+                label="Applied Standard"
+                value={appliedStandard}
+                onChange={this.onInputChange('appliedStandard')}
+                margin="normal"
+              >
+                {standards.length > 0
+                  ? standards.map(({ title, code }, index) => {
+                      return (
+                        <MenuItem key={index} value={`${title} ${code}`}>
+                          {`${title} ${code}`}
+                        </MenuItem>
+                      )
+                    })
+                  : defaultStandards.map((item, index) => {
+                      return (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      )
+                    })}
+              </TextField>
 
               <Grid container>
                 <Grid item xs={12}>
