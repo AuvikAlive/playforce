@@ -3,22 +3,19 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
+import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { FormControl } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
-import { CircularProgress } from 'material-ui/Progress'
-// import SignaturePad from 'react-signature-pad'
 import { StyledAuditSummary } from './StyledAuditSummary'
 
 export class AuditSummary extends Component {
   state = {
     summary: '',
-    error: false,
-    loading: false,
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { auditSummary } = this.props
+    const { auditSummary, history } = this.props
 
     if (auditSummary) {
       const { summary } = auditSummary
@@ -29,11 +26,7 @@ export class AuditSummary extends Component {
     setNavTitle('Add Audit Summary')
 
     setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="Search"
-        onClick={this.addInspectionSummary}
-      >
+      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>,
     )
@@ -53,21 +46,27 @@ export class AuditSummary extends Component {
   }
 
   addInspectionSummary = () => {
-    const { addInspectionSummary, history } = this.props
+    const { addInspectionSummary, history, setErrorLoadingState } = this.props
     const { summary } = this.state
 
     if (summary) {
       addInspectionSummary({
         summary,
       })
+      history.goBack()
+    } else {
+      setErrorLoadingState({
+        error: 'Please fill up the form correctly!',
+      })
     }
-
-    history.goBack()
   }
 
   render() {
-    const { summary, error, loading } = this.state
-    const { profile: { displayName, title, company, signature } } = this.props
+    const { summary } = this.state
+    const {
+      profile: { displayName, title, company, signature },
+      error,
+    } = this.props
 
     return (
       <StyledAuditSummary className="StyledAuditSummary">
@@ -125,12 +124,15 @@ export class AuditSummary extends Component {
             </form>
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="submit-button"
+              onClick={this.addInspectionSummary}
+            >
+              save
+            </Button>
           </CardContent>
         </Card>
       </StyledAuditSummary>
