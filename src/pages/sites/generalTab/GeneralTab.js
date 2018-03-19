@@ -12,7 +12,7 @@ const operators = data.operators
 
 export class GeneralTab extends Component {
   state = {
-    operator: { id: '', name: '' },
+    operator: '',
     name: '',
     address: '',
     division: '',
@@ -22,12 +22,23 @@ export class GeneralTab extends Component {
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
+    const { firestore, userId, siteId } = this.props
 
-    const { site } = this.props
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'sites', doc: siteId }],
+    })
+  }
 
-    if (site) {
-      this.setup(site)
-    }
+  componentWillUnmount() {
+    const { firestore, userId, siteId } = this.props
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'sites', doc: siteId }],
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,15 +60,9 @@ export class GeneralTab extends Component {
       operator,
       division,
     } = site
-    const operatorId = parseInt(operator, 10) - 1
-
-    const operatorData = {
-      id: data.operators[operatorId].id,
-      label: data.operators[operatorId].name,
-    }
     const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
 
-    this.setState({ operator: operatorData, name, address, division })
+    this.setState({ operator, name, address, division })
   }
 
   onSelectChange = event => {
@@ -79,12 +84,18 @@ export class GeneralTab extends Component {
     if (name && address && division && operator) {
       this.setState({ error: '', loading: true })
 
-      const { firestore, match } = this.props
-      const updatedData = { name, address, division, operator: operator.id }
+      const { firestore, userId, siteId } = this.props
+      const updatedData = { name, address, division, operator }
 
       try {
-        await firestore.update(`sites/${match.params.id}`, updatedData)
-        await firestore.get({ collection: 'sites', doc: match.params.id })
+        await firestore.update(
+          {
+            collection: 'users',
+            doc: userId,
+            subcollections: [{ collection: 'sites', doc: siteId }],
+          },
+          updatedData,
+        )
 
         this.setState({ loading: false })
       } catch (error) {
@@ -107,12 +118,12 @@ export class GeneralTab extends Component {
               id="operator"
               select
               label="Operator"
-              value={operator.id}
-              onChange={this.onSelectChange}
+              value={operator}
+              onChange={this.handleChange('operator')}
               margin="normal"
             >
               {operators.map(option => (
-                <MenuItem key={option.id} value={option.id}>
+                <MenuItem key={option.id} value={option.name}>
                   {option.name}
                 </MenuItem>
               ))}
@@ -162,7 +173,7 @@ export class GeneralTab extends Component {
                 className="submit-button"
                 onClick={this.handleEdit}
               >
-                Publish Changes
+                Publish
               </Button>
             )}
           </CardContent>

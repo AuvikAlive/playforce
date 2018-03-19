@@ -39,17 +39,23 @@ export class AddInspection extends Component {
     if (type && frequency && userAssigned) {
       this.setState({ error: '', loading: true })
 
-      const { firestore, history, id, site: { inspections } } = this.props
+      const { firestore, history, userId, siteId } = this.props
 
-      inspections.push({
-        type,
-        frequency,
-        userAssigned,
-      })
+      console.log(type, frequency, userAssigned)
 
       try {
-        await firestore.update(`sites/${id}`, { inspections })
-        await firestore.get({ collection: 'sites', doc: id })
+        await firestore.add(
+          {
+            collection: `users/${userId}/sites/`,
+            doc: siteId,
+            subcollections: [{ collection: 'inspections' }],
+          },
+          {
+            type,
+            frequency,
+            userAssigned,
+          },
+        )
 
         this.setState({ loading: false })
         history.goBack()

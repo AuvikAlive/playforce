@@ -1,22 +1,20 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import { withFirestore, firestoreConnect } from 'react-redux-firebase'
+import { withFirestore } from 'react-redux-firebase'
 import { SiteDetail } from './SiteDetail'
 
 const mapStateToProps = (
-  { firestore: { data: { sites } } },
+  { firestore: { data: { users } }, firebase: { auth: { uid } } },
   { match: { params: { id } } },
 ) => ({
+  userId: uid,
   id,
-  site: sites && sites[id],
+  site: users && users[uid].sites && users[uid].sites[id],
 })
 
 export const SiteDetailContainer = compose(
   withRouter,
   withFirestore,
-  firestoreConnect(({ match: { params: { id } } }) => [
-    { collection: 'sites', doc: id },
-  ]),
   connect(mapStateToProps),
 )(SiteDetail)

@@ -6,6 +6,7 @@ import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
+import { MenuItem } from 'material-ui/Menu'
 import { StyledAddSite } from './StyledAddSite'
 
 export class AddSite extends Component {
@@ -13,11 +14,15 @@ export class AddSite extends Component {
     name: '',
     street: '',
     suburb: '',
+    state: '',
     postcode: '',
     country: '',
     latitude: '',
     longitude: '',
     division: '',
+    operator: '',
+    loading: false,
+    error: '',
   }
 
   componentDidMount() {
@@ -57,8 +62,66 @@ export class AddSite extends Component {
     })
   }
 
-  publish = () => {
-    console.log(this.state)
+  publish = async () => {
+    const {
+      name,
+      street,
+      suburb,
+      state,
+      postcode,
+      country,
+      latitude,
+      longitude,
+      division,
+      operator,
+    } = this.state
+    const { firestore, userId } = this.props
+
+    if (
+      name &&
+      street &&
+      suburb &&
+      state &&
+      postcode &&
+      country &&
+      latitude &&
+      longitude &&
+      division &&
+      operator
+    ) {
+      this.setState({ error: '', loading: true })
+
+      try {
+        await firestore.add(
+          {
+            collection: 'users',
+            doc: userId,
+            subcollections: [{ collection: 'sites' }],
+          },
+          {
+            addedUser: userId,
+            name,
+            street,
+            suburb,
+            state,
+            postcode,
+            country,
+            latitude: Number(latitude),
+            longitude: Number(longitude),
+            division,
+            operator,
+          },
+        )
+        this.setState({ loading: false })
+      } catch (error) {
+        this.setState({ error: error.message, loading: false })
+      }
+    } else {
+      this.setState({
+        error: 'Please fill up the form correctly!',
+        loading: false,
+      })
+    }
   }
 
   render() {
@@ -66,14 +129,18 @@ export class AddSite extends Component {
       name,
       street,
       suburb,
+      state,
       postcode,
       country,
       latitude,
       longitude,
       division,
+      operator,
       error,
       loading,
     } = this.state
+
+    const { operators } = this.props
 
     return (
       <StyledAddSite className="StyledAddSite">
@@ -101,6 +168,14 @@ export class AddSite extends Component {
                 label="Suburb"
                 value={suburb}
                 onChange={this.onInputChange('suburb')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="State"
+                value={state}
+                onChange={this.onInputChange('state')}
                 margin="normal"
               />
 
@@ -146,6 +221,21 @@ export class AddSite extends Component {
                 onChange={this.onInputChange('division')}
                 margin="normal"
               />
+
+              <TextField
+                fullWidth
+                select
+                label="Operator"
+                value={operator}
+                onChange={this.onInputChange('operator')}
+                margin="normal"
+              >
+                {operators.map(({ name }, index) => (
+                  <MenuItem key={index} value={name}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </form>
 
             {error && <p className="error">{error}</p>}
@@ -165,7 +255,7 @@ export class AddSite extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Publish Site
+                Publish
               </Button>
             )}
           </CardContent>

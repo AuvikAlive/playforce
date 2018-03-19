@@ -4,11 +4,11 @@ import { withFirestore } from 'react-redux-firebase'
 import { AddInspection } from './AddInspection'
 
 const mapStateToProps = (
-  { firestore: { data: { sites } } },
+  { firestore: { data: { users } }, firebase: { auth: { uid } } },
   { match: { params: { id } } },
 ) => ({
-  id,
-  site: sites && sites[id],
+  userId: uid,
+  siteId: id,
 })
 
 export const AddInspectionContainer = compose(

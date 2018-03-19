@@ -15,7 +15,6 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import Map from './Map'
 import Modal from '../../../components/modal/Modal'
 import { ModalContent } from '../modalContent/ModalContent'
-import { data } from '../data'
 
 export class SiteDetail extends Component {
   state = {
@@ -23,10 +22,13 @@ export class SiteDetail extends Component {
   }
 
   componentDidMount() {
-    const { site } = this.props
-    if (site) {
-      this.setup(site)
-    }
+    const { firestore, userId, id } = this.props
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'sites', doc: id }],
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,6 +48,14 @@ export class SiteDetail extends Component {
     removeLefNavComponent()
     removeNavTitle()
     removeRightNavComponent()
+
+    const { firestore, userId, id } = this.props
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'sites', doc: id }],
+    })
   }
 
   setup = site => {
@@ -98,12 +108,14 @@ export class SiteDetail extends Component {
   }
 
   deleteItem = async () => {
-    const { firestore, id, history } = this.props
+    const { firestore, userId, id, history } = this.props
 
     try {
-      await firestore.delete(`sites/${id}`)
-      await firestore.get({ collection: 'sites' })
-
+      await firestore.delete({
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'sites', doc: id }],
+      })
       history.goBack()
     } catch (error) {
       console.log(error)
@@ -115,27 +127,28 @@ export class SiteDetail extends Component {
 
     if (site) {
       const {
-        latitidue,
+        latitude,
         longitude,
         street,
         suburb,
         state,
         postcode,
         country,
-        operator,
         division,
+        operator,
         inspections,
       } = site
       const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
-      const operatorName = data.operators[operator - 1].name
-      const chips = inspections.map(({ type }) => (
-        <Chip
-          style={{ marginTop: 8, marginRight: 8 }}
-          component="span"
-          label={type}
-          key={type}
-        />
-      ))
+      const chips =
+        inspections &&
+        inspections.map(({ type }) => (
+          <Chip
+            style={{ marginTop: 8, marginRight: 8 }}
+            component="span"
+            label={type}
+            key={type}
+          />
+        ))
 
       return (
         <StyledSiteDetail className="StyledSiteDetail">
@@ -152,21 +165,26 @@ export class SiteDetail extends Component {
                 <EditIcon />
               </Button>
             </StyledNavLink>
-            <Map lat={latitidue} lng={longitude} />
+            <Map lat={latitude} lng={longitude} />
             <CardContent>
               <List>
                 <ListItem divider>
                   <ListItemText primary="Address" secondary={address} />
                 </ListItem>
                 <ListItem divider>
-                  <ListItemText primary="Operator" secondary={operatorName} />
+                  <ListItemText primary="Operator" secondary={operator} />
                 </ListItem>
                 <ListItem divider>
                   <ListItemText primary="Division" secondary={division} />
                 </ListItem>
-                <ListItem>
-                  <ListItemText primary="Inspection Types" secondary={chips} />
-                </ListItem>
+                {chips && (
+                  <ListItem>
+                    <ListItemText
+                      primary="Inspection Types"
+                      secondary={chips}
+                    />
+                  </ListItem>
+                )}
               </List>
             </CardContent>
           </Card>

@@ -86,9 +86,9 @@ export class AddCommonIssue extends Component {
       comments &&
       recommendations
     ) {
-      try {
-        this.setState({ error: '', loading: true })
+      this.setState({ error: '', loading: true })
 
+      try {
         await firestore.add(
           {
             collection: 'users',

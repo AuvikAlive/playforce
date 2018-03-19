@@ -1,19 +1,18 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore, firestoreConnect } from 'react-redux-firebase'
+import { withFirestore } from 'react-redux-firebase'
 import { InspectionList } from './InspectionList'
 
 const mapStateToProps = (
-  { firestore: { data: { sites } } },
+  { firestore: { ordered }, firebase: { auth: { uid } } },
   { match: { params: { id } } },
 ) => ({
-  site: sites && sites[id],
+  userId: uid,
+  siteId: id,
+  inspections: ordered && ordered[`users/${uid}/sites/${id}/inspections`],
 })
 
 export const InspectionListContainer = compose(
   withFirestore,
-  firestoreConnect(({ match: { params: { id } } }) => [
-    { collection: 'sites', doc: id },
-  ]),
   connect(mapStateToProps),
 )(InspectionList)

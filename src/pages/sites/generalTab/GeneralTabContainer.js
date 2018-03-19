@@ -1,21 +1,20 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import { withFirestore, firestoreConnect } from 'react-redux-firebase'
+import { withFirestore } from 'react-redux-firebase'
 import { GeneralTab } from './GeneralTab'
 
 const mapStateToProps = (
-  { firestore: { data: { sites } } },
+  { firestore: { data: { users } }, firebase: { auth: { uid } } },
   { match: { params: { id } } },
 ) => ({
-  site: sites && sites[id],
+  userId: uid,
+  siteId: id,
+  site: users && users[uid].sites && users[uid].sites[id],
 })
 
 export const GeneralTabContainer = compose(
   withRouter,
   withFirestore,
-  firestoreConnect(({ match: { params: { id } } }) => [
-    { collection: 'sites', doc: id },
-  ]),
   connect(mapStateToProps),
 )(GeneralTab)

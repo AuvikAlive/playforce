@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import { withFirestore, firestoreConnect } from 'react-redux-firebase'
+import { withFirestore } from 'react-redux-firebase'
 import { SiteList } from './SiteList'
 import {
   openSearchBar,
@@ -9,12 +9,12 @@ import {
 } from '../../../store/actions/actionCreators/searchBarActions'
 
 const mapStateToProps = ({
-  firestore: { ordered: { sites } },
-  firebase: { profile: { email } },
+  firestore: { ordered: { users } },
+  firebase: { auth: { uid } },
   searchBar: { open, query },
 }) => ({
-  sites,
-  email,
+  sites: users,
+  userId: uid,
   open,
   query,
 })
@@ -24,14 +24,5 @@ const mapDispatchToProps = { openSearchBar, closeSearchBar }
 export const SiteListContainer = compose(
   withRouter,
   withFirestore,
-  firestoreConnect(({ email }) => {
-    return [
-      {
-        collection: 'sites',
-        orderBy: 'name',
-        // where: ['addedUser', '==', email],
-      },
-    ]
-  }),
   connect(mapStateToProps, mapDispatchToProps),
 )(SiteList)

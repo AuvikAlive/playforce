@@ -15,7 +15,7 @@ import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {
   componentDidMount() {
-    const { openSearchBar, open, query, firestore } = this.props
+    const { openSearchBar, open, query, firestore, userId } = this.props
     const {
       setNavTitle,
       setRightNavComponent,
@@ -41,6 +41,12 @@ export class SiteList extends Component {
         }}
       />,
     )
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'sites' }],
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,7 +60,7 @@ export class SiteList extends Component {
   }
 
   componentWillUnmount() {
-    const { closeSearchBar } = this.props
+    const { closeSearchBar, firestore, userId } = this.props
     const {
       removeNavTitle,
       removeRightNavComponent,
@@ -65,6 +71,12 @@ export class SiteList extends Component {
     removeRightNavComponent()
     closeSearchBar()
     removeSearchComponent()
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'sites' }],
+    })
   }
 
   render() {
@@ -85,7 +97,7 @@ export class SiteList extends Component {
     } else {
       content = sites.map(({ name, id }, index, list) => {
         return (
-          <div key={name}>
+          <div key={id}>
             <StyledNavLink to={`/sites/${id}`}>
               <ListItem button>
                 <ListItemText primary={name} />

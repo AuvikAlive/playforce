@@ -21,6 +21,20 @@ export class InspectionList extends Component {
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
+
+    const { firestore, userId, siteId } = this.props
+
+    firestore.setListener({
+      collection: `users/${userId}/sites/${siteId}/inspections`,
+    })
+  }
+
+  componentWillUnmount() {
+    const { firestore, userId, siteId } = this.props
+
+    firestore.unsetListener({
+      collection: `users/${userId}/sites/${siteId}/inspections`,
+    })
   }
 
   openModal = () => {
@@ -37,28 +51,24 @@ export class InspectionList extends Component {
   }
 
   deleteItem = async () => {
-    const { firestore, site: { inspections }, match } = this.props
+    const { firestore, userId, siteId } = this.props
     const { deleteIndex } = this.state
 
-    const updatedInspections = inspections.filter(
-      (item, index) => index !== deleteIndex,
-    )
-
     try {
-      await firestore.update(`sites/${match.params.id}`, {
-        inspections: updatedInspections,
+      await firestore.delete({
+        collection: `users/${userId}/sites/${siteId}/inspections`,
+        doc: deleteIndex,
       })
-      firestore.get({ collection: 'sites', doc: match.params.id })
     } catch (error) {
       console.log(error)
     }
   }
 
   render() {
-    const { site } = this.props
+    const { inspections } = this.props
 
-    if (site) {
-      const { site: { inspections }, match } = this.props
+    if (inspections) {
+      const { match } = this.props
       return (
         <StyledInspectionList className="StyledInspectionList">
           <StyledNavLink to={match.url + '/addInspection'} className="add-icon">
@@ -73,12 +83,12 @@ export class InspectionList extends Component {
                   <ListItemText primary="No inspection added" />
                 </ListItem>
               ) : (
-                inspections.map(({ type }, index, list) => {
+                inspections.map(({ type, id }, index, list) => {
                   return (
-                    <div key={type}>
+                    <div key={id}>
                       <ListItem button>
                         <ListItemText primary={type} />
-                        <ListItemIcon onClick={this.deletePrompt(index)}>
+                        <ListItemIcon onClick={this.deletePrompt(id)}>
                           <DeleteIcon />
                         </ListItemIcon>
                       </ListItem>
