@@ -99,7 +99,7 @@ export class InspectionItems extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Publish Inspection
+                Publish
               </Button>
             </ListItem>
           </List>

@@ -30,7 +30,6 @@ export class AddComplianceIssue extends Component {
     comments: '',
     recommendations: '',
     customFinding: false,
-    error: '',
   }
 
   componentDidMount() {
@@ -141,7 +140,7 @@ export class AddComplianceIssue extends Component {
   }
 
   addComplianceIssue = () => {
-    const { addComplianceIssue, history } = this.props
+    const { addComplianceIssue, history, setErrorLoadingState } = this.props
     const {
       commonIssues,
       commonIssueIndex,
@@ -156,7 +155,7 @@ export class AddComplianceIssue extends Component {
 
     let { finding } = this.state
 
-    if (!customFinding) {
+    if (!customFinding && commonIssues[commonIssueIndex]) {
       finding = commonIssues[commonIssueIndex].finding
     }
 
@@ -169,7 +168,7 @@ export class AddComplianceIssue extends Component {
       comments &&
       recommendations
     ) {
-      this.setState({ error: '' })
+      setErrorLoadingState({ error: '' })
       addComplianceIssue({
         image,
         finding,
@@ -181,7 +180,7 @@ export class AddComplianceIssue extends Component {
       })
       history.goBack()
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form correctly!',
       })
     }
@@ -199,13 +198,12 @@ export class AddComplianceIssue extends Component {
       comments,
       recommendations,
       customFinding,
-      error,
     } = this.state
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    const { data } = this.props
+    const { data, error } = this.props
 
     const standards = data && data.standards ? values(data.standards) : []
 

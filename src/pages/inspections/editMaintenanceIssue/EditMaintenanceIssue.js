@@ -5,10 +5,13 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import { StyledAddMaintenanceIssue } from './StyledAddMaintenanceIssue'
+import Modal from '../../../components/modal/Modal'
+import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
+import { StyledEditMaintenanceIssue } from './StyledEditMaintenanceIssue'
 
-export class AddMaintenanceIssue extends Component {
+export class EditMaintenanceIssue extends Component {
   state = {
+    modalOpen: false,
     image: null,
     finding: '',
     recommendations: '',
@@ -16,15 +19,17 @@ export class AddMaintenanceIssue extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, maintenanceIssue } = this.props
 
-    setNavTitle('Add Maintenance Issue')
+    setNavTitle('Edit Maintenance Issue')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    this.loadInitialData(maintenanceIssue)
   }
 
   componentWillUnmount() {
@@ -38,6 +43,10 @@ export class AddMaintenanceIssue extends Component {
     this.setState({
       [name]: event.target.value,
     })
+  }
+
+  loadInitialData = maintenanceIssue => {
+    this.setState({ ...maintenanceIssue })
   }
 
   capture = () => {
@@ -58,13 +67,25 @@ export class AddMaintenanceIssue extends Component {
     )
   }
 
-  addMaintenanceIssue = () => {
-    const { history, addMaintenanceIssue, setErrorLoadingState } = this.props
+  editMaintenanceIssue = () => {
+    const {
+      editMaintenanceIssue,
+      history,
+      setErrorLoadingState,
+      maintenanceIssueIndex,
+    } = this.props
     const { image, finding, recommendations } = this.state
 
     if (image && finding && recommendations) {
       setErrorLoadingState({ error: '' })
-      addMaintenanceIssue({ image, finding, recommendations })
+      editMaintenanceIssue({
+        issueIndex: maintenanceIssueIndex,
+        updatedValue: {
+          image,
+          finding,
+          recommendations,
+        },
+      })
       history.goBack()
     } else {
       setErrorLoadingState({
@@ -73,12 +94,31 @@ export class AddMaintenanceIssue extends Component {
     }
   }
 
+  delete = () => {
+    const {
+      deleteMaintenanceIssue,
+      maintenanceIssueIndex,
+      history,
+    } = this.props
+
+    deleteMaintenanceIssue(maintenanceIssueIndex)
+    history.goBack()
+  }
+
+  openModal = () => {
+    this.setState({ modalOpen: true })
+  }
+
+  closeModal = () => {
+    this.setState({ modalOpen: false })
+  }
+
   render() {
-    const { image, finding, recommendations } = this.state
+    const { image, finding, recommendations, modalOpen } = this.state
     const { error } = this.props
 
     return (
-      <StyledAddMaintenanceIssue className="StyledAddMaintenanceIssue">
+      <StyledEditMaintenanceIssue className="StyledEditMaintenanceIssue">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
           <CardContent>
@@ -119,9 +159,19 @@ export class AddMaintenanceIssue extends Component {
             <Button
               fullWidth
               variant="raised"
+              color="inherit"
+              className="submit-button discard-button"
+              onClick={this.openModal}
+            >
+              delete
+            </Button>
+
+            <Button
+              fullWidth
+              variant="raised"
               color="primary"
               className="submit-button"
-              onClick={this.addMaintenanceIssue}
+              onClick={this.editMaintenanceIssue}
             >
               save
             </Button>
@@ -137,12 +187,19 @@ export class AddMaintenanceIssue extends Component {
           }}
           onChange={this.getFile}
         />
-      </StyledAddMaintenanceIssue>
+
+        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
+          <ModalDeleteContent
+            handleConfirmation={this.delete}
+            closeModal={this.closeModal}
+          />
+        </Modal>
+      </StyledEditMaintenanceIssue>
     )
   }
 }
 
-AddMaintenanceIssue.contextTypes = {
+EditMaintenanceIssue.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

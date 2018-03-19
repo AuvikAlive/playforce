@@ -1,10 +1,7 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
-import { errorLoadingSubmit } from '../../../styledMixins/errorLoadingSubmit'
 
-export const StyledEditCompliaceIssue = Styled(Content)`
-  ${errorLoadingSubmit};
-
+export const StyledEditCompliacenIssue = Styled(Content)`
   .card-media {
     height: 100vw;
   }

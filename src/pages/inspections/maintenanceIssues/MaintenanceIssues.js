@@ -7,12 +7,18 @@ const AddMaintenanceIssue = Loadable({
   loader: () => import('../addMaintenanceIssue'),
 })
 
+const EditMaintenanceIssue = Loadable({
+  loader: () => import('../editMaintenanceIssue'),
+})
+
 AddMaintenanceIssue.preload()
+EditMaintenanceIssue.preload()
 
 export const MaintenanceIssues = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/add`} component={AddMaintenanceIssue} />
+      <Route path={`${match.url}/edit/:id`} component={EditMaintenanceIssue} />
       <Route path={match.url} component={MaintenanceIssuesList} />
     </Switch>
   )

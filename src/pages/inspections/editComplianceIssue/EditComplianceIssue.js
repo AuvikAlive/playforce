@@ -11,7 +11,7 @@ import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
 import Modal from '../../../components/modal/Modal'
 import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
-import { StyledEditCompliaceIssue } from './StyledEditComplianceIssue'
+import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
 const defaultStandards = [
@@ -33,7 +33,6 @@ export class EditComplianceIssue extends Component {
     comments: '',
     recommendations: '',
     customFinding: true,
-    error: '',
   }
 
   componentDidMount() {
@@ -93,23 +92,9 @@ export class EditComplianceIssue extends Component {
     }
   }
 
-  loadInitialData = ({
-    image,
-    finding,
-    appliedStandard,
-    probability,
-    severity,
-    comments,
-    recommendations,
-  }) => {
+  loadInitialData = complianceIssue => {
     this.setState({
-      image,
-      finding,
-      appliedStandard,
-      probability,
-      severity,
-      comments,
-      recommendations,
+      ...complianceIssue,
     })
   }
 
@@ -166,7 +151,7 @@ export class EditComplianceIssue extends Component {
   }
 
   editComplianceIssue = () => {
-    const { editComplianceIssue } = this.props
+    const { editComplianceIssue, history, setErrorLoadingState } = this.props
     const {
       commonIssues,
       commonIssueIndex,
@@ -194,7 +179,7 @@ export class EditComplianceIssue extends Component {
       comments &&
       recommendations
     ) {
-      this.setState({ error: '' })
+      setErrorLoadingState({ error: '' })
       editComplianceIssue({
         issueIndex: this.props.complianceIssueIndex,
         updatedValue: {
@@ -207,8 +192,9 @@ export class EditComplianceIssue extends Component {
           recommendations,
         },
       })
+      history.goBack()
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form correctly!',
       })
     }
@@ -242,18 +228,17 @@ export class EditComplianceIssue extends Component {
       comments,
       recommendations,
       customFinding,
-      error,
     } = this.state
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    const { data } = this.props
+    const { data, error } = this.props
 
     const standards = data && data.standards ? values(data.standards) : []
 
     return (
-      <StyledEditCompliaceIssue className="StyledEditCompliaceIssue">
+      <StyledEditCompliacenIssue className="StyledEditCompliacenIssue">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
           <CardContent>
@@ -444,7 +429,7 @@ export class EditComplianceIssue extends Component {
             closeModal={this.closeModal}
           />
         </Modal>
-      </StyledEditCompliaceIssue>
+      </StyledEditCompliacenIssue>
     )
   }
 }

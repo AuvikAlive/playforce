@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
-import { EditComplianceIssue } from './EditComplianceIssue'
+import { EditMaintenanceIssue } from './EditMaintenanceIssue'
 import {
-  editComplianceIssue,
-  deleteComplianceIssue,
+  editMaintenanceIssue,
+  deleteMaintenanceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 
@@ -12,20 +12,20 @@ const mapStateToProps = (
   {
     firestore: { data: { users } },
     firebase: { auth: { uid } },
-    inspection: { complianceIssues },
+    inspection: { maintenanceIssues },
   },
   { match: { params: { id } } },
 ) => ({
-  complianceIssueIndex: id,
-  complianceIssue: complianceIssues[id],
+  maintenanceIssueIndex: id,
+  maintenanceIssue: maintenanceIssues[id],
   userId: uid,
   data: users && users[uid],
 })
 
-const mapDispatchToProps = { editComplianceIssue, deleteComplianceIssue }
+const mapDispatchToProps = { editMaintenanceIssue, deleteMaintenanceIssue }
 
-export const EditComplianceIssueContainer = compose(
+export const EditMaintenanceIssueContainer = compose(
   withErrorLoadingSubmit,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps),
-)(EditComplianceIssue)
+)(EditMaintenanceIssue)
