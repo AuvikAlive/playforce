@@ -11,17 +11,8 @@ import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
 import values from 'lodash/values'
 import { StyledCover } from './StyledCover'
-
-const defaultClients = [
-  'Default Client 1',
-  'Default Client 2',
-  'Default Client 3',
-]
-// const defaultStandards = [
-//   'Default Standard 1',
-//   'Default Standard 2',
-//   'Default Standard 3',
-// ]
+import { defaultClients } from '../../../globals/scales'
+import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class Cover extends Component {
   state = {
@@ -34,42 +25,39 @@ export class Cover extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { cover, firestore, uid } = this.props
+    const { cover, firestore, userId, history } = this.props
 
     cover && this.setState({ ...cover })
 
     setNavTitle('Add Cover')
 
     setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="Search"
-        onClick={this.addInspectionCover}
-      >
+      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>,
     )
 
     firestore.setListeners([
       {
-        collection: 'sites',
-        orderBy: 'name',
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'sites' }],
       },
       {
         collection: 'users',
-        doc: uid,
+        doc: userId,
         subcollections: [{ collection: 'standards' }],
       },
       {
         collection: 'users',
-        doc: uid,
+        doc: userId,
         subcollections: [{ collection: 'clients' }],
       },
     ])
   }
 
   componentWillUnmount() {
-    const { firestore, uid } = this.props
+    const { firestore, userId } = this.props
     const { removeNavTitle, removeLefNavComponent } = this.context
 
     firestore.unsetListeners([
@@ -79,12 +67,12 @@ export class Cover extends Component {
       },
       {
         collection: 'users',
-        doc: uid,
+        doc: userId,
         subcollections: [{ collection: 'standards' }],
       },
       {
         collection: 'users',
-        doc: uid,
+        doc: userId,
         subcollections: [{ collection: 'clients' }],
       },
     ])
@@ -122,50 +110,34 @@ export class Cover extends Component {
   }
 
   addInspectionCover = () => {
-    const { addInspectionCover, history } = this.props
-    const {
-      coverImage,
-      location,
-      client,
-      inspectionDate,
-      appliedStandards,
-    } = this.state
+    const { addInspectionCover, history, setErrorLoadingState } = this.props
+    const { coverImage, location, client, inspectionDate } = this.state
 
-    if (
-      coverImage &&
-      location &&
-      client &&
-      inspectionDate &&
-      appliedStandards
-    ) {
+    if (coverImage && location && client && inspectionDate) {
       addInspectionCover({
         coverImage,
         location,
         client,
         inspectionDate,
-        appliedStandards,
+      })
+      history.goBack()
+    } else {
+      setErrorLoadingState({
+        error: 'Please fill up the form correctly!',
       })
     }
-
-    history.goBack()
   }
 
   render() {
-    const {
-      coverImage,
-      location,
-      client,
-      inspectionDate,
-      // appliedStandards,
-    } = this.state
+    const { coverImage, location, client, inspectionDate } = this.state
 
-    const { sites, displayName, data } = this.props
+    const { displayName, data, error } = this.props
 
-    // let standards = []
     let clients = []
 
+    let sites = data && data.sites ? objectToArrayWithId(data.sites) : []
+
     if (data) {
-      // standards = values(data.standards)
       clients = values(data.clients)
     }
 
@@ -195,11 +167,15 @@ export class Cover extends Component {
                 onChange={this.onInputChange('location')}
                 margin="normal"
               >
-                {sites.map(({ id, name }) => (
-                  <MenuItem key={id} value={id}>
-                    {name}
-                  </MenuItem>
-                ))}
+                {sites.length > 0 ? (
+                  sites.map(({ id, name }) => (
+                    <MenuItem key={id} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem value="">No site addded</MenuItem>
+                )}
               </TextField>
 
               <TextField
@@ -248,32 +224,19 @@ export class Cover extends Component {
                 value={displayName}
                 margin="normal"
               />
-
-              {/* <TextField
-                fullWidth
-                select
-                label="Applied Standards"
-                value={appliedStandards}
-                onChange={this.onInputChange('appliedStandards')}
-                margin="normal"
-              >
-                {standards.length > 0
-                  ? standards.map(({ title }, index) => {
-                      return (
-                        <MenuItem key={index} value={title}>
-                          {title}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultStandards.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
-              </TextField> */}
             </form>
+
+            {error && <p className="error">{error}</p>}
+
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="submit-button"
+              onClick={this.addInspectionCover}
+            >
+              save
+            </Button>
           </CardContent>
           <input
             type="file"

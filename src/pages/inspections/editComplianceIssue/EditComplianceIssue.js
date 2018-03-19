@@ -10,13 +10,12 @@ import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
 import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
-import { probabilities, severities, riskLevels } from '../../../globals/scales'
-
-const defaultStandards = [
-  'Default Standard 1',
-  'Default Standard 2',
-  'Default Standard 3',
-]
+import {
+  probabilities,
+  severities,
+  riskLevels,
+  defaultStandards,
+} from '../../../globals/scales'
 
 export class EditComplianceIssue extends Component {
   state = {

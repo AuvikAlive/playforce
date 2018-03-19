@@ -23,3 +23,15 @@ export const riskLevels = [
   ['VL (6)', 'L (12)', 'M (18)', 'H (21)', 'VH (23)'],
   ['VL (7)', 'L (13)', 'H (22)', 'VH (24)', 'VH (25)'],
 ]
+
+export const defaultStandards = [
+  'Default Standard 1',
+  'Default Standard 2',
+  'Default Standard 3',
+]
+
+export const defaultClients = [
+  'Default Client 1',
+  'Default Client 2',
+  'Default Client 3',
+]

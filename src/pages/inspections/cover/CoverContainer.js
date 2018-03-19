@@ -3,23 +3,24 @@ import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Cover } from './Cover'
 import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions'
+import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 
 const mapStateToProps = ({
-  firestore: { data: { users }, ordered: { sites = [] } },
+  firestore: { data: { users } },
   firebase: { profile: { displayName, email }, auth: { uid } },
   inspection: { cover },
 }) => ({
-  sites,
   displayName,
   email,
   cover,
-  uid,
+  userId: uid,
   data: users && users[uid],
 })
 
 const mapDispatchToProps = { addInspectionCover }
 
 export const CoverContainer = compose(
+  withErrorLoadingSubmit,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps),
 )(Cover)
