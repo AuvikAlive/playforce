@@ -4,6 +4,8 @@ import {
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
   ADD_COMPLIANCE_ISSUE,
+  EDIT_COMPLIANCE_ISSUE,
+  DELETE_COMPLIANCE_ISSUE,
   ADD_MAINTENANCE_ISSUE,
 } from '../actions/actionTypes'
 
@@ -37,6 +39,38 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ...state,
         complianceIssues: [...state.complianceIssues, payload],
       }
+
+    case EDIT_COMPLIANCE_ISSUE: {
+      const { issueIndex, updatedValue } = payload
+      const { complianceIssues } = state
+
+      let updatedComplianceIssues = complianceIssues.map(
+        (complianceIssue, index) => {
+          if (index === Number(issueIndex)) {
+            complianceIssue = updatedValue
+          }
+
+          return complianceIssue
+        },
+      )
+      return {
+        ...state,
+        complianceIssues: [...updatedComplianceIssues],
+      }
+    }
+
+    case DELETE_COMPLIANCE_ISSUE: {
+      const { complianceIssues } = state
+
+      const updatedComplianceIssues = complianceIssues.filter(
+        (complianceIssue, index) => index !== Number(payload),
+      )
+
+      return {
+        ...state,
+        complianceIssues: [...updatedComplianceIssues],
+      }
+    }
 
     case ADD_MAINTENANCE_ISSUE:
       return {

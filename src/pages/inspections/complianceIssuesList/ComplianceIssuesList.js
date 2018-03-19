@@ -4,11 +4,13 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
+import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { riskLevels } from '../../../globals/scales'
 
 export class ComplianceIssuesList extends Component {
   state = {}
@@ -59,7 +61,6 @@ export class ComplianceIssuesList extends Component {
                   standardsClause,
                   probability,
                   severity,
-                  riskLevel,
                   comments,
                   recommendations,
                 },
@@ -72,7 +73,19 @@ export class ComplianceIssuesList extends Component {
                         <CardMedia className="card-media" image={image} />
                       )}
                     </Card>
-                    <CardContent>
+                    <CardContent className="card-content">
+                      <StyledNavLink
+                        to={`${match.url}/edit/${index}`}
+                        className="edit-icon"
+                      >
+                        <Button
+                          variant="fab"
+                          color="primary"
+                          aria-label="edit compliance issue"
+                        >
+                          <ModeEditIcon />
+                        </Button>
+                      </StyledNavLink>
                       <Typography variant="title">
                         Issue #: {index + 1}
                       </Typography>
@@ -98,7 +111,8 @@ export class ComplianceIssuesList extends Component {
                         </Grid>
                         <Grid item xs={4}>
                           <Typography variant="subheading">
-                            Risk Level: {riskLevel}
+                            Risk Level:{' '}
+                            {riskLevels[probability - 1][severity - 1]}
                           </Typography>
                         </Grid>
                       </Grid>

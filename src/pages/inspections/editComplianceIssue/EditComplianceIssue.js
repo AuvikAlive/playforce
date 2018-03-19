@@ -9,7 +9,9 @@ import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
-import { StyledAddCompliaceIssue } from './StyledAddComplianceIssue'
+import Modal from '../../../components/modal/Modal'
+import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
+import { StyledEditCompliaceIssue } from './StyledEditComplianceIssue'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
 const defaultStandards = [
@@ -18,8 +20,9 @@ const defaultStandards = [
   'Default Standard 3',
 ]
 
-export class AddComplianceIssue extends Component {
+export class EditComplianceIssue extends Component {
   state = {
+    modalOpen: false,
     commonIssues: [],
     commonIssueIndex: '',
     image: null,
@@ -29,21 +32,23 @@ export class AddComplianceIssue extends Component {
     severity: '',
     comments: '',
     recommendations: '',
-    customFinding: false,
+    customFinding: true,
     error: '',
   }
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history, firestore, userId, complianceIssue } = this.props
 
-    setNavTitle('Add Compliance Issue')
+    setNavTitle('Edit Compliance Issue')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    this.loadInitialData(complianceIssue)
 
     firestore.setListeners([
       {
@@ -86,6 +91,26 @@ export class AddComplianceIssue extends Component {
     if (commonIssues) {
       this.setState({ commonIssues })
     }
+  }
+
+  loadInitialData = ({
+    image,
+    finding,
+    appliedStandard,
+    probability,
+    severity,
+    comments,
+    recommendations,
+  }) => {
+    this.setState({
+      image,
+      finding,
+      appliedStandard,
+      probability,
+      severity,
+      comments,
+      recommendations,
+    })
   }
 
   capture = () => {
@@ -140,8 +165,8 @@ export class AddComplianceIssue extends Component {
     })
   }
 
-  addComplianceIssue = () => {
-    const { addComplianceIssue, history } = this.props
+  editComplianceIssue = () => {
+    const { editComplianceIssue } = this.props
     const {
       commonIssues,
       commonIssueIndex,
@@ -170,16 +195,18 @@ export class AddComplianceIssue extends Component {
       recommendations
     ) {
       this.setState({ error: '' })
-      addComplianceIssue({
-        image,
-        finding,
-        appliedStandard,
-        probability,
-        severity,
-        comments,
-        recommendations,
+      editComplianceIssue({
+        issueIndex: this.props.complianceIssueIndex,
+        updatedValue: {
+          image,
+          finding,
+          appliedStandard,
+          probability,
+          severity,
+          comments,
+          recommendations,
+        },
       })
-      history.goBack()
     } else {
       this.setState({
         error: 'Please fill up the form correctly!',
@@ -187,8 +214,24 @@ export class AddComplianceIssue extends Component {
     }
   }
 
+  delete = () => {
+    const { deleteComplianceIssue, complianceIssueIndex, history } = this.props
+
+    deleteComplianceIssue(complianceIssueIndex)
+    history.goBack()
+  }
+
+  openModal = () => {
+    this.setState({ modalOpen: true })
+  }
+
+  closeModal = () => {
+    this.setState({ modalOpen: false })
+  }
+
   render() {
     const {
+      modalOpen,
       commonIssues,
       commonIssueIndex,
       image,
@@ -210,7 +253,7 @@ export class AddComplianceIssue extends Component {
     const standards = data && data.standards ? values(data.standards) : []
 
     return (
-      <StyledAddCompliaceIssue className="StyledAddCompliaceIssue">
+      <StyledEditCompliaceIssue className="StyledEditCompliaceIssue">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
           <CardContent>
@@ -366,9 +409,19 @@ export class AddComplianceIssue extends Component {
             <Button
               fullWidth
               variant="raised"
+              color="inherit"
+              className="submit-button discard-button"
+              onClick={this.openModal}
+            >
+              delete
+            </Button>
+
+            <Button
+              fullWidth
+              variant="raised"
               color="primary"
               className="submit-button"
-              onClick={this.addComplianceIssue}
+              onClick={this.editComplianceIssue}
             >
               save
             </Button>
@@ -384,12 +437,19 @@ export class AddComplianceIssue extends Component {
           }}
           onChange={this.getFile}
         />
-      </StyledAddCompliaceIssue>
+
+        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
+          <ModalDeleteContent
+            handleConfirmation={this.delete}
+            closeModal={this.closeModal}
+          />
+        </Modal>
+      </StyledEditCompliaceIssue>
     )
   }
 }
 
-AddComplianceIssue.contextTypes = {
+EditComplianceIssue.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

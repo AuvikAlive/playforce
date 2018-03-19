@@ -184,7 +184,7 @@ export class EditStandard extends Component {
                 className="submit-button discard-button"
                 onClick={this.openModal}
               >
-                Delete Standard
+                Delete
               </Button>
             )}
 
@@ -196,7 +196,7 @@ export class EditStandard extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Publish Changes
+                Publish
               </Button>
             )}
           </CardContent>

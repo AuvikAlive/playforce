@@ -4,6 +4,8 @@ import {
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
   ADD_COMPLIANCE_ISSUE,
+  EDIT_COMPLIANCE_ISSUE,
+  DELETE_COMPLIANCE_ISSUE,
   ADD_MAINTENANCE_ISSUE,
 } from '../actionTypes'
 
@@ -28,6 +30,16 @@ export const addConditionRating = payload => ({
 
 export const addComplianceIssue = payload => ({
   type: ADD_COMPLIANCE_ISSUE,
+  payload,
+})
+
+export const editComplianceIssue = payload => ({
+  type: EDIT_COMPLIANCE_ISSUE,
+  payload,
+})
+
+export const deleteComplianceIssue = payload => ({
+  type: DELETE_COMPLIANCE_ISSUE,
   payload,
 })
 
