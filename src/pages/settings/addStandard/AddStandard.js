@@ -16,8 +16,6 @@ export class AddStandard extends Component {
     code: '',
     title: '',
     publishDate: new Date(),
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
@@ -52,10 +50,10 @@ export class AddStandard extends Component {
 
   publish = async () => {
     const { code, title, publishDate } = this.state
-    const { firestore, auth } = this.props
+    const { firestore, auth, setErrorLoadingState, history } = this.props
 
     if (code && title && publishDate) {
-      this.setState({ error: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
 
       try {
         await firestore.add(
@@ -66,12 +64,13 @@ export class AddStandard extends Component {
           },
           { code, title, publishDate },
         )
-        this.setState({ loading: false })
+        setErrorLoadingState({ loading: false })
+        history.goBack()
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form correctly!',
         loading: false,
       })
@@ -79,7 +78,8 @@ export class AddStandard extends Component {
   }
 
   render() {
-    const { code, title, publishDate, error, loading } = this.state
+    const { code, title, publishDate } = this.state
+    const { error, loading } = this.props
 
     return (
       <StyledAddStandard className="StyledAddStandard">
@@ -135,7 +135,7 @@ export class AddStandard extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Publish Standard
+                Publish
               </Button>
             )}
           </CardContent>
