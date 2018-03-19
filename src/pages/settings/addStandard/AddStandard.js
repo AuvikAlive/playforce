@@ -50,7 +50,7 @@ export class AddStandard extends Component {
 
   publish = async () => {
     const { code, title, publishDate } = this.state
-    const { firestore, auth, setErrorLoadingState, history } = this.props
+    const { firestore, userId, setErrorLoadingState, history } = this.props
 
     if (code && title && publishDate) {
       setErrorLoadingState({ error: '', loading: true })
@@ -59,7 +59,7 @@ export class AddStandard extends Component {
         await firestore.add(
           {
             collection: 'users',
-            doc: auth.uid,
+            doc: userId,
             subcollections: [{ collection: 'standards' }],
           },
           { code, title, publishDate },
