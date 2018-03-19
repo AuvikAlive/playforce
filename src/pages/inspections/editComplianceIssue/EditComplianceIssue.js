@@ -9,8 +9,6 @@ import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
-import Modal from '../../../components/modal/Modal'
-import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
@@ -22,7 +20,6 @@ const defaultStandards = [
 
 export class EditComplianceIssue extends Component {
   state = {
-    modalOpen: false,
     commonIssues: [],
     commonIssueIndex: '',
     image: null,
@@ -207,17 +204,8 @@ export class EditComplianceIssue extends Component {
     history.goBack()
   }
 
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
-  }
-
   render() {
     const {
-      modalOpen,
       commonIssues,
       commonIssueIndex,
       image,
@@ -233,7 +221,7 @@ export class EditComplianceIssue extends Component {
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    const { data, error } = this.props
+    const { data, error, openModal } = this.props
 
     const standards = data && data.standards ? values(data.standards) : []
 
@@ -396,7 +384,7 @@ export class EditComplianceIssue extends Component {
               variant="raised"
               color="inherit"
               className="submit-button discard-button"
-              onClick={this.openModal}
+              onClick={() => openModal(this.delete)}
             >
               delete
             </Button>
@@ -422,13 +410,6 @@ export class EditComplianceIssue extends Component {
           }}
           onChange={this.getFile}
         />
-
-        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
-          <ModalDeleteContent
-            handleConfirmation={this.delete}
-            closeModal={this.closeModal}
-          />
-        </Modal>
       </StyledEditCompliacenIssue>
     )
   }
