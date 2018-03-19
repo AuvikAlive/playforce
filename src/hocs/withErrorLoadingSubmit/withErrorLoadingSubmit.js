@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyledErrorLoadingSubmit } from './StyledErrorLoadingSubmit'
 import { getDisplayName } from '../../utilities/getDisplayName'
+import { StyledErrorLoadingSubmit } from './StyledErrorLoadingSubmit'
 
 export const withErrorLoadingSubmit = WrappedComponent => {
   class WithErrorLoadingSubmit extends Component {

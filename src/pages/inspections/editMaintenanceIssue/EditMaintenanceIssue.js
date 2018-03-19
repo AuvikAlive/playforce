@@ -5,8 +5,6 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import Modal from '../../../components/modal/Modal'
-import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledEditMaintenanceIssue } from './StyledEditMaintenanceIssue'
 
 export class EditMaintenanceIssue extends Component {
@@ -114,8 +112,8 @@ export class EditMaintenanceIssue extends Component {
   }
 
   render() {
-    const { image, finding, recommendations, modalOpen } = this.state
-    const { error } = this.props
+    const { image, finding, recommendations } = this.state
+    const { error, openModal } = this.props
 
     return (
       <StyledEditMaintenanceIssue className="StyledEditMaintenanceIssue">
@@ -161,7 +159,7 @@ export class EditMaintenanceIssue extends Component {
               variant="raised"
               color="inherit"
               className="submit-button discard-button"
-              onClick={this.openModal}
+              onClick={() => openModal(this.delete)}
             >
               delete
             </Button>
@@ -187,13 +185,6 @@ export class EditMaintenanceIssue extends Component {
           }}
           onChange={this.getFile}
         />
-
-        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
-          <ModalDeleteContent
-            handleConfirmation={this.delete}
-            closeModal={this.closeModal}
-          />
-        </Modal>
       </StyledEditMaintenanceIssue>
     )
   }
