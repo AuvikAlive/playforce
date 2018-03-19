@@ -8,19 +8,7 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import values from 'lodash/values'
 import { StyledAddConditionRating } from './StyledAddConditionRating'
-
-const defaultManufacturers = [
-  'Default Manufacturer 1',
-  'Default Manufacturer 2',
-  'Default Manufacturer 3',
-]
-const conditions = [
-  '1 - Excellent',
-  '2 - Good',
-  '3 - Average',
-  '4 - Poor',
-  '5 - Failed',
-]
+import { defaultManufacturers, conditions } from '../../../globals/scales'
 
 export class AddConditionRating extends Component {
   state = {
@@ -32,16 +20,12 @@ export class AddConditionRating extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { firestore, userId } = this.props
+    const { firestore, userId, history } = this.props
 
     setNavTitle('Add Condition Rating')
 
     setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="go back"
-        onClick={this.addConditionRating}
-      >
+      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>,
     )
@@ -92,7 +76,7 @@ export class AddConditionRating extends Component {
   }
 
   addConditionRating = () => {
-    const { addConditionRating, history } = this.props
+    const { addConditionRating, history, setErrorLoadingState } = this.props
     const { image, equipment, manufacturer, condition } = this.state
 
     if (image && equipment && manufacturer && condition) {
@@ -102,14 +86,17 @@ export class AddConditionRating extends Component {
         manufacturer,
         condition,
       })
+      history.goBack()
+    } else {
+      setErrorLoadingState({
+        error: 'Please fill up the form correctly!',
+      })
     }
-
-    history.goBack()
   }
 
   render() {
     const { image, equipment, manufacturer, condition } = this.state
-    const { data } = this.props
+    const { data, error } = this.props
 
     let manufacturers = []
 
@@ -181,6 +168,18 @@ export class AddConditionRating extends Component {
                 ))}
               </TextField>
             </form>
+
+            {error && <p className="error">{error}</p>}
+
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="submit-button"
+              onClick={this.addConditionRating}
+            >
+              save
+            </Button>
           </CardContent>
         </Card>
         <input

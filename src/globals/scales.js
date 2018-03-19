@@ -35,3 +35,17 @@ export const defaultClients = [
   'Default Client 2',
   'Default Client 3',
 ]
+
+export const defaultManufacturers = [
+  'Default Manufacturer 1',
+  'Default Manufacturer 2',
+  'Default Manufacturer 3',
+]
+
+export const conditions = [
+  '1 - Excellent',
+  '2 - Good',
+  '3 - Average',
+  '4 - Poor',
+  '5 - Failed',
+]
