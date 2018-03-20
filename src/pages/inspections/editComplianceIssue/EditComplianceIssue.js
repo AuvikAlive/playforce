@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import DeleteIcon from 'material-ui-icons/Delete'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import values from 'lodash/values'
@@ -25,14 +26,34 @@ export class EditComplianceIssue extends Component {
   }
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId, complianceIssue } = this.props
+    const {
+      setNavTitle,
+      setLeftNavComponent,
+      setRightNavComponent,
+    } = this.context
+    const {
+      history,
+      firestore,
+      userId,
+      complianceIssue,
+      openModal,
+    } = this.props
 
     setNavTitle('Edit Compliance Issue')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
+      </IconButton>,
+    )
+
+    setRightNavComponent(
+      <IconButton
+        color="inherit"
+        aria-label="delete condition rating"
+        onClick={() => openModal(this.delete)}
+      >
+        <DeleteIcon />
       </IconButton>,
     )
 
@@ -48,11 +69,16 @@ export class EditComplianceIssue extends Component {
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeLefNavComponent,
+      removeRightNavComponent,
+    } = this.context
     const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+    removeRightNavComponent()
 
     firestore.unsetListeners([
       {
@@ -187,7 +213,7 @@ export class EditComplianceIssue extends Component {
   }
 
   render() {
-    const { image, captureImage, error, openModal } = this.props
+    const { image, captureImage, error } = this.props
 
     return (
       <StyledEditCompliacenIssue className="StyledEditCompliacenIssue">
@@ -216,16 +242,6 @@ export class EditComplianceIssue extends Component {
             <Button
               fullWidth
               variant="raised"
-              color="inherit"
-              className="submit-button discard-button"
-              onClick={() => openModal(this.delete)}
-            >
-              delete
-            </Button>
-
-            <Button
-              fullWidth
-              variant="raised"
               color="primary"
               className="submit-button"
               onClick={this.editComplianceIssue}
@@ -244,4 +260,6 @@ EditComplianceIssue.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }
