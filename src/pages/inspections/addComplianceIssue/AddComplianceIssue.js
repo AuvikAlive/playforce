@@ -11,10 +11,10 @@ import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
 import { StyledAddCompliaceIssue } from './StyledAddComplianceIssue'
 import {
-  defaultStandards,
   probabilities,
   severities,
   riskLevels,
+  defaultEquipments,
 } from '../../../globals/scales'
 
 export class AddComplianceIssue extends Component {
@@ -23,7 +23,8 @@ export class AddComplianceIssue extends Component {
     commonIssueIndex: '',
     image: null,
     finding: '',
-    appliedStandard: '',
+    equipment: '',
+    standardsClause: '',
     probability: '',
     severity: '',
     comments: '',
@@ -47,11 +48,6 @@ export class AddComplianceIssue extends Component {
       {
         collection: 'users',
         doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
-      {
-        collection: 'users',
-        doc: userId,
         subcollections: [{ collection: 'commonIssues' }],
       },
     ])
@@ -65,11 +61,6 @@ export class AddComplianceIssue extends Component {
     removeLefNavComponent()
 
     firestore.unsetListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
       {
         collection: 'users',
         doc: userId,
@@ -107,7 +98,7 @@ export class AddComplianceIssue extends Component {
   onFindingChange = event => {
     const commonIssueIndex = event.target.value
     const {
-      appliedStandard,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -116,7 +107,7 @@ export class AddComplianceIssue extends Component {
 
     this.setState({
       commonIssueIndex,
-      appliedStandard,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -144,7 +135,8 @@ export class AddComplianceIssue extends Component {
       commonIssues,
       commonIssueIndex,
       image,
-      appliedStandard,
+      equipment,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -161,7 +153,8 @@ export class AddComplianceIssue extends Component {
     if (
       image &&
       finding &&
-      appliedStandard &&
+      equipment &&
+      standardsClause &&
       probability &&
       severity &&
       comments &&
@@ -171,7 +164,8 @@ export class AddComplianceIssue extends Component {
       addComplianceIssue({
         image,
         finding,
-        appliedStandard,
+        equipment,
+        standardsClause,
         probability,
         severity,
         comments,
@@ -191,7 +185,8 @@ export class AddComplianceIssue extends Component {
       commonIssueIndex,
       image,
       finding,
-      appliedStandard,
+      equipment,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -202,9 +197,7 @@ export class AddComplianceIssue extends Component {
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    const { data, error } = this.props
-
-    const standards = data && data.standards ? values(data.standards) : []
+    const { error } = this.props
 
     return (
       <StyledAddCompliaceIssue className="StyledAddCompliaceIssue">
@@ -267,27 +260,25 @@ export class AddComplianceIssue extends Component {
               <TextField
                 fullWidth
                 select
-                label="Applied Standard"
-                value={appliedStandard}
-                onChange={this.onInputChange('appliedStandard')}
+                label="Equipment"
+                value={equipment}
+                onChange={this.onInputChange('equipment')}
                 margin="normal"
               >
-                {standards.length > 0
-                  ? standards.map(({ title, code }, index) => {
-                      return (
-                        <MenuItem key={index} value={`${title} ${code}`}>
-                          {`${title} ${code}`}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultStandards.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
+                {defaultEquipments.map((item, index) => (
+                  <MenuItem key={index} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
               </TextField>
+
+              <TextField
+                fullWidth
+                label="Standards Clause"
+                value={standardsClause}
+                onChange={this.onInputChange('standardsClause')}
+                margin="normal"
+              />
 
               <Grid container>
                 <Grid item xs={12}>

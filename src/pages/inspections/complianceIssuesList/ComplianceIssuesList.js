@@ -58,6 +58,7 @@ export class ComplianceIssuesList extends Component {
                 {
                   image,
                   finding,
+                  equipment,
                   standardsClause,
                   probability,
                   severity,
@@ -91,6 +92,9 @@ export class ComplianceIssuesList extends Component {
                       </Typography>
                       <Typography variant="subheading">
                         Finding: {finding}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Equipment: {equipment}
                       </Typography>
                       <Typography variant="subheading">
                         Standards Clause: {standardsClause}

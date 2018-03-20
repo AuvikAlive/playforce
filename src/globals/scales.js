@@ -42,6 +42,12 @@ export const defaultManufacturers = [
   'Default Manufacturer 3',
 ]
 
+export const defaultEquipments = [
+  'Default Equipment 1',
+  'Default Equipment 2',
+  'Default Equipment 3',
+]
+
 export const conditions = [
   '1 - Excellent',
   '2 - Good',

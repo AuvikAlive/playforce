@@ -10,12 +10,7 @@ import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
 import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
-import {
-  probabilities,
-  severities,
-  riskLevels,
-  defaultStandards,
-} from '../../../globals/scales'
+import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
 export class EditComplianceIssue extends Component {
   state = {
@@ -23,7 +18,8 @@ export class EditComplianceIssue extends Component {
     commonIssueIndex: '',
     image: null,
     finding: '',
-    appliedStandard: '',
+    equipment: '',
+    standardsClause: '',
     probability: '',
     severity: '',
     comments: '',
@@ -49,11 +45,6 @@ export class EditComplianceIssue extends Component {
       {
         collection: 'users',
         doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
-      {
-        collection: 'users',
-        doc: userId,
         subcollections: [{ collection: 'commonIssues' }],
       },
     ])
@@ -67,11 +58,6 @@ export class EditComplianceIssue extends Component {
     removeLefNavComponent()
 
     firestore.unsetListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
       {
         collection: 'users',
         doc: userId,
@@ -115,7 +101,6 @@ export class EditComplianceIssue extends Component {
   onFindingChange = event => {
     const commonIssueIndex = event.target.value
     const {
-      appliedStandard,
       probability,
       severity,
       comments,
@@ -124,7 +109,6 @@ export class EditComplianceIssue extends Component {
 
     this.setState({
       commonIssueIndex,
-      appliedStandard,
       probability,
       severity,
       comments,
@@ -152,7 +136,8 @@ export class EditComplianceIssue extends Component {
       commonIssues,
       commonIssueIndex,
       image,
-      appliedStandard,
+      equipment,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -169,7 +154,8 @@ export class EditComplianceIssue extends Component {
     if (
       image &&
       finding &&
-      appliedStandard &&
+      standardsClause &&
+      equipment &&
       probability &&
       severity &&
       comments &&
@@ -181,7 +167,8 @@ export class EditComplianceIssue extends Component {
         updatedValue: {
           image,
           finding,
-          appliedStandard,
+          equipment,
+          standardsClause,
           probability,
           severity,
           comments,
@@ -209,7 +196,8 @@ export class EditComplianceIssue extends Component {
       commonIssueIndex,
       image,
       finding,
-      appliedStandard,
+      equipment,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -220,9 +208,7 @@ export class EditComplianceIssue extends Component {
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    const { data, error, openModal } = this.props
-
-    const standards = data && data.standards ? values(data.standards) : []
+    const { error, openModal } = this.props
 
     return (
       <StyledEditCompliacenIssue className="StyledEditCompliacenIssue">
@@ -284,28 +270,19 @@ export class EditComplianceIssue extends Component {
 
               <TextField
                 fullWidth
-                select
-                label="Applied Standard"
-                value={appliedStandard}
-                onChange={this.onInputChange('appliedStandard')}
+                label="Equipment"
+                value={equipment}
+                onChange={this.onInputChange('equipment')}
                 margin="normal"
-              >
-                {standards.length > 0
-                  ? standards.map(({ title, code }, index) => {
-                      return (
-                        <MenuItem key={index} value={`${title} ${code}`}>
-                          {`${title} ${code}`}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultStandards.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
-              </TextField>
+              />
+
+              <TextField
+                fullWidth
+                label="Standards Clause"
+                value={standardsClause}
+                onChange={this.onInputChange('standardsClause')}
+                margin="normal"
+              />
 
               <Grid container>
                 <Grid item xs={12}>
