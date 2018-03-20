@@ -3,12 +3,8 @@ import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { AddCommonIssue } from './AddCommonIssue'
 
-const mapStateToProps = ({
-  firestore: { ordered: { users = [] } },
-  firebase: { auth: { uid } },
-}) => ({
+const mapStateToProps = ({ firebase: { auth: { uid } } }) => ({
   userId: uid,
-  standards: users,
 })
 
 export const AddCommonIssueContainer = compose(

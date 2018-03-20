@@ -12,16 +12,10 @@ import Grid from 'material-ui/Grid'
 import { StyledAddCommonIssue } from './StyledAddCommonIssue'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
-const defaultStandards = [
-  'Default Standard 1',
-  'Default Standard 2',
-  'Default Standard 3',
-]
-
 export class AddCommonIssue extends Component {
   state = {
     finding: '',
-    appliedStandard: '',
+    standardsClause: '',
     probability: '',
     severity: '',
     comments: '',
@@ -30,7 +24,7 @@ export class AddCommonIssue extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history } = this.props
 
     setNavTitle('Add a Common Issue')
 
@@ -39,26 +33,13 @@ export class AddCommonIssue extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
-
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'standards' }],
-    })
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
-    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
-
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'standards' }],
-    })
   }
 
   onInputChange = name => event => {
@@ -70,7 +51,7 @@ export class AddCommonIssue extends Component {
   publish = async () => {
     const {
       finding,
-      appliedStandard,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -80,7 +61,7 @@ export class AddCommonIssue extends Component {
 
     if (
       finding &&
-      appliedStandard &&
+      standardsClause &&
       probability &&
       severity &&
       comments &&
@@ -97,7 +78,7 @@ export class AddCommonIssue extends Component {
           },
           {
             finding,
-            appliedStandard,
+            standardsClause,
             probability,
             severity,
             comments,
@@ -119,7 +100,7 @@ export class AddCommonIssue extends Component {
   render() {
     const {
       finding,
-      appliedStandard,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -130,8 +111,6 @@ export class AddCommonIssue extends Component {
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
-
-    const { standards } = this.props
 
     return (
       <StyledAddCommonIssue className="StyledAddCommonIssue">
@@ -148,28 +127,11 @@ export class AddCommonIssue extends Component {
 
               <TextField
                 fullWidth
-                select
-                label="Applied Standard"
-                value={appliedStandard}
-                onChange={this.onInputChange('appliedStandard')}
+                label="Standards Clause"
+                value={standardsClause}
+                onChange={this.onInputChange('standardsClause')}
                 margin="normal"
-              >
-                {standards.length > 0
-                  ? standards.map(({ id, title, code }) => {
-                      return (
-                        <MenuItem key={id} value={`${title} ${code}`}>
-                          {`${title} ${code}`}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultStandards.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
-              </TextField>
+              />
 
               <Grid container>
                 <Grid item xs={12}>

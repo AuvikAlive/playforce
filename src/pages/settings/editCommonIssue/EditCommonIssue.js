@@ -9,22 +9,15 @@ import TextField from 'material-ui/TextField'
 import { InputLabel } from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
 import Grid from 'material-ui/Grid'
-import values from 'lodash/values'
 import Modal from '../../../components/modal/Modal'
 import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledCommonIssue } from './StyledEditCommonIssue'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
-const defaultStandards = [
-  'Default Standard 1',
-  'Default Standard 2',
-  'Default Standard 3',
-]
-
 export class EditCommonIssue extends Component {
   state = {
     finding: '',
-    appliedStandard: '',
+    standardsClause: '',
     probability: '',
     severity: '',
     comments: '',
@@ -50,11 +43,6 @@ export class EditCommonIssue extends Component {
       {
         collection: 'users',
         doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
-      {
-        collection: 'users',
-        doc: userId,
         subcollections: [{ collection: 'commonIssues', doc: commonIssueId }],
       },
     ])
@@ -71,11 +59,6 @@ export class EditCommonIssue extends Component {
       {
         collection: 'users',
         doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
-      {
-        collection: 'users',
-        doc: userId,
         subcollections: [{ collection: 'commonIssues', doc: commonIssueId }],
       },
     ])
@@ -85,7 +68,7 @@ export class EditCommonIssue extends Component {
     if (data.commonIssues && data.commonIssues[commonIssueId]) {
       const {
         finding,
-        appliedStandard,
+        standardsClause,
         probability,
         severity,
         comments,
@@ -94,7 +77,7 @@ export class EditCommonIssue extends Component {
 
       this.setState({
         finding,
-        appliedStandard,
+        standardsClause,
         probability,
         severity,
         comments,
@@ -120,7 +103,7 @@ export class EditCommonIssue extends Component {
   publish = async () => {
     const {
       finding,
-      appliedStandard,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -130,7 +113,7 @@ export class EditCommonIssue extends Component {
 
     if (
       finding &&
-      appliedStandard &&
+      standardsClause &&
       probability &&
       severity &&
       comments &&
@@ -149,7 +132,7 @@ export class EditCommonIssue extends Component {
           },
           {
             finding,
-            appliedStandard,
+            standardsClause,
             probability,
             severity,
             comments,
@@ -188,7 +171,7 @@ export class EditCommonIssue extends Component {
   render() {
     const {
       finding,
-      appliedStandard,
+      standardsClause,
       probability,
       severity,
       comments,
@@ -200,10 +183,6 @@ export class EditCommonIssue extends Component {
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
-
-    const { data } = this.props
-
-    const standards = data ? values(data.standards) : []
 
     return (
       <StyledCommonIssue className="StyledCommonIssue">
@@ -219,28 +198,11 @@ export class EditCommonIssue extends Component {
 
             <TextField
               fullWidth
-              select
-              label="Applied Standard"
-              value={appliedStandard}
-              onChange={this.onInputChange('appliedStandard')}
+              label="Standards Clause"
+              value={standardsClause}
+              onChange={this.onInputChange('standardsClause')}
               margin="normal"
-            >
-              {standards.length > 0
-                ? standards.map(({ title, code }, index) => {
-                    return (
-                      <MenuItem key={index} value={`${title} ${code}`}>
-                        {`${title} ${code}`}
-                      </MenuItem>
-                    )
-                  })
-                : defaultStandards.map((item, index) => {
-                    return (
-                      <MenuItem key={index} value={item}>
-                        {item}
-                      </MenuItem>
-                    )
-                  })}
-            </TextField>
+            />
 
             <Grid container>
               <Grid item xs={12}>
