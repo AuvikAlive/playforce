@@ -57,7 +57,7 @@ export class AddCommonIssue extends Component {
       comments,
       recommendations,
     } = this.state
-    const { firestore, userId } = this.props
+    const { firestore, userId, setErrorLoadingState } = this.props
 
     if (
       finding &&
@@ -67,7 +67,7 @@ export class AddCommonIssue extends Component {
       comments &&
       recommendations
     ) {
-      this.setState({ error: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
 
       try {
         await firestore.add(
@@ -85,12 +85,12 @@ export class AddCommonIssue extends Component {
             recommendations,
           },
         )
-        this.setState({ loading: false })
+        setErrorLoadingState({ loading: false })
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form correctly!',
         loading: false,
       })
@@ -105,9 +105,9 @@ export class AddCommonIssue extends Component {
       severity,
       comments,
       recommendations,
-      error,
-      loading,
     } = this.state
+
+    const { error, loading } = this.props
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
