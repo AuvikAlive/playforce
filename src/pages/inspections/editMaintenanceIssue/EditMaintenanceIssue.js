@@ -10,7 +10,6 @@ import { MaintenanceIssueForm } from '../MaintenanceIssueForm'
 
 export class EditMaintenanceIssue extends Component {
   state = {
-    image: null,
     finding: '',
     equipment: '',
     recommendations: '',
@@ -55,25 +54,11 @@ export class EditMaintenanceIssue extends Component {
   }
 
   loadInitialData = maintenanceIssue => {
+    const { setCapturedImage } = this.props
+    const { image } = maintenanceIssue
+
+    setCapturedImage(image)
     this.setState({ ...maintenanceIssue })
-  }
-
-  capture = () => {
-    this.fileInput.click()
-  }
-
-  getFile = event => {
-    const reader = new FileReader()
-
-    reader.readAsDataURL(event.target.files[0])
-
-    reader.addEventListener(
-      'load',
-      () => {
-        this.setState({ image: reader.result })
-      },
-      false,
-    )
   }
 
   editMaintenanceIssue = () => {
@@ -82,8 +67,9 @@ export class EditMaintenanceIssue extends Component {
       history,
       setErrorLoadingState,
       maintenanceIssueIndex,
+      image,
     } = this.props
-    const { image, finding, equipment, recommendations } = this.state
+    const { finding, equipment, recommendations } = this.state
 
     if (image && finding && equipment && recommendations) {
       setErrorLoadingState({ error: '' })
@@ -116,8 +102,7 @@ export class EditMaintenanceIssue extends Component {
   }
 
   render() {
-    const { image } = this.state
-    const { error, openModal } = this.props
+    const { image, captureImage, error, openModal } = this.props
 
     return (
       <StyledEditMaintenanceIssue className="StyledEditMaintenanceIssue">
@@ -129,7 +114,7 @@ export class EditMaintenanceIssue extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={this.capture}
+              onClick={captureImage}
             >
               Capture Image
             </Button>

@@ -25,6 +25,10 @@ export const withImageCapture = WrappedComponent => {
       )
     }
 
+    setImage = image => {
+      this.setState({ image })
+    }
+
     render() {
       const { image } = this.state
 
@@ -42,6 +46,7 @@ export const withImageCapture = WrappedComponent => {
           />
           <WrappedComponent
             image={image}
+            setCapturedImage={this.setImage}
             captureImage={this.capture}
             {...this.props}
           />
