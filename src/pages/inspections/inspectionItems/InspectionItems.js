@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import DeleteIcon from 'material-ui-icons/Delete'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Button from 'material-ui/Button'
@@ -12,8 +13,12 @@ export class InspectionItems extends Component {
   state = {}
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const {
+      setNavTitle,
+      setLeftNavComponent,
+      setRightNavComponent,
+    } = this.context
+    const { history, openModal } = this.props
 
     setNavTitle('Add Inspection')
 
@@ -22,20 +27,35 @@ export class InspectionItems extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    setRightNavComponent(
+      <IconButton
+        color="inherit"
+        aria-label="delete condition rating"
+        onClick={() => openModal(this.delete)}
+      >
+        <DeleteIcon />
+      </IconButton>,
+    )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeLefNavComponent,
+      removeRightNavComponent,
+    } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
+    removeRightNavComponent()
   }
 
   publish = () => {
     console.log('publish')
   }
 
-  discard = () => {
+  delete = () => {
     const { discardInspection, history } = this.props
 
     discardInspection()
@@ -83,18 +103,6 @@ export class InspectionItems extends Component {
               <Button
                 fullWidth
                 variant="raised"
-                color="inherit"
-                className="submit-button discard-button"
-                onClick={this.discard}
-              >
-                Discard
-              </Button>
-            </ListItem>
-
-            <ListItem>
-              <Button
-                fullWidth
-                variant="raised"
                 color="primary"
                 className="submit-button"
                 onClick={this.publish}
@@ -114,4 +122,6 @@ InspectionItems.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }
