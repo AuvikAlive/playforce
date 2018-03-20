@@ -4,10 +4,9 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
 import { StyledEditMaintenanceIssue } from './StyledEditMaintenanceIssue'
 import { defaultEquipments } from '../../../globals/scales'
+import { MaintenanceIssueForm } from '../MaintenanceIssueForm'
 
 export class EditMaintenanceIssue extends Component {
   state = {
@@ -117,13 +116,7 @@ export class EditMaintenanceIssue extends Component {
   }
 
   render() {
-    const {
-      image,
-      finding,
-      equipment,
-      recommendations,
-      defaultEquipmentIndex,
-    } = this.state
+    const { image } = this.state
     const { error, openModal } = this.props
 
     return (
@@ -141,50 +134,11 @@ export class EditMaintenanceIssue extends Component {
               Capture Image
             </Button>
 
-            <form noValidate>
-              <TextField
-                fullWidth
-                multiline
-                rows="3"
-                label="Finding"
-                value={finding}
-                margin="normal"
-                onChange={this.onInputChange('finding')}
-              />
-
-              <TextField
-                fullWidth
-                label="Equipment"
-                value={equipment}
-                onChange={this.onInputChange('equipment')}
-                margin="normal"
-              />
-
-              <TextField
-                fullWidth
-                select
-                label="Equipment List"
-                value={defaultEquipmentIndex}
-                onChange={this.onEquipmentChange}
-                margin="normal"
-              >
-                {defaultEquipments.map((item, index) => (
-                  <MenuItem key={index} value={index}>
-                    {item}
-                  </MenuItem>
-                ))}
-              </TextField>
-
-              <TextField
-                fullWidth
-                multiline
-                rows="3"
-                label="Recommendations"
-                value={recommendations}
-                margin="normal"
-                onChange={this.onInputChange('recommendations')}
-              />
-            </form>
+            <MaintenanceIssueForm
+              {...this.state}
+              onEquipmentChange={this.onEquipmentChange}
+              onInputChange={this.onInputChange}
+            />
 
             {error && <p className="error">{error}</p>}
 
