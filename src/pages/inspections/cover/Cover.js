@@ -10,6 +10,7 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
 import values from 'lodash/values'
+import isEmpty from 'lodash/isEmpty'
 import { StyledCover } from './StyledCover'
 import { defaultClients, defaultStandards } from '../../../globals/scales'
 import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
@@ -27,7 +28,7 @@ export class Cover extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { cover, firestore, userId, history } = this.props
 
-    cover && this.setState({ ...cover })
+    !isEmpty(cover) && this.setState({ ...cover, location: cover.location.id })
 
     setNavTitle('Add Cover')
 
@@ -110,7 +111,12 @@ export class Cover extends Component {
   }
 
   addInspectionCover = () => {
-    const { addInspectionCover, history, setErrorLoadingState } = this.props
+    const {
+      addInspectionCover,
+      history,
+      setErrorLoadingState,
+      data: { sites },
+    } = this.props
     const {
       coverImage,
       location,
@@ -128,7 +134,10 @@ export class Cover extends Component {
     ) {
       addInspectionCover({
         coverImage,
-        location,
+        location: {
+          id: location,
+          ...sites[location],
+        },
         client,
         inspectionDate,
         appliedStandards,
@@ -189,7 +198,7 @@ export class Cover extends Component {
               >
                 {sites.length > 0 ? (
                   sites.map(({ id, name }) => (
-                    <MenuItem key={id} value={name}>
+                    <MenuItem key={id} value={id}>
                       {name}
                     </MenuItem>
                   ))
