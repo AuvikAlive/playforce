@@ -55,4 +55,15 @@ export const StyledConditionRatingList = Styled(Content)`
       height: 50vw;
     }
   }
+
+  .card-content {
+    position: relative;
+
+    .edit-icon {
+      position: absolute;
+      right: 8px;
+      top: -4px;
+      transform: translateY(-50%);
+    }
+  }
 `

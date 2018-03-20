@@ -3,6 +3,8 @@ import {
   ADD_INSPECTION_COVER,
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
+  EDIT_CONDITION_RATING,
+  DELETE_CONDITION_RATING,
   ADD_COMPLIANCE_ISSUE,
   EDIT_COMPLIANCE_ISSUE,
   DELETE_COMPLIANCE_ISSUE,
@@ -36,6 +38,38 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         conditionRatings: [...state.conditionRatings, payload],
       }
 
+    case EDIT_CONDITION_RATING: {
+      const { issueIndex, updatedValue } = payload
+      const { conditionRatings } = state
+
+      const updatedConditionRatings = conditionRatings.map(
+        (conditionRating, index) => {
+          if (index === Number(issueIndex)) {
+            conditionRating = updatedValue
+          }
+
+          return conditionRating
+        },
+      )
+      return {
+        ...state,
+        conditionRatings: [...updatedConditionRatings],
+      }
+    }
+
+    case DELETE_CONDITION_RATING: {
+      const { conditionRatings } = state
+
+      const updatedConditionRatings = conditionRatings.filter(
+        (conditionRating, index) => index !== Number(payload),
+      )
+
+      return {
+        ...state,
+        conditionRatings: [...updatedConditionRatings],
+      }
+    }
+
     case ADD_COMPLIANCE_ISSUE:
       return {
         ...state,
@@ -46,7 +80,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const { issueIndex, updatedValue } = payload
       const { complianceIssues } = state
 
-      let updatedComplianceIssues = complianceIssues.map(
+      const updatedComplianceIssues = complianceIssues.map(
         (complianceIssue, index) => {
           if (index === Number(issueIndex)) {
             complianceIssue = updatedValue
@@ -84,7 +118,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const { issueIndex, updatedValue } = payload
       const { maintenanceIssues } = state
 
-      let updatedMaintenanceIssues = maintenanceIssues.map(
+      const updatedMaintenanceIssues = maintenanceIssues.map(
         (maintenanceIssue, index) => {
           if (index === Number(issueIndex)) {
             maintenanceIssue = updatedValue

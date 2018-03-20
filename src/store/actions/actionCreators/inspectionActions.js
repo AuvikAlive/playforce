@@ -3,6 +3,8 @@ import {
   ADD_INSPECTION_COVER,
   ADD_INSPECTION_SUMMARY,
   ADD_CONDITION_RATING,
+  EDIT_CONDITION_RATING,
+  DELETE_CONDITION_RATING,
   ADD_COMPLIANCE_ISSUE,
   EDIT_COMPLIANCE_ISSUE,
   DELETE_COMPLIANCE_ISSUE,
@@ -27,6 +29,16 @@ export const addInspectionSummary = payload => ({
 
 export const addConditionRating = payload => ({
   type: ADD_CONDITION_RATING,
+  payload,
+})
+
+export const editConditionRating = payload => ({
+  type: EDIT_CONDITION_RATING,
+  payload,
+})
+
+export const deleteConditionRating = payload => ({
+  type: DELETE_CONDITION_RATING,
   payload,
 })
 

@@ -7,12 +7,18 @@ const AddConditionRating = Loadable({
   loader: () => import('../addConditionRating'),
 })
 
+const EditConditionRating = Loadable({
+  loader: () => import('../editConditionRating'),
+})
+
 AddConditionRating.preload()
+EditConditionRating.preload()
 
 export const ConditionRating = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/add`} component={AddConditionRating} />
+      <Route path={`${match.url}/edit/:id`} component={EditConditionRating} />
       <Route path={match.url} component={ConditionRatingList} />
     </Switch>
   )

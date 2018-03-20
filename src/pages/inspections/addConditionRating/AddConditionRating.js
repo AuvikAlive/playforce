@@ -80,7 +80,11 @@ export class AddConditionRating extends Component {
       setErrorLoadingState,
       image,
     } = this.props
-    const { equipment, manufacturer, condition } = this.state
+    const { equipment, condition } = this.state
+
+    let { manufacturer, customManufacturer } = this.state
+
+    manufacturer = customManufacturer ? customManufacturer : manufacturer
 
     if (image && equipment && manufacturer && condition) {
       addConditionRating({

@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
+import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
@@ -59,7 +60,19 @@ export class ConditionRatingList extends Component {
                         <CardMedia className="card-media" image={image} />
                       )}
                     </Card>
-                    <CardContent>
+                    <CardContent className="card-content">
+                      <StyledNavLink
+                        to={`${match.url}/edit/${index}`}
+                        className="edit-icon"
+                      >
+                        <Button
+                          variant="fab"
+                          color="primary"
+                          aria-label="edit compliance issue"
+                        >
+                          <ModeEditIcon />
+                        </Button>
+                      </StyledNavLink>
                       <Typography variant="title">{equipment}</Typography>
                       <Typography variant="subheading">
                         {manufacturer}
