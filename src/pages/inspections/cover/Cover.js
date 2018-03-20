@@ -20,6 +20,7 @@ export class Cover extends Component {
     coverImage: null,
     location: '',
     client: '',
+    customClient: '',
     inspectionDate: new Date(),
     appliedStandards: [],
   }
@@ -28,7 +29,12 @@ export class Cover extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { cover, firestore, userId, history } = this.props
 
-    !isEmpty(cover) && this.setState({ ...cover, location: cover.location.id })
+    !isEmpty(cover) &&
+      this.setState({
+        ...cover,
+        location: cover.location.id,
+        customClient: cover.client,
+      })
 
     setNavTitle('Add Cover')
 
@@ -110,6 +116,24 @@ export class Cover extends Component {
     this.setState({ inspectionDate: date })
   }
 
+  onCustomClientChange = event => {
+    const customClient = event.target.value
+
+    this.setState({
+      customClient,
+      client: '',
+    })
+  }
+
+  onClientChange = event => {
+    const client = event.target.value
+
+    this.setState({
+      client,
+      customClient: client,
+    })
+  }
+
   addInspectionCover = () => {
     const {
       addInspectionCover,
@@ -120,10 +144,13 @@ export class Cover extends Component {
     const {
       coverImage,
       location,
-      client,
       inspectionDate,
       appliedStandards,
     } = this.state
+
+    let { client, customClient } = this.state
+
+    client = customClient ? customClient : client
 
     if (
       coverImage &&
@@ -155,6 +182,7 @@ export class Cover extends Component {
       coverImage,
       location,
       client,
+      customClient,
       inspectionDate,
       appliedStandards,
     } = this.state
@@ -209,10 +237,18 @@ export class Cover extends Component {
 
               <TextField
                 fullWidth
-                select
                 label="Client"
+                value={customClient}
+                margin="normal"
+                onChange={this.onCustomClientChange}
+              />
+
+              <TextField
+                fullWidth
+                select
+                label="Select a client"
                 value={client}
-                onChange={this.onInputChange('client')}
+                onChange={this.onClientChange}
                 margin="normal"
               >
                 {clients.length > 0
