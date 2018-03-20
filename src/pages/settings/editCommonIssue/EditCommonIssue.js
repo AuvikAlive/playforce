@@ -9,8 +9,6 @@ import TextField from 'material-ui/TextField'
 import { InputLabel } from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
 import Grid from 'material-ui/Grid'
-import Modal from '../../../components/modal/Modal'
-import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledCommonIssue } from './StyledEditCommonIssue'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
@@ -22,7 +20,6 @@ export class EditCommonIssue extends Component {
     severity: '',
     comments: '',
     recommendations: '',
-    modalOpen: false,
   }
 
   componentDidMount() {
@@ -81,14 +78,6 @@ export class EditCommonIssue extends Component {
     })
   }
 
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
-  }
-
   publish = async () => {
     const {
       finding,
@@ -103,6 +92,7 @@ export class EditCommonIssue extends Component {
       userId,
       commonIssueId,
       setErrorLoadingState,
+      history,
     } = this.props
 
     if (
@@ -134,6 +124,7 @@ export class EditCommonIssue extends Component {
           },
         )
         setErrorLoadingState({ loading: false })
+        history.goBack()
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
       }
@@ -170,10 +161,9 @@ export class EditCommonIssue extends Component {
       severity,
       comments,
       recommendations,
-      modalOpen,
     } = this.state
 
-    const { error, loading } = this.props
+    const { error, loading, openModal } = this.props
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
@@ -281,7 +271,7 @@ export class EditCommonIssue extends Component {
                 variant="raised"
                 color="inherit"
                 className="submit-button discard-button"
-                onClick={this.openModal}
+                onClick={() => openModal(this.delete)}
               >
                 Delete
               </Button>
@@ -300,12 +290,6 @@ export class EditCommonIssue extends Component {
             )}
           </CardContent>
         </Card>
-        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
-          <ModalDeleteContent
-            handleConfirmation={this.delete}
-            closeModal={this.closeModal}
-          />
-        </Modal>
       </StyledCommonIssue>
     )
   }
