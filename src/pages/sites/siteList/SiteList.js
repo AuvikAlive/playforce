@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
 import List, { ListItem, ListItemText } from 'material-ui/List'
@@ -86,27 +87,37 @@ export class SiteList extends Component {
 
     if (isEmpty(sites)) {
       content = open ? (
-        <ListItem>
-          <ListItemText primary="No match found" />
-        </ListItem>
+        <Paper className="paper">
+          <List component="nav" disablePadding>
+            <ListItem>
+              <ListItemText primary="No match found" />
+            </ListItem>
+          </List>
+        </Paper>
       ) : (
-        <ListItem>
-          <ListItemText primary="No inspection added" />
-        </ListItem>
+        <Typography variant="title" align="center">
+          Try adding a site to get started!
+        </Typography>
       )
     } else {
-      content = sites.map(({ name, id }, index, list) => {
-        return (
-          <div key={id}>
-            <StyledNavLink to={`/sites/${id}`}>
-              <ListItem button>
-                <ListItemText primary={name} />
-              </ListItem>
-            </StyledNavLink>
-            {index !== list.length - 1 && <Divider />}
-          </div>
-        )
-      })
+      content = (
+        <Paper className="paper">
+          <List component="nav" disablePadding>
+            {sites.map(({ name, id }, index, list) => {
+              return (
+                <div key={id}>
+                  <StyledNavLink to={`/sites/${id}`}>
+                    <ListItem button>
+                      <ListItemText primary={name} />
+                    </ListItem>
+                  </StyledNavLink>
+                  {index !== list.length - 1 && <Divider />}
+                </div>
+              )
+            })}
+          </List>
+        </Paper>
+      )
     }
 
     return (
@@ -123,11 +134,7 @@ export class SiteList extends Component {
         </StyledNavLink>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Paper className="paper">
-              <List component="nav" disablePadding>
-                {content}
-              </List>
-            </Paper>
+            {content}
           </Grid>
         </Grid>
       </StyledSiteList>

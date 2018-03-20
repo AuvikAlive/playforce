@@ -13,14 +13,8 @@ import { LinearProgress } from 'material-ui/Progress'
 import { StyledSiteDetail } from './StyledSiteDetail'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import Map from './Map'
-import Modal from '../../../components/modal/Modal'
-import { ModalContent } from '../modalContent/ModalContent'
 
 export class SiteDetail extends Component {
-  state = {
-    modalOpen: false,
-  }
-
   componentDidMount() {
     const { firestore, userId, id } = this.props
 
@@ -59,15 +53,18 @@ export class SiteDetail extends Component {
   }
 
   setup = site => {
-    const { history } = this.props
+    const { history, openModal } = this.props
+
     const {
       setLeftNavComponent,
       setRightNavComponent,
       setNavTitle,
     } = this.context
+
     const { name, street, suburb, state, postcode, country } = site
     const address = `${street}+${suburb}+${state}+${postcode}+${country}`
     const encodedAddress = encodeURI(address)
+
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
@@ -91,7 +88,7 @@ export class SiteDetail extends Component {
         <IconButton
           color="inherit"
           aria-label="Search"
-          onClick={this.openModal}
+          onClick={() => openModal(this.delete)}
         >
           <DeleteIcon />
         </IconButton>
@@ -99,15 +96,7 @@ export class SiteDetail extends Component {
     )
   }
 
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
-  }
-
-  deleteItem = async () => {
+  delete = async () => {
     const { firestore, userId, id, history } = this.props
 
     try {
@@ -188,16 +177,6 @@ export class SiteDetail extends Component {
               </List>
             </CardContent>
           </Card>
-          <Modal
-            open={this.state.modalOpen}
-            handleClose={this.closeModal}
-            hideCloseIcon
-          >
-            <ModalContent
-              handleConfirmation={this.deleteItem}
-              closeModal={this.closeModal}
-            />
-          </Modal>
         </StyledSiteDetail>
       )
     } else {

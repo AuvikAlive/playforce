@@ -57,7 +57,7 @@ export class AddCommonIssue extends Component {
       comments,
       recommendations,
     } = this.state
-    const { firestore, userId, setErrorLoadingState } = this.props
+    const { firestore, userId, setErrorLoadingState, history } = this.props
 
     if (
       finding &&
@@ -86,6 +86,7 @@ export class AddCommonIssue extends Component {
           },
         )
         setErrorLoadingState({ loading: false })
+        history.goBack()
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
       }

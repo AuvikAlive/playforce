@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirestore } from 'react-redux-firebase'
+import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 import { SiteDetail } from './SiteDetail'
 
 const mapStateToProps = (
@@ -14,6 +15,7 @@ const mapStateToProps = (
 })
 
 export const SiteDetailContainer = compose(
+  withDeleteModal,
   withRouter,
   withFirestore,
   connect(mapStateToProps),
