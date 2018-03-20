@@ -21,8 +21,6 @@ export class AddSite extends Component {
     longitude: '',
     division: '',
     operator: '',
-    loading: false,
-    error: '',
   }
 
   componentDidMount() {
@@ -75,7 +73,7 @@ export class AddSite extends Component {
       division,
       operator,
     } = this.state
-    const { firestore, userId } = this.props
+    const { firestore, userId, setErrorLoadingState, history } = this.props
 
     if (
       name &&
@@ -89,7 +87,7 @@ export class AddSite extends Component {
       division &&
       operator
     ) {
-      this.setState({ error: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
 
       try {
         await firestore.add(
@@ -112,12 +110,13 @@ export class AddSite extends Component {
             operator,
           },
         )
-        this.setState({ loading: false })
+        setErrorLoadingState({ loading: false })
+        history.goBack()
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form correctly!',
         loading: false,
       })
@@ -136,11 +135,9 @@ export class AddSite extends Component {
       longitude,
       division,
       operator,
-      error,
-      loading,
     } = this.state
 
-    const { operators } = this.props
+    const { operators, error, loading } = this.props
 
     return (
       <StyledAddSite className="StyledAddSite">

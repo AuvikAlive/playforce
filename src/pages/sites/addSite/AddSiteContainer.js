@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore, firestoreConnect } from 'react-redux-firebase'
+import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { AddSite } from './AddSite'
 
 const mapStateToProps = ({
@@ -12,6 +13,7 @@ const mapStateToProps = ({
 })
 
 export const AddSiteContainer = compose(
+  withErrorLoadingSubmit,
   withFirestore,
   firestoreConnect(() => [{ collection: 'operators' }]),
   connect(mapStateToProps),
