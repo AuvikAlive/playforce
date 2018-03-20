@@ -10,7 +10,7 @@ import Grid from 'material-ui/Grid'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { riskLevels } from '../../../globals/scales'
+import { probabilities, severities, riskLevels } from '../../../globals/scales'
 
 export class ComplianceIssuesList extends Component {
   state = {}
@@ -105,12 +105,14 @@ export class ComplianceIssuesList extends Component {
                       <Grid container>
                         <Grid item xs={4}>
                           <Typography variant="subheading">
-                            Probability: {probability}
+                            Probability:{' '}
+                            {probabilities[probability - 1].probability}
                           </Typography>
                         </Grid>
                         <Grid item xs={4}>
                           <Typography variant="subheading">
-                            Injury Severity: {severity}
+                            Injury Severity:{' '}
+                            {severities[severity - 1].serverity}
                           </Typography>
                         </Grid>
                         <Grid item xs={4}>

@@ -21,6 +21,7 @@ export class AddComplianceIssue extends Component {
   state = {
     commonIssues: [],
     commonIssueIndex: '',
+    defaultEquipmentIndex: '',
     image: null,
     finding: '',
     equipment: '',
@@ -29,7 +30,6 @@ export class AddComplianceIssue extends Component {
     severity: '',
     comments: '',
     recommendations: '',
-    customFinding: false,
   }
 
   componentDidMount() {
@@ -95,9 +95,19 @@ export class AddComplianceIssue extends Component {
     )
   }
 
+  onEquipmentChange = event => {
+    const defaultEquipmentIndex = event.target.value
+
+    this.setState({
+      defaultEquipmentIndex,
+      equipment: defaultEquipments[defaultEquipmentIndex],
+    })
+  }
+
   onFindingChange = event => {
     const commonIssueIndex = event.target.value
     const {
+      finding,
       standardsClause,
       probability,
       severity,
@@ -106,6 +116,7 @@ export class AddComplianceIssue extends Component {
     } = this.state.commonIssues[commonIssueIndex]
 
     this.setState({
+      finding,
       commonIssueIndex,
       standardsClause,
       probability,
@@ -121,34 +132,18 @@ export class AddComplianceIssue extends Component {
     })
   }
 
-  toggleCustomFinding = () => {
-    const { customFinding } = this.state
-
-    this.setState({
-      customFinding: !customFinding,
-    })
-  }
-
   addComplianceIssue = () => {
     const { addComplianceIssue, history, setErrorLoadingState } = this.props
     const {
-      commonIssues,
-      commonIssueIndex,
       image,
+      finding,
       equipment,
       standardsClause,
       probability,
       severity,
       comments,
       recommendations,
-      customFinding,
     } = this.state
-
-    let { finding } = this.state
-
-    if (!customFinding && commonIssues[commonIssueIndex]) {
-      finding = commonIssues[commonIssueIndex].finding
-    }
 
     if (
       image &&
@@ -183,6 +178,7 @@ export class AddComplianceIssue extends Component {
     const {
       commonIssues,
       commonIssueIndex,
+      defaultEquipmentIndex,
       image,
       finding,
       equipment,
@@ -191,7 +187,6 @@ export class AddComplianceIssue extends Component {
       severity,
       comments,
       recommendations,
-      customFinding,
     } = this.state
 
     const riskLevel =
@@ -214,59 +209,53 @@ export class AddComplianceIssue extends Component {
               Capture Image
             </Button>
             <form noValidate>
-              {!customFinding && (
-                <TextField
-                  fullWidth
-                  select
-                  label="Finding"
-                  value={commonIssueIndex}
-                  onChange={this.onFindingChange}
-                  margin="normal"
-                >
-                  {commonIssues.length === 0 ? (
-                    <MenuItem value={''}>No common issue added yet</MenuItem>
-                  ) : (
-                    commonIssues.map(({ finding }, index) => (
-                      <MenuItem key={index} value={index}>
-                        {finding}
-                      </MenuItem>
-                    ))
-                  )}
-                </TextField>
-              )}
-
-              {customFinding && (
-                <TextField
-                  fullWidth
-                  multiline
-                  rows="3"
-                  label="Finding"
-                  value={finding}
-                  margin="normal"
-                  onChange={this.onInputChange('finding')}
-                />
-              )}
-
-              <Button
-                fullWidth
-                variant="raised"
-                color="primary"
-                className="submit-button"
-                onClick={this.toggleCustomFinding}
-              >
-                {customFinding ? 'Set Commong Findings' : 'Set Custom Finding'}
-              </Button>
-
               <TextField
                 fullWidth
                 select
+                label="Select a common issue"
+                value={commonIssueIndex}
+                onChange={this.onFindingChange}
+                margin="normal"
+              >
+                {commonIssues.length === 0 ? (
+                  <MenuItem value={''}>No common issue added yet</MenuItem>
+                ) : (
+                  commonIssues.map(({ finding }, index) => (
+                    <MenuItem key={index} value={index}>
+                      {finding}
+                    </MenuItem>
+                  ))
+                )}
+              </TextField>
+
+              <TextField
+                fullWidth
+                multiline
+                rows="3"
+                label="Finding"
+                value={finding}
+                margin="normal"
+                onChange={this.onInputChange('finding')}
+              />
+
+              <TextField
+                fullWidth
                 label="Equipment"
                 value={equipment}
                 onChange={this.onInputChange('equipment')}
                 margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                select
+                label="Equipment List"
+                value={defaultEquipmentIndex}
+                onChange={this.onEquipmentChange}
+                margin="normal"
               >
                 {defaultEquipments.map((item, index) => (
-                  <MenuItem key={index} value={item}>
+                  <MenuItem key={index} value={index}>
                     {item}
                   </MenuItem>
                 ))}

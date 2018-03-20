@@ -52,7 +52,7 @@ export class MaintenanceIssuesList extends Component {
 
         {maintenanceIssues.length ? (
           <Grid container>
-            {maintenanceIssues.map(({ image, finding }, index) => {
+            {maintenanceIssues.map(({ image, finding, equipment }, index) => {
               return (
                 <Grid item key={index} xs={12} sm={6}>
                   <Card>
@@ -78,6 +78,9 @@ export class MaintenanceIssuesList extends Component {
                     </Typography>
                     <Typography variant="subheading">
                       Finding: {finding}
+                    </Typography>
+                    <Typography variant="subheading">
+                      Equipment: {equipment}
                     </Typography>
                   </CardContent>
                 </Grid>

@@ -5,14 +5,17 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
+import { MenuItem } from 'material-ui/Menu'
 import { StyledEditMaintenanceIssue } from './StyledEditMaintenanceIssue'
+import { defaultEquipments } from '../../../globals/scales'
 
 export class EditMaintenanceIssue extends Component {
   state = {
-    modalOpen: false,
     image: null,
     finding: '',
+    equipment: '',
     recommendations: '',
+    defaultEquipmentIndex: '',
   }
 
   componentDidMount() {
@@ -35,6 +38,15 @@ export class EditMaintenanceIssue extends Component {
 
     removeNavTitle()
     removeLefNavComponent()
+  }
+
+  onEquipmentChange = event => {
+    const defaultEquipmentIndex = event.target.value
+
+    this.setState({
+      defaultEquipmentIndex,
+      equipment: defaultEquipments[defaultEquipmentIndex],
+    })
   }
 
   onInputChange = name => event => {
@@ -72,15 +84,16 @@ export class EditMaintenanceIssue extends Component {
       setErrorLoadingState,
       maintenanceIssueIndex,
     } = this.props
-    const { image, finding, recommendations } = this.state
+    const { image, finding, equipment, recommendations } = this.state
 
-    if (image && finding && recommendations) {
+    if (image && finding && equipment && recommendations) {
       setErrorLoadingState({ error: '' })
       editMaintenanceIssue({
         issueIndex: maintenanceIssueIndex,
         updatedValue: {
           image,
           finding,
+          equipment,
           recommendations,
         },
       })
@@ -103,16 +116,14 @@ export class EditMaintenanceIssue extends Component {
     history.goBack()
   }
 
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
-  }
-
   render() {
-    const { image, finding, recommendations } = this.state
+    const {
+      image,
+      finding,
+      equipment,
+      recommendations,
+      defaultEquipmentIndex,
+    } = this.state
     const { error, openModal } = this.props
 
     return (
@@ -140,6 +151,29 @@ export class EditMaintenanceIssue extends Component {
                 margin="normal"
                 onChange={this.onInputChange('finding')}
               />
+
+              <TextField
+                fullWidth
+                label="Equipment"
+                value={equipment}
+                onChange={this.onInputChange('equipment')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                select
+                label="Equipment List"
+                value={defaultEquipmentIndex}
+                onChange={this.onEquipmentChange}
+                margin="normal"
+              >
+                {defaultEquipments.map((item, index) => (
+                  <MenuItem key={index} value={index}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </TextField>
 
               <TextField
                 fullWidth

@@ -10,12 +10,18 @@ import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
 import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
-import { probabilities, severities, riskLevels } from '../../../globals/scales'
+import {
+  probabilities,
+  severities,
+  riskLevels,
+  defaultEquipments,
+} from '../../../globals/scales'
 
 export class EditComplianceIssue extends Component {
   state = {
     commonIssues: [],
     commonIssueIndex: '',
+    defaultEquipmentIndex: '',
     image: null,
     finding: '',
     equipment: '',
@@ -96,6 +102,15 @@ export class EditComplianceIssue extends Component {
       },
       false,
     )
+  }
+
+  onEquipmentChange = event => {
+    const defaultEquipmentIndex = event.target.value
+
+    this.setState({
+      defaultEquipmentIndex,
+      equipment: defaultEquipments[defaultEquipmentIndex],
+    })
   }
 
   onFindingChange = event => {
@@ -194,6 +209,7 @@ export class EditComplianceIssue extends Component {
     const {
       commonIssues,
       commonIssueIndex,
+      defaultEquipmentIndex,
       image,
       finding,
       equipment,
@@ -202,7 +218,6 @@ export class EditComplianceIssue extends Component {
       severity,
       comments,
       recommendations,
-      customFinding,
     } = this.state
 
     const riskLevel =
@@ -225,48 +240,34 @@ export class EditComplianceIssue extends Component {
               Capture Image
             </Button>
             <form noValidate>
-              {!customFinding && (
-                <TextField
-                  fullWidth
-                  select
-                  label="Finding"
-                  value={commonIssueIndex}
-                  onChange={this.onFindingChange}
-                  margin="normal"
-                >
-                  {commonIssues.length === 0 ? (
-                    <MenuItem value={''}>No common issue added yet</MenuItem>
-                  ) : (
-                    commonIssues.map(({ finding }, index) => (
-                      <MenuItem key={index} value={index}>
-                        {finding}
-                      </MenuItem>
-                    ))
-                  )}
-                </TextField>
-              )}
-
-              {customFinding && (
-                <TextField
-                  fullWidth
-                  multiline
-                  rows="3"
-                  label="Finding"
-                  value={finding}
-                  margin="normal"
-                  onChange={this.onInputChange('finding')}
-                />
-              )}
-
-              <Button
+              <TextField
                 fullWidth
-                variant="raised"
-                color="primary"
-                className="submit-button"
-                onClick={this.toggleCustomFinding}
+                select
+                label="Select a common issue"
+                value={commonIssueIndex}
+                onChange={this.onFindingChange}
+                margin="normal"
               >
-                {customFinding ? 'Set Commong Findings' : 'Set Custom Finding'}
-              </Button>
+                {commonIssues.length === 0 ? (
+                  <MenuItem value={''}>No common issue added yet</MenuItem>
+                ) : (
+                  commonIssues.map(({ finding }, index) => (
+                    <MenuItem key={index} value={index}>
+                      {finding}
+                    </MenuItem>
+                  ))
+                )}
+              </TextField>
+
+              <TextField
+                fullWidth
+                multiline
+                rows="3"
+                label="Finding"
+                value={finding}
+                margin="normal"
+                onChange={this.onInputChange('finding')}
+              />
 
               <TextField
                 fullWidth
@@ -275,6 +276,21 @@ export class EditComplianceIssue extends Component {
                 onChange={this.onInputChange('equipment')}
                 margin="normal"
               />
+
+              <TextField
+                fullWidth
+                select
+                label="Equipment List"
+                value={defaultEquipmentIndex}
+                onChange={this.onEquipmentChange}
+                margin="normal"
+              >
+                {defaultEquipments.map((item, index) => (
+                  <MenuItem key={index} value={index}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </TextField>
 
               <TextField
                 fullWidth

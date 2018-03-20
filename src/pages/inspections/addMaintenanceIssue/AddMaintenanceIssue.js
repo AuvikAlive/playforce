@@ -5,13 +5,17 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
+import { MenuItem } from 'material-ui/Menu'
 import { StyledAddMaintenanceIssue } from './StyledAddMaintenanceIssue'
+import { defaultEquipments } from '../../../globals/scales'
 
 export class AddMaintenanceIssue extends Component {
   state = {
     image: null,
     finding: '',
+    equipment: '',
     recommendations: '',
+    defaultEquipmentIndex: '',
   }
 
   componentDidMount() {
@@ -40,6 +44,15 @@ export class AddMaintenanceIssue extends Component {
     })
   }
 
+  onEquipmentChange = event => {
+    const defaultEquipmentIndex = event.target.value
+
+    this.setState({
+      defaultEquipmentIndex,
+      equipment: defaultEquipments[defaultEquipmentIndex],
+    })
+  }
+
   capture = () => {
     this.fileInput.click()
   }
@@ -60,11 +73,11 @@ export class AddMaintenanceIssue extends Component {
 
   addMaintenanceIssue = () => {
     const { history, addMaintenanceIssue, setErrorLoadingState } = this.props
-    const { image, finding, recommendations } = this.state
+    const { image, finding, equipment, recommendations } = this.state
 
-    if (image && finding && recommendations) {
+    if (image && finding && equipment && recommendations) {
       setErrorLoadingState({ error: '' })
-      addMaintenanceIssue({ image, finding, recommendations })
+      addMaintenanceIssue({ image, finding, equipment, recommendations })
       history.goBack()
     } else {
       setErrorLoadingState({
@@ -74,7 +87,13 @@ export class AddMaintenanceIssue extends Component {
   }
 
   render() {
-    const { image, finding, recommendations } = this.state
+    const {
+      image,
+      finding,
+      equipment,
+      recommendations,
+      defaultEquipmentIndex,
+    } = this.state
     const { error } = this.props
 
     return (
@@ -102,6 +121,29 @@ export class AddMaintenanceIssue extends Component {
                 margin="normal"
                 onChange={this.onInputChange('finding')}
               />
+
+              <TextField
+                fullWidth
+                label="Equipment"
+                value={equipment}
+                onChange={this.onInputChange('equipment')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                select
+                label="Equipment List"
+                value={defaultEquipmentIndex}
+                onChange={this.onEquipmentChange}
+                margin="normal"
+              >
+                {defaultEquipments.map((item, index) => (
+                  <MenuItem key={index} value={index}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </TextField>
 
               <TextField
                 fullWidth

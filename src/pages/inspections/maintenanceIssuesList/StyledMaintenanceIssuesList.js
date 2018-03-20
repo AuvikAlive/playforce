@@ -1,16 +1,7 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
 
-import { errorLoadingSubmit } from '../../../styledMixins/errorLoadingSubmit'
-
 export const StyledMaintenanceIssuesList = Styled(Content)`
-  
-  > * {
-    width: 100%;
-  }
-
-  ${errorLoadingSubmit};
-
   .add-icon {
     position: fixed;
     left: calc(100% - 24px - 56px);
