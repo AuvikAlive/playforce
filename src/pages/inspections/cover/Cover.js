@@ -11,7 +11,7 @@ import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
 import values from 'lodash/values'
 import { StyledCover } from './StyledCover'
-import { defaultClients } from '../../../globals/scales'
+import { defaultClients, defaultStandards } from '../../../globals/scales'
 import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class Cover extends Component {
@@ -20,7 +20,7 @@ export class Cover extends Component {
     location: '',
     client: '',
     inspectionDate: new Date(),
-    appliedStandards: '',
+    appliedStandards: [],
   }
 
   componentDidMount() {
@@ -111,14 +111,27 @@ export class Cover extends Component {
 
   addInspectionCover = () => {
     const { addInspectionCover, history, setErrorLoadingState } = this.props
-    const { coverImage, location, client, inspectionDate } = this.state
+    const {
+      coverImage,
+      location,
+      client,
+      inspectionDate,
+      appliedStandards,
+    } = this.state
 
-    if (coverImage && location && client && inspectionDate) {
+    if (
+      coverImage &&
+      location &&
+      client &&
+      inspectionDate &&
+      appliedStandards
+    ) {
       addInspectionCover({
         coverImage,
         location,
         client,
         inspectionDate,
+        appliedStandards,
       })
       history.goBack()
     } else {
@@ -129,13 +142,20 @@ export class Cover extends Component {
   }
 
   render() {
-    const { coverImage, location, client, inspectionDate } = this.state
+    const {
+      coverImage,
+      location,
+      client,
+      inspectionDate,
+      appliedStandards,
+    } = this.state
 
     const { displayName, data, error } = this.props
 
     let clients = []
 
-    let sites = data && data.sites ? objectToArrayWithId(data.sites) : []
+    const sites = data && data.sites ? objectToArrayWithId(data.sites) : []
+    const standards = data && data.standards ? values(data.standards) : []
 
     if (data) {
       clients = values(data.clients)
@@ -224,6 +244,34 @@ export class Cover extends Component {
                 value={displayName}
                 margin="normal"
               />
+
+              <TextField
+                fullWidth
+                select
+                SelectProps={{
+                  multiple: true,
+                }}
+                label="Applied Standard"
+                value={appliedStandards}
+                onChange={this.onInputChange('appliedStandards')}
+                margin="normal"
+              >
+                {standards.length > 0
+                  ? standards.map(({ title, code }, index) => {
+                      return (
+                        <MenuItem key={index} value={`${title} ${code}`}>
+                          {`${title} ${code}`}
+                        </MenuItem>
+                      )
+                    })
+                  : defaultStandards.map((item, index) => {
+                      return (
+                        <MenuItem key={index} value={item}>
+                          {item}
+                        </MenuItem>
+                      )
+                    })}
+              </TextField>
             </form>
 
             {error && <p className="error">{error}</p>}
