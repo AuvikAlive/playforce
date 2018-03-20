@@ -4,6 +4,7 @@ import { withFirestore } from 'react-redux-firebase'
 import { AddConditionRating } from './AddConditionRating'
 import { addConditionRating } from '../../../store/actions/actionCreators/inspectionActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 
 const mapStateToProps = ({
   firestore: { data: { users } },
@@ -18,6 +19,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = { addConditionRating }
 
 export const AddConditionRatingContainer = compose(
+  withImageCapture,
   withErrorLoadingSubmit,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps),
