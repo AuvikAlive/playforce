@@ -148,16 +148,6 @@ export class EditMaintenanceIssue extends Component {
             </Button>
           </CardContent>
         </Card>
-        <input
-          type="file"
-          accept="image/*"
-          // capture="environment"
-          style={{ display: 'none' }}
-          ref={input => {
-            this.fileInput = input
-          }}
-          onChange={this.getFile}
-        />
       </StyledEditMaintenanceIssue>
     )
   }

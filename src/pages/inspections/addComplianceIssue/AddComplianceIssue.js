@@ -14,7 +14,6 @@ export class AddComplianceIssue extends Component {
     commonIssues: [],
     commonIssueIndex: '',
     defaultEquipmentIndex: '',
-    image: null,
     finding: '',
     equipment: '',
     standardsClause: '',
@@ -125,9 +124,13 @@ export class AddComplianceIssue extends Component {
   }
 
   addComplianceIssue = () => {
-    const { addComplianceIssue, history, setErrorLoadingState } = this.props
     const {
+      addComplianceIssue,
+      history,
+      setErrorLoadingState,
       image,
+    } = this.props
+    const {
       finding,
       equipment,
       standardsClause,
@@ -167,9 +170,7 @@ export class AddComplianceIssue extends Component {
   }
 
   render() {
-    const { image } = this.state
-
-    const { error } = this.props
+    const { image, captureImage, error } = this.props
 
     return (
       <StyledAddCompliaceIssue className="StyledAddCompliaceIssue">
@@ -181,7 +182,7 @@ export class AddComplianceIssue extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={this.capture}
+              onClick={captureImage}
             >
               Capture Image
             </Button>
@@ -206,16 +207,6 @@ export class AddComplianceIssue extends Component {
             </Button>
           </CardContent>
         </Card>
-        <input
-          type="file"
-          accept="image/*"
-          // capture="environment"
-          style={{ display: 'none' }}
-          ref={input => {
-            this.fileInput = input
-          }}
-          onChange={this.getFile}
-        />
       </StyledAddCompliaceIssue>
     )
   }

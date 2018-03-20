@@ -14,7 +14,6 @@ export class EditComplianceIssue extends Component {
     commonIssues: [],
     commonIssueIndex: '',
     defaultEquipmentIndex: '',
-    image: null,
     finding: '',
     equipment: '',
     standardsClause: '',
@@ -65,7 +64,7 @@ export class EditComplianceIssue extends Component {
   }
 
   componentWillReceiveProps({ data, userId }) {
-    const commonIssues = data.commonIssues && values(data.commonIssues)
+    const commonIssues = data && data.commonIssues && values(data.commonIssues)
 
     if (commonIssues) {
       this.setState({ commonIssues })
@@ -73,27 +72,13 @@ export class EditComplianceIssue extends Component {
   }
 
   loadInitialData = complianceIssue => {
+    const { setCapturedImage } = this.props
+    const { image } = complianceIssue
+
+    setCapturedImage(image)
     this.setState({
       ...complianceIssue,
     })
-  }
-
-  capture = () => {
-    this.fileInput.click()
-  }
-
-  getFile = event => {
-    const reader = new FileReader()
-
-    reader.readAsDataURL(event.target.files[0])
-
-    reader.addEventListener(
-      'load',
-      () => {
-        this.setState({ image: reader.result })
-      },
-      false,
-    )
   }
 
   onEquipmentChange = event => {
@@ -138,11 +123,15 @@ export class EditComplianceIssue extends Component {
   }
 
   editComplianceIssue = () => {
-    const { editComplianceIssue, history, setErrorLoadingState } = this.props
+    const {
+      editComplianceIssue,
+      history,
+      setErrorLoadingState,
+      image,
+    } = this.props
     const {
       commonIssues,
       commonIssueIndex,
-      image,
       equipment,
       standardsClause,
       probability,
@@ -198,9 +187,7 @@ export class EditComplianceIssue extends Component {
   }
 
   render() {
-    const { image } = this.state
-
-    const { error, openModal } = this.props
+    const { image, captureImage, error, openModal } = this.props
 
     return (
       <StyledEditCompliacenIssue className="StyledEditCompliacenIssue">
@@ -212,7 +199,7 @@ export class EditComplianceIssue extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={this.capture}
+              onClick={captureImage}
             >
               Capture Image
             </Button>
@@ -247,16 +234,6 @@ export class EditComplianceIssue extends Component {
             </Button>
           </CardContent>
         </Card>
-        <input
-          type="file"
-          accept="image/*"
-          // capture="environment"
-          style={{ display: 'none' }}
-          ref={input => {
-            this.fileInput = input
-          }}
-          onChange={this.getFile}
-        />
       </StyledEditCompliacenIssue>
     )
   }
