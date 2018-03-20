@@ -23,8 +23,6 @@ export class EditCommonIssue extends Component {
     comments: '',
     recommendations: '',
     modalOpen: false,
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
@@ -64,25 +62,16 @@ export class EditCommonIssue extends Component {
     ])
   }
 
-  componentWillReceiveProps({ data, userId, commonIssueId }) {
-    if (data.commonIssues && data.commonIssues[commonIssueId]) {
-      const {
-        finding,
-        standardsClause,
-        probability,
-        severity,
-        comments,
-        recommendations,
-      } = data.commonIssues[commonIssueId]
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.props.data) {
+      const { data, commonIssueId } = nextProps
+      if (data.commonIssues && data.commonIssues[commonIssueId]) {
+        const commonIssue = data.commonIssues[commonIssueId]
 
-      this.setState({
-        finding,
-        standardsClause,
-        probability,
-        severity,
-        comments,
-        recommendations,
-      })
+        this.setState({
+          ...commonIssue,
+        })
+      }
     }
   }
 
@@ -109,7 +98,12 @@ export class EditCommonIssue extends Component {
       comments,
       recommendations,
     } = this.state
-    const { firestore, userId, commonIssueId } = this.props
+    const {
+      firestore,
+      userId,
+      commonIssueId,
+      setErrorLoadingState,
+    } = this.props
 
     if (
       finding &&
@@ -119,7 +113,7 @@ export class EditCommonIssue extends Component {
       comments &&
       recommendations
     ) {
-      this.setState({ error: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
 
       try {
         await firestore.update(
@@ -139,12 +133,12 @@ export class EditCommonIssue extends Component {
             recommendations,
           },
         )
-        this.setState({ loading: false })
+        setErrorLoadingState({ loading: false })
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form correctly!',
         loading: false,
       })
@@ -177,9 +171,9 @@ export class EditCommonIssue extends Component {
       comments,
       recommendations,
       modalOpen,
-      error,
-      loading,
     } = this.state
+
+    const { error, loading } = this.props
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
@@ -301,7 +295,7 @@ export class EditCommonIssue extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Publish Changes
+                Publish
               </Button>
             )}
           </CardContent>
