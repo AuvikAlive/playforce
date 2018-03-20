@@ -4,18 +4,10 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
-import { InputLabel } from 'material-ui/Input'
-import Grid from 'material-ui/Grid'
 import values from 'lodash/values'
 import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
-import {
-  probabilities,
-  severities,
-  riskLevels,
-  defaultEquipments,
-} from '../../../globals/scales'
+import { defaultEquipments } from '../../../globals/scales'
+import { ComplianceIssueForm } from '../ComplianceIssueForm'
 
 export class EditComplianceIssue extends Component {
   state = {
@@ -206,22 +198,7 @@ export class EditComplianceIssue extends Component {
   }
 
   render() {
-    const {
-      commonIssues,
-      commonIssueIndex,
-      defaultEquipmentIndex,
-      image,
-      finding,
-      equipment,
-      standardsClause,
-      probability,
-      severity,
-      comments,
-      recommendations,
-    } = this.state
-
-    const riskLevel =
-      probability && severity ? riskLevels[probability - 1][severity - 1] : ''
+    const { image } = this.state
 
     const { error, openModal } = this.props
 
@@ -239,135 +216,13 @@ export class EditComplianceIssue extends Component {
             >
               Capture Image
             </Button>
-            <form noValidate>
-              <TextField
-                fullWidth
-                select
-                label="Select a common issue"
-                value={commonIssueIndex}
-                onChange={this.onFindingChange}
-                margin="normal"
-              >
-                {commonIssues.length === 0 ? (
-                  <MenuItem value={''}>No common issue added yet</MenuItem>
-                ) : (
-                  commonIssues.map(({ finding }, index) => (
-                    <MenuItem key={index} value={index}>
-                      {finding}
-                    </MenuItem>
-                  ))
-                )}
-              </TextField>
 
-              <TextField
-                fullWidth
-                multiline
-                rows="3"
-                label="Finding"
-                value={finding}
-                margin="normal"
-                onChange={this.onInputChange('finding')}
-              />
-
-              <TextField
-                fullWidth
-                label="Equipment"
-                value={equipment}
-                onChange={this.onInputChange('equipment')}
-                margin="normal"
-              />
-
-              <TextField
-                fullWidth
-                select
-                label="Equipment List"
-                value={defaultEquipmentIndex}
-                onChange={this.onEquipmentChange}
-                margin="normal"
-              >
-                {defaultEquipments.map((item, index) => (
-                  <MenuItem key={index} value={index}>
-                    {item}
-                  </MenuItem>
-                ))}
-              </TextField>
-
-              <TextField
-                fullWidth
-                label="Standards Clause"
-                value={standardsClause}
-                onChange={this.onInputChange('standardsClause')}
-                margin="normal"
-              />
-
-              <Grid container>
-                <Grid item xs={12}>
-                  <InputLabel className="risk-assessment">
-                    Risk Assessment
-                  </InputLabel>
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    fullWidth
-                    select
-                    label="Probability"
-                    value={probability}
-                    onChange={this.onInputChange('probability')}
-                    margin="normal"
-                  >
-                    {probabilities.map(({ probability, value }, index) => (
-                      <MenuItem key={index} value={value}>
-                        {probability}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    fullWidth
-                    select
-                    label="Injury Severity"
-                    value={severity}
-                    onChange={this.onInputChange('severity')}
-                    margin="normal"
-                  >
-                    {severities.map(({ serverity, value }, index) => (
-                      <MenuItem key={index} value={value}>
-                        {serverity}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    disabled
-                    label="Risk Level"
-                    value={riskLevel}
-                    margin="normal"
-                  />
-                </Grid>
-              </Grid>
-
-              <TextField
-                fullWidth
-                multiline
-                rows="3"
-                label="Comments"
-                value={comments}
-                margin="normal"
-                onChange={this.onInputChange('comments')}
-              />
-
-              <TextField
-                fullWidth
-                multiline
-                rows="3"
-                label="Recommendations"
-                value={recommendations}
-                margin="normal"
-                onChange={this.onInputChange('recommendations')}
-              />
-            </form>
+            <ComplianceIssueForm
+              {...this.state}
+              onEquipmentChange={this.onEquipmentChange}
+              onInputChange={this.onInputChange}
+              onFindingChange={this.onFindingChange}
+            />
 
             {error && <p className="error">{error}</p>}
 
