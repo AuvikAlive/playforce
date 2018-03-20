@@ -52,27 +52,14 @@ export class AddMaintenanceIssue extends Component {
     })
   }
 
-  capture = () => {
-    this.fileInput.click()
-  }
-
-  getFile = event => {
-    const reader = new FileReader()
-
-    reader.readAsDataURL(event.target.files[0])
-
-    reader.addEventListener(
-      'load',
-      () => {
-        this.setState({ image: reader.result })
-      },
-      false,
-    )
-  }
-
   addMaintenanceIssue = () => {
-    const { history, addMaintenanceIssue, setErrorLoadingState } = this.props
-    const { image, finding, equipment, recommendations } = this.state
+    const {
+      history,
+      addMaintenanceIssue,
+      setErrorLoadingState,
+      image,
+    } = this.props
+    const { finding, equipment, recommendations } = this.state
 
     if (image && finding && equipment && recommendations) {
       setErrorLoadingState({ error: '' })
@@ -86,8 +73,7 @@ export class AddMaintenanceIssue extends Component {
   }
 
   render() {
-    const { image } = this.state
-    const { error } = this.props
+    const { image, captureImage, error } = this.props
 
     return (
       <StyledAddMaintenanceIssue className="StyledAddMaintenanceIssue">
@@ -99,7 +85,7 @@ export class AddMaintenanceIssue extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={this.capture}
+              onClick={captureImage}
             >
               Capture Image
             </Button>
@@ -123,16 +109,6 @@ export class AddMaintenanceIssue extends Component {
             </Button>
           </CardContent>
         </Card>
-        <input
-          type="file"
-          accept="image/*"
-          // capture="environment"
-          style={{ display: 'none' }}
-          ref={input => {
-            this.fileInput = input
-          }}
-          onChange={this.getFile}
-        />
       </StyledAddMaintenanceIssue>
     )
   }
