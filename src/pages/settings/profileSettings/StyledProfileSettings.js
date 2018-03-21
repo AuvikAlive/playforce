@@ -26,7 +26,7 @@ export const StyledProfileSettings = Styled(Content)`
     canvas {
       margin-top: 64px;
       width: 100%;
-      height: 300px;
+      height: 50vw;
     }
   }
 

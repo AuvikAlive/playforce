@@ -22,7 +22,7 @@ export const StyledAuditSummary = Styled(Content)`
     @media (max-width: 600px) {
       padding-top: 32px;
     }
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 50vw;
   }
 `

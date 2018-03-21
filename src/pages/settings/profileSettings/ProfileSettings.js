@@ -108,7 +108,7 @@ export class ProfileSettings extends Component {
         mobile,
         photoURL: downloadURL || photoURL,
         signature: !this.mySignature.isEmpty()
-          ? this.mySignature.toDataURL('image/svg+xml')
+          ? this.mySignature.toDataURL()
           : undefined,
       })
       this.setState({ loading: false })
