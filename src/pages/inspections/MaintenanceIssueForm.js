@@ -8,6 +8,7 @@ export const MaintenanceIssueForm = ({
   equipment,
   defaultEquipmentIndex,
   recommendations,
+  onCustomEquipmentChange,
   onEquipmentChange,
   onInputChange,
 }) => {
@@ -27,7 +28,7 @@ export const MaintenanceIssueForm = ({
         fullWidth
         label="Equipment"
         value={equipment}
-        onChange={onInputChange('equipment')}
+        onChange={onCustomEquipmentChange}
         margin="normal"
       />
 

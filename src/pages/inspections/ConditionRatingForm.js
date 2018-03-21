@@ -23,18 +23,18 @@ export const ConditionRatingForm = ({
         onChange={onInputChange('equipment')}
       />
 
-      <TextField
+      {/* <TextField
         fullWidth
         label="Manufacturer"
         value={customManufacturer}
         margin="normal"
         onChange={onCustomManufacturerChange}
-      />
+      /> */}
 
       <TextField
         fullWidth
         select
-        label="Select a Manufacturer"
+        label="Manufacturer"
         value={manufacturer}
         onChange={onManufacturerChange}
         margin="normal"

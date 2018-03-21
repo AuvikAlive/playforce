@@ -235,18 +235,18 @@ export class Cover extends Component {
                 )}
               </TextField>
 
-              <TextField
+              {/* <TextField
                 fullWidth
                 label="Client"
                 value={customClient}
                 margin="normal"
                 onChange={this.onCustomClientChange}
-              />
+              /> */}
 
               <TextField
                 fullWidth
                 select
-                label="Select a client"
+                label="Client"
                 value={client}
                 onChange={this.onClientChange}
                 margin="normal"

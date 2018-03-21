@@ -73,11 +73,15 @@ export class ConditionRatingList extends Component {
                           <ModeEditIcon />
                         </Button>
                       </StyledNavLink>
-                      <Typography variant="title">{equipment}</Typography>
-                      <Typography variant="subheading">
-                        {manufacturer}
+                      <Typography variant="title">
+                        Equipment: {equipment}
                       </Typography>
-                      <Typography variant="subheading">{condition}</Typography>
+                      <Typography variant="subheading">
+                        Manufacturer: {manufacturer}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Condition: {condition}
+                      </Typography>
                     </CardContent>
                   </Grid>
                 )
