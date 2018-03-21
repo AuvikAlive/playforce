@@ -129,12 +129,8 @@ export class EditComplianceIssue extends Component {
     })
   }
 
-  toggleCustomFinding = () => {
-    const { customFinding } = this.state
-
-    this.setState({
-      customFinding: !customFinding,
-    })
+  onAutoCompleteChange = value => {
+    this.setState({ equipment: value })
   }
 
   editComplianceIssue = () => {
@@ -224,6 +220,7 @@ export class EditComplianceIssue extends Component {
               equipments={equipments}
               onInputChange={this.onInputChange}
               onFindingChange={this.onFindingChange}
+              onAutoCompleteChange={this.onAutoCompleteChange}
             />
 
             {error && <p className="error">{error}</p>}

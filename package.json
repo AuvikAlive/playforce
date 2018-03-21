@@ -12,6 +12,7 @@
     "material-ui-pickers": "^1.0.0-rc.2",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
+    "react-autosuggest": "^9.3.4",
     "react-dom": "^16.0.0",
     "react-google-maps": "^9.4.5",
     "react-loadable": "^5.3.1",

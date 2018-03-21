@@ -94,6 +94,10 @@ export class AddComplianceIssue extends Component {
     })
   }
 
+  onAutoCompleteChange = value => {
+    this.setState({ equipment: value })
+  }
+
   addComplianceIssue = () => {
     const {
       addComplianceIssue,
@@ -163,6 +167,7 @@ export class AddComplianceIssue extends Component {
               equipments={equipments}
               onInputChange={this.onInputChange}
               onFindingChange={this.onFindingChange}
+              onAutoCompleteChange={this.onAutoCompleteChange}
             />
 
             {error && <p className="error">{error}</p>}

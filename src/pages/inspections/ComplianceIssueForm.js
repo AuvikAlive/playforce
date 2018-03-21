@@ -4,6 +4,7 @@ import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import { probabilities, severities, riskLevels } from '../../globals/scales'
+import { AutoComplete } from '../../components/autoComplete/AutoComplete'
 
 export const ComplianceIssueForm = ({
   commonIssueIndex,
@@ -19,6 +20,7 @@ export const ComplianceIssueForm = ({
   onFindingChange,
   onEquipmentChange,
   onInputChange,
+  onAutoCompleteChange,
 }) => {
   const riskLevel =
     probability && severity ? riskLevels[probability - 1][severity - 1] : ''
@@ -54,7 +56,7 @@ export const ComplianceIssueForm = ({
         onChange={onInputChange('finding')}
       />
 
-      <TextField
+      {/* <TextField
         fullWidth
         select
         label="Equipment"
@@ -67,7 +69,14 @@ export const ComplianceIssueForm = ({
             {item}
           </MenuItem>
         ))}
-      </TextField>
+      </TextField> */}
+
+      <AutoComplete
+        onChange={onAutoCompleteChange}
+        domain={equipments}
+        label="Equipment"
+        value={equipment}
+      />
 
       <TextField
         fullWidth

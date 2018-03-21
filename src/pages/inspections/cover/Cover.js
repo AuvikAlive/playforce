@@ -35,7 +35,6 @@ export class Cover extends Component {
       this.setState({
         ...cover,
         location: cover.location.id,
-        customClient: cover.client,
       })
     }
 
@@ -135,14 +134,9 @@ export class Cover extends Component {
 
     const { image, captureImage, displayName, data, error } = this.props
 
-    let clients = []
-
     const sites = data && data.sites ? objectToArrayWithId(data.sites) : []
     const standards = data && data.standards ? values(data.standards) : []
-
-    if (data) {
-      clients = values(data.clients)
-    }
+    const clients = data && data.clients ? values(data.clients) : []
 
     return (
       <StyledCover className="StyledCover">
