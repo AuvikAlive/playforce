@@ -19,7 +19,7 @@ export class ComplianceIssuesList extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Identified Compliance Issues')
+    setNavTitle('Compliance Issues')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>

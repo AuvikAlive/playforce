@@ -4,6 +4,7 @@ import { withFirestore } from 'react-redux-firebase'
 import { Cover } from './Cover'
 import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 
 const mapStateToProps = ({
   firestore: { data: { users } },
@@ -20,6 +21,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = { addInspectionCover }
 
 export const CoverContainer = compose(
+  withImageCapture,
   withErrorLoadingSubmit,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps),

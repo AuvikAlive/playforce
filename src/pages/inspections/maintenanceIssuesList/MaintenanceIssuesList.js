@@ -18,7 +18,7 @@ export class MaintenanceIssuesList extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Identified Maintenance Issues')
+    setNavTitle('Maintenance Issues')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>

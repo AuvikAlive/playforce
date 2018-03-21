@@ -17,24 +17,27 @@ import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class Cover extends Component {
   state = {
-    coverImage: null,
     location: '',
     client: '',
-    customClient: '',
     inspectionDate: new Date(),
     appliedStandards: [],
   }
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { cover, firestore, userId, history } = this.props
+    const { cover, firestore, userId, history, setCapturedImage } = this.props
 
-    !isEmpty(cover) &&
+    if (!isEmpty(cover)) {
+      const { image } = cover
+
+      setCapturedImage(image)
+
       this.setState({
         ...cover,
         location: cover.location.id,
         customClient: cover.client,
       })
+    }
 
     setNavTitle('Add Cover')
 
@@ -88,24 +91,6 @@ export class Cover extends Component {
     removeLefNavComponent()
   }
 
-  capture = () => {
-    this.fileInput.click()
-  }
-
-  getFile = event => {
-    const reader = new FileReader()
-
-    reader.readAsDataURL(event.target.files[0])
-
-    reader.addEventListener(
-      'load',
-      () => {
-        this.setState({ coverImage: reader.result })
-      },
-      false,
-    )
-  }
-
   onInputChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -116,51 +101,19 @@ export class Cover extends Component {
     this.setState({ inspectionDate: date })
   }
 
-  onCustomClientChange = event => {
-    const customClient = event.target.value
-
-    this.setState({
-      customClient,
-      client: '',
-    })
-  }
-
-  onClientChange = event => {
-    const client = event.target.value
-
-    this.setState({
-      client,
-      customClient: client,
-    })
-  }
-
   addInspectionCover = () => {
     const {
       addInspectionCover,
       history,
       setErrorLoadingState,
+      image,
       data: { sites },
     } = this.props
-    const {
-      coverImage,
-      location,
-      inspectionDate,
-      appliedStandards,
-    } = this.state
+    const { location, client, inspectionDate, appliedStandards } = this.state
 
-    let { client, customClient } = this.state
-
-    client = customClient ? customClient : client
-
-    if (
-      coverImage &&
-      location &&
-      client &&
-      inspectionDate &&
-      appliedStandards
-    ) {
+    if (image && location && client && inspectionDate && appliedStandards) {
       addInspectionCover({
-        coverImage,
+        image,
         location: {
           id: location,
           ...sites[location],
@@ -178,15 +131,9 @@ export class Cover extends Component {
   }
 
   render() {
-    const {
-      coverImage,
-      location,
-      client,
-      inspectionDate,
-      appliedStandards,
-    } = this.state
+    const { location, client, inspectionDate, appliedStandards } = this.state
 
-    const { displayName, data, error } = this.props
+    const { image, captureImage, displayName, data, error } = this.props
 
     let clients = []
 
@@ -200,9 +147,7 @@ export class Cover extends Component {
     return (
       <StyledCover className="StyledCover">
         <Card>
-          {coverImage && (
-            <CardMedia className="card-media" image={coverImage} />
-          )}
+          {image && <CardMedia className="card-media" image={image} />}
 
           <CardContent>
             <Button
@@ -210,7 +155,7 @@ export class Cover extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={this.capture}
+              onClick={captureImage}
             >
               Capture Image
             </Button>
@@ -234,20 +179,12 @@ export class Cover extends Component {
                 )}
               </TextField>
 
-              {/* <TextField
-                fullWidth
-                label="Client"
-                value={customClient}
-                margin="normal"
-                onChange={this.onCustomClientChange}
-              /> */}
-
               <TextField
                 fullWidth
                 select
                 label="Client"
                 value={client}
-                onChange={this.onClientChange}
+                onChange={this.onInputChange('client')}
                 margin="normal"
               >
                 {clients.length > 0
@@ -330,16 +267,6 @@ export class Cover extends Component {
               save
             </Button>
           </CardContent>
-          <input
-            type="file"
-            accept="image/*"
-            // capture="environment"
-            style={{ display: 'none' }}
-            ref={input => {
-              this.fileInput = input
-            }}
-            onChange={this.getFile}
-          />
         </Card>
       </StyledCover>
     )

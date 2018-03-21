@@ -66,24 +66,6 @@ export class AddComplianceIssue extends Component {
     }
   }
 
-  capture = () => {
-    this.fileInput.click()
-  }
-
-  getFile = event => {
-    const reader = new FileReader()
-
-    reader.readAsDataURL(event.target.files[0])
-
-    reader.addEventListener(
-      'load',
-      () => {
-        this.setState({ image: reader.result })
-      },
-      false,
-    )
-  }
-
   onFindingChange = event => {
     const commonIssueIndex = event.target.value
     const {

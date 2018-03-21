@@ -18,7 +18,7 @@ export class ConditionRatingList extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Condition Rating - Individual Items')
+    setNavTitle('Condition Ratings')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
