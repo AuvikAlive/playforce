@@ -14,12 +14,13 @@ const mapStateToProps = (
   {
     firestore: { data: { users } },
     firebase: { auth: { uid } },
-    inspection: { complianceIssues },
+    inspection: { complianceIssues, equipments },
   },
   { match: { params: { id } } },
 ) => ({
   complianceIssueIndex: id,
   complianceIssue: complianceIssues[id],
+  equipments,
   userId: uid,
   data: users && users[uid],
 })

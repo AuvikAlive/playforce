@@ -7,14 +7,12 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import values from 'lodash/values'
 import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
-import { defaultEquipments } from '../../../globals/scales'
 import { ComplianceIssueForm } from '../ComplianceIssueForm'
 
 export class EditComplianceIssue extends Component {
   state = {
     commonIssues: [],
     commonIssueIndex: '',
-    defaultEquipmentIndex: '',
     finding: '',
     equipment: '',
     standardsClause: '',
@@ -104,15 +102,6 @@ export class EditComplianceIssue extends Component {
     setCapturedImage(image)
     this.setState({
       ...complianceIssue,
-    })
-  }
-
-  onEquipmentChange = event => {
-    const defaultEquipmentIndex = event.target.value
-
-    this.setState({
-      defaultEquipmentIndex,
-      equipment: defaultEquipments[defaultEquipmentIndex],
     })
   }
 
@@ -213,7 +202,7 @@ export class EditComplianceIssue extends Component {
   }
 
   render() {
-    const { image, captureImage, error } = this.props
+    const { image, captureImage, equipments, error } = this.props
 
     return (
       <StyledEditCompliacenIssue className="StyledEditCompliacenIssue">
@@ -232,7 +221,7 @@ export class EditComplianceIssue extends Component {
 
             <ComplianceIssueForm
               {...this.state}
-              onEquipmentChange={this.onEquipmentChange}
+              equipments={equipments}
               onInputChange={this.onInputChange}
               onFindingChange={this.onFindingChange}
             />
