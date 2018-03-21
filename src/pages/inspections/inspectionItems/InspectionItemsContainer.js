@@ -1,12 +1,21 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { withFirestore } from 'react-redux-firebase'
 import { InspectionItems } from './InspectionItems'
 import { discardInspection } from '../../../store/actions/actionCreators/inspectionActions'
+import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+
+const mapStateToProps = ({ firebase: { auth: { uid } }, inspection }) => ({
+  userId: uid,
+  inspection,
+})
 
 const mapDispatchToProps = { discardInspection }
 
 export const InspectionItemsContainer = compose(
   withDeleteModal,
-  connect(null, mapDispatchToProps),
+  withErrorLoadingSubmit,
+  withFirestore,
+  connect(mapStateToProps, mapDispatchToProps),
 )(InspectionItems)

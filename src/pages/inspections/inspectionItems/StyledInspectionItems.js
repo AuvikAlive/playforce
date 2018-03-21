@@ -2,14 +2,12 @@ import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
 
 export const StyledInspectionItems = Styled(Content)`
-  
-
-  > * {
+  .error {
+    text-align: center;
     width: 100%;
   }
 
-  /* .discard-button {
-    background: ${({ theme }) => theme.palette.error.main};
-    color: white;
-  } */
+  .loading {
+    margin-bottom: 8px;
+  }
 `

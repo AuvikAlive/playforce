@@ -16,10 +16,15 @@ import {
 export const initialState = {
   equipments: [],
   cover: {},
+  coverAdded: false,
   auditSummary: {},
+  auditSummaryAdded: false,
   conditionRatings: [],
+  conditionRatingsAdded: false,
   complianceIssues: [],
+  complianceIssuesAdded: false,
   maintenanceIssues: [],
+  maintenanceIssuesAdded: false,
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
@@ -28,10 +33,10 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return initialState
 
     case ADD_INSPECTION_COVER:
-      return { ...state, cover: payload }
+      return { ...state, cover: payload, coverAdded: true }
 
     case ADD_INSPECTION_SUMMARY:
-      return { ...state, auditSummary: payload }
+      return { ...state, auditSummary: payload, auditSummaryAdded: true }
 
     case ADD_CONDITION_RATING: {
       const { equipments } = state
@@ -44,6 +49,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ...state,
         equipments: Array.from(updatedEquipments),
         conditionRatings: [...state.conditionRatings, payload],
+        conditionRatingsAdded: true,
       }
     }
 
@@ -81,6 +87,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         conditionRatings: [...updatedConditionRatings],
+        conditionRatingsAdded: conditionRatings.length > 1,
       }
     }
 
@@ -88,6 +95,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         complianceIssues: [...state.complianceIssues, payload],
+        complianceIssuesAdded: true,
       }
 
     case EDIT_COMPLIANCE_ISSUE: {
@@ -119,6 +127,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         complianceIssues: [...updatedComplianceIssues],
+        complianceIssuesAdded: complianceIssues.length > 1,
       }
     }
 
@@ -126,6 +135,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         maintenanceIssues: [...state.maintenanceIssues, payload],
+        maintenanceIssuesAdded: true,
       }
 
     case EDIT_MAINTENANCE_ISSUE: {
@@ -157,6 +167,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         maintenanceIssues: [...updatedMaintenanceIssues],
+        maintenanceIssuesAdded: maintenanceIssues.length > 1,
       }
     }
 

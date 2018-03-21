@@ -7,13 +7,15 @@ import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
+import { isEmpty } from 'react-redux-firebase'
 import { StyledInspectionList } from './StyledInspectionList'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class InspectionList extends Component {
   componentDidMount() {
-    const { openSearchBar } = this.props
+    const { openSearchBar, firestore, userId } = this.props
     const {
       setNavTitle,
       setRightNavComponent,
@@ -29,10 +31,16 @@ export class InspectionList extends Component {
     )
 
     setSearchComponent(<SearchBar />)
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'inspections' }],
+    })
   }
 
   componentWillUnmount() {
-    const { closeSearchBar } = this.props
+    const { closeSearchBar, firestore, userId } = this.props
     const {
       removeNavTitle,
       removeRightNavComponent,
@@ -43,10 +51,20 @@ export class InspectionList extends Component {
     removeRightNavComponent()
     closeSearchBar()
     removeSearchComponent()
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'inspections' }],
+    })
   }
 
   render() {
-    const { match, inspections } = this.props
+    const { match } = this.props
+
+    let { inspections } = this.props
+
+    inspections = inspections ? objectToArrayWithId(inspections) : []
 
     return (
       <StyledInspectionList className="StyledInspectionList">
@@ -55,28 +73,30 @@ export class InspectionList extends Component {
             variant="fab"
             color="primary"
             aria-label="add inspection"
-            className={!inspections && 'pulse'}
+            className={isEmpty(inspections) ? 'pulse' : ''}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {inspections ? (
-          <Paper className="paper">
-            <List component="nav" disablePadding>
-              {inspections.map(({ id, location, client }) => {
-                return (
-                  <ListItem key={id} button>
-                    <ListItemText primary={`${location} -  ${client}`} />
-                  </ListItem>
-                )
-              })}
-            </List>
-          </Paper>
-        ) : (
+        {isEmpty(inspections) ? (
           <Typography variant="title" align="center">
             Try adding an inspection to get started!
           </Typography>
+        ) : (
+          <Paper className="paper">
+            <List component="nav" disablePadding>
+              {inspections.map(
+                ({ id, cover: { location: { name }, client } }) => {
+                  return (
+                    <ListItem key={id} button>
+                      <ListItemText primary={`${name} -  ${client}`} />
+                    </ListItem>
+                  )
+                },
+              )}
+            </List>
+          </Paper>
         )}
       </StyledInspectionList>
     )
