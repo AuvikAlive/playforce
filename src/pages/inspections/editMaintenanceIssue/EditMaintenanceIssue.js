@@ -63,6 +63,10 @@ export class EditMaintenanceIssue extends Component {
     })
   }
 
+  onAutoCompleteChange = value => {
+    this.setState({ equipment: value })
+  }
+
   loadInitialData = maintenanceIssue => {
     const { setCapturedImage } = this.props
     const { image } = maintenanceIssue
@@ -133,6 +137,7 @@ export class EditMaintenanceIssue extends Component {
               {...this.state}
               equipments={equipments}
               onInputChange={this.onInputChange}
+              onAutoCompleteChange={this.onAutoCompleteChange}
             />
 
             {error && <p className="error">{error}</p>}

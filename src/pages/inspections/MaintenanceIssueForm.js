@@ -1,6 +1,6 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
+import { AutoComplete } from '../../components/autoComplete/AutoComplete'
 
 export const MaintenanceIssueForm = ({
   equipments,
@@ -10,6 +10,7 @@ export const MaintenanceIssueForm = ({
   onCustomEquipmentChange,
   onEquipmentChange,
   onInputChange,
+  onAutoCompleteChange,
 }) => {
   return (
     <form noValidate>
@@ -23,7 +24,7 @@ export const MaintenanceIssueForm = ({
         onChange={onInputChange('finding')}
       />
 
-      <TextField
+      {/* <TextField
         fullWidth
         select
         label="Equipment"
@@ -36,7 +37,14 @@ export const MaintenanceIssueForm = ({
             {item}
           </MenuItem>
         ))}
-      </TextField>
+      </TextField> */}
+
+      <AutoComplete
+        onChange={onAutoCompleteChange}
+        domain={equipments}
+        label="Equipment"
+        value={equipment}
+      />
 
       <TextField
         fullWidth

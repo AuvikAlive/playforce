@@ -42,6 +42,10 @@ export class AddMaintenanceIssue extends Component {
     })
   }
 
+  onAutoCompleteChange = value => {
+    this.setState({ equipment: value })
+  }
+
   addMaintenanceIssue = () => {
     const {
       history,
@@ -84,6 +88,7 @@ export class AddMaintenanceIssue extends Component {
               {...this.state}
               equipments={equipments}
               onInputChange={this.onInputChange}
+              onAutoCompleteChange={this.onAutoCompleteChange}
             />
 
             {error && <p className="error">{error}</p>}
