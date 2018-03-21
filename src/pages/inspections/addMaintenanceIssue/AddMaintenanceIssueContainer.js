@@ -5,10 +5,14 @@ import { addMaintenanceIssue } from '../../../store/actions/actionCreators/inspe
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 
+const mapStateToProps = ({ inspection: { equipments } }) => ({
+  equipments,
+})
+
 const mapDispatchToProps = { addMaintenanceIssue }
 
 export const AddMaintenanceIssueContainer = compose(
   withImageCapture,
   withErrorLoadingSubmit,
-  connect(null, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
 )(AddMaintenanceIssue)

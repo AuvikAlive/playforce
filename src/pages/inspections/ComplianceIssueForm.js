@@ -3,19 +3,14 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
-import {
-  probabilities,
-  severities,
-  riskLevels,
-  defaultEquipments,
-} from '../../globals/scales'
+import { probabilities, severities, riskLevels } from '../../globals/scales'
 
 export const ComplianceIssueForm = ({
   commonIssueIndex,
   commonIssues,
+  equipments,
   finding,
   equipment,
-  defaultEquipmentIndex,
   standardsClause,
   probability,
   severity,
@@ -61,22 +56,14 @@ export const ComplianceIssueForm = ({
 
       <TextField
         fullWidth
+        select
         label="Equipment"
         value={equipment}
         onChange={onInputChange('equipment')}
         margin="normal"
-      />
-
-      <TextField
-        fullWidth
-        select
-        label="Select an Equipment"
-        value={defaultEquipmentIndex}
-        onChange={onEquipmentChange}
-        margin="normal"
       >
-        {defaultEquipments.map((item, index) => (
-          <MenuItem key={index} value={index}>
+        {equipments.map((item, index) => (
+          <MenuItem key={index} value={item}>
             {item}
           </MenuItem>
         ))}

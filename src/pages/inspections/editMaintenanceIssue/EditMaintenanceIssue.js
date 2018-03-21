@@ -6,7 +6,6 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import { StyledEditMaintenanceIssue } from './StyledEditMaintenanceIssue'
-import { defaultEquipments } from '../../../globals/scales'
 import { MaintenanceIssueForm } from '../MaintenanceIssueForm'
 
 export class EditMaintenanceIssue extends Component {
@@ -56,15 +55,6 @@ export class EditMaintenanceIssue extends Component {
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
-  }
-
-  onEquipmentChange = event => {
-    const defaultEquipmentIndex = event.target.value
-
-    this.setState({
-      defaultEquipmentIndex,
-      equipment: defaultEquipments[defaultEquipmentIndex],
-    })
   }
 
   onInputChange = name => event => {
@@ -122,7 +112,7 @@ export class EditMaintenanceIssue extends Component {
   }
 
   render() {
-    const { image, captureImage, error } = this.props
+    const { image, captureImage, equipments, error } = this.props
 
     return (
       <StyledEditMaintenanceIssue className="StyledEditMaintenanceIssue">
@@ -141,7 +131,7 @@ export class EditMaintenanceIssue extends Component {
 
             <MaintenanceIssueForm
               {...this.state}
-              onEquipmentChange={this.onEquipmentChange}
+              equipments={equipments}
               onInputChange={this.onInputChange}
             />
 

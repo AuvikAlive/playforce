@@ -5,7 +5,6 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import { StyledAddMaintenanceIssue } from './StyledAddMaintenanceIssue'
-import { defaultEquipments } from '../../../globals/scales'
 import { MaintenanceIssueForm } from '../MaintenanceIssueForm'
 
 export class AddMaintenanceIssue extends Component {
@@ -43,15 +42,6 @@ export class AddMaintenanceIssue extends Component {
     })
   }
 
-  onEquipmentChange = event => {
-    const defaultEquipmentIndex = event.target.value
-
-    this.setState({
-      defaultEquipmentIndex,
-      equipment: defaultEquipments[defaultEquipmentIndex],
-    })
-  }
-
   addMaintenanceIssue = () => {
     const {
       history,
@@ -73,7 +63,7 @@ export class AddMaintenanceIssue extends Component {
   }
 
   render() {
-    const { image, captureImage, error } = this.props
+    const { image, captureImage, equipments, error } = this.props
 
     return (
       <StyledAddMaintenanceIssue className="StyledAddMaintenanceIssue">
@@ -92,7 +82,7 @@ export class AddMaintenanceIssue extends Component {
 
             <MaintenanceIssueForm
               {...this.state}
-              onEquipmentChange={this.onEquipmentChange}
+              equipments={equipments}
               onInputChange={this.onInputChange}
             />
 

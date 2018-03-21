@@ -1,12 +1,11 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
-import { defaultEquipments } from '../../globals/scales'
 
 export const MaintenanceIssueForm = ({
+  equipments,
   finding,
   equipment,
-  defaultEquipmentIndex,
   recommendations,
   onCustomEquipmentChange,
   onEquipmentChange,
@@ -26,22 +25,14 @@ export const MaintenanceIssueForm = ({
 
       <TextField
         fullWidth
+        select
         label="Equipment"
         value={equipment}
-        onChange={onCustomEquipmentChange}
-        margin="normal"
-      />
-
-      <TextField
-        fullWidth
-        select
-        label="Select an Equipment"
-        value={defaultEquipmentIndex}
-        onChange={onEquipmentChange}
+        onChange={onInputChange('equipment')}
         margin="normal"
       >
-        {defaultEquipments.map((item, index) => (
-          <MenuItem key={index} value={index}>
+        {equipments.map((item, index) => (
+          <MenuItem key={index} value={item}>
             {item}
           </MenuItem>
         ))}

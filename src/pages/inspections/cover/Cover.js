@@ -182,7 +182,6 @@ export class Cover extends Component {
       coverImage,
       location,
       client,
-      customClient,
       inspectionDate,
       appliedStandards,
     } = this.state

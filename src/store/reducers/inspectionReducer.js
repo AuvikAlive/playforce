@@ -14,6 +14,7 @@ import {
 } from '../actions/actionTypes'
 
 export const initialState = {
+  equipments: [],
   cover: {},
   auditSummary: {},
   conditionRatings: [],
@@ -32,15 +33,27 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
     case ADD_INSPECTION_SUMMARY:
       return { ...state, auditSummary: payload }
 
-    case ADD_CONDITION_RATING:
+    case ADD_CONDITION_RATING: {
+      const { equipments } = state
+      const { equipment } = payload
+
+      const updatedEquipments = new Set(equipments)
+      updatedEquipments.add(equipment)
+
       return {
         ...state,
+        equipments: Array.from(updatedEquipments),
         conditionRatings: [...state.conditionRatings, payload],
       }
+    }
 
     case EDIT_CONDITION_RATING: {
       const { issueIndex, updatedValue } = payload
-      const { conditionRatings } = state
+      const { equipment } = updatedValue
+      const { conditionRatings, equipments } = state
+
+      const updatedEquipments = new Set(equipments)
+      updatedEquipments.add(equipment)
 
       const updatedConditionRatings = conditionRatings.map(
         (conditionRating, index) => {
@@ -53,6 +66,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       )
       return {
         ...state,
+        equipments: Array.from(updatedEquipments),
         conditionRatings: [...updatedConditionRatings],
       }
     }

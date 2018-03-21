@@ -9,9 +9,11 @@ import { withImageCapture } from '../../../hocs/withImageCapture/withImageCaptur
 const mapStateToProps = ({
   firestore: { data: { users } },
   firebase: { auth: { uid } },
+  inspection: { equipments },
 }) => ({
   userId: uid,
   data: users && users[uid],
+  equipments,
 })
 
 const mapDispatchToProps = { addComplianceIssue }
