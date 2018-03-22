@@ -1,27 +1,60 @@
 import React from 'react'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
+import { CircularProgress } from 'material-ui/Progress'
 import { StyledModalDeleteContent } from './StyledModalDeleteContent'
+import { withErrorLoadingSubmit } from '../withErrorLoadingSubmit/withErrorLoadingSubmit'
 
-export const ModalDeleteContent = ({ closeModal, handleConfirmation }) => {
-  const onConfirmation = () => {
-    handleConfirmation && handleConfirmation()
-    closeModal()
+const ModalDeleteContentWithoutErrorLoading = ({
+  closeModal,
+  handleConfirmation,
+  setErrorLoadingState,
+  error,
+  loading,
+}) => {
+  const onConfirmation = async () => {
+    setErrorLoadingState({ error: '', loading: true })
+
+    try {
+      handleConfirmation && (await handleConfirmation())
+      setErrorLoadingState({ loading: false })
+      closeModal()
+    } catch (error) {
+      setErrorLoadingState({ error: error.message, loading: false })
+    }
   }
 
   return (
     <StyledModalDeleteContent className="StyledModalDeleteContent">
       <Card>
-        <CardContent>Delete this item?</CardContent>
-        <CardActions className="card-actions">
-          <Button size="small" onClick={closeModal}>
-            Cancel
-          </Button>
-          <Button size="small" onClick={onConfirmation}>
-            OK
-          </Button>
-        </CardActions>
+        <CardContent>
+          <div>Delete this item?</div>
+
+          {error && <p className="error">{error}</p>}
+
+          {!error &&
+            loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
+        </CardContent>
+
+        {!loading && (
+          <CardActions className="card-actions">
+            <Button size="small" onClick={closeModal}>
+              Cancel
+            </Button>
+            <Button size="small" onClick={onConfirmation}>
+              OK
+            </Button>
+          </CardActions>
+        )}
       </Card>
     </StyledModalDeleteContent>
   )
 }
+
+export const ModalDeleteContent = withErrorLoadingSubmit(
+  ModalDeleteContentWithoutErrorLoading,
+)

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
+import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 import { EditStandard } from './EditStandard'
 
 const mapStateToProps = (
@@ -13,6 +14,7 @@ const mapStateToProps = (
 })
 
 export const EditStandardContainer = compose(
+  withDeleteModal,
   withFirestore,
   connect(mapStateToProps),
 )(EditStandard)
