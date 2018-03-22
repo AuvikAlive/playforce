@@ -10,12 +10,12 @@ import backgroundLow from './backgroundLow.png'
 import background from './background.png'
 
 export const UserView = ({ profile }) => {
-  const { photoURL, displayName, email } = profile
+  const { image, displayName, email } = profile
   return (
     !isEmpty(profile) && (
       <StyledUserView>
         <div className="content">
-          <Avatar alt="User Name" src={photoURL || avatar} className="avatar" />
+          <Avatar alt="User Name" src={image || avatar} className="avatar" />
           <Typography variant="title" color="inherit">
             {displayName}
           </Typography>

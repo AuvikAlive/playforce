@@ -15,7 +15,7 @@ import avatar from './avatar.jpg'
 export class ProfileSettings extends Component {
   state = {
     displayName: '',
-    photoURL: '',
+    image: null,
     displayImage: null,
     title: '',
     company: '',
@@ -26,9 +26,10 @@ export class ProfileSettings extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const {
       history,
+      setCapturedImage,
       profile: {
         displayName,
-        photoURL,
+        image,
         title = '',
         company = '',
         mobile = '',
@@ -43,7 +44,8 @@ export class ProfileSettings extends Component {
       </IconButton>,
     )
 
-    this.setState({ displayName, photoURL, title, company, mobile })
+    this.setState({ displayName, image, title, company, mobile })
+    setCapturedImage(image)
     signature && this.mySignature.fromDataURL(signature)
   }
 
@@ -54,17 +56,6 @@ export class ProfileSettings extends Component {
     removeLefNavComponent()
   }
 
-  upload = () => {
-    this.fileInput.click()
-  }
-
-  getFile = event => {
-    const displayImage = event.target.files[0]
-    const photoURL = URL.createObjectURL(displayImage)
-
-    this.setState({ displayImage, photoURL })
-  }
-
   onInputChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -72,30 +63,10 @@ export class ProfileSettings extends Component {
   }
 
   publish = async () => {
-    const { displayImage } = this.state
-    const { firebase, uid, setErrorLoadingState } = this.props
+    const { displayName, title, company, mobile } = this.state
+    const { firebase, setErrorLoadingState, history, image } = this.props
 
     setErrorLoadingState({ error: '', loading: true })
-
-    if (displayImage) {
-      const storageRef = firebase.storage().ref()
-      const imageRef = storageRef.child(`images/${uid}.jpg`)
-
-      try {
-        const { downloadURL } = await imageRef.put(displayImage)
-
-        this.updateProfile(downloadURL)
-      } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
-      }
-    } else {
-      this.updateProfile()
-    }
-  }
-
-  updateProfile = async downloadURL => {
-    const { displayName, photoURL, title, company, mobile } = this.state
-    const { firebase, setErrorLoadingState, history } = this.props
 
     try {
       await firebase.updateProfile({
@@ -103,7 +74,7 @@ export class ProfileSettings extends Component {
         title,
         company,
         mobile,
-        photoURL: downloadURL || photoURL,
+        image,
         signature: !this.mySignature.isEmpty()
           ? this.mySignature.toDataURL()
           : undefined,
@@ -116,14 +87,15 @@ export class ProfileSettings extends Component {
   }
 
   render() {
-    const { displayName, photoURL, title, company, mobile } = this.state
+    const { displayName, title, company, mobile } = this.state
 
-    const { error, loading } = this.props
+    const { image, captureImage, error, loading } = this.props
 
     return (
       <StyledProfileSettings className="StyledProfileSettings">
         <Card>
-          <CardMedia className="card-media" image={photoURL || avatar} />
+          {image && <CardMedia className="card-media" image={image} />}
+
           <CardContent>
             {!loading && (
               <Button
@@ -131,7 +103,7 @@ export class ProfileSettings extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.upload}
+                onClick={captureImage}
               >
                 Upload Image
               </Button>
