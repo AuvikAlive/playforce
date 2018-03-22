@@ -3,26 +3,16 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import { StyledEditMaintenanceIssue } from './StyledEditMaintenanceIssue'
-import { MaintenanceIssueForm } from '../MaintenanceIssueForm'
+import MaintenanceIssueForm from '../maintenanceIssueForm/'
 
 export class EditMaintenanceIssue extends Component {
-  state = {
-    finding: '',
-    equipment: '',
-    recommendations: '',
-    defaultEquipmentIndex: '',
-  }
-
   componentDidMount() {
     const {
       setNavTitle,
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { history, maintenanceIssue, openModal } = this.props
+    const { history, openModal } = this.props
 
     setNavTitle('Edit Maintenance Issue')
 
@@ -35,14 +25,12 @@ export class EditMaintenanceIssue extends Component {
     setRightNavComponent(
       <IconButton
         color="inherit"
-        aria-label="delete maintenance issue"
+        aria-label="delete condition rating"
         onClick={() => openModal(this.delete)}
       >
         <DeleteIcon />
       </IconButton>,
     )
-
-    this.loadInitialData(maintenanceIssue)
   }
 
   componentWillUnmount() {
@@ -57,51 +45,14 @@ export class EditMaintenanceIssue extends Component {
     removeRightNavComponent()
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
+  onSubmit = updatedValue => {
+    const { editMaintenanceIssue, maintenanceIssueIndex, history } = this.props
+
+    editMaintenanceIssue({
+      issueIndex: maintenanceIssueIndex,
+      updatedValue,
     })
-  }
-
-  onAutoCompleteChange = value => {
-    this.setState({ equipment: value })
-  }
-
-  loadInitialData = maintenanceIssue => {
-    const { setCapturedImage } = this.props
-    const { image } = maintenanceIssue
-
-    setCapturedImage(image)
-    this.setState({ ...maintenanceIssue })
-  }
-
-  editMaintenanceIssue = () => {
-    const {
-      editMaintenanceIssue,
-      history,
-      setErrorLoadingState,
-      maintenanceIssueIndex,
-      image,
-    } = this.props
-    const { finding, equipment, recommendations } = this.state
-
-    if (image && finding && equipment && recommendations) {
-      setErrorLoadingState({ error: '' })
-      editMaintenanceIssue({
-        issueIndex: maintenanceIssueIndex,
-        updatedValue: {
-          image,
-          finding,
-          equipment,
-          recommendations,
-        },
-      })
-      history.goBack()
-    } else {
-      setErrorLoadingState({
-        error: 'Please fill up the form correctly!',
-      })
-    }
+    history.goBack()
   }
 
   delete = () => {
@@ -116,44 +67,13 @@ export class EditMaintenanceIssue extends Component {
   }
 
   render() {
-    const { image, captureImage, equipments, error } = this.props
+    const { maintenanceIssue } = this.props
 
     return (
-      <StyledEditMaintenanceIssue className="StyledEditMaintenanceIssue">
-        <Card>
-          {image && <CardMedia className="card-media" image={image} />}
-          <CardContent>
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={captureImage}
-            >
-              Capture Image
-            </Button>
-
-            <MaintenanceIssueForm
-              {...this.state}
-              equipments={equipments}
-              onInputChange={this.onInputChange}
-              onAutoCompleteChange={this.onAutoCompleteChange}
-            />
-
-            {error && <p className="error">{error}</p>}
-
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.editMaintenanceIssue}
-            >
-              save
-            </Button>
-          </CardContent>
-        </Card>
-      </StyledEditMaintenanceIssue>
+      <MaintenanceIssueForm
+        initialData={maintenanceIssue}
+        onSubmit={this.onSubmit}
+      />
     )
   }
 }

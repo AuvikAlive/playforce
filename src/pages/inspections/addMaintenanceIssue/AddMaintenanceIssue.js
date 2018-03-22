@@ -2,20 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import { StyledAddMaintenanceIssue } from './StyledAddMaintenanceIssue'
-import { MaintenanceIssueForm } from '../MaintenanceIssueForm'
+import MaintenanceIssueForm from '../maintenanceIssueForm/'
 
 export class AddMaintenanceIssue extends Component {
-  state = {
-    image: null,
-    finding: '',
-    equipment: '',
-    recommendations: '',
-    defaultEquipmentIndex: '',
-  }
-
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
@@ -36,76 +25,15 @@ export class AddMaintenanceIssue extends Component {
     removeLefNavComponent()
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
+  onSubmit = maintenanceIssue => {
+    const { addMaintenanceIssue, history } = this.props
 
-  onAutoCompleteChange = value => {
-    this.setState({ equipment: value })
-  }
-
-  addMaintenanceIssue = () => {
-    const {
-      history,
-      addMaintenanceIssue,
-      setErrorLoadingState,
-      image,
-    } = this.props
-    const { finding, equipment, recommendations } = this.state
-
-    if (image && finding && equipment && recommendations) {
-      setErrorLoadingState({ error: '' })
-      addMaintenanceIssue({ image, finding, equipment, recommendations })
-      history.goBack()
-    } else {
-      setErrorLoadingState({
-        error: 'Please fill up the form correctly!',
-      })
-    }
+    addMaintenanceIssue(maintenanceIssue)
+    history.goBack()
   }
 
   render() {
-    const { image, captureImage, equipments, error } = this.props
-
-    return (
-      <StyledAddMaintenanceIssue className="StyledAddMaintenanceIssue">
-        <Card>
-          {image && <CardMedia className="card-media" image={image} />}
-          <CardContent>
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={captureImage}
-            >
-              Capture Image
-            </Button>
-
-            <MaintenanceIssueForm
-              {...this.state}
-              equipments={equipments}
-              onInputChange={this.onInputChange}
-              onAutoCompleteChange={this.onAutoCompleteChange}
-            />
-
-            {error && <p className="error">{error}</p>}
-
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.addMaintenanceIssue}
-            >
-              save
-            </Button>
-          </CardContent>
-        </Card>
-      </StyledAddMaintenanceIssue>
-    )
+    return <MaintenanceIssueForm onSubmit={this.onSubmit} />
   }
 }
 
