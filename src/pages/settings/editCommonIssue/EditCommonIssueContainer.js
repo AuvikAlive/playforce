@@ -1,22 +1,20 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 import { EditCommonIssue } from './EditCommonIssue'
 
 const mapStateToProps = (
-  { firestore: { data: { users } }, firebase: { auth: { uid } } },
+  { firebase: { auth: { uid } }, firestore: { ordered: { users } } },
   { match: { params: { id } } },
 ) => ({
   userId: uid,
   commonIssueId: id,
-  data: users && users[uid],
+  commonIssue: users && users[0],
 })
 
 export const EditCommonIssueContainer = compose(
   withDeleteModal,
-  withErrorLoadingSubmit,
   withFirestore,
   connect(mapStateToProps),
 )(EditCommonIssue)

@@ -22,6 +22,12 @@ export class StandardForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
+  componentWillReceiveProps({ initialData }) {
+    if (initialData && initialData !== this.props.initialData) {
+      this.loadInitialData(initialData)
+    }
+  }
+
   loadInitialData = initialData => {
     this.setState({
       ...initialData,

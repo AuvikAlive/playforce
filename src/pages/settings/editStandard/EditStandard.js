@@ -81,17 +81,6 @@ export class EditStandard extends Component {
       subcollections: [{ collection: 'standards', doc: standardId }],
     })
     history.goBack()
-
-    // try {
-    //   await firestore.delete({
-    //     collection: 'users',
-    //     doc: userId,
-    //     subcollections: [{ collection: 'standards', doc: standardId }],
-    //   })
-    //   history.goBack()
-    // } catch (error) {
-    //   console.log(error)
-    // }
   }
 
   render() {
