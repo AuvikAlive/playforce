@@ -2,8 +2,8 @@ import React from 'react'
 import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
 import { isEmpty } from 'react-redux-firebase'
+import { getInitials } from '../../../utilities/getInitials';
 import { StyledUserView } from './StyledUserView'
-import avatar from './avatar.jpg'
 import backgroundLowWebp from './backgroundLow.webp'
 import backgroundWebp from './background.webp'
 import backgroundLow from './backgroundLow.png'
@@ -15,7 +15,11 @@ export const UserView = ({ profile }) => {
     !isEmpty(profile) && (
       <StyledUserView>
         <div className="content">
-          <Avatar alt="User Name" src={image || avatar} className="avatar" />
+          {image ? (
+            <Avatar alt="User Name" src={image} className="avatar" />
+          ) : (
+            <Avatar className="avatar">{getInitials(displayName)}</Avatar>
+          )}
           <Typography variant="title" color="inherit">
             {displayName}
           </Typography>
