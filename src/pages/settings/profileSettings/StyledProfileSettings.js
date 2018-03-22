@@ -1,13 +1,9 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
-import { errorLoadingSubmit } from '../../../styledMixins/errorLoadingSubmit'
+import { cardMedia } from '../../../styledMixins/cardMedia'
 
 export const StyledProfileSettings = Styled(Content)`
-  .card-media {
-    height: 100vw;
-  }
-
-  ${errorLoadingSubmit};
+  ${cardMedia};
 
   .loading {
     padding-bottom: 16px;
@@ -27,10 +23,10 @@ export const StyledProfileSettings = Styled(Content)`
       margin-top: 64px;
       width: 100%;
       height: 50vw;
+
+      @media screen and (orientation: landscape) {
+        height: 25vw;
+      }
     }
   }
-
-  /* .submit-button {
-    margin: 0;
-  } */
 `

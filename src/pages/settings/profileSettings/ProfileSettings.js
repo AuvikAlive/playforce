@@ -20,8 +20,6 @@ export class ProfileSettings extends Component {
     title: '',
     company: '',
     mobile: '',
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
@@ -75,10 +73,9 @@ export class ProfileSettings extends Component {
 
   publish = async () => {
     const { displayImage } = this.state
+    const { firebase, uid, setErrorLoadingState } = this.props
 
-    this.setState({ error: '', loading: true })
-
-    const { firebase, uid } = this.props
+    setErrorLoadingState({ error: '', loading: true })
 
     if (displayImage) {
       const storageRef = firebase.storage().ref()
@@ -89,7 +86,7 @@ export class ProfileSettings extends Component {
 
         this.updateProfile(downloadURL)
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
       this.updateProfile()
@@ -98,7 +95,7 @@ export class ProfileSettings extends Component {
 
   updateProfile = async downloadURL => {
     const { displayName, photoURL, title, company, mobile } = this.state
-    const { firebase } = this.props
+    const { firebase, setErrorLoadingState, history } = this.props
 
     try {
       await firebase.updateProfile({
@@ -111,22 +108,17 @@ export class ProfileSettings extends Component {
           ? this.mySignature.toDataURL()
           : undefined,
       })
-      this.setState({ loading: false })
+      setErrorLoadingState({ loading: false })
+      history.goBack()
     } catch (error) {
-      this.setState({ error: error.message, loading: false })
+      setErrorLoadingState({ error: error.message, loading: false })
     }
   }
 
   render() {
-    const {
-      displayName,
-      photoURL,
-      title,
-      company,
-      mobile,
-      error,
-      loading,
-    } = this.state
+    const { displayName, photoURL, title, company, mobile } = this.state
+
+    const { error, loading } = this.props
 
     return (
       <StyledProfileSettings className="StyledProfileSettings">
