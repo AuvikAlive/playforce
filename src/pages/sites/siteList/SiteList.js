@@ -105,14 +105,11 @@ export class SiteList extends Component {
           <List component="nav" disablePadding>
             {sites.map(({ name, id }, index, list) => {
               return (
-                <div key={id}>
-                  <StyledNavLink to={`/sites/${id}`}>
-                    <ListItem button>
-                      <ListItemText primary={name} />
-                    </ListItem>
-                  </StyledNavLink>
-                  {index !== list.length - 1 && <Divider />}
-                </div>
+                <StyledNavLink key={id} to={`/sites/${id}`}>
+                  <ListItem divider button>
+                    <ListItemText primary={name} />
+                  </ListItem>
+                </StyledNavLink>
               )
             })}
           </List>

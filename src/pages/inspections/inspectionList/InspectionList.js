@@ -89,7 +89,7 @@ export class InspectionList extends Component {
               {inspections.map(
                 ({ id, cover: { location: { name }, client } }) => {
                   return (
-                    <ListItem key={id} button>
+                    <ListItem divider key={id} button>
                       <ListItemText primary={`${name} -  ${client}`} />
                     </ListItem>
                   )
