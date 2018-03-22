@@ -3,6 +3,10 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
+import DateRangeIcon from 'material-ui-icons/DateRange'
+import { DatePicker } from 'material-ui-pickers'
 import values from 'lodash/values'
 import { defaultManufacturers, conditions } from '../../../globals/scales'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
@@ -12,6 +16,7 @@ export class ConditionRatingForm extends Component {
     equipment: '',
     manufacturer: '',
     condition: '',
+    estimatedDateInstalled: new Date(),
   }
 
   componentDidMount() {
@@ -53,13 +58,34 @@ export class ConditionRatingForm extends Component {
     })
   }
 
+  onDateChange = date => {
+    this.setState({ estimatedDateInstalled: date })
+  }
+
   onSubmit = () => {
     const { onSubmit, setErrorLoadingState, image } = this.props
-    const { equipment, manufacturer, condition } = this.state
+    const {
+      equipment,
+      manufacturer,
+      condition,
+      estimatedDateInstalled,
+    } = this.state
 
-    if (image && equipment && manufacturer && condition) {
+    if (
+      image &&
+      equipment &&
+      manufacturer &&
+      condition &&
+      estimatedDateInstalled
+    ) {
       setErrorLoadingState({ error: '' })
-      onSubmit({ image, equipment, manufacturer, condition })
+      onSubmit({
+        image,
+        equipment,
+        manufacturer,
+        condition,
+        estimatedDateInstalled,
+      })
     } else {
       setErrorLoadingState({
         error: 'Please fill up the form correctly!',
@@ -69,7 +95,12 @@ export class ConditionRatingForm extends Component {
 
   render() {
     const { image, captureImage, data, error } = this.props
-    const { equipment, manufacturer, condition } = this.state
+    const {
+      equipment,
+      manufacturer,
+      condition,
+      estimatedDateInstalled,
+    } = this.state
 
     const manufacturers =
       data && data.manufacturers ? values(data.manufacturers) : []
@@ -138,6 +169,21 @@ export class ConditionRatingForm extends Component {
                   </MenuItem>
                 ))}
               </TextField>
+
+              <DatePicker
+                fullWidth
+                keyboard
+                clearable
+                className="date-picker"
+                label="Estimated Data Installed"
+                format="DD MMMM YYYY"
+                value={estimatedDateInstalled}
+                keyboardIcon={<DateRangeIcon />}
+                leftArrowIcon={<ArrowBackIcon />}
+                rightArrowIcon={<ArrowForwardIcon />}
+                onChange={this.onDateChange}
+                animateYearScrolling={false}
+              />
             </form>
 
             {error && <p className="error">{error}</p>}

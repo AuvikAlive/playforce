@@ -8,6 +8,7 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import { format } from 'date-fns'
 import { StyledConditionRatingList } from './StyledConditionRatingList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -52,7 +53,16 @@ export class ConditionRatingList extends Component {
         {conditionRatings.length ? (
           <Grid container>
             {conditionRatings.map(
-              ({ image, equipment, manufacturer, condition }, index) => {
+              (
+                {
+                  image,
+                  equipment,
+                  manufacturer,
+                  condition,
+                  estimatedDateInstalled,
+                },
+                index,
+              ) => {
                 return (
                   <Grid item key={index} xs={12} sm={6}>
                     <Card>
@@ -81,6 +91,11 @@ export class ConditionRatingList extends Component {
                       </Typography>
                       <Typography variant="subheading">
                         Condition: {condition}
+                      </Typography>
+
+                      <Typography variant="subheading">
+                        Estimated Date Installed:{' '}
+                        {format(estimatedDateInstalled, 'DD MMMM YYYY')}
                       </Typography>
                     </CardContent>
                   </Grid>
