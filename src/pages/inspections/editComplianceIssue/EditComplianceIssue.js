@@ -3,39 +3,16 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import values from 'lodash/values'
-import { StyledEditCompliacenIssue } from './StyledEditComplianceIssue'
-import { ComplianceIssueForm } from '../ComplianceIssueForm'
+import ComplianceIssueForm from '../complianceIssueForm/'
 
 export class EditComplianceIssue extends Component {
-  state = {
-    commonIssues: [],
-    commonIssueIndex: '',
-    finding: '',
-    equipment: '',
-    standardsClause: '',
-    probability: '',
-    severity: '',
-    comments: '',
-    recommendations: '',
-    customFinding: true,
-  }
-
   componentDidMount() {
     const {
       setNavTitle,
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const {
-      history,
-      firestore,
-      userId,
-      complianceIssue,
-      openModal,
-    } = this.props
+    const { history, openModal } = this.props
 
     setNavTitle('Edit Compliance Issue')
 
@@ -54,16 +31,6 @@ export class EditComplianceIssue extends Component {
         <DeleteIcon />
       </IconButton>,
     )
-
-    this.loadInitialData(complianceIssue)
-
-    firestore.setListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues' }],
-      },
-    ])
   }
 
   componentWillUnmount() {
@@ -72,122 +39,20 @@ export class EditComplianceIssue extends Component {
       removeLefNavComponent,
       removeRightNavComponent,
     } = this.context
-    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
-
-    firestore.unsetListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues' }],
-      },
-    ])
   }
 
-  componentWillReceiveProps({ data, userId }) {
-    const commonIssues = data && data.commonIssues && values(data.commonIssues)
+  onSubmit = updatedValue => {
+    const { editComplianceIssue, complianceIssueIndex, history } = this.props
 
-    if (commonIssues) {
-      this.setState({ commonIssues })
-    }
-  }
-
-  loadInitialData = complianceIssue => {
-    const { setCapturedImage } = this.props
-    const { image } = complianceIssue
-
-    setCapturedImage(image)
-    this.setState({
-      ...complianceIssue,
+    editComplianceIssue({
+      issueIndex: complianceIssueIndex,
+      updatedValue,
     })
-  }
-
-  onFindingChange = event => {
-    const commonIssueIndex = event.target.value
-    const {
-      probability,
-      severity,
-      comments,
-      recommendations,
-    } = this.state.commonIssues[commonIssueIndex]
-
-    this.setState({
-      commonIssueIndex,
-      probability,
-      severity,
-      comments,
-      recommendations,
-    })
-  }
-
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  onAutoCompleteChange = value => {
-    this.setState({ equipment: value })
-  }
-
-  editComplianceIssue = () => {
-    const {
-      editComplianceIssue,
-      history,
-      setErrorLoadingState,
-      image,
-    } = this.props
-    const {
-      commonIssues,
-      commonIssueIndex,
-      equipment,
-      standardsClause,
-      probability,
-      severity,
-      comments,
-      recommendations,
-      customFinding,
-    } = this.state
-
-    let { finding } = this.state
-
-    if (!customFinding) {
-      finding = commonIssues[commonIssueIndex].finding
-    }
-
-    if (
-      image &&
-      finding &&
-      standardsClause &&
-      equipment &&
-      probability &&
-      severity &&
-      comments &&
-      recommendations
-    ) {
-      setErrorLoadingState({ error: '' })
-      editComplianceIssue({
-        issueIndex: this.props.complianceIssueIndex,
-        updatedValue: {
-          image,
-          finding,
-          equipment,
-          standardsClause,
-          probability,
-          severity,
-          comments,
-          recommendations,
-        },
-      })
-      history.goBack()
-    } else {
-      setErrorLoadingState({
-        error: 'Please fill up the form correctly!',
-      })
-    }
+    history.goBack()
   }
 
   delete = () => {
@@ -198,45 +63,13 @@ export class EditComplianceIssue extends Component {
   }
 
   render() {
-    const { image, captureImage, equipments, error } = this.props
+    const { complianceIssue } = this.props
 
     return (
-      <StyledEditCompliacenIssue className="StyledEditCompliacenIssue">
-        <Card>
-          {image && <CardMedia className="card-media" image={image} />}
-          <CardContent>
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={captureImage}
-            >
-              Capture Image
-            </Button>
-
-            <ComplianceIssueForm
-              {...this.state}
-              equipments={equipments}
-              onInputChange={this.onInputChange}
-              onFindingChange={this.onFindingChange}
-              onAutoCompleteChange={this.onAutoCompleteChange}
-            />
-
-            {error && <p className="error">{error}</p>}
-
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.editComplianceIssue}
-            >
-              save
-            </Button>
-          </CardContent>
-        </Card>
-      </StyledEditCompliacenIssue>
+      <ComplianceIssueForm
+        initialData={complianceIssue}
+        onSubmit={this.onSubmit}
+      />
     )
   }
 }

@@ -6,9 +6,7 @@ import {
   editComplianceIssue,
   deleteComplianceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
-import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 
 const mapStateToProps = (
   {
@@ -28,9 +26,7 @@ const mapStateToProps = (
 const mapDispatchToProps = { editComplianceIssue, deleteComplianceIssue }
 
 export const EditComplianceIssueContainer = compose(
-  withImageCapture,
   withDeleteModal,
-  withErrorLoadingSubmit,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps),
 )(EditComplianceIssue)

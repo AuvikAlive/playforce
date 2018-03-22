@@ -1,7 +1,7 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
 
-export const StyledEditCompliacenIssue = Styled(Content)`
+export const StyledComplianceIssueForm = Styled(Content)`
   .card-media {
     height: 100vw;
   }
