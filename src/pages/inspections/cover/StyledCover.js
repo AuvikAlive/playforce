@@ -1,22 +1,9 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
-
-import { errorLoadingSubmit } from '../../../styledMixins/errorLoadingSubmit'
+import { cardMedia } from '../../../styledMixins/cardMedia'
+import { datePicker } from '../../../styledMixins/datePicker'
 
 export const StyledCover = Styled(Content)`
-  
-  > * {
-    width: 100%;
-  }
-
-  .card-media {
-    height: 100vw;
-  }
-
-  ${errorLoadingSubmit};
-
-  .inspection-date {
-    margin-top: 16px;
-    margin-bottom: 8px;
-  }
+  ${cardMedia};
+  ${datePicker};
 `

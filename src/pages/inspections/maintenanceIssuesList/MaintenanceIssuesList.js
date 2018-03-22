@@ -54,7 +54,7 @@ export class MaintenanceIssuesList extends Component {
           <Grid container>
             {maintenanceIssues.map(({ image, finding, equipment }, index) => {
               return (
-                <Grid item key={index} xs={12} sm={6}>
+                <Grid item key={index} xs={12}>
                   <Card>
                     {image && (
                       <CardMedia className="card-media" image={image} />

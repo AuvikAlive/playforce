@@ -68,7 +68,7 @@ export class ComplianceIssuesList extends Component {
                 index,
               ) => {
                 return (
-                  <Grid item key={index} xs={12} sm={6}>
+                  <Grid item key={index} xs={12}>
                     <Card>
                       {image && (
                         <CardMedia className="card-media" image={image} />

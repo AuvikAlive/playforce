@@ -202,7 +202,7 @@ export class Cover extends Component {
                 fullWidth
                 keyboard
                 clearable
-                className="inspection-date"
+                className="date-picker"
                 label="Inspection Date"
                 format="DD MMMM YYYY"
                 value={inspectionDate}

@@ -25,7 +25,7 @@ export const StyledProfileSettings = Styled(Content)`
       height: 50vw;
 
       @media screen and (orientation: landscape) {
-        height: 25vw;
+        height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
       }
     }
   }

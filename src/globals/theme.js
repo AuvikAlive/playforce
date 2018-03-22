@@ -9,4 +9,5 @@ export const theme = createMuiTheme({
     secondary: { main: yellow[700] },
     success: green[500],
   },
+  lanscapeWidth: '33.33vw',
 })

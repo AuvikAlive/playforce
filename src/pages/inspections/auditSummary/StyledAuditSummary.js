@@ -1,15 +1,7 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
 
-import { errorLoadingSubmit } from '../../../styledMixins/errorLoadingSubmit'
-
 export const StyledAuditSummary = Styled(Content)`
-  
-  > * {
-    width: 100%;
-  }
-
-  ${errorLoadingSubmit};
 
   .signature-label {
     display: flex;
@@ -24,5 +16,9 @@ export const StyledAuditSummary = Styled(Content)`
     }
     width: auto;
     height: 50vw;
+
+    @media screen and (orientation: landscape) {
+      height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
+    }
   }
 `

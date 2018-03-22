@@ -1,8 +1,7 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
+import { cardMedia } from '../../../styledMixins/cardMedia'
 
 export const StyledMaintenanceIssueForm = Styled(Content)`
-  .card-media {
-    height: 100vw;
-  }
+  ${cardMedia};
 `
