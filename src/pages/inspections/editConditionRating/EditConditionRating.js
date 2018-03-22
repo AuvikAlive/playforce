@@ -3,33 +3,16 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import values from 'lodash/values'
-import { StyledEditConditionRating } from './StyledEditConditionRating'
-import { ConditionRatingForm } from '../ConditionRatingForm'
+import ConditionRatingForm from '../conditionRatingForm/'
 
 export class EditConditionRating extends Component {
-  state = {
-    equipment: '',
-    manufacturer: '',
-    customManufacturer: '',
-    condition: '',
-  }
-
   componentDidMount() {
     const {
       setNavTitle,
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const {
-      firestore,
-      userId,
-      history,
-      conditionRating,
-      openModal,
-    } = this.props
+    const { history, openModal } = this.props
 
     setNavTitle('Edit Condition Rating')
 
@@ -48,101 +31,23 @@ export class EditConditionRating extends Component {
         <DeleteIcon />
       </IconButton>,
     )
-
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'manufacturers' }],
-    })
-
-    this.loadInitialData(conditionRating)
   }
 
   componentWillUnmount() {
-    const {
-      removeNavTitle,
-      removeLefNavComponent,
-      removeRightNavComponent,
-    } = this.context
-    const { firestore, userId } = this.props
+    const { removeNavTitle, removeLefNavComponent } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
-    removeRightNavComponent()
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'manufacturers' }],
-    })
   }
 
-  loadInitialData = conditionRating => {
-    const { setCapturedImage } = this.props
-    const { image } = conditionRating
+  onSubmit = updatedValue => {
+    const { editConditionRating, conditionRatingIndex, history } = this.props
 
-    setCapturedImage(image)
-    this.setState({
-      ...conditionRating,
-      customManufacturer: conditionRating.manufacturer,
+    editConditionRating({
+      issueIndex: conditionRatingIndex,
+      updatedValue,
     })
-  }
-
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  onManufacturerChange = event => {
-    const manufacturer = event.target.value
-
-    this.setState({
-      manufacturer,
-      customManufacturer: manufacturer,
-    })
-  }
-
-  onCustomManufacturerChange = event => {
-    const customManufacturer = event.target.value
-
-    this.setState({
-      customManufacturer,
-      manufacturer: '',
-    })
-  }
-
-  editConditionRating = () => {
-    const {
-      editConditionRating,
-      history,
-      setErrorLoadingState,
-      image,
-      conditionRatingIndex,
-    } = this.props
-    const { equipment, condition } = this.state
-
-    let { manufacturer, customManufacturer } = this.state
-
-    manufacturer = customManufacturer ? customManufacturer : manufacturer
-
-    if (image && equipment && manufacturer && condition) {
-      setErrorLoadingState({ error: '' })
-      editConditionRating({
-        issueIndex: conditionRatingIndex,
-        updatedValue: {
-          image,
-          equipment,
-          manufacturer,
-          condition,
-        },
-      })
-      history.goBack()
-    } else {
-      setErrorLoadingState({
-        error: 'Please fill up the form correctly!',
-      })
-    }
+    history.goBack()
   }
 
   delete = () => {
@@ -153,48 +58,13 @@ export class EditConditionRating extends Component {
   }
 
   render() {
-    const { image, captureImage, data, error } = this.props
-
-    const manufacturers =
-      data && data.manufacturers ? values(data.manufacturers) : []
+    const { conditionRating } = this.props
 
     return (
-      <StyledEditConditionRating className="StyledEditConditionRating">
-        <Card>
-          {image && <CardMedia className="card-media" image={image} />}
-          <CardContent>
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={captureImage}
-            >
-              Capture Image
-            </Button>
-
-            <ConditionRatingForm
-              {...this.state}
-              manufacturers={manufacturers}
-              onManufacturerChange={this.onManufacturerChange}
-              onCustomManufacturerChange={this.onCustomManufacturerChange}
-              onInputChange={this.onInputChange}
-            />
-
-            {error && <p className="error">{error}</p>}
-
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.editConditionRating}
-            >
-              save
-            </Button>
-          </CardContent>
-        </Card>
-      </StyledEditConditionRating>
+      <ConditionRatingForm
+        initialData={conditionRating}
+        onSubmit={this.onSubmit}
+      />
     )
   }
 }
