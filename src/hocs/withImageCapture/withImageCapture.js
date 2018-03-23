@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { getDisplayName } from '../../utilities/getDisplayName'
-import pica from 'pica'
+import pica from 'pica/dist/pica.min'
 
 export const withImageCapture = WrappedComponent => {
   class WithImageCapture extends Component {
