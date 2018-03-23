@@ -7,7 +7,7 @@ export const StyledInspectionItems = Styled(Content)`
     width: 100%;
   }
 
-  .loading {
-    margin-bottom: 8px;
+  .custom-loading {
+    justify-content: center;
   }
 `

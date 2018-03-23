@@ -178,9 +178,9 @@ export class InspectionItems extends Component {
 
             {!error &&
               loading && (
-                <div className="loading">
+                <ListItem className="custom-loading">
                   <CircularProgress />
-                </div>
+                </ListItem>
               )}
 
             {!loading && (
