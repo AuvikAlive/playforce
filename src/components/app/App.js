@@ -7,13 +7,14 @@ import { ThemeProvider } from 'styled-components'
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils'
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'
 import { store, history, persistor } from '../../store/store'
+import { LinearProgress } from 'material-ui/Progress'
 import { theme } from '../../globals/theme'
 import Shell from '../shell'
 
 const App = () => (
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
+      <PersistGate loading={<LinearProgress />} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <ConnectedRouter history={history}>
@@ -23,8 +24,8 @@ const App = () => (
             </ConnectedRouter>
           </MuiPickersUtilsProvider>
         </ThemeProvider>
-      </MuiThemeProvider>
-    </PersistGate>
+      </PersistGate>
+    </MuiThemeProvider>
   </Provider>
 )
 

@@ -14,11 +14,10 @@ export const StyledAuditSummary = Styled(Content)`
     @media (max-width: 600px) {
       padding-top: 32px;
     }
-    width: auto;
-    height: 50vw;
+    min-height: 50vw;
 
     @media screen and (orientation: landscape) {
-      height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
+      min-height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
     }
   }
 `

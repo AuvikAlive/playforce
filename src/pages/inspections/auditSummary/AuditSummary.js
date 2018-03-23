@@ -100,8 +100,8 @@ export class AuditSummary extends Component {
                 >
                   Signature
                 </InputLabel>
-                <img src={signature} alt="signature" className="signature" />
               </FormControl>
+              <img src={signature} alt="signature" className="signature" />
 
               <TextField
                 fullWidth
