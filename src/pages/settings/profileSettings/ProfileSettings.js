@@ -68,47 +68,27 @@ export class ProfileSettings extends Component {
 
     setErrorLoadingState({ error: '', loading: true })
 
-    // const result = await this.resizeImage(image)
+    let data = {
+      displayName,
+      title,
+      company,
+      mobile,
+      image,
+    }
 
-    // console.log(result)
+    if (!this.mySignature.isEmpty()) {
+      data.signature = this.mySignature.toDataURL()
+    }
 
     try {
-      await firebase.updateProfile({
-        displayName,
-        title,
-        company,
-        mobile,
-        image,
-        signature: !this.mySignature.isEmpty()
-          ? this.mySignature.toDataURL()
-          : undefined,
-      })
+      await firebase.updateProfile(data)
+
       setErrorLoadingState({ loading: false })
       history.goBack()
     } catch (error) {
       setErrorLoadingState({ error: error.message, loading: false })
     }
   }
-
-  // resizeImage = image => {
-  //   let offScreenCanvas = document.createElement('canvas')
-  //   offScreenCanvas.width = 500
-  //   offScreenCanvas.height = 500
-
-  //   let img = new Image()
-  //   img.src = image
-
-  //   return pica()
-  //     .resize(img, offScreenCanvas)
-  //     .then(result => pica().toBlob(result, 'image/jpeg', 0.9))
-  //     .then(blob => {
-  //       var reader = new FileReader()
-  //       reader.readAsDataURL(blob)
-  //       reader.onloadend = function() {
-  //         return reader.result
-  //       }
-  //     })
-  // }
 
   render() {
     const { displayName, title, company, mobile } = this.state

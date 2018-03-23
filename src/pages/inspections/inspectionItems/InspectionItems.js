@@ -103,11 +103,12 @@ export class InspectionItems extends Component {
             maintenanceIssues,
           },
         )
-
+        setErrorLoadingState({ loading: false })
         discardInspection()
         history.goBack()
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
+        console.log(error)
       }
     } else {
       setErrorLoadingState({
