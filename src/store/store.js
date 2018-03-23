@@ -3,8 +3,7 @@ import { routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createBrowserHistory'
 import thunk from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
-// import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
-import storage from 'redux-persist/es/storage'
+import localForage from 'localforage'
 import firebase from 'firebase'
 import 'firebase/firestore'
 import { reactReduxFirebase } from 'react-redux-firebase'
@@ -12,10 +11,15 @@ import { reduxFirestore } from 'redux-firestore'
 import { rootReducer } from './rootReducer'
 import { firebaseConfig } from '../config/firebase'
 
+localForage.config({
+  name: 'Playforce Inspector App',
+  storeName: 'playforce',
+})
+
 const persistedReducer = persistReducer(
   {
     key: 'root',
-    storage,
+    storage: localForage,
   },
   rootReducer,
 )
