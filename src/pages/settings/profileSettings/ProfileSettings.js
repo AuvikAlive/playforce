@@ -7,10 +7,10 @@ import TextField from 'material-ui/TextField'
 import { FormControl } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
 import SignaturePad from 'react-signature-pad'
+// import pica from 'pica'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
 import { StyledProfileSettings } from './StyledProfileSettings'
-import avatar from './avatar.jpg'
 
 export class ProfileSettings extends Component {
   state = {
@@ -68,6 +68,10 @@ export class ProfileSettings extends Component {
 
     setErrorLoadingState({ error: '', loading: true })
 
+    // const result = await this.resizeImage(image)
+
+    // console.log(result)
+
     try {
       await firebase.updateProfile({
         displayName,
@@ -85,6 +89,26 @@ export class ProfileSettings extends Component {
       setErrorLoadingState({ error: error.message, loading: false })
     }
   }
+
+  // resizeImage = image => {
+  //   let offScreenCanvas = document.createElement('canvas')
+  //   offScreenCanvas.width = 500
+  //   offScreenCanvas.height = 500
+
+  //   let img = new Image()
+  //   img.src = image
+
+  //   return pica()
+  //     .resize(img, offScreenCanvas)
+  //     .then(result => pica().toBlob(result, 'image/jpeg', 0.9))
+  //     .then(blob => {
+  //       var reader = new FileReader()
+  //       reader.readAsDataURL(blob)
+  //       reader.onloadend = function() {
+  //         return reader.result
+  //       }
+  //     })
+  // }
 
   render() {
     const { displayName, title, company, mobile } = this.state

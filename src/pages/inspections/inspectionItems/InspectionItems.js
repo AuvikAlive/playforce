@@ -71,13 +71,7 @@ export class InspectionItems extends Component {
       maintenanceIssuesAdded,
     } = inspection
 
-    if (
-      auditSummaryAdded &&
-      complianceIssuesAdded &&
-      conditionRatingsAdded &&
-      coverAdded &&
-      maintenanceIssuesAdded
-    ) {
+    if (auditSummaryAdded && conditionRatingsAdded && coverAdded) {
       setErrorLoadingState({ error: '', loading: true })
 
       const {
@@ -87,6 +81,20 @@ export class InspectionItems extends Component {
         cover,
         maintenanceIssues,
       } = inspection
+
+      let newInspection = {
+        auditSummary,
+        conditionRatings,
+        cover,
+      }
+
+      if (complianceIssuesAdded) {
+        newInspection.complianceIssues = complianceIssues
+      }
+
+      if (maintenanceIssuesAdded) {
+        newInspection.maintenanceIssues = maintenanceIssues
+      }
 
       try {
         await firestore.add(

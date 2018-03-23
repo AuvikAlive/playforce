@@ -10,6 +10,7 @@
     "material-ui": "^1.0.0-beta.34",
     "material-ui-icons": "^1.0.0-beta.17",
     "material-ui-pickers": "^1.0.0-rc.2",
+    "pica": "^4.0.2",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
     "react-autosuggest": "^9.3.4",

@@ -46,12 +46,21 @@ export class AuditSummary extends Component {
   }
 
   addInspectionSummary = () => {
-    const { addInspectionSummary, history, setErrorLoadingState } = this.props
+    const {
+      addInspectionSummary,
+      history,
+      setErrorLoadingState,
+      profile: { displayName, title, company, signature },
+    } = this.props
     const { summary } = this.state
 
     if (summary) {
       addInspectionSummary({
         summary,
+        displayName,
+        title,
+        company,
+        signature,
       })
       history.goBack()
     } else {
