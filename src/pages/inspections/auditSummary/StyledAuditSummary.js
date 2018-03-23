@@ -14,6 +14,7 @@ export const StyledAuditSummary = Styled(Content)`
     @media (max-width: 600px) {
       padding-top: 32px;
     }
+    max-width: 100%;
     min-height: 50vw;
 
     @media screen and (orientation: landscape) {
