@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { getDisplayName } from '../../utilities/getDisplayName'
+import pica from 'pica'
 
 export const withImageCapture = WrappedComponent => {
   class WithImageCapture extends Component {
@@ -12,17 +13,36 @@ export const withImageCapture = WrappedComponent => {
     }
 
     getFile = event => {
-      const reader = new FileReader()
+      const resizer = pica()
+      const file = event.target.files[0]
 
-      reader.readAsDataURL(event.target.files[0])
+      let offScreenCanvas = document.createElement('canvas')
+      offScreenCanvas.width = 500
+      offScreenCanvas.height = 500
 
-      reader.addEventListener(
-        'load',
-        () => {
-          this.setState({ image: reader.result })
-        },
-        false,
-      )
+      let img = document.createElement('img')
+      img.src = URL.createObjectURL(file)
+
+      img.onload = () => {
+        resizer
+          .resize(img, offScreenCanvas, {
+            alpha: true,
+          })
+          .then(result => resizer.toBlob(result, file.type, 0.9))
+          .then(blob => {
+            const reader = new FileReader()
+
+            reader.readAsDataURL(blob)
+
+            reader.addEventListener(
+              'load',
+              () => {
+                this.setState({ image: reader.result })
+              },
+              false,
+            )
+          })
+      }
     }
 
     setImage = image => {
