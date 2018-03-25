@@ -9,13 +9,13 @@ import {
 } from '../../../store/actions/actionCreators/searchBarActions'
 
 const mapStateToProps = ({
-  firestore: { ordered: { users } },
+  firestore: { data: { users } },
   firebase: { auth: { uid } },
   searchBar: { open, query },
 }) => ({
-  sites: users,
+  sites: users && users[uid].sites,
   userId: uid,
-  open,
+  searchBarOpen: open,
   query,
 })
 

@@ -64,9 +64,9 @@ export class InspectionList extends Component {
 
     let { inspections } = this.props
 
-    inspections = inspections ? objectToArrayWithId(inspections) : []
+    inspections = inspections && objectToArrayWithId(inspections)
 
-    return (
+    return inspections ? (
       <StyledInspectionList className="StyledInspectionList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
@@ -99,7 +99,7 @@ export class InspectionList extends Component {
           </Paper>
         )}
       </StyledInspectionList>
-    )
+    ) : null
   }
 }
 

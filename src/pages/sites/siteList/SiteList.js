@@ -11,19 +11,30 @@ import AddIcon from 'material-ui-icons/Add'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
+import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {
   componentDidMount() {
-    const { openSearchBar, open, query, firestore, userId } = this.props
+    const {
+      openSearchBar,
+      searchBarOpen,
+      query,
+      firestore,
+      userId,
+    } = this.props
     const {
       setNavTitle,
       setRightNavComponent,
       setSearchComponent,
     } = this.context
 
-    if (open && query) {
-      firestore.get({ collection: 'sites', where: ['name', '==', query] })
+    if (searchBarOpen && query) {
+      firestore.get({
+        collection: 'users',
+        doc: userId,
+        subcollections: [{ collection: 'sites', where: ['name', '==', query] }],
+      })
     }
 
     setNavTitle('Sites')
@@ -37,7 +48,11 @@ export class SiteList extends Component {
     setSearchComponent(
       <SearchBar
         onSearchEnd={() => {
-          firestore.get({ collection: 'sites', orderBy: 'name' })
+          firestore.get({
+            collection: 'users',
+            doc: userId,
+            subcollections: [{ collection: 'sites' }],
+          })
         }}
       />,
     )
@@ -53,8 +68,14 @@ export class SiteList extends Component {
     if (nextProps.query !== this.props.query) {
       const { query } = nextProps
       if (query) {
-        const { firestore } = this.props
-        firestore.get({ collection: 'sites', where: ['name', '==', query] })
+        const { firestore, userId } = this.props
+        firestore.get({
+          collection: 'users',
+          doc: userId,
+          subcollections: [
+            { collection: 'sites', where: ['name', '==', query] },
+          ],
+        })
       }
     }
   }
@@ -80,61 +101,62 @@ export class SiteList extends Component {
   }
 
   render() {
-    const { match, sites, open } = this.props
+    const { match, searchBarOpen } = this.props
 
-    let content
+    let { sites } = this.props
 
-    if (isEmpty(sites)) {
-      content = open ? (
-        <Paper className="paper">
-          <List component="nav" disablePadding>
-            <ListItem>
-              <ListItemText primary="No match found" />
-            </ListItem>
-          </List>
-        </Paper>
-      ) : (
-        <Typography variant="title" align="center">
-          Try adding a site to get started!
-        </Typography>
-      )
-    } else {
-      content = (
-        <Paper className="paper">
-          <List component="nav" disablePadding>
-            {sites.map(({ name, id }, index, list) => {
-              return (
-                <StyledNavLink key={id} to={`/sites/${id}`}>
-                  <ListItem divider button>
-                    <ListItemText primary={name} />
-                  </ListItem>
-                </StyledNavLink>
-              )
-            })}
-          </List>
-        </Paper>
-      )
-    }
+    sites = sites ? objectToArrayWithId(sites) : []
 
-    return (
+    return sites ? (
       <StyledSiteList className="StyledSiteList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add a site"
-            className={isEmpty(sites) ? 'pulse' : ''}
+            className={!searchBarOpen && isEmpty(sites) ? 'pulse' : ''}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            {content}
+            {searchBarOpen &&
+              isEmpty(sites) && (
+                <Paper className="paper">
+                  <List component="nav" disablePadding>
+                    <ListItem>
+                      <ListItemText primary="No match found" />
+                    </ListItem>
+                  </List>
+                </Paper>
+              )}
+            {!searchBarOpen &&
+              isEmpty(sites) && (
+                <Typography variant="title" align="center">
+                  Try adding a site to get started!
+                </Typography>
+              )}
+
+            {!isEmpty(sites) && (
+              <Paper className="paper">
+                <List component="nav" disablePadding>
+                  {sites.map(({ name, id }, index, list) => {
+                    return (
+                      <StyledNavLink key={id} to={`/sites/${id}`}>
+                        <ListItem divider button>
+                          <ListItemText primary={name} />
+                        </ListItem>
+                      </StyledNavLink>
+                    )
+                  })}
+                </List>
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </StyledSiteList>
-    )
+    ) : null
   }
 }
 

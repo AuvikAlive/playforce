@@ -12,7 +12,7 @@ const mapStateToProps = ({
   firebase: { auth: { uid } },
   searchBar: { open, query },
 }) => ({
-  inspections: users && users[uid].inspections && users[uid].inspections,
+  inspections: users && users[uid].inspections,
   userId: uid,
   open,
   query,
