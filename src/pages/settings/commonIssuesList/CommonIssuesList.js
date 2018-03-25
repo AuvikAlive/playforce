@@ -8,6 +8,7 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
+import { LinearProgress } from 'material-ui/Progress'
 import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -47,7 +48,7 @@ export class CommonIssuesList extends Component {
   render() {
     const { match, commonIssues } = this.props
 
-    return (
+    return commonIssues ? (
       <StyledCommonIssuesList className="StyledCommonIssuesList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
@@ -83,6 +84,8 @@ export class CommonIssuesList extends Component {
           </Paper>
         )}
       </StyledCommonIssuesList>
+    ) : (
+      <LinearProgress />
     )
   }
 }

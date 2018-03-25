@@ -11,7 +11,7 @@ import AddIcon from 'material-ui-icons/Add'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
-import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
+import { LinearProgress } from 'material-ui/Progress'
 import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {
@@ -101,11 +101,7 @@ export class SiteList extends Component {
   }
 
   render() {
-    const { match, searchBarOpen } = this.props
-
-    let { sites } = this.props
-
-    sites = sites ? objectToArrayWithId(sites) : []
+    const { match, searchBarOpen, sites } = this.props
 
     return sites ? (
       <StyledSiteList className="StyledSiteList">
@@ -156,7 +152,9 @@ export class SiteList extends Component {
           </Grid>
         </Grid>
       </StyledSiteList>
-    ) : null
+    ) : (
+      <LinearProgress />
+    )
   }
 }
 

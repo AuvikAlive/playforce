@@ -7,6 +7,7 @@ import Card, { CardContent } from 'material-ui/Card'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
 import { CircularProgress } from 'material-ui/Progress'
+import { LinearProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import Modal from '../../../components/modal/Modal'
@@ -122,7 +123,7 @@ export class Clients extends Component {
     const { client, modalOpen, error, loading } = this.state
     const { clients } = this.props
 
-    return (
+    return clients ? (
       <StyledClients className="StyledClients">
         <Card className="card">
           {clients.length > 0 ? (
@@ -188,6 +189,8 @@ export class Clients extends Component {
           />
         </Modal>
       </StyledClients>
+    ) : (
+      <LinearProgress />
     )
   }
 }

@@ -7,13 +7,14 @@ import {
   openSearchBar,
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
+import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 const mapStateToProps = ({
   firestore: { data: { users } },
   firebase: { auth: { uid } },
   searchBar: { open, query },
 }) => ({
-  sites: users && users[uid].sites,
+  sites: users && users[uid].sites && objectToArrayWithId(users[uid].sites),
   userId: uid,
   searchBarOpen: open,
   query,

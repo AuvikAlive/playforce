@@ -7,11 +7,11 @@ import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
+import { LinearProgress } from 'material-ui/Progress'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledInspectionList } from './StyledInspectionList'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class InspectionList extends Component {
   componentDidMount() {
@@ -60,11 +60,7 @@ export class InspectionList extends Component {
   }
 
   render() {
-    const { match } = this.props
-
-    let { inspections } = this.props
-
-    inspections = inspections && objectToArrayWithId(inspections)
+    const { match, inspections } = this.props
 
     return inspections ? (
       <StyledInspectionList className="StyledInspectionList">
@@ -99,7 +95,9 @@ export class InspectionList extends Component {
           </Paper>
         )}
       </StyledInspectionList>
-    ) : null
+    ) : (
+      <LinearProgress />
+    )
   }
 }
 

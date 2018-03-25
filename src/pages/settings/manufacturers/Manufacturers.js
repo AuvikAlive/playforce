@@ -12,6 +12,7 @@ import Button from 'material-ui/Button'
 import Modal from '../../../components/modal/Modal'
 import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledManufacturers } from './StyledManufacturers'
+import { LinearProgress } from 'material-ui'
 
 export class Manufacturers extends Component {
   state = {
@@ -123,7 +124,7 @@ export class Manufacturers extends Component {
 
     const { manufacturers } = this.props
 
-    return (
+    return manufacturers ? (
       <StyledManufacturers className="StyledManufacturers">
         <Card className="card">
           <List component="nav" disablePadding>
@@ -189,6 +190,8 @@ export class Manufacturers extends Component {
           />
         </Modal>
       </StyledManufacturers>
+    ) : (
+      <LinearProgress />
     )
   }
 }
