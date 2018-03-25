@@ -8,9 +8,4 @@ export const StyledContent = Styled.div`
     min-width: 600px;
     margin: 0 auto;
   }
-
-  /* @media screen and (orientation: landscape) {
-    width: ${({ theme }) => theme.lanscapeWidth};
-    margin: 0 auto;
-  } */
 `
