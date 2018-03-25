@@ -8,10 +8,10 @@ import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
+import { LinearProgress } from 'material-ui/Progress'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
-import { LinearProgress } from 'material-ui/Progress'
 import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {

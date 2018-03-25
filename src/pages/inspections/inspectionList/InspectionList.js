@@ -60,9 +60,9 @@ export class InspectionList extends Component {
   }
 
   render() {
-    const { match, inspections } = this.props
+    const { match, inspections, toggleEditInspection } = this.props
 
-    return inspections ? (
+    return inspections !== undefined ? (
       <StyledInspectionList className="StyledInspectionList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
@@ -82,15 +82,32 @@ export class InspectionList extends Component {
         ) : (
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {inspections.map(
-                ({ id, cover: { location: { name }, client } }) => {
-                  return (
-                    <ListItem divider key={id} button>
-                      <ListItemText primary={`${name} -  ${client}`} />
+              {inspections.map(item => {
+                return item && item.cover ? (
+                  <StyledNavLink
+                    key={item.id}
+                    to={{
+                      pathname: `${match.url}/edit`,
+                      state: {
+                        id: item.id,
+                      },
+                    }}
+                    onClick={() =>
+                      toggleEditInspection({
+                        editMode: true,
+                      })
+                    }
+                  >
+                    <ListItem divider button>
+                      <ListItemText
+                        primary={`${item.cover.location.name} -  ${
+                          item.cover.client
+                        }`}
+                      />
                     </ListItem>
-                  )
-                },
-              )}
+                  </StyledNavLink>
+                ) : null
+              })}
             </List>
           </Paper>
         )}

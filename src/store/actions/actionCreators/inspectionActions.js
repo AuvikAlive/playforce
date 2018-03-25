@@ -1,4 +1,6 @@
 import {
+  EDIT_INSPECTION,
+  LOAD_INSPECTION,
   DISCARD_INSPECTION,
   ADD_INSPECTION_COVER,
   ADD_INSPECTION_SUMMARY,
@@ -12,6 +14,16 @@ import {
   EDIT_MAINTENANCE_ISSUE,
   DELETE_MAINTENANCE_ISSUE,
 } from '../actionTypes'
+
+export const toggleEditInspection = payload => ({
+  type: EDIT_INSPECTION,
+  payload,
+})
+
+export const loadInspection = payload => ({
+  type: LOAD_INSPECTION,
+  payload,
+})
 
 export const discardInspection = () => ({
   type: DISCARD_INSPECTION,

@@ -1,4 +1,6 @@
 import {
+  EDIT_INSPECTION,
+  LOAD_INSPECTION,
   DISCARD_INSPECTION,
   ADD_INSPECTION_COVER,
   ADD_INSPECTION_SUMMARY,
@@ -14,6 +16,8 @@ import {
 } from '../actions/actionTypes'
 
 export const initialState = {
+  editMode: false,
+  inspectionLoaded: false,
   equipments: [],
   cover: {},
   coverAdded: false,
@@ -29,6 +33,12 @@ export const initialState = {
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case EDIT_INSPECTION:
+      return { ...state, ...payload }
+
+    case LOAD_INSPECTION:
+      return { inspectionLoaded: true, ...payload }
+
     case DISCARD_INSPECTION:
       return initialState
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
-import InspectionItemsAdd from '../inspectionItemsAdd'
+import InspectionItemsEdit from '../inspectionItemsEdit'
 
 const Cover = Loadable({
   loader: () => import('../cover'),
@@ -25,7 +25,7 @@ ConditionRating.preload()
 ComplianceIssues.preload()
 MaintenanceIssues.preload()
 
-export const AddInspection = ({ match }) => {
+export const EditInspection = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/cover`} component={Cover} />
@@ -42,7 +42,7 @@ export const AddInspection = ({ match }) => {
         path={`${match.url}/maintenanceIssues`}
         component={MaintenanceIssues}
       />
-      <Route path={match.url} component={InspectionItemsAdd} />
+      <Route path={`${match.url}`} component={InspectionItemsEdit} />
     </Switch>
   )
 }

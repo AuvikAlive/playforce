@@ -12,8 +12,6 @@ import { StyledInspectionItems } from './StyledInspectionItems'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class InspectionItems extends Component {
-  state = {}
-
   componentDidMount() {
     const {
       setNavTitle,
