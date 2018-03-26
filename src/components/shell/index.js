@@ -1,3 +1,3 @@
-import { Shell } from './Shell'
+import { ShellContainer } from './ShellContainer'
 
-export default Shell
+export default ShellContainer

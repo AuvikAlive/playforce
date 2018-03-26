@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { isLoaded, isEmpty } from 'react-redux-firebase'
-import { LinearProgress } from 'material-ui/Progress'
+import { isEmpty } from 'react-redux-firebase'
 import Loadable from '../loadable/LoadableLinear'
 import Home from '../../pages/home/Home'
 
@@ -116,33 +115,19 @@ const privateRoutes = [
 ]
 
 export const Routes = ({ auth, profile }) => {
-  return isLoaded(auth) && isLoaded(profile) ? (
-    isEmpty(auth) && isEmpty(profile) ? (
-      <Switch>
-        {publicRoutes.map(({ Component, pathname, name, exact }) => (
-          <Route
-            key={name}
-            exact={exact}
-            path={pathname}
-            component={Component}
-          />
-        ))}
-        <Redirect to="/" />
-      </Switch>
-    ) : (
-      <Switch>
-        {privateRoutes.map(({ Component, pathname, name, exact }) => (
-          <Route
-            key={name}
-            exact={exact}
-            path={pathname}
-            component={Component}
-          />
-        ))}
-        <Redirect to="/" />
-      </Switch>
-    )
+  return isEmpty(auth) && isEmpty(profile) ? (
+    <Switch>
+      {publicRoutes.map(({ Component, pathname, name, exact }) => (
+        <Route key={name} exact={exact} path={pathname} component={Component} />
+      ))}
+      <Redirect to="/" />
+    </Switch>
   ) : (
-    <LinearProgress />
+    <Switch>
+      {privateRoutes.map(({ Component, pathname, name, exact }) => (
+        <Route key={name} exact={exact} path={pathname} component={Component} />
+      ))}
+      <Redirect to="/" />
+    </Switch>
   )
 }

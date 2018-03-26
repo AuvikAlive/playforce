@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
+import { isLoaded } from 'react-redux-firebase'
 import NavBar from '../navBar'
 import SideMenu from '../sideMenu'
 import Routes from '../routes'
@@ -79,7 +81,9 @@ export class Shell extends Component {
       navBarShadowEnabled,
     } = this.state
 
-    return (
+    const { auth, profile } = this.props
+
+    return isLoaded(auth) && isLoaded(profile) ? (
       <div>
         <NavBar
           title={navTitle}
@@ -94,6 +98,8 @@ export class Shell extends Component {
         </StyledMainContent>
         <Footer />
       </div>
+    ) : (
+      <LinearProgress />
     )
   }
 }
