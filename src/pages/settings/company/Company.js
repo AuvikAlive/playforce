@@ -14,8 +14,6 @@ export class Company extends Component {
     abn: '',
     phoneNumber: '',
     website: '',
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
@@ -58,9 +56,9 @@ export class Company extends Component {
   publish = async () => {
     const { postalAddress, abn, phoneNumber, website } = this.state
 
-    const { firebase } = this.props
+    const { firebase, setErrorLoadingState } = this.props
 
-    this.setState({ error: '', loading: true })
+    setErrorLoadingState({ error: '', loading: true })
 
     try {
       await firebase.updateProfile({
@@ -71,9 +69,9 @@ export class Company extends Component {
           website,
         },
       })
-      this.setState({ loading: false })
+      setErrorLoadingState({ loading: false })
     } catch (error) {
-      this.setState({ error: error.message, loading: false })
+      setErrorLoadingState({ error: error.message, loading: false })
     }
   }
 
@@ -84,14 +82,9 @@ export class Company extends Component {
   }
 
   render() {
-    const {
-      postalAddress,
-      abn,
-      phoneNumber,
-      website,
-      error,
-      loading,
-    } = this.state
+    const { postalAddress, abn, phoneNumber, website } = this.state
+
+    const { error, loading } = this.props
 
     return (
       <StyledCompany className="StyledCompany">

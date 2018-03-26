@@ -3,6 +3,8 @@ import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Clients } from './Clients'
 import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
+import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
   firebase: { auth: { uid } },
@@ -14,6 +16,8 @@ const mapStateToProps = ({
 })
 
 export const ClientsContainer = compose(
+  withDeleteModal,
+  withErrorLoadingSubmit,
   withFirestore,
   connect(mapStateToProps),
 )(Clients)

@@ -9,17 +9,12 @@ import Typography from 'material-ui/Typography'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import Modal from '../../../components/modal/Modal'
-import { ModalDeleteContent } from '../../../components/modalDeleteContent/ModalDeleteContent'
 import { StyledManufacturers } from './StyledManufacturers'
 import { LinearProgress } from 'material-ui'
 
 export class Manufacturers extends Component {
   state = {
     manufacturer: '',
-    modalOpen: false,
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
@@ -61,20 +56,12 @@ export class Manufacturers extends Component {
     })
   }
 
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
-  }
-
   publish = async () => {
     const { manufacturer } = this.state
-    const { firestore, userId } = this.props
+    const { firestore, userId, setErrorLoadingState } = this.props
 
     if (manufacturer) {
-      this.setState({ error: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
 
       try {
         await firestore.add(
@@ -85,44 +72,42 @@ export class Manufacturers extends Component {
           },
           { name: manufacturer },
         )
-        this.setState({ loading: false, manufacturer: '' })
+        setErrorLoadingState({ loading: false })
+        this.setState({ manufacturer: '' })
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form correctly!',
         loading: false,
       })
     }
   }
 
-  deletePrompt = id => () => {
-    this.setState({ deleteItemId: id })
-    this.openModal()
+  deletePrompt = deleteItemId => {
+    const { openModal } = this.props
+
+    this.setState({ deleteItemId })
+
+    openModal(this.delete)
   }
 
   delete = async () => {
     const { firestore, userId } = this.props
     const { deleteItemId } = this.state
 
-    try {
-      await firestore.delete({
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'manufacturers', doc: deleteItemId }],
-      })
-
-      this.setState({ loading: false })
-    } catch (error) {
-      this.setState({ error: error.message, loading: false })
-    }
+    return firestore.delete({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'manufacturers', doc: deleteItemId }],
+    })
   }
 
   render() {
-    const { manufacturer, modalOpen, error, loading } = this.state
+    const { manufacturer } = this.state
 
-    const { manufacturers } = this.props
+    const { manufacturers, error, loading } = this.props
 
     return manufacturers ? (
       <StyledManufacturers className="StyledManufacturers">
@@ -143,7 +128,7 @@ export class Manufacturers extends Component {
                 return (
                   <ListItem key={id} button>
                     <ListItemText primary={name} />
-                    <ListItemIcon onClick={this.deletePrompt(id)}>
+                    <ListItemIcon onClick={() => this.deletePrompt(id)}>
                       <DeleteIcon />
                     </ListItemIcon>
                   </ListItem>
@@ -182,13 +167,6 @@ export class Manufacturers extends Component {
             )}
           </CardContent>
         </Card>
-
-        <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
-          <ModalDeleteContent
-            handleConfirmation={this.delete}
-            closeModal={this.closeModal}
-          />
-        </Modal>
       </StyledManufacturers>
     ) : (
       <LinearProgress />
