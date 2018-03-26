@@ -139,9 +139,9 @@ export class Cover extends Component {
 
     const { image, captureImage, displayName, data, error } = this.props
 
-    const sites = data && data.sites ? objectToArrayWithId(data.sites) : []
-    const standards = data && data.standards ? values(data.standards) : []
-    const clients = data && data.clients ? values(data.clients) : []
+    const sites = data && data.sites && objectToArrayWithId(data.sites)
+    const standards = data && data.standards && values(data.standards)
+    const clients = data && data.clients && values(data.clients)
 
     return sites && standards && clients ? (
       <StyledCover className="StyledCover">

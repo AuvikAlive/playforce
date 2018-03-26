@@ -5,6 +5,7 @@ import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
+import { LinearProgress } from 'material-ui/Progress'
 import values from 'lodash/values'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
@@ -158,8 +159,8 @@ export class ComplianceIssueForm extends Component {
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    return (
-      <StyledComplianceIssueForm>
+    return commonIssues && commonIssues.length > 0 ? (
+      <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
           <CardContent>
@@ -301,6 +302,8 @@ export class ComplianceIssueForm extends Component {
           </CardContent>
         </Card>
       </StyledComplianceIssueForm>
+    ) : (
+      <LinearProgress />
     )
   }
 }
