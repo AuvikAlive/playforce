@@ -25,7 +25,7 @@ export class AddSite extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, firestore, userId } = this.props
 
     setNavTitle('Add a Site')
 
@@ -34,6 +34,12 @@ export class AddSite extends Component {
         <ArrowBackIcon />
       </IconButton>,
     )
+
+    firestore.setListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'operators' }],
+    })
 
     'geolocation' in navigator &&
       navigator.geolocation.getCurrentPosition(
@@ -49,9 +55,16 @@ export class AddSite extends Component {
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
+    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
+
+    firestore.unsetListener({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'operators' }],
+    })
   }
 
   onInputChange = name => event => {
@@ -216,11 +229,15 @@ export class AddSite extends Component {
                 onChange={this.onInputChange('operator')}
                 margin="normal"
               >
-                {operators.map(({ name }, index) => (
-                  <MenuItem key={index} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
+                {!!operators && operators.length > 0 ? (
+                  operators.map(({ name }, index) => (
+                    <MenuItem key={index} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem value="">No operator addded</MenuItem>
+                )}
               </TextField>
             </form>
 

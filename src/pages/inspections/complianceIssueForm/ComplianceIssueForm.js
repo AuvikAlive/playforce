@@ -5,7 +5,6 @@ import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-import { LinearProgress } from 'material-ui/Progress'
 import values from 'lodash/values'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
@@ -159,7 +158,7 @@ export class ComplianceIssueForm extends Component {
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    return commonIssues && commonIssues.length > 0 ? (
+    return (
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
@@ -190,14 +189,14 @@ export class ComplianceIssueForm extends Component {
                 onChange={this.onFindingChange}
                 margin="normal"
               >
-                {commonIssues.length === 0 ? (
-                  <MenuItem value={''}>No common issue added yet</MenuItem>
-                ) : (
+                {!!commonIssues && commonIssues.length > 0 ? (
                   commonIssues.map(({ finding }, index) => (
                     <MenuItem key={index} value={index}>
                       {finding}
                     </MenuItem>
                   ))
+                ) : (
+                  <MenuItem value={''}>No common issue added</MenuItem>
                 )}
               </TextField>
 
@@ -302,8 +301,6 @@ export class ComplianceIssueForm extends Component {
           </CardContent>
         </Card>
       </StyledComplianceIssueForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }

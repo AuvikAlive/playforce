@@ -9,7 +9,6 @@ import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
-import { LinearProgress } from 'material-ui/Progress'
 import values from 'lodash/values'
 import isEmpty from 'lodash/isEmpty'
 import { StyledCover } from './StyledCover'
@@ -143,7 +142,7 @@ export class Cover extends Component {
     const standards = data && data.standards && values(data.standards)
     const clients = data && data.clients && values(data.clients)
 
-    return sites ? (
+    return (
       <StyledCover className="StyledCover">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
@@ -167,7 +166,7 @@ export class Cover extends Component {
                 onChange={this.onInputChange('location')}
                 margin="normal"
               >
-                {sites.length > 0 ? (
+                {!!sites && sites.length > 0 ? (
                   sites.map(({ id, name }) => (
                     <MenuItem key={id} value={id}>
                       {name}
@@ -186,7 +185,7 @@ export class Cover extends Component {
                 onChange={this.onInputChange('client')}
                 margin="normal"
               >
-                {clients > 0 ? (
+                {!!clients && clients.length > 0 ? (
                   clients.map(({ name }, index) => {
                     return (
                       <MenuItem key={index} value={name}>
@@ -232,7 +231,7 @@ export class Cover extends Component {
                 onChange={this.onInputChange('appliedStandards')}
                 margin="normal"
               >
-                {standards > 0 ? (
+                {!!standards && standards.length > 0 ? (
                   standards.map(({ title, code }, index) => {
                     return (
                       <MenuItem key={index} value={`${title} ${code}`}>
@@ -260,8 +259,6 @@ export class Cover extends Component {
           </CardContent>
         </Card>
       </StyledCover>
-    ) : (
-      <LinearProgress />
     )
   }
 }

@@ -45,13 +45,15 @@ export class ComplianceIssuesList extends Component {
             variant="fab"
             color="primary"
             aria-label="add compliance issue"
-            className={complianceIssues.length ? '' : 'pulse'}
+            className={
+              !!complianceIssues && complianceIssues.length > 0 ? '' : 'pulse'
+            }
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {complianceIssues.length ? (
+        {!!complianceIssues && complianceIssues.length > 0 ? (
           <Grid container>
             {complianceIssues.map(
               (

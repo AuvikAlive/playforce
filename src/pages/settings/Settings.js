@@ -19,6 +19,10 @@ const Manufacturers = Loadable({
   loader: () => import('./manufacturers'),
 })
 
+const Operators = Loadable({
+  loader: () => import('./operators'),
+})
+
 const CommonIssues = Loadable({
   loader: () => import('./commonIssues'),
 })
@@ -30,6 +34,8 @@ const Company = Loadable({
 ProfileSettings.preload()
 Standards.preload()
 Clients.preload()
+Manufacturers.preload()
+Operators.preload()
 CommonIssues.preload()
 Company.preload()
 
@@ -40,6 +46,7 @@ export const Settings = ({ match }) => {
       <Route path={`${match.url}/standards`} component={Standards} />
       <Route path={`${match.url}/clients`} component={Clients} />
       <Route path={`${match.url}/manufacturers`} component={Manufacturers} />
+      <Route path={`${match.url}/operators`} component={Operators} />
       <Route path={`${match.url}/commonIssues`} component={CommonIssues} />
       <Route path={`${match.url}/companyInformation`} component={Company} />
       <Route path={match.url} component={SettingsList} />

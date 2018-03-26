@@ -9,18 +9,18 @@ import Typography from 'material-ui/Typography'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
-import { StyledClients } from './StyledClients'
+import { StyledOperators } from './StyledOperators'
 
-export class Clients extends Component {
+export class Operators extends Component {
   state = {
-    client: '',
+    operator: '',
   }
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history, firestore, userId } = this.props
 
-    setNavTitle('Clients')
+    setNavTitle('Operators')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
@@ -31,7 +31,7 @@ export class Clients extends Component {
     firestore.setListener({
       collection: 'users',
       doc: userId,
-      subcollections: [{ collection: 'clients' }],
+      subcollections: [{ collection: 'operators' }],
     })
   }
 
@@ -45,7 +45,7 @@ export class Clients extends Component {
     firestore.unsetListener({
       collection: 'users',
       doc: userId,
-      subcollections: [{ collection: 'clients' }],
+      subcollections: [{ collection: 'operators' }],
     })
   }
 
@@ -56,10 +56,10 @@ export class Clients extends Component {
   }
 
   publish = async () => {
-    const { client } = this.state
+    const { operator } = this.state
     const { firestore, userId, setErrorLoadingState } = this.props
 
-    if (client) {
+    if (operator) {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
@@ -67,12 +67,12 @@ export class Clients extends Component {
           {
             collection: 'users',
             doc: userId,
-            subcollections: [{ collection: 'clients' }],
+            subcollections: [{ collection: 'operators' }],
           },
-          { name: client },
+          { name: operator },
         )
         setErrorLoadingState({ loading: false })
-        this.setState({ client: '' })
+        this.setState({ operator: '' })
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
       }
@@ -99,20 +99,20 @@ export class Clients extends Component {
     return firestore.delete({
       collection: 'users',
       doc: userId,
-      subcollections: [{ collection: 'clients', doc: deleteItemId }],
+      subcollections: [{ collection: 'operators', doc: deleteItemId }],
     })
   }
 
   render() {
-    const { client } = this.state
-    const { clients, error, loading } = this.props
+    const { operator } = this.state
+    const { operators, error, loading } = this.props
 
     return (
-      <StyledClients className="StyledClients">
+      <StyledOperators className="StyledOperators">
         <Card className="card">
-          {!!clients && clients.length > 0 ? (
+          {!!operators && operators.length > 0 ? (
             <List component="nav" disablePadding>
-              {clients.map(({ id, name }) => {
+              {operators.map(({ id, name }) => {
                 return (
                   <ListItem key={id} button>
                     <ListItemText primary={name} />
@@ -137,9 +137,9 @@ export class Clients extends Component {
           <CardContent>
             <TextField
               fullWidth
-              label="Client"
-              value={client}
-              onChange={this.onInputChange('client')}
+              label="operator"
+              value={operator}
+              onChange={this.onInputChange('operator')}
               margin="normal"
             />
 
@@ -160,17 +160,17 @@ export class Clients extends Component {
                 className="submit-button"
                 onClick={this.publish}
               >
-                Add Client
+                Add operator
               </Button>
             )}
           </CardContent>
         </Card>
-      </StyledClients>
+      </StyledOperators>
     )
   }
 }
 
-Clients.contextTypes = {
+Operators.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

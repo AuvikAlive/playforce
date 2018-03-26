@@ -45,12 +45,14 @@ export class ConditionRatingList extends Component {
             variant="fab"
             color="primary"
             aria-label="add condition rating"
-            className={conditionRatings.length ? '' : 'pulse'}
+            className={
+              !!conditionRatings && conditionRatings.length > 0 ? '' : 'pulse'
+            }
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
-        {conditionRatings.length ? (
+        {!!conditionRatings && conditionRatings.length > 0 ? (
           <Grid container>
             {conditionRatings.map(
               (

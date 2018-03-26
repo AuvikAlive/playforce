@@ -8,7 +8,6 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
-import { LinearProgress } from 'material-ui/Progress'
 import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -48,24 +47,20 @@ export class CommonIssuesList extends Component {
   render() {
     const { match, commonIssues } = this.props
 
-    return commonIssues ? (
+    return (
       <StyledCommonIssuesList className="StyledCommonIssuesList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={commonIssues.length === 0 ? 'pulse' : ''}
+            className={!!commonIssues && commonIssues.length > 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {commonIssues.length === 0 ? (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
-        ) : (
+        {!!commonIssues && commonIssues.length > 0 ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
               {commonIssues.map(({ id, finding }) => {
@@ -82,10 +77,12 @@ export class CommonIssuesList extends Component {
               })}
             </List>
           </Paper>
+        ) : (
+          <Typography variant="title" align="center">
+            Try adding an item to get started!
+          </Typography>
         )}
       </StyledCommonIssuesList>
-    ) : (
-      <LinearProgress />
     )
   }
 }

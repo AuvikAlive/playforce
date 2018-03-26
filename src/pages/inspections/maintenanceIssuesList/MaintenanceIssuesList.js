@@ -44,13 +44,15 @@ export class MaintenanceIssuesList extends Component {
             variant="fab"
             color="primary"
             aria-label="add compliance issue"
-            className={maintenanceIssues.length ? '' : 'pulse'}
+            className={
+              !!maintenanceIssues && maintenanceIssues.length > 0 ? '' : 'pulse'
+            }
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {maintenanceIssues.length ? (
+        {!!maintenanceIssues && maintenanceIssues.length > 0 ? (
           <Grid container>
             {maintenanceIssues.map(({ image, finding, equipment }, index) => {
               return (

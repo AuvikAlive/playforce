@@ -51,6 +51,12 @@ export class SettingsList extends Component {
                   </ListItem>
                 </StyledNavLink>
 
+                <StyledNavLink to={`${match.url}/operators`}>
+                  <ListItem button>
+                    <ListItemText primary="Operators" />
+                  </ListItem>
+                </StyledNavLink>
+
                 <StyledNavLink to={`${match.url}/commonIssues`}>
                   <ListItem button>
                     <ListItemText primary="Common Issues" />

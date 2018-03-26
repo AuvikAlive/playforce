@@ -8,7 +8,6 @@ import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
-import { LinearProgress } from 'material-ui/Progress'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
@@ -103,7 +102,7 @@ export class SiteList extends Component {
   render() {
     const { match, searchBarOpen, sites } = this.props
 
-    return sites !== undefined ? (
+    return (
       <StyledSiteList className="StyledSiteList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
@@ -152,8 +151,6 @@ export class SiteList extends Component {
           </Grid>
         </Grid>
       </StyledSiteList>
-    ) : (
-      <LinearProgress />
     )
   }
 }

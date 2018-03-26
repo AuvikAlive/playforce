@@ -10,7 +10,6 @@ import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import { StyledManufacturers } from './StyledManufacturers'
-import { LinearProgress } from 'material-ui'
 
 export class Manufacturers extends Component {
   state = {
@@ -109,21 +108,11 @@ export class Manufacturers extends Component {
 
     const { manufacturers, error, loading } = this.props
 
-    return manufacturers ? (
+    return (
       <StyledManufacturers className="StyledManufacturers">
         <Card className="card">
           <List component="nav" disablePadding>
-            {manufacturers.length === 0 ? (
-              <ListItem>
-                <ListItemText
-                  primary={
-                    <Typography component="span" variant="title" align="center">
-                      Try adding an item to get started!
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            ) : (
+            {!!manufacturers && manufacturers.length > 0 ? (
               manufacturers.map(({ id, name }) => {
                 return (
                   <ListItem key={id} button>
@@ -134,6 +123,16 @@ export class Manufacturers extends Component {
                   </ListItem>
                 )
               })
+            ) : (
+              <ListItem>
+                <ListItemText
+                  primary={
+                    <Typography component="span" variant="title" align="center">
+                      Try adding an item to get started!
+                    </Typography>
+                  }
+                />
+              </ListItem>
             )}
           </List>
           <CardContent>
@@ -168,8 +167,6 @@ export class Manufacturers extends Component {
           </CardContent>
         </Card>
       </StyledManufacturers>
-    ) : (
-      <LinearProgress />
     )
   }
 }

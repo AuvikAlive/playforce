@@ -7,7 +7,6 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import DateRangeIcon from 'material-ui-icons/DateRange'
 import { DatePicker } from 'material-ui-pickers'
-import { LinearProgress } from 'material-ui/Progress'
 import values from 'lodash/values'
 import { defaultManufacturers, conditions } from '../../../globals/scales'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
@@ -106,7 +105,7 @@ export class ConditionRatingForm extends Component {
     const manufacturers =
       data && data.manufacturers && values(data.manufacturers)
 
-    return manufacturers ? (
+    return (
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
@@ -139,7 +138,7 @@ export class ConditionRatingForm extends Component {
                 onChange={this.onInputChange('manufacturer')}
                 margin="normal"
               >
-                {manufacturers.length > 0
+                {!!manufacturers && manufacturers.length > 0
                   ? manufacturers.map(({ name }, index) => {
                       return (
                         <MenuItem key={index} value={name}>
@@ -201,8 +200,6 @@ export class ConditionRatingForm extends Component {
           </CardContent>
         </Card>
       </StyledConditionRatingForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }

@@ -8,7 +8,6 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import Typography from 'material-ui/Typography'
-import { LinearProgress } from 'material-ui/Progress'
 import { StyledStandardList } from './StyledStandardList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -48,24 +47,20 @@ export class StandardsList extends Component {
   render() {
     const { match, standards } = this.props
 
-    return standards ? (
+    return (
       <StyledStandardList className="StyledStandardList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={standards.length > 0 ? '' : 'pulse'}
+            className={!!standards && standards.length > 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {standards.length === 0 ? (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
-        ) : (
+        {!!standards && standards.length > 0 ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
               {standards.map(({ id, code, title, date }) => {
@@ -82,10 +77,12 @@ export class StandardsList extends Component {
               })}
             </List>
           </Paper>
+        ) : (
+          <Typography variant="title" align="center">
+            Try adding an item to get started!
+          </Typography>
         )}
       </StyledStandardList>
-    ) : (
-      <LinearProgress />
     )
   }
 }
