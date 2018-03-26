@@ -18,6 +18,7 @@ import {
 export const initialState = {
   editMode: false,
   inspectionLoaded: false,
+  draftBackup: null,
   equipments: [],
   cover: {},
   coverAdded: false,
@@ -34,10 +35,19 @@ export const initialState = {
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case EDIT_INSPECTION:
-      return { ...state, ...payload }
+      const { editMode } = payload
+
+      if (editMode) {
+        const draftBackup = state
+        delete draftBackup.draftBackup
+
+        return { draftBackup, editMode }
+      } else {
+        return { ...state.draftBackup }
+      }
 
     case LOAD_INSPECTION:
-      return { inspectionLoaded: true, ...payload }
+      return { ...state, inspectionLoaded: true, ...payload }
 
     case DISCARD_INSPECTION:
       return initialState

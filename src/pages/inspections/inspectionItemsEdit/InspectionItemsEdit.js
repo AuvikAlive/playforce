@@ -71,12 +71,6 @@ export class InspectionItemsEdit extends Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
-      // this.loadInitialData(nextProps.savedInspection)
-    }
-  }
-
   loadInitialData = inspection => {
     const { loadInspection } = this.props
 
@@ -92,13 +86,17 @@ export class InspectionItemsEdit extends Component {
       firestore,
       userId,
       toggleEditInspection,
-      discardInspection,
     } = this.props
 
     const { coverAdded } = inspection
 
     if (coverAdded) {
       setErrorLoadingState({ error: '', loading: true })
+
+      delete inspection.editMode
+      delete inspection.inspectionLoaded
+      delete inspection.draftBackup
+      delete inspection.equipments
 
       try {
         await firestore.update(
@@ -111,7 +109,6 @@ export class InspectionItemsEdit extends Component {
         )
         setErrorLoadingState({ loading: false })
         toggleEditInspection({ editMode: false })
-        discardInspection({ editMode: false })
         history.goBack()
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
@@ -130,7 +127,7 @@ export class InspectionItemsEdit extends Component {
       history,
       firestore,
       userId,
-      discardInspection,
+      toggleEditInspection,
     } = this.props
 
     await firestore.delete({
@@ -138,14 +135,14 @@ export class InspectionItemsEdit extends Component {
       doc: userId,
       subcollections: [{ collection: 'inspections', doc: inspectionId }],
     })
-    discardInspection()
+    toggleEditInspection({ editMode: false })
     history.goBack()
   }
 
   beforeBack = () => {
-    const { discardInspection, history } = this.props
+    const { toggleEditInspection, history } = this.props
 
-    discardInspection()
+    toggleEditInspection({ editMode: false })
     history.goBack()
   }
 

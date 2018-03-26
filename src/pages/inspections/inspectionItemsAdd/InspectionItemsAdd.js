@@ -60,6 +60,11 @@ export class InspectionItemsAdd extends Component {
     if (coverAdded) {
       setErrorLoadingState({ error: '', loading: true })
 
+      delete inspection.editMode
+      delete inspection.inspectionLoaded
+      delete inspection.draftBackup
+      delete inspection.equipments
+
       try {
         await firestore.add(
           {
