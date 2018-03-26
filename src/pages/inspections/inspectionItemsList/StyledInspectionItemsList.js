@@ -10,4 +10,8 @@ export const StyledInspectionItemsList = Styled(Content)`
   .custom-loading {
     justify-content: center;
   }
+
+  .button-container {
+    padding: 0 16px;
+  }
 `

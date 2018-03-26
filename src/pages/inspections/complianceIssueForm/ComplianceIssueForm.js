@@ -175,6 +175,13 @@ export class ComplianceIssueForm extends Component {
             </Button>
 
             <form noValidate>
+              <AutoComplete
+                onChange={this.onAutoCompleteChange}
+                domain={equipments}
+                label="Equipment"
+                value={equipment}
+              />
+
               <TextField
                 fullWidth
                 select
@@ -202,13 +209,6 @@ export class ComplianceIssueForm extends Component {
                 value={finding}
                 margin="normal"
                 onChange={this.onInputChange('finding')}
-              />
-
-              <AutoComplete
-                onChange={this.onAutoCompleteChange}
-                domain={equipments}
-                label="Equipment"
-                value={equipment}
               />
 
               <TextField

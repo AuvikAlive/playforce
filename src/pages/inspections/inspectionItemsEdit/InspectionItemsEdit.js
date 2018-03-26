@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
+import Button from 'material-ui/Button'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
 
 export class InspectionItemsEdit extends Component {
@@ -146,6 +147,47 @@ export class InspectionItemsEdit extends Component {
     history.goBack()
   }
 
+  generateReport = async () => {
+    const { inspection, setErrorLoadingState } = this.props
+
+    const { coverAdded } = inspection
+
+    if (coverAdded) {
+      setErrorLoadingState({ error: '', loading: true })
+
+      delete inspection.editMode
+      delete inspection.inspectionLoaded
+      delete inspection.draftBackup
+      delete inspection.equipments
+
+      const url =
+        'https://script.google.com/macros/s/AKfycbxz_rfgpR0Zfyxoi6PTsq1fKrNEOVOntD7UzFsjJthYURXkvhg5/exec'
+
+      try {
+        const response = await fetch(url, {
+          method: 'post',
+          mode: 'no-cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(inspection),
+        })
+
+        const data = response.json()
+
+        console.log(data)
+      } catch (error) {
+        setErrorLoadingState({ error: error.message, loading: false })
+      }
+    } else {
+      setErrorLoadingState({
+        error: 'Please add a cover at least to save!',
+        loading: false,
+      })
+    }
+  }
+
   render() {
     const { inspection, match, error, loading } = this.props
 
@@ -176,6 +218,17 @@ export class InspectionItemsEdit extends Component {
         error={error}
         loading={loading}
         publish={this.publish}
+        reportButton={
+          <Button
+            fullWidth
+            variant="raised"
+            color="primary"
+            className="submit-button"
+            onClick={this.generateReport}
+          >
+            Generate Report
+          </Button>
+        }
       />
     ) : (
       <LinearProgress />

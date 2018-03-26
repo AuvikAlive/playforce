@@ -73,6 +73,13 @@ export class MaintenanceIssueForm extends Component {
             </Button>
 
             <form noValidate>
+              <AutoComplete
+                onChange={this.onAutoCompleteChange}
+                domain={equipments}
+                label="Equipment"
+                value={equipment}
+              />
+
               <TextField
                 fullWidth
                 multiline
@@ -81,13 +88,6 @@ export class MaintenanceIssueForm extends Component {
                 value={finding}
                 margin="normal"
                 onChange={this.onInputChange('finding')}
-              />
-
-              <AutoComplete
-                onChange={this.onAutoCompleteChange}
-                domain={equipments}
-                label="Equipment"
-                value={equipment}
               />
 
               <TextField

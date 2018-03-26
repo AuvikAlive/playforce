@@ -13,7 +13,7 @@ import { LinearProgress } from 'material-ui/Progress'
 import values from 'lodash/values'
 import isEmpty from 'lodash/isEmpty'
 import { StyledCover } from './StyledCover'
-import { defaultClients, defaultStandards } from '../../../globals/scales'
+// import { defaultClients, defaultStandards } from '../../../globals/scales'
 import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class Cover extends Component {
@@ -91,9 +91,9 @@ export class Cover extends Component {
     removeLefNavComponent()
   }
 
-  shouldComponentUpdate({ data }) {
-    return !!(data && data.sites && data.standards && data.clients)
-  }
+  // shouldComponentUpdate({ data }) {
+  //   return !!(data && data.sites && data.standards && data.clients)
+  // }
 
   onInputChange = name => event => {
     this.setState({
@@ -139,11 +139,11 @@ export class Cover extends Component {
 
     const { image, captureImage, displayName, data, error } = this.props
 
-    const sites = data && data.sites && objectToArrayWithId(data.sites)
+    const sites = data && data.sites ? objectToArrayWithId(data.sites) : []
     const standards = data && data.standards && values(data.standards)
     const clients = data && data.clients && values(data.clients)
 
-    return sites && standards && clients ? (
+    return sites ? (
       <StyledCover className="StyledCover">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
@@ -186,21 +186,17 @@ export class Cover extends Component {
                 onChange={this.onInputChange('client')}
                 margin="normal"
               >
-                {clients.length > 0
-                  ? clients.map(({ name }, index) => {
-                      return (
-                        <MenuItem key={index} value={name}>
-                          {name}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultClients.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
+                {clients > 0 ? (
+                  clients.map(({ name }, index) => {
+                    return (
+                      <MenuItem key={index} value={name}>
+                        {name}
+                      </MenuItem>
+                    )
+                  })
+                ) : (
+                  <MenuItem value="">No client addded</MenuItem>
+                )}
               </TextField>
 
               <DatePicker
@@ -236,21 +232,17 @@ export class Cover extends Component {
                 onChange={this.onInputChange('appliedStandards')}
                 margin="normal"
               >
-                {standards.length > 0
-                  ? standards.map(({ title, code }, index) => {
-                      return (
-                        <MenuItem key={index} value={`${title} ${code}`}>
-                          {`${title} ${code}`}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultStandards.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
+                {standards > 0 ? (
+                  standards.map(({ title, code }, index) => {
+                    return (
+                      <MenuItem key={index} value={`${title} ${code}`}>
+                        {`${title} ${code}`}
+                      </MenuItem>
+                    )
+                  })
+                ) : (
+                  <MenuItem value="">No standards addded</MenuItem>
+                )}
               </TextField>
             </form>
 

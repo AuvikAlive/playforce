@@ -57,7 +57,9 @@ export class AutoComplete extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
-    const { domain } = this.props
+    let { domain } = this.props
+
+    domain = domain ? domain : []
 
     this.setState({
       suggestions: getSuggestions(value, domain),

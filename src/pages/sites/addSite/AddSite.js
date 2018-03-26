@@ -75,18 +75,7 @@ export class AddSite extends Component {
     } = this.state
     const { firestore, userId, setErrorLoadingState, history } = this.props
 
-    if (
-      name &&
-      street &&
-      suburb &&
-      state &&
-      postcode &&
-      country &&
-      latitude &&
-      longitude &&
-      division &&
-      operator
-    ) {
+    if (name && street && suburb && state && postcode && country && operator) {
       setErrorLoadingState({ error: '', loading: true })
 
       try {

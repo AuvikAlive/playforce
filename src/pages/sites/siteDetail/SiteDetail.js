@@ -154,7 +154,7 @@ export class SiteDetail extends Component {
                 <EditIcon />
               </Button>
             </StyledNavLink>
-            <Map lat={latitude} lng={longitude} />
+            {latitude && longitude && <Map lat={latitude} lng={longitude} />}
             <CardContent>
               <List>
                 <ListItem divider>
@@ -163,9 +163,11 @@ export class SiteDetail extends Component {
                 <ListItem divider>
                   <ListItemText primary="Operator" secondary={operator} />
                 </ListItem>
-                <ListItem divider>
-                  <ListItemText primary="Division" secondary={division} />
-                </ListItem>
+                {division && (
+                  <ListItem divider>
+                    <ListItemText primary="Division" secondary={division} />
+                  </ListItem>
+                )}
                 {chips && (
                   <ListItem>
                     <ListItemText

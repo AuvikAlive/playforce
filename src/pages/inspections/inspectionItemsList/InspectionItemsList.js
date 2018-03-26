@@ -17,6 +17,7 @@ export const InspectionItemsList = ({
   error,
   loading,
   publish,
+  reportButton,
 }) => {
   return (
     <StyledInspectionItemsList className="StyledInspectionItemsList">
@@ -67,7 +68,7 @@ export const InspectionItemsList = ({
             )}
 
           {!loading && (
-            <ListItem>
+            <div className="button-container">
               <Button
                 fullWidth
                 variant="raised"
@@ -77,7 +78,11 @@ export const InspectionItemsList = ({
               >
                 Publish
               </Button>
-            </ListItem>
+            </div>
+          )}
+
+          {reportButton && (
+            <div className="button-container">{reportButton}</div>
           )}
         </List>
       </Paper>
