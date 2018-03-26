@@ -9,6 +9,7 @@ import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
+import { LinearProgress } from 'material-ui/Progress'
 import values from 'lodash/values'
 import isEmpty from 'lodash/isEmpty'
 import { StyledCover } from './StyledCover'
@@ -90,6 +91,10 @@ export class Cover extends Component {
     removeLefNavComponent()
   }
 
+  shouldComponentUpdate({ data }) {
+    return !!(data && data.sites && data.standards && data.clients)
+  }
+
   onInputChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -138,7 +143,7 @@ export class Cover extends Component {
     const standards = data && data.standards ? values(data.standards) : []
     const clients = data && data.clients ? values(data.clients) : []
 
-    return (
+    return sites && standards && clients ? (
       <StyledCover className="StyledCover">
         <Card>
           {image && <CardMedia className="card-media" image={image} />}
@@ -263,6 +268,8 @@ export class Cover extends Component {
           </CardContent>
         </Card>
       </StyledCover>
+    ) : (
+      <LinearProgress />
     )
   }
 }

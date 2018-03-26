@@ -103,7 +103,7 @@ export class SiteList extends Component {
   render() {
     const { match, searchBarOpen, sites } = this.props
 
-    return sites ? (
+    return sites !== undefined ? (
       <StyledSiteList className="StyledSiteList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
