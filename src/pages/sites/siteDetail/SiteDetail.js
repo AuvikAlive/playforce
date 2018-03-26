@@ -127,6 +127,7 @@ export class SiteDetail extends Component {
         operator,
         inspections,
       } = site
+
       const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
       const chips =
         inspections &&
@@ -154,7 +155,7 @@ export class SiteDetail extends Component {
                 <EditIcon />
               </Button>
             </StyledNavLink>
-            {latitude && longitude && <Map lat={latitude} lng={longitude} />}
+            <Map lat={latitude} lng={longitude} />
             <CardContent>
               <List>
                 <ListItem divider>
