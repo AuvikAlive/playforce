@@ -110,6 +110,7 @@ export class Cover extends Component {
       history,
       setErrorLoadingState,
       image,
+      displayName,
       data: { sites },
     } = this.props
     const { location, client, inspectionDate, appliedStandards } = this.state
@@ -124,6 +125,7 @@ export class Cover extends Component {
         client,
         inspectionDate,
         appliedStandards,
+        displayName,
       })
       history.goBack()
     } else {

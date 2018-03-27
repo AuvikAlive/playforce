@@ -6,8 +6,13 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
+import { generatePdf } from '../generatePdf/generatePdf'
 
 export class InspectionItemsEdit extends Component {
+  state = {
+    src: '',
+  }
+
   componentDidMount() {
     const {
       setNavTitle,
@@ -71,6 +76,12 @@ export class InspectionItemsEdit extends Component {
       subcollections: [{ collection: 'inspections', doc: inspectionId }],
     })
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   let doc = generatePdf(nextProps.savedInspection)
+
+  //   this.setState({ src: doc.output('datauristring') })
+  // }
 
   loadInitialData = inspection => {
     const { loadInspection } = this.props
@@ -148,7 +159,7 @@ export class InspectionItemsEdit extends Component {
   }
 
   generateReport = async () => {
-    const { inspection, setErrorLoadingState } = this.props
+    const { inspection, setErrorLoadingState, displayName } = this.props
 
     const { coverAdded } = inspection
 
@@ -159,32 +170,13 @@ export class InspectionItemsEdit extends Component {
       delete inspection.inspectionLoaded
       delete inspection.draftBackup
       delete inspection.equipments
+      inspection.displayName = displayName
 
-      const url =
-        'https://script.google.com/macros/s/AKfycbxz_rfgpR0Zfyxoi6PTsq1fKrNEOVOntD7UzFsjJthYURXkvhg5/exec'
+      let doc = generatePdf(inspection)
 
-      try {
-        const response = await fetch(url, {
-          method: 'post',
-          mode: 'no-cors',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(inspection),
-        })
+      doc.save(`${inspection.cover.location.name} - inspection-report.pdf`)
 
-        const data = response.json()
-
-        console.log(data)
-      } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
-      }
-    } else {
-      setErrorLoadingState({
-        error: 'Please add a cover at least to save!',
-        loading: false,
-      })
+      setErrorLoadingState({ loading: false })
     }
   }
 
@@ -212,24 +204,35 @@ export class InspectionItemsEdit extends Component {
     }
 
     return inspection ? (
-      <InspectionItemsList
-        {...added}
-        match={match}
-        error={error}
-        loading={loading}
-        publish={this.publish}
-        reportButton={
-          <Button
-            fullWidth
-            variant="raised"
-            color="primary"
-            className="submit-button"
-            onClick={this.generateReport}
-          >
-            Generate Report
-          </Button>
-        }
-      />
+      <div>
+        <InspectionItemsList
+          {...added}
+          match={match}
+          error={error}
+          loading={loading}
+          publish={this.publish}
+          reportButton={
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="submit-button"
+              onClick={this.generateReport}
+            >
+              Generate Report
+            </Button>
+          }
+        />
+        <div>
+          <iframe
+            width="100%"
+            height={500}
+            src={this.state.src}
+            title="pdf"
+            frameBorder="0"
+          />
+        </div>
+      </div>
     ) : (
       <LinearProgress />
     )

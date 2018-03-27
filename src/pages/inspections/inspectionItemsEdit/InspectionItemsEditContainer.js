@@ -11,7 +11,11 @@ import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/wit
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = (
-  { firebase: { auth: { uid } }, firestore: { data: { users } }, inspection },
+  {
+    firebase: { auth: { uid }, profile: { displayName } },
+    firestore: { data: { users } },
+    inspection,
+  },
   { location: { state: { id } } },
 ) => ({
   userId: uid,
@@ -19,6 +23,7 @@ const mapStateToProps = (
   savedInspection:
     users && users[uid].inspections && users[uid].inspections[id],
   inspection,
+  displayName,
 })
 
 const mapDispatchToProps = {
