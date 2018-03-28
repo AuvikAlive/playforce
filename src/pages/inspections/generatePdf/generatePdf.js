@@ -5,6 +5,7 @@ import { setNumberAndDigitalAddress } from './setNumberAndDigitalAddress'
 import { setTitle } from './setTitle'
 import { setCoverImage } from './setCoverImage'
 import { setCover } from './setCover'
+import { setStandard } from './setStandard'
 
 const fontSize = 12
 const leftMargin = 76
@@ -19,7 +20,7 @@ export const generatePdf = ({ cover }) => {
   setLogo({ doc, leftMargin, topMargin })
   setAddress({ doc, topMargin, lineHeight, fontSize })
   setNumberAndDigitalAddress({ doc, topMargin, lineHeight, fontSize })
-  setTitle({ doc, leftMargin, fontSize })
+  setTitle({ doc, fontSize })
   setCoverImage({ doc, imgData: cover.image })
   setCover({
     doc,
@@ -27,6 +28,13 @@ export const generatePdf = ({ cover }) => {
     fontSize,
     lineHeight,
     cover,
+  })
+  setStandard({
+    doc,
+    leftMargin,
+    fontSize,
+    lineHeight,
+    standards: cover.appliedStandards,
   })
 
   return doc

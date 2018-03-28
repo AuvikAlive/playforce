@@ -1,5 +1,11 @@
-export const setTitle = ({ doc, leftMargin, fontSize }) => {
+import { getTextCenterOffset } from './getTextCenterOffset'
+
+export const setTitle = ({ doc, fontSize }) => {
   doc.setFontStyle('bold')
   doc.setFontSize(1.9 * fontSize)
-  doc.text(leftMargin, 140, 'COMPREHENSIVE PLAYGROUND INSPECTION REPORT')
+
+  const text = 'COMPREHENSIVE PLAYGROUND INSPECTION REPORT'
+  const left = getTextCenterOffset({ doc, text })
+
+  doc.text(left, 140, text)
 }

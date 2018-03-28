@@ -77,11 +77,11 @@ export class InspectionItemsEdit extends Component {
     })
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   let doc = generatePdf(nextProps.savedInspection)
+  componentWillReceiveProps(nextProps) {
+    let doc = generatePdf(nextProps.savedInspection)
 
-  //   this.setState({ src: doc.output('datauristring') })
-  // }
+    this.setState({ src: doc.output('datauristring') })
+  }
 
   loadInitialData = inspection => {
     const { loadInspection } = this.props
