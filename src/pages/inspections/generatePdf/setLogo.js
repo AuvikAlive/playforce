@@ -1,2 +1,2 @@
-export const setLogo = ({ doc, leftMargin, topMargin }) =>
-  doc.text(leftMargin, topMargin, 'logo')
+export const setLogo = ({ doc, marginLeftRight, topMargin }) =>
+  doc.text(marginLeftRight, topMargin, 'logo')

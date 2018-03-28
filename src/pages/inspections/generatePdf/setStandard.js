@@ -2,7 +2,7 @@ import { getTextCenterOffset } from './getTextCenterOffset'
 
 export const setStandard = ({
   doc,
-  leftMargin,
+  marginLeftRight,
   fontSize,
   lineHeight,
   standards,

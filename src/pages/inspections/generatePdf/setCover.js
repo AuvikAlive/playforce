@@ -1,6 +1,12 @@
 import { format } from 'date-fns/esm'
 
-export const setCover = ({ doc, leftMargin, fontSize, lineHeight, cover }) => {
+export const setCover = ({
+  doc,
+  marginLeftRight,
+  fontSize,
+  lineHeight,
+  cover,
+}) => {
   const valueLeftOffset = 232
   const top = 722
   const { location, client, inspectionDate, displayName } = cover
@@ -9,16 +15,16 @@ export const setCover = ({ doc, leftMargin, fontSize, lineHeight, cover }) => {
 
   doc.setFontStyle('bold')
   doc.setFontSize(fontSize)
-  doc.text(leftMargin, top, 'LOCATION')
+  doc.text(marginLeftRight, top, 'LOCATION')
   doc.setFontStyle('normal')
   doc.text(valueLeftOffset, top, name)
   doc.text(valueLeftOffset, top + lineHeight, address)
   doc.setFontStyle('bold')
-  doc.text(leftMargin, top + 3 * lineHeight, 'CLIENT')
+  doc.text(marginLeftRight, top + 3 * lineHeight, 'CLIENT')
   doc.setFontStyle('normal')
   doc.text(valueLeftOffset, top + 3 * lineHeight, client)
   doc.setFontStyle('bold')
-  doc.text(leftMargin, top + 5 * lineHeight, 'INSPECTION DATE')
+  doc.text(marginLeftRight, top + 5 * lineHeight, 'INSPECTION DATE')
   doc.setFontStyle('normal')
   doc.text(
     valueLeftOffset,

@@ -6,7 +6,7 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
-import { generatePdf } from '../generatePdf/generatePdf'
+import { generatePdf } from '../pdfMake/pdfMake'
 
 export class InspectionItemsEdit extends Component {
   state = {
@@ -77,12 +77,17 @@ export class InspectionItemsEdit extends Component {
     })
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.savedInspection) {
-  //     let doc = generatePdf(nextProps.savedInspection)
-  //     this.setState({ src: doc.output('datauristring') })
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.savedInspection) {
+      // let doc = generatePdf(nextProps.savedInspection)
+      // this.setState({ src: doc.output('datauristring') })
+
+      const pdfDocGenerator = generatePdf(nextProps.savedInspection)
+      pdfDocGenerator.getDataUrl(dataUrl => {
+        this.setState({ src: dataUrl })
+      })
+    }
+  }
 
   loadInitialData = inspection => {
     const { loadInspection } = this.props
@@ -173,14 +178,19 @@ export class InspectionItemsEdit extends Component {
       delete inspection.equipments
       inspection.displayName = displayName
 
-      let doc = generatePdf(inspection)
+      // let doc = generatePdf(inspection)
 
-      doc.save(`${inspection.cover.location.name} - inspection-report.pdf`)
+      // doc.save(`${inspection.cover.location.name} - inspection-report.pdf`)
+      const pdfDocGenerator = generatePdf(inspection)
+      pdfDocGenerator.download(
+        `${inspection.cover.location.name} - inspection-report.pdf`,
+      )
 
       setErrorLoadingState({ loading: false })
     } else {
       setErrorLoadingState({
-        error: 'Please complete the inspection to generate report',
+        error:
+          'Please add cover, audit summary & condition rating to generate report!',
         loading: false,
       })
     }

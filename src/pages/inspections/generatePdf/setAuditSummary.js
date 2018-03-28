@@ -1,35 +1,36 @@
 export const setAuditSummary = ({
   doc,
-  leftMargin,
+  marginLeftRight,
+  topMrginWithLogoOffset,
   fontSize,
   headlineSize,
   lineHeight,
   auditSummary,
   cover,
 }) => {
-  let top = 118
+  let top = topMrginWithLogoOffset
   const { summary, signature, displayName, title, company } = auditSummary
 
   doc.setFontStyle('bold')
   doc.setFontSize(headlineSize)
-  doc.text(leftMargin, top, 'AUDIT SUMMARY')
+  doc.text(marginLeftRight, top, 'AUDIT SUMMARY')
   doc.setFontStyle('normal')
   doc.setFontSize(fontSize)
   const splitSummary = doc.splitTextToSize(
     summary,
-    doc.internal.pageSize.width - 2 * leftMargin,
+    doc.internal.pageSize.width - 2 * marginLeftRight,
   )
   top = top + 2 * lineHeight
-  doc.text(leftMargin, top, splitSummary)
+  doc.text(marginLeftRight, top, splitSummary)
   const signatureHeight = 86
   top = top + lineHeight + splitSummary.length * lineHeight
-  doc.addImage(signature, 'PNG', leftMargin, top, 150, signatureHeight)
+  doc.addImage(signature, 'PNG', marginLeftRight, top, 150, signatureHeight)
   top = top + lineHeight + signatureHeight
   doc.setFontStyle('bold')
-  doc.text(leftMargin, top, displayName)
+  doc.text(marginLeftRight, top, displayName)
   doc.setFontStyle('normal')
   top = top + lineHeight
-  doc.text(leftMargin, top, title)
+  doc.text(marginLeftRight, top, title)
   top = top + lineHeight
-  doc.text(leftMargin, top, company)
+  doc.text(marginLeftRight, top, company)
 }
