@@ -77,17 +77,15 @@ export class InspectionItemsEdit extends Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.savedInspection) {
-      // let doc = generatePdf(nextProps.savedInspection)
-      // this.setState({ src: doc.output('datauristring') })
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.savedInspection) {
+  //     const pdfDocGenerator = generatePdf(nextProps.savedInspection)
 
-      const pdfDocGenerator = generatePdf(nextProps.savedInspection)
-      pdfDocGenerator.getDataUrl(dataUrl => {
-        this.setState({ src: dataUrl })
-      })
-    }
-  }
+  //     pdfDocGenerator.getDataUrl(dataUrl => {
+  //       this.setState({ src: dataUrl })
+  //     })
+  //   }
+  // }
 
   loadInitialData = inspection => {
     const { loadInspection } = this.props
@@ -178,10 +176,8 @@ export class InspectionItemsEdit extends Component {
       delete inspection.equipments
       inspection.displayName = displayName
 
-      // let doc = generatePdf(inspection)
-
-      // doc.save(`${inspection.cover.location.name} - inspection-report.pdf`)
       const pdfDocGenerator = generatePdf(inspection)
+
       pdfDocGenerator.download(
         `${inspection.cover.location.name} - inspection-report.pdf`,
       )
