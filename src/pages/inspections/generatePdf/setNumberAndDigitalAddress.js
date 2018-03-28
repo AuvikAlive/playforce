@@ -1,3 +1,5 @@
+import { getTextWidth } from './getTextWidth'
+
 export const setNumberAndDigitalAddress = ({
   doc,
   topMargin,
@@ -8,28 +10,32 @@ export const setNumberAndDigitalAddress = ({
   const top = topMargin
 
   doc.setFontStyle('bold')
-  doc.text(left, top, 'Phone:')
+  doc.text(left, top, 'Phone: ')
+  let leftOffset = getTextWidth(doc, 'Phone: ')
   doc.setFontStyle('normal')
-  doc.text(left + 4 * fontSize, top, '(07) 3803 1788')
+  doc.text(left + leftOffset, top, '(07) 3803 1788')
   doc.setFontStyle('bold')
-  doc.text(left, top + lineHeight, 'Mobile:')
+  doc.text(left, top + lineHeight, 'Mobile: ')
+  leftOffset = getTextWidth(doc, 'Mobile: ')
   doc.setFontStyle('normal')
-  doc.text(left + 4 * fontSize, top + lineHeight, '0411 796 281')
+  doc.text(left + leftOffset, top + lineHeight, '0411 796 281')
   doc.setFontStyle('bold')
-  doc.text(left, top + 2 * lineHeight, 'Email:')
+  doc.text(left, top + 2 * lineHeight, 'Email: ')
+  leftOffset = getTextWidth(doc, 'Email: ')
   doc.setFontStyle('normal')
   doc.textWithLink(
     'admin@play-force.com.au',
-    left + 3.5 * fontSize,
+    left + leftOffset,
     top + 2 * lineHeight,
     { mailto: 'admin@play-force.com.au' },
   )
   doc.setFontStyle('bold')
-  doc.text(left, top + 3 * lineHeight, 'Web:')
+  doc.text(left, top + 3 * lineHeight, 'Web: ')
+  leftOffset = getTextWidth(doc, 'Web: ')
   doc.setFontStyle('normal')
   doc.textWithLink(
     'www.play-force.com.au',
-    left + 3 * fontSize,
+    left + leftOffset,
     top + 3 * lineHeight,
     { url: 'http://www.play-force.com.au' },
   )

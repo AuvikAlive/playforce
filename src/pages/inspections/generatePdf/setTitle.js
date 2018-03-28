@@ -1,8 +1,8 @@
 import { getTextCenterOffset } from './getTextCenterOffset'
 
-export const setTitle = ({ doc, fontSize }) => {
+export const setTitle = ({ doc, headlineSize }) => {
   doc.setFontStyle('bold')
-  doc.setFontSize(1.9 * fontSize)
+  doc.setFontSize(headlineSize)
 
   const text = 'COMPREHENSIVE PLAYGROUND INSPECTION REPORT'
   const left = getTextCenterOffset({ doc, text })
