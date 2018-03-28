@@ -77,11 +77,12 @@ export class InspectionItemsEdit extends Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    let doc = generatePdf(nextProps.savedInspection)
-
-    this.setState({ src: doc.output('datauristring') })
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.savedInspection) {
+  //     let doc = generatePdf(nextProps.savedInspection)
+  //     this.setState({ src: doc.output('datauristring') })
+  //   }
+  // }
 
   loadInitialData = inspection => {
     const { loadInspection } = this.props
@@ -161,9 +162,9 @@ export class InspectionItemsEdit extends Component {
   generateReport = async () => {
     const { inspection, setErrorLoadingState, displayName } = this.props
 
-    const { coverAdded } = inspection
+    const { coverAdded, auditSummaryAdded } = inspection
 
-    if (coverAdded) {
+    if (coverAdded && auditSummaryAdded) {
       setErrorLoadingState({ error: '', loading: true })
 
       delete inspection.editMode
@@ -177,6 +178,11 @@ export class InspectionItemsEdit extends Component {
       doc.save(`${inspection.cover.location.name} - inspection-report.pdf`)
 
       setErrorLoadingState({ loading: false })
+    } else {
+      setErrorLoadingState({
+        error: 'Please complete the inspection to generate report',
+        loading: false,
+      })
     }
   }
 
@@ -223,15 +229,18 @@ export class InspectionItemsEdit extends Component {
             </Button>
           }
         />
-        <div>
-          <iframe
-            width="100%"
-            height={500}
-            src={this.state.src}
-            title="pdf"
-            frameBorder="0"
-          />
-        </div>
+        {this.state.src && (
+          <div>
+            <object
+              width="100%"
+              height={500}
+              data={this.state.src}
+              type="application/pdf"
+            >
+              pdf
+            </object>
+          </div>
+        )}
       </div>
     ) : (
       <LinearProgress />

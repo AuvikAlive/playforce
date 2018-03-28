@@ -6,6 +6,7 @@ import { setTitle } from './setTitle'
 import { setCoverImage } from './setCoverImage'
 import { setCover } from './setCover'
 import { setStandard } from './setStandard'
+import { setAuditSummary } from './setAuditSummary'
 
 const fontSize = 12
 const headlineSize = 1.9 * fontSize
@@ -13,7 +14,7 @@ const leftMargin = 76
 const topMargin = 30
 const lineHeight = 14
 
-export const generatePdf = ({ cover }) => {
+export const generatePdf = ({ cover, auditSummary }) => {
   let doc = new jsPDF('p', 'pt', [1080, 763])
 
   doc.setFontSize(fontSize)
@@ -38,6 +39,15 @@ export const generatePdf = ({ cover }) => {
     standards: cover.appliedStandards,
   })
   doc.addPage()
+  setAuditSummary({
+    doc,
+    leftMargin,
+    fontSize,
+    headlineSize,
+    lineHeight,
+    auditSummary,
+    cover,
+  })
 
   return doc
 }
