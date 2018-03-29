@@ -6,7 +6,7 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
-import { generatePdf } from '../pdfMake/pdfMake'
+import { generatePdf } from '../pdfMake/generatePdf'
 
 export class InspectionItemsEdit extends Component {
   state = {

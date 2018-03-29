@@ -35,7 +35,10 @@ export const makeConditionRatingInfo = () => {
       marginTop: verticalMargin * 2,
     },
     {
+      marginTop: verticalMargin,
+      alignment: 'center',
       table: {
+        widths: ['auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto'],
         body: [
           [
             'E',
@@ -160,10 +163,7 @@ export const makeConditionRatingInfo = () => {
           ],
           [{}, {}, '1', '2', '3', '4', '5'],
         ],
-        widths: ['auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto'],
       },
-      marginTop: verticalMargin,
-      alignment: 'center',
     },
     {
       text: 'Injury Severity',
