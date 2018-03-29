@@ -33,7 +33,7 @@ export const makeConditionRatingInfo = () => {
       text: 'RISK ASSESSMENT MATRIX',
       fontSize: subHeaderFontSize,
       bold: true,
-      marginTop: verticalMargin,
+      marginTop: verticalMargin * 2,
     },
     {
       table: {
@@ -199,7 +199,7 @@ export const makeConditionRatingInfo = () => {
       },
     },
     {
-      marginTop: verticalMargin,
+      marginTop: verticalMargin * 2,
       columns: [
         {
           text: 'Risk Ratings',
@@ -238,7 +238,7 @@ export const makeConditionRatingInfo = () => {
       layout: 'noBorders',
     },
     {
-      marginTop: verticalMargin,
+      marginTop: verticalMargin * 2,
       text: 'Condition Ratings',
       bold: true,
     },
@@ -284,6 +284,7 @@ export const makeConditionRatingInfo = () => {
     {
       text: '* Based on IPWEA asset condition assessment guidelines.',
       marginLeft: 360,
+      pageBreak: 'after',
     },
   ]
 }

@@ -81,9 +81,8 @@ export const InspectionItemsList = ({
             </div>
           )}
 
-          {reportButton && (
-            <div className="button-container">{reportButton}</div>
-          )}
+          {reportButton &&
+            !loading && <div className="button-container">{reportButton}</div>}
         </List>
       </Paper>
     </StyledInspectionItemsList>

@@ -137,6 +137,36 @@ export class InspectionItemsEdit extends Component {
     }
   }
 
+  generateReport = async () => {
+    const { inspection, setErrorLoadingState, displayName } = this.props
+
+    const { coverAdded, auditSummaryAdded, conditionRatingsAdded } = inspection
+
+    if (coverAdded && auditSummaryAdded && conditionRatingsAdded) {
+      setErrorLoadingState({ error: '', loading: true })
+
+      delete inspection.editMode
+      delete inspection.inspectionLoaded
+      delete inspection.draftBackup
+      delete inspection.equipments
+      inspection.displayName = displayName
+
+      const pdfDocGenerator = generatePdf(inspection)
+
+      pdfDocGenerator.download(
+        `${inspection.cover.location.name} - inspection-report.pdf`,
+      )
+
+      setErrorLoadingState({ loading: false })
+    } else {
+      setErrorLoadingState({
+        error:
+          'Please add a cover, audit summary & condition rating to generate report!',
+        loading: false,
+      })
+    }
+  }
+
   delete = async () => {
     const {
       inspectionId,
@@ -160,36 +190,6 @@ export class InspectionItemsEdit extends Component {
 
     toggleEditInspection({ editMode: false })
     history.goBack()
-  }
-
-  generateReport = async () => {
-    const { inspection, setErrorLoadingState, displayName } = this.props
-
-    const { coverAdded, auditSummaryAdded } = inspection
-
-    if (coverAdded && auditSummaryAdded) {
-      setErrorLoadingState({ error: '', loading: true })
-
-      delete inspection.editMode
-      delete inspection.inspectionLoaded
-      delete inspection.draftBackup
-      delete inspection.equipments
-      inspection.displayName = displayName
-
-      const pdfDocGenerator = generatePdf(inspection)
-
-      pdfDocGenerator.download(
-        `${inspection.cover.location.name} - inspection-report.pdf`,
-      )
-
-      setErrorLoadingState({ loading: false })
-    } else {
-      setErrorLoadingState({
-        error:
-          'Please add cover, audit summary & condition rating to generate report!',
-        loading: false,
-      })
-    }
   }
 
   render() {
