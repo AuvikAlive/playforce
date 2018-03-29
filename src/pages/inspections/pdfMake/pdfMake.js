@@ -6,6 +6,7 @@ import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeCondtionRatingInfo'
 import { makeIndividualConditionRatings } from './makeIndividualConditionRatings'
 import { makeComplianceIssues } from './makeComplianceIssues'
+import { makeMaintenanceIssues } from './makeMaintenanceIssues'
 
 const { vfs } = vfsFonts.pdfMake
 pdfMake.vfs = vfs
@@ -16,6 +17,8 @@ export const generatePdf = ({
   conditionRatings,
   complianceIssuesAdded,
   complianceIssues,
+  maintenanceIssuesAdded,
+  maintenanceIssues,
 }) => {
   const docDefinition = {
     content: [
@@ -24,6 +27,7 @@ export const generatePdf = ({
       makeConditionRatingInfo(),
       makeIndividualConditionRatings(conditionRatings),
       complianceIssuesAdded ? makeComplianceIssues(complianceIssues) : null,
+      maintenanceIssuesAdded ? makeMaintenanceIssues(maintenanceIssues) : null,
     ],
     pageSize: { width: pageWidth, height: pageHeight },
   }
