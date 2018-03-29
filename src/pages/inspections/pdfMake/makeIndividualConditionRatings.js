@@ -69,7 +69,7 @@ export const makeIndividualConditionRatings = conditionRatings => {
       text: 'CONDITION RATING - INDIVIDUAL ITEMS',
       fontSize: headerFontSize,
       bold: true,
-      marginBottom: verticalMargin,
+      marginBottom: verticalMargin * 2,
     },
     grid,
   ]

@@ -3,13 +3,12 @@ import {
   headerFontSize,
   subHeaderFontSize,
   fontSize,
+  blue,
+  green,
+  yellow,
+  pink,
+  purple,
 } from './globals'
-
-const blue = '#a4c2f4'
-const green = '#b6d7a8'
-const yellow = '#ffe599'
-const pink = '#ea9999'
-const purple = '#b4a7d6'
 
 export const makeConditionRatingInfo = () => {
   return [
