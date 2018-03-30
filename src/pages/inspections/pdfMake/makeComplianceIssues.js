@@ -18,7 +18,25 @@ const colorMap = {
   VH: purple,
 }
 
-export const makeComplianceIssues = complianceIssues => {
+export const makeComplianceIssues = (
+  complianceIssues,
+  complianceIssuesAdded,
+) => {
+  if (!complianceIssuesAdded) {
+    return [
+      {
+        text: 'IDENTIFIED COMPLIANCE ISSUES',
+        fontSize: headerFontSize,
+        bold: true,
+        marginBottom: verticalMargin * 3,
+      },
+      {
+        text: 'There were no identified compliance issues',
+        alignment: 'center',
+        pageBreak: 'after',
+      },
+    ]
+  }
   const complianceIssueItems = complianceIssues.map(
     (
       {

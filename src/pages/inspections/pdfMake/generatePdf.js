@@ -34,7 +34,7 @@ export const generatePdf = ({
       makeAuditSummary({ auditSummary, cover }),
       makeConditionRatingInfo(),
       makeIndividualConditionRatings(conditionRatings),
-      complianceIssuesAdded ? makeComplianceIssues(complianceIssues) : null,
+      makeComplianceIssues(complianceIssues, complianceIssuesAdded),
       maintenanceIssuesAdded ? makeMaintenanceIssues(maintenanceIssues) : null,
       makeAreasAssessed(),
       makeReportNotes(cover),
