@@ -43,7 +43,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
         return { ...state, draftBackup, editMode }
       } else {
-        return { ...state, ...state.draftBackup }
+        return {
+          ...state,
+          ...state.draftBackup,
+          editMode,
+          inspectionLoaded: false,
+        }
       }
 
     case LOAD_INSPECTION:

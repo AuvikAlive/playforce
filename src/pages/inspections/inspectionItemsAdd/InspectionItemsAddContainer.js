@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
+import { withFirestore, withFirebase } from 'react-redux-firebase'
 import { InspectionItemsAdd } from './InspectionItemsAdd'
 import { discardInspection } from '../../../store/actions/actionCreators/inspectionActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
@@ -17,5 +17,6 @@ export const InspectionItemsAddContainer = compose(
   withDeleteModal,
   withErrorLoadingSubmit,
   withFirestore,
+  withFirebase,
   connect(mapStateToProps, mapDispatchToProps),
 )(InspectionItemsAdd)

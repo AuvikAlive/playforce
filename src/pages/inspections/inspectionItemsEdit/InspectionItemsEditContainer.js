@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
+import { withFirestore, withFirebase } from 'react-redux-firebase'
 import { InspectionItemsEdit } from './InspectionItemsEdit'
 import {
   toggleEditInspection,
@@ -36,5 +36,6 @@ export const InspectionItemsEditContainer = compose(
   withDeleteModal,
   withErrorLoadingSubmit,
   withFirestore,
+  withFirebase,
   connect(mapStateToProps, mapDispatchToProps),
 )(InspectionItemsEdit)

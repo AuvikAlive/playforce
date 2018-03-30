@@ -46,7 +46,16 @@ export class EditComplianceIssue extends Component {
   }
 
   onSubmit = updatedValue => {
-    const { editComplianceIssue, complianceIssueIndex, history } = this.props
+    const {
+      editComplianceIssue,
+      complianceIssueIndex,
+      complianceIssue,
+      history,
+    } = this.props
+
+    if (complianceIssue.id) {
+      updatedValue.id = complianceIssue.id
+    }
 
     editComplianceIssue({
       issueIndex: complianceIssueIndex,

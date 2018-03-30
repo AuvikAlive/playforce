@@ -11,6 +11,7 @@ import { generatePdf } from '../pdfMake/generatePdf'
 export class InspectionItemsEdit extends Component {
   state = {
     src: '',
+    loadingInitialData: false,
   }
 
   componentDidMount() {
@@ -87,20 +88,76 @@ export class InspectionItemsEdit extends Component {
   //   }
   // }
 
-  loadInitialData = inspection => {
-    const { loadInspection } = this.props
+  loadInitialData = async inspection => {
+    this.setState({ loadingInitialData: true })
+
+    const { loadInspection, firebase, userId, inspectionId } = this.props
+    const {
+      conditionRatingsAdded,
+      maintenanceIssuesAdded,
+      complianceIssuesAdded,
+    } = inspection
+    const db = firebase.firestore()
+    const inspectionRef = db
+      .collection('users')
+      .doc(userId)
+      .collection('inspections')
+      .doc(inspectionId)
+
+    if (conditionRatingsAdded) {
+      let conditionRatings = []
+      const querySnapshot = await inspectionRef
+        .collection('conditionRatings')
+        .get()
+      querySnapshot.forEach(doc =>
+        conditionRatings.push({
+          id: doc.id,
+          ...doc.data(),
+        }),
+      )
+      inspection.conditionRatings = conditionRatings
+    }
+
+    if (maintenanceIssuesAdded) {
+      let maintenanceIssues = []
+      const querySnapshot = await inspectionRef
+        .collection('maintenanceIssues')
+        .get()
+      querySnapshot.forEach(doc =>
+        maintenanceIssues.push({
+          id: doc.id,
+          ...doc.data(),
+        }),
+      )
+      inspection.maintenanceIssues = maintenanceIssues
+    }
+
+    if (complianceIssuesAdded) {
+      let complianceIssues = []
+      const querySnapshot = await inspectionRef
+        .collection('complianceIssues')
+        .get()
+      querySnapshot.forEach(doc =>
+        complianceIssues.push({
+          id: doc.id,
+          ...doc.data(),
+        }),
+      )
+      inspection.complianceIssues = complianceIssues
+    }
 
     loadInspection(inspection)
+    this.setState({ loadingInitialData: false })
   }
 
   publish = async () => {
     const {
       inspection,
-      inspectionId,
       setErrorLoadingState,
       history,
-      firestore,
+      firebase,
       userId,
+      inspectionId,
       toggleEditInspection,
     } = this.props
 
@@ -109,20 +166,81 @@ export class InspectionItemsEdit extends Component {
     if (coverAdded) {
       setErrorLoadingState({ error: '', loading: true })
 
-      delete inspection.editMode
-      delete inspection.inspectionLoaded
-      delete inspection.draftBackup
-      delete inspection.equipments
+      const {
+        equipments,
+        cover,
+        auditSummary,
+        auditSummaryAdded,
+        conditionRatings,
+        conditionRatingsAdded,
+        complianceIssues,
+        complianceIssuesAdded,
+        maintenanceIssues,
+        maintenanceIssuesAdded,
+      } = inspection
+
+      let dataToSave = {
+        cover,
+        coverAdded,
+        auditSummaryAdded,
+        conditionRatingsAdded,
+        complianceIssuesAdded,
+        maintenanceIssuesAdded,
+      }
+
+      Object.assign(
+        dataToSave,
+        auditSummaryAdded && { auditSummary },
+        !!equipments && { equipments },
+      )
+
+      const db = firebase.firestore()
+      const batch = db.batch()
+      const inspectionRef = db
+        .collection('users')
+        .doc(userId)
+        .collection('inspections')
+        .doc(inspectionId)
+
+      batch.update(inspectionRef, dataToSave)
+
+      if (conditionRatingsAdded) {
+        const coditionRatingsRef = inspectionRef.collection('conditionRatings')
+
+        conditionRatings.forEach(item => {
+          const ref = item.id
+            ? coditionRatingsRef.doc(item.id)
+            : coditionRatingsRef.doc()
+          item.id ? batch.update(ref, item) : batch.set(ref, item)
+        })
+      }
+
+      if (maintenanceIssuesAdded) {
+        const maintenanceIssuesRef = inspectionRef.collection(
+          'maintenanceIssues',
+        )
+
+        maintenanceIssues.forEach(item => {
+          const ref = item.id
+            ? maintenanceIssuesRef.doc(item.id)
+            : maintenanceIssuesRef.doc()
+          item.id ? batch.update(ref, item) : batch.set(ref, item)
+        })
+      }
+
+      if (complianceIssuesAdded) {
+        const complianceIssuesRef = inspectionRef.collection('complianceIssues')
+
+        complianceIssues.forEach(item => {
+          const ref = item.id
+            ? complianceIssuesRef.doc(item.id)
+            : complianceIssuesRef.doc()
+          item.id ? batch.update(ref, item) : batch.set(ref, item)
+        })
+      }
 
       try {
-        await firestore.update(
-          {
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'inspections', doc: inspectionId }],
-          },
-          inspection,
-        )
+        await batch.commit()
         setErrorLoadingState({ loading: false })
         toggleEditInspection({ editMode: false })
         history.goBack()
@@ -136,6 +254,50 @@ export class InspectionItemsEdit extends Component {
       })
     }
   }
+
+  // publish = async () => {
+  //   const {
+  //     inspection,
+  //     inspectionId,
+  //     setErrorLoadingState,
+  //     history,
+  //     firestore,
+  //     userId,
+  //     toggleEditInspection,
+  //   } = this.props
+
+  //   const { coverAdded } = inspection
+
+  //   if (coverAdded) {
+  //     setErrorLoadingState({ error: '', loading: true })
+
+  //     delete inspection.editMode
+  //     delete inspection.inspectionLoaded
+  //     delete inspection.draftBackup
+  //     delete inspection.equipments
+
+  //     try {
+  //       await firestore.update(
+  //         {
+  //           collection: 'users',
+  //           doc: userId,
+  //           subcollections: [{ collection: 'inspections', doc: inspectionId }],
+  //         },
+  //         inspection,
+  //       )
+  //       setErrorLoadingState({ loading: false })
+  //       toggleEditInspection({ editMode: false })
+  //       history.goBack()
+  //     } catch (error) {
+  //       setErrorLoadingState({ error: error.message, loading: false })
+  //     }
+  //   } else {
+  //     setErrorLoadingState({
+  //       error: 'Please add a cover at least to save!',
+  //       loading: false,
+  //     })
+  //   }
+  // }
 
   generateReport = async () => {
     const { inspection, setErrorLoadingState, displayName } = this.props
@@ -194,6 +356,7 @@ export class InspectionItemsEdit extends Component {
 
   render() {
     const { inspection, match, error, loading } = this.props
+    const { loadingInitialData } = this.state
 
     let added
 
@@ -215,7 +378,7 @@ export class InspectionItemsEdit extends Component {
       }
     }
 
-    return inspection ? (
+    return inspection && !loadingInitialData ? (
       <div>
         <InspectionItemsList
           {...added}

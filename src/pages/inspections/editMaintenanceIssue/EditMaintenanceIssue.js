@@ -46,7 +46,16 @@ export class EditMaintenanceIssue extends Component {
   }
 
   onSubmit = updatedValue => {
-    const { editMaintenanceIssue, maintenanceIssueIndex, history } = this.props
+    const {
+      editMaintenanceIssue,
+      maintenanceIssueIndex,
+      maintenanceIssue,
+      history,
+    } = this.props
+
+    if (maintenanceIssue.id) {
+      updatedValue.id = maintenanceIssue.id
+    }
 
     editMaintenanceIssue({
       issueIndex: maintenanceIssueIndex,

@@ -41,7 +41,16 @@ export class EditConditionRating extends Component {
   }
 
   onSubmit = updatedValue => {
-    const { editConditionRating, conditionRatingIndex, history } = this.props
+    const {
+      editConditionRating,
+      conditionRatingIndex,
+      conditionRating,
+      history,
+    } = this.props
+
+    if (conditionRating.id) {
+      updatedValue.id = conditionRating.id
+    }
 
     editConditionRating({
       issueIndex: conditionRatingIndex,

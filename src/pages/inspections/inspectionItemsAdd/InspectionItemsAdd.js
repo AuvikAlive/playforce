@@ -50,7 +50,7 @@ export class InspectionItemsAdd extends Component {
       inspection,
       setErrorLoadingState,
       history,
-      firestore,
+      firebase,
       userId,
       discardInspection,
     } = this.props
@@ -60,20 +60,75 @@ export class InspectionItemsAdd extends Component {
     if (coverAdded) {
       setErrorLoadingState({ error: '', loading: true })
 
-      delete inspection.editMode
-      delete inspection.inspectionLoaded
-      delete inspection.draftBackup
-      delete inspection.equipments
+      const {
+        equipments,
+        cover,
+        auditSummary,
+        auditSummaryAdded,
+        conditionRatings,
+        conditionRatingsAdded,
+        complianceIssues,
+        complianceIssuesAdded,
+        maintenanceIssues,
+        maintenanceIssuesAdded,
+      } = inspection
+
+      let dataToSave = {
+        cover,
+        coverAdded,
+        auditSummaryAdded,
+        conditionRatingsAdded,
+        complianceIssuesAdded,
+        maintenanceIssuesAdded,
+      }
+
+      Object.assign(
+        dataToSave,
+        auditSummaryAdded && { auditSummary },
+        !!equipments && { equipments },
+      )
+
+      const db = firebase.firestore()
+      const batch = db.batch()
+      const inspectionRef = db
+        .collection('users')
+        .doc(userId)
+        .collection('inspections')
+        .doc()
+
+      batch.set(inspectionRef, dataToSave)
+
+      if (conditionRatingsAdded) {
+        const coditionRatingsRef = inspectionRef.collection('conditionRatings')
+
+        conditionRatings.forEach(item => {
+          const ref = coditionRatingsRef.doc()
+          batch.set(ref, item)
+        })
+      }
+
+      if (maintenanceIssuesAdded) {
+        const maintenanceIssuesRef = inspectionRef.collection(
+          'maintenanceIssues',
+        )
+
+        maintenanceIssues.forEach(item => {
+          const ref = maintenanceIssuesRef.doc()
+          batch.set(ref, item)
+        })
+      }
+
+      if (complianceIssuesAdded) {
+        const complianceIssuesRef = inspectionRef.collection('complianceIssues')
+
+        complianceIssues.forEach(item => {
+          const ref = complianceIssuesRef.doc()
+          batch.set(ref, item)
+        })
+      }
 
       try {
-        await firestore.add(
-          {
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'inspections' }],
-          },
-          inspection,
-        )
+        await batch.commit()
         setErrorLoadingState({ loading: false })
         discardInspection()
         history.goBack()
@@ -87,6 +142,49 @@ export class InspectionItemsAdd extends Component {
       })
     }
   }
+
+  // publish = async () => {
+  //   const {
+  //     inspection,
+  //     setErrorLoadingState,
+  //     history,
+  //     firestore,
+  //     userId,
+  //     discardInspection,
+  //   } = this.props
+
+  //   const { coverAdded } = inspection
+
+  //   if (coverAdded) {
+  //     setErrorLoadingState({ error: '', loading: true })
+
+  //     delete inspection.editMode
+  //     delete inspection.inspectionLoaded
+  //     delete inspection.draftBackup
+  //     delete inspection.equipments
+
+  //     try {
+  //       await firestore.add(
+  //         {
+  //           collection: 'users',
+  //           doc: userId,
+  //           subcollections: [{ collection: 'inspections' }],
+  //         },
+  //         inspection,
+  //       )
+  //       setErrorLoadingState({ loading: false })
+  //       discardInspection()
+  //       history.goBack()
+  //     } catch (error) {
+  //       setErrorLoadingState({ error: error.message, loading: false })
+  //     }
+  //   } else {
+  //     setErrorLoadingState({
+  //       error: 'Please add a cover at least to save!',
+  //       loading: false,
+  //     })
+  //   }
+  // }
 
   delete = () => {
     const { discardInspection, history } = this.props
