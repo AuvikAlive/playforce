@@ -234,9 +234,12 @@ export class Cover extends Component {
                 margin="normal"
               >
                 {!!standards && standards.length > 0 ? (
-                  standards.map(({ title, code }, index) => {
+                  standards.map(({ title, code, publishDate }, index) => {
                     return (
-                      <MenuItem key={index} value={`${title} ${code}`}>
+                      <MenuItem
+                        key={index}
+                        value={`${title} ${code} ${publishDate}`}
+                      >
                         {`${title} ${code}`}
                       </MenuItem>
                     )

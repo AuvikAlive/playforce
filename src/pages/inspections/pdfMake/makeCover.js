@@ -19,6 +19,23 @@ export const makeCover = ({
   const { name, street, suburb, state, postcode, country } = location
   const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
 
+  const standardItems = appliedStandards.map((standard, index, array) => {
+    const split = standard.split(' ')
+    const title = split[0]
+    const code = split[1]
+
+    const item = {
+      text: `${code} ${title}`,
+      alignment: 'center',
+    }
+
+    if (index + 1 === array.length) {
+      item.pageBreak = 'after'
+    }
+
+    return item
+  })
+
   return [
     {
       marginTop: -logoOffset + pageMargin,
@@ -159,13 +176,9 @@ export const makeCover = ({
           'This playground has been assessed against the requirements of the following Standards:',
         bold: true,
         alignment: 'center',
-        marginTop: 150,
+        marginTop: 150 - standardItems.length * verticalMargin,
       },
-      {
-        text: appliedStandards.join(' '),
-        alignment: 'center',
-        pageBreak: 'after',
-      },
+      standardItems,
     ],
   ]
 }

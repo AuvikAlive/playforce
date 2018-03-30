@@ -78,14 +78,14 @@ export class InspectionItemsEdit extends Component {
     })
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.inspection) {
-  //     const pdfDocGenerator = generatePdf(nextProps.inspection)
-  //     pdfDocGenerator.getDataUrl(dataUrl => {
-  //       this.setState({ src: dataUrl })
-  //     })
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.inspection) {
+      const pdfDocGenerator = generatePdf(nextProps.inspection)
+      pdfDocGenerator.getDataUrl(dataUrl => {
+        this.setState({ src: dataUrl })
+      })
+    }
+  }
 
   loadInitialData = async inspection => {
     this.setState({ loadingInitialData: true })
