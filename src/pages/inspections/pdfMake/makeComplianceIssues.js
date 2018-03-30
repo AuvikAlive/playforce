@@ -18,18 +18,21 @@ const colorMap = {
   VH: purple,
 }
 
+const title = {
+  text: 'IDENTIFIED COMPLIANCE ISSUES',
+  fontSize: headerFontSize,
+  font: 'Oswald',
+  // bold: true,
+  marginBottom: verticalMargin * 3,
+}
+
 export const makeComplianceIssues = (
   complianceIssues,
   complianceIssuesAdded,
 ) => {
   if (!complianceIssuesAdded) {
     return [
-      {
-        text: 'IDENTIFIED COMPLIANCE ISSUES',
-        fontSize: headerFontSize,
-        bold: true,
-        marginBottom: verticalMargin * 3,
-      },
+      title,
       {
         text: 'There were no identified compliance issues',
         alignment: 'center',
@@ -185,13 +188,5 @@ export const makeComplianceIssues = (
     },
   )
 
-  return [
-    {
-      text: 'IDENTIFIED COMPLIANCE ISSUES',
-      fontSize: headerFontSize,
-      bold: true,
-      marginBottom: verticalMargin * 3,
-    },
-    complianceIssueItems,
-  ]
+  return [title, complianceIssueItems]
 }

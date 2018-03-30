@@ -6,7 +6,8 @@ export const makeAuditSummary = ({ auditSummary, cover }) => {
   return [
     {
       text: 'AUDIT SUMMARY',
-      bold: true,
+      font: 'Oswald',
+      // bold: true,
       fontSize: headerFontSize,
       marginBottom: verticalMargin * 2,
     },

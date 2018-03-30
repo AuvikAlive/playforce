@@ -3,7 +3,8 @@ import { verticalMargin, headerFontSize, subHeaderFontSize } from './globals'
 export const makeAreasAssessed = () => [
   {
     text: 'AREAS ASSESSED FOR COMPLIANCE',
-    bold: true,
+    font: 'Oswald',
+    // bold: true,
     fontSize: headerFontSize,
     marginBottom: verticalMargin * 2,
   },
@@ -19,16 +20,17 @@ export const makeAreasAssessed = () => [
       },
       'While some items may be identified as non-compliant, a low level of risk may not require any action to be undertaken. Other items may be generally compliant but still require attention. Any issues have been addressed in the previous pages.',
     ],
-    marginBottom: verticalMargin * 2,
+    marginBottom: verticalMargin,
   },
   {
     text: 'SURROUNDS',
-    bold: true,
+    font: 'Oswald',
+    // bold: true,
     fontSize: subHeaderFontSize,
     marginBottom: verticalMargin / 2,
   },
   {
-    marginBottom: verticalMargin * 2,
+    marginBottom: verticalMargin,
     table: {
       widths: ['*'],
       body: [
@@ -47,12 +49,13 @@ export const makeAreasAssessed = () => [
   },
   {
     text: 'SURFACING',
-    bold: true,
+    font: 'Oswald',
+    // bold: true,
     fontSize: subHeaderFontSize,
     marginBottom: verticalMargin / 2,
   },
   {
-    marginBottom: verticalMargin * 2,
+    marginBottom: verticalMargin,
     table: {
       widths: ['*'],
       body: [
@@ -67,12 +70,13 @@ export const makeAreasAssessed = () => [
   },
   {
     text: 'EQUIPMENT (general)',
-    bold: true,
+    font: 'Oswald',
+    // bold: true,
     fontSize: subHeaderFontSize,
     marginBottom: verticalMargin / 2,
   },
   {
-    marginBottom: verticalMargin * 2,
+    marginBottom: verticalMargin,
     table: {
       widths: ['*'],
       body: [
@@ -93,12 +97,13 @@ export const makeAreasAssessed = () => [
   },
   {
     text: 'PROTECTION AGAINST FALLING',
-    bold: true,
+    font: 'Oswald',
+    // bold: true,
     fontSize: subHeaderFontSize,
     marginBottom: verticalMargin / 2,
   },
   {
-    marginBottom: verticalMargin * 2,
+    marginBottom: verticalMargin,
     table: {
       widths: ['*'],
       body: [
@@ -115,12 +120,13 @@ export const makeAreasAssessed = () => [
   },
   {
     text: 'PROTECTION AGAINST ENTRAPMENT',
-    bold: true,
+    font: 'Oswald',
+    // bold: true,
     fontSize: subHeaderFontSize,
     marginBottom: verticalMargin / 2,
   },
   {
-    marginBottom: verticalMargin * 2,
+    marginBottom: verticalMargin,
     table: {
       widths: ['*'],
       body: [
@@ -134,7 +140,8 @@ export const makeAreasAssessed = () => [
   },
   {
     text: 'MOVING PARTS',
-    bold: true,
+    font: 'Oswald',
+    // bold: true,
     fontSize: subHeaderFontSize,
     marginBottom: verticalMargin / 2,
   },

@@ -64,8 +64,9 @@ export const makeMaintenanceIssues = maintenanceIssues => {
   return [
     {
       text: 'IDENTIFIED MAINTENANCE ISSUES',
+      font: 'Oswald',
       fontSize: headerFontSize,
-      bold: true,
+      // bold: true,
       marginBottom: verticalMargin * 3,
     },
     grid,

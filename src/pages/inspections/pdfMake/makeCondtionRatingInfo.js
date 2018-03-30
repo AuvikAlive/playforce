@@ -14,8 +14,9 @@ export const makeConditionRatingInfo = () => {
   return [
     {
       text: 'CONDITION RATING & RISK ASSESSMENT',
+      font: 'Oswald',
       fontSize: headerFontSize,
-      bold: true,
+      // bold: true,
     },
     {
       text:
@@ -31,8 +32,9 @@ export const makeConditionRatingInfo = () => {
     {
       text: 'RISK ASSESSMENT MATRIX',
       fontSize: subHeaderFontSize,
-      bold: true,
-      marginTop: verticalMargin * 2,
+      font: 'Oswald',
+      // bold: true,
+      marginTop: verticalMargin,
     },
     {
       marginTop: verticalMargin,

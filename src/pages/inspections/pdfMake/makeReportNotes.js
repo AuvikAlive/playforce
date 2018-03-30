@@ -14,7 +14,8 @@ export const makeReportNotes = ({ appliedStandards }) => {
   return [
     {
       text: 'REPORT NOTES',
-      bold: true,
+      font: 'Oswald',
+      // bold: true,
       fontSize: headerFontSize,
       marginBottom: verticalMargin * 2,
     },

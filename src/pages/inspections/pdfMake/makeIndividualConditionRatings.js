@@ -66,8 +66,9 @@ export const makeIndividualConditionRatings = conditionRatings => {
   return [
     {
       text: 'CONDITION RATING - INDIVIDUAL ITEMS',
+      font: 'Oswald',
       fontSize: headerFontSize,
-      bold: true,
+      // bold: true,
       marginBottom: verticalMargin * 2,
     },
     grid,
