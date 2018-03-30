@@ -1,11 +1,12 @@
 import { format } from 'date-fns/esm'
-
 import {
   verticalMargin,
+  logoOffset,
   headerFontSize,
   pageMargin,
   pageWidth,
 } from './globals'
+import { logo } from './logo'
 
 export const makeCover = ({
   image,
@@ -20,84 +21,93 @@ export const makeCover = ({
 
   return [
     {
+      marginTop: -logoOffset + pageMargin,
+      columnGap: 120,
       columns: [
+        logo,
         {
-          text: 'logo',
+          columnGap: 0,
+          columns: [
+            [
+              [
+                {
+                  text: 'POSTAL ADDRESS',
+                  bold: true,
+                },
+                {
+                  text: '34-36 Calcium Court',
+                },
+                {
+                  text: 'Crestmead QLD 4132',
+                },
+                {
+                  text: [
+                    {
+                      text: 'ABN: ',
+                      bold: true,
+                    },
+                    {
+                      text: '69 106 457 176',
+                    },
+                  ],
+                },
+              ],
+            ],
+            [
+              [
+                {
+                  text: [
+                    {
+                      text: 'Phone: ',
+                      bold: true,
+                    },
+                    {
+                      text: '(07) 3803 1788',
+                    },
+                  ],
+                },
+                {
+                  text: [
+                    {
+                      text: 'Mobile: ',
+                      bold: true,
+                    },
+                    {
+                      text: '0411 796 281',
+                    },
+                  ],
+                },
+                {
+                  text: [
+                    {
+                      text: 'Email: ',
+                      bold: true,
+                    },
+                    {
+                      text: 'admin@play-force.com.au',
+                    },
+                  ],
+                },
+                {
+                  text: [
+                    {
+                      text: 'Web: ',
+                      bold: true,
+                    },
+                    {
+                      text: 'www.play-force.com.au',
+                    },
+                  ],
+                },
+              ],
+            ],
+          ],
         },
-        [
-          {
-            text: 'POSTAL ADDRESS',
-            bold: true,
-          },
-          {
-            text: '34-36 Calcium Court',
-          },
-          {
-            text: 'Crestmead QLD 4132',
-          },
-          {
-            text: [
-              {
-                text: 'ABN: ',
-                bold: true,
-              },
-              {
-                text: '69 106 457 176',
-              },
-            ],
-          },
-        ],
-        [
-          {
-            text: [
-              {
-                text: 'Phone: ',
-                bold: true,
-              },
-              {
-                text: '(07) 3803 1788',
-              },
-            ],
-          },
-          {
-            text: [
-              {
-                text: 'Mobile: ',
-                bold: true,
-              },
-              {
-                text: '0411 796 281',
-              },
-            ],
-          },
-          {
-            text: [
-              {
-                text: 'Email: ',
-                bold: true,
-              },
-              {
-                text: 'admin@play-force.com.au',
-              },
-            ],
-          },
-          {
-            text: [
-              {
-                text: 'Web: ',
-                bold: true,
-              },
-              {
-                text: 'www.play-force.com.au',
-              },
-            ],
-          },
-        ],
       ],
     },
     {
       text: 'COMPREHENSIVE PLAYGROUND INSPECTION REPORT',
-      fontSize: headerFontSize,
+      fontSize: headerFontSize * 1.5,
       bold: true,
       marginTop: verticalMargin * 4,
       marginBottom: verticalMargin * 4,
@@ -149,7 +159,7 @@ export const makeCover = ({
           'This playground has been assessed against the requirements of the following Standards:',
         bold: true,
         alignment: 'center',
-        marginTop: 192,
+        marginTop: 150,
       },
       {
         text: appliedStandards.join(' '),

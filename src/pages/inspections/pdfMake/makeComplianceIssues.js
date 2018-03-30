@@ -35,7 +35,7 @@ export const makeComplianceIssues = complianceIssues => {
       array,
     ) => {
       const item = {
-        marginBottom: verticalMargin * 3,
+        marginBottom: verticalMargin * 6,
         // columnGap: 20,
         layout: 'lightHorizontalLines',
         table: {
@@ -117,7 +117,7 @@ export const makeComplianceIssues = complianceIssues => {
                         fillColor:
                           colorMap[
                             riskLevels[probability - 1][severity - 1]
-                              .substring(0, 1)
+                              .substring(0, 2)
                               .trim()
                           ],
                       },
@@ -156,6 +156,10 @@ export const makeComplianceIssues = complianceIssues => {
       }
 
       if (index + 1 === array.length) {
+        item.pageBreak = 'after'
+      }
+
+      if (index + 1 !== array.length && index !== 0 && (index + 1) % 3 === 0) {
         item.pageBreak = 'after'
       }
 

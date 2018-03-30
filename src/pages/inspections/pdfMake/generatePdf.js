@@ -1,6 +1,7 @@
 import vfsFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake.js'
-import { pageWidth, pageHeight } from './globals'
+import { pageWidth, pageHeight, pageMargin, logoOffset } from './globals'
+import { logo } from './logo'
 import { makeCover } from './makeCover'
 import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeCondtionRatingInfo'
@@ -23,6 +24,8 @@ export const generatePdf = ({
   maintenanceIssues,
 }) => {
   const docDefinition = {
+    pageMargins: [pageMargin, logoOffset, pageMargin, pageMargin],
+    header: currentPage => (currentPage !== 1 ? logo : null),
     content: [
       makeCover(cover),
       makeAuditSummary({ auditSummary, cover }),

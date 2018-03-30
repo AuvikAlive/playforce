@@ -198,7 +198,7 @@ export const makeConditionRatingInfo = () => {
       },
     },
     {
-      marginTop: verticalMargin * 2,
+      marginTop: verticalMargin,
       columns: [
         {
           text: 'Risk Ratings',
@@ -237,7 +237,7 @@ export const makeConditionRatingInfo = () => {
       layout: 'noBorders',
     },
     {
-      marginTop: verticalMargin * 2,
+      marginTop: verticalMargin,
       text: 'Condition Ratings',
       bold: true,
     },

@@ -4,7 +4,6 @@ import {
   pageMargin,
   pageWidth,
 } from './globals'
-
 import chunk from 'lodash/chunk'
 
 export const makeIndividualConditionRatings = conditionRatings => {
