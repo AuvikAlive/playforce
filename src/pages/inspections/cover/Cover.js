@@ -141,7 +141,8 @@ export class Cover extends Component {
     const { image, captureImage, displayName, data, error } = this.props
 
     const sites = data && data.sites ? objectToArrayWithId(data.sites) : []
-    const standards = data && data.standards && values(data.standards)
+    const standards =
+      data && data.standards && objectToArrayWithId(data.standards)
     const clients = data && data.clients && values(data.clients)
 
     return (
@@ -234,12 +235,9 @@ export class Cover extends Component {
                 margin="normal"
               >
                 {!!standards && standards.length > 0 ? (
-                  standards.map(({ title, code, publishDate }, index) => {
+                  standards.map(({ title, code, publishDate, id }, index) => {
                     return (
-                      <MenuItem
-                        key={index}
-                        value={`${title} ${code} ${publishDate}`}
-                      >
+                      <MenuItem key={index} value={id}>
                         {`${title} ${code}`}
                       </MenuItem>
                     )

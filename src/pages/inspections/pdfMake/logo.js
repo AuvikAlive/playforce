@@ -1,6 +1,6 @@
 import { pageMargin } from './globals'
 
-const image = `data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAYAAAABUCAYAAACLH+AyAAAABHNCSVQICAgIfAhkiAAAAF96VFh0
+export const logo = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYAAAABUCAYAAACLH+AyAAAABHNCSVQICAgIfAhkiAAAAF96VFh0
 UmF3IHByb2ZpbGUgdHlwZSBBUFAxAAAImeNKT81LLcpMVigoyk/LzEnlUgADYxMuE0sTS6NEAwMD
 CwMIMDQwMDYEkkZAtjlUKNEABZiYm6UBoblZspkpiM8FAE+6FWgbLdiMAAAgAElEQVR4nOx9eXxc
 Vdn/93vunUmaNE33NMlMpkALhQrK8qK+AgKiLILK1hcXBFFBESqgLIqaRpBFlCr4E4qvIPi6tUhl
@@ -387,9 +387,9 @@ AEBjA2iggQYaOCaINoBUNveUQC4hccAzpd3t6ho9lhTOtWxi/Z8T8LuzjMUzxPiTePyuf5uLCvt/
 AWsBMO4V1a6kAAAAAElFTkSuQmCC
 `
 
-export const logo = {
-  image,
-  width: 208,
-  marginTop: pageMargin,
-  marginLeft: pageMargin,
-}
+// export const logo = {
+//   image,
+//   width: 208,
+//   marginTop: pageMargin,
+//   marginLeft: pageMargin,
+// }

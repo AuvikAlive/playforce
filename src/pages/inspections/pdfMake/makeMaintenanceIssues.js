@@ -7,7 +7,14 @@ import {
 
 import chunk from 'lodash/chunk'
 
-export const makeMaintenanceIssues = maintenanceIssues => {
+export const makeMaintenanceIssues = (
+  maintenanceIssues,
+  maintenanceIssuesAdded,
+) => {
+  if (!maintenanceIssuesAdded) {
+    return {}
+  }
+
   const maintenanceIssueItems = maintenanceIssues.map(
     ({ image, finding, equipment }, index) => [
       {

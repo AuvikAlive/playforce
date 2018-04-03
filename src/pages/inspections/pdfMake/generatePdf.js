@@ -1,5 +1,5 @@
-import vfsFonts from 'pdfmake/build/vfs_fonts'
-import pdfMake from 'pdfmake/build/pdfmake.js'
+// import vfsFonts from 'pdfmake/build/vfs_fonts'
+// import pdfMake from 'pdfmake/build/pdfmake.js'
 import { pageWidth, pageHeight, pageMargin, logoOffset } from './globals'
 import { logo } from './logo'
 import { makeFooter } from './makeFooter'
@@ -12,25 +12,7 @@ import { makeMaintenanceIssues } from './makeMaintenanceIssues'
 import { makeAreasAssessed } from './makeAreasAssessed'
 import { makeReportNotes } from './makeReportNotes'
 
-const { vfs } = vfsFonts.pdfMake
-pdfMake.vfs = vfs
-
-pdfMake.fonts = {
-  Roboto: {
-    normal: 'Roboto-Regular.ttf',
-    bold: 'Roboto-Medium.ttf',
-    italics: 'Roboto-Italic.ttf',
-    bolditalics: 'Roboto-MediumItalic.ttf',
-  },
-  Oswald: {
-    normal: 'Oswald-Regular.ttf',
-    bold: 'Oswald-Bold.ttf',
-    italics: 'Oswald-Regular.ttf',
-    bolditalics: 'Oswald-Bold.ttf',
-  },
-}
-
-export const generatePdf = ({
+export const generatePdf = async ({
   cover,
   auditSummary,
   conditionRatings,
@@ -39,9 +21,38 @@ export const generatePdf = ({
   maintenanceIssuesAdded,
   maintenanceIssues,
 }) => {
+  const vfsFonts = await import('pdfmake/build/vfs_fonts')
+  const pdfMake = await import('pdfmake/build/pdfmake.min')
+
+  const { vfs } = vfsFonts.pdfMake
+  pdfMake.vfs = vfs
+
+  pdfMake.fonts = {
+    Roboto: {
+      normal: 'Roboto-Regular.ttf',
+      bold: 'Roboto-Medium.ttf',
+      italics: 'Roboto-Italic.ttf',
+      bolditalics: 'Roboto-MediumItalic.ttf',
+    },
+    Oswald: {
+      normal: 'Oswald-Regular.ttf',
+      bold: 'Oswald-Bold.ttf',
+      italics: 'Oswald-Regular.ttf',
+      bolditalics: 'Oswald-Bold.ttf',
+    },
+  }
+
   const docDefinition = {
     pageMargins: [pageMargin, logoOffset, pageMargin, pageMargin],
-    header: currentPage => (currentPage !== 1 ? logo : null),
+    header: currentPage =>
+      currentPage !== 1
+        ? {
+            image: logo,
+            width: 208,
+            marginTop: pageMargin,
+            marginLeft: pageMargin,
+          }
+        : null,
     footer: (currentPage, pageCount) =>
       currentPage !== 1 ? makeFooter(currentPage, pageCount) : null,
     content: [
@@ -50,11 +61,14 @@ export const generatePdf = ({
       makeConditionRatingInfo(),
       makeIndividualConditionRatings(conditionRatings),
       makeComplianceIssues(complianceIssues, complianceIssuesAdded),
-      maintenanceIssuesAdded ? makeMaintenanceIssues(maintenanceIssues) : null,
+      makeMaintenanceIssues(maintenanceIssues, maintenanceIssuesAdded),
       makeAreasAssessed(),
       makeReportNotes(cover),
     ],
     pageSize: { width: pageWidth, height: pageHeight },
+    images: {
+      logo,
+    },
   }
 
   return pdfMake.createPdf(docDefinition)

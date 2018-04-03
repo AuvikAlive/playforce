@@ -34,8 +34,8 @@ export const makeComplianceIssues = (
     return [
       title,
       {
-        text: 'There were no identified compliance issues',
-        alignment: 'center',
+        text: 'No compliance issues identified',
+        // alignment: 'center',
         pageBreak: 'after',
       },
     ]

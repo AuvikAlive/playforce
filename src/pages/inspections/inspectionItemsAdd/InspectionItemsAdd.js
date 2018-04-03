@@ -143,49 +143,6 @@ export class InspectionItemsAdd extends Component {
     }
   }
 
-  // publish = async () => {
-  //   const {
-  //     inspection,
-  //     setErrorLoadingState,
-  //     history,
-  //     firestore,
-  //     userId,
-  //     discardInspection,
-  //   } = this.props
-
-  //   const { coverAdded } = inspection
-
-  //   if (coverAdded) {
-  //     setErrorLoadingState({ error: '', loading: true })
-
-  //     delete inspection.editMode
-  //     delete inspection.inspectionLoaded
-  //     delete inspection.draftBackup
-  //     delete inspection.equipments
-
-  //     try {
-  //       await firestore.add(
-  //         {
-  //           collection: 'users',
-  //           doc: userId,
-  //           subcollections: [{ collection: 'inspections' }],
-  //         },
-  //         inspection,
-  //       )
-  //       setErrorLoadingState({ loading: false })
-  //       discardInspection()
-  //       history.goBack()
-  //     } catch (error) {
-  //       setErrorLoadingState({ error: error.message, loading: false })
-  //     }
-  //   } else {
-  //     setErrorLoadingState({
-  //       error: 'Please add a cover at least to save!',
-  //       loading: false,
-  //     })
-  //   }
-  // }
-
   delete = () => {
     const { discardInspection, history } = this.props
 

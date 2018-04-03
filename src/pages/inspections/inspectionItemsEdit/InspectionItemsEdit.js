@@ -5,13 +5,15 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
+import { flatten, map, filter } from 'lodash'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
+import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 import { generatePdf } from '../pdfMake/generatePdf'
 
 export class InspectionItemsEdit extends Component {
   state = {
     src: '',
-    loadingInitialData: false,
+    loadingInitialData: true,
   }
 
   componentDidMount() {
@@ -20,24 +22,12 @@ export class InspectionItemsEdit extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const {
-      openModal,
-      firestore,
-      userId,
-      inspection,
-      savedInspection,
-      inspectionId,
-    } = this.props
+    const { openModal, inspection } = this.props
 
-    !inspection.inspectionLoaded &&
-      savedInspection &&
-      this.loadInitialData(savedInspection)
+    !inspection.inspectionLoaded && this.loadInitialData()
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'inspections', doc: inspectionId }],
-    })
+    inspection.inspectionLoaded && this.setState({ loadingInitialData: false })
+    // inspection.inspectionLoaded && this.renderPdf(inspection)
 
     setNavTitle('Edit Inspection')
 
@@ -65,43 +55,28 @@ export class InspectionItemsEdit extends Component {
       removeRightNavComponent,
     } = this.context
 
-    const { firestore, userId, inspectionId } = this.props
-
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'inspections', doc: inspectionId }],
-    })
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.inspection) {
-      const pdfDocGenerator = generatePdf(nextProps.inspection)
-      pdfDocGenerator.getDataUrl(dataUrl => {
-        this.setState({ src: dataUrl })
-      })
-    }
-  }
-
-  loadInitialData = async inspection => {
-    this.setState({ loadingInitialData: true })
-
+  loadInitialData = async () => {
     const { loadInspection, firebase, userId, inspectionId } = this.props
-    const {
-      conditionRatingsAdded,
-      maintenanceIssuesAdded,
-      complianceIssuesAdded,
-    } = inspection
     const db = firebase.firestore()
     const inspectionRef = db
       .collection('users')
       .doc(userId)
       .collection('inspections')
       .doc(inspectionId)
+
+    const inspectionDoc = await inspectionRef.get()
+    const inspection = inspectionDoc.data()
+
+    const {
+      conditionRatingsAdded,
+      maintenanceIssuesAdded,
+      complianceIssuesAdded,
+    } = inspection
 
     if (conditionRatingsAdded) {
       let conditionRatings = []
@@ -146,6 +121,7 @@ export class InspectionItemsEdit extends Component {
     }
 
     loadInspection(inspection)
+    // this.renderPdf(inspection)
     this.setState({ loadingInitialData: false })
   }
 
@@ -172,10 +148,13 @@ export class InspectionItemsEdit extends Component {
         auditSummaryAdded,
         conditionRatings,
         conditionRatingsAdded,
+        deletedConditionRatings,
         complianceIssues,
         complianceIssuesAdded,
+        deletedComplianceIssues,
         maintenanceIssues,
         maintenanceIssuesAdded,
+        deletedMaintenanceIssues,
       } = inspection
 
       let dataToSave = {
@@ -203,6 +182,15 @@ export class InspectionItemsEdit extends Component {
 
       batch.update(inspectionRef, dataToSave)
 
+      if (!!deletedConditionRatings) {
+        const coditionRatingsRef = inspectionRef.collection('conditionRatings')
+
+        deletedConditionRatings.forEach(item => {
+          const ref = coditionRatingsRef.doc(item.id)
+          batch.delete(ref)
+        })
+      }
+
       if (conditionRatingsAdded) {
         const coditionRatingsRef = inspectionRef.collection('conditionRatings')
 
@@ -211,6 +199,37 @@ export class InspectionItemsEdit extends Component {
             ? coditionRatingsRef.doc(item.id)
             : coditionRatingsRef.doc()
           item.id ? batch.update(ref, item) : batch.set(ref, item)
+        })
+      }
+
+      if (!!deletedComplianceIssues) {
+        const complianceIssuesRef = inspectionRef.collection('complianceIssues')
+
+        deletedComplianceIssues.forEach(item => {
+          const ref = complianceIssuesRef.doc(item.id)
+          batch.delete(ref)
+        })
+      }
+
+      if (complianceIssuesAdded) {
+        const complianceIssuesRef = inspectionRef.collection('complianceIssues')
+
+        complianceIssues.forEach(item => {
+          const ref = item.id
+            ? complianceIssuesRef.doc(item.id)
+            : complianceIssuesRef.doc()
+          item.id ? batch.update(ref, item) : batch.set(ref, item)
+        })
+      }
+
+      if (!!deletedMaintenanceIssues) {
+        const maintenanceIssuesRef = inspectionRef.collection(
+          'maintenanceIssues',
+        )
+
+        deletedMaintenanceIssues.forEach(item => {
+          const ref = maintenanceIssuesRef.doc(item.id)
+          batch.delete(ref)
         })
       }
 
@@ -223,17 +242,6 @@ export class InspectionItemsEdit extends Component {
           const ref = item.id
             ? maintenanceIssuesRef.doc(item.id)
             : maintenanceIssuesRef.doc()
-          item.id ? batch.update(ref, item) : batch.set(ref, item)
-        })
-      }
-
-      if (complianceIssuesAdded) {
-        const complianceIssuesRef = inspectionRef.collection('complianceIssues')
-
-        complianceIssues.forEach(item => {
-          const ref = item.id
-            ? complianceIssuesRef.doc(item.id)
-            : complianceIssuesRef.doc()
           item.id ? batch.update(ref, item) : batch.set(ref, item)
         })
       }
@@ -254,52 +262,14 @@ export class InspectionItemsEdit extends Component {
     }
   }
 
-  // publish = async () => {
-  //   const {
-  //     inspection,
-  //     inspectionId,
-  //     setErrorLoadingState,
-  //     history,
-  //     firestore,
-  //     userId,
-  //     toggleEditInspection,
-  //   } = this.props
-
-  //   const { coverAdded } = inspection
-
-  //   if (coverAdded) {
-  //     setErrorLoadingState({ error: '', loading: true })
-
-  //     delete inspection.editMode
-  //     delete inspection.inspectionLoaded
-  //     delete inspection.draftBackup
-  //     delete inspection.equipments
-
-  //     try {
-  //       await firestore.update(
-  //         {
-  //           collection: 'users',
-  //           doc: userId,
-  //           subcollections: [{ collection: 'inspections', doc: inspectionId }],
-  //         },
-  //         inspection,
-  //       )
-  //       setErrorLoadingState({ loading: false })
-  //       toggleEditInspection({ editMode: false })
-  //       history.goBack()
-  //     } catch (error) {
-  //       setErrorLoadingState({ error: error.message, loading: false })
-  //     }
-  //   } else {
-  //     setErrorLoadingState({
-  //       error: 'Please add a cover at least to save!',
-  //       loading: false,
-  //     })
-  //   }
-  // }
-
   generateReport = async () => {
-    const { inspection, setErrorLoadingState, displayName } = this.props
+    const {
+      inspection,
+      setErrorLoadingState,
+      displayName,
+      firebase,
+      userId,
+    } = this.props
 
     const { coverAdded, auditSummaryAdded, conditionRatingsAdded } = inspection
 
@@ -312,7 +282,31 @@ export class InspectionItemsEdit extends Component {
       delete inspection.equipments
       inspection.displayName = displayName
 
-      const pdfDocGenerator = generatePdf(inspection)
+      let standards = []
+
+      const db = firebase.firestore()
+      const standardsRef = db
+        .collection('users')
+        .doc(userId)
+        .collection('standards')
+
+      const querySnapshot = await standardsRef.get()
+      querySnapshot.forEach(doc =>
+        standards.push({
+          id: doc.id,
+          ...doc.data(),
+        }),
+      )
+
+      const standardsArray = objectToArrayWithId(standards)
+
+      inspection.cover.appliedStandards = flatten(
+        map(inspection.cover.appliedStandards, standardId => {
+          return filter(standardsArray, item => item.id === standardId)
+        }),
+      )
+
+      const pdfDocGenerator = await generatePdf(inspection)
 
       pdfDocGenerator.download(
         `${inspection.cover.location.name} - inspection-report.pdf`,
@@ -326,6 +320,13 @@ export class InspectionItemsEdit extends Component {
         loading: false,
       })
     }
+  }
+
+  renderPdf = async inspection => {
+    const pdfDocGenerator = await generatePdf(inspection)
+    pdfDocGenerator.getDataUrl(dataUrl => {
+      this.setState({ src: dataUrl })
+    })
   }
 
   delete = async () => {

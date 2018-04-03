@@ -26,10 +26,13 @@ export const initialState = {
   auditSummaryAdded: false,
   conditionRatings: [],
   conditionRatingsAdded: false,
+  deletedConditionRatings: [],
   complianceIssues: [],
   complianceIssuesAdded: false,
+  deletedComplianceIssues: [],
   maintenanceIssues: [],
   maintenanceIssuesAdded: false,
+  deletedMaintenanceIssues: [],
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
@@ -41,10 +44,10 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         const draftBackup = state
         delete draftBackup.draftBackup
 
-        return { ...state, draftBackup, editMode }
+        return { ...state, editMode, draftBackup }
       } else {
         return {
-          ...state,
+          ...initialState,
           ...state.draftBackup,
           editMode,
           inspectionLoaded: false,
@@ -52,7 +55,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       }
 
     case LOAD_INSPECTION:
-      return { ...state, inspectionLoaded: true, ...payload }
+      return { ...initialState, ...payload, inspectionLoaded: true }
 
     case DISCARD_INSPECTION:
       return initialState
@@ -109,8 +112,14 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         (conditionRating, index) => index !== Number(payload),
       )
 
+      const deletedConditionRating = conditionRatings[Number(payload)]
+
       return {
         ...state,
+        deletedConditionRatings: [
+          ...state.deletedConditionRatings,
+          deletedConditionRating,
+        ],
         conditionRatings: [...updatedConditionRatings],
         conditionRatingsAdded: conditionRatings.length > 1,
       }
@@ -149,8 +158,14 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         (complianceIssue, index) => index !== Number(payload),
       )
 
+      const deletedComplianceIssue = complianceIssues[Number(payload)]
+
       return {
         ...state,
+        deletedComplianceIssues: [
+          ...state.deletedComplianceIssues,
+          deletedComplianceIssue,
+        ],
         complianceIssues: [...updatedComplianceIssues],
         complianceIssuesAdded: complianceIssues.length > 1,
       }
@@ -176,6 +191,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           return maintenanceIssue
         },
       )
+
       return {
         ...state,
         maintenanceIssues: [...updatedMaintenanceIssues],
@@ -189,8 +205,14 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         (maintenanceIssue, index) => index !== Number(payload),
       )
 
+      const deletedMaintenanceIssue = maintenanceIssues[Number(payload)]
+
       return {
         ...state,
+        deletedMaintenanceIssues: [
+          ...state.deletedMaintenanceIssues,
+          deletedMaintenanceIssue,
+        ],
         maintenanceIssues: [...updatedMaintenanceIssues],
         maintenanceIssuesAdded: maintenanceIssues.length > 1,
       }

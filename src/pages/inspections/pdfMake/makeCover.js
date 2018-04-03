@@ -19,59 +19,39 @@ export const makeCover = ({
   const { name, street, suburb, state, postcode, country } = location
   const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
 
-  const standardItems = appliedStandards.map((standard, index, array) => {
-    const split = standard.split(' ')
-    const title = split[0]
-    const code = split[1]
+  const standardItems = appliedStandards.map(
+    ({ code, title }, index, array) => {
+      const item = {
+        text: `${code}: ${title}`,
+        alignment: 'center',
+      }
 
-    const item = {
-      text: `${code} ${title}`,
-      alignment: 'center',
-    }
+      if (index + 1 === array.length) {
+        item.pageBreak = 'after'
+      }
 
-    if (index + 1 === array.length) {
-      item.pageBreak = 'after'
-    }
-
-    return item
-  })
+      return item
+    },
+  )
 
   return [
     {
       marginTop: -logoOffset + pageMargin,
-      columnGap: 120,
+      // columnGap: 200,
       columns: [
-        logo,
         {
-          columnGap: 0,
-          columns: [
-            [
+          image: logo,
+          width: 208,
+          // marginTop: pageMargin,
+          marginLeft: pageMargin,
+        },
+        {
+          layout: 'noBorders',
+          marginLeft: 150,
+          table: {
+            body: [
               [
-                {
-                  text: 'POSTAL ADDRESS',
-                  bold: true,
-                },
-                {
-                  text: '34-36 Calcium Court',
-                },
-                {
-                  text: 'Crestmead QLD 4132',
-                },
-                {
-                  text: [
-                    {
-                      text: 'ABN: ',
-                      bold: true,
-                    },
-                    {
-                      text: '69 106 457 176',
-                    },
-                  ],
-                },
-              ],
-            ],
-            [
-              [
+                { text: 'POSTAL ADDRESS', bold: true },
                 {
                   text: [
                     {
@@ -83,6 +63,9 @@ export const makeCover = ({
                     },
                   ],
                 },
+              ],
+              [
+                '34-36 Calcium Court',
                 {
                   text: [
                     {
@@ -94,6 +77,9 @@ export const makeCover = ({
                     },
                   ],
                 },
+              ],
+              [
+                'Crestmead QLD 4132',
                 {
                   text: [
                     {
@@ -102,6 +88,19 @@ export const makeCover = ({
                     },
                     {
                       text: 'admin@play-force.com.au',
+                    },
+                  ],
+                },
+              ],
+              [
+                {
+                  text: [
+                    {
+                      text: 'ABN: ',
+                      bold: true,
+                    },
+                    {
+                      text: '69 106 457 176',
                     },
                   ],
                 },
@@ -118,8 +117,86 @@ export const makeCover = ({
                 },
               ],
             ],
-          ],
+          },
         },
+        // {
+        //   columnGap: 0,
+        //   columns: [
+        //     [
+        //       [
+        //         {
+        //           text: 'POSTAL ADDRESS',
+        //           bold: true,
+        //         },
+        //         {
+        //           text: '34-36 Calcium Court',
+        //         },
+        //         {
+        //           text: 'Crestmead QLD 4132',
+        //         },
+        //         {
+        //           text: [
+        //             {
+        //               text: 'ABN: ',
+        //               bold: true,
+        //             },
+        //             {
+        //               text: '69 106 457 176',
+        //             },
+        //           ],
+        //         },
+        //       ],
+        //     ],
+        //     [
+        //       [
+        //         {
+        //           text: [
+        //             {
+        //               text: 'Phone: ',
+        //               bold: true,
+        //             },
+        //             {
+        //               text: '(07) 3803 1788',
+        //             },
+        //           ],
+        //         },
+        //         {
+        //           text: [
+        //             {
+        //               text: 'Mobile: ',
+        //               bold: true,
+        //             },
+        //             {
+        //               text: '0411 796 281',
+        //             },
+        //           ],
+        //         },
+        //         {
+        //           text: [
+        //             {
+        //               text: 'Email: ',
+        //               bold: true,
+        //             },
+        //             {
+        //               text: 'admin@play-force.com.au',
+        //             },
+        //           ],
+        //         },
+        //         {
+        //           text: [
+        //             {
+        //               text: 'Web: ',
+        //               bold: true,
+        //             },
+        //             {
+        //               text: 'www.play-force.com.au',
+        //             },
+        //           ],
+        //         },
+        //       ],
+        //     ],
+        //   ],
+        // },
       ],
     },
     {

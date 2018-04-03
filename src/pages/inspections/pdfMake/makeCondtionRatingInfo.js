@@ -214,6 +214,7 @@ export const makeConditionRatingInfo = () => {
     },
     {
       marginTop: verticalMargin / 2,
+      layout: 'noBorders',
       table: {
         widths: ['*', '*', '*', '*'],
         body: [
@@ -236,7 +237,6 @@ export const makeConditionRatingInfo = () => {
           ['VL', 'Very Low', 'Very Low', 'No action required'],
         ],
       },
-      layout: 'noBorders',
     },
     {
       marginTop: verticalMargin,
