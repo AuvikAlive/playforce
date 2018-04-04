@@ -50,8 +50,8 @@ export class InspectionItemsAdd extends Component {
       inspection,
       setErrorLoadingState,
       history,
-      firebase,
       userId,
+      saveInspection,
       discardInspection,
     } = this.props
 
@@ -60,75 +60,8 @@ export class InspectionItemsAdd extends Component {
     if (coverAdded) {
       setErrorLoadingState({ error: '', loading: true })
 
-      const {
-        equipments,
-        cover,
-        auditSummary,
-        auditSummaryAdded,
-        conditionRatings,
-        conditionRatingsAdded,
-        complianceIssues,
-        complianceIssuesAdded,
-        maintenanceIssues,
-        maintenanceIssuesAdded,
-      } = inspection
-
-      let dataToSave = {
-        cover,
-        coverAdded,
-        auditSummaryAdded,
-        conditionRatingsAdded,
-        complianceIssuesAdded,
-        maintenanceIssuesAdded,
-      }
-
-      Object.assign(
-        dataToSave,
-        auditSummaryAdded && { auditSummary },
-        !!equipments && { equipments },
-      )
-
-      const db = firebase.firestore()
-      const batch = db.batch()
-      const inspectionRef = db
-        .collection('users')
-        .doc(userId)
-        .collection('inspections')
-        .doc()
-
-      batch.set(inspectionRef, dataToSave)
-
-      if (conditionRatingsAdded) {
-        const coditionRatingsRef = inspectionRef.collection('conditionRatings')
-
-        conditionRatings.forEach(item => {
-          const ref = coditionRatingsRef.doc()
-          batch.set(ref, item)
-        })
-      }
-
-      if (maintenanceIssuesAdded) {
-        const maintenanceIssuesRef = inspectionRef.collection(
-          'maintenanceIssues',
-        )
-
-        maintenanceIssues.forEach(item => {
-          const ref = maintenanceIssuesRef.doc()
-          batch.set(ref, item)
-        })
-      }
-
-      if (complianceIssuesAdded) {
-        const complianceIssuesRef = inspectionRef.collection('complianceIssues')
-
-        complianceIssues.forEach(item => {
-          const ref = complianceIssuesRef.doc()
-          batch.set(ref, item)
-        })
-      }
-
       try {
-        await batch.commit()
+        await saveInspection(inspection, userId)
         setErrorLoadingState({ loading: false })
         discardInspection()
         history.goBack()

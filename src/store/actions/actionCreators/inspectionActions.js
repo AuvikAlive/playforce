@@ -193,13 +193,21 @@ export const saveInspection = (inspection, userId, inspectionId) => async (
 
   const db = firebase.firestore()
   const batch = db.batch()
-  const inspectionRef = db
-    .collection('users')
-    .doc(userId)
-    .collection('inspections')
-    .doc(inspectionId)
+  const inspectionRef = inspectionId
+    ? db
+        .collection('users')
+        .doc(userId)
+        .collection('inspections')
+        .doc(inspectionId)
+    : db
+        .collection('users')
+        .doc(userId)
+        .collection('inspections')
+        .doc()
 
-  batch.update(inspectionRef, dataToSave)
+  inspectionId
+    ? batch.update(inspectionRef, dataToSave)
+    : batch.set(inspectionRef, dataToSave)
 
   if (!!deletedConditionRatings) {
     const coditionRatingsRef = inspectionRef.collection('conditionRatings')

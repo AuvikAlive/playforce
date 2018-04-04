@@ -95,6 +95,24 @@ export class InspectionItemsEdit extends Component {
     }
   }
 
+  delete = async () => {
+    const {
+      inspectionId,
+      history,
+      firestore,
+      userId,
+      toggleEditInspection,
+    } = this.props
+
+    await firestore.delete({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'inspections', doc: inspectionId }],
+    })
+    toggleEditInspection({ editMode: false })
+    history.goBack()
+  }
+
   generateReport = async () => {
     const {
       inspection,
@@ -154,24 +172,6 @@ export class InspectionItemsEdit extends Component {
     pdfDocGenerator.getDataUrl(dataUrl => {
       this.setState({ src: dataUrl })
     })
-  }
-
-  delete = async () => {
-    const {
-      inspectionId,
-      history,
-      firestore,
-      userId,
-      toggleEditInspection,
-    } = this.props
-
-    await firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'inspections', doc: inspectionId }],
-    })
-    toggleEditInspection({ editMode: false })
-    history.goBack()
   }
 
   beforeBack = () => {
