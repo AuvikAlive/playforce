@@ -69,7 +69,7 @@ export const generatePdf = async ({
       currentPage !== 1 ? makeFooter(currentPage, pageCount) : null,
     content: [
       makeCover(cover),
-      makeAuditSummary({ auditSummary, cover }),
+      await makeAuditSummary({ auditSummary, cover }),
       makeConditionRatingInfo(),
       makeIndividualConditionRatings(conditionRatings),
       makeComplianceIssues(complianceIssues, complianceIssuesAdded),

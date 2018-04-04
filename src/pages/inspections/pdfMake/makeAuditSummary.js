@@ -1,7 +1,10 @@
 import { verticalMargin, headerFontSize } from './globals'
+import { trimImage } from '../../../utilities/trimImage'
 
-export const makeAuditSummary = ({ auditSummary, cover }) => {
+export const makeAuditSummary = async ({ auditSummary, cover }) => {
   const { summary, signature, displayName, title, company } = auditSummary
+
+  const trimmedSignature = await trimImage(signature)
 
   return [
     {
@@ -16,8 +19,8 @@ export const makeAuditSummary = ({ auditSummary, cover }) => {
       marginBottom: verticalMargin * 3,
     },
     {
-      image: signature,
-      width: 90,
+      image: trimmedSignature,
+      width: 65,
       marginBottom: verticalMargin,
     },
     {
