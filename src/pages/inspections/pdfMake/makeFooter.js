@@ -1,12 +1,12 @@
-import { pageMargin } from './globals'
+import { pageMarginHorizontal } from './globals'
 
 export const makeFooter = (currentPage, pageCount) => [
   {
     text: 'Comprehensive Playground Inspection Report',
-    marginLeft: pageMargin,
+    marginLeft: pageMarginHorizontal,
   },
   {
     text: `Page ${currentPage} of ${pageCount}`,
-    marginLeft: pageMargin,
+    marginLeft: pageMarginHorizontal,
   },
 ]

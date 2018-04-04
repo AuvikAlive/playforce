@@ -1,7 +1,7 @@
 import {
   verticalMargin,
   headerFontSize,
-  pageMargin,
+  pageMarginHorizontal,
   pageWidth,
 } from './globals'
 
@@ -19,7 +19,7 @@ export const makeMaintenanceIssues = (
     ({ image, finding, equipment }, index) => [
       {
         image,
-        width: (pageWidth - 2 * pageMargin) / 2 - 10,
+        width: (pageWidth - 2 * pageMarginHorizontal) / 2 - 10,
         height: 170,
         marginBottom: verticalMargin,
       },

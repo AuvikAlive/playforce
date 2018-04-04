@@ -1,10 +1,11 @@
 export const pageWidth = 760
 export const pageHeight = 1080
 export const verticalMargin = 12
-export const pageMargin = 40
-export const logoOffset = verticalMargin * 8.5
+export const pageMarginHorizontal = 72
+export const pageMarginVertical = 40
+export const logoOffset = verticalMargin * 8
 export const fontSize = 12
-export const headerFontSize = 23
+export const headerFontSize = 21
 export const subHeaderFontSize = 16
 export const blue = '#a4c2f4'
 export const green = '#b6d7a8'

@@ -3,7 +3,8 @@ import {
   verticalMargin,
   logoOffset,
   headerFontSize,
-  pageMargin,
+  pageMarginHorizontal,
+  pageMarginVertical,
   pageWidth,
 } from './globals'
 import { logo } from './logo'
@@ -36,18 +37,18 @@ export const makeCover = ({
 
   return [
     {
-      marginTop: -logoOffset + pageMargin,
+      marginTop: -logoOffset + pageMarginVertical,
       // columnGap: 200,
       columns: [
         {
           image: logo,
           width: 208,
-          // marginTop: pageMargin,
-          marginLeft: pageMargin,
+          // marginTop: pageMarginHorizontal,
+          // marginLeft: pageMarginHorizontal,
         },
         {
           layout: 'noBorders',
-          marginLeft: 150,
+          marginLeft: 110,
           table: {
             body: [
               [
@@ -211,7 +212,7 @@ export const makeCover = ({
     {
       image,
       width: pageWidth,
-      marginLeft: -pageMargin,
+      marginLeft: -pageMarginHorizontal,
       height: 432,
     },
     [

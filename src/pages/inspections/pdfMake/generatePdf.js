@@ -1,6 +1,12 @@
 // import vfsFonts from 'pdfmake/build/vfs_fonts'
 // import pdfMake from 'pdfmake/build/pdfmake.js'
-import { pageWidth, pageHeight, pageMargin, logoOffset } from './globals'
+import {
+  pageWidth,
+  pageHeight,
+  pageMarginHorizontal,
+  pageMarginVertical,
+  logoOffset,
+} from './globals'
 import { logo } from './logo'
 import { makeFooter } from './makeFooter'
 import { makeCover } from './makeCover'
@@ -43,14 +49,20 @@ export const generatePdf = async ({
   }
 
   const docDefinition = {
-    pageMargins: [pageMargin, logoOffset, pageMargin, pageMargin],
+    pageMargins: [
+      pageMarginHorizontal,
+      logoOffset,
+      pageMarginHorizontal,
+      pageMarginVertical,
+    ],
+    pageSize: { width: pageWidth, height: pageHeight },
     header: currentPage =>
       currentPage !== 1
         ? {
             image: logo,
             width: 208,
-            marginTop: pageMargin,
-            marginLeft: pageMargin,
+            marginTop: pageMarginVertical,
+            marginLeft: pageMarginHorizontal,
           }
         : null,
     footer: (currentPage, pageCount) =>
@@ -65,7 +77,6 @@ export const generatePdf = async ({
       makeAreasAssessed(),
       makeReportNotes(cover),
     ],
-    pageSize: { width: pageWidth, height: pageHeight },
     images: {
       logo,
     },
