@@ -6,7 +6,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import localForage from 'localforage'
 import firebase from 'firebase'
 import 'firebase/firestore'
-import { reactReduxFirebase } from 'react-redux-firebase'
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import { reduxFirestore } from 'redux-firestore'
 import { rootReducer } from './rootReducer'
 import { firebaseConfig } from '../config/firebase'
@@ -37,7 +37,7 @@ const firebaseStore = reactReduxFirebase(firebase, {
 })
 const fireStore = reduxFirestore(firebase)
 
-const middleware = applyMiddleware(thunk, router)
+const middleware = applyMiddleware(thunk.withExtraArgument(getFirebase), router)
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
