@@ -61,7 +61,33 @@ export const makeComplianceIssues = (
       const item = {
         marginBottom: verticalMargin * 6,
         // columnGap: 20,
-        layout: 'lightHorizontalLines',
+        // layout: 'lightHorizontalLines',
+        layout: {
+          hLineWidth: function(i, node) {
+            return i === 0 || i === node.table.body.length ? 0 : 1
+          },
+          vLineWidth: function(i, node) {
+            return 0
+          },
+          hLineColor: function(i, node) {
+            return lightGray
+          },
+          vLineColor: function(i, node) {
+            return lightGray
+          },
+          paddingLeft: function(i, node) {
+            return 4
+          },
+          paddingRight: function(i, node) {
+            return i === 3 ? 0 : 4
+          },
+          paddingTop: function(i, node) {
+            return i === 3 ? 0 : 8
+          },
+          paddingBottom: function(i, node) {
+            return i === 3 ? 0 : 8
+          },
+        },
         table: {
           widths: ['auto', '*', '*', '*'],
           body: [
@@ -108,6 +134,7 @@ export const makeComplianceIssues = (
               {
                 text: 'Risk Assessment:',
                 bold: true,
+                marginTop: 16,
               },
               {
                 colSpan: 2,
