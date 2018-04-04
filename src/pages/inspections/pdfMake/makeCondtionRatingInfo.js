@@ -39,12 +39,24 @@ export const makeConditionRatingInfo = () => {
     {
       marginTop: verticalMargin,
       alignment: 'center',
+      // layout: {
+      //   paddingLeft: function(i, node) {
+      //     return 12
+      //   },
+      //   paddingRight: function(i, node) {
+      //     return 12
+      //   },
+      // },
       table: {
-        widths: ['auto', '*', 'auto', 'auto', 'auto', 'auto', 'auto'],
+        widths: ['auto', 'auto', '*', '*', '*', '*', '*'],
         body: [
           [
             'E',
-            'Highly Likely',
+            {
+              text: 'Highly Likely',
+              marginLeft: 49,
+              marginRight: 49,
+            },
             {
               text: 'VL (7)',
               fillColor: blue,
@@ -170,13 +182,14 @@ export const makeConditionRatingInfo = () => {
     {
       text: 'Injury Severity',
       bold: true,
-      marginLeft: 500,
+      marginLeft: 367,
       marginTop: verticalMargin,
     },
     {
       marginTop: verticalMargin,
+      marginLeft: 190,
       table: {
-        widths: ['*', '*'],
+        // widths: ['auto', '*'],
         body: [
           [
             {
@@ -246,7 +259,7 @@ export const makeConditionRatingInfo = () => {
     {
       marginTop: verticalMargin / 2,
       table: {
-        widths: ['*', '*'],
+        widths: [100, '*'],
         body: [
           [
             {
