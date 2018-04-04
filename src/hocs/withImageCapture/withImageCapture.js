@@ -6,24 +6,29 @@ export const withImageCapture = WrappedComponent => {
   class WithImageCapture extends Component {
     state = {
       image: null,
+      aspectRatio: null,
     }
 
-    capture = () => {
+    capture = ({ aspectRatio }) => {
+      aspectRatio && this.setState({ aspectRatio })
       this.fileInput.click()
     }
 
     getFile = event => {
+      const { aspectRatio } = this.state
       const resizer = pica()
       const file = event.target.files[0]
-
-      let offScreenCanvas = document.createElement('canvas')
-      offScreenCanvas.width = 500
-      offScreenCanvas.height = 500
 
       let img = document.createElement('img')
       img.src = URL.createObjectURL(file)
 
       img.onload = () => {
+        let offScreenCanvas = document.createElement('canvas')
+        offScreenCanvas.width = 500
+        offScreenCanvas.height = aspectRatio
+          ? 1 / aspectRatio * 500
+          : img.naturalHeight / img.naturalWidth * 500
+
         resizer
           .resize(img, offScreenCanvas, {
             alpha: true,

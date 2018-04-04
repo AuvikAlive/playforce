@@ -7,7 +7,7 @@ import AddIcon from 'material-ui-icons/Add'
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import { CardContent } from 'material-ui/Card'
 import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
@@ -71,11 +71,7 @@ export class ComplianceIssuesList extends Component {
               ) => {
                 return (
                   <Grid item key={index} xs={12}>
-                    <Card>
-                      {image && (
-                        <CardMedia className="card-media" image={image} />
-                      )}
-                    </Card>
+                    {image && <img src={image} alt="equipment type" />}
                     <CardContent className="card-content">
                       <StyledNavLink
                         to={`${match.url}/edit/${index}`}

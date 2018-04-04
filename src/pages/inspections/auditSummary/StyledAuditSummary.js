@@ -11,7 +11,9 @@ export const StyledAuditSummary = Styled(Content)`
   }
 
   .signature {
-    @media (max-width: 600px) {
+    width: 100%;
+    padding-top: 32px;
+    /* @media (max-width: 600px) {
       padding-top: 32px;
     }
     max-width: 100%;
@@ -19,6 +21,6 @@ export const StyledAuditSummary = Styled(Content)`
 
     @media screen and (orientation: landscape) {
       min-height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
-    }
+    } */
   }
 `

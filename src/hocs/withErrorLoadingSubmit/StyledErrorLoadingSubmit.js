@@ -17,4 +17,10 @@ export const StyledErrorLoadingSubmit = Styled.div`
     margin-top: 16px;
     margin-bottom: 8px;
   }
+
+  .submit-button {
+    .button-icon {
+      margin-left: 16px;
+    }
+  }
 `

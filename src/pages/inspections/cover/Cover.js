@@ -4,7 +4,8 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import DateRangeIcon from 'material-ui-icons/DateRange'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
+import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
@@ -148,7 +149,8 @@ export class Cover extends Component {
     return (
       <StyledCover className="StyledCover">
         <Card>
-          {image && <CardMedia className="card-media" image={image} />}
+          {image && <img src={image} alt="cover" />}
+          {/* {image && <CardMedia className="card-media" image={image} />} */}
 
           <CardContent>
             <Button
@@ -156,9 +158,10 @@ export class Cover extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={captureImage}
+              onClick={() => captureImage({ aspectRatio: 764 / 432 })}
             >
               Capture Image
+              <StayCurrentLandscapeIcon className="button-icon" />
             </Button>
             <form noValidate>
               <TextField

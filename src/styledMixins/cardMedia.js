@@ -1,6 +1,9 @@
 import { theme } from '../globals/theme'
 
 export const cardMedia = `
+  img {
+    width: 100%;
+  }
   .card-media {
     width: 100%;
     height: 100vw;

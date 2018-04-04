@@ -53,7 +53,7 @@ export const makeIndividualConditionRatings = conditionRatings => {
   const grid = tuples.map((tuple, index, array) => {
     const row = {
       columns: tuple,
-      marginBottom: verticalMargin,
+      marginBottom: verticalMargin * 2,
     }
 
     if (index + 1 === array.length) {

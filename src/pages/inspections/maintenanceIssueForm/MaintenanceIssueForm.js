@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
+import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
 
@@ -59,7 +60,8 @@ export class MaintenanceIssueForm extends Component {
     return (
       <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
         <Card>
-          {image && <CardMedia className="card-media" image={image} />}
+          {image && <img src={image} alt="equipment type" />}
+          {/* {image && <CardMedia className="card-media" image={image} />} */}
 
           <CardContent>
             <Button
@@ -67,9 +69,10 @@ export class MaintenanceIssueForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={captureImage}
+              onClick={() => captureImage({ aspectRatio: 16 / 9 })}
             >
               Capture Image
+              <StayCurrentLandscapeIcon className="button-icon" />
             </Button>
 
             <form noValidate>

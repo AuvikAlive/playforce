@@ -3,8 +3,9 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
+import StayCurrentPortraitIcon from 'material-ui-icons/StayCurrentPortrait'
 import values from 'lodash/values'
 import { probabilities, severities, riskLevels } from '../../../globals/scales'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
@@ -161,16 +162,18 @@ export class ComplianceIssueForm extends Component {
     return (
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card>
-          {image && <CardMedia className="card-media" image={image} />}
+          {image && <img src={image} alt="equipment type" />}
+          {/* {image && <CardMedia className="card-media" image={image} />} */}
           <CardContent>
             <Button
               fullWidth
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={captureImage}
+              onClick={() => captureImage({ aspectRatio: 9 / 16 })}
             >
               Capture Image
+              <StayCurrentPortraitIcon className="button-icon" />
             </Button>
 
             <form noValidate>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import DateRangeIcon from 'material-ui-icons/DateRange'
+import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { DatePicker } from 'material-ui-pickers'
 import values from 'lodash/values'
 import { defaultManufacturers, conditions } from '../../../globals/scales'
@@ -108,7 +109,8 @@ export class ConditionRatingForm extends Component {
     return (
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card>
-          {image && <CardMedia className="card-media" image={image} />}
+          {image && <img src={image} alt="equipment type" />}
+          {/* {image && <CardMedia className="card-media" image={image} />} */}
 
           <CardContent>
             <Button
@@ -116,9 +118,10 @@ export class ConditionRatingForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={captureImage}
+              onClick={() => captureImage({ aspectRatio: 16 / 9 })}
             >
               Capture Image
+              <StayCurrentLandscapeIcon className="button-icon" />
             </Button>
 
             <form noValidate>

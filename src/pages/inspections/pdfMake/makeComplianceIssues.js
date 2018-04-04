@@ -23,7 +23,7 @@ const title = {
   fontSize: headerFontSize,
   font: 'Oswald',
   // bold: true,
-  marginBottom: verticalMargin * 3,
+  // marginBottom: verticalMargin * 3,
 }
 
 export const makeComplianceIssues = (
@@ -59,7 +59,8 @@ export const makeComplianceIssues = (
       array,
     ) => {
       const item = {
-        marginBottom: verticalMargin * 6,
+        marginTop: verticalMargin * 3,
+        // marginBottom: verticalMargin * 3,
         // columnGap: 20,
         // layout: 'lightHorizontalLines',
         layout: {
@@ -210,9 +211,13 @@ export const makeComplianceIssues = (
         item.pageBreak = 'after'
       }
 
-      if (index + 1 !== array.length && index !== 0 && (index + 1) % 3 === 0) {
+      if (index + 1 !== array.length && index !== 0 && (index + 1) % 2 === 0) {
         item.pageBreak = 'after'
       }
+
+      // if (index + 1 !== array.length && index !== 0 && (index + 1) % 3 === 0) {
+      //   item.pageBreak = 'after'
+      // }
 
       return item
     },
