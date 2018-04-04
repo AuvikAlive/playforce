@@ -6,7 +6,7 @@ export const makeAreasAssessed = () => [
     font: 'Oswald',
     // bold: true,
     fontSize: headerFontSize,
-    marginBottom: verticalMargin * 2,
+    marginBottom: verticalMargin,
   },
   {
     text: 'Non-compliances have been detailed in the preceding pages, if any.',

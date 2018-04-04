@@ -32,7 +32,10 @@ export const makeComplianceIssues = (
 ) => {
   if (!complianceIssuesAdded) {
     return [
-      title,
+      {
+        ...title,
+        marginBottom: verticalMargin,
+      },
       {
         text: 'No compliance issues identified',
         // alignment: 'center',
