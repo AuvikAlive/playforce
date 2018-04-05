@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
@@ -14,11 +15,12 @@ import { StyledOperators } from './StyledOperators'
 export class Operators extends Component {
   state = {
     operator: '',
+    unsubscribe: null,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history, userId, fetchOperators } = this.props
 
     setNavTitle('Operators')
 
@@ -28,25 +30,18 @@ export class Operators extends Component {
       </IconButton>,
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'operators' }],
-    })
+    const unsubscribe = await fetchOperators(userId)
+
+    this.setState({ unsubscribe })
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
-    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
 
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'operators' }],
-    })
+    this.state.unsubscribe()
   }
 
   onInputChange = name => event => {
@@ -105,9 +100,9 @@ export class Operators extends Component {
 
   render() {
     const { operator } = this.state
-    const { operators, error, loading } = this.props
+    const { operatorsLoaded, operators, error, loading } = this.props
 
-    return (
+    return operatorsLoaded ? (
       <StyledOperators className="StyledOperators">
         <Card className="card">
           {!!operators && operators.length > 0 ? (
@@ -166,6 +161,8 @@ export class Operators extends Component {
           </CardContent>
         </Card>
       </StyledOperators>
+    ) : (
+      <LinearProgress />
     )
   }
 }

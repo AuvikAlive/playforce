@@ -10,6 +10,7 @@ import { siteListReducer } from './siteListReducer'
 import { standardReducer } from './standardReducer'
 import { clientReducer } from './clientReducer'
 import { manufacturerReducer } from './manufacturerReducer'
+import { operatorReducer } from './operatorReducer'
 
 export const reducers = {
   router: routerReducer,
@@ -23,6 +24,7 @@ export const reducers = {
   standard: standardReducer,
   client: clientReducer,
   manufacturer: manufacturerReducer,
+  operator: operatorReducer,
 }
 
 export const rootReducer = combineReducers(reducers)
