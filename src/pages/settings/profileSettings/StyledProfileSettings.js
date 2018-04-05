@@ -22,7 +22,7 @@ export const StyledProfileSettings = Styled(Content)`
     canvas {
       margin-top: 64px;
       width: 100%;
-      height: 50vw;
+      height: 40vw;
 
       @media screen and (orientation: landscape) {
         height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
