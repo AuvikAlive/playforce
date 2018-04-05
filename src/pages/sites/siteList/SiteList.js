@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import Typography from 'material-ui/Typography'
 import Paper from 'material-ui/Paper'
 import Grid from 'material-ui/Grid'
@@ -91,9 +92,9 @@ export class SiteList extends Component {
   }
 
   render() {
-    const { match, searchBarOpen, sites } = this.props
+    const { match, searchBarOpen, sitesLoaded, sites } = this.props
 
-    return (
+    return sitesLoaded ? (
       <StyledSiteList className="StyledSiteList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
@@ -142,6 +143,8 @@ export class SiteList extends Component {
           </Grid>
         </Grid>
       </StyledSiteList>
+    ) : (
+      <LinearProgress />
     )
   }
 }
