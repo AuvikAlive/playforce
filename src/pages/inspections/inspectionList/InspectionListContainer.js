@@ -7,26 +7,26 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 import { toggleEditInspection } from '../../../store/actions/actionCreators/inspectionActions'
-import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
+import { fetchInspections } from '../../../store/actions/actionCreators/inspectionListActions'
 
 const mapStateToProps = ({
   firestore: { data: { users } },
   firebase: { auth: { uid } },
   searchBar: { open, query },
+  inspectionList: { inspectionsLoaded, inspections },
 }) => ({
   userId: uid,
   open,
   query,
-  inspections:
-    users &&
-    users[uid].inspections &&
-    objectToArrayWithId(users[uid].inspections),
+  inspectionsLoaded,
+  inspections,
 })
 
 const mapDispatchToProps = {
   openSearchBar,
   closeSearchBar,
   toggleEditInspection,
+  fetchInspections,
 }
 
 export const InspectionListContainer = compose(

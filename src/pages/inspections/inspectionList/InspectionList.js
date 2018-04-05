@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
@@ -14,7 +15,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class InspectionList extends Component {
   componentDidMount() {
-    const { openSearchBar, firestore, userId } = this.props
+    const { openSearchBar, userId, fetchInspections } = this.props
     const {
       setNavTitle,
       setRightNavComponent,
@@ -30,16 +31,11 @@ export class InspectionList extends Component {
     )
 
     setSearchComponent(<SearchBar />)
-
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'inspections' }],
-    })
+    fetchInspections(userId)
   }
 
   componentWillUnmount() {
-    const { closeSearchBar, firestore, userId } = this.props
+    const { closeSearchBar, } = this.props
     const {
       removeNavTitle,
       removeRightNavComponent,
@@ -50,18 +46,17 @@ export class InspectionList extends Component {
     removeRightNavComponent()
     closeSearchBar()
     removeSearchComponent()
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'inspections' }],
-    })
   }
 
   render() {
-    const { match, inspections, toggleEditInspection } = this.props
+    const {
+      match,
+      inspectionsLoaded,
+      inspections,
+      toggleEditInspection,
+    } = this.props
 
-    return (
+    return inspectionsLoaded ? (
       <StyledInspectionList className="StyledInspectionList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
@@ -111,6 +106,8 @@ export class InspectionList extends Component {
           </Paper>
         )}
       </StyledInspectionList>
+    ) : (
+      <LinearProgress />
     )
   }
 }

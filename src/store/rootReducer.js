@@ -5,6 +5,7 @@ import { firestoreReducer } from 'redux-firestore'
 import { sideMenuReducer } from './reducers/sideMenuReducer'
 import { searchBarReducer } from './reducers/searchBarReducer'
 import { inspectionReducer } from './reducers/inspectionReducer'
+import { inspectionListReducer } from './reducers/inspectionListReducer'
 
 export const reducers = {
   router: routerReducer,
@@ -13,6 +14,7 @@ export const reducers = {
   sideMenu: sideMenuReducer,
   searchBar: searchBarReducer,
   inspection: inspectionReducer,
+  inspectionList: inspectionListReducer,
 }
 
 export const rootReducer = combineReducers(reducers)
