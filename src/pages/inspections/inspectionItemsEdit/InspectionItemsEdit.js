@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Menu, { MenuItem } from 'material-ui/Menu'
+import MoreVertIcon from 'material-ui-icons/MoreVert'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
-import Button from 'material-ui/Button'
 import { flatten, map, filter } from 'lodash'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
 import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
@@ -13,6 +14,7 @@ import { generatePdf } from '../pdfMake/generatePdf'
 export class InspectionItemsEdit extends Component {
   state = {
     src: '',
+    menuAnchor: null,
   }
 
   componentDidMount() {
@@ -35,13 +37,18 @@ export class InspectionItemsEdit extends Component {
     )
 
     setRightNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="delete condition rating"
-        onClick={() => openModal(this.delete)}
-      >
-        <DeleteIcon />
-      </IconButton>,
+      <div>
+        <IconButton
+          color="inherit"
+          aria-label="delete condition rating"
+          onClick={() => openModal(this.delete)}
+        >
+          <DeleteIcon />
+        </IconButton>
+        <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
+          <MoreVertIcon aria-label="More" />
+        </IconButton>
+      </div>,
     )
   }
 
@@ -55,6 +62,14 @@ export class InspectionItemsEdit extends Component {
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
+  }
+
+  openMenu = event => {
+    this.setState({ menuAnchor: event.currentTarget })
+  }
+
+  closeMenu = () => {
+    this.setState({ menuAnchor: null })
   }
 
   loadInitialData = () => {
@@ -117,6 +132,8 @@ export class InspectionItemsEdit extends Component {
       userId,
     } = this.props
 
+    this.closeMenu()
+
     const { coverAdded, auditSummaryAdded, conditionRatingsAdded } = inspection
 
     if (coverAdded && auditSummaryAdded && conditionRatingsAdded) {
@@ -178,6 +195,7 @@ export class InspectionItemsEdit extends Component {
 
   render() {
     const { inspection, match, error, loading } = this.props
+    const { menuAnchor } = this.state
 
     let added
 
@@ -207,18 +225,25 @@ export class InspectionItemsEdit extends Component {
           error={error}
           loading={loading}
           publish={this.publish}
-          reportButton={
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.generateReport}
-            >
-              Generate Report
-            </Button>
-          }
+          // reportButton={
+          //   <Button
+          //     fullWidth
+          //     variant="raised"
+          //     color="primary"
+          //     className="submit-button"
+          //     onClick={this.generateReport}
+          //   >
+          //     Generate Report
+          //   </Button>
+          // }
         />
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={this.closeMenu}
+        >
+          <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
+        </Menu>
         {this.state.src && (
           <div>
             <object
