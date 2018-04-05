@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Button from 'material-ui/Button'
@@ -14,7 +15,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class CommonIssuesList extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history, fetchCommonIssues, userId } = this.props
 
     setNavTitle('Common Issues')
 
@@ -24,43 +25,32 @@ export class CommonIssuesList extends Component {
       </IconButton>,
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'commonIssues' }],
-    })
+    fetchCommonIssues(userId)
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
-    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'commonIssues' }],
-    })
   }
   render() {
-    const { match, commonIssues } = this.props
+    const { match, commonIssuesLoaded, commonIssues } = this.props
 
-    return (
+    return commonIssuesLoaded ? (
       <StyledCommonIssuesList className="StyledCommonIssuesList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={!!commonIssues && commonIssues.length > 0 ? '' : 'pulse'}
+            className={commonIssues.length > 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {!!commonIssues && commonIssues.length > 0 ? (
+        {commonIssues.length > 0 ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
               {commonIssues.map(({ id, finding }) => {
@@ -83,6 +73,8 @@ export class CommonIssuesList extends Component {
           </Typography>
         )}
       </StyledCommonIssuesList>
+    ) : (
+      <LinearProgress />
     )
   }
 }
