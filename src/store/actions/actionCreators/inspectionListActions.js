@@ -13,6 +13,7 @@ export const fetchInspections = userId => async (
     .collection('users')
     .doc(userId)
     .collection('inspections')
+    .orderBy('inspectionNumber')
 
   ref.onSnapshot(querySnapshot => {
     let items = []

@@ -94,7 +94,7 @@ export class InspectionItemsEdit extends Component {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
-        await saveInspection(inspection, userId, inspectionId)
+        await saveInspection({ inspection, userId, inspectionId })
         setErrorLoadingState({ loading: false })
         history.goBack()
       } catch (error) {
@@ -110,15 +110,26 @@ export class InspectionItemsEdit extends Component {
 
   delete = async () => {
     const {
+      firebase,
       inspection,
       inspectionId,
       history,
       userId,
+      inspectionCount,
       deleteInspection,
       discardInspection,
     } = this.props
 
-    await deleteInspection(inspection, userId, inspectionId)
+    await deleteInspection({
+      inspection,
+      userId,
+      inspectionId,
+    })
+    await firebase.updateProfile({
+      inspectionCount: inspection.inspectionNumber
+        ? Number(inspectionCount) - 1
+        : Number(inspectionCount),
+    })
     discardInspection()
     history.goBack()
   }

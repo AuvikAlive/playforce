@@ -11,9 +11,13 @@ import {
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
-const mapStateToProps = ({ firebase: { auth: { uid } }, inspection }) => ({
+const mapStateToProps = ({
+  firebase: { auth: { uid }, profile: { inspectionCount } },
+  inspection,
+}) => ({
   userId: uid,
   inspection,
+  inspectionCount,
 })
 
 const mapDispatchToProps = {

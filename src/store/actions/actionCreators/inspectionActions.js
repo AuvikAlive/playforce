@@ -162,11 +162,12 @@ export const fetchInspection = (userId, inspectionId) => async (
   dispatch(loadInspection(inspection))
 }
 
-export const saveInspection = (inspection, userId, inspectionId) => async (
-  dispatch,
-  getState,
-  getFirebase,
-) => {
+export const saveInspection = ({
+  inspection,
+  userId,
+  inspectionId,
+  inspectionCount,
+}) => async (dispatch, getState, getFirebase) => {
   const {
     equipments,
     cover,
@@ -197,6 +198,7 @@ export const saveInspection = (inspection, userId, inspectionId) => async (
     dataToSave,
     auditSummaryAdded && { auditSummary },
     !!equipments && { equipments },
+    inspectionCount && { inspectionNumber: inspectionCount },
   )
 
   const firebase = getFirebase()
@@ -281,11 +283,11 @@ export const saveInspection = (inspection, userId, inspectionId) => async (
   return batch.commit()
 }
 
-export const deleteInspection = (inspection, userId, inspectionId) => async (
-  dispatch,
-  getState,
-  getFirebase,
-) => {
+export const deleteInspection = ({
+  inspection,
+  userId,
+  inspectionId,
+}) => async (dispatch, getState, getFirebase) => {
   const {
     conditionRatings,
     conditionRatingsAdded,

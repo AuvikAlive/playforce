@@ -15,7 +15,7 @@ import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = (
   {
-    firebase: { auth: { uid }, profile: { displayName } },
+    firebase: { auth: { uid }, profile: { displayName, inspectionCount } },
     firestore: { data: { users } },
     inspection,
   },
@@ -26,6 +26,7 @@ const mapStateToProps = (
   savedInspection:
     users && users[uid].inspections && users[uid].inspections[id],
   inspection,
+  inspectionCount,
   displayName,
 })
 

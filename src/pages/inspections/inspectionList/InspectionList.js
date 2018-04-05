@@ -84,9 +84,9 @@ export class InspectionList extends Component {
                   >
                     <ListItem divider button>
                       <ListItemText
-                        primary={`${item.cover.location.name} -  ${
-                          item.cover.client
-                        }`}
+                        primary={`#${item.inspectionNumber} ${
+                          item.cover.location.name
+                        } -  ${item.cover.client}`}
                       />
                     </ListItem>
                   </StyledNavLink>

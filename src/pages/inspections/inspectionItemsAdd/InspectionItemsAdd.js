@@ -52,7 +52,9 @@ export class InspectionItemsAdd extends Component {
       inspection,
       setErrorLoadingState,
       history,
+      firebase,
       userId,
+      inspectionCount,
       saveInspection,
       discardInspection,
     } = this.props
@@ -63,7 +65,14 @@ export class InspectionItemsAdd extends Component {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
-        await saveInspection(inspection, userId)
+        await saveInspection({
+          inspection,
+          userId,
+          inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
+        })
+        await firebase.updateProfile({
+          inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
+        })
         setErrorLoadingState({ loading: false })
         discardInspection()
         history.goBack()
