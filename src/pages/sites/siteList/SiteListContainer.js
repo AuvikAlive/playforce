@@ -7,20 +7,24 @@ import {
   openSearchBar,
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
+import { fetchSites } from '../../../store/actions/actionCreators/siteListActions'
 import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 const mapStateToProps = ({
   firestore: { data: { users } },
   firebase: { auth: { uid } },
   searchBar: { open, query },
+  siteList: { sitesLoaded, sites },
 }) => ({
-  sites: users && users[uid].sites && objectToArrayWithId(users[uid].sites),
+  // sites: users && users[uid].sites && objectToArrayWithId(users[uid].sites),
   userId: uid,
   searchBarOpen: open,
   query,
+  sitesLoaded,
+  sites,
 })
 
-const mapDispatchToProps = { openSearchBar, closeSearchBar }
+const mapDispatchToProps = { openSearchBar, closeSearchBar, fetchSites }
 
 export const SiteListContainer = compose(
   withRouter,

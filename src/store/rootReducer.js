@@ -6,6 +6,7 @@ import { sideMenuReducer } from './reducers/sideMenuReducer'
 import { searchBarReducer } from './reducers/searchBarReducer'
 import { inspectionReducer } from './reducers/inspectionReducer'
 import { inspectionListReducer } from './reducers/inspectionListReducer'
+import { siteListReducer } from './reducers/siteListReducer'
 
 export const reducers = {
   router: routerReducer,
@@ -15,6 +16,7 @@ export const reducers = {
   searchBar: searchBarReducer,
   inspection: inspectionReducer,
   inspectionList: inspectionListReducer,
+  siteList: siteListReducer,
 }
 
 export const rootReducer = combineReducers(reducers)

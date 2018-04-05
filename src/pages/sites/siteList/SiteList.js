@@ -21,6 +21,7 @@ export class SiteList extends Component {
       query,
       firestore,
       userId,
+      fetchSites,
     } = this.props
     const {
       setNavTitle,
@@ -56,11 +57,7 @@ export class SiteList extends Component {
       />,
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'sites' }],
-    })
+    fetchSites(userId)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,7 +77,7 @@ export class SiteList extends Component {
   }
 
   componentWillUnmount() {
-    const { closeSearchBar, firestore, userId } = this.props
+    const { closeSearchBar } = this.props
     const {
       removeNavTitle,
       removeRightNavComponent,
@@ -91,12 +88,6 @@ export class SiteList extends Component {
     removeRightNavComponent()
     closeSearchBar()
     removeSearchComponent()
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'sites' }],
-    })
   }
 
   render() {
