@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { LinearProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import Card, { CardContent } from 'material-ui/Card'
@@ -8,7 +9,6 @@ import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import DateRangeIcon from 'material-ui-icons/DateRange'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { DatePicker } from 'material-ui-pickers'
-import values from 'lodash/values'
 import { defaultManufacturers, conditions } from '../../../globals/scales'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
@@ -16,30 +16,17 @@ export class ConditionRatingForm extends Component {
   state = {
     equipment: '',
     manufacturer: '',
-    condition: '',
+    condition: conditions[0],
     estimatedDateInstalled: new Date(),
+    unsubscribe: null,
   }
 
   componentDidMount() {
-    const { firestore, userId, initialData } = this.props
+    const { fetchManufacturers, userId, initialData } = this.props
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'manufacturers' }],
-    })
+    fetchManufacturers(userId)
 
     initialData && this.loadInitialData(initialData)
-  }
-
-  componentWillUnmount() {
-    const { firestore, userId } = this.props
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'manufacturers' }],
-    })
   }
 
   loadInitialData = conditionRating => {
@@ -49,7 +36,6 @@ export class ConditionRatingForm extends Component {
     setCapturedImage(image)
     this.setState({
       ...conditionRating,
-      customManufacturer: conditionRating.manufacturer,
     })
   }
 
@@ -95,7 +81,13 @@ export class ConditionRatingForm extends Component {
   }
 
   render() {
-    const { image, captureImage, data, error } = this.props
+    const {
+      image,
+      captureImage,
+      manufacturersLoaded,
+      manufacturers,
+      error,
+    } = this.props
     const {
       equipment,
       manufacturer,
@@ -103,14 +95,10 @@ export class ConditionRatingForm extends Component {
       estimatedDateInstalled,
     } = this.state
 
-    const manufacturers =
-      data && data.manufacturers && values(data.manufacturers)
-
-    return (
+    return manufacturersLoaded ? (
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card>
           {image && <img src={image} alt="equipment type" />}
-          {/* {image && <CardMedia className="card-media" image={image} />} */}
 
           <CardContent>
             <Button
@@ -141,7 +129,7 @@ export class ConditionRatingForm extends Component {
                 onChange={this.onInputChange('manufacturer')}
                 margin="normal"
               >
-                {!!manufacturers && manufacturers.length > 0
+                {manufacturers.length > 0
                   ? manufacturers.map(({ name }, index) => {
                       return (
                         <MenuItem key={index} value={name}>
@@ -162,7 +150,7 @@ export class ConditionRatingForm extends Component {
                 fullWidth
                 select
                 label="Condition"
-                value={condition || conditions[0]}
+                value={condition}
                 onChange={this.onInputChange('condition')}
                 margin="normal"
               >
@@ -203,6 +191,8 @@ export class ConditionRatingForm extends Component {
           </CardContent>
         </Card>
       </StyledConditionRatingForm>
+    ) : (
+      <LinearProgress />
     )
   }
 }

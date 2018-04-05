@@ -86,6 +86,7 @@ export class InspectionItemsEdit extends Component {
       userId,
       inspectionId,
       saveInspection,
+      loadInspectionDraft,
     } = this.props
 
     const { coverAdded } = inspection
@@ -95,6 +96,7 @@ export class InspectionItemsEdit extends Component {
 
       try {
         await saveInspection({ inspection, userId, inspectionId })
+        loadInspectionDraft()
         setErrorLoadingState({ loading: false })
         history.goBack()
       } catch (error) {
@@ -117,7 +119,7 @@ export class InspectionItemsEdit extends Component {
       userId,
       inspectionCount,
       deleteInspection,
-      discardInspection,
+      loadInspectionDraft,
     } = this.props
 
     await deleteInspection({
@@ -130,7 +132,7 @@ export class InspectionItemsEdit extends Component {
         ? Number(inspectionCount) - 1
         : Number(inspectionCount),
     })
-    discardInspection()
+    loadInspectionDraft()
     history.goBack()
   }
 

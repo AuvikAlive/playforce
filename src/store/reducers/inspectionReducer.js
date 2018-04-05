@@ -46,10 +46,16 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ...initialState,
         ...state.draftBackup,
         draftInspectionLoaded: true,
+        inspectionLoaded: false,
       }
 
     case LOAD_INSPECTION:
-      return { ...state, ...payload, inspectionLoaded: true }
+      return {
+        ...state,
+        ...payload,
+        inspectionLoaded: true,
+        draftInspectionLoaded: false,
+      }
 
     case DISCARD_INSPECTION:
       return { ...initialState }
