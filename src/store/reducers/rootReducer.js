@@ -8,6 +8,7 @@ import { inspectionReducer } from './inspectionReducer'
 import { inspectionListReducer } from './inspectionListReducer'
 import { siteListReducer } from './siteListReducer'
 import { standardReducer } from './standardReducer'
+import { clientReducer } from './clientReducer'
 
 export const reducers = {
   router: routerReducer,
@@ -19,6 +20,7 @@ export const reducers = {
   inspectionList: inspectionListReducer,
   siteList: siteListReducer,
   standard: standardReducer,
+  client: clientReducer,
 }
 
 export const rootReducer = combineReducers(reducers)

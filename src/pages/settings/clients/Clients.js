@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
@@ -14,11 +15,12 @@ import { StyledClients } from './StyledClients'
 export class Clients extends Component {
   state = {
     client: '',
+    unsubscribe: null,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history, userId, fetchClients } = this.props
 
     setNavTitle('Clients')
 
@@ -28,25 +30,18 @@ export class Clients extends Component {
       </IconButton>,
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'clients' }],
-    })
+    const unsubscribe = await fetchClients(userId)
+
+    this.setState({ unsubscribe })
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
-    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
 
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'clients' }],
-    })
+    this.state.unsubscribe()
   }
 
   onInputChange = name => event => {
@@ -105,9 +100,9 @@ export class Clients extends Component {
 
   render() {
     const { client } = this.state
-    const { clients, error, loading } = this.props
+    const { clients, clientsLoaded, error, loading } = this.props
 
-    return (
+    return clientsLoaded ? (
       <StyledClients className="StyledClients">
         <Card className="card">
           {!!clients && clients.length > 0 ? (
@@ -166,6 +161,8 @@ export class Clients extends Component {
           </CardContent>
         </Card>
       </StyledClients>
+    ) : (
+      <LinearProgress />
     )
   }
 }
