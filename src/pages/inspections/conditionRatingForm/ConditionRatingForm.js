@@ -162,7 +162,7 @@ export class ConditionRatingForm extends Component {
                 fullWidth
                 select
                 label="Condition"
-                value={condition}
+                value={condition || conditions[0]}
                 onChange={this.onInputChange('condition')}
                 margin="normal"
               >
