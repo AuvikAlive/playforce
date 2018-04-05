@@ -38,8 +38,26 @@ export const initialState = {
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case SAVE_INSPECTION_DRAFT:
-      return { ...initialState, draftBackup: state.coverAdded ? state : null }
+    case SAVE_INSPECTION_DRAFT: {
+      const {
+        coverAdded,
+        auditSummaryAdded,
+        conditionRatingsAdded,
+        complianceIssuesAdded,
+        maintenanceIssuesAdded,
+      } = state
+
+      const draftBackup =
+        coverAdded ||
+        auditSummaryAdded ||
+        conditionRatingsAdded ||
+        complianceIssuesAdded ||
+        maintenanceIssuesAdded
+          ? state
+          : null
+
+      return { ...initialState, draftBackup }
+    }
 
     case LOAD_INSPECTION_DRAFT:
       return {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { LinearProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
@@ -25,29 +26,11 @@ export class ComplianceIssueForm extends Component {
   }
 
   componentDidMount() {
-    const { firestore, userId, initialData } = this.props
+    const { fetchCommonIssues, userId, initialData } = this.props
 
-    firestore.setListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues' }],
-      },
-    ])
+    fetchCommonIssues(userId)
 
     initialData && this.loadInitialData(initialData)
-  }
-
-  componentWillUnmount() {
-    const { firestore, userId } = this.props
-
-    firestore.unsetListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues' }],
-      },
-    ])
   }
 
   componentWillReceiveProps({ data }) {
@@ -77,7 +60,7 @@ export class ComplianceIssueForm extends Component {
       severity,
       comments,
       recommendations,
-    } = this.state.commonIssues[commonIssueIndex]
+    } = this.props.commonIssues[commonIssueIndex]
 
     this.setState({
       finding,
@@ -142,11 +125,17 @@ export class ComplianceIssueForm extends Component {
   }
 
   render() {
-    const { image, captureImage, equipments, error } = this.props
+    const {
+      commonIssuesLoaded,
+      commonIssues,
+      image,
+      captureImage,
+      equipments,
+      error,
+    } = this.props
 
     const {
       commonIssueIndex,
-      commonIssues,
       finding,
       equipment,
       standardsClause,
@@ -159,11 +148,10 @@ export class ComplianceIssueForm extends Component {
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
 
-    return (
+    return commonIssuesLoaded ? (
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card>
           {image && <img src={image} alt="equipment type" />}
-          {/* {image && <CardMedia className="card-media" image={image} />} */}
           <CardContent>
             <Button
               fullWidth
@@ -192,7 +180,7 @@ export class ComplianceIssueForm extends Component {
                 onChange={this.onFindingChange}
                 margin="normal"
               >
-                {!!commonIssues && commonIssues.length > 0 ? (
+                {commonIssues.length > 0 ? (
                   commonIssues.map(({ finding }, index) => (
                     <MenuItem key={index} value={index}>
                       {finding}
@@ -304,6 +292,8 @@ export class ComplianceIssueForm extends Component {
           </CardContent>
         </Card>
       </StyledComplianceIssueForm>
+    ) : (
+      <LinearProgress />
     )
   }
 }
