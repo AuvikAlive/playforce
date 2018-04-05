@@ -27,7 +27,7 @@ export const generatePdf = async ({
   maintenanceIssuesAdded,
   maintenanceIssues,
 }) => {
-  const vfsFonts = await import('pdfmake/build/vfs_fonts')
+  const vfsFonts = await import('./vfs_fonts')
   const pdfMake = await import('pdfmake/build/pdfmake.min')
 
   const { vfs } = vfsFonts.pdfMake
