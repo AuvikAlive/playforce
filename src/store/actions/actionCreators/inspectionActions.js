@@ -18,11 +18,11 @@ import {
 } from '../actionTypes'
 
 export const saveInspectionDraft = () => ({
-  type: SAVE_INSPECTION_DRAFT
+  type: SAVE_INSPECTION_DRAFT,
 })
 
 export const loadInspectionDraft = () => ({
-  type: LOAD_INSPECTION_DRAFT
+  type: LOAD_INSPECTION_DRAFT,
 })
 
 export const toggleEditInspection = payload => ({
@@ -200,7 +200,6 @@ export const saveInspection = (inspection, userId, inspectionId) => async (
   )
 
   const firebase = getFirebase()
-
   const db = firebase.firestore()
   const batch = db.batch()
   const inspectionRef = inspectionId
@@ -278,6 +277,61 @@ export const saveInspection = (inspection, userId, inspectionId) => async (
       item.id ? batch.update(ref, item) : batch.set(ref, item)
     })
   }
+
+  return batch.commit()
+}
+
+export const deleteInspection = (inspection, userId, inspectionId) => async (
+  dispatch,
+  getState,
+  getFirebase,
+) => {
+  const {
+    conditionRatings,
+    conditionRatingsAdded,
+    complianceIssues,
+    complianceIssuesAdded,
+    maintenanceIssues,
+    maintenanceIssuesAdded,
+  } = inspection
+
+  const firebase = getFirebase()
+  const db = firebase.firestore()
+  const batch = db.batch()
+  const inspectionRef = db
+    .collection('users')
+    .doc(userId)
+    .collection('inspections')
+    .doc(inspectionId)
+
+  if (conditionRatingsAdded) {
+    const coditionRatingsRef = inspectionRef.collection('conditionRatings')
+
+    conditionRatings.forEach(item => {
+      const ref = coditionRatingsRef.doc(item.id)
+      batch.delete(ref)
+    })
+  }
+
+  if (complianceIssuesAdded) {
+    const complianceIssuesRef = inspectionRef.collection('complianceIssues')
+
+    complianceIssues.forEach(item => {
+      const ref = complianceIssuesRef.doc(item.id)
+      batch.delete(ref)
+    })
+  }
+
+  if (maintenanceIssuesAdded) {
+    const maintenanceIssuesRef = inspectionRef.collection('maintenanceIssues')
+
+    maintenanceIssues.forEach(item => {
+      const ref = maintenanceIssuesRef.doc(item.id)
+      batch.delete(ref)
+    })
+  }
+
+  batch.delete(inspectionRef)
 
   return batch.commit()
 }

@@ -8,6 +8,7 @@ import {
   saveInspectionDraft,
   loadInspectionDraft,
   discardInspection,
+  deleteInspection,
 } from '../../../store/actions/actionCreators/inspectionActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
@@ -34,6 +35,7 @@ const mapDispatchToProps = {
   saveInspectionDraft,
   loadInspectionDraft,
   discardInspection,
+  deleteInspection,
 }
 
 export const InspectionItemsEditContainer = compose(

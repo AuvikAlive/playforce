@@ -94,13 +94,17 @@ export class InspectionItemsEdit extends Component {
   }
 
   delete = async () => {
-    const { inspectionId, history, firestore, userId } = this.props
+    const {
+      inspection,
+      inspectionId,
+      history,
+      userId,
+      deleteInspection,
+      discardInspection,
+    } = this.props
 
-    await firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'inspections', doc: inspectionId }],
-    })
+    await deleteInspection(inspection, userId, inspectionId)
+    discardInspection()
     history.goBack()
   }
 
