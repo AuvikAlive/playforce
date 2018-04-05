@@ -1,5 +1,6 @@
 import {
-  EDIT_INSPECTION,
+  SAVE_INSPECTION_DRAFT,
+  LOAD_INSPECTION_DRAFT,
   LOAD_INSPECTION,
   DISCARD_INSPECTION,
   ADD_INSPECTION_COVER,
@@ -16,8 +17,8 @@ import {
 } from '../actions/actionTypes'
 
 export const initialState = {
-  editMode: false,
   inspectionLoaded: false,
+  draftInspectionLoaded: false,
   draftBackup: null,
   equipments: [],
   cover: {},
@@ -37,28 +38,21 @@ export const initialState = {
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case EDIT_INSPECTION:
-      const { editMode } = payload
+    case SAVE_INSPECTION_DRAFT:
+      return { ...initialState, draftBackup: state.coverAdded ? state : null }
 
-      if (editMode) {
-        const draftBackup = state
-        delete draftBackup.draftBackup
-
-        return { ...state, editMode, draftBackup }
-      } else {
-        return {
-          ...initialState,
-          ...state.draftBackup,
-          editMode,
-          inspectionLoaded: false,
-        }
+    case LOAD_INSPECTION_DRAFT:
+      return {
+        ...initialState,
+        ...state.draftBackup,
+        draftInspectionLoaded: true,
       }
 
     case LOAD_INSPECTION:
-      return { ...initialState, ...payload, inspectionLoaded: true }
+      return { ...state, ...payload, inspectionLoaded: true }
 
     case DISCARD_INSPECTION:
-      return initialState
+      return { ...initialState }
 
     case ADD_INSPECTION_COVER:
       return { ...state, cover: payload, coverAdded: true }

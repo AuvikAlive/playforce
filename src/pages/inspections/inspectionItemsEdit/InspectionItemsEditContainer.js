@@ -3,9 +3,10 @@ import { compose } from 'redux'
 import { withFirestore, withFirebase } from 'react-redux-firebase'
 import { InspectionItemsEdit } from './InspectionItemsEdit'
 import {
-  toggleEditInspection,
   fetchInspection,
   saveInspection,
+  saveInspectionDraft,
+  loadInspectionDraft,
   discardInspection,
 } from '../../../store/actions/actionCreators/inspectionActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
@@ -28,9 +29,10 @@ const mapStateToProps = (
 })
 
 const mapDispatchToProps = {
-  toggleEditInspection,
   fetchInspection,
   saveInspection,
+  saveInspectionDraft,
+  loadInspectionDraft,
   discardInspection,
 }
 

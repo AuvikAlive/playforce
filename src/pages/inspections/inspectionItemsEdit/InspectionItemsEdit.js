@@ -71,7 +71,6 @@ export class InspectionItemsEdit extends Component {
       userId,
       inspectionId,
       saveInspection,
-      toggleEditInspection,
     } = this.props
 
     const { coverAdded } = inspection
@@ -82,7 +81,6 @@ export class InspectionItemsEdit extends Component {
       try {
         await saveInspection(inspection, userId, inspectionId)
         setErrorLoadingState({ loading: false })
-        toggleEditInspection({ editMode: false })
         history.goBack()
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
@@ -96,20 +94,13 @@ export class InspectionItemsEdit extends Component {
   }
 
   delete = async () => {
-    const {
-      inspectionId,
-      history,
-      firestore,
-      userId,
-      toggleEditInspection,
-    } = this.props
+    const { inspectionId, history, firestore, userId } = this.props
 
     await firestore.delete({
       collection: 'users',
       doc: userId,
       subcollections: [{ collection: 'inspections', doc: inspectionId }],
     })
-    toggleEditInspection({ editMode: false })
     history.goBack()
   }
 
@@ -175,9 +166,9 @@ export class InspectionItemsEdit extends Component {
   }
 
   beforeBack = () => {
-    const { toggleEditInspection, history } = this.props
+    const { history, loadInspectionDraft } = this.props
 
-    toggleEditInspection({ editMode: false })
+    loadInspectionDraft()
     history.goBack()
   }
 

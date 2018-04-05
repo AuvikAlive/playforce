@@ -12,12 +12,12 @@ export class InspectionItemsAdd extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { history, openModal } = this.props
+    const { loadInspectionDraft, inspection, openModal } = this.props
 
     setNavTitle('Add Inspection')
 
     setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
+      <IconButton color="inherit" aria-label="Search" onClick={this.beforeBack}>
         <ArrowBackIcon />
       </IconButton>,
     )
@@ -31,6 +31,8 @@ export class InspectionItemsAdd extends Component {
         <DeleteIcon />
       </IconButton>,
     )
+
+    !inspection.draftInspectionLoaded && loadInspectionDraft()
   }
 
   componentWillUnmount() {
@@ -80,6 +82,13 @@ export class InspectionItemsAdd extends Component {
     const { discardInspection, history } = this.props
 
     discardInspection()
+    history.goBack()
+  }
+
+  beforeBack = () => {
+    const { saveInspectionDraft, history } = this.props
+
+    saveInspectionDraft()
     history.goBack()
   }
 

@@ -35,7 +35,7 @@ export class InspectionList extends Component {
   }
 
   componentWillUnmount() {
-    const { closeSearchBar, } = this.props
+    const { closeSearchBar } = this.props
     const {
       removeNavTitle,
       removeRightNavComponent,
@@ -49,12 +49,7 @@ export class InspectionList extends Component {
   }
 
   render() {
-    const {
-      match,
-      inspectionsLoaded,
-      inspections,
-      toggleEditInspection,
-    } = this.props
+    const { match, inspectionsLoaded, inspections } = this.props
 
     return inspectionsLoaded ? (
       <StyledInspectionList className="StyledInspectionList">
@@ -86,11 +81,6 @@ export class InspectionList extends Component {
                         id: item.id,
                       },
                     }}
-                    onClick={() =>
-                      toggleEditInspection({
-                        editMode: true,
-                      })
-                    }
                   >
                     <ListItem divider button>
                       <ListItemText

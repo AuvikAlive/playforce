@@ -3,6 +3,8 @@ import { compose } from 'redux'
 import { withFirestore, withFirebase } from 'react-redux-firebase'
 import { InspectionItemsAdd } from './InspectionItemsAdd'
 import {
+  saveInspectionDraft,
+  loadInspectionDraft,
   discardInspection,
   saveInspection,
 } from '../../../store/actions/actionCreators/inspectionActions'
@@ -14,7 +16,12 @@ const mapStateToProps = ({ firebase: { auth: { uid } }, inspection }) => ({
   inspection,
 })
 
-const mapDispatchToProps = { discardInspection, saveInspection }
+const mapDispatchToProps = {
+  saveInspectionDraft,
+  loadInspectionDraft,
+  discardInspection,
+  saveInspection,
+}
 
 export const InspectionItemsAddContainer = compose(
   withDeleteModal,

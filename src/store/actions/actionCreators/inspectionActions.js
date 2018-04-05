@@ -1,4 +1,6 @@
 import {
+  SAVE_INSPECTION_DRAFT,
+  LOAD_INSPECTION_DRAFT,
   EDIT_INSPECTION,
   LOAD_INSPECTION,
   DISCARD_INSPECTION,
@@ -14,6 +16,14 @@ import {
   EDIT_MAINTENANCE_ISSUE,
   DELETE_MAINTENANCE_ISSUE,
 } from '../actionTypes'
+
+export const saveInspectionDraft = () => ({
+  type: SAVE_INSPECTION_DRAFT
+})
+
+export const loadInspectionDraft = () => ({
+  type: LOAD_INSPECTION_DRAFT
+})
 
 export const toggleEditInspection = payload => ({
   type: EDIT_INSPECTION,
