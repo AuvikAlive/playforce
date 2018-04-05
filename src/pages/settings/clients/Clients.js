@@ -105,7 +105,7 @@ export class Clients extends Component {
     return clientsLoaded ? (
       <StyledClients className="StyledClients">
         <Card className="card">
-          {!!clients && clients.length > 0 ? (
+          {clients.length > 0 ? (
             <List component="nav" disablePadding>
               {clients.map(({ id, name }) => {
                 return (

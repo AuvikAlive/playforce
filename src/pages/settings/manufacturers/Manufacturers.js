@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
@@ -14,11 +15,12 @@ import { StyledManufacturers } from './StyledManufacturers'
 export class Manufacturers extends Component {
   state = {
     manufacturer: '',
+    unsubscribe: null,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history, fetchManufacturers, userId } = this.props
 
     setNavTitle('Manufacturers')
 
@@ -28,25 +30,18 @@ export class Manufacturers extends Component {
       </IconButton>,
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'manufacturers' }],
-    })
+    const unsubscribe = await fetchManufacturers(userId)
+
+    this.setState({ unsubscribe })
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
-    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
 
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'manufacturers' }],
-    })
+    this.state.unsubscribe()
   }
 
   onInputChange = name => event => {
@@ -106,13 +101,13 @@ export class Manufacturers extends Component {
   render() {
     const { manufacturer } = this.state
 
-    const { manufacturers, error, loading } = this.props
+    const { manufacturersLoaded, manufacturers, error, loading } = this.props
 
-    return (
+    return manufacturersLoaded ? (
       <StyledManufacturers className="StyledManufacturers">
         <Card className="card">
           <List component="nav" disablePadding>
-            {!!manufacturers && manufacturers.length > 0 ? (
+            {manufacturers.length > 0 ? (
               manufacturers.map(({ id, name }) => {
                 return (
                   <ListItem key={id} button>
@@ -167,6 +162,8 @@ export class Manufacturers extends Component {
           </CardContent>
         </Card>
       </StyledManufacturers>
+    ) : (
+      <LinearProgress />
     )
   }
 }
