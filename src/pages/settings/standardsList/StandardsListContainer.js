@@ -2,18 +2,21 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { StandardsList } from './StandardsList'
-import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
+import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 
 const mapStateToProps = ({
   firebase: { auth: { uid } },
   firestore: { data: { users } },
+  standard: { standardsLoaded, standards },
 }) => ({
   userId: uid,
-  standards:
-    users && users[uid].standards && objectToArrayWithId(users[uid].standards),
+  standardsLoaded,
+  standards,
 })
+
+const mapDispatchToProps = { fetchStandards }
 
 export const StandardsListContainer = compose(
   withFirestore,
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
 )(StandardsList)

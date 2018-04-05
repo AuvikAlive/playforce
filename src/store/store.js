@@ -8,7 +8,7 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import { reduxFirestore } from 'redux-firestore'
-import { rootReducer } from './rootReducer'
+import { rootReducer } from './reducers/rootReducer'
 import { firebaseConfig } from '../config/firebase'
 
 localForage.config({

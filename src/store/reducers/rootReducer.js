@@ -2,11 +2,12 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { firebaseReducer } from 'react-redux-firebase'
 import { firestoreReducer } from 'redux-firestore'
-import { sideMenuReducer } from './reducers/sideMenuReducer'
-import { searchBarReducer } from './reducers/searchBarReducer'
-import { inspectionReducer } from './reducers/inspectionReducer'
-import { inspectionListReducer } from './reducers/inspectionListReducer'
-import { siteListReducer } from './reducers/siteListReducer'
+import { sideMenuReducer } from './sideMenuReducer'
+import { searchBarReducer } from './searchBarReducer'
+import { inspectionReducer } from './inspectionReducer'
+import { inspectionListReducer } from './inspectionListReducer'
+import { siteListReducer } from './siteListReducer'
+import { standardReducer } from './standardReducer'
 
 export const reducers = {
   router: routerReducer,
@@ -17,6 +18,7 @@ export const reducers = {
   inspection: inspectionReducer,
   inspectionList: inspectionListReducer,
   siteList: siteListReducer,
+  standard: standardReducer,
 }
 
 export const rootReducer = combineReducers(reducers)

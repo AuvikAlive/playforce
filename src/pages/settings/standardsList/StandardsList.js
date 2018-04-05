@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Button from 'material-ui/Button'
@@ -14,7 +15,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class StandardsList extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history, userId, fetchStandards } = this.props
 
     setNavTitle('Standards')
 
@@ -24,43 +25,32 @@ export class StandardsList extends Component {
       </IconButton>,
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'standards' }],
-    })
+    fetchStandards(userId)
   }
 
   componentWillUnmount() {
-    const { firestore, userId } = this.props
     const { removeNavTitle, removeLefNavComponent } = this.context
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'standards' }],
-    })
 
     removeNavTitle()
     removeLefNavComponent()
   }
   render() {
-    const { match, standards } = this.props
+    const { match, standardsLoaded, standards } = this.props
 
-    return (
+    return standardsLoaded ? (
       <StyledStandardList className="StyledStandardList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={!!standards && standards.length > 0 ? '' : 'pulse'}
+            className={standards.length > 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {!!standards && standards.length > 0 ? (
+        {standards.length > 0 ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
               {standards.map(({ id, code, title, date }) => {
@@ -83,6 +73,8 @@ export class StandardsList extends Component {
           </Typography>
         )}
       </StyledStandardList>
+    ) : (
+      <LinearProgress />
     )
   }
 }
