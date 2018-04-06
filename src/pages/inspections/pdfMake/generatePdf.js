@@ -9,6 +9,7 @@ import {
 } from './globals'
 import { logo } from './logo'
 import { makeFooter } from './makeFooter'
+import { makeCertificate } from './makeCertificate'
 import { makeCover } from './makeCover'
 import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeCondtionRatingInfo'
@@ -18,15 +19,19 @@ import { makeMaintenanceIssues } from './makeMaintenanceIssues'
 import { makeAreasAssessed } from './makeAreasAssessed'
 import { makeReportNotes } from './makeReportNotes'
 
-export const generatePdf = async ({
-  cover,
-  auditSummary,
-  conditionRatings,
-  complianceIssuesAdded,
-  complianceIssues,
-  maintenanceIssuesAdded,
-  maintenanceIssues,
-}) => {
+export const generatePdf = async (
+  {
+    inspectionNumber,
+    cover,
+    auditSummary,
+    conditionRatings,
+    complianceIssuesAdded,
+    complianceIssues,
+    maintenanceIssuesAdded,
+    maintenanceIssues,
+  },
+  certificate,
+) => {
   const vfsFonts = await import('./vfs_fonts')
   const pdfMake = await import('pdfmake/build/pdfmake.min')
 
@@ -48,6 +53,10 @@ export const generatePdf = async ({
     },
   }
 
+  // certificate = true
+
+  const skipCommonHeaderFooter = certificate ? 2 : 1
+
   const docDefinition = {
     pageMargins: [
       pageMarginHorizontal,
@@ -57,7 +66,7 @@ export const generatePdf = async ({
     ],
     pageSize: { width: pageWidth, height: pageHeight },
     header: currentPage =>
-      currentPage !== 1
+      currentPage > skipCommonHeaderFooter
         ? {
             image: logo,
             width: 208,
@@ -66,8 +75,13 @@ export const generatePdf = async ({
           }
         : null,
     footer: (currentPage, pageCount) =>
-      currentPage !== 1 ? makeFooter(currentPage, pageCount) : null,
+      currentPage > skipCommonHeaderFooter
+        ? makeFooter(currentPage, pageCount)
+        : null,
     content: [
+      certificate
+        ? await makeCertificate(cover, auditSummary, inspectionNumber)
+        : null,
       makeCover(cover),
       await makeAuditSummary({ auditSummary, cover }),
       makeConditionRatingInfo(),

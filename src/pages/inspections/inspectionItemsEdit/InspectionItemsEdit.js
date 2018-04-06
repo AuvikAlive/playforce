@@ -6,15 +6,18 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
+import { FormControlLabel } from 'material-ui/Form'
+import Switch from 'material-ui/Switch'
 import { flatten, map, filter } from 'lodash'
+import { Content } from '../../../components/content/Content'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
-import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 import { generatePdf } from '../pdfMake/generatePdf'
 
 export class InspectionItemsEdit extends Component {
   state = {
     src: '',
     menuAnchor: null,
+    certificate: false,
   }
 
   componentDidMount() {
@@ -66,6 +69,10 @@ export class InspectionItemsEdit extends Component {
 
   componentWillReceiveProps({ inspection }) {
     // inspection && this.renderPdf(inspection)
+  }
+
+  onSwitchChange = event => {
+    this.setState({ certificate: event.target.checked })
   }
 
   openMenu = event => {
@@ -148,6 +155,7 @@ export class InspectionItemsEdit extends Component {
       firebase,
       userId,
     } = this.props
+    const { certificate } = this.state
 
     this.closeMenu()
 
@@ -172,15 +180,21 @@ export class InspectionItemsEdit extends Component {
         }),
       )
 
-      const standardsArray = objectToArrayWithId(standards)
-
-      inspection.cover.appliedStandards = flatten(
+      const appliedStandards = flatten(
         map(inspection.cover.appliedStandards, standardId => {
-          return filter(standardsArray, item => item.id === standardId)
+          return filter(standards, item => item.id === standardId)
         }),
       )
 
-      const pdfDocGenerator = await generatePdf(inspection)
+      let inspectionWithAppliedStandards = {
+        ...inspection,
+        cover: { ...inspection.cover, appliedStandards },
+      }
+
+      const pdfDocGenerator = await generatePdf(
+        inspectionWithAppliedStandards,
+        certificate,
+      )
 
       pdfDocGenerator.download(
         `${inspection.cover.location.name} - inspection-report.pdf`,
@@ -244,6 +258,21 @@ export class InspectionItemsEdit extends Component {
           publish={this.publish}
           buttonText="Update"
         />
+
+        <Content>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.certificate}
+                onChange={this.onSwitchChange}
+                value="certificate"
+                color="primary"
+              />
+            }
+            label="Generate a compliance certificate"
+          />
+        </Content>
+
         <Menu
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}
