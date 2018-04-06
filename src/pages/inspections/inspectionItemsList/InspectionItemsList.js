@@ -9,10 +9,10 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export const InspectionItemsList = ({
   match,
-  auditSummaryAdded,
-  complianceIssuesAdded,
-  conditionRatingsAdded,
   coverAdded,
+  auditSummaryAdded,
+  conditionRatingsAdded,
+  complianceIssuesAdded,
   maintenanceIssuesAdded,
   error,
   loading,

@@ -105,10 +105,7 @@ export class Cover extends Component {
     ) {
       addInspectionCover({
         image,
-        location: {
-          id: location,
-          ...sites[location],
-        },
+        location: sites.filter(({ id }) => id === location)[0],
         client,
         inspectionDate,
         appliedStandards,

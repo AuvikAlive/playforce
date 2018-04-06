@@ -6,8 +6,14 @@ import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
+import CheckCircleIcon from 'material-ui-icons/CheckCircle'
 import Paper from 'material-ui/Paper'
-import List, { ListItem, ListItemText } from 'material-ui/List'
+import List, {
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+} from 'material-ui/List'
+import Avatar from 'material-ui/Avatar'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledInspectionList } from './StyledInspectionList'
 import SearchBar from '../../../components/searchBar'
@@ -71,27 +77,46 @@ export class InspectionList extends Component {
         ) : (
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {inspections.map(item => {
-                return item && item.cover ? (
-                  <StyledNavLink
-                    key={item.id}
-                    to={{
-                      pathname: `${match.url}/edit`,
-                      state: {
-                        id: item.id,
-                      },
-                    }}
-                  >
-                    <ListItem divider button>
-                      <ListItemText
-                        primary={`#${item.inspectionNumber} ${
-                          item.cover.location.name
-                        } -  ${item.cover.client}`}
-                      />
-                    </ListItem>
-                  </StyledNavLink>
-                ) : null
-              })}
+              {inspections.map(
+                ({
+                  id,
+                  cover,
+                  inspectionNumber,
+                  coverAdded,
+                  auditSummaryAdded,
+                  conditionRatingsAdded,
+                  complianceIssuesAdded,
+                  maintenanceIssuesAdded,
+                }) => {
+                  const { location, client } = cover
+                  const { name, suburb } = location
+                  const completed =
+                    coverAdded && auditSummaryAdded && conditionRatingsAdded
+
+                  return cover ? (
+                    <StyledNavLink
+                      key={id}
+                      to={{
+                        pathname: `${match.url}/edit`,
+                        state: {
+                          id,
+                        },
+                      }}
+                    >
+                      <ListItem divider button>
+                        <Avatar className="avatar">{inspectionNumber}</Avatar>
+                        <ListItemText
+                          primary={`${name}, ${suburb}`}
+                          secondary={client}
+                        />
+                        <ListItemSecondaryAction>
+                          {completed && <CheckCircleIcon color="primary" />}
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </StyledNavLink>
+                  ) : null
+                },
+              )}
             </List>
           </Paper>
         )}
