@@ -82,7 +82,7 @@ export class Cover extends Component {
       setErrorLoadingState,
       image,
       displayName,
-      data: { sites },
+      sites,
     } = this.props
     const { location, client, inspectionDate, appliedStandards } = this.state
 

@@ -95,9 +95,9 @@ export class InspectionItemsAdd extends Component {
   }
 
   beforeBack = () => {
-    const { saveInspectionDraft, history } = this.props
+    const { discardInspection, history } = this.props
 
-    saveInspectionDraft()
+    discardInspection()
     history.goBack()
   }
 
