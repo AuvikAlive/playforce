@@ -29,6 +29,16 @@ export class ConditionRatingForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
+  componentWillReceiveProps({ imageNaturalAspectRatio }) {
+    if (imageNaturalAspectRatio) {
+      const { setErrorLoadingState } = this.props
+
+      imageNaturalAspectRatio <= 1
+        ? setErrorLoadingState({ error: 'Please upload a landscape image!' })
+        : setErrorLoadingState({ error: '' })
+    }
+  }
+
   loadInitialData = conditionRating => {
     const { setCapturedImage } = this.props
     const { image } = conditionRating

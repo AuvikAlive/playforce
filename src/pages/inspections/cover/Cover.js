@@ -65,6 +65,16 @@ export class Cover extends Component {
     removeLefNavComponent()
   }
 
+  componentWillReceiveProps({ imageNaturalAspectRatio }) {
+    if (imageNaturalAspectRatio) {
+      const { setErrorLoadingState } = this.props
+
+      imageNaturalAspectRatio <= 1
+        ? setErrorLoadingState({ error: 'Please upload a landscape image!' })
+        : setErrorLoadingState({ error: '' })
+    }
+  }
+
   onInputChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -131,7 +141,15 @@ export class Cover extends Component {
     return sitesLoaded && standardsLoaded && clientsLoaded ? (
       <StyledCover className="StyledCover">
         <Card>
-          {image && <img src={image} alt="cover" />}
+          {image && (
+            <img
+              ref={element => {
+                this.image = element
+              }}
+              src={image}
+              alt="cover"
+            />
+          )}
 
           <CardContent>
             <Button

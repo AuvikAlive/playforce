@@ -19,6 +19,16 @@ export class MaintenanceIssueForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
+  componentWillReceiveProps({ imageNaturalAspectRatio }) {
+    if (imageNaturalAspectRatio) {
+      const { setErrorLoadingState } = this.props
+
+      imageNaturalAspectRatio <= 1
+        ? setErrorLoadingState({ error: 'Please upload a landscape image!' })
+        : setErrorLoadingState({ error: '' })
+    }
+  }
+
   loadInitialData = maintenanceIssue => {
     const { setCapturedImage } = this.props
     const { image } = maintenanceIssue

@@ -7,7 +7,6 @@ import Grid from 'material-ui/Grid'
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import StayCurrentPortraitIcon from 'material-ui-icons/StayCurrentPortrait'
-import values from 'lodash/values'
 import {
   probabilities,
   severities,
@@ -37,11 +36,13 @@ export class ComplianceIssueForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
-  componentWillReceiveProps({ data }) {
-    const commonIssues = data && data.commonIssues && values(data.commonIssues)
+  componentWillReceiveProps({ imageNaturalAspectRatio }) {
+    if (imageNaturalAspectRatio) {
+      const { setErrorLoadingState } = this.props
 
-    if (commonIssues) {
-      this.setState({ commonIssues })
+      imageNaturalAspectRatio >= 1
+        ? setErrorLoadingState({ error: 'Please upload a portrait image!' })
+        : setErrorLoadingState({ error: '' })
     }
   }
 

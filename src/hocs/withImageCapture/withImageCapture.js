@@ -5,6 +5,7 @@ import pica from 'pica/dist/pica.min'
 export const withImageCapture = WrappedComponent => {
   class WithImageCapture extends Component {
     state = {
+      imageNaturalAspectRatio: null,
       image: null,
       aspectRatio: null,
     }
@@ -42,7 +43,10 @@ export const withImageCapture = WrappedComponent => {
             reader.addEventListener(
               'load',
               () => {
-                this.setState({ image: reader.result })
+                this.setState({
+                  image: reader.result,
+                  imageNaturalAspectRatio: img.naturalWidth / img.naturalHeight,
+                })
               },
               false,
             )
@@ -55,7 +59,7 @@ export const withImageCapture = WrappedComponent => {
     }
 
     render() {
-      const { image } = this.state
+      const { image, imageNaturalAspectRatio } = this.state
 
       return (
         <div>
@@ -70,6 +74,7 @@ export const withImageCapture = WrappedComponent => {
             onChange={this.getFile}
           />
           <WrappedComponent
+            imageNaturalAspectRatio={imageNaturalAspectRatio}
             image={image}
             setCapturedImage={this.setImage}
             captureImage={this.capture}
