@@ -22,7 +22,7 @@ export class SiteList extends Component {
       query,
       firestore,
       userId,
-      fetchSites,
+      fetchSitesRealTime,
     } = this.props
     const {
       setNavTitle,
@@ -58,7 +58,7 @@ export class SiteList extends Component {
       />,
     )
 
-    fetchSites(userId)
+    fetchSitesRealTime(userId)
   }
 
   componentWillReceiveProps(nextProps) {

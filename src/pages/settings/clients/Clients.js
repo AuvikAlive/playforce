@@ -20,7 +20,7 @@ export class Clients extends Component {
 
   async componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, userId, fetchClients } = this.props
+    const { history, userId, fetchClientsRealTime } = this.props
 
     setNavTitle('Clients')
 
@@ -30,7 +30,7 @@ export class Clients extends Component {
       </IconButton>,
     )
 
-    const unsubscribe = await fetchClients(userId)
+    const unsubscribe = await fetchClientsRealTime(userId)
 
     this.setState({ unsubscribe })
   }

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Clients } from './Clients'
-import { fetchClients } from '../../../store/actions/actionCreators/clientActions'
+import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
@@ -16,7 +16,7 @@ const mapStateToProps = ({
   clients,
 })
 
-const mapDispatchToProps = { fetchClients }
+const mapDispatchToProps = { fetchClientsRealTime }
 
 export const ClientsContainer = compose(
   withDeleteModal,

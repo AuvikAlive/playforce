@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
@@ -10,11 +11,8 @@ import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
-import values from 'lodash/values'
 import isEmpty from 'lodash/isEmpty'
 import { StyledCover } from './StyledCover'
-// import { defaultClients, defaultStandards } from '../../../globals/constants'
-import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class Cover extends Component {
   state = {
@@ -26,7 +24,15 @@ export class Cover extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { cover, firestore, userId, history, setCapturedImage } = this.props
+    const {
+      cover,
+      fetchSites,
+      fetchStandards,
+      fetchClients,
+      userId,
+      history,
+      setCapturedImage,
+    } = this.props
 
     if (!isEmpty(cover)) {
       const { image } = cover
@@ -47,53 +53,17 @@ export class Cover extends Component {
       </IconButton>,
     )
 
-    firestore.setListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'sites' }],
-      },
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'clients' }],
-      },
-    ])
+    fetchSites(userId)
+    fetchStandards(userId)
+    fetchClients(userId)
   }
 
   componentWillUnmount() {
-    const { firestore, userId } = this.props
     const { removeNavTitle, removeLefNavComponent } = this.context
-
-    firestore.unsetListeners([
-      {
-        collection: 'sites',
-        orderBy: 'name',
-      },
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'clients' }],
-      },
-    ])
 
     removeNavTitle()
     removeLefNavComponent()
   }
-
-  // shouldComponentUpdate({ data }) {
-  //   return !!(data && data.sites && data.standards && data.clients)
-  // }
 
   onInputChange = name => event => {
     this.setState({
@@ -116,7 +86,13 @@ export class Cover extends Component {
     } = this.props
     const { location, client, inspectionDate, appliedStandards } = this.state
 
-    if (image && location && client && inspectionDate && appliedStandards) {
+    if (
+      image &&
+      location &&
+      client &&
+      inspectionDate &&
+      appliedStandards.length > 0
+    ) {
       addInspectionCover({
         image,
         location: {
@@ -139,18 +115,23 @@ export class Cover extends Component {
   render() {
     const { location, client, inspectionDate, appliedStandards } = this.state
 
-    const { image, captureImage, displayName, data, error } = this.props
+    const {
+      image,
+      captureImage,
+      displayName,
+      sitesLoaded,
+      sites,
+      standardsLoaded,
+      standards,
+      clientsLoaded,
+      clients,
+      error,
+    } = this.props
 
-    const sites = data && data.sites ? objectToArrayWithId(data.sites) : []
-    const standards =
-      data && data.standards && objectToArrayWithId(data.standards)
-    const clients = data && data.clients && values(data.clients)
-
-    return (
+    return sitesLoaded && standardsLoaded && clientsLoaded ? (
       <StyledCover className="StyledCover">
         <Card>
           {image && <img src={image} alt="cover" />}
-          {/* {image && <CardMedia className="card-media" image={image} />} */}
 
           <CardContent>
             <Button
@@ -172,7 +153,7 @@ export class Cover extends Component {
                 onChange={this.onInputChange('location')}
                 margin="normal"
               >
-                {!!sites && sites.length > 0 ? (
+                {sites.length > 0 ? (
                   sites.map(({ id, name }) => (
                     <MenuItem key={id} value={id}>
                       {name}
@@ -191,7 +172,7 @@ export class Cover extends Component {
                 onChange={this.onInputChange('client')}
                 margin="normal"
               >
-                {!!clients && clients.length > 0 ? (
+                {clients.length > 0 ? (
                   clients.map(({ name }, index) => {
                     return (
                       <MenuItem key={index} value={name}>
@@ -237,7 +218,7 @@ export class Cover extends Component {
                 onChange={this.onInputChange('appliedStandards')}
                 margin="normal"
               >
-                {!!standards && standards.length > 0 ? (
+                {standards.length > 0 ? (
                   standards.map(({ title, code, publishDate, id }, index) => {
                     return (
                       <MenuItem key={index} value={id}>
@@ -265,6 +246,8 @@ export class Cover extends Component {
           </CardContent>
         </Card>
       </StyledCover>
+    ) : (
+      <LinearProgress />
     )
   }
 }
