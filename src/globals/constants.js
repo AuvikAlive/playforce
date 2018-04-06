@@ -55,3 +55,6 @@ export const conditions = [
   '4 - Poor',
   '5 - Failed',
 ]
+
+export const defaultAuditSummary =
+  'This inspection report highlights several areas in which elements in the playground do not comply strictly with some of the requirements in the Standard. Those areas of non-compliance to any aspect of the Standards are detailed in the following pages, along with an assessment of the risk and reasoning behind any recommendation to accept or modify.\nIt is important to recognise that the Standards are not a single and absolute requirement in risk assessment. The Standards are one of the considerations rather than the only tool to be used. The purpose of an assessment such as this is to weigh the risk and determine what changes, if any, are required.\nA certain amount of risk in a playground is not only acceptable, but desirable, providing it is low level and not likely to result in a serious injury. It is through learning to manage risk that children develop the skills they need in life. Unforeseeable hazards are more significant than those which a child can easily see and assess for themselves and should therefore be treated with a greater degree of caution.'

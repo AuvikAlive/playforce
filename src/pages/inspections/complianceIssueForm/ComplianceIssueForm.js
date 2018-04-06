@@ -8,7 +8,11 @@ import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import StayCurrentPortraitIcon from 'material-ui-icons/StayCurrentPortrait'
 import values from 'lodash/values'
-import { probabilities, severities, riskLevels } from '../../../globals/scales'
+import {
+  probabilities,
+  severities,
+  riskLevels,
+} from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 

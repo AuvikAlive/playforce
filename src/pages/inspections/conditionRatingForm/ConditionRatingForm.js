@@ -9,7 +9,7 @@ import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import DateRangeIcon from 'material-ui-icons/DateRange'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { DatePicker } from 'material-ui-pickers'
-import { defaultManufacturers, conditions } from '../../../globals/scales'
+import { defaultManufacturers, conditions } from '../../../globals/constants'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 export class ConditionRatingForm extends Component {

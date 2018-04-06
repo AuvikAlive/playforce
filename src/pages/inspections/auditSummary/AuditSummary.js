@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField'
 import { FormControl } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
 import { StyledAuditSummary } from './StyledAuditSummary'
+import { defaultAuditSummary } from '../../../globals/constants'
 
 export class AuditSummary extends Component {
   state = {
@@ -15,12 +16,12 @@ export class AuditSummary extends Component {
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { auditSummary, history } = this.props
+    const { auditSummary: { summary }, history } = this.props
 
-    if (auditSummary) {
-      const { summary } = auditSummary
-
+    if (summary) {
       this.setState({ summary })
+    } else {
+      this.setState({ summary: defaultAuditSummary })
     }
 
     setNavTitle('Add Audit Summary')
@@ -85,7 +86,6 @@ export class AuditSummary extends Component {
               <TextField
                 fullWidth
                 multiline
-                rows="3"
                 label="Summary"
                 value={summary}
                 margin="normal"

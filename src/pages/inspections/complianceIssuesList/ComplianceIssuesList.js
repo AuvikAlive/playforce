@@ -10,7 +10,11 @@ import Grid from 'material-ui/Grid'
 import { CardContent } from 'material-ui/Card'
 import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { probabilities, severities, riskLevels } from '../../../globals/scales'
+import {
+  probabilities,
+  severities,
+  riskLevels,
+} from '../../../globals/constants'
 
 export class ComplianceIssuesList extends Component {
   state = {}

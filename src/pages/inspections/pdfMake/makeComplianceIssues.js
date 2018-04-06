@@ -8,7 +8,7 @@ import {
   purple,
   lightGray,
 } from './globals'
-import { probabilities, severities, riskLevels } from '../../../globals/scales'
+import { probabilities, severities, riskLevels } from '../../../globals/constants'
 
 const colorMap = {
   V: blue,

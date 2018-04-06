@@ -7,7 +7,7 @@ import { InputLabel } from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
 import Grid from 'material-ui/Grid'
 import { StyledCommonIssueForm } from './StyledCommonIssueForm'
-import { probabilities, severities, riskLevels } from '../../../globals/scales'
+import { probabilities, severities, riskLevels } from '../../../globals/constants'
 
 export class CommonIssueForm extends Component {
   state = {

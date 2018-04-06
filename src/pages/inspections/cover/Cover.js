@@ -13,7 +13,7 @@ import { DatePicker } from 'material-ui-pickers'
 import values from 'lodash/values'
 import isEmpty from 'lodash/isEmpty'
 import { StyledCover } from './StyledCover'
-// import { defaultClients, defaultStandards } from '../../../globals/scales'
+// import { defaultClients, defaultStandards } from '../../../globals/constants'
 import { objectToArrayWithId } from '../../../utilities/objectToArrayWithId'
 
 export class Cover extends Component {
