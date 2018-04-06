@@ -71,6 +71,7 @@ export const InspectionItemsList = ({
             <div className="button-container">
               <Button
                 fullWidth
+                disabled={!coverAdded}
                 variant="raised"
                 color="primary"
                 className="submit-button"
