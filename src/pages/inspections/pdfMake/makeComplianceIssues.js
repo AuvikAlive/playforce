@@ -8,7 +8,11 @@ import {
   purple,
   lightGray,
 } from './globals'
-import { probabilities, severities, riskLevels } from '../../../globals/constants'
+import {
+  probabilities,
+  severities,
+  riskLevels,
+} from '../../../globals/constants'
 
 const colorMap = {
   V: blue,
@@ -59,10 +63,7 @@ export const makeComplianceIssues = (
       array,
     ) => {
       const item = {
-        marginTop: verticalMargin * 3,
-        // marginBottom: verticalMargin * 3,
-        // columnGap: 20,
-        // layout: 'lightHorizontalLines',
+        marginTop: verticalMargin * 2,
         layout: {
           hLineWidth: function(i, node) {
             return i === 0 || i === node.table.body.length ? 0 : 1
@@ -96,7 +97,6 @@ export const makeComplianceIssues = (
               {
                 image,
                 width: 207,
-                // height: 290,
                 rowSpan: 6,
               },
               {
@@ -214,10 +214,6 @@ export const makeComplianceIssues = (
       if (index + 1 !== array.length && index !== 0 && (index + 1) % 2 === 0) {
         item.pageBreak = 'after'
       }
-
-      // if (index + 1 !== array.length && index !== 0 && (index + 1) % 3 === 0) {
-      //   item.pageBreak = 'after'
-      // }
 
       return item
     },

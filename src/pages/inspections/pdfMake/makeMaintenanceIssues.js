@@ -74,7 +74,7 @@ export const makeMaintenanceIssues = (
       font: 'Oswald',
       fontSize: headerFontSize,
       // bold: true,
-      marginBottom: verticalMargin * 3,
+      marginBottom: verticalMargin * 2,
     },
     grid,
   ]

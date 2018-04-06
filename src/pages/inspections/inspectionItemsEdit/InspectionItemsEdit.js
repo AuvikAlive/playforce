@@ -64,6 +64,10 @@ export class InspectionItemsEdit extends Component {
     removeRightNavComponent()
   }
 
+  componentWillReceiveProps({ inspection }) {
+    // inspection && this.renderPdf(inspection)
+  }
+
   openMenu = event => {
     this.setState({ menuAnchor: event.currentTarget })
   }

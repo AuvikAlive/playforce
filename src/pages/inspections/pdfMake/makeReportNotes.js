@@ -2,8 +2,7 @@ import { verticalMargin, headerFontSize } from './globals'
 
 export const makeReportNotes = ({ appliedStandards }) => {
   const standardItems = appliedStandards.map(
-    ({ code, title }, index, array) =>
-      index === 0 ? `${code}: ${title}` : `, ${code}: ${title}`,
+    ({ code, title }, index, array) => (index === 0 ? `${code}` : `, ${code}`),
   )
 
   return [
