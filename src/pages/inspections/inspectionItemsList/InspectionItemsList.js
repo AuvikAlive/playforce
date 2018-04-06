@@ -17,7 +17,7 @@ export const InspectionItemsList = ({
   error,
   loading,
   publish,
-  reportButton,
+  buttonText,
 }) => {
   return (
     <StyledInspectionItemsList className="StyledInspectionItemsList">
@@ -76,13 +76,10 @@ export const InspectionItemsList = ({
                 className="submit-button"
                 onClick={publish}
               >
-                Publish
+                {buttonText ? buttonText : 'Publish'}
               </Button>
             </div>
           )}
-
-          {reportButton &&
-            !loading && <div className="button-container">{reportButton}</div>}
         </List>
       </Paper>
     </StyledInspectionItemsList>

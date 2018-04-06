@@ -10,9 +10,9 @@ export class InspectionItemsAdd extends Component {
     const {
       setNavTitle,
       setLeftNavComponent,
-      setRightNavComponent,
+      // setRightNavComponent,
     } = this.context
-    const { openModal } = this.props
+    // const { openModal } = this.props
 
     setNavTitle('Add Inspection')
 
@@ -22,15 +22,15 @@ export class InspectionItemsAdd extends Component {
       </IconButton>,
     )
 
-    setRightNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="delete condition rating"
-        onClick={() => openModal(this.delete)}
-      >
-        <DeleteIcon />
-      </IconButton>,
-    )
+    // setRightNavComponent(
+    //   <IconButton
+    //     color="inherit"
+    //     aria-label="delete condition rating"
+    //     onClick={() => openModal(this.delete)}
+    //   >
+    //     <DeleteIcon />
+    //   </IconButton>,
+    // )
   }
 
   componentWillUnmount() {

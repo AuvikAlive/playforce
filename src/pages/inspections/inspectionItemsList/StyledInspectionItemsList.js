@@ -12,6 +12,6 @@ export const StyledInspectionItemsList = Styled(Content)`
   }
 
   .button-container {
-    padding: 0 16px;
+    padding: 0 16px 12px;
   }
 `

@@ -238,17 +238,7 @@ export class InspectionItemsEdit extends Component {
           error={error}
           loading={loading}
           publish={this.publish}
-          // reportButton={
-          //   <Button
-          //     fullWidth
-          //     variant="raised"
-          //     color="primary"
-          //     className="submit-button"
-          //     onClick={this.generateReport}
-          //   >
-          //     Generate Report
-          //   </Button>
-          // }
+          buttonText="Update"
         />
         <Menu
           anchorEl={menuAnchor}
