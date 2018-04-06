@@ -162,7 +162,7 @@ export class ComplianceIssueForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ aspectRatio: 9 / 16 })}
+              onClick={() => captureImage({ aspectRatio: 188 / 253 })}
             >
               Capture Image
               <StayCurrentPortraitIcon className="button-icon" />
