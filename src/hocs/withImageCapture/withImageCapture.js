@@ -20,37 +20,40 @@ export const withImageCapture = WrappedComponent => {
       const resizer = pica()
       const file = event.target.files[0]
 
-      let img = document.createElement('img')
-      img.src = URL.createObjectURL(file)
+      if (file) {
+        let img = document.createElement('img')
+        img.src = URL.createObjectURL(file)
 
-      img.onload = () => {
-        let offScreenCanvas = document.createElement('canvas')
-        offScreenCanvas.width = 500
-        offScreenCanvas.height = aspectRatio
-          ? 1 / aspectRatio * 500
-          : img.naturalHeight / img.naturalWidth * 500
+        img.onload = () => {
+          let offScreenCanvas = document.createElement('canvas')
+          offScreenCanvas.width = 500
+          offScreenCanvas.height = aspectRatio
+            ? 1 / aspectRatio * 500
+            : img.naturalHeight / img.naturalWidth * 500
 
-        resizer
-          .resize(img, offScreenCanvas, {
-            alpha: true,
-          })
-          .then(result => resizer.toBlob(result, file.type, 0.9))
-          .then(blob => {
-            const reader = new FileReader()
+          resizer
+            .resize(img, offScreenCanvas, {
+              alpha: true,
+            })
+            .then(result => resizer.toBlob(result, file.type, 0.9))
+            .then(blob => {
+              const reader = new FileReader()
 
-            reader.readAsDataURL(blob)
+              reader.readAsDataURL(blob)
 
-            reader.addEventListener(
-              'load',
-              () => {
-                this.setState({
-                  image: reader.result,
-                  imageNaturalAspectRatio: img.naturalWidth / img.naturalHeight,
-                })
-              },
-              false,
-            )
-          })
+              reader.addEventListener(
+                'load',
+                () => {
+                  this.setState({
+                    image: reader.result,
+                    imageNaturalAspectRatio:
+                      img.naturalWidth / img.naturalHeight,
+                  })
+                },
+                false,
+              )
+            })
+        }
       }
     }
 
