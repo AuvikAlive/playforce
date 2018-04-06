@@ -12,7 +12,7 @@ export class InspectionItemsAdd extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { loadInspectionDraft, inspection, openModal } = this.props
+    const { openModal } = this.props
 
     setNavTitle('Add Inspection')
 
@@ -31,8 +31,6 @@ export class InspectionItemsAdd extends Component {
         <DeleteIcon />
       </IconButton>,
     )
-
-    !inspection.draftInspectionLoaded && loadInspectionDraft()
   }
 
   componentWillUnmount() {
