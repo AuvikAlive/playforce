@@ -7,7 +7,7 @@ export const cardMediaPortrait = `
     transform: translateX(-50%);
 
     @media (min-width: 600px) {
-      height: calc(600 * 16 / 9px);
+      height: calc(600px / 2 * 253 / 188);
     }
   }
 `
