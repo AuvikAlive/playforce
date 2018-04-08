@@ -3,10 +3,7 @@ import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
 import { getInitials } from '../../../utilities/getInitials'
 import { StyledUserView } from './StyledUserView'
-import backgroundLowWebp from './backgroundLow.webp'
-import backgroundWebp from './background.webp'
-import backgroundLow from './backgroundLow.png'
-import background from './background.png'
+import { backgroundLowPng } from './backgroundLowPng'
 
 export const UserView = ({ profile }) => {
   const { image, displayName, email } = profile
@@ -25,7 +22,8 @@ export const UserView = ({ profile }) => {
           {email}
         </Typography>
       </div>
-      <picture className="background">
+      <img src={backgroundLowPng} alt="background" className="background" />
+      {/* <picture className="background">
         <source srcSet={backgroundLowWebp} type="image/webp" />
         <source
           srcSet={backgroundWebp}
@@ -37,9 +35,8 @@ export const UserView = ({ profile }) => {
           srcSet={background}
           type="image/jpeg"
           media="(min-width: 1080px)"
-        />
-        <img src={backgroundLow} alt="background" />
-      </picture>
+        />  
+      </picture> */}
     </StyledUserView>
   )
 }

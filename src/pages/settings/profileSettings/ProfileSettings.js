@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import Card, { CardContent, CardMedia } from 'material-ui/Card'
+import Card, { CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import { FormControl } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
 import SignaturePad from 'react-signature-pad'
-// import pica from 'pica'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
 import { StyledProfileSettings } from './StyledProfileSettings'
@@ -98,7 +97,7 @@ export class ProfileSettings extends Component {
     return (
       <StyledProfileSettings className="StyledProfileSettings">
         <Card>
-          {image && <CardMedia className="card-media" image={image} />}
+          {image && <img src={image} alt="user" />}
 
           <CardContent>
             {!loading && (
