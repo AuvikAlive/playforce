@@ -1,5 +1,3 @@
-// import vfsFonts from 'pdfmake/build/vfs_fonts'
-// import pdfMake from 'pdfmake/build/pdfmake.js'
 import {
   pageWidth,
   pageHeight,
@@ -90,7 +88,7 @@ export const generatePdf = async (
       makeConditionRatingInfo(),
       makeIndividualConditionRatings(conditionRatings),
       makeComplianceIssues(complianceIssues, complianceIssuesAdded),
-      makeMaintenanceIssues(maintenanceIssues, maintenanceIssuesAdded),
+      maintenanceIssuesAdded ? makeMaintenanceIssues(maintenanceIssues) : null,
       makeAreasAssessed(),
       makeReportNotes(cover),
     ],

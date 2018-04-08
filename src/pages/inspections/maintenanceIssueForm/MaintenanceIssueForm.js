@@ -23,8 +23,8 @@ export class MaintenanceIssueForm extends Component {
     if (imageNaturalAspectRatio) {
       const { setErrorLoadingState } = this.props
 
-      imageNaturalAspectRatio <= 1
-        ? setErrorLoadingState({ error: 'Please upload a landscape image!' })
+      imageNaturalAspectRatio > 1
+        ? setErrorLoadingState({ error: 'Please upload a portrait image!' })
         : setErrorLoadingState({ error: '' })
     }
   }
@@ -71,7 +71,6 @@ export class MaintenanceIssueForm extends Component {
       <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
         <Card>
           {image && <img src={image} alt="equipment type" />}
-          {/* {image && <CardMedia className="card-media" image={image} />} */}
 
           <CardContent>
             <Button
@@ -79,7 +78,7 @@ export class MaintenanceIssueForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ aspectRatio: 16 / 9 })}
+              onClick={() => captureImage({ aspectRatio: 188 / 253 })}
             >
               Capture Image
               <StayCurrentLandscapeIcon className="button-icon" />
