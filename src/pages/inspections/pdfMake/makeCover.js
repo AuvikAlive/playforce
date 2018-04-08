@@ -19,6 +19,7 @@ export const makeCover = ({
   appliedStandards,
 }) => {
   const middleSectionFontSize = fontSize + 2
+  const middleSectionFirstColumnWidth = 150
   const { name, street, suburb, state, postcode, country } = location
   const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
 
@@ -139,30 +140,34 @@ export const makeCover = ({
       {
         fontSize: middleSectionFontSize,
         columns: [
-          { text: 'LOCATION', bold: true, width: 'auto' },
-          [
-            { text: name, width: '*', marginLeft: middleSectionFontSize * 7 },
-            { text: address, marginLeft: middleSectionFontSize * 7 },
-          ],
+          {
+            text: 'LOCATION',
+            bold: true,
+            width: middleSectionFirstColumnWidth,
+          },
+          [{ text: name, width: '*' }, { text: address }],
         ],
         marginTop: verticalMargin * 5,
       },
       {
         fontSize: middleSectionFontSize,
         columns: [
-          { text: 'CLIENT', bold: true, width: 'auto' },
-          { text: client, width: '*', marginLeft: middleSectionFontSize * 8.4 },
+          { text: 'CLIENT', bold: true, width: middleSectionFirstColumnWidth },
+          { text: client, width: '*' },
         ],
         marginTop: verticalMargin * 2,
       },
       {
         fontSize: middleSectionFontSize,
         columns: [
-          { text: 'INSPECTION DATE', bold: true, width: 'auto' },
+          {
+            text: 'INSPECTION DATE',
+            bold: true,
+            width: middleSectionFirstColumnWidth,
+          },
           {
             text: format(inspectionDate, 'DD MMMM YYYY'),
             width: '*',
-            marginLeft: middleSectionFontSize * 3.3,
           },
           { text: 'INSPECTED BY', bold: true, width: 'auto' },
           {

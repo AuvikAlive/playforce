@@ -53,8 +53,6 @@ export const generatePdf = async (
     },
   }
 
-  // certificate = true
-
   const skipCommonHeaderFooter = certificate ? 2 : 1
 
   const docDefinition = {
@@ -80,7 +78,12 @@ export const generatePdf = async (
         : null,
     content: [
       certificate
-        ? await makeCertificate(cover, auditSummary, inspectionNumber)
+        ? await makeCertificate({
+            inspectionNumber,
+            cover,
+            auditSummary,
+            conditionRatings,
+          })
         : null,
       makeCover(cover),
       await makeAuditSummary({ auditSummary, cover }),

@@ -26,8 +26,9 @@ export class InspectionItemsEdit extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { openModal, inspection } = this.props
+    const { openModal, inspection, fetchStandards, userId } = this.props
 
+    fetchStandards(userId)
     !inspection.inspectionLoaded && this.loadInitialData()
     // inspection.inspectionLoaded && this.renderPdf(inspection)
 
@@ -65,10 +66,6 @@ export class InspectionItemsEdit extends Component {
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
-  }
-
-  componentWillReceiveProps({ inspection }) {
-    // inspection && this.renderPdf(inspection)
   }
 
   onSwitchChange = event => {
@@ -152,8 +149,7 @@ export class InspectionItemsEdit extends Component {
       inspection,
       setErrorLoadingState,
       displayName,
-      firebase,
-      userId,
+      standards,
     } = this.props
     const { certificate } = this.state
 
@@ -165,20 +161,20 @@ export class InspectionItemsEdit extends Component {
       setErrorLoadingState({ error: '', loading: true })
 
       inspection.displayName = displayName
-      let standards = []
-      const db = firebase.firestore()
-      const standardsRef = db
-        .collection('users')
-        .doc(userId)
-        .collection('standards')
-      const querySnapshot = await standardsRef.get()
+      // let standards = []
+      // const db = firebase.firestore()
+      // const standardsRef = db
+      //   .collection('users')
+      //   .doc(userId)
+      //   .collection('standards')
+      // const querySnapshot = await standardsRef.get()
 
-      querySnapshot.forEach(doc =>
-        standards.push({
-          id: doc.id,
-          ...doc.data(),
-        }),
-      )
+      // querySnapshot.forEach(doc =>
+      //   standards.push({
+      //     id: doc.id,
+      //     ...doc.data(),
+      //   }),
+      // )
 
       const appliedStandards = flatten(
         map(inspection.cover.appliedStandards, standardId => {
@@ -211,7 +207,7 @@ export class InspectionItemsEdit extends Component {
   }
 
   renderPdf = async inspection => {
-    const pdfDocGenerator = await generatePdf(inspection)
+    const pdfDocGenerator = await generatePdf(inspection, true)
     pdfDocGenerator.getDataUrl(dataUrl => {
       this.setState({ src: dataUrl })
     })
@@ -225,7 +221,7 @@ export class InspectionItemsEdit extends Component {
   }
 
   render() {
-    const { inspection, match, error, loading } = this.props
+    const { inspection, standardsLoaded, match, error, loading } = this.props
     const { menuAnchor } = this.state
 
     let added
@@ -248,7 +244,7 @@ export class InspectionItemsEdit extends Component {
       }
     }
 
-    return inspection && inspection.inspectionLoaded ? (
+    return inspection && inspection.inspectionLoaded && standardsLoaded ? (
       <div>
         <InspectionItemsList
           {...added}

@@ -9,11 +9,20 @@ import {
 import { logo } from './logo'
 import { trimImage } from '../../../utilities/trimImage'
 
-export const makeCertificate = async (
-  { image, location, client, inspectionDate, displayName, appliedStandards },
-  { signature, title, company },
+export const makeCertificate = async ({
   inspectionNumber,
-) => {
+  cover,
+  auditSummary,
+  conditionRatings,
+}) => {
+  const {
+    location,
+    client,
+    inspectionDate,
+    displayName,
+    appliedStandards,
+  } = cover
+  const { signature, title, company } = auditSummary
   const pageFontSize = fontSize + 2
   const firstColumnWidth = 150
   const { name, street, suburb, state, postcode, country } = location
@@ -24,10 +33,18 @@ export const makeCertificate = async (
     ({ code, title }, index, array) => {
       const item = {
         text: `${code}`,
+        width: '*',
       }
 
       return item
     },
+  )
+
+  const conditionRatingItems = conditionRatings.map(
+    ({ equipment, manufacturer }) => ({
+      text: `${equipment} - ${manufacturer}`,
+      width: '*',
+    }),
   )
 
   return [
@@ -174,7 +191,7 @@ export const makeCertificate = async (
             width: firstColumnWidth,
           },
           { text: ':', width: firstColumnWidth / 2 },
-          { text: 'List', width: '*' },
+          conditionRatingItems,
         ],
       },
       {
@@ -188,7 +205,7 @@ export const makeCertificate = async (
             width: firstColumnWidth,
           },
           { text: ':', width: firstColumnWidth / 2 },
-          { text: standardItems, width: '*' },
+          standardItems,
         ],
       },
       {
