@@ -59,6 +59,7 @@ export class ConditionRatingList extends Component {
                 {
                   image,
                   equipment,
+                  assetId,
                   manufacturer,
                   condition,
                   estimatedDateInstalled,
@@ -83,6 +84,9 @@ export class ConditionRatingList extends Component {
                       </StyledNavLink>
                       <Typography variant="title">
                         Equipment: {equipment}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Asset Id: {assetId}
                       </Typography>
                       <Typography variant="subheading">
                         Manufacturer: {manufacturer}

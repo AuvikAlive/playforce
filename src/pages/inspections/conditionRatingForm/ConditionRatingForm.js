@@ -15,6 +15,7 @@ import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 export class ConditionRatingForm extends Component {
   state = {
     equipment: '',
+    assetId: '',
     manufacturer: '',
     condition: conditions[0],
     estimatedDateInstalled: new Date(),
@@ -63,6 +64,7 @@ export class ConditionRatingForm extends Component {
     const { onSubmit, setErrorLoadingState, image } = this.props
     const {
       equipment,
+      assetId,
       manufacturer,
       condition,
       estimatedDateInstalled,
@@ -71,6 +73,7 @@ export class ConditionRatingForm extends Component {
     if (
       image &&
       equipment &&
+      assetId &&
       manufacturer &&
       condition &&
       estimatedDateInstalled
@@ -79,6 +82,7 @@ export class ConditionRatingForm extends Component {
       onSubmit({
         image,
         equipment,
+        assetId,
         manufacturer,
         condition,
         estimatedDateInstalled,
@@ -100,6 +104,7 @@ export class ConditionRatingForm extends Component {
     } = this.props
     const {
       equipment,
+      assetId,
       manufacturer,
       condition,
       estimatedDateInstalled,
@@ -129,6 +134,14 @@ export class ConditionRatingForm extends Component {
                 value={equipment}
                 margin="normal"
                 onChange={this.onInputChange('equipment')}
+              />
+
+              <TextField
+                fullWidth
+                label="Asset Id"
+                value={assetId}
+                margin="normal"
+                onChange={this.onInputChange('assetId')}
               />
 
               <TextField
