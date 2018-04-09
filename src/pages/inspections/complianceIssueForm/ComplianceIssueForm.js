@@ -207,7 +207,6 @@ export class ComplianceIssueForm extends Component {
               <TextField
                 fullWidth
                 multiline
-                rows="3"
                 label="Finding"
                 value={finding}
                 margin="normal"
@@ -273,7 +272,6 @@ export class ComplianceIssueForm extends Component {
               <TextField
                 fullWidth
                 multiline
-                rows="3"
                 label="Comments"
                 value={comments}
                 margin="normal"
@@ -283,7 +281,6 @@ export class ComplianceIssueForm extends Component {
               <TextField
                 fullWidth
                 multiline
-                rows="3"
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
