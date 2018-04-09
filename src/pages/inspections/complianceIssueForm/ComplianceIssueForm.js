@@ -14,6 +14,17 @@ import {
 } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+
+const settings = {
+  dots: false,
+  arrows: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+}
 
 export class ComplianceIssueForm extends Component {
   state = {
@@ -99,21 +110,21 @@ export class ComplianceIssueForm extends Component {
       recommendations,
     } = this.state
 
-    const { onSubmit, setErrorLoadingState, image } = this.props
+    const { onSubmit, setErrorLoadingState, image, images } = this.props
 
     if (
-      image &&
-      finding &&
-      equipment &&
-      standardsClause &&
-      probability &&
-      severity &&
-      comments &&
-      recommendations
+      image ||
+      (images &&
+        finding &&
+        equipment &&
+        standardsClause &&
+        probability &&
+        severity &&
+        comments &&
+        recommendations)
     ) {
       setErrorLoadingState({ error: '' })
-      onSubmit({
-        image,
+      const dataToSave = {
         finding,
         equipment,
         standardsClause,
@@ -121,7 +132,9 @@ export class ComplianceIssueForm extends Component {
         severity,
         comments,
         recommendations,
-      })
+      }
+      Object.assign(dataToSave, image && { image }, images && { images })
+      onSubmit(dataToSave)
     } else {
       setErrorLoadingState({
         error: 'Please fill up the form correctly!',
@@ -134,6 +147,7 @@ export class ComplianceIssueForm extends Component {
       commonIssuesLoaded,
       commonIssues,
       image,
+      images,
       captureImage,
       equipments,
       error,
@@ -157,13 +171,24 @@ export class ComplianceIssueForm extends Component {
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card>
           {image && <img src={image} alt="equipment type" />}
+          {images && (
+            <Slider {...settings}>
+              {images.map(({ image }, index) => (
+                <div key={index}>
+                  <img src={image} alt="equipment type" />
+                </div>
+              ))}
+            </Slider>
+          )}
           <CardContent>
             <Button
               fullWidth
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ aspectRatio: 188 / 253 })}
+              onClick={() =>
+                captureImage({ aspectRatio: 188 / 253, multiple: true })
+              }
             >
               Capture Image
               <StayCurrentPortraitIcon className="button-icon" />
