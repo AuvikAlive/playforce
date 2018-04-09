@@ -8,3 +8,5 @@
 body {
   overflow-x: hidden;
 }
+
+@import '~slick-carousel/slick/slick.css';

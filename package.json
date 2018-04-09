@@ -30,6 +30,7 @@
     "react-scripts": "1.0.14",
     "react-siema": "^1.0.1",
     "react-signature-pad": "^0.0.6",
+    "react-sketch": "^0.4.4",
     "react-slick": "^0.23.1",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
