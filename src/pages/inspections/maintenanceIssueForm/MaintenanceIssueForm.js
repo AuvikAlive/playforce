@@ -4,6 +4,7 @@ import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { Carousel } from '../../../components/carousel/Carousel'
 import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
 
 export class MaintenanceIssueForm extends Component {
@@ -19,11 +20,11 @@ export class MaintenanceIssueForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
-  componentWillReceiveProps({ imageNaturalAspectRatio }) {
-    if (imageNaturalAspectRatio) {
+  componentWillReceiveProps({ imageCaptured, images }) {
+    if (imageCaptured) {
       const { setErrorLoadingState } = this.props
 
-      imageNaturalAspectRatio > 1
+      images.some(({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1)
         ? setErrorLoadingState({ error: 'Please upload a portrait image!' })
         : setErrorLoadingState({ error: '' })
     }
@@ -31,9 +32,9 @@ export class MaintenanceIssueForm extends Component {
 
   loadInitialData = maintenanceIssue => {
     const { setCapturedImage } = this.props
-    const { image } = maintenanceIssue
+    const { images } = maintenanceIssue
 
-    setCapturedImage(image)
+    setCapturedImage(images)
     this.setState({
       ...maintenanceIssue,
     })
@@ -50,12 +51,12 @@ export class MaintenanceIssueForm extends Component {
   }
 
   onSubmit = () => {
-    const { onSubmit, setErrorLoadingState, image } = this.props
+    const { onSubmit, setErrorLoadingState, images } = this.props
     const { finding, equipment, recommendations } = this.state
 
-    if (image && finding && equipment && recommendations) {
+    if (images.length > 0 && finding && equipment && recommendations) {
       setErrorLoadingState({ error: '' })
-      onSubmit({ image, finding, equipment, recommendations })
+      onSubmit({ images, finding, equipment, recommendations })
     } else {
       setErrorLoadingState({
         error: 'Please fill up the form correctly!',
@@ -64,13 +65,17 @@ export class MaintenanceIssueForm extends Component {
   }
 
   render() {
-    const { image, captureImage, equipments, error } = this.props
+    const { images, captureImage, equipments, error } = this.props
     const { finding, equipment, recommendations } = this.state
 
     return (
       <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
         <Card>
-          {image && <img src={image} alt="equipment type" />}
+          {images &&
+            images.length === 1 && (
+              <img src={images[0].image} alt="equipment type" />
+            )}
+          {images && images.length > 1 && <Carousel images={images} />}
 
           <CardContent>
             <Button
@@ -78,9 +83,11 @@ export class MaintenanceIssueForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ aspectRatio: 188 / 253 })}
+              onClick={() =>
+                captureImage({ aspectRatio: 188 / 253, multiple: true })
+              }
             >
-              Capture Image
+              Capture Image(s)
               <StayCurrentLandscapeIcon className="button-icon" />
             </Button>
 

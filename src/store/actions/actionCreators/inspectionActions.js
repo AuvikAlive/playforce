@@ -265,26 +265,10 @@ export const saveInspection = ({
     const complianceIssuesRef = inspectionRef.collection('complianceIssues')
 
     complianceIssues.forEach(async item => {
-      // const { images, previousImages } = item
-      // delete item.images
-      delete item.previousImages
       const ref = item.id
         ? complianceIssuesRef.doc(item.id)
         : complianceIssuesRef.doc()
       item.id ? batch.update(ref, item) : batch.set(ref, item)
-
-      // const imagesRef = ref.collection('images')
-
-      // !!previousImages &&
-      //   previousImages.forEach(id => {
-      //     const ref = imagesRef.doc(id)
-      //     batch.delete(ref)
-      //   })
-
-      // images.forEach(image => {
-      //   const ref = imagesRef.doc()
-      //   batch.set(ref, image)
-      // })
     })
   }
 

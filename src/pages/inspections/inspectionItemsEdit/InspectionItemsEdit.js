@@ -161,20 +161,6 @@ export class InspectionItemsEdit extends Component {
       setErrorLoadingState({ error: '', loading: true })
 
       inspection.displayName = displayName
-      // let standards = []
-      // const db = firebase.firestore()
-      // const standardsRef = db
-      //   .collection('users')
-      //   .doc(userId)
-      //   .collection('standards')
-      // const querySnapshot = await standardsRef.get()
-
-      // querySnapshot.forEach(doc =>
-      //   standards.push({
-      //     id: doc.id,
-      //     ...doc.data(),
-      //   }),
-      // )
 
       const appliedStandards = flatten(
         map(inspection.cover.appliedStandards, standardId => {

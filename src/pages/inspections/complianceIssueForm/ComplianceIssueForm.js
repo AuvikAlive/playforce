@@ -13,20 +13,8 @@ import {
   riskLevels,
 } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { Carousel } from '../../../components/carousel/Carousel'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-
-const settings = {
-  dots: false,
-  arrows: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 1500,
-}
 
 export class ComplianceIssueForm extends Component {
   state = {
@@ -53,7 +41,7 @@ export class ComplianceIssueForm extends Component {
     if (imageCaptured) {
       const { setErrorLoadingState } = this.props
 
-      images.some(({ imageNaturalAspectRatio }) => imageNaturalAspectRatio >= 1)
+      images.some(({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1)
         ? setErrorLoadingState({ error: 'Please upload a portrait image!' })
         : setErrorLoadingState({ error: '' })
     }
@@ -65,7 +53,6 @@ export class ComplianceIssueForm extends Component {
 
     setCapturedImage(images)
     this.setState({
-      previousImages: images.map(({ id }) => id),
       ...complianceIssue,
     })
   }
@@ -177,16 +164,7 @@ export class ComplianceIssueForm extends Component {
             images.length === 1 && (
               <img src={images[0].image} alt="equipment type" />
             )}
-          {images &&
-            images.length > 1 && (
-              <Slider {...settings}>
-                {images.map(({ image }, index) => (
-                  <div key={index}>
-                    <img src={image} alt="equipment type" />
-                  </div>
-                ))}
-              </Slider>
-            )}
+          {images && images.length > 1 && <Carousel images={images} />}
           <CardContent>
             <Button
               fullWidth
@@ -197,7 +175,7 @@ export class ComplianceIssueForm extends Component {
                 captureImage({ aspectRatio: 188 / 253, multiple: true })
               }
             >
-              Capture Image
+              Capture Image(s)
               <StayCurrentPortraitIcon className="button-icon" />
             </Button>
 

@@ -54,10 +54,13 @@ export class MaintenanceIssuesList extends Component {
 
         {!!maintenanceIssues && maintenanceIssues.length > 0 ? (
           <Grid container>
-            {maintenanceIssues.map(({ image, finding, equipment }, index) => {
+            {maintenanceIssues.map(({ images, finding, equipment }, index) => {
               return (
                 <Grid item key={index} xs={12}>
-                  {image && <img src={image} alt="equipment type" />}
+                  {images &&
+                    images.length > 0 && (
+                      <img src={images[0].image} alt="equipment type" />
+                    )}
                   <CardContent className="card-content">
                     <StyledNavLink
                       to={`${match.url}/edit/${index}`}
