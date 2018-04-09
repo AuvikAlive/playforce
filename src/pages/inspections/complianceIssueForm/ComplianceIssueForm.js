@@ -98,7 +98,6 @@ export class ComplianceIssueForm extends Component {
       severity,
       comments,
       recommendations,
-      previousImages,
     } = this.state
 
     const { onSubmit, setErrorLoadingState, images } = this.props
@@ -123,7 +122,6 @@ export class ComplianceIssueForm extends Component {
         comments,
         recommendations,
         images,
-        previousImages,
       }
       onSubmit(dataToSave)
     } else {

@@ -138,21 +138,10 @@ export const fetchInspection = (userId, inspectionId) => async (
       .collection('complianceIssues')
       .get()
 
-    querySnapshot.forEach(async doc => {
-      // let images = []
-      // const querySnapshot = await doc.ref.collection('images').get()
-
-      // querySnapshot.forEach(doc =>
-      //   images.push({
-      //     id: doc.id,
-      //     ...doc.data(),
-      //   }),
-      // )
-
+    querySnapshot.forEach(doc => {
       complianceIssues.push({
         id: doc.id,
         ...doc.data(),
-        // images,
       })
     })
     inspection.complianceIssues = complianceIssues
@@ -333,13 +322,6 @@ export const deleteInspection = ({
     complianceIssues.forEach(item => {
       const ref = complianceIssuesRef.doc(item.id)
       batch.delete(ref)
-
-      // const { images } = item
-      // const imagesRef = ref.collection('images')
-      // images.forEach(({ id }) => {
-      //   const ref = imagesRef.doc(id)
-      //   batch.delete(ref)
-      // })
     })
   }
 
