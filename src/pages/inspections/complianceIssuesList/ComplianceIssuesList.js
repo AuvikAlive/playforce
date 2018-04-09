@@ -62,7 +62,7 @@ export class ComplianceIssuesList extends Component {
             {complianceIssues.map(
               (
                 {
-                  image,
+                  images,
                   finding,
                   equipment,
                   standardsClause,
@@ -75,7 +75,10 @@ export class ComplianceIssuesList extends Component {
               ) => {
                 return (
                   <Grid item key={index} xs={12}>
-                    {image && <img src={image} alt="equipment type" />}
+                    {images &&
+                      images.length > 0 && (
+                        <img src={images[0].image} alt="equipment type" />
+                      )}
                     <CardContent className="card-content">
                       <StyledNavLink
                         to={`${match.url}/edit/${index}`}

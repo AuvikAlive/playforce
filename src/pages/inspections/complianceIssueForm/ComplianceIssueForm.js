@@ -20,10 +20,12 @@ import 'slick-carousel/slick/slick.css'
 const settings = {
   dots: false,
   arrows: false,
-  infinite: false,
+  infinite: true,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 1500,
 }
 
 export class ComplianceIssueForm extends Component {
@@ -47,11 +49,11 @@ export class ComplianceIssueForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
-  componentWillReceiveProps({ imageNaturalAspectRatio }) {
-    if (imageNaturalAspectRatio) {
+  componentWillReceiveProps({ imageCaptured, images }) {
+    if (imageCaptured) {
       const { setErrorLoadingState } = this.props
 
-      imageNaturalAspectRatio >= 1
+      images.some(({ imageNaturalAspectRatio }) => imageNaturalAspectRatio >= 1)
         ? setErrorLoadingState({ error: 'Please upload a portrait image!' })
         : setErrorLoadingState({ error: '' })
     }
@@ -59,10 +61,11 @@ export class ComplianceIssueForm extends Component {
 
   loadInitialData = complianceIssue => {
     const { setCapturedImage } = this.props
-    const { image } = complianceIssue
+    const { images } = complianceIssue
 
-    setCapturedImage(image)
+    setCapturedImage(images)
     this.setState({
+      previousImages: images.map(({ id }) => id),
       ...complianceIssue,
     })
   }
@@ -108,20 +111,20 @@ export class ComplianceIssueForm extends Component {
       severity,
       comments,
       recommendations,
+      previousImages,
     } = this.state
 
-    const { onSubmit, setErrorLoadingState, image, images } = this.props
+    const { onSubmit, setErrorLoadingState, images } = this.props
 
     if (
-      image ||
-      (images &&
-        finding &&
-        equipment &&
-        standardsClause &&
-        probability &&
-        severity &&
-        comments &&
-        recommendations)
+      images.length > 0 &&
+      finding &&
+      equipment &&
+      standardsClause &&
+      probability &&
+      severity &&
+      comments &&
+      recommendations
     ) {
       setErrorLoadingState({ error: '' })
       const dataToSave = {
@@ -132,8 +135,9 @@ export class ComplianceIssueForm extends Component {
         severity,
         comments,
         recommendations,
+        images,
+        previousImages,
       }
-      Object.assign(dataToSave, image && { image }, images && { images })
       onSubmit(dataToSave)
     } else {
       setErrorLoadingState({
@@ -146,7 +150,6 @@ export class ComplianceIssueForm extends Component {
     const {
       commonIssuesLoaded,
       commonIssues,
-      image,
       images,
       captureImage,
       equipments,
@@ -170,16 +173,20 @@ export class ComplianceIssueForm extends Component {
     return commonIssuesLoaded ? (
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card>
-          {image && <img src={image} alt="equipment type" />}
-          {images && (
-            <Slider {...settings}>
-              {images.map(({ image }, index) => (
-                <div key={index}>
-                  <img src={image} alt="equipment type" />
-                </div>
-              ))}
-            </Slider>
-          )}
+          {images &&
+            images.length === 1 && (
+              <img src={images[0].image} alt="equipment type" />
+            )}
+          {images &&
+            images.length > 1 && (
+              <Slider {...settings}>
+                {images.map(({ image }, index) => (
+                  <div key={index}>
+                    <img src={image} alt="equipment type" />
+                  </div>
+                ))}
+              </Slider>
+            )}
           <CardContent>
             <Button
               fullWidth

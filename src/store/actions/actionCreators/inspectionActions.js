@@ -122,6 +122,7 @@ export const fetchInspection = (userId, inspectionId) => async (
     const querySnapshot = await inspectionRef
       .collection('conditionRatings')
       .get()
+
     querySnapshot.forEach(doc =>
       conditionRatings.push({
         id: doc.id,
@@ -129,6 +130,32 @@ export const fetchInspection = (userId, inspectionId) => async (
       }),
     )
     inspection.conditionRatings = conditionRatings
+  }
+
+  if (complianceIssuesAdded) {
+    let complianceIssues = []
+    const querySnapshot = await inspectionRef
+      .collection('complianceIssues')
+      .get()
+
+    querySnapshot.forEach(async doc => {
+      // let images = []
+      // const querySnapshot = await doc.ref.collection('images').get()
+
+      // querySnapshot.forEach(doc =>
+      //   images.push({
+      //     id: doc.id,
+      //     ...doc.data(),
+      //   }),
+      // )
+
+      complianceIssues.push({
+        id: doc.id,
+        ...doc.data(),
+        // images,
+      })
+    })
+    inspection.complianceIssues = complianceIssues
   }
 
   if (maintenanceIssuesAdded) {
@@ -144,21 +171,6 @@ export const fetchInspection = (userId, inspectionId) => async (
     )
     inspection.maintenanceIssues = maintenanceIssues
   }
-
-  if (complianceIssuesAdded) {
-    let complianceIssues = []
-    const querySnapshot = await inspectionRef
-      .collection('complianceIssues')
-      .get()
-    querySnapshot.forEach(doc =>
-      complianceIssues.push({
-        id: doc.id,
-        ...doc.data(),
-      }),
-    )
-    inspection.complianceIssues = complianceIssues
-  }
-
   dispatch(loadInspection(inspection))
 }
 
@@ -252,11 +264,27 @@ export const saveInspection = ({
   if (complianceIssuesAdded) {
     const complianceIssuesRef = inspectionRef.collection('complianceIssues')
 
-    complianceIssues.forEach(item => {
+    complianceIssues.forEach(async item => {
+      // const { images, previousImages } = item
+      // delete item.images
+      delete item.previousImages
       const ref = item.id
         ? complianceIssuesRef.doc(item.id)
         : complianceIssuesRef.doc()
       item.id ? batch.update(ref, item) : batch.set(ref, item)
+
+      // const imagesRef = ref.collection('images')
+
+      // !!previousImages &&
+      //   previousImages.forEach(id => {
+      //     const ref = imagesRef.doc(id)
+      //     batch.delete(ref)
+      //   })
+
+      // images.forEach(image => {
+      //   const ref = imagesRef.doc()
+      //   batch.set(ref, image)
+      // })
     })
   }
 
@@ -321,6 +349,13 @@ export const deleteInspection = ({
     complianceIssues.forEach(item => {
       const ref = complianceIssuesRef.doc(item.id)
       batch.delete(ref)
+
+      // const { images } = item
+      // const imagesRef = ref.collection('images')
+      // images.forEach(({ id }) => {
+      //   const ref = imagesRef.doc(id)
+      //   batch.delete(ref)
+      // })
     })
   }
 

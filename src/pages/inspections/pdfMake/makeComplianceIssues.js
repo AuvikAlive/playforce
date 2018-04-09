@@ -50,7 +50,7 @@ export const makeComplianceIssues = (
   const complianceIssueItems = complianceIssues.map(
     (
       {
-        image,
+        images,
         finding,
         equipment,
         standardsClause,
@@ -95,7 +95,7 @@ export const makeComplianceIssues = (
           body: [
             [
               {
-                image,
+                image: images[0].image,
                 width: 207,
                 rowSpan: 6,
               },
