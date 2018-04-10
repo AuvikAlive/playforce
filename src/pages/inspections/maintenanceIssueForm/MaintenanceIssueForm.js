@@ -23,10 +23,23 @@ export class MaintenanceIssueForm extends Component {
   componentWillReceiveProps({ imageCaptured, images }) {
     if (imageCaptured) {
       const { setErrorLoadingState } = this.props
+      const notPortrait = images.some(
+        ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1,
+      )
 
-      images.some(({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1)
-        ? setErrorLoadingState({ error: 'Please upload a portrait image!' })
-        : setErrorLoadingState({ error: '' })
+      if (images.length > 4 && notPortrait) {
+        setErrorLoadingState({
+          error: 'Please upload no more than 4 portrait image(s)!',
+        })
+      } else if (images.length > 4) {
+        setErrorLoadingState({
+          error: 'Please upload no more than 4 image(s)!',
+        })
+      } else if (notPortrait) {
+        setErrorLoadingState({ error: 'Please upload portrait image(s)!' })
+      } else {
+        setErrorLoadingState({ error: '' })
+      }
     }
   }
 
@@ -84,7 +97,7 @@ export class MaintenanceIssueForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() =>
-                captureImage({ aspectRatio: 188 / 253, multiple: true })
+                captureImage({ width: 188, height: 253, multiple: true })
               }
             >
               Capture Image(s)

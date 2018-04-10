@@ -121,7 +121,7 @@ export class ConditionRatingForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ aspectRatio: 16 / 9 })}
+              onClick={() => captureImage({ width: 300, height: 172 })}
             >
               Capture Image
               <StayCurrentLandscapeIcon className="button-icon" />

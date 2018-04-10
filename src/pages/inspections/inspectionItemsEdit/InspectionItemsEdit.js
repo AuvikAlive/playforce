@@ -124,12 +124,10 @@ export class InspectionItemsEdit extends Component {
 
   delete = async () => {
     const {
-      // firebase,
       inspection,
       inspectionId,
       history,
       userId,
-      // inspectionCount,
       deleteInspection,
       discardInspection,
     } = this.props
@@ -139,11 +137,6 @@ export class InspectionItemsEdit extends Component {
       userId,
       inspectionId,
     })
-    // await firebase.updateProfile({
-    //   inspectionCount: inspection.inspectionNumber
-    //     ? Number(inspectionCount) - 1
-    //     : Number(inspectionCount),
-    // })
     discardInspection()
     history.goBack()
   }

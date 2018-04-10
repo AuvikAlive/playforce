@@ -40,7 +40,7 @@ export const makeIndividualConditionRatings = conditionRatings => {
             text: 'Asset Id: ',
             bold: true,
           },
-          `${assetId ? assetId : 'none'}`,
+          `${assetId ? assetId : 'None'}`,
         ],
       },
       {

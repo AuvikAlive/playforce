@@ -154,7 +154,7 @@ export class Cover extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ aspectRatio: 764 / 432 })}
+              onClick={() => captureImage({ width: 764, height: 432 })}
             >
               Capture Image
               <StayCurrentLandscapeIcon className="button-icon" />

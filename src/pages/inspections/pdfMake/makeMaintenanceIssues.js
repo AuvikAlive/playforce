@@ -1,118 +1,96 @@
 import {
   verticalMargin,
   headerFontSize,
-  // pageMarginHorizontal,
-  // pageWidth,
+  pageWidth,
+  pageMarginHorizontal,
 } from './globals'
-// import chunk from 'lodash/chunk'
 
 export const makeMaintenanceIssues = maintenanceIssues => {
   const maintenanceIssueItems = maintenanceIssues.map(
-    ({ images, finding, equipment, recommendations }, index, array) => [
-      {
-        columnGap: verticalMargin,
-        columns: [
-          {
-            image: images[0].image,
-            width: 207,
-            marginBottom: verticalMargin,
-          },
-          [
+    ({ images, finding, equipment, recommendations }, index, array) => {
+      const columnGap = 10
+      const imageWidth =
+        (pageWidth - pageMarginHorizontal * 2 - columnGap * 3) / 3
+
+      const item = [
+        {
+          columnGap: verticalMargin,
+          columns: [
             {
-              marginTop: verticalMargin,
-              text: [
-                {
-                  text: 'Issue #: ',
-                  bold: true,
-                },
-                `00${index + 1}`,
-              ],
+              image: images[0].image,
+              width: 207,
+              marginBottom: verticalMargin,
             },
-            {
-              marginTop: verticalMargin,
-              text: [
-                {
-                  text: 'Equipment Type: ',
-                  bold: true,
-                },
-                equipment,
-              ],
-            },
-            {
-              marginTop: verticalMargin,
-              text: [
-                {
-                  text: 'Finding: ',
-                  bold: true,
-                },
-                finding,
-              ],
-            },
-            {
-              marginTop: verticalMargin,
-              pageBreak: index + 1 === array.length ? 'after' : null,
-              text: [
-                {
-                  text: 'Recommendation: ',
-                  bold: true,
-                },
-                recommendations,
-              ],
-            },
+            [
+              {
+                marginTop: verticalMargin,
+                text: [
+                  {
+                    text: 'Issue #: ',
+                    bold: true,
+                  },
+                  `00${index + 1}`,
+                ],
+              },
+              {
+                marginTop: verticalMargin,
+                text: [
+                  {
+                    text: 'Equipment Type: ',
+                    bold: true,
+                  },
+                  equipment,
+                ],
+              },
+              {
+                marginTop: verticalMargin,
+                text: [
+                  {
+                    text: 'Finding: ',
+                    bold: true,
+                  },
+                  finding,
+                ],
+              },
+              {
+                marginTop: verticalMargin,
+                pageBreak:
+                  images.length === 1 && index + 1 === array.length
+                    ? 'after'
+                    : null,
+                text: [
+                  {
+                    text: 'Recommendation: ',
+                    bold: true,
+                  },
+                  recommendations,
+                ],
+              },
+            ],
           ],
-        ],
-      },
-      // {
-      //   image,
-      //   width: (pageWidth - 2 * pageMarginHorizontal) / 2 - 10,
-      //   height: 170,
-      //   marginBottom: verticalMargin,
-      // },
-      // {
-      //   text: [
-      //     {
-      //       text: 'Issue #: ',
-      //       bold: true,
-      //     },
-      //     `00${index + 1}`,
-      //   ],
-      // },
-      // {
-      //   text: [
-      //     {
-      //       text: 'Equipment Type: ',
-      //       bold: true,
-      //     },
-      //     equipment,
-      //   ],
-      // },
-      // {
-      //   text: [
-      //     {
-      //       text: 'Finding: ',
-      //       bold: true,
-      //     },
-      //     finding,
-      //   ],
-      //   pageBreak: index + 1 === array.length ? 'after' : null,
-      // },
-    ],
+        },
+      ]
+
+      if (images.length > 1) {
+        const marginLeft = 5
+        const extraImages = images.slice(1)
+        const imageItems = extraImages.map(({ image }, index, array) => ({
+          image,
+          width: imageWidth,
+        }))
+
+        item.push({
+          pageBreak: 'after',
+          marginLeft,
+          marginTop: verticalMargin,
+          columnGap,
+          columns: imageItems,
+        })
+      }
+
+      return item
+    },
   )
-
-  // const tuples = chunk(maintenanceIssueItems, 2)
-
-  // const grid = tuples.map((tuple, index, array) => {
-  //   const row = {
-  //     columns: tuple,
-  //     marginBottom: verticalMargin * 2,
-  //   }
-
-  //   if (index + 1 === array.length) {
-  //     row.pageBreak = 'after'
-  //   }
-
-  //   return row
-  // })
 
   return [
     {
