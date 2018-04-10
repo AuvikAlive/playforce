@@ -7,7 +7,7 @@ import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import CheckCircleIcon from 'material-ui-icons/CheckCircle'
-import Chip from 'material-ui/Chip'
+// import Chip from 'material-ui/Chip'
 import Paper from 'material-ui/Paper'
 import List, {
   ListItem,
@@ -94,11 +94,11 @@ export class InspectionList extends Component {
                 ) => {
                   const { location, client } = cover
                   const { name, suburb } = location
-                  const reportTypes = [
-                    'Comprehensive',
-                    'Operational',
-                    'Routine',
-                  ]
+                  // const reportTypes = [
+                  //   'Comprehensive',
+                  //   'Operational',
+                  //   'Routine',
+                  // ]
                   const completed =
                     coverAdded && auditSummaryAdded && conditionRatingsAdded
 
@@ -119,14 +119,14 @@ export class InspectionList extends Component {
                           secondary={client}
                         />
                         <ListItemSecondaryAction className="secondary-actions">
-                          <Chip
+                          {/* <Chip
                             label={
                               reportTypes[index % 3].substring(0, 4) + '...'
                             }
                             className={`chip ${reportTypes[
                               index % 3
                             ].toLowerCase()}`}
-                          />
+                          /> */}
                           <CheckCircleIcon
                             style={{
                               visibility: completed ? '' : 'hidden',
