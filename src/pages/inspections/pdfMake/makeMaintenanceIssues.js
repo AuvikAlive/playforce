@@ -8,12 +8,12 @@ import {
 
 export const makeMaintenanceIssues = maintenanceIssues => {
   const maintenanceIssueItems = maintenanceIssues.map(
-    ({ image, finding, equipment, recommendations }, index, array) => [
+    ({ images, finding, equipment, recommendations }, index, array) => [
       {
         columnGap: verticalMargin,
         columns: [
           {
-            image,
+            image: images[0].image,
             width: 207,
             marginBottom: verticalMargin,
           },

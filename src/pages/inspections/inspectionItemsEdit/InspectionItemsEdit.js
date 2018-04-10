@@ -68,6 +68,10 @@ export class InspectionItemsEdit extends Component {
     removeRightNavComponent()
   }
 
+  componentWillReceiveProps({ inspection }) {
+    // inspection.inspectionLoaded && this.renderPdf(inspection)
+  }
+
   onSwitchChange = event => {
     this.setState({ certificate: event.target.checked })
   }

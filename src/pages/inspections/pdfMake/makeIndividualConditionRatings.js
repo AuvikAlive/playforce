@@ -9,7 +9,14 @@ import chunk from 'lodash/chunk'
 export const makeIndividualConditionRatings = conditionRatings => {
   const conditionRatingItems = conditionRatings.map(
     (
-      { image, equipment, manufacturer, condition, estimatedDateInstalled },
+      {
+        image,
+        equipment,
+        assetId,
+        manufacturer,
+        condition,
+        estimatedDateInstalled,
+      },
       index,
     ) => [
       {
@@ -25,6 +32,15 @@ export const makeIndividualConditionRatings = conditionRatings => {
             bold: true,
           },
           equipment,
+        ],
+      },
+      {
+        text: [
+          {
+            text: 'Asset Id: ',
+            bold: true,
+          },
+          `${assetId ? assetId : 'none'}`,
         ],
       },
       {
