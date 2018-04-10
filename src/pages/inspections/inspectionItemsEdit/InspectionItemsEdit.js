@@ -26,9 +26,15 @@ export class InspectionItemsEdit extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { openModal, inspection, fetchStandards, userId } = this.props
+    const {
+      openModal,
+      inspection,
+      standardsLoaded,
+      fetchStandards,
+      userId,
+    } = this.props
 
-    fetchStandards(userId)
+    !standardsLoaded && fetchStandards(userId)
     !inspection.inspectionLoaded && this.loadInitialData()
     // inspection.inspectionLoaded && this.renderPdf(inspection)
 
