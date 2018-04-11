@@ -90,15 +90,9 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
     case ADD_CONDITION_RATING: {
       const { equipments } = state
-      const {
-        equipmentId,
-        equipmentName,
-        assetId,
-        manufacturer,
-        image,
-      } = payload
-      const equipment = {
-        equipmentName,
+      const { equipmentId, equipment, assetId, manufacturer, image } = payload
+      const equipmentObj = {
+        equipment,
         assetId,
         manufacturer,
         image,
@@ -106,7 +100,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const oldEquipment = equipmentId
         ? {
             id: equipmentId,
-            ...equipment,
+            ...equipmentObj,
           }
         : undefined
 
@@ -116,7 +110,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           ? equipments.map(
               item => (item.id && item.id === equipmentId ? oldEquipment : item)
             )
-          : [...equipments, equipment],
+          : [...equipments, equipmentObj],
         conditionRatings: [...state.conditionRatings, payload],
         conditionRatingsAdded: true,
       }
@@ -126,13 +120,13 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const { issueIndex, updatedValue } = payload
       const {
         equipmentId,
-        equipmentName,
+        equipment,
         assetId,
         manufacturer,
         image,
       } = updatedValue
-      const equipment = {
-        equipmentName,
+      const equipmentObj = {
+        equipment,
         assetId,
         manufacturer,
         image,
@@ -140,7 +134,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const oldEquipment = equipmentId
         ? {
             id: equipmentId,
-            ...equipment,
+            ...equipmentObj,
           }
         : undefined
       const { conditionRatings, equipments } = state
@@ -160,7 +154,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           ? equipments.map(
               item => (item.id && item.id === equipmentId ? oldEquipment : item)
             )
-          : [...equipments, equipment],
+          : [...equipments, equipmentObj],
         conditionRatings: [...updatedConditionRatings],
       }
     }

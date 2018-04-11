@@ -16,7 +16,7 @@ import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 export class ConditionRatingForm extends Component {
   state = {
     id: '',
-    equipmentName: '',
+    equipment: '',
     assetId: '',
     manufacturer: '',
     condition: conditions[0],
@@ -69,13 +69,13 @@ export class ConditionRatingForm extends Component {
   onAutoCompleteChange = value => {
     const { setCapturedImage } = this.props
 
-    if (value.equipmentName) {
+    if (value.equipment) {
       setCapturedImage(value.image)
       this.setState({
         ...value,
       })
     } else {
-      this.setState({ equipmentName: value })
+      this.setState({ equipment: value })
     }
   }
 
@@ -83,7 +83,7 @@ export class ConditionRatingForm extends Component {
     const { onSubmit, setErrorLoadingState, image } = this.props
     const {
       id,
-      equipmentName,
+      equipment,
       assetId,
       manufacturer,
       condition,
@@ -92,7 +92,7 @@ export class ConditionRatingForm extends Component {
 
     if (
       image &&
-      equipmentName &&
+      equipment &&
       assetId &&
       manufacturer &&
       condition &&
@@ -102,7 +102,7 @@ export class ConditionRatingForm extends Component {
       onSubmit({
         image,
         equipmentId: id,
-        equipmentName,
+        equipment,
         assetId,
         manufacturer,
         condition,
@@ -125,7 +125,7 @@ export class ConditionRatingForm extends Component {
       error,
     } = this.props
     const {
-      equipmentName,
+      equipment,
       assetId,
       manufacturer,
       condition,
@@ -135,7 +135,7 @@ export class ConditionRatingForm extends Component {
     return manufacturersLoaded ? (
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card>
-          {image && <img src={image} alt="equipmentName type" />}
+          {image && <img src={image} alt="equipment type" />}
 
           <CardContent>
             <Button
@@ -153,17 +153,17 @@ export class ConditionRatingForm extends Component {
               <AutoComplete
                 onChange={this.onAutoCompleteChange}
                 label="Equipment"
-                value={equipmentName}
+                value={equipment}
                 domain={equipments}
-                filterProperty="equipmentName"
+                filterProperty="equipment"
               />
 
               {/* <TextField
                 fullWidth
                 label="Equipment"
-                value={equipmentName}
+                value={equipment}
                 margin="normal"
-                onChange={this.onInputChange('equipmentName')}
+                onChange={this.onInputChange('equipment')}
               /> */}
 
               <TextField

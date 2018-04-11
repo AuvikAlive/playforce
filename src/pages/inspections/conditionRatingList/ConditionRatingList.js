@@ -24,7 +24,7 @@ export class ConditionRatingList extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
@@ -64,7 +64,7 @@ export class ConditionRatingList extends Component {
                   condition,
                   estimatedDateInstalled,
                 },
-                index,
+                index
               ) => {
                 return (
                   <Grid item key={index} xs={12}>
@@ -102,7 +102,7 @@ export class ConditionRatingList extends Component {
                     </CardContent>
                   </Grid>
                 )
-              },
+              }
             )}
           </Grid>
         ) : (
