@@ -107,7 +107,7 @@ export class Form extends Component {
   }
 
   onAutoCompleteChange = value => {
-    this.setState({ equipment: value })
+    this.setState({ equipment: value.equipmentName || value })
   }
 
   onSubmit = () => {
@@ -213,6 +213,7 @@ export class Form extends Component {
                 domain={equipments}
                 label="Equipment"
                 value={equipment}
+                filterProperty="equipmentName"
               />
 
               <TextField

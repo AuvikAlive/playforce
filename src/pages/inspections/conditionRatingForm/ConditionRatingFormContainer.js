@@ -9,10 +9,13 @@ import { ConditionRatingForm } from './ConditionRatingForm'
 const mapStateToProps = ({
   firebase: { auth: { uid } },
   manufacturer: { manufacturersLoaded, manufacturers },
+  inspection: { cover, equipments },
 }) => ({
   userId: uid,
   manufacturersLoaded,
   manufacturers,
+  equipments,
+  cover,
 })
 
 const mapDispatchToProps = { fetchManufacturers }
@@ -21,5 +24,5 @@ export const ConditionRatingFormContainer = compose(
   withImageCapture,
   withErrorLoadingSubmit,
   withFirestore,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(ConditionRatingForm)

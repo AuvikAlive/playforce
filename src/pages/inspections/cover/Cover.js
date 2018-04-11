@@ -50,7 +50,7 @@ export class Cover extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     fetchSites(userId)
@@ -93,6 +93,8 @@ export class Cover extends Component {
       image,
       displayName,
       sites,
+      userId,
+      fetchEquipments,
     } = this.props
     const { location, client, inspectionDate, appliedStandards } = this.state
 
@@ -111,6 +113,7 @@ export class Cover extends Component {
         appliedStandards,
         displayName,
       })
+      fetchEquipments(userId, location)
       history.goBack()
     } else {
       setErrorLoadingState({

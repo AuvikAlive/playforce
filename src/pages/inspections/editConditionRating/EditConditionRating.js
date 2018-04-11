@@ -19,7 +19,7 @@ export class EditConditionRating extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     setRightNavComponent(
@@ -29,15 +29,20 @@ export class EditConditionRating extends Component {
         onClick={() => openModal(this.delete)}
       >
         <DeleteIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeLefNavComponent,
+      removeRightNavComponent,
+    } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
+    removeRightNavComponent()
   }
 
   onSubmit = updatedValue => {

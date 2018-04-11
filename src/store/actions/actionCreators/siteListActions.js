@@ -1,4 +1,38 @@
-import { FETCH_SITES, FETCH_SITES_COMPLETED } from '../actionTypes'
+import {
+  FETCH_SITES,
+  FETCH_SITES_COMPLETED,
+  FETCH_EQUIPMENTS,
+  FETCH_EQUIPMENTS_COMPLETED,
+} from '../actionTypes'
+
+export const fetchEquipments = (userId, siteId) => async (
+  dispatch,
+  getState,
+  getFirebase
+) => {
+  dispatch({ type: FETCH_EQUIPMENTS })
+
+  const firebase = getFirebase()
+  const db = firebase.firestore()
+  const querySnapshot = await db
+    .collection('users')
+    .doc(userId)
+    .collection('sites')
+    .doc(siteId)
+    .collection('equipments')
+    .get()
+
+  let items = []
+
+  querySnapshot.forEach(doc =>
+    items.push({
+      id: doc.id,
+      ...doc.data(),
+    })
+  )
+
+  dispatch({ type: FETCH_EQUIPMENTS_COMPLETED, payload: items })
+}
 
 export const fetchSites = userId => async (dispatch, getState, getFirebase) => {
   dispatch({ type: FETCH_SITES })
@@ -17,7 +51,7 @@ export const fetchSites = userId => async (dispatch, getState, getFirebase) => {
     items.push({
       id: doc.id,
       ...doc.data(),
-    }),
+    })
   )
 
   dispatch({ type: FETCH_SITES_COMPLETED, payload: items })
@@ -26,7 +60,7 @@ export const fetchSites = userId => async (dispatch, getState, getFirebase) => {
 export const fetchSitesRealTime = userId => async (
   dispatch,
   getState,
-  getFirebase,
+  getFirebase
 ) => {
   dispatch({ type: FETCH_SITES })
 
@@ -44,7 +78,7 @@ export const fetchSitesRealTime = userId => async (
       items.push({
         id: doc.id,
         ...doc.data(),
-      }),
+      })
     )
     dispatch({ type: FETCH_SITES_COMPLETED, payload: items })
   })

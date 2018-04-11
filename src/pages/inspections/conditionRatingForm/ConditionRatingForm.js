@@ -10,11 +10,13 @@ import DateRangeIcon from 'material-ui-icons/DateRange'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { DatePicker } from 'material-ui-pickers'
 import { defaultManufacturers, conditions } from '../../../globals/constants'
+import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 export class ConditionRatingForm extends Component {
   state = {
-    equipment: '',
+    id: '',
+    equipmentName: '',
     assetId: '',
     manufacturer: '',
     condition: conditions[0],
@@ -23,10 +25,14 @@ export class ConditionRatingForm extends Component {
   }
 
   componentDidMount() {
-    const { fetchManufacturers, userId, initialData } = this.props
+    const {
+      manufacturersLoaded,
+      fetchManufacturers,
+      userId,
+      initialData,
+    } = this.props
 
-    fetchManufacturers(userId)
-
+    !manufacturersLoaded && fetchManufacturers(userId)
     initialData && this.loadInitialData(initialData)
   }
 
@@ -60,10 +66,24 @@ export class ConditionRatingForm extends Component {
     this.setState({ estimatedDateInstalled: date })
   }
 
+  onAutoCompleteChange = value => {
+    const { setCapturedImage } = this.props
+
+    if (value.equipmentName) {
+      setCapturedImage(value.image)
+      this.setState({
+        ...value,
+      })
+    } else {
+      this.setState({ equipmentName: value })
+    }
+  }
+
   onSubmit = () => {
     const { onSubmit, setErrorLoadingState, image } = this.props
     const {
-      equipment,
+      id,
+      equipmentName,
       assetId,
       manufacturer,
       condition,
@@ -72,7 +92,7 @@ export class ConditionRatingForm extends Component {
 
     if (
       image &&
-      equipment &&
+      equipmentName &&
       assetId &&
       manufacturer &&
       condition &&
@@ -81,7 +101,8 @@ export class ConditionRatingForm extends Component {
       setErrorLoadingState({ error: '' })
       onSubmit({
         image,
-        equipment,
+        equipmentId: id,
+        equipmentName,
         assetId,
         manufacturer,
         condition,
@@ -100,10 +121,11 @@ export class ConditionRatingForm extends Component {
       captureImage,
       manufacturersLoaded,
       manufacturers,
+      equipments,
       error,
     } = this.props
     const {
-      equipment,
+      equipmentName,
       assetId,
       manufacturer,
       condition,
@@ -113,7 +135,7 @@ export class ConditionRatingForm extends Component {
     return manufacturersLoaded ? (
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card>
-          {image && <img src={image} alt="equipment type" />}
+          {image && <img src={image} alt="equipmentName type" />}
 
           <CardContent>
             <Button
@@ -128,13 +150,21 @@ export class ConditionRatingForm extends Component {
             </Button>
 
             <form noValidate>
-              <TextField
+              <AutoComplete
+                onChange={this.onAutoCompleteChange}
+                label="Equipment"
+                value={equipmentName}
+                domain={equipments}
+                filterProperty="equipmentName"
+              />
+
+              {/* <TextField
                 fullWidth
                 label="Equipment"
-                value={equipment}
+                value={equipmentName}
                 margin="normal"
-                onChange={this.onInputChange('equipment')}
-              />
+                onChange={this.onInputChange('equipmentName')}
+              /> */}
 
               <TextField
                 fullWidth

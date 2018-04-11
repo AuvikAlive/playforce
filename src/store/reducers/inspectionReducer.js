@@ -14,6 +14,7 @@ import {
   ADD_MAINTENANCE_ISSUE,
   EDIT_MAINTENANCE_ISSUE,
   DELETE_MAINTENANCE_ISSUE,
+  FETCH_EQUIPMENTS_COMPLETED,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -81,19 +82,41 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
     case ADD_INSPECTION_COVER:
       return { ...state, cover: payload, coverAdded: true }
 
+    case FETCH_EQUIPMENTS_COMPLETED:
+      return { ...state, equipments: payload }
+
     case ADD_INSPECTION_SUMMARY:
       return { ...state, auditSummary: payload, auditSummaryAdded: true }
 
     case ADD_CONDITION_RATING: {
       const { equipments } = state
-      const { equipment } = payload
-
-      const updatedEquipments = new Set(equipments)
-      updatedEquipments.add(equipment)
+      const {
+        equipmentId,
+        equipmentName,
+        assetId,
+        manufacturer,
+        image,
+      } = payload
+      const equipment = {
+        equipmentName,
+        assetId,
+        manufacturer,
+        image,
+      }
+      const oldEquipment = equipmentId
+        ? {
+            id: equipmentId,
+            ...equipment,
+          }
+        : undefined
 
       return {
         ...state,
-        equipments: Array.from(updatedEquipments),
+        equipments: oldEquipment
+          ? equipments.map(
+              item => (item.id && item.id === equipmentId ? oldEquipment : item)
+            )
+          : [...equipments, equipment],
         conditionRatings: [...state.conditionRatings, payload],
         conditionRatingsAdded: true,
       }
@@ -101,11 +124,26 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
     case EDIT_CONDITION_RATING: {
       const { issueIndex, updatedValue } = payload
-      const { equipment } = updatedValue
+      const {
+        equipmentId,
+        equipmentName,
+        assetId,
+        manufacturer,
+        image,
+      } = updatedValue
+      const equipment = {
+        equipmentName,
+        assetId,
+        manufacturer,
+        image,
+      }
+      const oldEquipment = equipmentId
+        ? {
+            id: equipmentId,
+            ...equipment,
+          }
+        : undefined
       const { conditionRatings, equipments } = state
-
-      const updatedEquipments = new Set(equipments)
-      updatedEquipments.add(equipment)
 
       const updatedConditionRatings = conditionRatings.map(
         (conditionRating, index) => {
@@ -114,11 +152,15 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           }
 
           return conditionRating
-        },
+        }
       )
       return {
         ...state,
-        equipments: Array.from(updatedEquipments),
+        equipments: oldEquipment
+          ? equipments.map(
+              item => (item.id && item.id === equipmentId ? oldEquipment : item)
+            )
+          : [...equipments, equipment],
         conditionRatings: [...updatedConditionRatings],
       }
     }
@@ -127,7 +169,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const { conditionRatings } = state
 
       const updatedConditionRatings = conditionRatings.filter(
-        (conditionRating, index) => index !== Number(payload),
+        (conditionRating, index) => index !== Number(payload)
       )
 
       const deletedConditionRating = conditionRatings[Number(payload)]
@@ -161,7 +203,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           }
 
           return complianceIssue
-        },
+        }
       )
       return {
         ...state,
@@ -173,7 +215,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const { complianceIssues } = state
 
       const updatedComplianceIssues = complianceIssues.filter(
-        (complianceIssue, index) => index !== Number(payload),
+        (complianceIssue, index) => index !== Number(payload)
       )
 
       const deletedComplianceIssue = complianceIssues[Number(payload)]
@@ -207,7 +249,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           }
 
           return maintenanceIssue
-        },
+        }
       )
 
       return {
@@ -220,7 +262,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const { maintenanceIssues } = state
 
       const updatedMaintenanceIssues = maintenanceIssues.filter(
-        (maintenanceIssue, index) => index !== Number(payload),
+        (maintenanceIssue, index) => index !== Number(payload)
       )
 
       const deletedMaintenanceIssue = maintenanceIssues[Number(payload)]

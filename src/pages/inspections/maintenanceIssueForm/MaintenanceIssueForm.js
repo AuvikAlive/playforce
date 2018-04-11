@@ -24,7 +24,7 @@ export class MaintenanceIssueForm extends Component {
     if (imageCaptured) {
       const { setErrorLoadingState } = this.props
       const notPortrait = images.some(
-        ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1,
+        ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
       )
 
       if (images.length > 4 && notPortrait) {
@@ -60,7 +60,7 @@ export class MaintenanceIssueForm extends Component {
   }
 
   onAutoCompleteChange = value => {
-    this.setState({ equipment: value })
+    this.setState({ equipment: value.equipmentName || value })
   }
 
   onSubmit = () => {
@@ -110,6 +110,7 @@ export class MaintenanceIssueForm extends Component {
                 domain={equipments}
                 label="Equipment"
                 value={equipment}
+                filterProperty="equipmentName"
               />
 
               <TextField

@@ -97,7 +97,7 @@ export const deleteMaintenanceIssue = payload => ({
 export const fetchInspection = (userId, inspectionId) => async (
   dispatch,
   getState,
-  getFirebase,
+  getFirebase
 ) => {
   const firebase = getFirebase()
   const db = firebase.firestore()
@@ -127,7 +127,7 @@ export const fetchInspection = (userId, inspectionId) => async (
       conditionRatings.push({
         id: doc.id,
         ...doc.data(),
-      }),
+      })
     )
     inspection.conditionRatings = conditionRatings
   }
@@ -156,11 +156,13 @@ export const fetchInspection = (userId, inspectionId) => async (
       maintenanceIssues.push({
         id: doc.id,
         ...doc.data(),
-      }),
+      })
     )
     inspection.maintenanceIssues = maintenanceIssues
   }
   dispatch(loadInspection(inspection))
+
+  return inspection
 }
 
 export const saveInspection = ({
@@ -198,8 +200,7 @@ export const saveInspection = ({
   Object.assign(
     dataToSave,
     auditSummaryAdded && { auditSummary },
-    !!equipments && { equipments },
-    inspectionCount && { inspectionNumber: inspectionCount },
+    inspectionCount && { inspectionNumber: inspectionCount }
   )
 
   const firebase = getFirebase()
@@ -220,6 +221,20 @@ export const saveInspection = ({
   inspectionId
     ? batch.update(inspectionRef, dataToSave)
     : batch.set(inspectionRef, dataToSave)
+
+  if (!!equipments) {
+    const equipmentsRef = db
+      .collection('users')
+      .doc(userId)
+      .collection('sites')
+      .doc(cover.location.id)
+      .collection('equipments')
+
+    equipments.forEach(item => {
+      const ref = item.id ? equipmentsRef.doc(item.id) : equipmentsRef.doc()
+      batch.set(ref, item)
+    })
+  }
 
   if (!!deletedConditionRatings) {
     const coditionRatingsRef = inspectionRef.collection('conditionRatings')

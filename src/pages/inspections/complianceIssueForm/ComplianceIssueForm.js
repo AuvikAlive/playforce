@@ -13,7 +13,9 @@ class ComplianceIssueFormWithoutRouter extends Component {
   }
 
   render() {
-    const { match, initialData: { images } } = this.props
+    const { match, initialData, onSubmit } = this.props
+
+    const images = initialData ? initialData.images : []
 
     return (
       <Switch>
@@ -26,7 +28,7 @@ class ComplianceIssueFormWithoutRouter extends Component {
         <Route
           path={match.url}
           component={() => (
-            <FormContainer initialData={this.props.initialData} />
+            <FormContainer onSubmit={onSubmit} initialData={initialData} />
           )}
         />
       </Switch>

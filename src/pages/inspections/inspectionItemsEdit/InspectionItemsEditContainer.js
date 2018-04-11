@@ -9,6 +9,7 @@ import {
   deleteInspection,
 } from '../../../store/actions/actionCreators/inspectionActions'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
+import { fetchEquipments } from '../../../store/actions/actionCreators/siteListActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
@@ -19,7 +20,7 @@ const mapStateToProps = (
     inspection,
     standard: { standardsLoaded, standards },
   },
-  { location: { state: { id } } },
+  { location: { state: { id } } }
 ) => ({
   userId: uid,
   inspectionId: id,
@@ -38,6 +39,7 @@ const mapDispatchToProps = {
   saveInspection,
   discardInspection,
   deleteInspection,
+  fetchEquipments,
 }
 
 export const InspectionItemsEditContainer = compose(
@@ -45,5 +47,5 @@ export const InspectionItemsEditContainer = compose(
   withErrorLoadingSubmit,
   withFirestore,
   withFirebase,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(InspectionItemsEdit)

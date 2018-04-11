@@ -30,18 +30,24 @@ const renderSuggestionsContainer = options => {
   )
 }
 
-const renderSuggestion = suggestion => (
-  <MenuItem component="div">{suggestion}</MenuItem>
+const renderSuggestion = (suggestion, filterProperty) => (
+  <MenuItem component="div">
+    {filterProperty ? suggestion[filterProperty] : suggestion}
+  </MenuItem>
 )
 
-const getSuggestions = (value, domain) => {
+const getSuggestions = (value, domain, filterProperty) => {
   const inputValue = value.trim().toLowerCase()
   const inputLength = inputValue.length
 
   return inputLength === 0
     ? domain
     : domain.filter(
-        item => item.toLowerCase().slice(0, inputLength) === inputValue,
+        item =>
+          filterProperty
+            ? item[filterProperty].toLowerCase().slice(0, inputLength) ===
+              inputValue
+            : item.toLowerCase().slice(0, inputLength) === inputValue
       )
 }
 
@@ -57,12 +63,10 @@ export class AutoComplete extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
-    let { domain } = this.props
-
-    domain = domain ? domain : []
+    const { domain = [], filterProperty } = this.props
 
     this.setState({
-      suggestions: getSuggestions(value, domain),
+      suggestions: getSuggestions(value, domain, filterProperty),
     })
   }
 
@@ -74,7 +78,7 @@ export class AutoComplete extends Component {
 
   render() {
     const { suggestions } = this.state
-    const { label, value } = this.props
+    const { label, value, filterProperty } = this.props
 
     const inputProps = {
       label,
@@ -90,7 +94,9 @@ export class AutoComplete extends Component {
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
+          renderSuggestion={suggestion =>
+            renderSuggestion(suggestion, filterProperty)
+          }
           inputProps={inputProps}
           renderSuggestionsContainer={renderSuggestionsContainer}
           renderInputComponent={renderInput}
