@@ -1,7 +1,7 @@
 import React from 'react'
 import Slider from 'react-slick'
 
-const settings = {
+const defaultSettings = {
   dots: false,
   arrows: false,
   infinite: true,
@@ -12,9 +12,11 @@ const settings = {
   autoplaySpeed: 1500,
 }
 
-export const Carousel = ({ images }) => {
+export const Carousel = ({ images, settings }) => {
+  const mergedSettings = { ...defaultSettings, ...settings }
+
   return (
-    <Slider {...settings}>
+    <Slider {...mergedSettings}>
       {images.map(({ image }, index) => (
         <div key={index}>
           <img src={image} alt="carousel" />

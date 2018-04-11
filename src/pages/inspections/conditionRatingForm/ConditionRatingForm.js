@@ -189,8 +189,9 @@ export class ConditionRatingForm extends Component {
                 keyboard
                 clearable
                 className="date-picker"
-                label="Estimated Data Installed"
-                format="DD MMMM YYYY"
+                label="Estimated Date Installed"
+                format="YYYY"
+                openToYearSelection
                 value={estimatedDateInstalled}
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}

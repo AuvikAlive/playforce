@@ -42,7 +42,7 @@ export const EditInspection = ({ match }) => {
         path={`${match.url}/maintenanceIssues`}
         component={MaintenanceIssues}
       />
-      <Route path={`${match.url}`} component={InspectionItemsEdit} />
+      <Route path={match.url} component={InspectionItemsEdit} />
     </Switch>
   )
 }

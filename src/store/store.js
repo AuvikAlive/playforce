@@ -20,9 +20,9 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: localForage,
-    whitelist: ['router', 'sideMenu', 'searchBar'],
+    whitelist: ['router', 'sideMenu', 'searchBar', 'inspection'],
   },
-  rootReducer,
+  rootReducer
 )
 
 export const history = createHistory()
@@ -43,7 +43,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export let store = createStore(
   persistedReducer,
-  composeEnhancers(firebaseStore, fireStore, middleware),
+  composeEnhancers(firebaseStore, fireStore, middleware)
 )
 
 export let persistor = persistStore(store)

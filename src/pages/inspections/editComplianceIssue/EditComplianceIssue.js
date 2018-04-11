@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
 import ComplianceIssueForm from '../complianceIssueForm/'
+// import ComplianceIssueFormRoutes from '../complianceIssueFormRoutes/ComplianceIssueFormRoutes'
 
 export class EditComplianceIssue extends Component {
   componentDidMount() {
@@ -19,7 +20,7 @@ export class EditComplianceIssue extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     setRightNavComponent(
@@ -29,7 +30,7 @@ export class EditComplianceIssue extends Component {
         onClick={() => openModal(this.delete)}
       >
         <DeleteIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 

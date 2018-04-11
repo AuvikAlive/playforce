@@ -26,15 +26,9 @@ export class InspectionItemsEdit extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const {
-      openModal,
-      inspection,
-      standardsLoaded,
-      fetchStandards,
-      userId,
-    } = this.props
+    const { openModal, inspection, fetchStandards, userId } = this.props
 
-    !standardsLoaded && fetchStandards(userId)
+    fetchStandards(userId)
     !inspection.inspectionLoaded && this.loadInitialData()
     // inspection.inspectionLoaded && this.renderPdf(inspection)
 
@@ -43,7 +37,7 @@ export class InspectionItemsEdit extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={this.beforeBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     setRightNavComponent(
@@ -58,7 +52,7 @@ export class InspectionItemsEdit extends Component {
         <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
           <MoreVertIcon aria-label="More" />
         </IconButton>
-      </div>,
+      </div>
     )
   }
 
@@ -168,7 +162,7 @@ export class InspectionItemsEdit extends Component {
       const appliedStandards = flatten(
         map(inspection.cover.appliedStandards, standardId => {
           return filter(standards, item => item.id === standardId)
-        }),
+        })
       )
 
       let inspectionWithAppliedStandards = {
@@ -178,11 +172,11 @@ export class InspectionItemsEdit extends Component {
 
       const pdfDocGenerator = await generatePdf(
         inspectionWithAppliedStandards,
-        certificate,
+        certificate
       )
 
       pdfDocGenerator.download(
-        `${inspection.cover.location.name} - inspection-report.pdf`,
+        `${inspection.cover.location.name} - inspection-report.pdf`
       )
 
       setErrorLoadingState({ loading: false })
