@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
@@ -9,8 +10,10 @@ import { StyledEquipmentList } from './StyledEquipmentList'
 
 export class EquipmentList extends Component {
   componentDidMount() {
+    const { setNavTitle } = this.context
     const { equipmentsLoaded, fetchEquipments, userId, siteId } = this.props
 
+    setNavTitle('Edit Site')
     !equipmentsLoaded && fetchEquipments(userId, siteId)
   }
 
@@ -19,7 +22,7 @@ export class EquipmentList extends Component {
 
     return equipmentsLoaded ? (
       <StyledEquipmentList className="StyledEquipmentList">
-        <StyledNavLink to={match.url + '/addInspection'} className="add-icon">
+        <StyledNavLink to={match.url + '/addEquipment'} className="add-icon">
           <Button variant="fab" color="primary" aria-label="add inspection">
             <AddIcon />
           </Button>
@@ -45,4 +48,9 @@ export class EquipmentList extends Component {
       <LinearProgress />
     )
   }
+}
+
+EquipmentList.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
 }
