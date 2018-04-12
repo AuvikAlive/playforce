@@ -100,7 +100,6 @@ export class ConditionRatingForm extends Component {
       estimatedDateInstalled
     ) {
       setErrorLoadingState({ error: '' })
-      console.log(id)
       onSubmit({
         image,
         equipmentId: id,

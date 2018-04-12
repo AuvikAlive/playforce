@@ -189,6 +189,7 @@ export const saveInspection = ({
   } = inspection
 
   let dataToSave = {
+    site: cover.location.id,
     cover,
     coverAdded,
     auditSummaryAdded,
@@ -305,11 +306,8 @@ export const deleteInspection = ({
   inspectionId,
 }) => async (dispatch, getState, getFirebase) => {
   const {
-    conditionRatings,
     conditionRatingsAdded,
-    complianceIssues,
     complianceIssuesAdded,
-    maintenanceIssues,
     maintenanceIssuesAdded,
   } = inspection
 
@@ -323,29 +321,32 @@ export const deleteInspection = ({
     .doc(inspectionId)
 
   if (conditionRatingsAdded) {
-    const coditionRatingsRef = inspectionRef.collection('conditionRatings')
+    const querySnapshot = await inspectionRef
+      .collection('conditionRatings')
+      .get()
 
-    conditionRatings.forEach(item => {
-      const ref = coditionRatingsRef.doc(item.id)
-      batch.delete(ref)
+    querySnapshot.forEach(doc => {
+      batch.delete(doc.ref)
     })
   }
 
   if (complianceIssuesAdded) {
-    const complianceIssuesRef = inspectionRef.collection('complianceIssues')
+    const querySnapshot = await inspectionRef
+      .collection('complianceIssues')
+      .get()
 
-    complianceIssues.forEach(item => {
-      const ref = complianceIssuesRef.doc(item.id)
-      batch.delete(ref)
+    querySnapshot.forEach(doc => {
+      batch.delete(doc.ref)
     })
   }
 
   if (maintenanceIssuesAdded) {
-    const maintenanceIssuesRef = inspectionRef.collection('maintenanceIssues')
+    const querySnapshot = await inspectionRef
+      .collection('maintenanceIssues')
+      .get()
 
-    maintenanceIssues.forEach(item => {
-      const ref = maintenanceIssuesRef.doc(item.id)
-      batch.delete(ref)
+    querySnapshot.forEach(doc => {
+      batch.delete(doc.ref)
     })
   }
 

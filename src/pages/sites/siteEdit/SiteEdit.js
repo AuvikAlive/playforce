@@ -17,7 +17,7 @@ class SiteEditWithoutRouter extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     disableNavBarShadow()
@@ -46,7 +46,7 @@ class SiteEditWithoutRouter extends Component {
       <StyledSiteEdit className="StyledSiteEdit">
         <Tabs
           fullWidth
-          centered
+          // centered
           classes={{ root: 'my-root' }}
           value={match.params.tabstate}
           onChange={this.handleChange}

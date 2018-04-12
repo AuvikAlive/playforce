@@ -7,7 +7,7 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 import { toggleEditInspection } from '../../../store/actions/actionCreators/inspectionActions'
-import { fetchInspections } from '../../../store/actions/actionCreators/inspectionListActions'
+import { fetchInspectionsRealTime } from '../../../store/actions/actionCreators/inspectionListActions'
 
 const mapStateToProps = ({
   firestore: { data: { users } },
@@ -26,10 +26,10 @@ const mapDispatchToProps = {
   openSearchBar,
   closeSearchBar,
   toggleEditInspection,
-  fetchInspections,
+  fetchInspectionsRealTime,
 }
 
 export const InspectionListContainer = compose(
   withFirestore,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(InspectionList)

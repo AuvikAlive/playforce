@@ -104,10 +104,6 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           }
         : undefined
 
-      console.log(equipmentId)
-
-      console.log(equipments.map(item => console.log(item.id === equipmentId)))
-
       return {
         ...state,
         equipments: oldEquipment

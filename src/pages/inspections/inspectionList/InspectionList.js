@@ -21,8 +21,10 @@ import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class InspectionList extends Component {
-  componentDidMount() {
-    const { openSearchBar, userId, fetchInspections } = this.props
+  state = { unsubscribe: undefined }
+
+  async componentDidMount() {
+    const { openSearchBar, userId, fetchInspectionsRealTime } = this.props
     const {
       setNavTitle,
       setRightNavComponent,
@@ -34,11 +36,13 @@ export class InspectionList extends Component {
     setRightNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
         <SearchIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     setSearchComponent(<SearchBar />)
-    fetchInspections(userId)
+
+    const unsubscribe = await fetchInspectionsRealTime(userId)
+    this.setState({ unsubscribe })
   }
 
   componentWillUnmount() {
@@ -48,11 +52,13 @@ export class InspectionList extends Component {
       removeRightNavComponent,
       removeSearchComponent,
     } = this.context
+    const { unsubscribe } = this.state
 
     removeNavTitle()
     removeRightNavComponent()
     closeSearchBar()
     removeSearchComponent()
+    unsubscribe()
   }
 
   render() {
@@ -90,7 +96,7 @@ export class InspectionList extends Component {
                     complianceIssuesAdded,
                     maintenanceIssuesAdded,
                   },
-                  index,
+                  index
                 ) => {
                   const { location, client } = cover
                   const { name, suburb } = location
@@ -138,7 +144,7 @@ export class InspectionList extends Component {
                       </ListItem>
                     </StyledNavLink>
                   ) : null
-                },
+                }
               )}
             </List>
           </Paper>
