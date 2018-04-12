@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
-import Divider from 'material-ui/Divider'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import DeleteIcon from 'material-ui-icons/Delete'
@@ -63,21 +62,18 @@ export class InspectionList extends Component {
                 inspections.map(
                   ({ type, id, inspectionNumber }, index, list) => {
                     return (
-                      <div key={id}>
-                        <ListItem button>
-                          <ListItemText
-                            primary={`Inspection #${inspectionNumber}`}
-                          />
-                          <ListItemIcon
-                            onClick={() =>
-                              openModal(() => this.delete(index, id))
-                            }
-                          >
-                            <DeleteIcon />
-                          </ListItemIcon>
-                        </ListItem>
-                        {index !== list.length - 1 && <Divider />}
-                      </div>
+                      <ListItem divider button key={id}>
+                        <ListItemText
+                          primary={`Inspection #${inspectionNumber}`}
+                        />
+                        <ListItemIcon
+                          onClick={() =>
+                            openModal(() => this.delete(index, id))
+                          }
+                        >
+                          <DeleteIcon />
+                        </ListItemIcon>
+                      </ListItem>
                     )
                   }
                 )

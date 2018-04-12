@@ -7,6 +7,7 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { StyledSiteEdit } from './StyledSiteEdit'
 import GeneralTab from '../generalTab'
 import InspectionsTab from '../inspectionsTab/InspectionsTab'
+import { EquipmentsTab } from '../equipmentsTab/EquipmentsTab'
 
 class SiteEditWithoutRouter extends Component {
   componentDidMount() {
@@ -53,9 +54,11 @@ class SiteEditWithoutRouter extends Component {
         >
           <Tab className="tab-title" value="general" label="General" />
           <Tab className="tab-title" value="inspections" label="Inspections" />
+          <Tab className="tab-title" value="equipments" label="Equipments" />
         </Tabs>
         {match.params.tabstate === 'general' && <GeneralTab id={id} />}
         {match.params.tabstate === 'inspections' && <InspectionsTab id={id} />}
+        {match.params.tabstate === 'equipments' && <EquipmentsTab id={id} />}
       </StyledSiteEdit>
     )
   }
