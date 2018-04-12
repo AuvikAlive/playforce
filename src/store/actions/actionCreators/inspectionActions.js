@@ -232,7 +232,7 @@ export const saveInspection = ({
 
     equipments.forEach(item => {
       const ref = item.id ? equipmentsRef.doc(item.id) : equipmentsRef.doc()
-      batch.set(ref, item)
+      item.id ? batch.update(ref, item) : batch.set(ref, item)
     })
   }
 

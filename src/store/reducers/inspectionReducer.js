@@ -104,6 +104,10 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           }
         : undefined
 
+      console.log(equipmentId)
+
+      console.log(equipments.map(item => console.log(item.id === equipmentId)))
+
       return {
         ...state,
         equipments: oldEquipment
@@ -131,12 +135,14 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         manufacturer,
         image,
       }
+
       const oldEquipment = equipmentId
         ? {
             id: equipmentId,
             ...equipmentObj,
           }
         : undefined
+
       const { conditionRatings, equipments } = state
 
       const updatedConditionRatings = conditionRatings.map(
