@@ -6,13 +6,16 @@ import {
   saveInspectionDraft,
   loadInspectionDraft,
   discardInspection,
-  saveInspection,
-} from '../../../store/actions/actionCreators/inspectionActions'
+} from '../../../store/actions/actionCreators/inspectionActions/'
+import { saveInspection } from '../../../store/actions/actionCreators/inspectionActions//'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
-  firebase: { auth: { uid }, profile: { inspectionCount } },
+  firebase: {
+    auth: { uid },
+    profile: { inspectionCount },
+  },
   inspection,
 }) => ({
   userId: uid,
@@ -32,5 +35,5 @@ export const InspectionItemsAddContainer = compose(
   withErrorLoadingSubmit,
   withFirestore,
   withFirebase,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(InspectionItemsAdd)

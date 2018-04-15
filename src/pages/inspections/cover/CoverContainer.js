@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Cover } from './Cover'
-import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions'
+import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchSites } from '../../../store/actions/actionCreators/siteListActions'
 import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
@@ -11,7 +11,10 @@ import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/wit
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 
 const mapStateToProps = ({
-  firebase: { profile: { displayName, email }, auth: { uid } },
+  firebase: {
+    profile: { displayName, email },
+    auth: { uid },
+  },
   inspection: { cover },
   siteList: { sitesLoaded, sites },
   standard: { standardsLoaded, standards },

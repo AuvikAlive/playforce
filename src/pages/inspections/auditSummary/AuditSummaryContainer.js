@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { AuditSummary } from './AuditSummary'
-import { addInspectionSummary } from '../../../store/actions/actionCreators/inspectionActions'
+import { addInspectionSummary } from '../../../store/actions/actionCreators/inspectionActions/'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 
 const mapStateToProps = ({
@@ -13,5 +13,5 @@ const mapDispatchToProps = { addInspectionSummary }
 
 export const AuditSummaryContainer = compose(
   withErrorLoadingSubmit,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(AuditSummary)

@@ -6,12 +6,16 @@ import {
   openSearchBar,
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
-import { toggleEditInspection } from '../../../store/actions/actionCreators/inspectionActions'
+import { toggleEditInspection } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchInspectionsRealTime } from '../../../store/actions/actionCreators/inspectionListActions'
 
 const mapStateToProps = ({
-  firestore: { data: { users } },
-  firebase: { auth: { uid } },
+  firestore: {
+    data: { users },
+  },
+  firebase: {
+    auth: { uid },
+  },
   searchBar: { open, query },
   inspectionList: { inspectionsLoaded, inspections },
 }) => ({

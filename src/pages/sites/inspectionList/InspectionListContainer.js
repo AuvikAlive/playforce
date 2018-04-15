@@ -3,14 +3,20 @@ import { compose } from 'redux'
 import { InspectionList } from './InspectionList'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 import { fetchInspectionsBySiteRealTime } from '../../../store/actions/actionCreators/inspectionListActions'
-import { deleteInspection } from '../../../store/actions/actionCreators/inspectionActions'
+import { deleteInspection } from '../../../store/actions/actionCreators/inspectionActions//deleteInspection'
 
 const mapStateToProps = (
   {
-    firebase: { auth: { uid } },
+    firebase: {
+      auth: { uid },
+    },
     inspectionList: { inspectionsLoaded, inspections },
   },
-  { match: { params: { id } } }
+  {
+    match: {
+      params: { id },
+    },
+  }
 ) => ({
   userId: uid,
   siteId: id,

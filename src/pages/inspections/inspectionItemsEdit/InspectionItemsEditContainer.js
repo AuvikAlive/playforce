@@ -5,9 +5,9 @@ import { InspectionItemsEdit } from './InspectionItemsEdit'
 import {
   fetchInspection,
   saveInspection,
-  discardInspection,
   deleteInspection,
-} from '../../../store/actions/actionCreators/inspectionActions'
+  discardInspection,
+} from '../../../store/actions/actionCreators/inspectionActions//'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
@@ -15,12 +15,21 @@ import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = (
   {
-    firebase: { auth: { uid }, profile: { displayName, inspectionCount } },
-    firestore: { data: { users } },
+    firebase: {
+      auth: { uid },
+      profile: { displayName, inspectionCount },
+    },
+    firestore: {
+      data: { users },
+    },
     inspection,
     standard: { standardsLoaded, standards },
   },
-  { location: { state: { id } } }
+  {
+    location: {
+      state: { id },
+    },
+  }
 ) => ({
   userId: uid,
   inspectionId: id,

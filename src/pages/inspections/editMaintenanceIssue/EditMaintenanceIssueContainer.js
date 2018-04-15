@@ -4,12 +4,16 @@ import { EditMaintenanceIssue } from './EditMaintenanceIssue'
 import {
   editMaintenanceIssue,
   deleteMaintenanceIssue,
-} from '../../../store/actions/actionCreators/inspectionActions'
+} from '../../../store/actions/actionCreators/inspectionActions/'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = (
   { inspection: { maintenanceIssues, equipments } },
-  { match: { params: { id } } },
+  {
+    match: {
+      params: { id },
+    },
+  }
 ) => ({
   maintenanceIssueIndex: id,
   maintenanceIssue: maintenanceIssues[id],
@@ -20,5 +24,5 @@ const mapDispatchToProps = { editMaintenanceIssue, deleteMaintenanceIssue }
 
 export const EditMaintenanceIssueContainer = compose(
   withDeleteModal,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(EditMaintenanceIssue)
