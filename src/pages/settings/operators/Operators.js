@@ -20,17 +20,17 @@ export class Operators extends Component {
 
   async componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, userId, fetchOperators } = this.props
+    const { history, userId, fetchOperatorsRealTime } = this.props
 
     setNavTitle('Operators')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
-    const unsubscribe = await fetchOperators(userId)
+    const unsubscribe = await fetchOperatorsRealTime(userId)
 
     this.setState({ unsubscribe })
   }
@@ -64,7 +64,7 @@ export class Operators extends Component {
             doc: userId,
             subcollections: [{ collection: 'operators' }],
           },
-          { name: operator },
+          { name: operator }
         )
         setErrorLoadingState({ loading: false })
         this.setState({ operator: '' })

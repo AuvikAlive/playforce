@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
@@ -25,21 +26,17 @@ export class AddSite extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, firestore, userId } = this.props
+    const { history, fetchOperators, userId } = this.props
 
     setNavTitle('Add a Site')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'operators' }],
-    })
+    fetchOperators(userId)
 
     'geolocation' in navigator &&
       navigator.geolocation.getCurrentPosition(
@@ -49,22 +46,15 @@ export class AddSite extends Component {
             longitude: longitude.toFixed(5),
           })
         },
-        error => console.log(error),
+        error => console.log(error)
       )
   }
 
   componentWillUnmount() {
     const { removeNavTitle, removeLefNavComponent } = this.context
-    const { firestore, userId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'operators' }],
-    })
   }
 
   onInputChange = name => event => {
@@ -110,7 +100,7 @@ export class AddSite extends Component {
             longitude: Number(longitude),
             division,
             operator,
-          },
+          }
         )
         setErrorLoadingState({ loading: false })
         history.goBack()
@@ -139,9 +129,9 @@ export class AddSite extends Component {
       operator,
     } = this.state
 
-    const { operators, error, loading } = this.props
+    const { operatorsLoaded, operators, error, loading } = this.props
 
-    return (
+    return operatorsLoaded ? (
       <StyledAddSite className="StyledAddSite">
         <Card>
           <CardContent>
@@ -264,6 +254,8 @@ export class AddSite extends Component {
           </CardContent>
         </Card>
       </StyledAddSite>
+    ) : (
+      <LinearProgress />
     )
   }
 }
