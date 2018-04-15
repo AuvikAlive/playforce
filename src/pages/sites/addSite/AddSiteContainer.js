@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
-import { fetchOperators } from '../../../store/actions/actionCreators/operatorActions'
+import { fetchOperators } from '../../../store/actions/actionCreators/operatorActions/fetchOperators'
 import { AddSite } from './AddSite'
 
 const mapStateToProps = ({

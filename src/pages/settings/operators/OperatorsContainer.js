@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Operators } from './Operators'
-import { fetchOperatorsRealTime } from '../../../store/actions/actionCreators/operatorActions'
+import { fetchOperatorsRealTime } from '../../../store/actions/actionCreators/operatorActions/fetchOperatorsRealTime'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
