@@ -9,7 +9,7 @@ import {
   deleteInspection,
 } from '../../../store/actions/actionCreators/inspectionActions'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
-import { fetchEquipments } from '../../../store/actions/actionCreators/siteListActions'
+import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 

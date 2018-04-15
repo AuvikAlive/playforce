@@ -90,25 +90,19 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
     case ADD_CONDITION_RATING: {
       const { equipments } = state
-      const { equipmentId, equipment, assetId, manufacturer, image } = payload
+      const { equipment, assetId, manufacturer, image } = payload
       const equipmentObj = {
         equipment,
         assetId,
         manufacturer,
         image,
       }
-      const oldEquipment = equipmentId
-        ? {
-            id: equipmentId,
-            ...equipmentObj,
-          }
-        : undefined
 
       return {
         ...state,
-        equipments: oldEquipment
+        equipments: !!equipments.find(item => item.assetId === assetId)
           ? equipments.map(
-              item => (item.id && item.id === equipmentId ? oldEquipment : item)
+              item => (item.assetId === assetId ? equipmentObj : item)
             )
           : [...equipments, equipmentObj],
         conditionRatings: [...state.conditionRatings, payload],
@@ -117,29 +111,15 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
     }
 
     case EDIT_CONDITION_RATING: {
+      const { conditionRatings, equipments } = state
       const { issueIndex, updatedValue } = payload
-      const {
-        equipmentId,
-        equipment,
-        assetId,
-        manufacturer,
-        image,
-      } = updatedValue
+      const { equipment, assetId, manufacturer, image } = updatedValue
       const equipmentObj = {
         equipment,
         assetId,
         manufacturer,
         image,
       }
-
-      const oldEquipment = equipmentId
-        ? {
-            id: equipmentId,
-            ...equipmentObj,
-          }
-        : undefined
-
-      const { conditionRatings, equipments } = state
 
       const updatedConditionRatings = conditionRatings.map(
         (conditionRating, index) => {
@@ -152,9 +132,9 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       )
       return {
         ...state,
-        equipments: oldEquipment
+        equipments: !!equipments.find(item => item.assetId === assetId)
           ? equipments.map(
-              item => (item.id && item.id === equipmentId ? oldEquipment : item)
+              item => (item.assetId === assetId ? equipmentObj : item)
             )
           : [...equipments, equipmentObj],
         conditionRatings: [...updatedConditionRatings],

@@ -11,10 +11,10 @@ import { StyledEquipmentList } from './StyledEquipmentList'
 export class EquipmentList extends Component {
   componentDidMount() {
     const { setNavTitle } = this.context
-    const { equipmentsLoaded, fetchEquipments, userId, siteId } = this.props
+    const { fetchEquipments, userId, siteId } = this.props
 
     setNavTitle('Edit Site')
-    !equipmentsLoaded && fetchEquipments(userId, siteId)
+    fetchEquipments(userId, siteId)
   }
 
   render() {
@@ -31,10 +31,15 @@ export class EquipmentList extends Component {
         <Paper className="paper">
           <List component="nav" disablePadding>
             {equipments.length > 0 ? (
-              equipments.map(({ id, equipment }) => (
-                <ListItem key={id} button divider>
-                  <ListItemText primary={equipment} />
-                </ListItem>
+              equipments.map(({ assetId, equipment }) => (
+                <StyledNavLink
+                  key={assetId}
+                  to={`${match.url}/${assetId}/editEquipment`}
+                >
+                  <ListItem button divider>
+                    <ListItemText primary={equipment} />
+                  </ListItem>
+                </StyledNavLink>
               ))
             ) : (
               <ListItem>

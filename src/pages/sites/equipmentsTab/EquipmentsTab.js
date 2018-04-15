@@ -7,12 +7,21 @@ import EquipmentList from '../equipmentList/'
 const AddEquipment = Loadable({
   loader: () => import('../addEquipment'),
 })
+const EditEquipment = Loadable({
+  loader: () => import('../editEquipment'),
+})
 
 AddEquipment.preload()
+EditEquipment.preload()
 
 const EquipmentsTabWithoutRouter = ({ match }) => {
   return (
     <Switch>
+      <Route
+        path={match.url + '/:id/editEquipment'}
+        render={() => <EditEquipment siteId={match.params.id} />}
+      />
+
       <Route
         path={match.url + '/addEquipment'}
         render={() => <AddEquipment siteId={match.params.id} />}

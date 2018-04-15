@@ -232,8 +232,8 @@ export const saveInspection = ({
       .collection('equipments')
 
     equipments.forEach(item => {
-      const ref = item.id ? equipmentsRef.doc(item.id) : equipmentsRef.doc()
-      item.id ? batch.update(ref, item) : batch.set(ref, item)
+      const ref = equipmentsRef.doc(item.assetId)
+      batch.set(ref, item)
     })
   }
 

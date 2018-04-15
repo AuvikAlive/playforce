@@ -15,7 +15,6 @@ import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 export class ConditionRatingForm extends Component {
   state = {
-    id: '',
     equipment: '',
     assetId: '',
     manufacturer: '',
@@ -83,7 +82,6 @@ export class ConditionRatingForm extends Component {
   onSubmit = () => {
     const { onSubmit, setErrorLoadingState, image } = this.props
     const {
-      id,
       equipment,
       assetId,
       manufacturer,
@@ -102,7 +100,6 @@ export class ConditionRatingForm extends Component {
       setErrorLoadingState({ error: '' })
       onSubmit({
         image,
-        equipmentId: id,
         equipment,
         assetId,
         manufacturer,
