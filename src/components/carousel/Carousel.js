@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Slider from 'react-slick'
+import IconButton from 'material-ui/IconButton'
+import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import { StyledCarousel } from './StyledCarousel'
 
 const defaultSettings = {
   dots: false,
@@ -12,16 +16,33 @@ const defaultSettings = {
   autoplaySpeed: 1500,
 }
 
-export const Carousel = ({ images, settings }) => {
-  const mergedSettings = { ...defaultSettings, ...settings }
+export class Carousel extends Component {
+  render() {
+    const { images, settings, showNavs } = this.props
+    const mergedSettings = { ...defaultSettings, ...settings }
 
-  return (
-    <Slider {...mergedSettings}>
-      {images.map(({ image }, index) => (
-        <div key={index}>
-          <img src={image} alt="carousel" />
-        </div>
-      ))}
-    </Slider>
-  )
+    return (
+      <StyledCarousel className="StyledCarousel">
+        <Slider {...mergedSettings} ref={node => (this.carousel = node)}>
+          {images.map(({ image }, index) => (
+            <div key={index}>
+              <img src={image} alt="carousel" />
+            </div>
+          ))}
+        </Slider>
+
+        {showNavs && (
+          <div className="navs">
+            <IconButton onClick={() => this.carousel.slickPrev()}>
+              <ArrowBackIcon />
+            </IconButton>
+
+            <IconButton onClick={() => this.carousel.slickNext()}>
+              <ArrowForwardIcon />
+            </IconButton>
+          </div>
+        )}
+      </StyledCarousel>
+    )
+  }
 }

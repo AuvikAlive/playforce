@@ -4,25 +4,32 @@ import { Sketch } from '../../../components/sketch/Sketch'
 import { FormContainer } from './FormContainer'
 
 class ComplianceIssueFormWithoutRouter extends Component {
-  state = {}
+  state = { images: [] }
 
   doneEditImages = images => {
     const { history } = this.props
 
+    this.setState({ images })
     history.goBack()
   }
 
   render() {
     const { match, initialData, onSubmit } = this.props
+    const { images } = this.state
 
-    const images = initialData ? initialData.images : []
+    if (images.length > 0) {
+      initialData.images = images
+    }
 
     return (
       <Switch>
         <Route
           path={`${match.url}/editImages`}
           component={() => (
-            <Sketch images={images} onSubmit={this.doneEditImages} />
+            <Sketch
+              images={initialData.images}
+              onSubmit={this.doneEditImages}
+            />
           )}
         />
         <Route

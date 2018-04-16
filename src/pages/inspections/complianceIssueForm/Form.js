@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { LinearProgress } from 'material-ui/Progress'
-// import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { InputLabel } from 'material-ui/Input'
 import Grid from 'material-ui/Grid'
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-// import BrushIcon from 'material-ui-icons/Brush'
+import BrushIcon from 'material-ui-icons/Brush'
 import StayCurrentPortraitIcon from 'material-ui-icons/StayCurrentPortrait'
 import {
   probabilities,
@@ -16,6 +15,7 @@ import {
 } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
+import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 
 export class Form extends Component {
@@ -159,6 +159,7 @@ export class Form extends Component {
       images,
       captureImage,
       equipments,
+      match,
       error,
     } = this.props
 
@@ -185,7 +186,7 @@ export class Form extends Component {
             )}
           {images && images.length > 1 && <Carousel images={images} />}
           <CardContent className="card-content">
-            {/* <StyledNavLink to={`${match.url}/editImages`} className="edit-icon">
+            <StyledNavLink to={`${match.url}/editImages`} className="edit-icon">
               <Button
                 variant="fab"
                 color="primary"
@@ -193,7 +194,7 @@ export class Form extends Component {
               >
                 <BrushIcon />
               </Button>
-            </StyledNavLink> */}
+            </StyledNavLink>
             <Button
               fullWidth
               variant="raised"
