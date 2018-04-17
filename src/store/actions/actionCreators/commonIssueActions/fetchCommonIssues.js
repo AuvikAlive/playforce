@@ -1,12 +1,12 @@
 import {
   FETCH_COMMON_ISSUES,
   FETCH_COMMON_ISSUES_COMPLETED,
-} from '../actionTypes'
+} from '../../actionTypes'
 
 export const fetchCommonIssues = userId => async (
   dispatch,
   getState,
-  getFirebase,
+  getFirebase
 ) => {
   dispatch({ type: FETCH_COMMON_ISSUES })
 
@@ -24,7 +24,7 @@ export const fetchCommonIssues = userId => async (
     items.push({
       id: doc.id,
       ...doc.data(),
-    }),
+    })
   )
   dispatch({ type: FETCH_COMMON_ISSUES_COMPLETED, payload: items })
 }
