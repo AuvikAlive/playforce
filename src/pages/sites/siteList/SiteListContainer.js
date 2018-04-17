@@ -7,11 +7,15 @@ import {
   openSearchBar,
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
-import { fetchSitesRealTime } from '../../../store/actions/actionCreators/siteListActions'
+import { fetchSitesRealTime } from '../../../store/actions/actionCreators/siteListActions/'
 
 const mapStateToProps = ({
-  firestore: { data: { users } },
-  firebase: { auth: { uid } },
+  firestore: {
+    data: { users },
+  },
+  firebase: {
+    auth: { uid },
+  },
   searchBar: { open, query },
   siteList: { sitesLoaded, sites },
 }) => ({
@@ -27,5 +31,5 @@ const mapDispatchToProps = { openSearchBar, closeSearchBar, fetchSitesRealTime }
 export const SiteListContainer = compose(
   withRouter,
   withFirestore,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(SiteList)
