@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { SketchField, Tools } from 'react-sketch'
 import Button from 'material-ui/Button'
 import Card from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
+import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import SaveIcon from 'material-ui-icons/Save'
 import { Carousel } from '../carousel/Carousel'
+import { SketchPad } from './SketchPad'
 import { StyledSketch } from './StyledSketch'
 
 export class Sketch extends Component {
@@ -14,29 +16,18 @@ export class Sketch extends Component {
     const { images } = this.props
 
     this.setState({ images })
-    this.setSketchImage(images[0].image)
-  }
-
-  setSketchImage = image => {
-    let sketch = this._sketch
-
-    sketch.clear()
-    sketch.setBackgroundFromDataUrl(image, { stretched: true })
   }
 
   onSlideChange = (current, next) => {
     if (next !== current) {
-      const { images } = this.state
-
-      this.setSketchImage(images[next].image)
       this.setState({ currentSlide: next })
     }
   }
 
   onSave = () => {
     const { currentSlide, images } = this.state
-    const image = this._sketch.toDataURL()
-    const newImages = images.slice()
+    const image = this.carouselParent.sketchParent._sketch.toDataURL()
+    const newImages = [...images]
 
     newImages[currentSlide].image = image
 
@@ -55,28 +46,36 @@ export class Sketch extends Component {
     const settings = {
       infinite: false,
       autoplay: false,
+      draggable: false,
       beforeChange: this.onSlideChange,
     }
 
     return (
       <StyledSketch className="StyledSketch">
-        <SketchField
-          width="100%"
-          height="768px"
-          tool={Tools.Pencil}
-          lineColor="black"
-          lineWidth={3}
-          ref={c => (this._sketch = c)}
-        />
-
-        <div className="sketch-actions">
-          <IconButton onClick={this.onSave}>
-            <SaveIcon />
-          </IconButton>
-        </div>
-
         <Card className="card">
-          <Carousel showNavs images={images} settings={settings} />
+          <Carousel
+            images={images}
+            settings={settings}
+            ref={c => (this.carouselParent = c)}
+            SlideComponent={SketchPad}
+          />
+
+          <div className="sketch-actions">
+            <IconButton
+              onClick={() => this.carouselParent.carousel.slickPrev()}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+
+            <IconButton
+              onClick={() => this.carouselParent.carousel.slickNext()}
+            >
+              <ArrowForwardIcon />
+            </IconButton>
+            <IconButton onClick={this.onSave}>
+              <SaveIcon />
+            </IconButton>
+          </div>
 
           <Button
             fullWidth
@@ -85,7 +84,7 @@ export class Sketch extends Component {
             className="submit-button"
             onClick={this.onSubmit}
           >
-            publish changes
+            save changes
           </Button>
         </Card>
       </StyledSketch>

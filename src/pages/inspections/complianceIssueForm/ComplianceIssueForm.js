@@ -16,26 +16,29 @@ class ComplianceIssueFormWithoutRouter extends Component {
   render() {
     const { match, initialData, onSubmit } = this.props
     const { images } = this.state
+    const dataCopy = Object.assign({}, { ...initialData })
 
     if (images.length > 0) {
-      initialData.images = images
+      dataCopy.images = images
     }
+
+    const imagesCopy = dataCopy.images.map(
+      ({ image, imageNaturalAspectRatio }) =>
+        Object.assign({}, { image, imageNaturalAspectRatio })
+    )
 
     return (
       <Switch>
         <Route
           path={`${match.url}/editImages`}
           component={() => (
-            <Sketch
-              images={initialData.images}
-              onSubmit={this.doneEditImages}
-            />
+            <Sketch images={imagesCopy} onSubmit={this.doneEditImages} />
           )}
         />
         <Route
           path={match.url}
           component={() => (
-            <FormContainer onSubmit={onSubmit} initialData={initialData} />
+            <FormContainer onSubmit={onSubmit} initialData={dataCopy} />
           )}
         />
       </Switch>
