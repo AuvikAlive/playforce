@@ -18,8 +18,10 @@ export default compose(
   }),
   withScriptjs,
   withGoogleMap
-)(({ lat, lng }) => (
-  <GoogleMap defaultZoom={16} defaultCenter={{ lat, lng }}>
-    <Marker position={{ lat, lng }} />
-  </GoogleMap>
-))
+)(({ lat, lng }) => {
+  return navigator.onLine ? (
+    <GoogleMap defaultZoom={16} defaultCenter={{ lat, lng }}>
+      <Marker position={{ lat, lng }} />
+    </GoogleMap>
+  ) : null
+})

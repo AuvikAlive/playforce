@@ -68,7 +68,7 @@ export class SiteDetail extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
     setNavTitle(name)
     setRightNavComponent(
@@ -92,7 +92,7 @@ export class SiteDetail extends Component {
         >
           <DeleteIcon />
         </IconButton>
-      </div>,
+      </div>
     )
   }
 
