@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { fetchManufacturers } from '../../../store/actions/actionCreators/manufacturerActions/'
-import { saveEquipment } from '../../../store/actions/actionCreators/equipmentActions'
+import { saveEquipment } from '../../../store/actions/actionCreators/equipmentActions/'
 import { EquipmentForm } from './EquipmentForm'
 
 const mapStateToProps = ({

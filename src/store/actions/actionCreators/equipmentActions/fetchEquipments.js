@@ -1,4 +1,4 @@
-import { FETCH_EQUIPMENTS, FETCH_EQUIPMENTS_COMPLETED } from '../actionTypes'
+import { FETCH_EQUIPMENTS, FETCH_EQUIPMENTS_COMPLETED } from '../../actionTypes'
 
 export const fetchEquipments = (userId, siteId) => async (
   dispatch,
@@ -26,23 +26,4 @@ export const fetchEquipments = (userId, siteId) => async (
   )
 
   dispatch({ type: FETCH_EQUIPMENTS_COMPLETED, payload: items })
-}
-
-export const saveEquipment = (userId, siteId, equipmentData) => async (
-  dispatch,
-  getState,
-  getFirebase
-) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const equipmentsRef = await db
-    .collection('users')
-    .doc(userId)
-    .collection('sites')
-    .doc(siteId)
-    .collection('equipments')
-  const { assetId } = equipmentData
-  const ref = equipmentsRef.doc(assetId)
-
-  return ref.set(equipmentData)
 }
