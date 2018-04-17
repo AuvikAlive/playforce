@@ -25,8 +25,7 @@ export class SketchPad extends Component {
   render() {
     return (
       <SketchField
-        width="100%"
-        height="768px"
+        height="calc(100vh - 48px - 36px - 56*2px)"
         widthCorrection={0}
         tool={Tools.Pencil}
         lineColor="black"
