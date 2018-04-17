@@ -2,7 +2,11 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Operators } from './Operators'
-import { fetchOperatorsRealTime } from '../../../store/actions/actionCreators/operatorActions/fetchOperatorsRealTime'
+import {
+  saveOperator,
+  deleteOperator,
+  fetchOperatorsRealTime,
+} from '../../../store/actions/actionCreators/operatorActions/'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
@@ -20,7 +24,11 @@ const mapStateToProps = ({
   operators,
 })
 
-const mapDispatchToProps = { fetchOperatorsRealTime }
+const mapDispatchToProps = {
+  saveOperator,
+  deleteOperator,
+  fetchOperatorsRealTime,
+}
 
 export const OperatorsContainer = compose(
   withDeleteModal,

@@ -52,20 +52,13 @@ export class Operators extends Component {
 
   publish = async () => {
     const { operator } = this.state
-    const { firestore, userId, setErrorLoadingState } = this.props
+    const { saveOperator, userId, setErrorLoadingState } = this.props
 
     if (operator) {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
-        await firestore.add(
-          {
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'operators' }],
-          },
-          { name: operator }
-        )
+        await saveOperator(userId, { name: operator })
         setErrorLoadingState({ loading: false })
         this.setState({ operator: '' })
       } catch (error) {
@@ -88,14 +81,10 @@ export class Operators extends Component {
   }
 
   delete = async () => {
-    const { firestore, userId } = this.props
+    const { deleteOperator, userId } = this.props
     const { deleteItemId } = this.state
 
-    return firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'operators', doc: deleteItemId }],
-    })
+    return deleteOperator(userId, deleteItemId)
   }
 
   render() {
