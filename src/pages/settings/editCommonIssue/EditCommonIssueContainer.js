@@ -17,12 +17,7 @@ const mapStateToProps = (
     firestore: {
       ordered: { users },
     },
-    commonIssue: {
-      commonIssuesLoaded,
-      commonIssues,
-      commonIssueLoaded,
-      commonIssue,
-    },
+    commonIssue: { commonIssuesLoaded, commonIssues, commonIssue },
   },
   {
     match: {
@@ -32,10 +27,10 @@ const mapStateToProps = (
 ) => ({
   userId: uid,
   commonIssueId: id,
-  commonIssuesLoaded,
   commonIssues,
-  commonIssueLoaded,
-  commonIssue: commonIssues.find(item => item.id === id) || commonIssue,
+  commonIssue:
+    (commonIssuesLoaded && commonIssues.find(item => item.id === id)) ||
+    commonIssue,
 })
 
 const mapDispatchToProps = {

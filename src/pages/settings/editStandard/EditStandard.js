@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
@@ -12,14 +13,21 @@ export class EditStandard extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { history, openModal, firestore, userId, standardId } = this.props
+    const {
+      history,
+      openModal,
+      fetchStandard,
+      userId,
+      standard,
+      standardId,
+    } = this.props
 
     setNavTitle('Edit Standard')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     setRightNavComponent(
@@ -29,14 +37,10 @@ export class EditStandard extends Component {
         onClick={() => openModal(this.delete)}
       >
         <DeleteIcon />
-      </IconButton>,
+      </IconButton>
     )
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'standards', doc: standardId }],
-    })
+    !standard && fetchStandard(userId, standardId)
   }
 
   componentWillUnmount() {
@@ -46,47 +50,31 @@ export class EditStandard extends Component {
       removeRightNavComponent,
     } = this.context
 
-    const { firestore, userId, standardId } = this.props
-
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
-
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'standards', doc: standardId }],
-    })
   }
 
   onSubmit = standard => {
-    const { firestore, userId, standardId } = this.props
-
-    return firestore.update(
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'standards', doc: standardId }],
-      },
-      { ...standard },
-    )
+    const { saveStandard, userId, standardId } = this.props
+    return saveStandard(userId, standard, standardId)
   }
 
   delete = async () => {
-    const { history, firestore, userId, standardId } = this.props
+    const { history, deleteStandard, userId, standardId } = this.props
 
-    await firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'standards', doc: standardId }],
-    })
+    await deleteStandard(userId, standardId)
     history.goBack()
   }
 
   render() {
     const { standard } = this.props
 
-    return <StandardForm initialData={standard} onSubmit={this.onSubmit} />
+    return standard ? (
+      <StandardForm initialData={standard} onSubmit={this.onSubmit} />
+    ) : (
+      <LinearProgress />
+    )
   }
 }
 

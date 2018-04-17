@@ -14,7 +14,7 @@ export class AddStandard extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
@@ -26,16 +26,8 @@ export class AddStandard extends Component {
   }
 
   onSubmit = standard => {
-    const { firestore, userId } = this.props
-
-    return firestore.add(
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'standards' }],
-      },
-      { ...standard },
-    )
+    const { saveStandard, userId } = this.props
+    return saveStandard(userId, standard)
   }
 
   render() {
