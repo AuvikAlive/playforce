@@ -28,7 +28,7 @@ export class Carousel extends Component {
             <div key={index}>
               {SlideComponent ? (
                 <SlideComponent
-                  ref={c => (this.sketchParent = c)}
+                  ref={c => (this[`sketchParent${index}`] = c)}
                   image={image}
                 />
               ) : (

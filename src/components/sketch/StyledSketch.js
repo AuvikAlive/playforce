@@ -5,12 +5,8 @@ import { cardMediaPortrait } from '../../styledMixins/cardMediaPortrait'
 export const StyledSketch = Styled(Content)`
   ${cardMediaPortrait};
 
-  .card {
-    margin-top: 32px;
-  }
-
   .sketch-actions {
-    margin-top: 32px;
+    margin: 8px 0;
     display: flex;
     justify-content: center;
   }

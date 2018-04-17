@@ -5,6 +5,8 @@ import IconButton from 'material-ui/IconButton'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import SaveIcon from 'material-ui-icons/Save'
+import UndoIcon from 'material-ui-icons/Undo'
+import RedoIcon from 'material-ui-icons/Redo'
 import { Carousel } from '../carousel/Carousel'
 import { SketchPad } from './SketchPad'
 import { StyledSketch } from './StyledSketch'
@@ -26,12 +28,13 @@ export class Sketch extends Component {
 
   onSave = () => {
     const { currentSlide, images } = this.state
-    const image = this.carouselParent.sketchParent._sketch.toDataURL()
-    const newImages = [...images]
+    const image = this.carouselParent[
+      `sketchParent${currentSlide}`
+    ]._sketch.toDataURL()
 
-    newImages[currentSlide].image = image
+    images[currentSlide].image = image
 
-    this.setState({ images: newImages })
+    this.setState({ images })
   }
 
   onSubmit = () => {
@@ -42,7 +45,7 @@ export class Sketch extends Component {
   }
 
   render() {
-    const { images } = this.state
+    const { images, currentSlide } = this.state
     const settings = {
       infinite: false,
       autoplay: false,
@@ -72,8 +75,25 @@ export class Sketch extends Component {
             >
               <ArrowForwardIcon />
             </IconButton>
+
             <IconButton onClick={this.onSave}>
               <SaveIcon />
+            </IconButton>
+
+            <IconButton
+              onClick={() =>
+                this.carouselParent[`sketchParent${currentSlide}`].undo()
+              }
+            >
+              <UndoIcon />
+            </IconButton>
+
+            <IconButton
+              onClick={() =>
+                this.carouselParent[`sketchParent${currentSlide}`].redo()
+              }
+            >
+              <RedoIcon />
             </IconButton>
           </div>
 
