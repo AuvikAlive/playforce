@@ -7,7 +7,7 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 import { toggleEditInspection } from '../../../store/actions/actionCreators/inspectionActions/'
-import { fetchInspectionsRealTime } from '../../../store/actions/actionCreators/inspectionListActions'
+import { fetchInspectionsRealTime } from '../../../store/actions/actionCreators/inspectionListActions/'
 
 const mapStateToProps = ({
   firestore: {

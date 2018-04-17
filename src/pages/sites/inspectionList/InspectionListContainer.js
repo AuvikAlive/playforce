@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { InspectionList } from './InspectionList'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
-import { fetchInspectionsBySiteRealTime } from '../../../store/actions/actionCreators/inspectionListActions'
+import { fetchInspectionsBySiteRealTime } from '../../../store/actions/actionCreators/inspectionListActions/'
 import { deleteInspection } from '../../../store/actions/actionCreators/inspectionActions//deleteInspection'
 
 const mapStateToProps = (
