@@ -6,7 +6,7 @@ import { addInspectionCover } from '../../../store/actions/actionCreators/inspec
 import { fetchSites } from '../../../store/actions/actionCreators/siteListActions'
 import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
-import { fetchClients } from '../../../store/actions/actionCreators/clientActions'
+import { fetchClients } from '../../../store/actions/actionCreators/clientActions/'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 

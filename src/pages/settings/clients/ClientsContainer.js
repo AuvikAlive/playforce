@@ -2,13 +2,17 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Clients } from './Clients'
-import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions'
+import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions/'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
-  firebase: { auth: { uid } },
-  firestore: { data: { users } },
+  firebase: {
+    auth: { uid },
+  },
+  firestore: {
+    data: { users },
+  },
   client: { clientsLoaded, clients },
 }) => ({
   userId: uid,
@@ -22,5 +26,5 @@ export const ClientsContainer = compose(
   withDeleteModal,
   withErrorLoadingSubmit,
   withFirestore,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(Clients)
