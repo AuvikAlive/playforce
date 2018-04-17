@@ -27,7 +27,7 @@ export class Clients extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     const unsubscribe = await fetchClientsRealTime(userId)
@@ -52,29 +52,21 @@ export class Clients extends Component {
 
   publish = async () => {
     const { client } = this.state
-    const { firestore, userId, setErrorLoadingState } = this.props
+    const { saveClient, userId, setErrorLoadingState } = this.props
 
     if (client) {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
-        await firestore.add(
-          {
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'clients' }],
-          },
-          { name: client },
-        )
-        setErrorLoadingState({ loading: false })
+        await saveClient(userId, { name: client })
         this.setState({ client: '' })
+        setErrorLoadingState({ loading: false })
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
       setErrorLoadingState({
         error: 'Please fill up the form correctly!',
-        loading: false,
       })
     }
   }
@@ -88,14 +80,10 @@ export class Clients extends Component {
   }
 
   delete = async () => {
-    const { firestore, userId } = this.props
+    const { deleteClient, userId } = this.props
     const { deleteItemId } = this.state
 
-    return firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'clients', doc: deleteItemId }],
-    })
+    return deleteClient(userId, deleteItemId)
   }
 
   render() {
