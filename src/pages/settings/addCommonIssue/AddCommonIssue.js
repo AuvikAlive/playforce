@@ -14,7 +14,7 @@ export class AddCommonIssue extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
@@ -26,16 +26,8 @@ export class AddCommonIssue extends Component {
   }
 
   onSubmit = commonIssue => {
-    const { firestore, userId } = this.props
-
-    return firestore.add(
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues' }],
-      },
-      { ...commonIssue },
-    )
+    const { userId, saveCommonIssue } = this.props
+    return saveCommonIssue(userId, commonIssue)
   }
 
   render() {

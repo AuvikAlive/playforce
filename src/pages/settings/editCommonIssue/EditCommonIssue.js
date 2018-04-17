@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
@@ -12,14 +13,21 @@ export class EditCommonIssue extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { history, openModal, firestore, userId, commonIssueId } = this.props
+    const {
+      history,
+      openModal,
+      fetchCommonIssue,
+      userId,
+      commonIssue,
+      commonIssueId,
+    } = this.props
 
     setNavTitle('Edit Issue')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     setRightNavComponent(
@@ -29,16 +37,10 @@ export class EditCommonIssue extends Component {
         onClick={() => openModal(this.delete)}
       >
         <DeleteIcon />
-      </IconButton>,
+      </IconButton>
     )
 
-    firestore.setListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues', doc: commonIssueId }],
-      },
-    ])
+    !commonIssue && fetchCommonIssue(userId, commonIssueId)
   }
 
   componentWillUnmount() {
@@ -47,50 +49,31 @@ export class EditCommonIssue extends Component {
       removeLefNavComponent,
       removeRightNavComponent,
     } = this.context
-    const { firestore, userId, commonIssueId } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
-
-    firestore.unsetListeners([
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues', doc: commonIssueId }],
-      },
-    ])
   }
 
   onSubmit = commonIssue => {
-    const { firestore, userId, commonIssueId } = this.props
-
-    return firestore.update(
-      {
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'commonIssues', doc: commonIssueId }],
-      },
-      { ...commonIssue },
-    )
+    const { saveCommonIssue, userId, commonIssueId } = this.props
+    return saveCommonIssue(userId, commonIssue, commonIssueId)
   }
 
   delete = async () => {
-    const { history, firestore, userId, commonIssueId } = this.props
+    const { deleteCommonIssue, userId, commonIssueId, history } = this.props
 
-    await firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'commonIssues', doc: commonIssueId }],
-    })
+    await deleteCommonIssue(userId, commonIssueId)
     history.goBack()
   }
 
   render() {
     const { commonIssue } = this.props
 
-    return (
+    return commonIssue ? (
       <CommonIssueForm initialData={commonIssue} onSubmit={this.onSubmit} />
+    ) : (
+      <LinearProgress />
     )
   }
 }
