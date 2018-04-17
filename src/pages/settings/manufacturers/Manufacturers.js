@@ -27,7 +27,7 @@ export class Manufacturers extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     const unsubscribe = await fetchManufacturersRealTime(userId)
@@ -52,20 +52,13 @@ export class Manufacturers extends Component {
 
   publish = async () => {
     const { manufacturer } = this.state
-    const { firestore, userId, setErrorLoadingState } = this.props
+    const { saveManufacturer, userId, setErrorLoadingState } = this.props
 
     if (manufacturer) {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
-        await firestore.add(
-          {
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'manufacturers' }],
-          },
-          { name: manufacturer },
-        )
+        await saveManufacturer(userId, { name: manufacturer })
         setErrorLoadingState({ loading: false })
         this.setState({ manufacturer: '' })
       } catch (error) {
@@ -88,14 +81,10 @@ export class Manufacturers extends Component {
   }
 
   delete = async () => {
-    const { firestore, userId } = this.props
+    const { deleteManufacturer, userId } = this.props
     const { deleteItemId } = this.state
 
-    return firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'manufacturers', doc: deleteItemId }],
-    })
+    return deleteManufacturer(userId, deleteItemId)
   }
 
   render() {

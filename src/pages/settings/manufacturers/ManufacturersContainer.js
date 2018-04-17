@@ -2,13 +2,21 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Manufacturers } from './Manufacturers'
-import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions'
+import {
+  saveManufacturer,
+  deleteManufacturer,
+  fetchManufacturersRealTime,
+} from '../../../store/actions/actionCreators/manufacturerActions/'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
-  firebase: { auth: { uid } },
-  firestore: { data: { users } },
+  firebase: {
+    auth: { uid },
+  },
+  firestore: {
+    data: { users },
+  },
   manufacturer: { manufacturersLoaded, manufacturers },
 }) => ({
   userId: uid,
@@ -16,11 +24,15 @@ const mapStateToProps = ({
   manufacturers,
 })
 
-const mapDispatchToProps = { fetchManufacturersRealTime }
+const mapDispatchToProps = {
+  saveManufacturer,
+  deleteManufacturer,
+  fetchManufacturersRealTime,
+}
 
 export const ManufacturersContainer = compose(
   withDeleteModal,
   withErrorLoadingSubmit,
   withFirestore,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(Manufacturers)
