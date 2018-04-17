@@ -50,6 +50,7 @@ export class Sketch extends Component {
       infinite: false,
       autoplay: false,
       draggable: false,
+      swipe: false,
       beforeChange: this.onSlideChange,
     }
 
