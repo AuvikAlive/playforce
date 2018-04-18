@@ -16,18 +16,15 @@ import Map from './Map'
 
 export class SiteDetail extends Component {
   componentDidMount() {
-    const { firestore, userId, id } = this.props
+    const { site, fetchSite, userId, siteId } = this.props
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'sites', doc: id }],
-    })
+    site && this.setup(site)
+    !site && fetchSite(userId, siteId)
   }
 
   componentWillReceiveProps(nextProps) {
     const { site } = nextProps
-    if (site) {
+    if (site !== this.props.site) {
       this.setup(site)
     }
   }
@@ -42,14 +39,6 @@ export class SiteDetail extends Component {
     removeLefNavComponent()
     removeNavTitle()
     removeRightNavComponent()
-
-    const { firestore, userId, id } = this.props
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'sites', doc: id }],
-    })
   }
 
   setup = site => {
@@ -97,13 +86,9 @@ export class SiteDetail extends Component {
   }
 
   delete = async () => {
-    const { firestore, userId, id, history } = this.props
+    const { deleteSite, userId, siteId, history } = this.props
 
-    await firestore.delete({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'sites', doc: id }],
-    })
+    await deleteSite(userId, siteId)
     history.goBack()
   }
 

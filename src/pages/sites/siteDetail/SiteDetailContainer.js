@@ -3,20 +3,38 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirestore } from 'react-redux-firebase'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import {
+  fetchSite,
+  deleteSite,
+} from '../../../store/actions/actionCreators/siteActions/'
 import { SiteDetail } from './SiteDetail'
 
 const mapStateToProps = (
-  { firestore: { data: { users } }, firebase: { auth: { uid } } },
-  { match: { params: { id } } },
+  {
+    firestore: {
+      data: { users },
+    },
+    firebase: {
+      auth: { uid },
+    },
+    site: { sitesLoaded, sites, site },
+  },
+  {
+    match: {
+      params: { id },
+    },
+  }
 ) => ({
   userId: uid,
-  id,
-  site: users && users[uid].sites && users[uid].sites[id],
+  siteId: id,
+  site: (sitesLoaded && sites.find(item => item.id === id)) || site,
 })
+
+const mapDispatchToProps = { fetchSite, deleteSite }
 
 export const SiteDetailContainer = compose(
   withDeleteModal,
   withRouter,
   withFirestore,
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(SiteDetail)
