@@ -17,19 +17,15 @@ export class SignIn extends Component {
     email: '',
     password: '',
     checked: true,
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
     const { setNavTitle } = this.context
-
     setNavTitle('Sign In')
   }
 
   componentWillUnmount() {
     const { removeNavTitle } = this.context
-
     removeNavTitle()
   }
 
@@ -58,9 +54,9 @@ export class SignIn extends Component {
 
   signIn = async () => {
     const { email, password, checked } = this.state
-    const { firebase, history } = this.props
+    const { setErrorLoadingState, firebase, history } = this.props
 
-    this.setState({ error: '', loading: true })
+    setErrorLoadingState({ error: '', loading: true })
 
     if (email && password) {
       checked
@@ -78,10 +74,10 @@ export class SignIn extends Component {
           state: { name: 'Dashboard' },
         })
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form properly!',
         loading: false,
       })
@@ -94,7 +90,8 @@ export class SignIn extends Component {
   }
 
   render() {
-    const { checked, error, loading } = this.state
+    const { checked } = this.state
+    const { error, loading } = this.props
 
     return (
       <StyledForm className="StyledForm">
