@@ -27,6 +27,12 @@ export class EquipmentForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
+  componentWillReceiveProps({ initialData }) {
+    if (initialData !== this.props.initialData) {
+      this.loadInitialData(initialData)
+    }
+  }
+
   loadInitialData = initialData => {
     const { setCapturedImage } = this.props
     const { image } = initialData

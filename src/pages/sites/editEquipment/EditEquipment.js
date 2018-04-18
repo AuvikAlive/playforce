@@ -7,7 +7,14 @@ import EquipmentForm from '../equipmentForm/'
 export class EditEquipment extends Component {
   componentDidMount() {
     const { setNavTitle, setRightNavComponent } = this.context
-    const { openModal } = this.props
+    const {
+      openModal,
+      equipment,
+      fetchEquipment,
+      userId,
+      siteId,
+      assetId,
+    } = this.props
 
     setNavTitle('Edit Equipment')
     setRightNavComponent(
@@ -19,6 +26,8 @@ export class EditEquipment extends Component {
         <DeleteIcon />
       </IconButton>
     )
+
+    !equipment && fetchEquipment(userId, siteId, assetId)
   }
 
   componentWillUnmount() {
@@ -36,10 +45,9 @@ export class EditEquipment extends Component {
   }
 
   render() {
-    const { siteId, assetId, equipments } = this.props
-    const initialData = equipments.find(item => item.assetId === assetId)
+    const { siteId, equipment } = this.props
 
-    return <EquipmentForm siteId={siteId} initialData={initialData} />
+    return <EquipmentForm siteId={siteId} initialData={equipment} />
   }
 }
 
