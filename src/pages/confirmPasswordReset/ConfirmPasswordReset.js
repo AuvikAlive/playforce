@@ -41,7 +41,7 @@ export class ConfirmPasswordReset extends Component {
 
   updatePassword = async () => {
     const { password, code } = this.state
-    const { firebase, setErrorLoadingState } = this.props
+    const { setErrorLoadingState, firebase } = this.props
 
     if (password) {
       setErrorLoadingState({ error: '', loading: true })

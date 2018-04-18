@@ -12,55 +12,42 @@ export class SignUp extends Component {
     username: '',
     email: '',
     password: '',
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
     const { setNavTitle } = this.context
-
     setNavTitle('Sign Up')
   }
 
   componentWillUnmount() {
     const { removeNavTitle } = this.context
-
     removeNavTitle()
   }
 
-  onNameChange = event => {
-    const username = event.target.value
-    this.setState({ username })
-  }
-
-  onEmailChange = event => {
-    const email = event.target.value
-    this.setState({ email })
-  }
-
-  onPasswordChange = event => {
-    const password = event.target.value
-    this.setState({ password })
+  onInputChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    })
   }
 
   signUp = async () => {
     const { username, email, password } = this.state
-    const { firebase, history } = this.props
-
-    this.setState({ error: '', loading: true })
+    const { setErrorLoadingState, firebase, history } = this.props
 
     if (username && email && password) {
+      setErrorLoadingState({ error: '', loading: true })
+
       try {
         await firebase.createUser(
           { email, password },
-          { displayName: username, email },
+          { displayName: username, email }
         )
         history.push('/dashboard')
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please fill up the form properly!',
         loading: false,
       })
@@ -68,7 +55,7 @@ export class SignUp extends Component {
   }
 
   render() {
-    const { error, loading } = this.state
+    const { error, loading } = this.props
 
     return (
       <StyledForm className="StyledForm">
@@ -81,7 +68,7 @@ export class SignUp extends Component {
             label="Full Name"
             margin="normal"
             fullWidth
-            onChange={this.onNameChange}
+            onChange={this.onInputChange('username')}
           />
 
           <TextField
@@ -90,7 +77,7 @@ export class SignUp extends Component {
             type="email"
             margin="normal"
             fullWidth
-            onChange={this.onEmailChange}
+            onChange={this.onInputChange('email')}
           />
 
           <TextField
@@ -99,7 +86,7 @@ export class SignUp extends Component {
             type="password"
             margin="normal"
             fullWidth
-            onChange={this.onPasswordChange}
+            onChange={this.onInputChange('password')}
           />
 
           {error && <p className="error">{error}</p>}

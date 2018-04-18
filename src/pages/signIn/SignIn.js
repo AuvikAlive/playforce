@@ -37,14 +37,10 @@ export class SignIn extends Component {
     this.setState({ modalOpen: false })
   }
 
-  onEmailChange = event => {
-    const email = event.target.value
-    this.setState({ email })
-  }
-
-  onPasswordChange = event => {
-    const password = event.target.value
-    this.setState({ password })
+  onInputChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    })
   }
 
   onCheckboxChange = event => {
@@ -105,7 +101,7 @@ export class SignIn extends Component {
             type="email"
             margin="normal"
             fullWidth
-            onChange={this.onEmailChange}
+            onChange={this.onInputChange('email')}
           />
 
           <TextField
@@ -114,7 +110,7 @@ export class SignIn extends Component {
             type="password"
             margin="normal"
             fullWidth
-            onChange={this.onPasswordChange}
+            onChange={this.onInputChange('password')}
           />
 
           <FormControlLabel
