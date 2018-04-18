@@ -32,16 +32,13 @@ export class SignUp extends Component {
 
   signUp = async () => {
     const { username, email, password } = this.state
-    const { setErrorLoadingState, firebase, history } = this.props
+    const { setErrorLoadingState, signUp, history } = this.props
 
     if (username && email && password) {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
-        await firebase.createUser(
-          { email, password },
-          { displayName: username, email }
-        )
+        await signUp(email, password, username)
         history.push('/dashboard')
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })

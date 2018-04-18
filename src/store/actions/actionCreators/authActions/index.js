@@ -1,5 +1,6 @@
+import { signUp } from './signUp'
 import { signIn } from './signIn'
 import { sendPasswordResetEmail } from './sendPasswordResetEmail'
 import { confirmPasswordReset } from './confirmPasswordReset'
 
-export { signIn, sendPasswordResetEmail, confirmPasswordReset }
+export { signUp, signIn, sendPasswordResetEmail, confirmPasswordReset }
