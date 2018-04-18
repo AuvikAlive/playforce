@@ -11,6 +11,10 @@ export const StyledSketch = Styled(Content)`
     padding: 0 16px;
   }
 
+  .tool-select {
+    width: 245px;
+  }
+
   .color-picker {
     margin: 32px 0;
   }

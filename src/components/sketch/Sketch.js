@@ -128,6 +128,7 @@ export class Sketch extends Component {
               value={tool}
               onChange={this.onToolSelect}
               margin="none"
+              className="tool-select"
             >
               {tools.map((item, index) => (
                 <MenuItem key={index} value={item}>
