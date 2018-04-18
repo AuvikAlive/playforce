@@ -38,11 +38,17 @@ export class Form extends Component {
       fetchCommonIssues,
       userId,
       initialData,
+      setRightNav,
     } = this.props
 
+    setRightNav()
     !commonIssuesLoaded && fetchCommonIssues(userId)
-
     initialData && this.loadInitialData(initialData)
+  }
+
+  componentWillUnmount() {
+    const { removeRightNav } = this.props
+    removeRightNav()
   }
 
   componentWillReceiveProps({ imageCaptured, images }) {

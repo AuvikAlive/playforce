@@ -4,32 +4,17 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
 import ComplianceIssueForm from '../complianceIssueForm/'
-// import ComplianceIssueFormRoutes from '../complianceIssueFormRoutes/ComplianceIssueFormRoutes'
 
 export class EditComplianceIssue extends Component {
   componentDidMount() {
-    const {
-      setNavTitle,
-      setLeftNavComponent,
-      setRightNavComponent,
-    } = this.context
-    const { history, openModal } = this.props
+    const { setNavTitle, setLeftNavComponent } = this.context
+    const { history } = this.props
 
     setNavTitle('Edit Compliance Issue')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>
-    )
-
-    setRightNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="delete condition rating"
-        onClick={() => openModal(this.delete)}
-      >
-        <DeleteIcon />
       </IconButton>
     )
   }
@@ -44,6 +29,21 @@ export class EditComplianceIssue extends Component {
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
+  }
+
+  setRightNav = () => {
+    const { setRightNavComponent } = this.context
+    const { openModal } = this.props
+
+    setRightNavComponent(
+      <IconButton
+        color="inherit"
+        aria-label="delete condition rating"
+        onClick={() => openModal(this.delete)}
+      >
+        <DeleteIcon />
+      </IconButton>
+    )
   }
 
   onSubmit = updatedValue => {
@@ -79,6 +79,8 @@ export class EditComplianceIssue extends Component {
       <ComplianceIssueForm
         initialData={complianceIssue}
         onSubmit={this.onSubmit}
+        setRightNav={this.setRightNav}
+        removeRightNav={this.context.removeRightNavComponent}
       />
     )
   }

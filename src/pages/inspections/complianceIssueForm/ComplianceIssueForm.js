@@ -14,7 +14,13 @@ class ComplianceIssueFormWithoutRouter extends Component {
   }
 
   render() {
-    const { match, initialData, onSubmit } = this.props
+    const {
+      match,
+      initialData,
+      onSubmit,
+      setRightNav,
+      removeRightNav,
+    } = this.props
     const { images } = this.state
     const dataCopy = Object.assign({}, { ...initialData })
 
@@ -22,10 +28,11 @@ class ComplianceIssueFormWithoutRouter extends Component {
       dataCopy.images = images
     }
 
-    const imagesCopy = dataCopy.images.map(
-      ({ image, imageNaturalAspectRatio }) =>
+    const imagesCopy =
+      dataCopy.images &&
+      dataCopy.images.map(({ image, imageNaturalAspectRatio }) =>
         Object.assign({}, { image, imageNaturalAspectRatio })
-    )
+      )
 
     return (
       <Switch>
@@ -38,7 +45,12 @@ class ComplianceIssueFormWithoutRouter extends Component {
         <Route
           path={match.url}
           component={() => (
-            <FormContainer onSubmit={onSubmit} initialData={dataCopy} />
+            <FormContainer
+              setRightNav={setRightNav}
+              removeRightNav={removeRightNav}
+              onSubmit={onSubmit}
+              initialData={dataCopy}
+            />
           )}
         />
       </Switch>
