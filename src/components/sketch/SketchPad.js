@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { SketchField, Tools } from 'react-sketch'
 
 export class SketchPad extends Component {
-  state = { lineColor: '#000' }
+  state = { lineColor: '#000', tool: 'Pencil' }
 
   componentDidMount() {
     const { image } = this.props
@@ -32,14 +32,18 @@ export class SketchPad extends Component {
     this.setState({ lineColor: hexColor })
   }
 
+  setTool = tool => {
+    this.setState({ tool })
+  }
+
   render() {
-    const { lineColor } = this.state
+    const { lineColor, tool } = this.state
 
     return (
       <SketchField
         height="calc(100vh - 48px - 36px - 90px - 56*2px)"
         widthCorrection={0}
-        tool={Tools.Pencil}
+        tool={Tools[tool]}
         lineColor={lineColor}
         lineWidth={3}
         ref={c => (this._sketch = c)}

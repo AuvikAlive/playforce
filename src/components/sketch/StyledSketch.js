@@ -6,12 +6,12 @@ export const StyledSketch = Styled(Content)`
   ${cardMediaPortrait};
 
   .sketch-actions {
-    margin: 8px 0;
     display: flex;
     justify-content: center;
+    padding: 0 16px;
   }
 
   .color-picker {
-    width: auto;
+    margin: 32px 0;
   }
 `

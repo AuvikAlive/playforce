@@ -8,12 +8,21 @@ import SaveIcon from 'material-ui-icons/Save'
 import UndoIcon from 'material-ui-icons/Undo'
 import RedoIcon from 'material-ui-icons/Redo'
 import { CompactPicker } from 'react-color'
+import TextField from 'material-ui/TextField'
+import { MenuItem } from 'material-ui/Menu'
 import { Carousel } from '../carousel/Carousel'
 import { SketchPad } from './SketchPad'
 import { StyledSketch } from './StyledSketch'
 
+const tools = ['Pencil', 'Line', 'Rectangle', 'Circle']
+
 export class Sketch extends Component {
-  state = { images: [], imagesLength: undefined, currentSlide: 0 }
+  state = {
+    images: [],
+    imagesLength: undefined,
+    currentSlide: 0,
+    tool: tools[0],
+  }
 
   componentDidMount() {
     const { images } = this.props
@@ -37,6 +46,13 @@ export class Sketch extends Component {
     currentSlide + 1 < imagesLength && this.carouselParent.carousel.slickNext()
   }
 
+  onToolSelect = event => {
+    const tool = event.target.value
+    const { currentSlide } = this.state
+
+    this.carouselParent[`sketchParent${currentSlide}`].setTool(tool)
+  }
+
   onSave = () => {
     const { currentSlide, images } = this.state
     const image = this.carouselParent[
@@ -56,7 +72,7 @@ export class Sketch extends Component {
   }
 
   render() {
-    const { images, currentSlide } = this.state
+    const { images, currentSlide, tool } = this.state
     const settings = {
       infinite: false,
       autoplay: false,
@@ -106,6 +122,22 @@ export class Sketch extends Component {
           </div>
 
           <div className="sketch-actions">
+            <TextField
+              fullWidth
+              select
+              value={tool}
+              onChange={this.onToolSelect}
+              margin="none"
+            >
+              {tools.map((item, index) => (
+                <MenuItem key={index} value={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+
+          <div className="sketch-actions color-picker">
             <CompactPicker
               onChangeComplete={color =>
                 this.carouselParent[`sketchParent${currentSlide}`].setLineColor(
