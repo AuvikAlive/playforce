@@ -3,6 +3,11 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirestore } from 'react-redux-firebase'
 import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { fetchOperators } from '../../../store/actions/actionCreators/operatorActions/'
+import {
+  fetchSite,
+  saveSite,
+} from '../../../store/actions/actionCreators/siteActions/'
 import { GeneralTab } from './GeneralTab'
 
 const mapStateToProps = (
@@ -13,6 +18,8 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
+    site: { sitesLoaded, sites, site },
+    operator: { operatorsLoaded, operators },
   },
   {
     match: {
@@ -22,12 +29,16 @@ const mapStateToProps = (
 ) => ({
   userId: uid,
   siteId: id,
-  site: users && users[uid].sites && users[uid].sites[id],
+  operatorsLoaded,
+  operators,
+  site: (sitesLoaded && sites.find(item => item.id === id)) || site,
 })
+
+const mapDispatchToProps = { fetchOperators, fetchSite, saveSite }
 
 export const GeneralTabContainer = compose(
   withErrorLoadingSubmit,
   withRouter,
   withFirestore,
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(GeneralTab)

@@ -1,14 +1,25 @@
-import { FETCH_SITES, FETCH_SITES_COMPLETED } from '../actions/actionTypes'
+import {
+  FETCH_SITE,
+  FETCH_SITE_COMPLETED,
+  FETCH_SITES,
+  FETCH_SITES_COMPLETED,
+} from '../actions/actionTypes'
 
 export const initialState = {
+  siteLoaded: false,
+  site: undefined,
   sitesLoaded: false,
   sites: [],
-  equipmentsLoaded: false,
-  equipments: [],
 }
 
 export const siteReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case FETCH_SITE:
+      return { ...state, siteLoaded: false }
+
+    case FETCH_SITE_COMPLETED:
+      return { ...state, siteLoaded: true, site: payload }
+
     case FETCH_SITES:
       return { ...state, sitesLoaded: false }
 

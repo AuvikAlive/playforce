@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 import Card, { CardContent } from 'material-ui/Card'
 import { MenuItem } from 'material-ui/Menu'
 import TextField from 'material-ui/TextField'
 import { CircularProgress } from 'material-ui/Progress'
 import { StyledGeneralTab } from './StyledGeneralTab'
-import { data } from '../data'
-
-const operators = data.operators
 
 export class GeneralTab extends Component {
   state = {
@@ -20,23 +18,10 @@ export class GeneralTab extends Component {
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
-    const { firestore, userId, siteId } = this.props
+    const { fetchOperators, site, fetchSite, userId, siteId } = this.props
 
-    firestore.setListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'sites', doc: siteId }],
-    })
-  }
-
-  componentWillUnmount() {
-    const { firestore, userId, siteId } = this.props
-
-    firestore.unsetListener({
-      collection: 'users',
-      doc: userId,
-      subcollections: [{ collection: 'sites', doc: siteId }],
-    })
+    fetchOperators(userId)
+    !site && fetchSite(userId, siteId)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,40 +48,25 @@ export class GeneralTab extends Component {
     this.setState({ operator, name, address, division })
   }
 
-  onSelectChange = event => {
-    const operatorId = parseInt(event.target.value, 10) - 1
-
-    this.setState({
-      operator: data.operators[operatorId],
-    })
-  }
-
   onInputChange = name => event => {
     this.setState({
       [name]: event.target.value,
     })
   }
 
-  handleEdit = async () => {
+  submit = async () => {
     const { name, address, division, operator } = this.state
     const { setErrorLoadingState } = this.props
 
     if (name && address && division && operator) {
       setErrorLoadingState({ error: '', loading: true })
 
-      const { firestore, userId, siteId } = this.props
+      const { saveSite, userId, siteId, history } = this.props
       const updatedData = { name, address, division, operator }
 
       try {
-        await firestore.update(
-          {
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'sites', doc: siteId }],
-          },
-          updatedData
-        )
-
+        await saveSite(userId, updatedData, siteId)
+        history.goBack()
         setErrorLoadingState({ loading: false })
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
@@ -108,9 +78,9 @@ export class GeneralTab extends Component {
 
   render() {
     const { operator, name, address, division } = this.state
-    const { error, loading } = this.props
+    const { operatorsLoaded, operators, error, loading } = this.props
 
-    return (
+    return operatorsLoaded ? (
       <StyledGeneralTab className="StyledGeneralTab">
         <Card className="card">
           <CardContent>
@@ -172,14 +142,16 @@ export class GeneralTab extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.handleEdit}
+                onClick={this.submit}
               >
-                Publish
+                Update
               </Button>
             )}
           </CardContent>
         </Card>
       </StyledGeneralTab>
+    ) : (
+      <LinearProgress />
     )
   }
 }

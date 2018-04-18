@@ -76,32 +76,26 @@ export class AddSite extends Component {
       division,
       operator,
     } = this.state
-    const { firestore, userId, setErrorLoadingState, history } = this.props
+    const { saveSite, userId, setErrorLoadingState, history } = this.props
 
     if (name && street && suburb && state && postcode && country && operator) {
       setErrorLoadingState({ error: '', loading: true })
 
       try {
-        await firestore.add(
-          {
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'sites' }],
-          },
-          {
-            addedUser: userId,
-            name,
-            street,
-            suburb,
-            state,
-            postcode,
-            country,
-            latitude: Number(latitude),
-            longitude: Number(longitude),
-            division,
-            operator,
-          }
-        )
+        const site = {
+          addedUser: userId,
+          name,
+          street,
+          suburb,
+          state,
+          postcode,
+          country,
+          latitude: Number(latitude),
+          longitude: Number(longitude),
+          division,
+          operator,
+        }
+        await saveSite(userId, site)
         setErrorLoadingState({ loading: false })
         history.goBack()
       } catch (error) {
