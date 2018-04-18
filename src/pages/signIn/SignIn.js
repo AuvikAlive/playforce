@@ -50,21 +50,13 @@ export class SignIn extends Component {
 
   signIn = async () => {
     const { email, password, checked } = this.state
-    const { setErrorLoadingState, firebase, history } = this.props
+    const { setErrorLoadingState, signIn, history } = this.props
 
     setErrorLoadingState({ error: '', loading: true })
 
     if (email && password) {
-      checked
-        ? firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        : firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-
       try {
-        await firebase.login({
-          email,
-          password,
-        })
-
+        await signIn(email, password, checked)
         history.push({
           pathname: '/dashboard',
           state: { name: 'Dashboard' },
