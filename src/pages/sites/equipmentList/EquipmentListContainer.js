@@ -2,7 +2,10 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { EquipmentList } from './EquipmentList'
-import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions/'
+import {
+  fetchEquipments,
+  deleteEquipment,
+} from '../../../store/actions/actionCreators/equipmentActions/'
 
 const mapStateToProps = (
   {
@@ -19,7 +22,7 @@ const mapStateToProps = (
   equipments,
 })
 
-const mapDispatchToProps = { fetchEquipments }
+const mapDispatchToProps = { fetchEquipments, deleteEquipment }
 
 export const EquipmentListContainer = compose(
   withRouter,

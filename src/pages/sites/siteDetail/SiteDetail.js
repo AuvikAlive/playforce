@@ -99,16 +99,12 @@ export class SiteDetail extends Component {
   delete = async () => {
     const { firestore, userId, id, history } = this.props
 
-    try {
-      await firestore.delete({
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'sites', doc: id }],
-      })
-      history.goBack()
-    } catch (error) {
-      console.log(error)
-    }
+    await firestore.delete({
+      collection: 'users',
+      doc: userId,
+      subcollections: [{ collection: 'sites', doc: id }],
+    })
+    history.goBack()
   }
 
   render() {

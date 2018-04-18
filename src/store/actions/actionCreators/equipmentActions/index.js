@@ -1,4 +1,5 @@
 import { saveEquipment } from './saveEquipment'
+import { deleteEquipment } from './deleteEquipment'
 import { fetchEquipments } from './fetchEquipments'
 
-export { saveEquipment, fetchEquipments }
+export { saveEquipment, deleteEquipment, fetchEquipments }
