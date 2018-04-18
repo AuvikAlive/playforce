@@ -6,10 +6,14 @@ import { FormContainer } from './FormContainer'
 class ComplianceIssueFormWithoutRouter extends Component {
   state = { images: [] }
 
-  doneEditImages = images => {
+  loadImages = images => {
+    this.setState({ images })
+  }
+
+  saveImages = images => {
     const { history } = this.props
 
-    this.setState({ images })
+    this.loadImages(images)
     history.goBack()
   }
 
@@ -39,7 +43,7 @@ class ComplianceIssueFormWithoutRouter extends Component {
         <Route
           path={`${match.url}/editImages`}
           component={() => (
-            <Sketch images={imagesCopy} onSubmit={this.doneEditImages} />
+            <Sketch images={imagesCopy} onSubmit={this.saveImages} />
           )}
         />
         <Route
@@ -50,6 +54,7 @@ class ComplianceIssueFormWithoutRouter extends Component {
               removeRightNav={removeRightNav}
               onSubmit={onSubmit}
               initialData={dataCopy}
+              loadImages={this.loadImages}
             />
           )}
         />

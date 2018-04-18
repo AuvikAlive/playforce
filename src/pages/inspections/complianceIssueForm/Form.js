@@ -41,22 +41,24 @@ export class Form extends Component {
       setRightNav,
     } = this.props
 
-    setRightNav()
+    setRightNav && setRightNav()
     !commonIssuesLoaded && fetchCommonIssues(userId)
     initialData && this.loadInitialData(initialData)
   }
 
   componentWillUnmount() {
     const { removeRightNav } = this.props
-    removeRightNav()
+    removeRightNav && removeRightNav()
   }
 
   componentWillReceiveProps({ imageCaptured, images }) {
     if (imageCaptured) {
-      const { setErrorLoadingState } = this.props
+      const { setErrorLoadingState, loadImages } = this.props
       const notPortrait = images.some(
         ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
       )
+
+      loadImages(images)
 
       if (images.length > 4 && notPortrait) {
         setErrorLoadingState({
@@ -192,15 +194,21 @@ export class Form extends Component {
             )}
           {images && images.length > 1 && <Carousel images={images} />}
           <CardContent className="card-content">
-            <StyledNavLink to={`${match.url}/editImages`} className="edit-icon">
-              <Button
-                variant="fab"
-                color="primary"
-                aria-label="edit compliance issue"
-              >
-                <BrushIcon />
-              </Button>
-            </StyledNavLink>
+            {images &&
+              images.length > 0 && (
+                <StyledNavLink
+                  to={`${match.url}/editImages`}
+                  className="edit-icon"
+                >
+                  <Button
+                    variant="fab"
+                    color="primary"
+                    aria-label="edit compliance issue"
+                  >
+                    <BrushIcon />
+                  </Button>
+                </StyledNavLink>
+              )}
             <Button
               fullWidth
               variant="raised"
