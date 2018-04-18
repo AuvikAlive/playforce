@@ -10,4 +10,8 @@ export const StyledSketch = Styled(Content)`
     display: flex;
     justify-content: center;
   }
+
+  .color-picker {
+    width: auto;
+  }
 `

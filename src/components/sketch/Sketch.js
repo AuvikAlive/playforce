@@ -7,6 +7,7 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import SaveIcon from 'material-ui-icons/Save'
 import UndoIcon from 'material-ui-icons/Undo'
 import RedoIcon from 'material-ui-icons/Redo'
+import { CompactPicker } from 'react-color'
 import { Carousel } from '../carousel/Carousel'
 import { SketchPad } from './SketchPad'
 import { StyledSketch } from './StyledSketch'
@@ -102,6 +103,16 @@ export class Sketch extends Component {
             >
               <RedoIcon />
             </IconButton>
+          </div>
+
+          <div className="sketch-actions">
+            <CompactPicker
+              onChangeComplete={color =>
+                this.carouselParent[`sketchParent${currentSlide}`].setLineColor(
+                  color.hex
+                )
+              }
+            />
           </div>
 
           <Button

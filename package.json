@@ -19,6 +19,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
     "react-autosuggest": "^9.3.4",
+    "react-color": "^2.14.1",
     "react-dom": "^16.0.0",
     "react-google-maps": "^9.4.5",
     "react-loadable": "^5.3.1",
