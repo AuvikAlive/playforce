@@ -43,21 +43,22 @@ export class ConfirmPasswordReset extends Component {
 
   updatePassword = async () => {
     const { password, code } = this.state
-    const { firebase } = this.props
+    const { firebase, setErrorLoadingState } = this.props
 
     if (password) {
-      this.setState({ error: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
 
       const auth = firebase.auth()
 
       try {
         await auth.confirmPasswordReset(code, password)
-        this.setState({ success: true, loading: false })
+        setErrorLoadingState({ loading: false })
+        this.setState({ success: true })
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please enter your new password!',
         loading: false,
       })
@@ -65,7 +66,8 @@ export class ConfirmPasswordReset extends Component {
   }
 
   render() {
-    const { error, success, loading } = this.state
+    const { success } = this.state
+    const { error, loading } = this.props
 
     return (
       <StyledConfirmPasswordReset>
