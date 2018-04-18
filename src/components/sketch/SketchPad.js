@@ -41,7 +41,7 @@ export class SketchPad extends Component {
 
     return (
       <SketchField
-        height="calc(100vh - 48px - 36px - 90px - 56*2px)"
+        height="calc(100vh - 48px - 32px - 90px - 64px - 56*2px)"
         widthCorrection={0}
         tool={Tools[tool]}
         lineColor={lineColor}
