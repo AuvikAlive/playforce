@@ -11,9 +11,7 @@ import { parseQuery } from '../../utilities/parseQuery'
 export class ConfirmPasswordReset extends Component {
   state = {
     code: '',
-    error: '',
     success: false,
-    loading: false,
   }
 
   componentDidMount() {

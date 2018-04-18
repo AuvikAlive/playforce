@@ -10,20 +10,16 @@ import { StyledResetPassword } from './StyledResetPassword'
 export class ResetPassword extends Component {
   state = {
     email: '',
-    error: '',
     success: '',
-    loading: false,
   }
 
   componentDidMount() {
     const { setNavTitle } = this.context
-
     setNavTitle('Reset Password')
   }
 
   componentWillUnmount() {
     const { removeNavTitle } = this.context
-
     removeNavTitle()
   }
 
@@ -34,25 +30,26 @@ export class ResetPassword extends Component {
 
   sendLink = async () => {
     const { email } = this.state
-    const { firebase } = this.props
+    const { firebase, setErrorLoadingState } = this.props
 
     if (email) {
-      this.setState({ error: '', success: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
+      this.setState({ success: '' })
 
       const auth = firebase.auth()
 
       try {
         await auth.sendPasswordResetEmail(email)
+        setErrorLoadingState({ loading: false })
         this.setState({
           success:
             "Email sent. If you haven't received it, please wait a couple of minutes then try again!",
-          loading: false,
         })
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({
+      setErrorLoadingState({
         error: 'Please enter your email address!',
         loading: false,
       })
@@ -60,7 +57,8 @@ export class ResetPassword extends Component {
   }
 
   render() {
-    const { error, success, loading } = this.state
+    const { success } = this.state
+    const { error, loading } = this.props
 
     return (
       <StyledResetPassword>
