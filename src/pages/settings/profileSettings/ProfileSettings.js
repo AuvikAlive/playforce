@@ -40,7 +40,7 @@ export class ProfileSettings extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     this.setState({ displayName, image, title, company, mobile })
@@ -81,7 +81,6 @@ export class ProfileSettings extends Component {
 
     try {
       await firebase.updateProfile(data)
-
       setErrorLoadingState({ loading: false })
       history.goBack()
     } catch (error) {

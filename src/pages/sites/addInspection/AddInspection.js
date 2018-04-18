@@ -16,8 +16,6 @@ export class AddInspection extends Component {
     type: '',
     frequency: '',
     userAssigned: '',
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
@@ -36,12 +34,11 @@ export class AddInspection extends Component {
 
   onPublish = async () => {
     const { type, frequency, userAssigned } = this.state
+    const { setErrorLoadingState } = this.props
+
     if (type && frequency && userAssigned) {
-      this.setState({ error: '', loading: true })
-
+      setErrorLoadingState({ error: '', loading: true })
       const { firestore, history, userId, siteId } = this.props
-
-      console.log(type, frequency, userAssigned)
 
       try {
         await firestore.add(
@@ -54,21 +51,21 @@ export class AddInspection extends Component {
             type,
             frequency,
             userAssigned,
-          },
+          }
         )
-
-        this.setState({ loading: false })
+        setErrorLoadingState({ loading: false })
         history.goBack()
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({ error: 'Please fill up the form properly!' })
+      setErrorLoadingState({ error: 'Please fill up the form properly!' })
     }
   }
 
   render() {
-    const { type, frequency, userAssigned, error, loading } = this.state
+    const { type, frequency, userAssigned } = this.state
+    const { error, loading } = this.props
 
     return (
       <StyledAppInspection className="StyledAppInspection">
