@@ -30,16 +30,14 @@ export class ResetPassword extends Component {
 
   sendLink = async () => {
     const { email } = this.state
-    const { firebase, setErrorLoadingState } = this.props
+    const { sendPasswordResetEmail, setErrorLoadingState } = this.props
 
     if (email) {
       setErrorLoadingState({ error: '', loading: true })
       this.setState({ success: '' })
 
-      const auth = firebase.auth()
-
       try {
-        await auth.sendPasswordResetEmail(email)
+        await sendPasswordResetEmail(email)
         setErrorLoadingState({ loading: false })
         this.setState({
           success:
