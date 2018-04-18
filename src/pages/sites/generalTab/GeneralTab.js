@@ -16,8 +16,6 @@ export class GeneralTab extends Component {
     name: '',
     address: '',
     division: '',
-    error: '',
-    loading: false,
   }
 
   componentDidMount() {
@@ -73,7 +71,7 @@ export class GeneralTab extends Component {
     })
   }
 
-  handleChange = name => event => {
+  onInputChange = name => event => {
     this.setState({
       [name]: event.target.value,
     })
@@ -81,8 +79,10 @@ export class GeneralTab extends Component {
 
   handleEdit = async () => {
     const { name, address, division, operator } = this.state
+    const { setErrorLoadingState } = this.props
+
     if (name && address && division && operator) {
-      this.setState({ error: '', loading: true })
+      setErrorLoadingState({ error: '', loading: true })
 
       const { firestore, userId, siteId } = this.props
       const updatedData = { name, address, division, operator }
@@ -94,20 +94,21 @@ export class GeneralTab extends Component {
             doc: userId,
             subcollections: [{ collection: 'sites', doc: siteId }],
           },
-          updatedData,
+          updatedData
         )
 
-        this.setState({ loading: false })
+        setErrorLoadingState({ loading: false })
       } catch (error) {
-        this.setState({ error: error.message, loading: false })
+        setErrorLoadingState({ error: error.message, loading: false })
       }
     } else {
-      this.setState({ error: 'Please fill up the form properly!' })
+      setErrorLoadingState({ error: 'Please fill up the form properly!' })
     }
   }
 
   render() {
-    const { operator, name, address, division, error, loading } = this.state
+    const { operator, name, address, division } = this.state
+    const { error, loading } = this.props
 
     return (
       <StyledGeneralTab className="StyledGeneralTab">
@@ -119,7 +120,7 @@ export class GeneralTab extends Component {
               select
               label="Operator"
               value={operator}
-              onChange={this.handleChange('operator')}
+              onChange={this.onInputChange('operator')}
               margin="normal"
             >
               {operators.map(option => (
@@ -134,7 +135,7 @@ export class GeneralTab extends Component {
               id="name"
               label="Name"
               value={name}
-              onChange={this.handleChange('name')}
+              onChange={this.onInputChange('name')}
               margin="normal"
             />
 
@@ -143,7 +144,7 @@ export class GeneralTab extends Component {
               id="address"
               label="Address"
               value={address}
-              onChange={this.handleChange('address')}
+              onChange={this.onInputChange('address')}
               margin="normal"
             />
 
@@ -152,7 +153,7 @@ export class GeneralTab extends Component {
               id="division"
               label="Division"
               value={division}
-              onChange={this.handleChange('division')}
+              onChange={this.onInputChange('division')}
               margin="normal"
             />
 
