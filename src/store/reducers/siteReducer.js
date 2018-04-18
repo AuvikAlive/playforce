@@ -7,7 +7,7 @@ export const initialState = {
   equipments: [],
 }
 
-export const siteListReducer = (state = initialState, { type, payload }) => {
+export const siteReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCH_SITES:
       return { ...state, sitesLoaded: false }

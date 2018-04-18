@@ -6,7 +6,7 @@ import { sideMenuReducer } from './sideMenuReducer'
 import { searchBarReducer } from './searchBarReducer'
 import { inspectionReducer } from './inspectionReducer'
 import { inspectionListReducer } from './inspectionListReducer'
-import { siteListReducer } from './siteListReducer'
+import { siteReducer } from './siteReducer'
 import { standardReducer } from './standardReducer'
 import { clientReducer } from './clientReducer'
 import { manufacturerReducer } from './manufacturerReducer'
@@ -22,7 +22,7 @@ export const reducers = {
   searchBar: searchBarReducer,
   inspection: inspectionReducer,
   inspectionList: inspectionListReducer,
-  siteList: siteListReducer,
+  site: siteReducer,
   standard: standardReducer,
   client: clientReducer,
   manufacturer: manufacturerReducer,

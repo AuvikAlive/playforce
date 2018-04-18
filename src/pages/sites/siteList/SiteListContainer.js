@@ -7,7 +7,7 @@ import {
   openSearchBar,
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
-import { fetchSitesRealTime } from '../../../store/actions/actionCreators/siteListActions/'
+import { fetchSitesRealTime } from '../../../store/actions/actionCreators/siteActions/'
 
 const mapStateToProps = ({
   firestore: {
@@ -17,7 +17,7 @@ const mapStateToProps = ({
     auth: { uid },
   },
   searchBar: { open, query },
-  siteList: { sitesLoaded, sites },
+  site: { sitesLoaded, sites },
 }) => ({
   userId: uid,
   searchBarOpen: open,

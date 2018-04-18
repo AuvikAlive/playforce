@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Cover } from './Cover'
 import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions/'
-import { fetchSites } from '../../../store/actions/actionCreators/siteListActions/'
+import { fetchSites } from '../../../store/actions/actionCreators/siteActions/'
 import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchClients } from '../../../store/actions/actionCreators/clientActions/'
@@ -16,7 +16,7 @@ const mapStateToProps = ({
     auth: { uid },
   },
   inspection: { cover },
-  siteList: { sitesLoaded, sites },
+  site: { sitesLoaded, sites },
   standard: { standardsLoaded, standards },
   client: { clientsLoaded, clients },
 }) => ({
