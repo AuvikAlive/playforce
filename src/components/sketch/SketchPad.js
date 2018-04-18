@@ -4,11 +4,15 @@ import { SketchField, Tools } from 'react-sketch'
 export class SketchPad extends Component {
   componentDidMount() {
     const { image } = this.props
-    this._sketch.setBackgroundFromDataUrl(image, { stretched: true })
+    this.setBackground(image)
   }
 
   componentWillReceiveProps({ image }) {
     this._sketch.clear()
+    this.setBackground(image)
+  }
+
+  setBackground = image => {
     this._sketch.setBackgroundFromDataUrl(image, { stretched: true })
   }
 

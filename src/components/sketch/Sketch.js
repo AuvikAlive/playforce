@@ -12,18 +12,28 @@ import { SketchPad } from './SketchPad'
 import { StyledSketch } from './StyledSketch'
 
 export class Sketch extends Component {
-  state = { images: [], currentSlide: 0 }
+  state = { images: [], imagesLength: undefined, currentSlide: 0 }
 
   componentDidMount() {
     const { images } = this.props
 
-    this.setState({ images })
+    this.setState({ images, imagesLength: images.length })
   }
 
   onSlideChange = (current, next) => {
     if (next !== current) {
       this.setState({ currentSlide: next })
     }
+  }
+
+  onPrev = () => {
+    const { currentSlide } = this.state
+    currentSlide > 0 && this.carouselParent.carousel.slickPrev()
+  }
+
+  onNext = () => {
+    const { imagesLength, currentSlide } = this.state
+    currentSlide + 1 < imagesLength && this.carouselParent.carousel.slickNext()
   }
 
   onSave = () => {
@@ -65,15 +75,11 @@ export class Sketch extends Component {
           />
 
           <div className="sketch-actions">
-            <IconButton
-              onClick={() => this.carouselParent.carousel.slickPrev()}
-            >
+            <IconButton onClick={this.onPrev}>
               <ArrowBackIcon />
             </IconButton>
 
-            <IconButton
-              onClick={() => this.carouselParent.carousel.slickNext()}
-            >
+            <IconButton onClick={this.onNext}>
               <ArrowForwardIcon />
             </IconButton>
 
