@@ -5,20 +5,23 @@ import EquipmentForm from '../equipmentForm/'
 export class AddEquipment extends Component {
   componentDidMount() {
     const { setNavTitle } = this.context
-
     setNavTitle('Add an Equipment')
   }
 
   componentWillMount() {
     const { removeNavTitle } = this.context
-
     removeNavTitle()
   }
 
-  render() {
-    const { siteId } = this.props
+  submit = async data => {
+    const { saveEquipment, userId, setFeedback, siteId } = this.props
 
-    return <EquipmentForm siteId={siteId} />
+    await saveEquipment(userId, siteId, data)
+    setFeedback({ success: 'Equipment published!' })
+  }
+
+  render() {
+    return <EquipmentForm onSubmit={this.submit} />
   }
 }
 

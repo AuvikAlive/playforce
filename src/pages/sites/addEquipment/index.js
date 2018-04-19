@@ -1,3 +1,3 @@
-import { AddEquipment } from './AddEquipment'
+import { AddEquipmentContainer } from './AddEquipmentContainer'
 
-export default AddEquipment
+export default AddEquipmentContainer

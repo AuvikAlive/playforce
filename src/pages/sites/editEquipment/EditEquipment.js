@@ -37,17 +37,40 @@ export class EditEquipment extends Component {
     removeRightNavComponent()
   }
 
+  submit = async data => {
+    const { saveEquipment, userId, setFeedback, siteId, assetId } = this.props
+
+    data.assetId = assetId
+
+    await saveEquipment(userId, siteId, data)
+    setFeedback({ success: 'Equipment updated!' })
+  }
+
   delete = async () => {
-    const { deleteEquipment, userId, siteId, assetId, history } = this.props
+    const {
+      deleteEquipment,
+      userId,
+      siteId,
+      assetId,
+      setFeedback,
+      history,
+    } = this.props
 
     await deleteEquipment(userId, siteId, assetId)
+    await setFeedback({ success: 'Equipment deleted!' })
     history.goBack()
   }
 
   render() {
-    const { siteId, equipment } = this.props
+    const { equipment } = this.props
 
-    return <EquipmentForm siteId={siteId} initialData={equipment} />
+    return (
+      <EquipmentForm
+        buttonText="update"
+        initialData={equipment}
+        onSubmit={this.submit}
+      />
+    )
   }
 }
 

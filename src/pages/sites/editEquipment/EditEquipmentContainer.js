@@ -2,7 +2,9 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
+  saveEquipment,
   fetchEquipment,
   deleteEquipment,
 } from '../../../store/actions/actionCreators/equipmentActions/'
@@ -30,9 +32,10 @@ const mapStateToProps = (
   assetId: id,
 })
 
-const mapDispatchToProps = { fetchEquipment, deleteEquipment }
+const mapDispatchToProps = { saveEquipment, fetchEquipment, deleteEquipment }
 
 export const EditEquipmentContainer = compose(
+  withFeedback,
   withDeleteModal,
   withRouter,
   connect(mapStateToProps, mapDispatchToProps)

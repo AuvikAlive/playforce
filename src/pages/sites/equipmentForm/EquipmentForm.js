@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { LinearProgress } from 'material-ui/Progress'
+import { CircularProgress } from 'material-ui/Progress'
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
@@ -49,32 +50,25 @@ export class EquipmentForm extends Component {
     })
   }
 
-  onSubmit = async () => {
-    const {
-      saveEquipment,
-      userId,
-      setFeedback,
-      image,
-      history,
-      siteId,
-    } = this.props
-
+  submit = async () => {
+    const { image, setFeedback, onSubmit } = this.props
     const { equipment, assetId, manufacturer } = this.state
 
     if (image && equipment && assetId && manufacturer) {
-      setFeedback({ error: '' })
+      setFeedback({ error: '', loading: true })
 
       try {
-        saveEquipment(userId, siteId, {
+        await onSubmit({
           image,
           equipment,
           assetId,
           manufacturer,
         })
-        history.goBack()
+        setFeedback({ loading: false })
       } catch (error) {
         setFeedback({
           error: error.message,
+          loading: false,
         })
       }
     } else {
@@ -90,7 +84,9 @@ export class EquipmentForm extends Component {
       captureImage,
       manufacturersLoaded,
       manufacturers,
+      buttonText,
       error,
+      loading,
     } = this.props
     const { equipment, assetId, manufacturer } = this.state
 
@@ -154,15 +150,24 @@ export class EquipmentForm extends Component {
 
             {error && <p className="error">{error}</p>}
 
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.onSubmit}
-            >
-              save
-            </Button>
+            {!error &&
+              loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+
+            {!loading && (
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="submit-button"
+                onClick={this.submit}
+              >
+                {buttonText ? buttonText : 'Publish'}
+              </Button>
+            )}
           </CardContent>
         </Card>
       </StyledEquipmentForm>
