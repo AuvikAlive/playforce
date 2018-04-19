@@ -3,7 +3,7 @@ import Snackbar from 'material-ui/Snackbar'
 import { getDisplayName } from '../../utilities/getDisplayName'
 import { StyledFeedback } from './StyledFeedback'
 
-const snackbarAutoHideDuration = 3000
+const snackbarAutoHideDuration = 2000
 
 export const withFeedback = WrappedComponent => {
   class WithFeedback extends Component {

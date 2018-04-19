@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirestore } from 'react-redux-firebase'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchSite,
   deleteSite,
@@ -33,6 +34,7 @@ const mapStateToProps = (
 const mapDispatchToProps = { fetchSite, deleteSite }
 
 export const SiteDetailContainer = compose(
+  withFeedback,
   withDeleteModal,
   withRouter,
   withFirestore,

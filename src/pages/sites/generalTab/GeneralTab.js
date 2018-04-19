@@ -61,13 +61,12 @@ export class GeneralTab extends Component {
     if (name && address && division && operator) {
       setFeedback({ error: '', loading: true })
 
-      const { saveSite, userId, siteId, history } = this.props
+      const { saveSite, userId, siteId } = this.props
       const updatedData = { name, address, division, operator }
 
       try {
         await saveSite(userId, updatedData, siteId)
-        history.goBack()
-        setFeedback({ loading: false })
+        setFeedback({ success: 'Site updated!', loading: false })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }

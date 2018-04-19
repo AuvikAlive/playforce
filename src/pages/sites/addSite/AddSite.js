@@ -63,7 +63,7 @@ export class AddSite extends Component {
     })
   }
 
-  publish = async () => {
+  submit = async () => {
     const {
       name,
       street,
@@ -76,7 +76,7 @@ export class AddSite extends Component {
       division,
       operator,
     } = this.state
-    const { saveSite, userId, setFeedback, history } = this.props
+    const { saveSite, userId, setFeedback } = this.props
 
     if (name && street && suburb && state && postcode && country && operator) {
       setFeedback({ error: '', loading: true })
@@ -96,8 +96,7 @@ export class AddSite extends Component {
           operator,
         }
         await saveSite(userId, site)
-        setFeedback({ loading: false })
-        history.goBack()
+        setFeedback({ success: 'Site published!', loading: false })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
@@ -240,7 +239,7 @@ export class AddSite extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.publish}
+                onClick={this.submit}
               >
                 Publish
               </Button>
