@@ -22,12 +22,19 @@ export class Sketch extends Component {
     imagesLength: undefined,
     currentSlide: 0,
     tool: tools[0],
+    width: 600,
   }
 
   componentDidMount() {
     const { images } = this.props
 
-    this.setState({ images, imagesLength: images.length })
+    images && this.setState({ images, imagesLength: images.length })
+
+    const { width } = document
+      .querySelector('.StyledSketch')
+      .getBoundingClientRect()
+
+    this.setState({ width })
   }
 
   onSlideChange = (current, next) => {
@@ -50,6 +57,7 @@ export class Sketch extends Component {
     const tool = event.target.value
     const { currentSlide } = this.state
 
+    this.setState({ tool })
     this.carouselParent[`sketchParent${currentSlide}`].setTool(tool)
   }
 
@@ -72,7 +80,8 @@ export class Sketch extends Component {
   }
 
   render() {
-    const { images, currentSlide, tool } = this.state
+    const { images, currentSlide, tool, width } = this.state
+    const { aspectRatio } = this.props
     const settings = {
       infinite: false,
       autoplay: false,
@@ -89,6 +98,7 @@ export class Sketch extends Component {
             settings={settings}
             ref={c => (this.carouselParent = c)}
             SlideComponent={SketchPad}
+            slideProps={{ aspectRatio, width }}
           />
 
           <div className="sketch-actions">

@@ -43,7 +43,11 @@ class ComplianceIssueFormWithoutRouter extends Component {
         <Route
           path={`${match.url}/editImages`}
           component={() => (
-            <Sketch images={imagesCopy} onSubmit={this.saveImages} />
+            <Sketch
+              aspectRatio={188 / 253}
+              images={imagesCopy}
+              onSubmit={this.saveImages}
+            />
           )}
         />
         <Route

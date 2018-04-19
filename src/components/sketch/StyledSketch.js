@@ -9,6 +9,7 @@ export const StyledSketch = Styled(Content)`
     display: flex;
     justify-content: center;
     padding: 0 16px;
+    margin: 16px 0;
   }
 
   .tool-select {

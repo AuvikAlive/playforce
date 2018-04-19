@@ -18,7 +18,13 @@ const defaultSettings = {
 
 export class Carousel extends Component {
   render() {
-    const { images, settings, showNavs, SlideComponent } = this.props
+    const {
+      images,
+      settings,
+      showNavs,
+      SlideComponent,
+      slideProps,
+    } = this.props
     const mergedSettings = { ...defaultSettings, ...settings }
 
     return (
@@ -30,6 +36,7 @@ export class Carousel extends Component {
                 <SlideComponent
                   ref={c => (this[`sketchParent${index}`] = c)}
                   image={image}
+                  {...slideProps}
                 />
               ) : (
                 <img src={image} alt="carousel" />
