@@ -11,12 +11,13 @@ export class SketchPad extends Component {
     this.setHeight()
   }
 
-  clear = () => {
-    const { image } = this.props
-
-    this._sketch.clear()
-    this.setBackground(image)
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps !== this.props) {
+  //     console.log('runs')
+  //     this._sketch.clear()
+  //     this.setBackground(nextProps.image)
+  //   }
+  // }
 
   setHeight = () => {
     const { aspectRatio, width } = this.props
@@ -49,14 +50,13 @@ export class SketchPad extends Component {
 
   render() {
     const { lineColor, tool } = this.state
-    // const { aspectRatio, width } = this.props
-    // const height = width / aspectRatio
+    const { aspectRatio, width } = this.props
+    const height = width / aspectRatio
 
     return (
       <SketchField
         // height="calc(100vh - 48px - 32px - 90px - 64px - 56*2px)"
-        width="188px"
-        height="253px"
+        height={height}
         widthCorrection={0}
         tool={Tools[tool]}
         lineColor={lineColor}

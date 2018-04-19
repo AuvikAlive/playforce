@@ -10,6 +10,7 @@ import RedoIcon from 'material-ui-icons/Redo'
 import { CompactPicker } from 'react-color'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
+import downscale from 'downscale'
 import { Carousel } from '../carousel/Carousel'
 import { SketchPad } from './SketchPad'
 import { StyledSketch } from './StyledSketch'
@@ -39,9 +40,6 @@ export class Sketch extends Component {
 
   onSlideChange = (current, next) => {
     if (next !== current) {
-      const { currentSlide } = this.state
-
-      this.carouselParent[`sketchParent${currentSlide}`].clear()
       this.setState({ currentSlide: next })
     }
   }
@@ -79,7 +77,24 @@ export class Sketch extends Component {
     const { onSubmit } = this.props
     const { images } = this.state
 
-    onSubmit(images)
+    const scaledImages = images.map(async item => {
+      const img = document.createElement('img')
+      img.src = item.image
+      const image = await new Promise(resolve => {
+        img.onload = () => resolve(img)
+      })
+      const imageType = item.image.split(';')[0].split('/')[1]
+      item.image = await downscale(image, 188, 253, {
+        imageType,
+        quality: 1,
+      })
+
+      return item
+    })
+
+    Promise.all(scaledImages).then(values => {
+      onSubmit(images)
+    })
   }
 
   render() {
