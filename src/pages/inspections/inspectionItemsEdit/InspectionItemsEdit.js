@@ -121,7 +121,7 @@ export class InspectionItemsEdit extends Component {
       try {
         await saveInspection({ inspection, userId, inspectionId })
         // discardInspection()
-        setFeedback({ success: 'Inspection Updated!', loading: false })
+        setFeedback({ success: 'Inspection updated!', loading: false })
         // history.goBack()
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
@@ -141,6 +141,7 @@ export class InspectionItemsEdit extends Component {
       history,
       userId,
       deleteInspection,
+      setFeedback,
       discardInspection,
     } = this.props
 
@@ -149,17 +150,13 @@ export class InspectionItemsEdit extends Component {
       userId,
       inspectionId,
     })
+    await setFeedback({ success: 'Inspection deleted!' })
     discardInspection()
     history.goBack()
   }
 
   generateReport = async () => {
-    const {
-      inspection,
-      setFeedback,
-      displayName,
-      standards,
-    } = this.props
+    const { inspection, setFeedback, displayName, standards } = this.props
     const { certificate } = this.state
 
     this.closeMenu()

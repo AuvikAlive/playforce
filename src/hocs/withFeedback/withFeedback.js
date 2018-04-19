@@ -3,6 +3,8 @@ import Snackbar from 'material-ui/Snackbar'
 import { getDisplayName } from '../../utilities/getDisplayName'
 import { StyledFeedback } from './StyledFeedback'
 
+const snackbarAutoHideDuration = 2000
+
 export const withFeedback = WrappedComponent => {
   class WithFeedback extends Component {
     state = {
@@ -26,7 +28,13 @@ export const withFeedback = WrappedComponent => {
         success: success ? success : '',
         loading: loading ? loading : false,
       })
-      success && this.openSnackbar()
+
+      if (success) {
+        this.openSnackbar()
+        return new Promise(resolve => {
+          setTimeout(() => resolve(), snackbarAutoHideDuration)
+        })
+      }
     }
 
     render() {
@@ -46,7 +54,7 @@ export const withFeedback = WrappedComponent => {
               horizontal: 'left',
             }}
             open={snackbarOpen}
-            autoHideDuration={2000}
+            autoHideDuration={snackbarAutoHideDuration}
             onClose={this.closeSnackbar}
             message={<span id="message-id">{error || success}</span>}
           />
