@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   saveStandard,
   fetchStandard,
@@ -34,6 +35,7 @@ const mapStateToProps = (
 const mapDispatchToProps = { saveStandard, fetchStandard, deleteStandard }
 
 export const EditStandardContainer = compose(
+  withFeedback,
   withDeleteModal,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)

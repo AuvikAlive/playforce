@@ -61,9 +61,9 @@ export class ProfileSettings extends Component {
     })
   }
 
-  publish = async () => {
+  submit = async () => {
     const { displayName, title, company, mobile } = this.state
-    const { firebase, setFeedback, history, image } = this.props
+    const { firebase, setFeedback, image } = this.props
 
     setFeedback({ error: '', loading: true })
 
@@ -81,8 +81,7 @@ export class ProfileSettings extends Component {
 
     try {
       await firebase.updateProfile(data)
-      setFeedback({ loading: false })
-      history.goBack()
+      setFeedback({ success: 'Profile updated!', loading: false })
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
     }
@@ -174,9 +173,9 @@ export class ProfileSettings extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.publish}
+                onClick={this.submit}
               >
-                Publish Changes
+                Update
               </Button>
             )}
           </CardContent>

@@ -25,13 +25,15 @@ export class AddStandard extends Component {
     removeLefNavComponent()
   }
 
-  onSubmit = standard => {
-    const { saveStandard, userId } = this.props
-    return saveStandard(userId, standard)
+  submit = async standard => {
+    const { saveStandard, userId, setFeedback } = this.props
+
+    await saveStandard(userId, standard)
+    setFeedback({ success: 'Standard published!' })
   }
 
   render() {
-    return <StandardForm onSubmit={this.onSubmit} />
+    return <StandardForm onSubmit={this.submit} />
   }
 }
 

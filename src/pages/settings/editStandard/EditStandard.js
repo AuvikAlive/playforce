@@ -55,9 +55,11 @@ export class EditStandard extends Component {
     removeRightNavComponent()
   }
 
-  onSubmit = standard => {
-    const { saveStandard, userId, standardId } = this.props
-    return saveStandard(userId, standard, standardId)
+  submit = async standard => {
+    const { saveStandard, userId, standardId, setFeedback } = this.props
+
+    await saveStandard(userId, standard, standardId)
+    setFeedback({ success: 'Standard updated!' })
   }
 
   delete = async () => {
@@ -71,7 +73,11 @@ export class EditStandard extends Component {
     const { standard } = this.props
 
     return standard ? (
-      <StandardForm initialData={standard} onSubmit={this.onSubmit} />
+      <StandardForm
+        initialData={standard}
+        buttonText="Update"
+        onSubmit={this.submit}
+      />
     ) : (
       <LinearProgress />
     )

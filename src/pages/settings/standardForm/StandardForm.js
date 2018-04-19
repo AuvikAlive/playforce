@@ -45,7 +45,7 @@ export class StandardForm extends Component {
   }
 
   onSubmit = async () => {
-    const { onSubmit, setFeedback, history } = this.props
+    const { onSubmit, setFeedback } = this.props
     const { code, title, publishDate } = this.state
 
     if (code && title && publishDate) {
@@ -53,10 +53,7 @@ export class StandardForm extends Component {
 
       try {
         await onSubmit({ code, title, publishDate })
-
         setFeedback({ loading: false })
-
-        history.goBack()
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
@@ -69,7 +66,7 @@ export class StandardForm extends Component {
 
   render() {
     const { code, title, publishDate } = this.state
-    const { error, loading } = this.props
+    const { error, loading, buttonText } = this.props
 
     return (
       <StyledStandardForm className="StyledStandardForm">
@@ -125,7 +122,7 @@ export class StandardForm extends Component {
                 className="submit-button"
                 onClick={this.onSubmit}
               >
-                Publish
+                {buttonText ? buttonText : 'Publish'}
               </Button>
             )}
           </CardContent>

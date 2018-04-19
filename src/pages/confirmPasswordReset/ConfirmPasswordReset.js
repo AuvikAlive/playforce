@@ -20,7 +20,6 @@ export class ConfirmPasswordReset extends Component {
     setNavTitle('Confirm Password Reset')
 
     const { location, history } = this.props
-
     const code = parseQuery(location.search)['oobCode']
       ? parseQuery(location.search)['oobCode']
       : history.push('/signIn')
@@ -30,7 +29,6 @@ export class ConfirmPasswordReset extends Component {
 
   componentWillUnmount() {
     const { removeNavTitle } = this.context
-
     removeNavTitle()
   }
 
