@@ -11,13 +11,12 @@ export class SketchPad extends Component {
     this.setHeight()
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps !== this.props) {
-  //     console.log('runs')
-  //     this._sketch.clear()
-  //     this.setBackground(nextProps.image)
-  //   }
-  // }
+  clear = () => {
+    const { image } = this.props
+
+    this._sketch.clear()
+    this.setBackground(image)
+  }
 
   setHeight = () => {
     const { aspectRatio, width } = this.props

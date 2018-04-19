@@ -40,6 +40,9 @@ export class Sketch extends Component {
 
   onSlideChange = (current, next) => {
     if (next !== current) {
+      const { currentSlide } = this.state
+
+      this.carouselParent[`sketchParent${currentSlide}`].clear()
       this.setState({ currentSlide: next })
     }
   }
