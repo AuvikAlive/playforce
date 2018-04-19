@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchCommonIssue,
   saveCommonIssue,
@@ -40,6 +41,7 @@ const mapDispatchToProps = {
 }
 
 export const EditCommonIssueContainer = compose(
+  withFeedback,
   withDeleteModal,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)

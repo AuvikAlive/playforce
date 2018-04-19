@@ -7,7 +7,11 @@ import { InputLabel } from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
 import Grid from 'material-ui/Grid'
 import { StyledCommonIssueForm } from './StyledCommonIssueForm'
-import { probabilities, severities, riskLevels } from '../../../globals/constants'
+import {
+  probabilities,
+  severities,
+  riskLevels,
+} from '../../../globals/constants'
 
 export class CommonIssueForm extends Component {
   state = {
@@ -43,8 +47,8 @@ export class CommonIssueForm extends Component {
     })
   }
 
-  onSubmit = async () => {
-    const { onSubmit, setFeedback, history } = this.props
+  submit = async () => {
+    const { onSubmit, setFeedback } = this.props
     const {
       finding,
       standardsClause,
@@ -75,8 +79,6 @@ export class CommonIssueForm extends Component {
         })
 
         setFeedback({ loading: false })
-
-        history.goBack()
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
@@ -97,7 +99,7 @@ export class CommonIssueForm extends Component {
       recommendations,
     } = this.state
 
-    const { error, loading } = this.props
+    const { error, loading, buttonText } = this.props
 
     const riskLevel =
       probability && severity ? riskLevels[probability - 1][severity - 1] : ''
@@ -207,9 +209,9 @@ export class CommonIssueForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.onSubmit}
+                onClick={this.submit}
               >
-                Publish Issue
+                {buttonText ? buttonText : 'Publish'}
               </Button>
             )}
           </CardContent>

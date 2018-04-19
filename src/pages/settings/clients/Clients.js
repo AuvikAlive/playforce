@@ -50,7 +50,7 @@ export class Clients extends Component {
     })
   }
 
-  publish = async () => {
+  submit = async () => {
     const { client } = this.state
     const { saveClient, userId, setFeedback } = this.props
 
@@ -73,9 +73,7 @@ export class Clients extends Component {
 
   deletePrompt = deleteItemId => {
     const { openModal } = this.props
-
     this.setState({ deleteItemId })
-
     openModal(this.delete)
   }
 
@@ -141,7 +139,7 @@ export class Clients extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.publish}
+                onClick={this.submit}
               >
                 Add Client
               </Button>

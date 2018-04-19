@@ -55,23 +55,36 @@ export class EditCommonIssue extends Component {
     removeRightNavComponent()
   }
 
-  onSubmit = commonIssue => {
-    const { saveCommonIssue, userId, commonIssueId } = this.props
-    return saveCommonIssue(userId, commonIssue, commonIssueId)
+  submit = async commonIssue => {
+    const { saveCommonIssue, userId, commonIssueId, setFeedback } = this.props
+
+    await saveCommonIssue(userId, commonIssue, commonIssueId)
+    setFeedback({ success: 'Issue updated!' })
+  }
+
+  showActionGoBack = async () => {
+    const { setFeedback, history } = this.props
+
+    await setFeedback({ success: 'Issue deleted!' })
+    history.goBack()
   }
 
   delete = async () => {
-    const { deleteCommonIssue, userId, commonIssueId, history } = this.props
+    const { deleteCommonIssue, userId, commonIssueId } = this.props
 
     await deleteCommonIssue(userId, commonIssueId)
-    history.goBack()
+    this.showActionGoBack()
   }
 
   render() {
     const { commonIssue } = this.props
 
     return commonIssue ? (
-      <CommonIssueForm initialData={commonIssue} onSubmit={this.onSubmit} />
+      <CommonIssueForm
+        buttonText="Update"
+        initialData={commonIssue}
+        onSubmit={this.submit}
+      />
     ) : (
       <LinearProgress />
     )

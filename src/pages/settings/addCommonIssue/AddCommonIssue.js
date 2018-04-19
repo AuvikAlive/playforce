@@ -25,9 +25,11 @@ export class AddCommonIssue extends Component {
     removeLefNavComponent()
   }
 
-  onSubmit = commonIssue => {
-    const { userId, saveCommonIssue } = this.props
-    return saveCommonIssue(userId, commonIssue)
+  onSubmit = async commonIssue => {
+    const { userId, saveCommonIssue, setFeedback } = this.props
+
+    await saveCommonIssue(userId, commonIssue)
+    setFeedback({ success: 'Common Issue published!' })
   }
 
   render() {
