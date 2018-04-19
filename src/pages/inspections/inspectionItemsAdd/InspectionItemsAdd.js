@@ -28,12 +28,10 @@ export class InspectionItemsAdd extends Component {
     const {
       inspection,
       setFeedback,
-      history,
       firebase,
       userId,
       inspectionCount,
       saveInspection,
-      discardInspection,
     } = this.props
 
     const { coverAdded } = inspection
@@ -50,9 +48,7 @@ export class InspectionItemsAdd extends Component {
         await firebase.updateProfile({
           inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
         })
-        await setFeedback({ success: 'Inspection published!', loading: false })
-        discardInspection()
-        history.goBack()
+        setFeedback({ success: 'Inspection published!', loading: false })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }

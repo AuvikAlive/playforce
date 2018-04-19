@@ -62,11 +62,18 @@ export class EditStandard extends Component {
     setFeedback({ success: 'Standard updated!' })
   }
 
+  showActionGoBack = async () => {
+    const { setFeedback, history } = this.props
+
+    await setFeedback({ success: 'Standard deleted!' })
+    history.goBack()
+  }
+
   delete = async () => {
-    const { history, deleteStandard, userId, standardId } = this.props
+    const { deleteStandard, userId, standardId } = this.props
 
     await deleteStandard(userId, standardId)
-    history.goBack()
+    this.showActionGoBack()
   }
 
   render() {

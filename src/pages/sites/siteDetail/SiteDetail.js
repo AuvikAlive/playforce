@@ -85,12 +85,18 @@ export class SiteDetail extends Component {
     )
   }
 
-  delete = async () => {
-    const { deleteSite, userId, siteId, setFeedback, history } = this.props
+  showActionGoBack = async () => {
+    const { setFeedback, history } = this.props
 
-    await deleteSite(userId, siteId)
     await setFeedback({ success: 'Site deleted!' })
     history.goBack()
+  }
+
+  delete = async () => {
+    const { deleteSite, userId, siteId } = this.props
+
+    await deleteSite(userId, siteId)
+    this.showActionGoBack()
   }
 
   render() {

@@ -134,25 +134,23 @@ export class InspectionItemsEdit extends Component {
     }
   }
 
+  showActionGoBack = async () => {
+    const { setFeedback, history, discardInspection } = this.props
+
+    await setFeedback({ success: 'Inspection deleted!' })
+    discardInspection()
+    history.goBack()
+  }
+
   delete = async () => {
-    const {
-      inspection,
-      inspectionId,
-      history,
-      userId,
-      deleteInspection,
-      setFeedback,
-      discardInspection,
-    } = this.props
+    const { inspection, inspectionId, userId, deleteInspection } = this.props
 
     await deleteInspection({
       inspection,
       userId,
       inspectionId,
     })
-    await setFeedback({ success: 'Inspection deleted!' })
-    discardInspection()
-    history.goBack()
+    this.showActionGoBack()
   }
 
   generateReport = async () => {

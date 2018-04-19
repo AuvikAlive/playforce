@@ -46,19 +46,18 @@ export class EditEquipment extends Component {
     setFeedback({ success: 'Equipment updated!' })
   }
 
-  delete = async () => {
-    const {
-      deleteEquipment,
-      userId,
-      siteId,
-      assetId,
-      setFeedback,
-      history,
-    } = this.props
+  showActionGoBack = async () => {
+    const { setFeedback, history } = this.props
 
-    await deleteEquipment(userId, siteId, assetId)
     await setFeedback({ success: 'Equipment deleted!' })
     history.goBack()
+  }
+
+  delete = async () => {
+    const { deleteEquipment, userId, siteId, assetId } = this.props
+
+    await deleteEquipment(userId, siteId, assetId)
+    this.showActionGoBack()
   }
 
   render() {
