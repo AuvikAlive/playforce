@@ -16,7 +16,7 @@ export const InspectionItemsList = ({
   maintenanceIssuesAdded,
   error,
   loading,
-  publish,
+  submit,
   buttonText,
 }) => {
   return (
@@ -75,7 +75,7 @@ export const InspectionItemsList = ({
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={publish}
+                onClick={submit}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>

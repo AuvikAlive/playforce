@@ -2,50 +2,29 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-// import DeleteIcon from 'material-ui-icons/Delete'
 import { InspectionItemsList } from '../inspectionItemsList/InspectionItemsList'
 
 export class InspectionItemsAdd extends Component {
   componentDidMount() {
-    const {
-      setNavTitle,
-      setLeftNavComponent,
-      // setRightNavComponent,
-    } = this.context
-    // const { openModal } = this.props
+    const { setNavTitle, setLeftNavComponent } = this.context
 
     setNavTitle('Add Inspection')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={this.beforeBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
-
-    // setRightNavComponent(
-    //   <IconButton
-    //     color="inherit"
-    //     aria-label="delete condition rating"
-    //     onClick={() => openModal(this.delete)}
-    //   >
-    //     <DeleteIcon />
-    //   </IconButton>,
-    // )
   }
 
   componentWillUnmount() {
-    const {
-      removeNavTitle,
-      removeLefNavComponent,
-      removeRightNavComponent,
-    } = this.context
+    const { removeNavTitle, removeLefNavComponent } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
-    removeRightNavComponent()
   }
 
-  publish = async () => {
+  submit = async () => {
     const {
       inspection,
       setFeedback,
@@ -71,7 +50,7 @@ export class InspectionItemsAdd extends Component {
         await firebase.updateProfile({
           inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
         })
-        setFeedback({ loading: false })
+        await setFeedback({ success: 'Inspection published!', loading: false })
         discardInspection()
         history.goBack()
       } catch (error) {
@@ -124,7 +103,7 @@ export class InspectionItemsAdd extends Component {
         match={match}
         error={error}
         loading={loading}
-        publish={this.publish}
+        submit={this.submit}
       />
     )
   }
@@ -135,6 +114,4 @@ InspectionItemsAdd.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
-  setRightNavComponent: PropTypes.func,
-  removeRightNavComponent: PropTypes.func,
 }
