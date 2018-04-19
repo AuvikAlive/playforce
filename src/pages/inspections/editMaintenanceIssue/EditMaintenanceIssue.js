@@ -7,29 +7,15 @@ import MaintenanceIssueForm from '../maintenanceIssueForm/'
 
 export class EditMaintenanceIssue extends Component {
   componentDidMount() {
-    const {
-      setNavTitle,
-      setLeftNavComponent,
-      setRightNavComponent,
-    } = this.context
-    const { history, openModal } = this.props
+    const { setNavTitle, setLeftNavComponent } = this.context
+    const { history } = this.props
 
     setNavTitle('Edit Maintenance Issue')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
-    )
-
-    setRightNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="delete condition rating"
-        onClick={() => openModal(this.delete)}
-      >
-        <DeleteIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
@@ -43,6 +29,21 @@ export class EditMaintenanceIssue extends Component {
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
+  }
+
+  setRightNav = () => {
+    const { setRightNavComponent } = this.context
+    const { openModal } = this.props
+
+    setRightNavComponent(
+      <IconButton
+        color="inherit"
+        aria-label="delete condition rating"
+        onClick={() => openModal(this.delete)}
+      >
+        <DeleteIcon />
+      </IconButton>
+    )
   }
 
   onSubmit = updatedValue => {
@@ -82,6 +83,8 @@ export class EditMaintenanceIssue extends Component {
       <MaintenanceIssueForm
         initialData={maintenanceIssue}
         onSubmit={this.onSubmit}
+        setRightNav={this.setRightNav}
+        removeRightNav={this.context.removeRightNavComponent}
       />
     )
   }

@@ -34,11 +34,11 @@ export class Form extends Component {
 
   componentDidMount() {
     const {
+      setRightNav,
       commonIssuesLoaded,
       fetchCommonIssues,
       userId,
       initialData,
-      setRightNav,
     } = this.props
 
     setRightNav && setRightNav()

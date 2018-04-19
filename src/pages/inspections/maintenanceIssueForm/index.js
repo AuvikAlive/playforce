@@ -1,3 +1,3 @@
-import { MaintenanceIssueFormContainer } from './MaintenanceIssueFormContainer'
+import { MaintenanceIssueForm } from './MaintenanceIssueForm'
 
-export default MaintenanceIssueFormContainer
+export default MaintenanceIssueForm
