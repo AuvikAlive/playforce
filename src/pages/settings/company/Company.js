@@ -25,7 +25,7 @@ export class Company extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
     if (companyInfo) {
@@ -53,11 +53,9 @@ export class Company extends Component {
     })
   }
 
-  publish = async () => {
+  submit = async () => {
     const { postalAddress, abn, phoneNumber, website } = this.state
-
     const { firebase, setFeedback } = this.props
-
     setFeedback({ error: '', loading: true })
 
     try {
@@ -69,7 +67,7 @@ export class Company extends Component {
           website,
         },
       })
-      setFeedback({ loading: false })
+      setFeedback({ success: 'Info updated!', loading: false })
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
     }
@@ -140,9 +138,9 @@ export class Company extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.publish}
+                onClick={this.submit}
               >
-                Publish
+                Update
               </Button>
             )}
           </CardContent>
