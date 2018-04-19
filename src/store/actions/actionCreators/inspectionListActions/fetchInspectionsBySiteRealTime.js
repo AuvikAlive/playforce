@@ -16,6 +16,7 @@ export const fetchInspectionsBySiteRealTime = (userId, siteId) => async (
     .collection('users')
     .doc(userId)
     .collection('inspections')
+    .orderBy('inspectionNumber')
     .where('site', '==', siteId)
 
   return ref.onSnapshot(querySnapshot => {
