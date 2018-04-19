@@ -63,9 +63,9 @@ export class ProfileSettings extends Component {
 
   publish = async () => {
     const { displayName, title, company, mobile } = this.state
-    const { firebase, setErrorLoadingState, history, image } = this.props
+    const { firebase, setFeedback, history, image } = this.props
 
-    setErrorLoadingState({ error: '', loading: true })
+    setFeedback({ error: '', loading: true })
 
     let data = {
       displayName,
@@ -81,10 +81,10 @@ export class ProfileSettings extends Component {
 
     try {
       await firebase.updateProfile(data)
-      setErrorLoadingState({ loading: false })
+      setFeedback({ loading: false })
       history.goBack()
     } catch (error) {
-      setErrorLoadingState({ error: error.message, loading: false })
+      setFeedback({ error: error.message, loading: false })
     }
   }
 

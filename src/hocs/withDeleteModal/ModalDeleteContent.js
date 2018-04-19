@@ -3,24 +3,24 @@ import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
 import { StyledModalDeleteContent } from './StyledModalDeleteContent'
-import { withErrorLoadingSubmit } from '../withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../withFeedback/withFeedback'
 
 const ModalDeleteContentWithoutErrorLoading = ({
   closeModal,
   handleConfirmation,
-  setErrorLoadingState,
+  setFeedback,
   error,
   loading,
 }) => {
   const onConfirmation = async () => {
-    setErrorLoadingState({ error: '', loading: true })
+    setFeedback({ error: '', loading: true })
 
     try {
       handleConfirmation && (await handleConfirmation())
-      setErrorLoadingState({ loading: false })
+      setFeedback({ loading: false })
       closeModal()
     } catch (error) {
-      setErrorLoadingState({ error: error.message, loading: false })
+      setFeedback({ error: error.message, loading: false })
     }
   }
 
@@ -55,6 +55,6 @@ const ModalDeleteContentWithoutErrorLoading = ({
   )
 }
 
-export const ModalDeleteContent = withErrorLoadingSubmit(
-  ModalDeleteContentWithoutErrorLoading,
+export const ModalDeleteContent = withFeedback(
+  ModalDeleteContentWithoutErrorLoading
 )

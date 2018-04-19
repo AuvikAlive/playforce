@@ -2,10 +2,10 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { StandardForm } from './StandardForm'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 
 export const StandardFormContainer = compose(
-  withErrorLoadingSubmit,
+  withFeedback,
   withRouter,
-  connect(null),
+  connect(null)
 )(StandardForm)

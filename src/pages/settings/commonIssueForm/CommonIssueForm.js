@@ -44,7 +44,7 @@ export class CommonIssueForm extends Component {
   }
 
   onSubmit = async () => {
-    const { onSubmit, setErrorLoadingState, history } = this.props
+    const { onSubmit, setFeedback, history } = this.props
     const {
       finding,
       standardsClause,
@@ -62,7 +62,7 @@ export class CommonIssueForm extends Component {
       comments &&
       recommendations
     ) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await onSubmit({
@@ -74,14 +74,14 @@ export class CommonIssueForm extends Component {
           recommendations,
         })
 
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
 
         history.goBack()
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

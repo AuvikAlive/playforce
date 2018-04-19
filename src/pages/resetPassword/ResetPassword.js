@@ -30,24 +30,24 @@ export class ResetPassword extends Component {
 
   sendLink = async () => {
     const { email } = this.state
-    const { sendPasswordResetEmail, setErrorLoadingState } = this.props
+    const { sendPasswordResetEmail, setFeedback } = this.props
 
     if (email) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
       this.setState({ success: '' })
 
       try {
         await sendPasswordResetEmail(email)
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
         this.setState({
           success:
             "Email sent. If you haven't received it, please wait a couple of minutes then try again!",
         })
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please enter your email address!',
         loading: false,
       })

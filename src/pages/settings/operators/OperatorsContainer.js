@@ -7,7 +7,7 @@ import {
   deleteOperator,
   fetchOperatorsRealTime,
 } from '../../../store/actions/actionCreators/operatorActions/'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
@@ -32,7 +32,7 @@ const mapDispatchToProps = {
 
 export const OperatorsContainer = compose(
   withDeleteModal,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(Operators)

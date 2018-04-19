@@ -50,7 +50,7 @@ export class AuditSummary extends Component {
     const {
       addInspectionSummary,
       history,
-      setErrorLoadingState,
+      setFeedback,
       profile: { displayName, title, company, signature },
     } = this.props
     const { summary } = this.state
@@ -65,7 +65,7 @@ export class AuditSummary extends Component {
       })
       history.goBack()
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

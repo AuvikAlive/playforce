@@ -48,7 +48,7 @@ export class InspectionItemsAdd extends Component {
   publish = async () => {
     const {
       inspection,
-      setErrorLoadingState,
+      setFeedback,
       history,
       firebase,
       userId,
@@ -60,7 +60,7 @@ export class InspectionItemsAdd extends Component {
     const { coverAdded } = inspection
 
     if (coverAdded) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await saveInspection({
@@ -71,14 +71,14 @@ export class InspectionItemsAdd extends Component {
         await firebase.updateProfile({
           inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
         })
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
         discardInspection()
         history.goBack()
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please add a cover at least to save!',
         loading: false,
       })

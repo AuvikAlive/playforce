@@ -32,19 +32,19 @@ export class SignUp extends Component {
 
   signUp = async () => {
     const { username, email, password } = this.state
-    const { setErrorLoadingState, signUp, history } = this.props
+    const { setFeedback, signUp, history } = this.props
 
     if (username && email && password) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await signUp(email, password, username)
         history.push('/dashboard')
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form properly!',
         loading: false,
       })

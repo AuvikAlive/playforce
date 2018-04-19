@@ -34,10 +34,10 @@ export class AddInspection extends Component {
 
   onPublish = async () => {
     const { type, frequency, userAssigned } = this.state
-    const { setErrorLoadingState } = this.props
+    const { setFeedback } = this.props
 
     if (type && frequency && userAssigned) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
       const { firestore, history, userId, siteId } = this.props
 
       try {
@@ -53,13 +53,13 @@ export class AddInspection extends Component {
             userAssigned,
           }
         )
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
         history.goBack()
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({ error: 'Please fill up the form properly!' })
+      setFeedback({ error: 'Please fill up the form properly!' })
     }
   }
 

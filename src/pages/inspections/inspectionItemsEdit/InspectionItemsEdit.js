@@ -105,7 +105,7 @@ export class InspectionItemsEdit extends Component {
   publish = async () => {
     const {
       inspection,
-      setErrorLoadingState,
+      setFeedback,
       // history,
       userId,
       inspectionId,
@@ -116,18 +116,18 @@ export class InspectionItemsEdit extends Component {
     const { coverAdded } = inspection
 
     if (coverAdded) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await saveInspection({ inspection, userId, inspectionId })
         // discardInspection()
-        setErrorLoadingState({ success: 'Inspection Updated!', loading: false })
+        setFeedback({ success: 'Inspection Updated!', loading: false })
         // history.goBack()
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please add a cover at least to save!',
         loading: false,
       })
@@ -156,7 +156,7 @@ export class InspectionItemsEdit extends Component {
   generateReport = async () => {
     const {
       inspection,
-      setErrorLoadingState,
+      setFeedback,
       displayName,
       standards,
     } = this.props
@@ -167,7 +167,7 @@ export class InspectionItemsEdit extends Component {
     const { coverAdded, auditSummaryAdded, conditionRatingsAdded } = inspection
 
     if (coverAdded && auditSummaryAdded && conditionRatingsAdded) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       inspection.displayName = displayName
 
@@ -191,9 +191,9 @@ export class InspectionItemsEdit extends Component {
         `${inspection.cover.location.name} - inspection-report.pdf`
       )
 
-      setErrorLoadingState({ loading: false })
+      setFeedback({ loading: false })
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error:
           'Please add a cover, audit summary & condition rating to generate report!',
         loading: false,

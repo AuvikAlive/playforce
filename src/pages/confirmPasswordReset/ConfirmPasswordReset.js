@@ -41,20 +41,20 @@ export class ConfirmPasswordReset extends Component {
 
   updatePassword = async () => {
     const { password, code } = this.state
-    const { setErrorLoadingState, confirmPasswordReset } = this.props
+    const { setFeedback, confirmPasswordReset } = this.props
 
     if (password) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await confirmPasswordReset(code, password)
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
         this.setState({ success: true })
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please enter your new password!',
         loading: false,
       })

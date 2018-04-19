@@ -67,11 +67,11 @@ export class Cover extends Component {
 
   componentWillReceiveProps({ imageNaturalAspectRatio }) {
     if (imageNaturalAspectRatio) {
-      const { setErrorLoadingState } = this.props
+      const { setFeedback } = this.props
 
       imageNaturalAspectRatio <= 1
-        ? setErrorLoadingState({ error: 'Please upload a landscape image!' })
-        : setErrorLoadingState({ error: '' })
+        ? setFeedback({ error: 'Please upload a landscape image!' })
+        : setFeedback({ error: '' })
     }
   }
 
@@ -89,7 +89,7 @@ export class Cover extends Component {
     const {
       addInspectionCover,
       history,
-      setErrorLoadingState,
+      setFeedback,
       image,
       displayName,
       sites,
@@ -116,7 +116,7 @@ export class Cover extends Component {
       fetchEquipments(userId, location)
       history.goBack()
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

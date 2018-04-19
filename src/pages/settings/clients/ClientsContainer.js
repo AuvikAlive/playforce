@@ -7,7 +7,7 @@ import {
   deleteClient,
   fetchClientsRealTime,
 } from '../../../store/actions/actionCreators/clientActions/'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
@@ -28,7 +28,7 @@ const mapDispatchToProps = { saveClient, deleteClient, fetchClientsRealTime }
 
 export const ClientsContainer = compose(
   withDeleteModal,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(Clients)

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { fetchManufacturers } from '../../../store/actions/actionCreators/manufacturerActions/'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { ConditionRatingForm } from './ConditionRatingForm'
 
@@ -24,7 +24,7 @@ const mapDispatchToProps = { fetchManufacturers }
 
 export const ConditionRatingFormContainer = compose(
   withImageCapture,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(ConditionRatingForm)

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { AuditSummary } from './AuditSummary'
 import { addInspectionSummary } from '../../../store/actions/actionCreators/inspectionActions/'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 
 const mapStateToProps = ({
   firebase: { profile },
@@ -12,6 +12,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = { addInspectionSummary }
 
 export const AuditSummaryContainer = compose(
-  withErrorLoadingSubmit,
+  withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
 )(AuditSummary)

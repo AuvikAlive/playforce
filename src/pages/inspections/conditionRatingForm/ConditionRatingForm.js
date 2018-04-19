@@ -37,11 +37,11 @@ export class ConditionRatingForm extends Component {
 
   componentWillReceiveProps({ imageNaturalAspectRatio }) {
     if (imageNaturalAspectRatio) {
-      const { setErrorLoadingState } = this.props
+      const { setFeedback } = this.props
 
       imageNaturalAspectRatio <= 1
-        ? setErrorLoadingState({ error: 'Please upload a landscape image!' })
-        : setErrorLoadingState({ error: '' })
+        ? setFeedback({ error: 'Please upload a landscape image!' })
+        : setFeedback({ error: '' })
     }
   }
 
@@ -80,7 +80,7 @@ export class ConditionRatingForm extends Component {
   }
 
   onSubmit = () => {
-    const { onSubmit, setErrorLoadingState, image } = this.props
+    const { onSubmit, setFeedback, image } = this.props
     const {
       equipment,
       assetId,
@@ -97,7 +97,7 @@ export class ConditionRatingForm extends Component {
       condition &&
       estimatedDateInstalled
     ) {
-      setErrorLoadingState({ error: '' })
+      setFeedback({ error: '' })
       onSubmit({
         image,
         equipment,
@@ -107,7 +107,7 @@ export class ConditionRatingForm extends Component {
         estimatedDateInstalled,
       })
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

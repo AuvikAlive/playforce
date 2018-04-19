@@ -76,10 +76,10 @@ export class AddSite extends Component {
       division,
       operator,
     } = this.state
-    const { saveSite, userId, setErrorLoadingState, history } = this.props
+    const { saveSite, userId, setFeedback, history } = this.props
 
     if (name && street && suburb && state && postcode && country && operator) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         const site = {
@@ -96,13 +96,13 @@ export class AddSite extends Component {
           operator,
         }
         await saveSite(userId, site)
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
         history.goBack()
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
         loading: false,
       })

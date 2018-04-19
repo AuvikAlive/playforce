@@ -7,7 +7,7 @@ import {
   deleteManufacturer,
   fetchManufacturersRealTime,
 } from '../../../store/actions/actionCreators/manufacturerActions/'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
@@ -32,7 +32,7 @@ const mapDispatchToProps = {
 
 export const ManufacturersContainer = compose(
   withDeleteModal,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(Manufacturers)

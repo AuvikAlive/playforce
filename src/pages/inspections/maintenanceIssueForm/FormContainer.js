@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { withFirestore } from 'react-redux-firebase'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { Form } from './Form'
 
@@ -21,7 +21,7 @@ const mapStateToProps = ({
 
 export const FormContainer = compose(
   withImageCapture,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   withRouter,
   connect(mapStateToProps)

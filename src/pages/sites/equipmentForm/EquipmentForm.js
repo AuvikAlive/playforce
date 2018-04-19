@@ -53,7 +53,7 @@ export class EquipmentForm extends Component {
     const {
       saveEquipment,
       userId,
-      setErrorLoadingState,
+      setFeedback,
       image,
       history,
       siteId,
@@ -62,7 +62,7 @@ export class EquipmentForm extends Component {
     const { equipment, assetId, manufacturer } = this.state
 
     if (image && equipment && assetId && manufacturer) {
-      setErrorLoadingState({ error: '' })
+      setFeedback({ error: '' })
 
       try {
         saveEquipment(userId, siteId, {
@@ -73,12 +73,12 @@ export class EquipmentForm extends Component {
         })
         history.goBack()
       } catch (error) {
-        setErrorLoadingState({
+        setFeedback({
           error: error.message,
         })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

@@ -50,9 +50,9 @@ export class SignIn extends Component {
 
   signIn = async () => {
     const { email, password, checked } = this.state
-    const { setErrorLoadingState, signIn, history } = this.props
+    const { setFeedback, signIn, history } = this.props
 
-    setErrorLoadingState({ error: '', loading: true })
+    setFeedback({ error: '', loading: true })
 
     if (email && password) {
       try {
@@ -62,10 +62,10 @@ export class SignIn extends Component {
           state: { name: 'Dashboard' },
         })
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form properly!',
         loading: false,
       })

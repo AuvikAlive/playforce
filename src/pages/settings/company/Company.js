@@ -56,9 +56,9 @@ export class Company extends Component {
   publish = async () => {
     const { postalAddress, abn, phoneNumber, website } = this.state
 
-    const { firebase, setErrorLoadingState } = this.props
+    const { firebase, setFeedback } = this.props
 
-    setErrorLoadingState({ error: '', loading: true })
+    setFeedback({ error: '', loading: true })
 
     try {
       await firebase.updateProfile({
@@ -69,9 +69,9 @@ export class Company extends Component {
           website,
         },
       })
-      setErrorLoadingState({ loading: false })
+      setFeedback({ loading: false })
     } catch (error) {
-      setErrorLoadingState({ error: error.message, loading: false })
+      setFeedback({ error: error.message, loading: false })
     }
   }
 

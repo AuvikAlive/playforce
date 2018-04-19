@@ -8,7 +8,7 @@ import {
   discardInspection,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { saveInspection } from '../../../store/actions/actionCreators/inspectionActions//'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = ({
@@ -32,7 +32,7 @@ const mapDispatchToProps = {
 
 export const InspectionItemsAddContainer = compose(
   withDeleteModal,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   withFirebase,
   connect(mapStateToProps, mapDispatchToProps)

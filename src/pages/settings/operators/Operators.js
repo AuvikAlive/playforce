@@ -52,20 +52,20 @@ export class Operators extends Component {
 
   publish = async () => {
     const { operator } = this.state
-    const { saveOperator, userId, setErrorLoadingState } = this.props
+    const { saveOperator, userId, setFeedback } = this.props
 
     if (operator) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await saveOperator(userId, { name: operator })
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
         this.setState({ operator: '' })
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
         loading: false,
       })

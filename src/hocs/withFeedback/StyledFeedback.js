@@ -1,6 +1,6 @@
 import Styled from 'styled-components'
 
-export const StyledErrorLoadingSubmit = Styled.div`
+export const StyledFeedback = Styled.div`
   .error {
     color: ${({ theme }) => theme.palette.error.main};
     text-align: center;

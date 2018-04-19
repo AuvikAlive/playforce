@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AddInspection } from './AddInspection'
 
 const mapStateToProps = (
@@ -24,7 +24,7 @@ const mapStateToProps = (
 })
 
 export const AddInspectionContainer = compose(
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   connect(mapStateToProps)
 )(AddInspection)

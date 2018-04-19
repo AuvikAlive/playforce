@@ -52,20 +52,20 @@ export class Manufacturers extends Component {
 
   publish = async () => {
     const { manufacturer } = this.state
-    const { saveManufacturer, userId, setErrorLoadingState } = this.props
+    const { saveManufacturer, userId, setFeedback } = this.props
 
     if (manufacturer) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await saveManufacturer(userId, { name: manufacturer })
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
         this.setState({ manufacturer: '' })
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
         loading: false,
       })

@@ -30,7 +30,7 @@ export class Form extends Component {
 
   componentWillReceiveProps({ imageCaptured, images }) {
     if (imageCaptured) {
-      const { setErrorLoadingState, loadImages } = this.props
+      const { setFeedback, loadImages } = this.props
       const notPortrait = images.some(
         ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
       )
@@ -38,17 +38,17 @@ export class Form extends Component {
       loadImages(images)
 
       if (images.length > 4 && notPortrait) {
-        setErrorLoadingState({
+        setFeedback({
           error: 'Please upload no more than 4 portrait image(s)!',
         })
       } else if (images.length > 4) {
-        setErrorLoadingState({
+        setFeedback({
           error: 'Please upload no more than 4 image(s)!',
         })
       } else if (notPortrait) {
-        setErrorLoadingState({ error: 'Please upload portrait image(s)!' })
+        setFeedback({ error: 'Please upload portrait image(s)!' })
       } else {
-        setErrorLoadingState({ error: '' })
+        setFeedback({ error: '' })
       }
     }
   }
@@ -74,14 +74,14 @@ export class Form extends Component {
   }
 
   onSubmit = () => {
-    const { onSubmit, setErrorLoadingState, images } = this.props
+    const { onSubmit, setFeedback, images } = this.props
     const { finding, equipment, recommendations } = this.state
 
     if (images.length > 0 && finding && equipment && recommendations) {
-      setErrorLoadingState({ error: '' })
+      setFeedback({ error: '' })
       onSubmit({ images, finding, equipment, recommendations })
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

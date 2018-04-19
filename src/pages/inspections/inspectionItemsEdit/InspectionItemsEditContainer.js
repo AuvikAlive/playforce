@@ -10,7 +10,7 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions//'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
 const mapStateToProps = (
@@ -53,7 +53,7 @@ const mapDispatchToProps = {
 
 export const InspectionItemsEditContainer = compose(
   withDeleteModal,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   withFirebase,
   connect(mapStateToProps, mapDispatchToProps)

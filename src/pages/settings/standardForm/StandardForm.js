@@ -45,23 +45,23 @@ export class StandardForm extends Component {
   }
 
   onSubmit = async () => {
-    const { onSubmit, setErrorLoadingState, history } = this.props
+    const { onSubmit, setFeedback, history } = this.props
     const { code, title, publishDate } = this.state
 
     if (code && title && publishDate) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await onSubmit({ code, title, publishDate })
 
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
 
         history.goBack()
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

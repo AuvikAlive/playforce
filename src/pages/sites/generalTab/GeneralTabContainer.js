@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirestore } from 'react-redux-firebase'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { fetchOperators } from '../../../store/actions/actionCreators/operatorActions/'
 import {
   fetchSite,
@@ -37,7 +37,7 @@ const mapStateToProps = (
 const mapDispatchToProps = { fetchOperators, fetchSite, saveSite }
 
 export const GeneralTabContainer = compose(
-  withErrorLoadingSubmit,
+  withFeedback,
   withRouter,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)

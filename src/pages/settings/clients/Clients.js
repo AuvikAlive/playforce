@@ -52,20 +52,20 @@ export class Clients extends Component {
 
   publish = async () => {
     const { client } = this.state
-    const { saveClient, userId, setErrorLoadingState } = this.props
+    const { saveClient, userId, setFeedback } = this.props
 
     if (client) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       try {
         await saveClient(userId, { name: client })
         this.setState({ client: '' })
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({
+      setFeedback({
         error: 'Please fill up the form correctly!',
       })
     }

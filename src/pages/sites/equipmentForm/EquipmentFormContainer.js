@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { fetchManufacturers } from '../../../store/actions/actionCreators/manufacturerActions/'
 import { saveEquipment } from '../../../store/actions/actionCreators/equipmentActions/'
@@ -23,6 +23,6 @@ const mapDispatchToProps = { fetchManufacturers, saveEquipment }
 export const EquipmentFormContainer = compose(
   withRouter,
   withImageCapture,
-  withErrorLoadingSubmit,
+  withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
 )(EquipmentForm)

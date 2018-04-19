@@ -56,10 +56,10 @@ export class GeneralTab extends Component {
 
   submit = async () => {
     const { name, address, division, operator } = this.state
-    const { setErrorLoadingState } = this.props
+    const { setFeedback } = this.props
 
     if (name && address && division && operator) {
-      setErrorLoadingState({ error: '', loading: true })
+      setFeedback({ error: '', loading: true })
 
       const { saveSite, userId, siteId, history } = this.props
       const updatedData = { name, address, division, operator }
@@ -67,12 +67,12 @@ export class GeneralTab extends Component {
       try {
         await saveSite(userId, updatedData, siteId)
         history.goBack()
-        setErrorLoadingState({ loading: false })
+        setFeedback({ loading: false })
       } catch (error) {
-        setErrorLoadingState({ error: error.message, loading: false })
+        setFeedback({ error: error.message, loading: false })
       }
     } else {
-      setErrorLoadingState({ error: 'Please fill up the form properly!' })
+      setFeedback({ error: 'Please fill up the form properly!' })
     }
   }
 

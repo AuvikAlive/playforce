@@ -7,7 +7,7 @@ import { fetchSites } from '../../../store/actions/actionCreators/siteActions/'
 import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchClients } from '../../../store/actions/actionCreators/clientActions/'
-import { withErrorLoadingSubmit } from '../../../hocs/withErrorLoadingSubmit/withErrorLoadingSubmit'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 
 const mapStateToProps = ({
@@ -42,7 +42,7 @@ const mapDispatchToProps = {
 
 export const CoverContainer = compose(
   withImageCapture,
-  withErrorLoadingSubmit,
+  withFeedback,
   withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(Cover)

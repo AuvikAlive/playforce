@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Snackbar from 'material-ui/Snackbar'
 import { getDisplayName } from '../../utilities/getDisplayName'
-import { StyledErrorLoadingSubmit } from './StyledErrorLoadingSubmit'
+import { StyledFeedback } from './StyledFeedback'
 
-export const withErrorLoadingSubmit = WrappedComponent => {
-  class WithErrorLoadingSubmit extends Component {
+export const withFeedback = WrappedComponent => {
+  class WithFeedback extends Component {
     state = {
       error: '',
       success: '',
@@ -20,7 +20,7 @@ export const withErrorLoadingSubmit = WrappedComponent => {
       this.setState({ snackbarOpen: false })
     }
 
-    setErrorLoadingState = ({ error, success, loading }) => {
+    setFeedback = ({ error, success, loading }) => {
       this.setState({
         error: error ? error : '',
         success: success ? success : '',
@@ -33,9 +33,9 @@ export const withErrorLoadingSubmit = WrappedComponent => {
       const { error, success, loading, snackbarOpen } = this.state
 
       return (
-        <StyledErrorLoadingSubmit className="StyledErrorLoadingSubmit">
+        <StyledFeedback className="StyledFeedback">
           <WrappedComponent
-            setErrorLoadingState={this.setErrorLoadingState}
+            setFeedback={this.setFeedback}
             error={error}
             loading={loading}
             {...this.props}
@@ -50,14 +50,12 @@ export const withErrorLoadingSubmit = WrappedComponent => {
             onClose={this.closeSnackbar}
             message={<span id="message-id">{error || success}</span>}
           />
-        </StyledErrorLoadingSubmit>
+        </StyledFeedback>
       )
     }
   }
 
-  WithErrorLoadingSubmit.displayName = `WithErrorLoadingSubmit(${getDisplayName(
-    WrappedComponent
-  )})`
+  WithFeedback.displayName = `WithFeedback(${getDisplayName(WrappedComponent)})`
 
-  return WithErrorLoadingSubmit
+  return WithFeedback
 }
