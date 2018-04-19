@@ -106,11 +106,11 @@ export class InspectionItemsEdit extends Component {
     const {
       inspection,
       setErrorLoadingState,
-      history,
+      // history,
       userId,
       inspectionId,
       saveInspection,
-      discardInspection,
+      // discardInspection,
     } = this.props
 
     const { coverAdded } = inspection
@@ -120,9 +120,9 @@ export class InspectionItemsEdit extends Component {
 
       try {
         await saveInspection({ inspection, userId, inspectionId })
-        discardInspection()
-        setErrorLoadingState({ loading: false })
-        history.goBack()
+        // discardInspection()
+        setErrorLoadingState({ success: 'Inspection Updated!', loading: false })
+        // history.goBack()
       } catch (error) {
         setErrorLoadingState({ error: error.message, loading: false })
       }
