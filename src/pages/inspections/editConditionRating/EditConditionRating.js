@@ -14,7 +14,7 @@ export class EditConditionRating extends Component {
     } = this.context
     const { history, openModal } = this.props
 
-    setNavTitle('Edit Condition Rating')
+    setNavTitle('Edit Rating')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>

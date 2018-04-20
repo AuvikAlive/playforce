@@ -36,7 +36,7 @@ export class ProfileSettings extends Component {
       },
     } = this.props
 
-    setNavTitle('Profile Settings')
+    setNavTitle('Profile')
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />

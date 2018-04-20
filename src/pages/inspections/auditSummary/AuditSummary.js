@@ -16,7 +16,10 @@ export class AuditSummary extends Component {
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { auditSummary: { summary }, history } = this.props
+    const {
+      auditSummary: { summary },
+      history,
+    } = this.props
 
     if (summary) {
       this.setState({ summary })
@@ -24,12 +27,12 @@ export class AuditSummary extends Component {
       this.setState({ summary: defaultAuditSummary })
     }
 
-    setNavTitle('Add Audit Summary')
+    setNavTitle('Audit Summary')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 

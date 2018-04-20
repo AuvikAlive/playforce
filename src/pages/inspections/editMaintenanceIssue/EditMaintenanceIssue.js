@@ -10,7 +10,7 @@ export class EditMaintenanceIssue extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Edit Maintenance Issue')
+    setNavTitle('Edit Issue')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>

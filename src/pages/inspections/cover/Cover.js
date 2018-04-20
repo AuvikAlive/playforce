@@ -45,7 +45,7 @@ export class Cover extends Component {
       })
     }
 
-    setNavTitle('Add Cover')
+    setNavTitle('Cover')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
