@@ -1,80 +1,32 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
-import Typography from 'material-ui/Typography'
-import Paper from 'material-ui/Paper'
-import Grid from 'material-ui/Grid'
-import List, { ListItem, ListItemText } from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
+import GridOnIcon from 'material-ui-icons/GridOn'
+import ListIcon from 'material-ui-icons/List'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
+import { ListView } from './ListView'
+import { GridView } from './GridView'
 import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {
-  componentDidMount() {
-    const {
-      openSearchBar,
-      searchBarOpen,
-      query,
-      firestore,
-      userId,
-      fetchSitesRealTime,
-    } = this.props
-    const {
-      setNavTitle,
-      setRightNavComponent,
-      setSearchComponent,
-    } = this.context
+  state = { unsubscribe: undefined, view: 'list' }
 
-    if (searchBarOpen && query) {
-      firestore.get({
-        collection: 'users',
-        doc: userId,
-        subcollections: [{ collection: 'sites', where: ['name', '==', query] }],
-      })
-    }
+  async componentDidMount() {
+    const { userId, fetchSitesRealTime } = this.props
+    const { setNavTitle, setSearchComponent } = this.context
 
     setNavTitle('Sites')
+    this.setRightNav()
+    setSearchComponent(<SearchBar />)
 
-    setRightNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
-        <SearchIcon />
-      </IconButton>,
-    )
-
-    setSearchComponent(
-      <SearchBar
-        onSearchEnd={() => {
-          firestore.get({
-            collection: 'users',
-            doc: userId,
-            subcollections: [{ collection: 'sites' }],
-          })
-        }}
-      />,
-    )
-
-    fetchSitesRealTime(userId)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.query !== this.props.query) {
-      const { query } = nextProps
-      if (query) {
-        const { firestore, userId } = this.props
-        firestore.get({
-          collection: 'users',
-          doc: userId,
-          subcollections: [
-            { collection: 'sites', where: ['name', '==', query] },
-          ],
-        })
-      }
-    }
+    const unsubscribe = await fetchSitesRealTime(userId)
+    this.setState({ unsubscribe })
   }
 
   componentWillUnmount() {
@@ -84,15 +36,59 @@ export class SiteList extends Component {
       removeRightNavComponent,
       removeSearchComponent,
     } = this.context
+    const { unsubscribe } = this.state
 
     removeNavTitle()
     removeRightNavComponent()
     closeSearchBar()
     removeSearchComponent()
+    unsubscribe()
+  }
+
+  setRightNav = () => {
+    const { openSearchBar } = this.props
+    const { setRightNavComponent } = this.context
+    const { view } = this.state
+
+    setRightNavComponent(
+      <div>
+        <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
+          <SearchIcon />
+        </IconButton>
+
+        {view === 'list' && (
+          <IconButton
+            color="inherit"
+            aria-label="Grid View"
+            onClick={this.toggleView}
+          >
+            <GridOnIcon />
+          </IconButton>
+        )}
+
+        {view === 'grid' && (
+          <IconButton
+            color="inherit"
+            aria-label="List View"
+            onClick={this.toggleView}
+          >
+            <ListIcon />
+          </IconButton>
+        )}
+      </div>
+    )
+  }
+
+  toggleView = () => {
+    const { view } = this.state
+    this.setState({ view: view === 'list' ? 'grid' : 'list' }, () => {
+      this.setRightNav()
+    })
   }
 
   render() {
     const { match, searchBarOpen, sitesLoaded, sites } = this.props
+    const { view } = this.state
 
     return sitesLoaded ? (
       <StyledSiteList className="StyledSiteList">
@@ -106,42 +102,12 @@ export class SiteList extends Component {
             <AddIcon />
           </Button>
         </StyledNavLink>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-            {searchBarOpen &&
-              isEmpty(sites) && (
-                <Paper className="paper">
-                  <List component="nav" disablePadding>
-                    <ListItem>
-                      <ListItemText primary="No match found" />
-                    </ListItem>
-                  </List>
-                </Paper>
-              )}
-            {!searchBarOpen &&
-              isEmpty(sites) && (
-                <Typography variant="title" align="center">
-                  Try adding a site to get started!
-                </Typography>
-              )}
 
-            {!isEmpty(sites) && (
-              <Paper className="paper">
-                <List component="nav" disablePadding>
-                  {sites.map(({ name, id }, index, list) => {
-                    return (
-                      <StyledNavLink key={id} to={`/sites/${id}`}>
-                        <ListItem divider button>
-                          <ListItemText primary={name} />
-                        </ListItem>
-                      </StyledNavLink>
-                    )
-                  })}
-                </List>
-              </Paper>
-            )}
-          </Grid>
-        </Grid>
+        {view === 'list' ? (
+          <ListView sites={sites} />
+        ) : (
+          <GridView sites={sites} />
+        )}
       </StyledSiteList>
     ) : (
       <LinearProgress />

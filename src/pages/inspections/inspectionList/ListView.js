@@ -38,7 +38,7 @@ export const ListView = ({ inspections, match }) => {
             const completed =
               coverAdded && auditSummaryAdded && conditionRatingsAdded
 
-            return cover ? (
+            return (
               <StyledNavLink
                 key={id}
                 to={{
@@ -56,13 +56,13 @@ export const ListView = ({ inspections, match }) => {
                   />
                   <ListItemSecondaryAction className="secondary-actions">
                     {/* <Chip
-                        label={
-                          reportTypes[index % 3].substring(0, 4) + '...'
-                        }
-                        className={`chip ${reportTypes[
-                          index % 3
-                        ].toLowerCase()}`}
-                      /> */}
+                    label={
+                      reportTypes[index % 3].substring(0, 4) + '...'
+                    }
+                    className={`chip ${reportTypes[
+                      index % 3
+                    ].toLowerCase()}`}
+                  /> */}
                     <CheckCircleIcon
                       style={{
                         visibility: completed ? '' : 'hidden',
@@ -73,7 +73,7 @@ export const ListView = ({ inspections, match }) => {
                   </ListItemSecondaryAction>
                 </ListItem>
               </StyledNavLink>
-            ) : null
+            )
           }
         )}
       </List>

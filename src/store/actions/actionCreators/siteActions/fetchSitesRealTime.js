@@ -14,7 +14,7 @@ export const fetchSitesRealTime = userId => async (
     .doc(userId)
     .collection('sites')
 
-  ref.onSnapshot(querySnapshot => {
+  return ref.onSnapshot(querySnapshot => {
     let items = []
 
     querySnapshot.forEach(doc =>

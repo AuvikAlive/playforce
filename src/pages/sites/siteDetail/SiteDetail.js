@@ -3,16 +3,10 @@ import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import DeleteIcon from 'material-ui-icons/Delete'
-import EditIcon from 'material-ui-icons/Edit'
 import DirectionsIcon from 'material-ui-icons/Directions'
-import Card, { CardContent } from 'material-ui/Card'
-import List, { ListItem, ListItemText } from 'material-ui/List'
-import Chip from 'material-ui/Chip'
-import Button from 'material-ui/Button'
 import { LinearProgress } from 'material-ui/Progress'
+import { SiteCard } from '../siteCard/SiteCard'
 import { StyledSiteDetail } from './StyledSiteDetail'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import Map from './Map'
 
 export class SiteDetail extends Component {
   componentDidMount() {
@@ -100,79 +94,15 @@ export class SiteDetail extends Component {
   }
 
   render() {
-    const { match, site } = this.props
+    const { site } = this.props
 
-    if (site) {
-      const {
-        latitude,
-        longitude,
-        street,
-        suburb,
-        state,
-        postcode,
-        country,
-        division,
-        operator,
-        inspections,
-      } = site
-
-      const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
-      const chips =
-        inspections &&
-        inspections.map(({ type }) => (
-          <Chip
-            style={{ marginTop: 8, marginRight: 8 }}
-            component="span"
-            label={type}
-            key={type}
-          />
-        ))
-
-      return (
-        <StyledSiteDetail className="StyledSiteDetail">
-          <Card className="card">
-            <StyledNavLink
-              to={match.url + '/edit/general'}
-              className="edit-icon"
-            >
-              <Button
-                variant="fab"
-                color="primary"
-                aria-label="edit inspection"
-              >
-                <EditIcon />
-              </Button>
-            </StyledNavLink>
-            <Map lat={latitude} lng={longitude} />
-            <CardContent>
-              <List>
-                <ListItem divider>
-                  <ListItemText primary="Address" secondary={address} />
-                </ListItem>
-                <ListItem divider>
-                  <ListItemText primary="Operator" secondary={operator} />
-                </ListItem>
-                {division && (
-                  <ListItem divider>
-                    <ListItemText primary="Division" secondary={division} />
-                  </ListItem>
-                )}
-                {chips && (
-                  <ListItem>
-                    <ListItemText
-                      primary="Inspection Types"
-                      secondary={chips}
-                    />
-                  </ListItem>
-                )}
-              </List>
-            </CardContent>
-          </Card>
-        </StyledSiteDetail>
-      )
-    } else {
-      return <LinearProgress />
-    }
+    return site ? (
+      <StyledSiteDetail className="StyledSiteDetail">
+        <SiteCard site={site} />
+      </StyledSiteDetail>
+    ) : (
+      <LinearProgress />
+    )
   }
 }
 

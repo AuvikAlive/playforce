@@ -28,11 +28,8 @@ export class InspectionList extends Component {
     const { setNavTitle, setSearchComponent } = this.context
 
     setNavTitle('Inspections')
-
     this.setRightNav()
-
     setSearchComponent(<SearchBar />)
-
     !standardsLoaded && fetchStandards(userId)
 
     const unsubscribe = await fetchInspectionsRealTime(userId)

@@ -1,8 +1,11 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
-import { addIcon } from '../../../styledMixins/addIcon'
-import { pulseEffect } from '../../../styledMixins/pulseEffect'
-import { cardMedia } from '../../../styledMixins/cardMedia'
+import {
+  addIcon,
+  editIcon,
+  pulseEffect,
+  cardMedia,
+} from '../../../styledMixins/'
 
 export const StyledInspectionList = Styled(Content)`
   ${addIcon};
@@ -45,12 +48,6 @@ export const StyledInspectionList = Styled(Content)`
 
   .card-content {
     position: relative;
-
-    .edit-icon {
-      position: absolute;
-      right: 8px;
-      top: -4px;
-      transform: translateY(-50%);
-    }
+    ${editIcon};
   }
 `
