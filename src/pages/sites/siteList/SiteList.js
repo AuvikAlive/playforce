@@ -23,7 +23,7 @@ export class SiteList extends Component {
 
     setNavTitle('Sites')
     this.setRightNav()
-    setSearchComponent(<SearchBar />)
+    setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     const unsubscribe = await fetchSitesRealTime(userId)
     this.setState({ unsubscribe })
@@ -43,6 +43,11 @@ export class SiteList extends Component {
     closeSearchBar()
     removeSearchComponent()
     unsubscribe()
+  }
+
+  onSearch = query => {
+    const { searchSites, userId } = this.props
+    return searchSites(userId, query)
   }
 
   setRightNav = () => {
@@ -87,8 +92,16 @@ export class SiteList extends Component {
   }
 
   render() {
-    const { match, searchBarOpen, sitesLoaded, sites } = this.props
+    const {
+      match,
+      searchBarOpen,
+      searchResults,
+      sitesLoaded,
+      sites,
+    } = this.props
     const { view } = this.state
+    const sitesToShow =
+      searchBarOpen && searchResults.length > 0 ? searchResults : sites
 
     return sitesLoaded ? (
       <StyledSiteList className="StyledSiteList">
@@ -104,9 +117,9 @@ export class SiteList extends Component {
         </StyledNavLink>
 
         {view === 'list' ? (
-          <ListView sites={sites} />
+          <ListView sites={sitesToShow} />
         ) : (
-          <GridView sites={sites} />
+          <GridView sites={sitesToShow} />
         )}
       </StyledSiteList>
     ) : (

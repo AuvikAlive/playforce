@@ -3,6 +3,7 @@ import {
   CLOSE_SEARCH_BAR,
   TOGGLE_SEARCH_BAR,
   SET_SEARCH_QUERY,
+  SET_SEARCH_RESULTS,
 } from '../actionTypes'
 
 export const openSearchBar = () => ({
@@ -19,5 +20,10 @@ export const toggleSearchBar = () => ({
 
 export const setSearchQuery = payload => ({
   type: SET_SEARCH_QUERY,
+  payload,
+})
+
+export const setSearchResults = payload => ({
+  type: SET_SEARCH_RESULTS,
   payload,
 })

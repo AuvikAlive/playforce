@@ -5,22 +5,31 @@ import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import CloseIcon from 'material-ui-icons/Close'
 import Input, { InputAdornment } from 'material-ui/Input'
+// import { debounce } from 'lodash'
 import { FormControl } from 'material-ui/Form'
 
 export const SearchBar = ({
   query,
   closeSearchBar,
   setSearchQuery,
+  setSearchResults,
+  onSearch,
   onSearchEnd,
 }) => {
-  const onSearch = event => {
+  const onChange = event => {
     const searchTerm = event.target.value
-    setSearchQuery(searchTerm)
+    search(searchTerm)
+  }
+
+  const search = async searchTerm => {
+    const results = await onSearch(searchTerm)
+    setSearchResults(results)
   }
 
   const onClose = () => {
     closeSearchBar()
-    setSearchQuery('')
+    // setSearchQuery('')
+    setSearchResults([])
     onSearchEnd && onSearchEnd()
   }
 
@@ -32,7 +41,7 @@ export const SearchBar = ({
             disableUnderline
             id="search"
             type="text"
-            onChange={onSearch}
+            onChange={onChange}
             startAdornment={
               <InputAdornment position="start">
                 <IconButton>
