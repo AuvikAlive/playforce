@@ -102,7 +102,7 @@ export class InspectionItemsEdit extends Component {
     fetchEquipments(userId, inspection.cover.location.id)
   }
 
-  publish = async () => {
+  submit = async () => {
     const {
       inspection,
       setFeedback,
@@ -241,7 +241,7 @@ export class InspectionItemsEdit extends Component {
           match={match}
           error={error}
           loading={loading}
-          publish={this.publish}
+          submit={this.submit}
           buttonText="Update"
         />
 
