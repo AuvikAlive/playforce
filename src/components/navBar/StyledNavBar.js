@@ -15,6 +15,9 @@ export const StyledNavBar = Styled.div`
   .page-title {
     flex-grow: 1;
     padding-left: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     @media (min-width: 600px) {
       /* top: 64px; */
