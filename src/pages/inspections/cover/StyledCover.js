@@ -6,4 +6,9 @@ import { datePicker } from '../../../styledMixins/datePicker'
 export const StyledCover = Styled(Content)`
   ${cardMedia};
   ${datePicker};
+
+  .with-button {
+    display: flex;
+    align-items: flex-end;
+  }
 `

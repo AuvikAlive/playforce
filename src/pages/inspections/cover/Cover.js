@@ -4,6 +4,7 @@ import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
+import AddBoxIcon from 'material-ui-icons/AddBox'
 import DateRangeIcon from 'material-ui-icons/DateRange'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import Card, { CardContent } from 'material-ui/Card'
@@ -139,6 +140,7 @@ export class Cover extends Component {
       image,
       captureImage,
       displayName,
+      inspectionLoaded,
       sitesLoaded,
       sites,
       standardsLoaded,
@@ -148,7 +150,10 @@ export class Cover extends Component {
       error,
     } = this.props
 
-    return sitesLoaded && standardsLoaded && clientsLoaded ? (
+    return inspectionLoaded &&
+      sitesLoaded &&
+      standardsLoaded &&
+      clientsLoaded ? (
       <StyledCover className="StyledCover">
         <Card>
           {image && (
@@ -173,45 +178,57 @@ export class Cover extends Component {
               <StayCurrentLandscapeIcon className="button-icon" />
             </Button>
             <form noValidate>
-              <TextField
-                fullWidth
-                select
-                label="Location"
-                value={location}
-                onChange={this.onInputChange('location')}
-                margin="normal"
-              >
-                {sites.length > 0 ? (
-                  sites.map(({ id, name }) => (
-                    <MenuItem key={id} value={id}>
-                      {name}
-                    </MenuItem>
-                  ))
-                ) : (
-                  <MenuItem value="">No site addded</MenuItem>
-                )}
-              </TextField>
-
-              <TextField
-                fullWidth
-                select
-                label="Client"
-                value={client}
-                onChange={this.onInputChange('client')}
-                margin="normal"
-              >
-                {clients.length > 0 ? (
-                  clients.map(({ name }, index) => {
-                    return (
-                      <MenuItem key={index} value={name}>
+              <div className="with-button">
+                <TextField
+                  fullWidth
+                  select
+                  label="Location"
+                  value={location}
+                  onChange={this.onInputChange('location')}
+                  margin="normal"
+                >
+                  {sites.length > 0 ? (
+                    sites.map(({ id, name }) => (
+                      <MenuItem key={id} value={id}>
                         {name}
                       </MenuItem>
-                    )
-                  })
-                ) : (
-                  <MenuItem value="">No client addded</MenuItem>
-                )}
-              </TextField>
+                    ))
+                  ) : (
+                    <MenuItem value="">No site addded</MenuItem>
+                  )}
+                </TextField>
+
+                <IconButton>
+                  <AddBoxIcon />
+                </IconButton>
+              </div>
+
+              <div className="with-button">
+                <TextField
+                  fullWidth
+                  select
+                  label="Client"
+                  value={client}
+                  onChange={this.onInputChange('client')}
+                  margin="normal"
+                >
+                  {clients.length > 0 ? (
+                    clients.map(({ name }, index) => {
+                      return (
+                        <MenuItem key={index} value={name}>
+                          {name}
+                        </MenuItem>
+                      )
+                    })
+                  ) : (
+                    <MenuItem value="">No client addded</MenuItem>
+                  )}
+                </TextField>
+
+                <IconButton>
+                  <AddBoxIcon />
+                </IconButton>
+              </div>
 
               <DatePicker
                 fullWidth
