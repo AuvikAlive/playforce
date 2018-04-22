@@ -25,37 +25,32 @@ export class Cover extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const {
+      inspectionLoaded,
+      fetchInspection,
       cover,
-      fetchSites,
-      fetchStandards,
-      fetchClients,
+      sitesLoaded,
+      fetchSitesRealTime,
+      standardsLoaded,
+      fetchStandardsRealTime,
+      clientsLoaded,
+      fetchClientsRealTime,
       userId,
+      inspectionId,
       history,
-      setCapturedImage,
     } = this.props
 
-    if (!isEmpty(cover)) {
-      const { image } = cover
-
-      setCapturedImage(image)
-
-      this.setState({
-        ...cover,
-        location: cover.location.id,
-      })
-    }
-
     setNavTitle('Cover')
-
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>
     )
 
-    fetchSites(userId)
-    fetchStandards(userId)
-    fetchClients(userId)
+    !isEmpty(cover) && this.loadInitialData(cover)
+    !inspectionLoaded && inspectionId && fetchInspection(userId, inspectionId)
+    !sitesLoaded && fetchSitesRealTime(userId)
+    !standardsLoaded && fetchStandardsRealTime(userId)
+    !clientsLoaded && fetchClientsRealTime(userId)
   }
 
   componentWillUnmount() {
@@ -65,7 +60,9 @@ export class Cover extends Component {
     removeLefNavComponent()
   }
 
-  componentWillReceiveProps({ imageNaturalAspectRatio }) {
+  componentWillReceiveProps({ cover, imageNaturalAspectRatio }) {
+    !isEmpty(cover) && this.loadInitialData(cover)
+
     if (imageNaturalAspectRatio) {
       const { setFeedback } = this.props
 
@@ -73,6 +70,18 @@ export class Cover extends Component {
         ? setFeedback({ error: 'Please upload a landscape image!' })
         : setFeedback({ error: '' })
     }
+  }
+
+  loadInitialData = data => {
+    const { image } = data
+    const { setCapturedImage } = this.props
+
+    setCapturedImage(image)
+
+    this.setState({
+      ...data,
+      location: data.location.id,
+    })
   }
 
   onInputChange = name => event => {
@@ -94,7 +103,8 @@ export class Cover extends Component {
       displayName,
       sites,
       userId,
-      fetchEquipments,
+      equipmentsSite,
+      fetchEquipmentsRealTime,
     } = this.props
     const { location, client, inspectionDate, appliedStandards } = this.state
 
@@ -113,7 +123,7 @@ export class Cover extends Component {
         appliedStandards,
         displayName,
       })
-      fetchEquipments(userId, location)
+      equipmentsSite !== location && fetchEquipmentsRealTime(userId, location)
       history.goBack()
     } else {
       setFeedback({

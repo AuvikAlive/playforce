@@ -23,6 +23,7 @@ export class InspectionList extends Component {
       standardsLoaded,
       fetchStandards,
       userId,
+      inspectionsLoaded,
       fetchInspectionsRealTime,
     } = this.props
     const { setNavTitle, setSearchComponent } = this.context
@@ -31,25 +32,21 @@ export class InspectionList extends Component {
     this.setRightNav()
     setSearchComponent(<SearchBar />)
     !standardsLoaded && fetchStandards(userId)
-
-    const unsubscribe = await fetchInspectionsRealTime(userId)
-    this.setState({ unsubscribe })
+    !inspectionsLoaded && fetchInspectionsRealTime(userId)
   }
 
   componentWillUnmount() {
-    const { closeSearchBar } = this.props
+    const { searchBarOpen, closeSearchBar } = this.props
     const {
       removeNavTitle,
       removeRightNavComponent,
       removeSearchComponent,
     } = this.context
-    const { unsubscribe } = this.state
 
     removeNavTitle()
     removeRightNavComponent()
-    closeSearchBar()
+    searchBarOpen && closeSearchBar()
     removeSearchComponent()
-    unsubscribe()
   }
 
   setRightNav = () => {

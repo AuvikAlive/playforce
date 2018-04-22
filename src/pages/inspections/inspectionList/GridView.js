@@ -84,7 +84,7 @@ export const GridView = ({ inspections, match, standards }) => {
                   <CardContent className="card-content">
                     <StyledNavLink
                       to={{
-                        pathname: `${match.url}/edit`,
+                        pathname: `${match.url}/${id}/edit`,
                         state: {
                           id,
                         },

@@ -11,10 +11,15 @@ import { StyledEquipmentList } from './StyledEquipmentList'
 export class EquipmentList extends Component {
   componentDidMount() {
     const { setNavTitle } = this.context
-    const { fetchEquipments, userId, siteId } = this.props
+    const {
+      equipmentsSite,
+      fetchEquipmentsRealTime,
+      userId,
+      siteId,
+    } = this.props
 
     setNavTitle('Edit Site')
-    fetchEquipments(userId, siteId)
+    equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
   }
 
   render() {

@@ -11,7 +11,7 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    inspectionList: { inspectionsLoaded, inspections },
+    inspectionList: { inspectionsBySiteLoaded, inspectionsBySite },
   },
   {
     match: {
@@ -21,8 +21,8 @@ const mapStateToProps = (
 ) => ({
   userId: uid,
   siteId: id,
-  inspectionsLoaded,
-  inspections,
+  inspectionsBySiteLoaded,
+  inspectionsBySite,
 })
 
 const mapDispatchToProps = { fetchInspectionsBySiteRealTime, deleteInspection }

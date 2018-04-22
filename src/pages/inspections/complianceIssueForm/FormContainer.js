@@ -5,7 +5,7 @@ import { withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { Form } from './Form'
-import { fetchCommonIssues } from '../../../store/actions/actionCreators/commonIssueActions'
+import { fetchCommonIssuesRealTime } from '../../../store/actions/actionCreators/commonIssueActions'
 
 const mapStateToProps = ({
   firestore: {
@@ -23,7 +23,7 @@ const mapStateToProps = ({
   commonIssues,
 })
 
-const mapDispatchToProps = { fetchCommonIssues }
+const mapDispatchToProps = { fetchCommonIssuesRealTime }
 
 export const FormContainer = compose(
   withImageCapture,

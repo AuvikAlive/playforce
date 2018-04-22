@@ -15,17 +15,22 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class StandardsList extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, userId, fetchStandards } = this.props
+    const {
+      history,
+      userId,
+      standardsLoaded,
+      fetchStandardsRealTime,
+    } = this.props
 
     setNavTitle('Standards')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
-    fetchStandards(userId)
+    !standardsLoaded && fetchStandardsRealTime(userId)
   }
 
   componentWillUnmount() {

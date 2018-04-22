@@ -26,12 +26,12 @@ export class ConditionRatingForm extends Component {
   componentDidMount() {
     const {
       manufacturersLoaded,
-      fetchManufacturers,
+      fetchManufacturersRealTime,
       userId,
       initialData,
     } = this.props
 
-    !manufacturersLoaded && fetchManufacturers(userId)
+    !manufacturersLoaded && fetchManufacturersRealTime(userId)
     initialData && this.loadInitialData(initialData)
   }
 

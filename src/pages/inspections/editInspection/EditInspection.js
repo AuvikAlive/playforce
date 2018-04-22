@@ -28,21 +28,21 @@ MaintenanceIssues.preload()
 export const EditInspection = ({ match }) => {
   return (
     <Switch>
-      <Route path={`${match.url}/cover`} component={Cover} />
-      <Route path={`${match.url}/auditSummary`} component={AuditSummary} />
+      <Route path={`${match.url}/:id/cover`} component={Cover} />
+      <Route path={`${match.url}/:id/auditSummary`} component={AuditSummary} />
       <Route
-        path={`${match.url}/conditionRating`}
+        path={`${match.url}/:id/conditionRating`}
         component={ConditionRating}
       />
       <Route
-        path={`${match.url}/complianceIssues`}
+        path={`${match.url}/:id/complianceIssues`}
         component={ComplianceIssues}
       />
       <Route
-        path={`${match.url}/maintenanceIssues`}
+        path={`${match.url}/:id/maintenanceIssues`}
         component={MaintenanceIssues}
       />
-      <Route path={match.url} component={InspectionItemsEdit} />
+      <Route path={`${match.url}/:id`} component={InspectionItemsEdit} />
     </Switch>
   )
 }

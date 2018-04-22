@@ -18,31 +18,32 @@ export class SiteList extends Component {
   state = { unsubscribe: undefined, view: 'list' }
 
   async componentDidMount() {
-    const { userId, fetchSitesRealTime } = this.props
+    const { userId, sitesLoaded, fetchSitesRealTime } = this.props
     const { setNavTitle, setSearchComponent } = this.context
 
     setNavTitle('Sites')
     this.setRightNav()
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
-    const unsubscribe = await fetchSitesRealTime(userId)
-    this.setState({ unsubscribe })
+    !sitesLoaded && fetchSitesRealTime(userId)
+    // const unsubscribe = await fetchSitesRealTime(userId)
+    // this.setState({ unsubscribe })
   }
 
   componentWillUnmount() {
-    const { closeSearchBar } = this.props
+    const { searchBarOpen, closeSearchBar } = this.props
     const {
       removeNavTitle,
       removeRightNavComponent,
       removeSearchComponent,
     } = this.context
-    const { unsubscribe } = this.state
+    // const { unsubscribe } = this.state
 
     removeNavTitle()
     removeRightNavComponent()
-    closeSearchBar()
+    searchBarOpen && closeSearchBar()
     removeSearchComponent()
-    unsubscribe()
+    // unsubscribe()
   }
 
   onSearch = query => {

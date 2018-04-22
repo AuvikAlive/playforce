@@ -7,9 +7,9 @@ import {
   saveInspection,
   deleteInspection,
   discardInspection,
-} from '../../../store/actions/actionCreators/inspectionActions//'
+} from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
-import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions'
+import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
@@ -24,22 +24,23 @@ const mapStateToProps = (
     },
     inspection,
     standard: { standardsLoaded, standards },
+    equipments: { equipmentsSite, equipments },
   },
   {
-    location: {
-      state: { id },
+    match: {
+      params: { id },
     },
   }
 ) => ({
   userId: uid,
   inspectionId: id,
-  savedInspection:
-    users && users[uid].inspections && users[uid].inspections[id],
   inspection,
   inspectionCount,
   displayName,
   standardsLoaded,
   standards,
+  equipmentsSite,
+  equipments,
 })
 
 const mapDispatchToProps = {
@@ -48,7 +49,7 @@ const mapDispatchToProps = {
   saveInspection,
   discardInspection,
   deleteInspection,
-  fetchEquipments,
+  fetchEquipmentsRealTime,
 }
 
 export const InspectionItemsEditContainer = compose(

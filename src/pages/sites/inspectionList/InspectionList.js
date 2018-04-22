@@ -15,19 +15,25 @@ export class InspectionList extends Component {
 
   async componentDidMount() {
     this.context.setNavTitle('Edit Site')
-    const { fetchInspectionsBySiteRealTime, userId, siteId } = this.props
-    const unsubscribe = await fetchInspectionsBySiteRealTime(userId, siteId)
-    this.setState({ unsubscribe })
-  }
 
-  componentWillUnmount() {
-    const { unsubscribe } = this.state
-    unsubscribe()
+    const {
+      inspectionsBySiteLoaded,
+      fetchInspectionsBySiteRealTime,
+      userId,
+      siteId,
+    } = this.props
+
+    !inspectionsBySiteLoaded && fetchInspectionsBySiteRealTime(userId, siteId)
   }
 
   delete = async (index, inspectionId) => {
-    const { inspections, deleteInspection, userId, setFeedback } = this.props
-    const inspection = inspections[index]
+    const {
+      inspectionsBySite,
+      deleteInspection,
+      userId,
+      setFeedback,
+    } = this.props
+    const inspection = inspectionsBySite[index]
 
     await deleteInspection({
       inspection,
@@ -38,9 +44,9 @@ export class InspectionList extends Component {
   }
 
   render() {
-    const { inspectionsLoaded, inspections, openModal } = this.props
+    const { inspectionsBySiteLoaded, inspectionsBySite, openModal } = this.props
 
-    if (inspectionsLoaded) {
+    if (inspectionsBySiteLoaded) {
       const { match } = this.props
       return (
         <StyledInspectionList className="StyledInspectionList">
@@ -51,12 +57,12 @@ export class InspectionList extends Component {
           </StyledNavLink>
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {isEmpty(inspections) ? (
+              {isEmpty(inspectionsBySite) ? (
                 <ListItem>
                   <ListItemText primary="No inspection added" />
                 </ListItem>
               ) : (
-                inspections.map(
+                inspectionsBySite.map(
                   ({ type, id, inspectionNumber }, index, list) => {
                     return (
                       <ListItem divider button key={id}>

@@ -15,17 +15,22 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 export class CommonIssuesList extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, fetchCommonIssues, userId } = this.props
+    const {
+      history,
+      commonIssuesLoaded,
+      fetchCommonIssuesRealTime,
+      userId,
+    } = this.props
 
     setNavTitle('Common Issues')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
 
-    fetchCommonIssues(userId)
+    !commonIssuesLoaded && fetchCommonIssuesRealTime(userId)
   }
 
   componentWillUnmount() {

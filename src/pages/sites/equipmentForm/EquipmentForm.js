@@ -19,17 +19,17 @@ export class EquipmentForm extends Component {
   componentDidMount() {
     const {
       manufacturersLoaded,
-      fetchManufacturers,
+      fetchManufacturersRealTime,
       userId,
       initialData,
     } = this.props
 
-    !manufacturersLoaded && fetchManufacturers(userId)
+    !manufacturersLoaded && fetchManufacturersRealTime(userId)
     initialData && this.loadInitialData(initialData)
   }
 
   componentWillReceiveProps({ initialData }) {
-    if (initialData !== this.props.initialData) {
+    if (initialData && initialData !== this.props.initialData) {
       this.loadInitialData(initialData)
     }
   }

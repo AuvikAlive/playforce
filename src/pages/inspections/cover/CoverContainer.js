@@ -2,42 +2,57 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { Cover } from './Cover'
-import { addInspectionCover } from '../../../store/actions/actionCreators/inspectionActions/'
-import { fetchSites } from '../../../store/actions/actionCreators/siteActions/'
-import { fetchEquipments } from '../../../store/actions/actionCreators/equipmentActions/'
-import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
-import { fetchClients } from '../../../store/actions/actionCreators/clientActions/'
+import {
+  fetchInspection,
+  addInspectionCover,
+} from '../../../store/actions/actionCreators/inspectionActions/'
+import { fetchSitesRealTime } from '../../../store/actions/actionCreators/siteActions/'
+import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions/'
+import { fetchStandardsRealTime } from '../../../store/actions/actionCreators/standardActions'
+import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 
-const mapStateToProps = ({
-  firebase: {
-    profile: { displayName, email },
-    auth: { uid },
+const mapStateToProps = (
+  {
+    firebase: {
+      profile: { displayName, email },
+      auth: { uid },
+    },
+    inspection: { inspectionLoaded, cover },
+    site: { sitesLoaded, sites },
+    standard: { standardsLoaded, standards },
+    client: { clientsLoaded, clients },
+    equipments: { equipmentsSite },
   },
-  inspection: { cover },
-  site: { sitesLoaded, sites },
-  standard: { standardsLoaded, standards },
-  client: { clientsLoaded, clients },
-}) => ({
+  {
+    match: {
+      params: { id },
+    },
+  }
+) => ({
   displayName,
   email,
-  cover,
   userId: uid,
+  inspectionId: id,
+  inspectionLoaded,
+  cover,
   sitesLoaded,
   sites,
   standardsLoaded,
   standards,
   clientsLoaded,
   clients,
+  equipmentsSite,
 })
 
 const mapDispatchToProps = {
   addInspectionCover,
-  fetchSites,
-  fetchStandards,
-  fetchClients,
-  fetchEquipments,
+  fetchInspection,
+  fetchSitesRealTime,
+  fetchStandardsRealTime,
+  fetchClientsRealTime,
+  fetchEquipmentsRealTime,
 }
 
 export const CoverContainer = compose(

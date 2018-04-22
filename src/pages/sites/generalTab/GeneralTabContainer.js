@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import { withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { fetchOperators } from '../../../store/actions/actionCreators/operatorActions/'
+import { fetchOperatorsRealTime } from '../../../store/actions/actionCreators/operatorActions/'
 import {
   fetchSite,
   saveSite,
@@ -34,7 +34,7 @@ const mapStateToProps = (
   site: (sitesLoaded && sites.find(item => item.id === id)) || site,
 })
 
-const mapDispatchToProps = { fetchOperators, fetchSite, saveSite }
+const mapDispatchToProps = { fetchOperatorsRealTime, fetchSite, saveSite }
 
 export const GeneralTabContainer = compose(
   withFeedback,

@@ -8,6 +8,7 @@ import {
 export const initialState = {
   equipmentLoaded: false,
   equipment: undefined,
+  equipmentsSite: undefined,
   equipmentsLoaded: false,
   equipments: [],
 }
@@ -23,8 +24,15 @@ export const equipmentsReducer = (state = initialState, { type, payload }) => {
     case FETCH_EQUIPMENTS:
       return { ...state, equipmentsLoaded: false }
 
-    case FETCH_EQUIPMENTS_COMPLETED:
-      return { ...state, equipmentsLoaded: true, equipments: payload }
+    case FETCH_EQUIPMENTS_COMPLETED: {
+      const { items, siteId } = payload
+      return {
+        ...state,
+        equipmentsSite: siteId,
+        equipmentsLoaded: true,
+        equipments: items,
+      }
+    }
 
     default:
       return state

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { CommonIssuesList } from './CommonIssuesList'
-import { fetchCommonIssues } from '../../../store/actions/actionCreators/commonIssueActions/'
+import { fetchCommonIssuesRealTime } from '../../../store/actions/actionCreators/commonIssueActions/'
 
 const mapStateToProps = ({
   firebase: {
@@ -18,7 +18,7 @@ const mapStateToProps = ({
   commonIssues,
 })
 
-const mapDispatchToProps = { fetchCommonIssues }
+const mapDispatchToProps = { fetchCommonIssuesRealTime }
 
 export const CommonIssuesListContainer = compose(
   withFirestore,

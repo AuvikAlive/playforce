@@ -1,23 +1,21 @@
 import {
-  FETCH_INSPECTIONS_BY_SITE,
-  FETCH_INSPECTIONS_BY_SITE_COMPLETED,
+  FETCH_COMMON_ISSUES,
+  FETCH_COMMON_ISSUES_COMPLETED,
 } from '../../actionTypes'
 
-export const fetchInspectionsBySiteRealTime = (userId, siteId) => async (
+export const fetchCommonIssuesRealTime = userId => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  dispatch({ type: FETCH_INSPECTIONS_BY_SITE })
+  dispatch({ type: FETCH_COMMON_ISSUES })
 
   const firebase = getFirebase()
   const db = firebase.firestore()
   const ref = await db
     .collection('users')
     .doc(userId)
-    .collection('inspections')
-    .orderBy('inspectionNumber')
-    .where('site', '==', siteId)
+    .collection('commonIssues')
 
   return ref.onSnapshot(querySnapshot => {
     let items = []
@@ -28,6 +26,6 @@ export const fetchInspectionsBySiteRealTime = (userId, siteId) => async (
         ...doc.data(),
       })
     )
-    dispatch({ type: FETCH_INSPECTIONS_BY_SITE_COMPLETED, payload: items })
+    dispatch({ type: FETCH_COMMON_ISSUES_COMPLETED, payload: items })
   })
 }

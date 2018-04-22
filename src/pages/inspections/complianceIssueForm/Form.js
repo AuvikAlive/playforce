@@ -36,13 +36,13 @@ export class Form extends Component {
     const {
       setRightNav,
       commonIssuesLoaded,
-      fetchCommonIssues,
+      fetchCommonIssuesRealTime,
       userId,
       initialData,
     } = this.props
 
     setRightNav && setRightNav()
-    !commonIssuesLoaded && fetchCommonIssues(userId)
+    !commonIssuesLoaded && fetchCommonIssuesRealTime(userId)
     initialData && this.loadInitialData(initialData)
   }
 

@@ -7,33 +7,34 @@ import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { FormControl } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
-import { StyledAuditSummary } from './StyledAuditSummary'
+import isEmpty from 'lodash/isEmpty'
 import { defaultAuditSummary } from '../../../globals/constants'
+import { StyledAuditSummary } from './StyledAuditSummary'
 
 export class AuditSummary extends Component {
   state = {
-    summary: '',
+    summary: defaultAuditSummary,
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const {
-      auditSummary: { summary },
+      inspectionLoaded,
+      fetchInspection,
+      auditSummary,
+      userId,
+      inspectionId,
       history,
     } = this.props
 
-    if (summary) {
-      this.setState({ summary })
-    } else {
-      this.setState({ summary: defaultAuditSummary })
-    }
-
     setNavTitle('Audit Summary')
-
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>
     )
+
+    !inspectionLoaded && fetchInspection(userId, inspectionId)
+    !isEmpty(auditSummary) && this.loadInitialData(auditSummary)
   }
 
   componentWillUnmount() {
@@ -41,6 +42,10 @@ export class AuditSummary extends Component {
 
     removeNavTitle()
     removeLefNavComponent()
+  }
+
+  loadInitialData = data => {
+    this.setState({ ...data })
   }
 
   onInputChange = name => event => {

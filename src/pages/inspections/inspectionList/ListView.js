@@ -42,7 +42,7 @@ export const ListView = ({ inspections, match }) => {
               <StyledNavLink
                 key={id}
                 to={{
-                  pathname: `${match.url}/edit`,
+                  pathname: `${match.url}/edit/${id}`,
                   state: {
                     id,
                   },

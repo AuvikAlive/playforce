@@ -95,11 +95,13 @@ export class InspectionItemsEdit extends Component {
       fetchInspection,
       userId,
       inspectionId,
-      fetchEquipments,
+      equipmentsSite,
+      fetchEquipmentsRealTime,
     } = this.props
 
     const inspection = await fetchInspection(userId, inspectionId)
-    fetchEquipments(userId, inspection.cover.location.id)
+    const siteId = inspection.cover.location.id
+    equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
   }
 
   submit = async () => {

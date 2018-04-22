@@ -18,9 +18,16 @@ export class GeneralTab extends Component {
 
   componentDidMount() {
     this.context.setNavTitle('Edit Site')
-    const { fetchOperators, site, fetchSite, userId, siteId } = this.props
+    const {
+      operatorsLoaded,
+      fetchOperatorsRealTime,
+      site,
+      fetchSite,
+      userId,
+      siteId,
+    } = this.props
 
-    fetchOperators(userId)
+    !operatorsLoaded && fetchOperatorsRealTime(userId)
     !site && fetchSite(userId, siteId)
   }
 

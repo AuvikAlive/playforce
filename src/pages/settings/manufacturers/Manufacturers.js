@@ -20,7 +20,12 @@ export class Manufacturers extends Component {
 
   async componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, fetchManufacturersRealTime, userId } = this.props
+    const {
+      history,
+      manufacturersLoaded,
+      fetchManufacturersRealTime,
+      userId,
+    } = this.props
 
     setNavTitle('Manufacturers')
 
@@ -30,9 +35,7 @@ export class Manufacturers extends Component {
       </IconButton>
     )
 
-    const unsubscribe = await fetchManufacturersRealTime(userId)
-
-    this.setState({ unsubscribe })
+    !manufacturersLoaded && fetchManufacturersRealTime(userId)
   }
 
   componentWillUnmount() {
@@ -40,8 +43,6 @@ export class Manufacturers extends Component {
 
     removeNavTitle()
     removeLefNavComponent()
-
-    this.state.unsubscribe()
   }
 
   onInputChange = name => event => {

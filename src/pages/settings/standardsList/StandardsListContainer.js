@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { StandardsList } from './StandardsList'
-import { fetchStandards } from '../../../store/actions/actionCreators/standardActions/'
+import { fetchStandardsRealTime } from '../../../store/actions/actionCreators/standardActions/'
 
 const mapStateToProps = ({
   firebase: {
@@ -18,7 +18,7 @@ const mapStateToProps = ({
   standards,
 })
 
-const mapDispatchToProps = { fetchStandards }
+const mapDispatchToProps = { fetchStandardsRealTime }
 
 export const StandardsListContainer = compose(
   withFirestore,

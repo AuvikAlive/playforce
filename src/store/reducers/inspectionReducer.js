@@ -83,7 +83,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return { ...state, cover: payload, coverAdded: true }
 
     case FETCH_EQUIPMENTS_COMPLETED:
-      return { ...state, equipments: payload }
+      return { ...state, equipments: payload.items }
 
     case ADD_INSPECTION_SUMMARY:
       return { ...state, auditSummary: payload, auditSummaryAdded: true }
