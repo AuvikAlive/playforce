@@ -67,17 +67,16 @@ export class ProfileSettings extends Component {
 
     setFeedback({ error: '', loading: true })
 
-    let data = {
-      displayName,
-      title,
-      company,
-      mobile,
-      image,
-    }
-
-    if (!this.mySignature.isEmpty()) {
-      data.signature = this.mySignature.toDataURL()
-    }
+    let data = {}
+    Object.assign(
+      data,
+      displayName && { displayName },
+      title && { title },
+      company && { company },
+      mobile && { mobile },
+      image && { image },
+      !this.mySignature.isEmpty() && { signature: this.mySignature.toDataURL() }
+    )
 
     try {
       await firebase.updateProfile(data)
