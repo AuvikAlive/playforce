@@ -23,10 +23,11 @@ export const StyledProfileSettings = Styled(Content)`
       margin-top: 64px;
       width: 100%;
       height: 40vw;
+      max-height: 250px;
 
-      @media screen and (orientation: landscape) {
+      /* @media screen and (orientation: landscape) {
         height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
-      }
+      } */
     }
   }
 `
