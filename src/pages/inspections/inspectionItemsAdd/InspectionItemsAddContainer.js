@@ -3,11 +3,10 @@ import { compose } from 'redux'
 import { withFirestore, withFirebase } from 'react-redux-firebase'
 import { InspectionItemsAdd } from './InspectionItemsAdd'
 import {
-  saveInspectionDraft,
-  loadInspectionDraft,
+  saveInspection,
   discardInspection,
-} from '../../../store/actions/actionCreators/inspectionActions/'
-import { saveInspection } from '../../../store/actions/actionCreators/inspectionActions//'
+  fetchInspection,
+} from '../../../store/actions/actionCreators/inspectionActions//'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
 
@@ -24,10 +23,9 @@ const mapStateToProps = ({
 })
 
 const mapDispatchToProps = {
-  saveInspectionDraft,
-  loadInspectionDraft,
-  discardInspection,
   saveInspection,
+  discardInspection,
+  fetchInspection,
 }
 
 export const InspectionItemsAddContainer = compose(

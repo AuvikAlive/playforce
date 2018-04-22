@@ -130,5 +130,7 @@ export const saveInspection = ({
     })
   }
 
-  return batch.commit()
+  await batch.commit()
+
+  return inspectionRef.id
 }

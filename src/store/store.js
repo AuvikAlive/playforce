@@ -20,7 +20,7 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: localForage,
-    whitelist: ['router', 'sideMenu', 'inspection'],
+    whitelist: ['router', 'sideMenu'],
   },
   rootReducer
 )

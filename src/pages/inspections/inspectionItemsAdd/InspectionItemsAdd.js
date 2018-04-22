@@ -32,6 +32,8 @@ export class InspectionItemsAdd extends Component {
       userId,
       inspectionCount,
       saveInspection,
+      fetchInspection,
+      history,
     } = this.props
 
     const { coverAdded } = inspection
@@ -40,15 +42,21 @@ export class InspectionItemsAdd extends Component {
       setFeedback({ error: '', loading: true })
 
       try {
-        await saveInspection({
+        const inspectionId = await saveInspection({
           inspection,
           userId,
           inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
         })
-        await firebase.updateProfile({
-          inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
+        await Promise.all([
+          fetchInspection(userId, inspectionId),
+          firebase.updateProfile({
+            inspectionCount: inspectionCount ? Number(inspectionCount) + 1 : 1,
+          }),
+        ])
+        await setFeedback({ success: 'Inspection published!', loading: false })
+        history.replace('edit', {
+          id: inspectionId,
         })
-        setFeedback({ success: 'Inspection published!', loading: false })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }

@@ -39,7 +39,10 @@ export class SignUp extends Component {
 
       try {
         await signUp(email, password, username)
-        history.push('/dashboard')
+        history.push({
+          pathname: '/dashboard',
+          state: { name: 'Dashboard' },
+        })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
