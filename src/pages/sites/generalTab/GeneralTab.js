@@ -29,6 +29,7 @@ export class GeneralTab extends Component {
 
     !operatorsLoaded && fetchOperatorsRealTime(userId)
     !site && fetchSite(userId, siteId)
+    site && this.setup(site)
   }
 
   componentWillReceiveProps(nextProps) {
