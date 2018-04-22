@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "material-pwa"
+    "default": "material-pwa",
+    "staging": "inspection-app-49829"
   }
 }
