@@ -54,9 +54,7 @@ export class InspectionItemsAdd extends Component {
           }),
         ])
         await setFeedback({ success: 'Inspection published!', loading: false })
-        history.replace('edit', {
-          id: inspectionId,
-        })
+        history.replace(`edit/${inspectionId}`)
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
