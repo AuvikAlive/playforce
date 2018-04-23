@@ -11,12 +11,19 @@ import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
+import Dialog from 'material-ui/Dialog'
+import Slide from 'material-ui/transitions/Slide'
 import { DatePicker } from 'material-ui-pickers'
 import isEmpty from 'lodash/isEmpty'
 import { StyledCover } from './StyledCover'
 
+const Transition = props => {
+  return <Slide direction="up" {...props} />
+}
+
 export class Cover extends Component {
   state = {
+    open: false,
     location: '',
     client: '',
     inspectionDate: new Date(),
@@ -93,6 +100,14 @@ export class Cover extends Component {
 
   onDateChange = date => {
     this.setState({ inspectionDate: date })
+  }
+
+  handleClickOpen = () => {
+    this.setState({ open: true })
+  }
+
+  handleClose = () => {
+    this.setState({ open: false })
   }
 
   addInspectionCover = () => {
@@ -198,7 +213,7 @@ export class Cover extends Component {
                   )}
                 </TextField>
 
-                <IconButton>
+                <IconButton onClick={this.handleClickOpen}>
                   <AddBoxIcon />
                 </IconButton>
               </div>
@@ -290,6 +305,15 @@ export class Cover extends Component {
             </Button>
           </CardContent>
         </Card>
+
+        <Dialog
+          fullScreen
+          open={this.state.open}
+          onClose={this.handleClose}
+          transition={Transition}
+        >
+          <div>something</div>
+        </Dialog>
       </StyledCover>
     ) : (
       <LinearProgress />
