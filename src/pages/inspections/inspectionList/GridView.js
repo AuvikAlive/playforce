@@ -17,7 +17,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export const GridView = ({ inspections, match, standards }) => {
   return inspections.length > 0 ? (
-    <Grid container>
+    <Grid container spacing={16}>
       {inspections.map(
         (
           {
@@ -53,13 +53,15 @@ export const GridView = ({ inspections, match, standards }) => {
           )
 
           return (
-            <Grid item key={index} xs={12}>
+            <Grid item key={index} xs={12} sm={6} md={4} xl={3}>
               <List>
                 <Card>
-                  <ListItem divider button>
+                  <ListItem divider button className="list-item">
                     <Avatar className="avatar">{inspectionNumber}</Avatar>
                     <ListItemText
-                      primary={`${name}, ${suburb}`}
+                      primary={
+                        <div className="title">{`${name}, ${suburb}`}</div>
+                      }
                       secondary={client}
                     />
                     <ListItemSecondaryAction className="secondary-actions">
@@ -84,7 +86,7 @@ export const GridView = ({ inspections, match, standards }) => {
                   <CardContent className="card-content">
                     <StyledNavLink
                       to={{
-                        pathname: `${match.url}/${id}/edit`,
+                        pathname: `${match.url}/edit/${id}`,
                         state: {
                           id,
                         },

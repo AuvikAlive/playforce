@@ -12,6 +12,14 @@ export const StyledInspectionList = Styled(Content)`
   ${pulseEffect};
   ${cardMedia};
 
+  &.grid {
+    max-width: 100%;
+
+    .list-item {
+      cursor: default;
+    }
+  }
+
   .avatar {
     color: ${({ theme }) => theme.palette.primary.main};
   }
@@ -49,5 +57,11 @@ export const StyledInspectionList = Styled(Content)`
   .card-content {
     position: relative;
     ${editIcon};
+  }
+
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `

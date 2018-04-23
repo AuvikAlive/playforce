@@ -101,7 +101,9 @@ export class InspectionList extends Component {
     const { view } = this.state
 
     return inspectionsLoaded && (view === 'list' || standardsLoaded) ? (
-      <StyledInspectionList className="StyledInspectionList">
+      <StyledInspectionList
+        className={`StyledInspectionList ${view === 'grid' && 'grid'}`}
+      >
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
