@@ -15,6 +15,6 @@ export {
   searchSites,
 }
 
-export const toggleSiteListView = () => ({
+export const toggleView = () => ({
   type: TOGGLE_SITELIST_VIEW,
 })

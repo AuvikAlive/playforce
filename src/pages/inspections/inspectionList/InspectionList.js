@@ -16,7 +16,7 @@ import { ListView } from './ListView'
 import { GridView } from './GridView'
 
 export class InspectionList extends Component {
-  state = { unsubscribe: undefined, view: 'list' }
+  state = { unsubscribe: undefined }
 
   async componentDidMount() {
     const {
@@ -25,11 +25,12 @@ export class InspectionList extends Component {
       userId,
       inspectionsLoaded,
       fetchInspectionsRealTime,
+      view,
     } = this.props
     const { setNavTitle, setSearchComponent } = this.context
 
     setNavTitle('Inspections')
-    this.setRightNav()
+    this.setRightNav(view)
     setSearchComponent(<SearchBar />)
     !standardsLoaded && fetchStandards(userId)
     !inspectionsLoaded && fetchInspectionsRealTime(userId)
@@ -49,10 +50,13 @@ export class InspectionList extends Component {
     removeSearchComponent()
   }
 
-  setRightNav = () => {
-    const { openSearchBar } = this.props
+  componentWillReceiveProps({ view }) {
+    view !== this.props.view && this.setRightNav(view)
+  }
+
+  setRightNav = view => {
+    const { openSearchBar, toggleView } = this.props
     const { setRightNavComponent } = this.context
-    const { view } = this.state
 
     setRightNavComponent(
       <div>
@@ -64,7 +68,7 @@ export class InspectionList extends Component {
           <IconButton
             color="inherit"
             aria-label="Grid View"
-            onClick={this.toggleView}
+            onClick={toggleView}
           >
             <GridOnIcon />
           </IconButton>
@@ -74,20 +78,13 @@ export class InspectionList extends Component {
           <IconButton
             color="inherit"
             aria-label="List View"
-            onClick={this.toggleView}
+            onClick={toggleView}
           >
             <ListIcon />
           </IconButton>
         )}
       </div>
     )
-  }
-
-  toggleView = () => {
-    const { view } = this.state
-    this.setState({ view: view === 'list' ? 'grid' : 'list' }, () => {
-      this.setRightNav()
-    })
   }
 
   render() {
@@ -97,8 +94,8 @@ export class InspectionList extends Component {
       inspections,
       standardsLoaded,
       standards,
+      view,
     } = this.props
-    const { view } = this.state
 
     return inspectionsLoaded && (view === 'list' || standardsLoaded) ? (
       <StyledInspectionList

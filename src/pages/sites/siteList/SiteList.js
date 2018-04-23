@@ -52,7 +52,7 @@ export class SiteList extends Component {
   }
 
   setRightNav = view => {
-    const { openSearchBar, toggleSiteListView } = this.props
+    const { openSearchBar, toggleView } = this.props
     const { setRightNavComponent } = this.context
 
     setRightNavComponent(
@@ -65,7 +65,7 @@ export class SiteList extends Component {
           <IconButton
             color="inherit"
             aria-label="Grid View"
-            onClick={toggleSiteListView}
+            onClick={toggleView}
           >
             <GridOnIcon />
           </IconButton>
@@ -75,7 +75,7 @@ export class SiteList extends Component {
           <IconButton
             color="inherit"
             aria-label="List View"
-            onClick={toggleSiteListView}
+            onClick={toggleView}
           >
             <ListIcon />
           </IconButton>

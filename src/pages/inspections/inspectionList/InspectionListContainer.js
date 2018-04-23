@@ -6,7 +6,10 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 import { toggleEditInspection } from '../../../store/actions/actionCreators/inspectionActions/'
-import { fetchInspectionsRealTime } from '../../../store/actions/actionCreators/inspectionListActions/'
+import {
+  fetchInspectionsRealTime,
+  toggleView,
+} from '../../../store/actions/actionCreators/inspectionListActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { InspectionList } from './InspectionList'
 
@@ -18,12 +21,13 @@ const mapStateToProps = ({
     auth: { uid },
   },
   searchBar: { open, query },
-  inspectionList: { inspectionsLoaded, inspections },
+  inspectionList: { view, inspectionsLoaded, inspections },
   standard: { standardsLoaded, standards },
 }) => ({
   userId: uid,
   open,
   query,
+  view,
   inspectionsLoaded,
   inspections,
   standardsLoaded,
@@ -36,6 +40,7 @@ const mapDispatchToProps = {
   toggleEditInspection,
   fetchInspectionsRealTime,
   fetchStandards,
+  toggleView,
 }
 
 export const InspectionListContainer = compose(
