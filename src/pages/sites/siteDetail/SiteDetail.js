@@ -16,9 +16,8 @@ export class SiteDetail extends Component {
     !site && fetchSite(userId, siteId)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { site } = nextProps
-    if (site !== this.props.site) {
+  componentWillReceiveProps({ site }) {
+    if (!!site && site !== this.props.site) {
       this.setup(site)
     }
   }

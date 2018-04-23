@@ -1,17 +1,12 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { fetchOperatorsRealTime } from '../../../store/actions/actionCreators/operatorActions/'
 import { saveSite } from '../../../store/actions/actionCreators/siteActions/'
-import { AddSite } from './AddSite'
+import { Form } from './Form'
 
 const mapStateToProps = ({
   firebase: {
     auth: { uid },
-  },
-  firestore: {
-    ordered: { users = [] },
   },
   operator: { operatorsLoaded, operators },
 }) => ({
@@ -20,10 +15,9 @@ const mapStateToProps = ({
   operators,
 })
 
-const mapDispatchToProps = { fetchOperatorsRealTime, saveSite }
+const mapDispatchToProps = { saveSite }
 
-export const AddSiteContainer = compose(
+export const FormContainer = compose(
   withFeedback,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
-)(AddSite)
+)(Form)
