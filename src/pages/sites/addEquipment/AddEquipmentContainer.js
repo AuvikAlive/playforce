@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { saveEquipment } from '../../../store/actions/actionCreators/equipmentActions/'
 import { AddEquipment } from './AddEquipment'

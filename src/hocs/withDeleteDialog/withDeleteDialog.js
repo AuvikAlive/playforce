@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import Dialog from 'material-ui/Dialog'
 import { getDisplayName } from '../../utilities/getDisplayName'
-import Modal from '../../components/modal/Modal'
-import { ModalDeleteContent } from './ModalDeleteContent'
+import { DialogContent } from './DialogContent'
 
 export const withDeleteModal = WrappedComponent => {
   class WithDeleteModal extends Component {
@@ -23,12 +23,12 @@ export const withDeleteModal = WrappedComponent => {
 
       return (
         <div>
-          <Modal open={modalOpen} handleClose={this.closeModal} hideCloseIcon>
-            <ModalDeleteContent
+          <Dialog open={modalOpen} onClose={this.closeModal}>
+            <DialogContent
               handleConfirmation={handleConfirmation}
               closeModal={this.closeModal}
             />
-          </Modal>
+          </Dialog>
           <WrappedComponent openModal={this.openModal} {...this.props} />
         </div>
       )
@@ -36,7 +36,7 @@ export const withDeleteModal = WrappedComponent => {
   }
 
   WithDeleteModal.displayName = `WithDeleteModal(${getDisplayName(
-    WrappedComponent,
+    WrappedComponent
   )})`
 
   return WithDeleteModal

@@ -5,7 +5,7 @@ import {
   editMaintenanceIssue,
   deleteMaintenanceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions/'
-import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = (
   { inspection: { maintenanceIssues, equipments } },

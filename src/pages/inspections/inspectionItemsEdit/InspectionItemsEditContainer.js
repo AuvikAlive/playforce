@@ -11,7 +11,7 @@ import {
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = (
   {

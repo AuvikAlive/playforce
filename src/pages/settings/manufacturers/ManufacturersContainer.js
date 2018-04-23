@@ -8,7 +8,7 @@ import {
   fetchManufacturersRealTime,
 } from '../../../store/actions/actionCreators/manufacturerActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = ({
   firebase: {

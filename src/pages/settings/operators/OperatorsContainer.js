@@ -8,7 +8,7 @@ import {
   fetchOperatorsRealTime,
 } from '../../../store/actions/actionCreators/operatorActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = ({
   firebase: {

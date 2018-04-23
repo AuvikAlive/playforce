@@ -6,7 +6,7 @@ import {
   deleteClient,
   fetchClientsRealTime,
 } from '../../../store/actions/actionCreators/clientActions/'
-import { withDeleteModal } from '../../../hocs/withDeleteModal/withDeleteModal'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = ({
   firebase: {
