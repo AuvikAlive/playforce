@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
 import { DatePicker } from 'material-ui-pickers'
 import isEmpty from 'lodash/isEmpty'
+import { AddSiteContainer } from '../addSite/AddSiteContainer'
 import { ClientsContainer } from '../clients/ClientsContainer'
 import { StyledCover } from './StyledCover'
 
@@ -24,6 +25,7 @@ const Transition = props => {
 
 export class Cover extends Component {
   state = {
+    addSiteOpen: false,
     clientsOpen: false,
     location: '',
     client: '',
@@ -155,6 +157,7 @@ export class Cover extends Component {
       client,
       inspectionDate,
       appliedStandards,
+      addSiteOpen,
       clientsOpen,
     } = this.state
     const {
@@ -219,7 +222,7 @@ export class Cover extends Component {
                   )}
                 </TextField>
 
-                <IconButton>
+                <IconButton onClick={() => this.openModal('addSiteOpen')}>
                   <AddBoxIcon />
                 </IconButton>
               </div>
@@ -311,6 +314,17 @@ export class Cover extends Component {
             </Button>
           </CardContent>
         </Card>
+
+        <Dialog
+          fullScreen
+          open={addSiteOpen}
+          onClose={() => this.closeModal('addSiteOpen')}
+          transition={Transition}
+        >
+          <AddSiteContainer
+            closeDialog={() => this.closeModal('addSiteOpen')}
+          />
+        </Dialog>
 
         <Dialog
           fullScreen
