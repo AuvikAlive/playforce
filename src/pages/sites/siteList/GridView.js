@@ -5,10 +5,10 @@ import { SiteCard } from '../siteCard/SiteCard'
 
 export const GridView = ({ sites }) => {
   return sites.length > 0 ? (
-    <Grid container>
+    <Grid container spacing={16}>
       {sites.map((site, index, list) => {
         return (
-          <Grid item xs={12} key={index}>
+          <Grid key={index} item xs={12} sm={6} md={4} xl={3}>
             <SiteCard site={site} showHeader />
           </Grid>
         )

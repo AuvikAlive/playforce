@@ -26,8 +26,6 @@ export class SiteList extends Component {
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     !sitesLoaded && fetchSitesRealTime(userId)
-    // const unsubscribe = await fetchSitesRealTime(userId)
-    // this.setState({ unsubscribe })
   }
 
   componentWillUnmount() {
@@ -37,13 +35,11 @@ export class SiteList extends Component {
       removeRightNavComponent,
       removeSearchComponent,
     } = this.context
-    // const { unsubscribe } = this.state
 
     removeNavTitle()
     removeRightNavComponent()
     searchBarOpen && closeSearchBar()
     removeSearchComponent()
-    // unsubscribe()
   }
 
   onSearch = query => {
@@ -105,7 +101,7 @@ export class SiteList extends Component {
       searchBarOpen && searchResults.length > 0 ? searchResults : sites
 
     return sitesLoaded ? (
-      <StyledSiteList className="StyledSiteList">
+      <StyledSiteList className={`StyledSiteList ${view === 'grid' && 'grid'}`}>
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
