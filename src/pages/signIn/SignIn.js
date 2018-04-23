@@ -8,12 +8,9 @@ import Checkbox from 'material-ui/Checkbox'
 import { CircularProgress } from 'material-ui/Progress'
 import { StyledForm } from '../../components/styledForm/StyledForm'
 import { StyledLink } from '../../components/styledLink/StyledLink'
-import Modal from '../../components/modal/Modal'
-import SignUp from '../signUp'
 
 export class SignIn extends Component {
   state = {
-    modalOpen: false,
     email: '',
     password: '',
     checked: true,
@@ -27,14 +24,6 @@ export class SignIn extends Component {
   componentWillUnmount() {
     const { removeNavTitle } = this.context
     removeNavTitle()
-  }
-
-  openModal = () => {
-    this.setState({ modalOpen: true })
-  }
-
-  closeModal = () => {
-    this.setState({ modalOpen: false })
   }
 
   onInputChange = name => event => {
@@ -70,11 +59,6 @@ export class SignIn extends Component {
         loading: false,
       })
     }
-  }
-
-  handleSignUp = event => {
-    event.preventDefault()
-    this.openModal()
   }
 
   render() {
@@ -141,9 +125,6 @@ export class SignIn extends Component {
             <StyledLink to="/SignUp">Sign up for free!</StyledLink>
           </p>
         </form>
-        <Modal open={this.state.modalOpen} handleClose={this.closeModal}>
-          <SignUp />
-        </Modal>
       </StyledForm>
     )
   }
