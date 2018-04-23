@@ -15,14 +15,14 @@ import { GridView } from './GridView'
 import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {
-  state = { unsubscribe: undefined, view: 'list' }
+  state = { unsubscribe: undefined }
 
   async componentDidMount() {
-    const { userId, sitesLoaded, fetchSitesRealTime } = this.props
+    const { userId, sitesLoaded, fetchSitesRealTime, view } = this.props
     const { setNavTitle, setSearchComponent } = this.context
 
     setNavTitle('Sites')
-    this.setRightNav()
+    this.setRightNav(view)
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     !sitesLoaded && fetchSitesRealTime(userId)
@@ -42,15 +42,18 @@ export class SiteList extends Component {
     removeSearchComponent()
   }
 
+  componentWillReceiveProps({ view }) {
+    view !== this.props.view && this.setRightNav(view)
+  }
+
   onSearch = query => {
     const { searchSites, userId } = this.props
     return searchSites(userId, query)
   }
 
-  setRightNav = () => {
-    const { openSearchBar } = this.props
+  setRightNav = view => {
+    const { openSearchBar, toggleSiteListView } = this.props
     const { setRightNavComponent } = this.context
-    const { view } = this.state
 
     setRightNavComponent(
       <div>
@@ -62,7 +65,7 @@ export class SiteList extends Component {
           <IconButton
             color="inherit"
             aria-label="Grid View"
-            onClick={this.toggleView}
+            onClick={toggleSiteListView}
           >
             <GridOnIcon />
           </IconButton>
@@ -72,20 +75,13 @@ export class SiteList extends Component {
           <IconButton
             color="inherit"
             aria-label="List View"
-            onClick={this.toggleView}
+            onClick={toggleSiteListView}
           >
             <ListIcon />
           </IconButton>
         )}
       </div>
     )
-  }
-
-  toggleView = () => {
-    const { view } = this.state
-    this.setState({ view: view === 'list' ? 'grid' : 'list' }, () => {
-      this.setRightNav()
-    })
   }
 
   render() {
@@ -95,8 +91,8 @@ export class SiteList extends Component {
       searchResults,
       sitesLoaded,
       sites,
+      view,
     } = this.props
-    const { view } = this.state
     const sitesToShow =
       searchBarOpen && searchResults.length > 0 ? searchResults : sites
 

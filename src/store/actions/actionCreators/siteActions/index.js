@@ -1,3 +1,4 @@
+import { TOGGLE_SITELIST_VIEW } from '../../actionTypes'
 import { saveSite } from './saveSite'
 import { fetchSite } from './fetchSite'
 import { deleteSite } from './deleteSite'
@@ -13,3 +14,7 @@ export {
   fetchSitesRealTime,
   searchSites,
 }
+
+export const toggleSiteListView = () => ({
+  type: TOGGLE_SITELIST_VIEW,
+})

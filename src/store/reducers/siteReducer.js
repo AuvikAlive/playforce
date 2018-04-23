@@ -1,4 +1,5 @@
 import {
+  TOGGLE_SITELIST_VIEW,
   FETCH_SITE,
   FETCH_SITE_COMPLETED,
   FETCH_SITES,
@@ -6,6 +7,7 @@ import {
 } from '../actions/actionTypes'
 
 export const initialState = {
+  view: 'list',
   siteLoaded: false,
   site: undefined,
   sitesLoaded: false,
@@ -14,6 +16,12 @@ export const initialState = {
 
 export const siteReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case TOGGLE_SITELIST_VIEW: {
+      const { view } = state
+
+      return { ...state, view: view === 'list' ? 'grid' : 'list' }
+    }
+
     case FETCH_SITE:
       return { ...state, siteLoaded: false }
 

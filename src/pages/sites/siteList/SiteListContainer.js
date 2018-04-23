@@ -8,6 +8,7 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 import {
+  toggleSiteListView,
   fetchSitesRealTime,
   searchSites,
 } from '../../../store/actions/actionCreators/siteActions/'
@@ -20,12 +21,13 @@ const mapStateToProps = ({
     auth: { uid },
   },
   searchBar: { open, query, results },
-  site: { sitesLoaded, sites },
+  site: { view, sitesLoaded, sites },
 }) => ({
   userId: uid,
   searchBarOpen: open,
   searchResults: results,
   query,
+  view,
   sitesLoaded,
   sites,
 })
@@ -33,6 +35,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
   openSearchBar,
   closeSearchBar,
+  toggleSiteListView,
   fetchSitesRealTime,
   searchSites,
 }
