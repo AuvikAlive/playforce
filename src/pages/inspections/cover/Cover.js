@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
 import { DatePicker } from 'material-ui-pickers'
 import isEmpty from 'lodash/isEmpty'
+import { ClientsContainer } from '../clients/ClientsContainer'
 import { StyledCover } from './StyledCover'
 
 const Transition = props => {
@@ -23,7 +24,7 @@ const Transition = props => {
 
 export class Cover extends Component {
   state = {
-    open: false,
+    clientsOpen: false,
     location: '',
     client: '',
     inspectionDate: new Date(),
@@ -102,12 +103,12 @@ export class Cover extends Component {
     this.setState({ inspectionDate: date })
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true })
+  openModal = name => {
+    this.setState({ [name]: true })
   }
 
-  handleClose = () => {
-    this.setState({ open: false })
+  closeModal = name => {
+    this.setState({ [name]: false })
   }
 
   addInspectionCover = () => {
@@ -149,8 +150,13 @@ export class Cover extends Component {
   }
 
   render() {
-    const { location, client, inspectionDate, appliedStandards } = this.state
-
+    const {
+      location,
+      client,
+      inspectionDate,
+      appliedStandards,
+      clientsOpen,
+    } = this.state
     const {
       image,
       captureImage,
@@ -213,7 +219,7 @@ export class Cover extends Component {
                   )}
                 </TextField>
 
-                <IconButton onClick={this.handleClickOpen}>
+                <IconButton>
                   <AddBoxIcon />
                 </IconButton>
               </div>
@@ -240,7 +246,7 @@ export class Cover extends Component {
                   )}
                 </TextField>
 
-                <IconButton>
+                <IconButton onClick={() => this.openModal('clientsOpen')}>
                   <AddBoxIcon />
                 </IconButton>
               </div>
@@ -308,11 +314,13 @@ export class Cover extends Component {
 
         <Dialog
           fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}
+          open={clientsOpen}
+          onClose={() => this.closeModal('clientsOpen')}
           transition={Transition}
         >
-          <div>something</div>
+          <ClientsContainer
+            closeDialog={() => this.closeModal('clientsOpen')}
+          />
         </Dialog>
       </StyledCover>
     ) : (
