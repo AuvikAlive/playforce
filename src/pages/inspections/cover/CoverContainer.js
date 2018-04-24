@@ -12,6 +12,7 @@ import { fetchStandardsRealTime } from '../../../store/actions/actionCreators/st
 import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
+import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
 
 const mapStateToProps = (
   {
@@ -56,6 +57,7 @@ const mapDispatchToProps = {
 }
 
 export const CoverContainer = compose(
+  withFullscreenDialog,
   withImageCapture,
   withFeedback,
   withFirestore,

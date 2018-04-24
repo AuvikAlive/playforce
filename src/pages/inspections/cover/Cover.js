@@ -11,22 +11,14 @@ import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
-import Dialog from 'material-ui/Dialog'
-import Slide from 'material-ui/transitions/Slide'
 import { DatePicker } from 'material-ui-pickers'
 import isEmpty from 'lodash/isEmpty'
 import { AddSiteContainer } from '../addSite/AddSiteContainer'
 import { ClientsContainer } from '../clients/ClientsContainer'
 import { StyledCover } from './StyledCover'
 
-const Transition = props => {
-  return <Slide direction="up" {...props} />
-}
-
 export class Cover extends Component {
   state = {
-    addSiteOpen: false,
-    clientsOpen: false,
     location: '',
     client: '',
     inspectionDate: new Date(),
@@ -105,14 +97,6 @@ export class Cover extends Component {
     this.setState({ inspectionDate: date })
   }
 
-  openModal = name => {
-    this.setState({ [name]: true })
-  }
-
-  closeModal = name => {
-    this.setState({ [name]: false })
-  }
-
   addInspectionCover = () => {
     const {
       addInspectionCover,
@@ -152,14 +136,7 @@ export class Cover extends Component {
   }
 
   render() {
-    const {
-      location,
-      client,
-      inspectionDate,
-      appliedStandards,
-      addSiteOpen,
-      clientsOpen,
-    } = this.state
+    const { location, client, inspectionDate, appliedStandards } = this.state
     const {
       image,
       captureImage,
@@ -170,6 +147,7 @@ export class Cover extends Component {
       standards,
       clientsLoaded,
       clients,
+      openDialog,
       error,
     } = this.props
 
@@ -218,7 +196,7 @@ export class Cover extends Component {
                   )}
                 </TextField>
 
-                <IconButton onClick={() => this.openModal('addSiteOpen')}>
+                <IconButton onClick={() => openDialog(AddSiteContainer)}>
                   <AddBoxIcon />
                 </IconButton>
               </div>
@@ -245,7 +223,7 @@ export class Cover extends Component {
                   )}
                 </TextField>
 
-                <IconButton onClick={() => this.openModal('clientsOpen')}>
+                <IconButton onClick={() => openDialog(ClientsContainer)}>
                   <AddBoxIcon />
                 </IconButton>
               </div>
@@ -310,28 +288,6 @@ export class Cover extends Component {
             </Button>
           </CardContent>
         </Card>
-
-        <Dialog
-          fullScreen
-          open={addSiteOpen}
-          onClose={() => this.closeModal('addSiteOpen')}
-          transition={Transition}
-        >
-          <AddSiteContainer
-            closeDialog={() => this.closeModal('addSiteOpen')}
-          />
-        </Dialog>
-
-        <Dialog
-          fullScreen
-          open={clientsOpen}
-          onClose={() => this.closeModal('clientsOpen')}
-          transition={Transition}
-        >
-          <ClientsContainer
-            closeDialog={() => this.closeModal('clientsOpen')}
-          />
-        </Dialog>
       </StyledCover>
     ) : (
       <LinearProgress />

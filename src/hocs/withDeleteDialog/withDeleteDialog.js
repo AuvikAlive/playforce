@@ -6,24 +6,24 @@ import { DialogContent } from './DialogContent'
 export const withDeleteModal = WrappedComponent => {
   class WithDeleteModal extends Component {
     state = {
-      modalOpen: false,
+      dialogOpen: false,
       handleConfirmation: null,
     }
 
     openModal = handleConfirmation => {
-      this.setState({ modalOpen: true, handleConfirmation })
+      this.setState({ dialogOpen: true, handleConfirmation })
     }
 
     closeModal = () => {
-      this.setState({ modalOpen: false })
+      this.setState({ dialogOpen: false })
     }
 
     render() {
-      const { modalOpen, handleConfirmation } = this.state
+      const { dialogOpen, handleConfirmation } = this.state
 
       return (
         <div>
-          <Dialog open={modalOpen} onClose={this.closeModal}>
+          <Dialog open={dialogOpen} onClose={this.closeModal}>
             <DialogContent
               handleConfirmation={handleConfirmation}
               closeModal={this.closeModal}
