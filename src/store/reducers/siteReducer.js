@@ -1,5 +1,6 @@
 import {
   TOGGLE_SITELIST_VIEW,
+  SET_SITELIST_VIEW,
   FETCH_SITE,
   FETCH_SITE_COMPLETED,
   FETCH_SITES,
@@ -16,6 +17,9 @@ export const initialState = {
 
 export const siteReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case SET_SITELIST_VIEW:
+      return { ...state, view: payload }
+
     case TOGGLE_SITELIST_VIEW: {
       const { view } = state
 

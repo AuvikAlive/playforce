@@ -8,6 +8,7 @@ import {
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
 import {
+  setView,
   toggleView,
   fetchSitesRealTime,
   searchSites,
@@ -35,6 +36,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
   openSearchBar,
   closeSearchBar,
+  setView,
   toggleView,
   fetchSitesRealTime,
   searchSites,

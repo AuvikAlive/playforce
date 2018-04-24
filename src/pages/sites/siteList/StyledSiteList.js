@@ -7,7 +7,7 @@ export const StyledSiteList = Styled(Content)`
   ${pulseEffect};
   ${cardMedia};
 
-  &.grid {
+  &.full-width {
     max-width: 100%;
   }
 `

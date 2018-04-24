@@ -1,4 +1,4 @@
-import { TOGGLE_SITELIST_VIEW } from '../../actionTypes'
+import { TOGGLE_SITELIST_VIEW, SET_SITELIST_VIEW } from '../../actionTypes'
 import { saveSite } from './saveSite'
 import { fetchSite } from './fetchSite'
 import { deleteSite } from './deleteSite'
@@ -17,4 +17,9 @@ export {
 
 export const toggleView = () => ({
   type: TOGGLE_SITELIST_VIEW,
+})
+
+export const setView = payload => ({
+  type: SET_SITELIST_VIEW,
+  payload,
 })

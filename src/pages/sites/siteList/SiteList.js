@@ -1,28 +1,49 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
+import Menu, { MenuItem } from 'material-ui/Menu'
+import MoreVertIcon from 'material-ui-icons/MoreVert'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
-import GridOnIcon from 'material-ui-icons/GridOn'
-import ListIcon from 'material-ui-icons/List'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
 import { ListView } from './ListView'
 import { GridView } from './GridView'
+import { MapView } from './MapView'
 import { StyledSiteList } from './StyledSiteList'
 
 export class SiteList extends Component {
-  state = { unsubscribe: undefined }
+  state = {
+    menuAnchor: null,
+  }
 
-  async componentDidMount() {
-    const { userId, sitesLoaded, fetchSitesRealTime, view } = this.props
-    const { setNavTitle, setSearchComponent } = this.context
+  componentDidMount() {
+    const {
+      userId,
+      sitesLoaded,
+      fetchSitesRealTime,
+      openSearchBar,
+    } = this.props
+    const {
+      setNavTitle,
+      setSearchComponent,
+      setRightNavComponent,
+    } = this.context
 
     setNavTitle('Sites')
-    this.setRightNav(view)
+    setRightNavComponent(
+      <div>
+        <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
+          <SearchIcon />
+        </IconButton>
+        <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
+          <MoreVertIcon aria-label="More" />
+        </IconButton>
+      </div>
+    )
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     !sitesLoaded && fetchSitesRealTime(userId)
@@ -42,46 +63,27 @@ export class SiteList extends Component {
     removeSearchComponent()
   }
 
-  componentWillReceiveProps({ view }) {
-    view !== this.props.view && this.setRightNav(view)
-  }
+  // componentWillReceiveProps({ view }) {
+  //   view !== this.props.view && this.setRightNav(view)
+  // }
 
   onSearch = query => {
     const { searchSites, userId } = this.props
     return searchSites(userId, query)
   }
 
-  setRightNav = view => {
-    const { openSearchBar, toggleView } = this.props
-    const { setRightNavComponent } = this.context
+  openMenu = event => {
+    this.setState({ menuAnchor: event.currentTarget })
+  }
 
-    setRightNavComponent(
-      <div>
-        <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
-          <SearchIcon />
-        </IconButton>
+  closeMenu = () => {
+    this.setState({ menuAnchor: null })
+  }
 
-        {view === 'list' && (
-          <IconButton
-            color="inherit"
-            aria-label="Grid View"
-            onClick={toggleView}
-          >
-            <GridOnIcon />
-          </IconButton>
-        )}
-
-        {view === 'grid' && (
-          <IconButton
-            color="inherit"
-            aria-label="List View"
-            onClick={toggleView}
-          >
-            <ListIcon />
-          </IconButton>
-        )}
-      </div>
-    )
+  changeView = view => {
+    const { setView } = this.props
+    this.closeMenu()
+    setView(view)
   }
 
   render() {
@@ -93,11 +95,15 @@ export class SiteList extends Component {
       sites,
       view,
     } = this.props
+    const { menuAnchor } = this.state
+
     const sitesToShow =
       searchBarOpen && searchResults.length > 0 ? searchResults : sites
 
     return sitesLoaded ? (
-      <StyledSiteList className={`StyledSiteList ${view === 'grid' && 'grid'}`}>
+      <StyledSiteList
+        className={`StyledSiteList ${view !== 'list' && 'full-width'}`}
+      >
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
@@ -109,11 +115,45 @@ export class SiteList extends Component {
           </Button>
         </StyledNavLink>
 
-        {view === 'list' ? (
-          <ListView sites={sitesToShow} />
-        ) : (
-          <GridView sites={sitesToShow} />
-        )}
+        {(() => {
+          switch (view) {
+            case 'list':
+              return <ListView sites={sitesToShow} />
+
+            case 'grid':
+              return <GridView sites={sitesToShow} />
+
+            case 'map':
+              return <MapView sites={sitesToShow} />
+
+            default:
+              return null
+          }
+        })()}
+
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={this.closeMenu}
+        >
+          {view !== 'grid' && (
+            <MenuItem onClick={() => this.changeView('grid')}>
+              Show as Grid
+            </MenuItem>
+          )}
+
+          {view !== 'list' && (
+            <MenuItem onClick={() => this.changeView('list')}>
+              Show as List
+            </MenuItem>
+          )}
+
+          {view !== 'map' && (
+            <MenuItem onClick={() => this.changeView('map')}>
+              Show as Map
+            </MenuItem>
+          )}
+        </Menu>
       </StyledSiteList>
     ) : (
       <LinearProgress />
