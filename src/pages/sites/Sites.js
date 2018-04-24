@@ -14,12 +14,12 @@ const AddSite = Loadable({
 Site.preload()
 AddSite.preload()
 
-export const Sites = ({ email, match }) => {
+export const Sites = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/add`} component={AddSite} />
       <Route path={`${match.url}/:id`} component={Site} />
-      <Route path={match.url} render={() => <SiteList email={email} />} />
+      <Route path={match.url} component={SiteList} />
     </Switch>
   )
 }

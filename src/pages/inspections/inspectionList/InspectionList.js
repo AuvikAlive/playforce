@@ -16,9 +16,7 @@ import { ListView } from './ListView'
 import { GridView } from './GridView'
 
 export class InspectionList extends Component {
-  state = { unsubscribe: undefined }
-
-  async componentDidMount() {
+  componentDidMount() {
     const {
       standardsLoaded,
       fetchStandards,

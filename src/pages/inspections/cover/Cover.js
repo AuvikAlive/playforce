@@ -164,7 +164,6 @@ export class Cover extends Component {
       image,
       captureImage,
       displayName,
-      inspectionLoaded,
       sitesLoaded,
       sites,
       standardsLoaded,
@@ -174,10 +173,7 @@ export class Cover extends Component {
       error,
     } = this.props
 
-    return inspectionLoaded &&
-      sitesLoaded &&
-      standardsLoaded &&
-      clientsLoaded ? (
+    return sitesLoaded && standardsLoaded && clientsLoaded ? (
       <StyledCover className="StyledCover">
         <Card>
           {image && (
