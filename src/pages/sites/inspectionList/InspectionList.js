@@ -44,7 +44,7 @@ export class InspectionList extends Component {
   }
 
   render() {
-    const { inspectionsBySiteLoaded, inspectionsBySite, openModal } = this.props
+    const { inspectionsBySiteLoaded, inspectionsBySite, openDialog } = this.props
 
     if (inspectionsBySiteLoaded) {
       const { match } = this.props
@@ -71,7 +71,7 @@ export class InspectionList extends Component {
                         />
                         <ListItemIcon
                           onClick={() =>
-                            openModal(() => this.delete(index, id))
+                            openDialog(() => this.delete(index, id))
                           }
                         >
                           <DeleteIcon />

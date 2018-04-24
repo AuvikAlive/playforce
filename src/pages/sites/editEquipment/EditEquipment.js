@@ -8,7 +8,7 @@ export class EditEquipment extends Component {
   componentDidMount() {
     const { setNavTitle, setRightNavComponent } = this.context
     const {
-      openModal,
+      openDialog,
       equipment,
       fetchEquipment,
       userId,
@@ -21,7 +21,7 @@ export class EditEquipment extends Component {
       <IconButton
         color="inherit"
         aria-label="Search"
-        onClick={() => openModal(this.delete)}
+        onClick={() => openDialog(this.delete)}
       >
         <DeleteIcon />
       </IconButton>

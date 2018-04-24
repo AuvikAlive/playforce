@@ -15,7 +15,7 @@ export class EditStandard extends Component {
     } = this.context
     const {
       history,
-      openModal,
+      openDialog,
       fetchStandard,
       userId,
       standard,
@@ -34,7 +34,7 @@ export class EditStandard extends Component {
       <IconButton
         color="inherit"
         aria-label="delete condition rating"
-        onClick={() => openModal(this.delete)}
+        onClick={() => openDialog(this.delete)}
       >
         <DeleteIcon />
       </IconButton>

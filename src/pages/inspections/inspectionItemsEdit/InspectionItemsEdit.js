@@ -27,7 +27,7 @@ export class InspectionItemsEdit extends Component {
       setRightNavComponent,
     } = this.context
     const {
-      openModal,
+      openDialog,
       inspection,
       standardsLoaded,
       fetchStandards,
@@ -51,7 +51,7 @@ export class InspectionItemsEdit extends Component {
         <IconButton
           color="inherit"
           aria-label="delete condition rating"
-          onClick={() => openModal(this.delete)}
+          onClick={() => openDialog(this.delete)}
         >
           <DeleteIcon />
         </IconButton>

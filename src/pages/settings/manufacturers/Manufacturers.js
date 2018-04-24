@@ -74,11 +74,11 @@ export class Manufacturers extends Component {
   }
 
   deletePrompt = deleteItemId => {
-    const { openModal } = this.props
+    const { openDialog } = this.props
 
     this.setState({ deleteItemId })
 
-    openModal(this.delete)
+    openDialog(this.delete)
   }
 
   delete = async () => {

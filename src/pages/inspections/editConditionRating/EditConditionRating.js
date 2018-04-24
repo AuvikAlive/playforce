@@ -12,7 +12,7 @@ export class EditConditionRating extends Component {
       setLeftNavComponent,
       setRightNavComponent,
     } = this.context
-    const { history, openModal } = this.props
+    const { history, openDialog } = this.props
 
     setNavTitle('Edit Rating')
 
@@ -26,7 +26,7 @@ export class EditConditionRating extends Component {
       <IconButton
         color="inherit"
         aria-label="delete condition rating"
-        onClick={() => openModal(this.delete)}
+        onClick={() => openDialog(this.delete)}
       >
         <DeleteIcon />
       </IconButton>

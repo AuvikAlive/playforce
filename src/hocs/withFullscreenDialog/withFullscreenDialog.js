@@ -31,7 +31,7 @@ export const withFullscreenDialog = WrappedComponent => {
             fullScreen
             transition={Transition}
             open={dialogOpen}
-            onClose={this.closeModal}
+            onClose={this.closeDialog}
           >
             <div>
               {DialogContent && (

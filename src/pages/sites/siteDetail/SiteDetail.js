@@ -35,7 +35,7 @@ export class SiteDetail extends Component {
   }
 
   setup = site => {
-    const { history, openModal } = this.props
+    const { history, openDialog } = this.props
 
     const {
       setLeftNavComponent,
@@ -70,7 +70,7 @@ export class SiteDetail extends Component {
         <IconButton
           color="inherit"
           aria-label="Search"
-          onClick={() => openModal(this.delete)}
+          onClick={() => openDialog(this.delete)}
         >
           <DeleteIcon />
         </IconButton>

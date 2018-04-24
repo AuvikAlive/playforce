@@ -10,11 +10,11 @@ export const withDeleteModal = WrappedComponent => {
       handleConfirmation: null,
     }
 
-    openModal = handleConfirmation => {
+    openDialog = handleConfirmation => {
       this.setState({ dialogOpen: true, handleConfirmation })
     }
 
-    closeModal = () => {
+    closeDialog = () => {
       this.setState({ dialogOpen: false })
     }
 
@@ -23,13 +23,13 @@ export const withDeleteModal = WrappedComponent => {
 
       return (
         <div>
-          <Dialog open={dialogOpen} onClose={this.closeModal}>
+          <Dialog open={dialogOpen} onClose={this.closeDialog}>
             <DialogContent
               handleConfirmation={handleConfirmation}
-              closeModal={this.closeModal}
+              closeDialog={this.closeDialog}
             />
           </Dialog>
-          <WrappedComponent openModal={this.openModal} {...this.props} />
+          <WrappedComponent openDialog={this.openDialog} {...this.props} />
         </div>
       )
     }

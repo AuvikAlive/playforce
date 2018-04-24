@@ -3,10 +3,10 @@ import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import { StyledModalContent } from './StyledModalContent'
 
-export const ModalContent = ({ closeModal, handleConfirmation }) => {
+export const ModalContent = ({ closeDialog, handleConfirmation }) => {
   const onConfirmation = () => {
     handleConfirmation()
-    closeModal()
+    closeDialog()
   }
 
   return (
@@ -14,7 +14,7 @@ export const ModalContent = ({ closeModal, handleConfirmation }) => {
       <Card>
         <CardContent>Delete this site?</CardContent>
         <CardActions className="card-actions">
-          <Button size="small" onClick={closeModal}>
+          <Button size="small" onClick={closeDialog}>
             Cancel
           </Button>
           <Button size="small" onClick={onConfirmation}>

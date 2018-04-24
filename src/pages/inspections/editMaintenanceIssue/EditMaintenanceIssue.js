@@ -33,13 +33,13 @@ export class EditMaintenanceIssue extends Component {
 
   setRightNav = () => {
     const { setRightNavComponent } = this.context
-    const { openModal } = this.props
+    const { openDialog } = this.props
 
     setRightNavComponent(
       <IconButton
         color="inherit"
         aria-label="delete condition rating"
-        onClick={() => openModal(this.delete)}
+        onClick={() => openDialog(this.delete)}
       >
         <DeleteIcon />
       </IconButton>

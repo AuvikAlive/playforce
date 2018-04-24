@@ -6,7 +6,7 @@ import { StyledDialogContent } from './StyledDialogContent'
 import { withFeedback } from '../withFeedback/withFeedback'
 
 const DialogContentWithout = ({
-  closeModal,
+  closeDialog,
   handleConfirmation,
   setFeedback,
   error,
@@ -18,7 +18,7 @@ const DialogContentWithout = ({
     try {
       handleConfirmation && (await handleConfirmation())
       setFeedback({ loading: false })
-      closeModal()
+      closeDialog()
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
     }
@@ -37,7 +37,7 @@ const DialogContentWithout = ({
 
       {!loading && (
         <DialogActions>
-          <Button size="small" onClick={closeModal}>
+          <Button size="small" onClick={closeDialog}>
             Cancel
           </Button>
           <Button size="small" onClick={onConfirmation}>

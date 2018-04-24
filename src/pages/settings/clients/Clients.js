@@ -32,8 +32,8 @@ export class Clients extends Component {
   }
 
   delete = async id => {
-    const { openModal, deleteClient, userId } = this.props
-    openModal(() => deleteClient(userId, id))
+    const { openDialog, deleteClient, userId } = this.props
+    openDialog(() => deleteClient(userId, id))
   }
 
   render() {
