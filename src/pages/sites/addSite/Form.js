@@ -4,6 +4,9 @@ import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { CircularProgress } from 'material-ui/Progress'
+import IconButton from 'material-ui/IconButton'
+import AddBoxIcon from 'material-ui-icons/AddBox'
+import { OperatorsContainer } from '../operators/OperatorsContainer'
 
 export class Form extends Component {
   state = {
@@ -96,7 +99,7 @@ export class Form extends Component {
       division,
       operator,
     } = this.state
-    const { operators, error, loading } = this.props
+    const { operators, openDialog, error, loading } = this.props
 
     return (
       <Card>
@@ -177,24 +180,30 @@ export class Form extends Component {
               margin="normal"
             />
 
-            <TextField
-              fullWidth
-              select
-              label="Operator"
-              value={operator}
-              onChange={this.onInputChange('operator')}
-              margin="normal"
-            >
-              {!!operators && operators.length > 0 ? (
-                operators.map(({ name }, index) => (
-                  <MenuItem key={index} value={name}>
-                    {name}
-                  </MenuItem>
-                ))
-              ) : (
-                <MenuItem value="">No operator addded</MenuItem>
-              )}
-            </TextField>
+            <div className="with-button">
+              <TextField
+                fullWidth
+                select
+                label="Operator"
+                value={operator}
+                onChange={this.onInputChange('operator')}
+                margin="normal"
+              >
+                {operators.length > 0 ? (
+                  operators.map(({ name }, index) => (
+                    <MenuItem key={index} value={name}>
+                      {name}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem value="">No operator addded</MenuItem>
+                )}
+              </TextField>
+
+              <IconButton onClick={() => openDialog(OperatorsContainer)}>
+                <AddBoxIcon />
+              </IconButton>
+            </div>
           </form>
 
           {error && <p className="error">{error}</p>}
