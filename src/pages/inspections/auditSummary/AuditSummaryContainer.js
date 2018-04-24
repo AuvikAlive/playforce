@@ -13,7 +13,7 @@ const mapStateToProps = (
       profile,
       auth: { uid },
     },
-    inspection: { inspectionLoaded, auditSummary },
+    inspection: { inspectionLoaded, cover, auditSummary },
   },
   {
     match: {
@@ -25,6 +25,7 @@ const mapStateToProps = (
   inspectionId: id,
   inspectionLoaded,
   profile,
+  cover,
   auditSummary,
 })
 

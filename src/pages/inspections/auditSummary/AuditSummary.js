@@ -8,12 +8,12 @@ import TextField from 'material-ui/TextField'
 import { FormControl } from 'material-ui/Form'
 import { InputLabel } from 'material-ui/Input'
 import isEmpty from 'lodash/isEmpty'
-import { defaultAuditSummary } from '../../../globals/constants'
+import { makeDefaultSummary } from './makeDefaultSummary'
 import { StyledAuditSummary } from './StyledAuditSummary'
 
 export class AuditSummary extends Component {
   state = {
-    summary: defaultAuditSummary,
+    summary: '',
   }
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
@@ -34,7 +34,7 @@ export class AuditSummary extends Component {
     )
 
     !inspectionLoaded && fetchInspection(userId, inspectionId)
-    !isEmpty(auditSummary) && this.loadInitialData(auditSummary)
+    this.loadInitialData(auditSummary)
   }
 
   componentWillUnmount() {
@@ -44,8 +44,14 @@ export class AuditSummary extends Component {
     removeLefNavComponent()
   }
 
-  loadInitialData = data => {
-    this.setState({ ...data })
+  componentWillReceiveProps({ inspectionLoaded, auditSummary, cover }) {
+    inspectionLoaded && this.loadInitialData(auditSummary, cover)
+  }
+
+  loadInitialData = (auditSummary, cover) => {
+    isEmpty(auditSummary)
+      ? this.setState({ summary: makeDefaultSummary(cover) })
+      : this.setState({ ...auditSummary })
   }
 
   onInputChange = name => event => {
