@@ -1,9 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { Operators } from './Operators'
 import {
-  saveOperator,
   deleteOperator,
   fetchOperatorsRealTime,
 } from '../../../store/actions/actionCreators/operatorActions/'
@@ -14,9 +12,6 @@ const mapStateToProps = ({
   firebase: {
     auth: { uid },
   },
-  firestore: {
-    data: { users },
-  },
   operator: { operatorsLoaded, operators },
 }) => ({
   userId: uid,
@@ -25,7 +20,6 @@ const mapStateToProps = ({
 })
 
 const mapDispatchToProps = {
-  saveOperator,
   deleteOperator,
   fetchOperatorsRealTime,
 }
@@ -33,6 +27,5 @@ const mapDispatchToProps = {
 export const OperatorsContainer = compose(
   withDeleteModal,
   withFeedback,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(Operators)
