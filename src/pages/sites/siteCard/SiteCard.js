@@ -8,7 +8,12 @@ import { Map } from '../Map'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledSiteCard } from './StyledSiteCard'
 
-export const SiteCard = ({ site, showHeader }) => {
+export const SiteCard = ({
+  site,
+  showHeader,
+  curtailAddress,
+  hideDivision,
+}) => {
   const {
     name,
     id,
@@ -48,16 +53,26 @@ export const SiteCard = ({ site, showHeader }) => {
           </StyledNavLink>
           <List>
             <ListItem divider>
-              <ListItemText primary="Address" secondary={address} />
+              <ListItemText
+                primary="Address"
+                secondary={
+                  <span
+                    className={`${curtailAddress ? 'curtailed-address' : ''}`}
+                  >
+                    {address}
+                  </span>
+                }
+              />
             </ListItem>
             <ListItem divider>
               <ListItemText primary="Operator" secondary={operator} />
             </ListItem>
-            {division && (
-              <ListItem divider>
-                <ListItemText primary="Division" secondary={division} />
-              </ListItem>
-            )}
+            {division &&
+              !hideDivision(
+                <ListItem divider>
+                  <ListItemText primary="Division" secondary={division} />
+                </ListItem>
+              )}
             {chips && (
               <ListItem>
                 <ListItemText primary="Inspection Types" secondary={chips} />

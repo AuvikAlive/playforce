@@ -9,7 +9,7 @@ export const GridView = ({ sites }) => {
       {sites.map((site, index, list) => {
         return (
           <Grid key={index} item xs={12} sm={6} md={4} xl={3}>
-            <SiteCard site={site} showHeader />
+            <SiteCard site={site} showHeader curtailAddress hideDivision />
           </Grid>
         )
       })}

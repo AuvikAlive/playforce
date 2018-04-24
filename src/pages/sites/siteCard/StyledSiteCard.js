@@ -8,4 +8,11 @@ export const StyledSiteCard = Styled.div`
     position: relative;
     ${editIcon};
   }
+
+  .curtailed-address {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `
