@@ -4,6 +4,7 @@ import { withFirestore } from 'react-redux-firebase'
 import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
+import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
 import { ConditionRatingForm } from './ConditionRatingForm'
 
 const mapStateToProps = ({
@@ -23,6 +24,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = { fetchManufacturersRealTime }
 
 export const ConditionRatingFormContainer = compose(
+  withFullscreenDialog,
   withImageCapture,
   withFeedback,
   withFirestore,

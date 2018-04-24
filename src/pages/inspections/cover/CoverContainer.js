@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { Cover } from './Cover'
 import {
   fetchInspection,
@@ -60,6 +59,5 @@ export const CoverContainer = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(Cover)

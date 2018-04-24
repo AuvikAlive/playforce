@@ -13,6 +13,7 @@ import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { DatePicker } from 'material-ui-pickers'
 import { defaultManufacturers, conditions } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { ManufacturersContainer } from '../manufacturers/ManufacturersContainer'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 export class ConditionRatingForm extends Component {
@@ -122,6 +123,7 @@ export class ConditionRatingForm extends Component {
       manufacturersLoaded,
       manufacturers,
       equipments,
+      openDialog,
       error,
     } = this.props
     const {
@@ -158,14 +160,6 @@ export class ConditionRatingForm extends Component {
                 filterProperty="equipment"
               />
 
-              {/* <TextField
-                fullWidth
-                label="Equipment"
-                value={equipment}
-                margin="normal"
-                onChange={this.onInputChange('equipment')}
-              /> */}
-
               <TextField
                 fullWidth
                 label="Asset Id"
@@ -200,7 +194,7 @@ export class ConditionRatingForm extends Component {
                       })}
                 </TextField>
 
-                <IconButton>
+                <IconButton onClick={() => openDialog(ManufacturersContainer)}>
                   <AddBoxIcon />
                 </IconButton>
               </div>
