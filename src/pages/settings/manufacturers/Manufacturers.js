@@ -3,22 +3,13 @@ import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import DeleteIcon from 'material-ui-icons/Delete'
-import Card, { CardContent } from 'material-ui/Card'
-import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
-import Typography from 'material-ui/Typography'
-import { CircularProgress } from 'material-ui/Progress'
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
+import Card from 'material-ui/Card'
+import { ManufacturerList } from './ManufacturerList'
+import { FormContainer } from './FormContainer'
 import { StyledManufacturers } from './StyledManufacturers'
 
 export class Manufacturers extends Component {
-  state = {
-    manufacturer: '',
-    unsubscribe: null,
-  }
-
-  async componentDidMount() {
+  componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const {
       history,
@@ -45,111 +36,23 @@ export class Manufacturers extends Component {
     removeLefNavComponent()
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  publish = async () => {
-    const { manufacturer } = this.state
-    const { saveManufacturer, userId, setFeedback } = this.props
-
-    if (manufacturer) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        await saveManufacturer(userId, { name: manufacturer })
-        setFeedback({ loading: false })
-        this.setState({ manufacturer: '' })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-        loading: false,
-      })
-    }
-  }
-
-  deletePrompt = deleteItemId => {
-    const { openDialog } = this.props
-
-    this.setState({ deleteItemId })
-
-    openDialog(this.delete)
-  }
-
-  delete = async () => {
-    const { deleteManufacturer, userId } = this.props
-    const { deleteItemId } = this.state
-
-    return deleteManufacturer(userId, deleteItemId)
+  delete = async id => {
+    const { openDialog, deleteManufacturer, userId } = this.props
+    openDialog(() => deleteManufacturer(userId, id))
   }
 
   render() {
-    const { manufacturer } = this.state
-
-    const { manufacturersLoaded, manufacturers, error, loading } = this.props
+    const { manufacturersLoaded, manufacturers } = this.props
 
     return manufacturersLoaded ? (
       <StyledManufacturers className="StyledManufacturers">
         <Card className="card">
-          <List component="nav" disablePadding>
-            {manufacturers.length > 0 ? (
-              manufacturers.map(({ id, name }) => {
-                return (
-                  <ListItem key={id} button>
-                    <ListItemText primary={name} />
-                    <ListItemIcon onClick={() => this.deletePrompt(id)}>
-                      <DeleteIcon />
-                    </ListItemIcon>
-                  </ListItem>
-                )
-              })
-            ) : (
-              <ListItem>
-                <ListItemText
-                  primary={
-                    <Typography component="span" variant="title" align="center">
-                      Try adding an item to get started!
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            )}
-          </List>
-          <CardContent>
-            <TextField
-              fullWidth
-              label="Manufacturer"
-              value={manufacturer}
-              onChange={this.onInputChange('manufacturer')}
-              margin="normal"
-            />
+          <ManufacturerList
+            manufacturers={manufacturers}
+            deletePrompt={this.delete}
+          />
 
-            {error && <p className="error">{error}</p>}
-
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
-
-            {!loading && (
-              <Button
-                fullWidth
-                variant="raised"
-                color="primary"
-                className="submit-button"
-                onClick={this.publish}
-              >
-                Add manufacturer
-              </Button>
-            )}
-          </CardContent>
+          <FormContainer />
         </Card>
       </StyledManufacturers>
     ) : (

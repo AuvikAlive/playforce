@@ -1,9 +1,9 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
-import { cardMedia } from '../../../styledMixins/cardMedia'
-import { datePicker } from '../../../styledMixins/datePicker'
+import { cardMedia, datePicker, withButton } from '../../../styledMixins/'
 
 export const StyledConditionRatingForm = Styled(Content)`
   ${cardMedia};
   ${datePicker};
+  ${withButton};
 `

@@ -7,6 +7,8 @@ import Button from 'material-ui/Button'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import DateRangeIcon from 'material-ui-icons/DateRange'
+import AddBoxIcon from 'material-ui-icons/AddBox'
+import IconButton from 'material-ui/IconButton'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { DatePicker } from 'material-ui-pickers'
 import { defaultManufacturers, conditions } from '../../../globals/constants'
@@ -172,30 +174,36 @@ export class ConditionRatingForm extends Component {
                 onChange={this.onInputChange('assetId')}
               />
 
-              <TextField
-                fullWidth
-                select
-                label="Manufacturer"
-                value={manufacturer}
-                onChange={this.onInputChange('manufacturer')}
-                margin="normal"
-              >
-                {manufacturers.length > 0
-                  ? manufacturers.map(({ name }, index) => {
-                      return (
-                        <MenuItem key={index} value={name}>
-                          {name}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultManufacturers.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
-              </TextField>
+              <div className="with-button">
+                <TextField
+                  fullWidth
+                  select
+                  label="Manufacturer"
+                  value={manufacturer}
+                  onChange={this.onInputChange('manufacturer')}
+                  margin="normal"
+                >
+                  {manufacturers.length > 0
+                    ? manufacturers.map(({ name }, index) => {
+                        return (
+                          <MenuItem key={index} value={name}>
+                            {name}
+                          </MenuItem>
+                        )
+                      })
+                    : defaultManufacturers.map((item, index) => {
+                        return (
+                          <MenuItem key={index} value={item}>
+                            {item}
+                          </MenuItem>
+                        )
+                      })}
+                </TextField>
+
+                <IconButton>
+                  <AddBoxIcon />
+                </IconButton>
+              </div>
 
               <TextField
                 fullWidth

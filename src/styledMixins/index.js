@@ -8,6 +8,7 @@ import { errorLoadingSubmit } from './errorLoadingSubmit'
 import { pulseEffect } from './pulseEffect'
 import { riskAssessment } from './riskAssessment'
 import { setContentAreaHeight } from './setContentAreaHeight'
+import { withButton } from './withButton'
 
 export {
   addIcon,
@@ -20,4 +21,5 @@ export {
   pulseEffect,
   riskAssessment,
   setContentAreaHeight,
+  withButton,
 }
