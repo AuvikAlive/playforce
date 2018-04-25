@@ -14,7 +14,15 @@ const EditComplianceIssue = Loadable({
 AddComplianceIssue.preload()
 EditComplianceIssue.preload()
 
-export const ComplianceIssues = ({ match }) => {
+export const ComplianceIssues = ({
+  inspectionLoaded,
+  inspectionId,
+  fetchInspection,
+  userId,
+  match,
+}) => {
+  !inspectionLoaded && inspectionId && fetchInspection(userId, inspectionId)
+
   return (
     <Switch>
       <Route path={`${match.url}/add`} component={AddComplianceIssue} />

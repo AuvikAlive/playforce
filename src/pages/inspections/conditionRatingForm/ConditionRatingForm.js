@@ -44,7 +44,7 @@ export class ConditionRatingForm extends Component {
     imageNaturalAspectRatio,
   }) {
     !imageCaptured && initialData && this.loadInitialData(initialData)
-    if (imageNaturalAspectRatio) {
+    if (imageCaptured) {
       const { setFeedback } = this.props
 
       imageNaturalAspectRatio <= 1

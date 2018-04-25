@@ -28,20 +28,22 @@ export class Sketch extends Component {
   componentDidMount() {
     const { images } = this.props
 
-    images && this.setState({ images, imagesLength: images.length })
+    if (images && images.length > 0) {
+      const { width } = document
+        .querySelector('.StyledSketch')
+        .getBoundingClientRect()
 
-    const { width } = document
-      .querySelector('.StyledSketch')
-      .getBoundingClientRect()
-
-    this.setState({ width })
+      this.setState({ width, images, imagesLength: images.length })
+    }
   }
 
   onSlideChange = (current, next) => {
     if (next !== current) {
-      const { currentSlide } = this.state
+      const { currentSlide, tool, color } = this.state
 
       this.carouselParent[`sketchParent${currentSlide}`].clear()
+      this.carouselParent[`sketchParent${next}`].setTool(tool)
+      this.carouselParent[`sketchParent${next}`].setLineColor(color.hex)
       this.setState({ currentSlide: next })
     }
   }
@@ -64,6 +66,13 @@ export class Sketch extends Component {
     this.carouselParent[`sketchParent${currentSlide}`].setTool(tool)
   }
 
+  onColorChange = color => {
+    const { currentSlide } = this.state
+
+    this.carouselParent[`sketchParent${currentSlide}`].setLineColor(color.hex)
+    this.setState({ color })
+  }
+
   onSave = () => {
     const { currentSlide, images } = this.state
     const image = this.carouselParent[
@@ -75,7 +84,7 @@ export class Sketch extends Component {
     this.setState({ images })
   }
 
-  onSubmit = () => {
+  submit = () => {
     const { onSubmit } = this.props
     const { images } = this.state
 
@@ -83,7 +92,7 @@ export class Sketch extends Component {
   }
 
   render() {
-    const { images, currentSlide, tool, width } = this.state
+    const { images, currentSlide, tool, width, color } = this.state
     const { aspectRatio } = this.props
     const settings = {
       infinite: false,
@@ -153,11 +162,8 @@ export class Sketch extends Component {
 
           <div className="sketch-actions color-picker">
             <CompactPicker
-              onChangeComplete={color =>
-                this.carouselParent[`sketchParent${currentSlide}`].setLineColor(
-                  color.hex
-                )
-              }
+              color={color}
+              onChangeComplete={color => this.onColorChange(color)}
             />
           </div>
 
@@ -166,7 +172,7 @@ export class Sketch extends Component {
             variant="raised"
             color="primary"
             className="submit-button"
-            onClick={this.onSubmit}
+            onClick={this.submit}
           >
             save changes
           </Button>

@@ -1,3 +1,3 @@
-import { ComplianceIssues } from './ComplianceIssues'
+import { ComplianceIssuesContainer } from './ComplianceIssuesContainer'
 
-export default ComplianceIssues
+export default ComplianceIssuesContainer
