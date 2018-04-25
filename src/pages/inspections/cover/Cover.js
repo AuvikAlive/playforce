@@ -170,7 +170,9 @@ export class Cover extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ width: 764, height: 432 })}
+              onClick={() =>
+                captureImage({ width: 500, height: 500 * 432 / 764 })
+              }
             >
               Capture Image
               <StayCurrentLandscapeIcon className="button-icon" />
