@@ -53,12 +53,10 @@ export class Form extends Component {
 
   componentWillReceiveProps({ imageCaptured, images }) {
     if (imageCaptured) {
-      const { setFeedback, loadImages } = this.props
+      const { setFeedback } = this.props
       const notPortrait = images.some(
         ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
       )
-
-      loadImages(images)
 
       if (images.length > 4 && notPortrait) {
         setFeedback({
@@ -88,24 +86,13 @@ export class Form extends Component {
 
   onFindingChange = event => {
     const commonIssueIndex = event.target.value
-    const {
-      finding,
-      standardsClause,
-      probability,
-      severity,
-      comments,
-      recommendations,
-    } = this.props.commonIssues[commonIssueIndex]
 
-    this.setState({
-      finding,
-      commonIssueIndex,
-      standardsClause,
-      probability,
-      severity,
-      comments,
-      recommendations,
-    })
+    if (commonIssueIndex !== undefined) {
+      const { commonIssues } = this.props
+      const commonIssue = commonIssues[commonIssueIndex]
+
+      this.setState({ commonIssueIndex, ...commonIssue })
+    }
   }
 
   onInputChange = name => event => {
