@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Cover } from './Cover'
 import {
   fetchInspection,
   addInspectionCover,
@@ -12,6 +11,7 @@ import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clie
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
+import { Cover } from './Cover'
 
 const mapStateToProps = (
   {

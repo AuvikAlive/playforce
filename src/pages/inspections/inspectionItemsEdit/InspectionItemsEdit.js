@@ -236,7 +236,7 @@ export class InspectionItemsEdit extends Component {
       }
     }
 
-    return inspection && inspection.inspectionLoaded && standardsLoaded ? (
+    return inspection && inspection.inspectionLoaded ? (
       <div>
         <InspectionItemsList
           {...added}
@@ -266,7 +266,9 @@ export class InspectionItemsEdit extends Component {
           open={Boolean(menuAnchor)}
           onClose={this.closeMenu}
         >
-          <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
+          {standardsLoaded && (
+            <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
+          )}
         </Menu>
         {this.state.src && (
           <div>

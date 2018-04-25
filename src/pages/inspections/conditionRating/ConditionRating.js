@@ -14,7 +14,15 @@ const EditConditionRating = Loadable({
 AddConditionRating.preload()
 EditConditionRating.preload()
 
-export const ConditionRating = ({ match }) => {
+export const ConditionRating = ({
+  inspectionLoaded,
+  inspectionId,
+  fetchInspection,
+  userId,
+  match,
+}) => {
+  !inspectionLoaded && inspectionId && fetchInspection(userId, inspectionId)
+
   return (
     <Switch>
       <Route path={`${match.url}/add`} component={AddConditionRating} />

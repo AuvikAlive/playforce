@@ -1,3 +1,3 @@
-import { ConditionRating } from './ConditionRating'
+import { ConditionRatingContainer } from './ConditionRatingContainer'
 
-export default ConditionRating
+export default ConditionRatingContainer

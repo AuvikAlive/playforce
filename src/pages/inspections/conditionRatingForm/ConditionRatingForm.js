@@ -38,7 +38,12 @@ export class ConditionRatingForm extends Component {
     initialData && this.loadInitialData(initialData)
   }
 
-  componentWillReceiveProps({ imageNaturalAspectRatio }) {
+  componentWillReceiveProps({
+    imageCaptured,
+    initialData,
+    imageNaturalAspectRatio,
+  }) {
+    !imageCaptured && initialData && this.loadInitialData(initialData)
     if (imageNaturalAspectRatio) {
       const { setFeedback } = this.props
 
