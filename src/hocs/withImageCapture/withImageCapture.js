@@ -47,7 +47,7 @@ export const withImageCapture = WrappedComponent => {
               imageNaturalAspectRatio,
             })
           },
-          false,
+          false
         )
       })
     }
@@ -63,6 +63,7 @@ export const withImageCapture = WrappedComponent => {
 
       const dataUrl = await downscale(image, width, height, {
         imageType: file.type,
+        quality: 0.5,
       })
 
       return { image: dataUrl, imageNaturalAspectRatio }
@@ -74,7 +75,7 @@ export const withImageCapture = WrappedComponent => {
 
       if (multiple && fileList.length > 0) {
         const images = Array.from(fileList).map(
-          async file => await this.getImage(file),
+          async file => await this.getImage(file)
         )
 
         Promise.all(images).then(values => {
@@ -129,7 +130,7 @@ export const withImageCapture = WrappedComponent => {
   }
 
   WithImageCapture.displayName = `WithImageCapture(${getDisplayName(
-    WrappedComponent,
+    WrappedComponent
   )})`
 
   return WithImageCapture

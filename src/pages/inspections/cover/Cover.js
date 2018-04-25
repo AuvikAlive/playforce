@@ -63,8 +63,8 @@ export class Cover extends Component {
     removeLefNavComponent()
   }
 
-  componentWillReceiveProps({ cover, imageNaturalAspectRatio }) {
-    !isEmpty(cover) && this.loadInitialData(cover)
+  componentWillReceiveProps({ imageCaptured, cover, imageNaturalAspectRatio }) {
+    !imageCaptured && !isEmpty(cover) && this.loadInitialData(cover)
 
     if (imageNaturalAspectRatio) {
       const { setFeedback } = this.props
