@@ -28,7 +28,9 @@ export class Form extends Component {
     removeRightNav && removeRightNav()
   }
 
-  componentWillReceiveProps({ imageCaptured, images }) {
+  componentWillReceiveProps({ imageCaptured, initialData, images }) {
+    !imageCaptured && initialData && this.loadInitialData(initialData)
+
     if (imageCaptured) {
       const { setFeedback, loadImages } = this.props
       const notPortrait = images.some(
