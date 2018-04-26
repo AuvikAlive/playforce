@@ -33,7 +33,7 @@ export class AuditSummary extends Component {
       </IconButton>
     )
 
-    !inspectionLoaded && fetchInspection(userId, inspectionId)
+    !inspectionLoaded && inspectionId && fetchInspection(userId, inspectionId)
     this.loadInitialData(auditSummary)
   }
 
