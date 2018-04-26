@@ -1,3 +1,4 @@
-import { addInspection } from './AddInspection'
+import { addInspection } from './addInspection'
+import { fetchInspection } from './fetchInspection'
 
-export { addInspection }
+export { addInspection, fetchInspection }

@@ -12,8 +12,8 @@ import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
-import { AddSiteContainer } from '../../inspections/addSite/AddSiteContainer'
-import { ClientsContainer } from '../../inspections/clients/ClientsContainer'
+import { AddSiteContainer } from '../addSite/AddSiteContainer'
+import { ClientsContainer } from '../clients/ClientsContainer'
 import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {
