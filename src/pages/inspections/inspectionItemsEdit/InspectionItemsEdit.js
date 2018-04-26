@@ -112,6 +112,7 @@ export class InspectionItemsEdit extends Component {
       userId,
       inspectionId,
       saveInspection,
+      fetchInspection,
       // discardInspection,
     } = this.props
 
@@ -122,6 +123,7 @@ export class InspectionItemsEdit extends Component {
 
       try {
         await saveInspection({ inspection, userId, inspectionId })
+        await fetchInspection(userId, inspectionId)
         // discardInspection()
         setFeedback({ success: 'Inspection updated!', loading: false })
         // history.goBack()

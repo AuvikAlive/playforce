@@ -74,8 +74,10 @@ export const saveInspection = ({
     const coditionRatingsRef = inspectionRef.collection('conditionRatings')
 
     deletedConditionRatings.forEach(item => {
-      const ref = coditionRatingsRef.doc(item.id)
-      batch.delete(ref)
+      if (item.id) {
+        const ref = coditionRatingsRef.doc(item.id)
+        batch.delete(ref)
+      }
     })
   }
 
@@ -94,15 +96,17 @@ export const saveInspection = ({
     const complianceIssuesRef = inspectionRef.collection('complianceIssues')
 
     deletedComplianceIssues.forEach(item => {
-      const ref = complianceIssuesRef.doc(item.id)
-      batch.delete(ref)
+      if (item.id) {
+        const ref = complianceIssuesRef.doc(item.id)
+        batch.delete(ref)
+      }
     })
   }
 
   if (complianceIssuesAdded) {
     const complianceIssuesRef = inspectionRef.collection('complianceIssues')
 
-    complianceIssues.forEach(async item => {
+    complianceIssues.forEach(item => {
       const ref = item.id
         ? complianceIssuesRef.doc(item.id)
         : complianceIssuesRef.doc()
@@ -114,8 +118,10 @@ export const saveInspection = ({
     const maintenanceIssuesRef = inspectionRef.collection('maintenanceIssues')
 
     deletedMaintenanceIssues.forEach(item => {
-      const ref = maintenanceIssuesRef.doc(item.id)
-      batch.delete(ref)
+      if (item.id) {
+        const ref = maintenanceIssuesRef.doc(item.id)
+        batch.delete(ref)
+      }
     })
   }
 

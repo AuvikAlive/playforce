@@ -55,10 +55,12 @@ export class Form extends Component {
     !imageCaptured && initialData && this.loadInitialData(initialData)
 
     if (imageCaptured) {
-      const { setFeedback } = this.props
+      const { setFeedback, loadImages } = this.props
       const notPortrait = images.some(
         ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
       )
+
+      loadImages(images)
 
       if (images.length > 4 && notPortrait) {
         setFeedback({

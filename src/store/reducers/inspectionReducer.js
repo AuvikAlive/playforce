@@ -1,6 +1,4 @@
 import {
-  SAVE_INSPECTION_DRAFT,
-  LOAD_INSPECTION_DRAFT,
   LOAD_INSPECTION,
   DISCARD_INSPECTION,
   ADD_INSPECTION_COVER,
@@ -19,8 +17,6 @@ import {
 
 export const initialState = {
   inspectionLoaded: false,
-  draftInspectionLoaded: false,
-  draftBackup: null,
   equipments: [],
   cover: {},
   coverAdded: false,
@@ -39,35 +35,6 @@ export const initialState = {
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case SAVE_INSPECTION_DRAFT: {
-      const {
-        coverAdded,
-        auditSummaryAdded,
-        conditionRatingsAdded,
-        complianceIssuesAdded,
-        maintenanceIssuesAdded,
-      } = state
-
-      const draftBackup =
-        coverAdded ||
-        auditSummaryAdded ||
-        conditionRatingsAdded ||
-        complianceIssuesAdded ||
-        maintenanceIssuesAdded
-          ? state
-          : null
-
-      return { ...initialState, draftBackup }
-    }
-
-    case LOAD_INSPECTION_DRAFT:
-      return {
-        ...initialState,
-        ...state.draftBackup,
-        draftInspectionLoaded: true,
-        inspectionLoaded: false,
-      }
-
     case LOAD_INSPECTION:
       return {
         ...state,

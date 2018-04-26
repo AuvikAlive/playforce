@@ -23,6 +23,9 @@ export class Sketch extends Component {
     currentSlide: 0,
     tool: tools[0],
     width: 600,
+    color: {
+      hex: '#000',
+    },
   }
 
   componentDidMount() {

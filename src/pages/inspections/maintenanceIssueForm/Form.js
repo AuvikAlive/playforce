@@ -81,7 +81,12 @@ export class Form extends Component {
 
     if (images.length > 0 && finding && equipment && recommendations) {
       setFeedback({ error: '' })
-      onSubmit({ images, finding, equipment, recommendations })
+      onSubmit({
+        images: images.slice(0, 4),
+        finding,
+        equipment,
+        recommendations,
+      })
     } else {
       setFeedback({
         error: 'Please fill up the form correctly!',
