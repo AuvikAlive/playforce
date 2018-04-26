@@ -4,7 +4,7 @@ import Loadable from '../../components/loadable/LoadableLinear'
 import InspectionList from './inspectionList'
 
 const AddInspection = Loadable({
-  loader: () => import('./addInspection'),
+  loader: () => import('../newInspection/addInspection'),
 })
 const EditInspection = Loadable({
   loader: () => import('./editInspection'),
