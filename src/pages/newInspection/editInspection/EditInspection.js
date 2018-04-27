@@ -35,18 +35,25 @@ export class EditInspection extends Component {
       userId,
       inspectionId,
       fetchInspectionRealTime,
+      fetchConditionRatingsRealTime,
+      fetchComplianceIssuesRealTime,
       fetchMaintenanceIssuesRealTime,
     } = this.props
-    const { inspectionLoaded, maintenanceIssuesLoaded } = inspection
+    const {
+      inspectionLoaded,
+      conditionRatingsLoaded,
+      complianceIssuesLoaded,
+      maintenanceIssuesLoaded,
+    } = inspection
 
     !standardsLoaded && fetchStandards(userId)
     !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
+    !conditionRatingsLoaded &&
+      fetchConditionRatingsRealTime(userId, inspectionId)
+    !complianceIssuesLoaded &&
+      fetchComplianceIssuesRealTime(userId, inspectionId)
     !maintenanceIssuesLoaded &&
       fetchMaintenanceIssuesRealTime(userId, inspectionId)
-    // if (id !== inspectionId) {
-
-    // }
-    // inspection.inspectionLoaded && this.renderPdf(inspection)
 
     setNavTitle('Edit Inspection')
 
@@ -229,7 +236,9 @@ export class EditInspection extends Component {
       conditionRatingsAdded,
       maintenanceIssuesAdded,
       inspectionLoaded,
+      conditionRatingsLoaded,
       maintenanceIssuesLoaded,
+      complianceIssuesLoaded,
     } = inspection
 
     const added = {
@@ -241,7 +250,10 @@ export class EditInspection extends Component {
 
     // console.log(inspectionLoaded, maintenanceIssuesLoaded)
 
-    return inspectionLoaded && maintenanceIssuesLoaded ? (
+    return inspectionLoaded &&
+      conditionRatingsLoaded &&
+      complianceIssuesLoaded &&
+      maintenanceIssuesLoaded ? (
       <div>
         <InspectionItems
           {...added}

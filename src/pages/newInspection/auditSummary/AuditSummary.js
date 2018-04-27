@@ -47,7 +47,10 @@ export class AuditSummary extends Component {
   }
 
   componentWillReceiveProps({ inspectionLoaded, auditSummary, cover }) {
-    inspectionLoaded && this.loadInitialData(auditSummary, cover)
+    inspectionLoaded &&
+      auditSummary !== this.props.auditSummary &&
+      cover !== this.props.cover &&
+      this.loadInitialData(auditSummary, cover)
   }
 
   loadInitialData = (auditSummary, cover) => {

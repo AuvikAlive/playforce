@@ -17,16 +17,14 @@ EditMaintenanceIssue.preload()
 
 export const MaintenanceIssueRoutes = ({
   inspectionLoaded,
+  userId,
   inspectionId,
   fetchInspectionRealTime,
-  userId,
   maintenanceIssuesLoaded,
   fetchMaintenanceIssuesRealTime,
   match,
 }) => {
-  !inspectionLoaded &&
-    inspectionId &&
-    fetchInspectionRealTime(userId, inspectionId)
+  !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
   !maintenanceIssuesLoaded &&
     fetchMaintenanceIssuesRealTime(userId, inspectionId)
 

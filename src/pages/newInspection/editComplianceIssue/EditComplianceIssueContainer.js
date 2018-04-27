@@ -3,30 +3,30 @@ import { compose } from 'redux'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
-  saveMaintenanceIssue,
-  deleteMaintenanceIssue,
+  saveComplianceIssue,
+  deleteComplianceIssue,
 } from '../../../store/actions/actionCreators/newInspectionActions/'
-import { EditMaintenanceIssue } from './EditMaintenanceIssue'
+import { EditComplianceIssue } from './EditComplianceIssue'
 
 const mapStateToProps = (
   {
     firebase: {
       auth: { uid },
     },
-    inspection: { id, maintenanceIssues },
+    inspection: { id, complianceIssues },
   },
   { match }
 ) => ({
   userId: uid,
   inspectionId: id,
-  maintenanceIssueId: match.params.id,
-  maintenanceIssue: maintenanceIssues.find(item => item.id === match.params.id),
+  complianceIssueId: match.params.id,
+  complianceIssue: complianceIssues.find(item => item.id === match.params.id),
 })
 
-const mapDispatchToProps = { saveMaintenanceIssue, deleteMaintenanceIssue }
+const mapDispatchToProps = { saveComplianceIssue, deleteComplianceIssue }
 
-export const EditMaintenanceIssueContainer = compose(
+export const EditComplianceIssueContainer = compose(
   withFeedback,
   withDeleteModal,
   connect(mapStateToProps, mapDispatchToProps)
-)(EditMaintenanceIssue)
+)(EditComplianceIssue)

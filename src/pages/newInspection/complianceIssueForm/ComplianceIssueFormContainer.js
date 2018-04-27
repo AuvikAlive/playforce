@@ -1,43 +1,37 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
-import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions/'
-import {
-  saveEquipment,
-  fetchEquipmentsRealTime,
-} from '../../../store/actions/actionCreators/equipmentActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
-import { ConditionRatingForm } from './ConditionRatingForm'
+import { fetchCommonIssuesRealTime } from '../../../store/actions/actionCreators/commonIssueActions'
+import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions/'
+import { ComplianceIssueForm } from './ComplianceIssueForm'
 
 const mapStateToProps = ({
   firebase: {
     auth: { uid },
   },
-  manufacturer: { manufacturersLoaded, manufacturers },
   inspection: { cover },
   equipments: { equipmentsSite, equipmentsLoaded, equipments },
+  commonIssue: { commonIssuesLoaded, commonIssues },
 }) => ({
   userId: uid,
   siteId: cover.location.id,
-  manufacturersLoaded,
-  manufacturers,
+  commonIssuesLoaded,
+  commonIssues,
   equipmentsSite,
   equipmentsLoaded,
   equipments,
 })
 
 const mapDispatchToProps = {
-  saveEquipment,
+  fetchCommonIssuesRealTime,
   fetchEquipmentsRealTime,
-  fetchManufacturersRealTime,
 }
 
-export const ConditionRatingFormContainer = compose(
+export const ComplianceIssueFormContainer = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
-)(ConditionRatingForm)
+)(ComplianceIssueForm)

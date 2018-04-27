@@ -12,9 +12,9 @@ const AuditSummary = Loadable({
 const ConditionRatingRoutes = Loadable({
   loader: () => import('../conditionRatingRoutes'),
 })
-// const ComplianceIssues = Loadable({
-//   loader: () => import('../complianceIssues'),
-// })
+const ComplianceIssueRoutes = Loadable({
+  loader: () => import('../complianceIssueRoutes'),
+})
 const MaintenanceIssueRoutes = Loadable({
   loader: () => import('../maintenanceIssueRoutes'),
 })
@@ -22,7 +22,7 @@ const MaintenanceIssueRoutes = Loadable({
 EditCover.preload()
 AuditSummary.preload()
 ConditionRatingRoutes.preload()
-// ComplianceIssues.preload()
+ComplianceIssueRoutes.preload()
 MaintenanceIssueRoutes.preload()
 
 export const EditInspectionRoutes = ({ match }) => {
@@ -34,10 +34,10 @@ export const EditInspectionRoutes = ({ match }) => {
         path={`${match.url}/:id/conditionRating`}
         component={ConditionRatingRoutes}
       />
-      {/* <Route
+      <Route
         path={`${match.url}/:id/complianceIssues`}
-        component={ComplianceIssues}
-      /> */}
+        component={ComplianceIssueRoutes}
+      />
       <Route
         path={`${match.url}/:id/maintenanceIssues`}
         component={MaintenanceIssueRoutes}

@@ -8,6 +8,10 @@ import { addConditionRating } from './addConditionRating'
 import { saveConditionRating } from './saveConditionRating'
 import { deleteConditionRating } from './deleteConditionRating'
 import { fetchConditionRatingsRealTime } from './fetchConditionRatingsRealTime'
+import { addComplianceIssue } from './addComplianceIssue'
+import { saveComplianceIssue } from './saveComplianceIssue'
+import { deleteComplianceIssue } from './deleteComplianceIssue'
+import { fetchComplianceIssuesRealTime } from './fetchComplianceIssuesRealTime'
 import { addMaintenanceIssue } from './addMaintenanceIssue'
 import { saveMaintenanceIssue } from './saveMaintenanceIssue'
 import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
@@ -25,6 +29,10 @@ export {
   saveConditionRating,
   deleteConditionRating,
   fetchConditionRatingsRealTime,
+  addComplianceIssue,
+  saveComplianceIssue,
+  deleteComplianceIssue,
+  fetchComplianceIssuesRealTime,
   addMaintenanceIssue,
   saveMaintenanceIssue,
   deleteMaintenanceIssue,

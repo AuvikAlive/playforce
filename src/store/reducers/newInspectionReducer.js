@@ -3,6 +3,8 @@ import {
   FETCH_INSPECTION_COMPLETED,
   FETCH_CONDITION_RATINGS,
   FETCH_CONDITION_RATINGS_COMPLETED,
+  FETCH_COMPLIANCE_ISSUES,
+  FETCH_COMPLIANCE_ISSUES_COMPLETED,
   FETCH_MAINTENANCE_ISSUES,
   FETCH_MAINTENANCE_ISSUES_COMPLETED,
   DISCARD_INSPECTION,
@@ -18,6 +20,7 @@ export const initialState = {
   conditionRatingsLoaded: false,
   conditionRatings: [],
   conditionRatingsAdded: false,
+  complianceIssuesLoaded: false,
   complianceIssues: [],
   complianceIssuesAdded: false,
   maintenanceIssuesLoaded: false,
@@ -42,6 +45,17 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         conditionRatingsLoaded: true,
         conditionRatings: payload,
         conditionRatingsAdded: payload.length > 0,
+      }
+
+    case FETCH_COMPLIANCE_ISSUES:
+      return { ...state, complianceIssuesLoaded: false }
+
+    case FETCH_COMPLIANCE_ISSUES_COMPLETED:
+      return {
+        ...state,
+        complianceIssuesLoaded: true,
+        complianceIssues: payload,
+        complianceIssuesAdded: payload.length > 0,
       }
 
     case FETCH_MAINTENANCE_ISSUES:

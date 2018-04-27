@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { addMaintenanceIssue } from '../../../store/actions/actionCreators/newInspectionActions/'
-import { AddMaintenanceIssue } from './AddMaintenanceIssue'
+import { AddComplianceIssue } from './AddComplianceIssue'
+import { addComplianceIssue } from '../../../store/actions/actionCreators/newInspectionActions/'
 
 const mapStateToProps = ({
   firebase: {
@@ -14,9 +14,9 @@ const mapStateToProps = ({
   inspectionId: id,
 })
 
-const mapDispatchToProps = { addMaintenanceIssue }
+const mapDispatchToProps = { addComplianceIssue }
 
-export const AddMaintenanceIssueContainer = compose(
+export const AddComplianceIssueContainer = compose(
   withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
-)(AddMaintenanceIssue)
+)(AddComplianceIssue)

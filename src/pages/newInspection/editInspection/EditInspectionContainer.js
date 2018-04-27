@@ -5,10 +5,11 @@ import {
   fetchInspectionRealTime,
   deleteInspection,
   discardInspection,
+  fetchConditionRatingsRealTime,
+  fetchComplianceIssuesRealTime,
   fetchMaintenanceIssuesRealTime,
 } from '../../../store/actions/actionCreators/newInspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
-import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
@@ -23,7 +24,6 @@ const mapStateToProps = (
     },
     inspection,
     standard: { standardsLoaded, standards },
-    equipments: { equipmentsSite, equipments },
   },
   {
     match: {
@@ -37,17 +37,16 @@ const mapStateToProps = (
   displayName,
   standardsLoaded,
   standards,
-  equipmentsSite,
-  equipments,
 })
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
+  fetchConditionRatingsRealTime,
+  fetchComplianceIssuesRealTime,
   fetchMaintenanceIssuesRealTime,
   fetchStandards,
   deleteInspection,
   discardInspection,
-  fetchEquipmentsRealTime,
 }
 
 export const EditInspectionContainer = compose(

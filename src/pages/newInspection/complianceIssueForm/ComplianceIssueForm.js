@@ -2,34 +2,51 @@ import React, { Component } from 'react'
 import { LinearProgress } from 'material-ui/Progress'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
+import { MenuItem } from 'material-ui/Menu'
+import { InputLabel } from 'material-ui/Input'
+import Grid from 'material-ui/Grid'
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import BrushIcon from 'material-ui-icons/Brush'
+import StayCurrentPortraitIcon from 'material-ui-icons/StayCurrentPortrait'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
-import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
+import {
+  probabilities,
+  severities,
+  riskLevels,
+} from '../../../globals/constants'
+import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 
-export class MaintenanceIssueForm extends Component {
+export class ComplianceIssueForm extends Component {
   state = {
+    commonIssues: [],
+    commonIssueIndex: '',
     finding: '',
     equipment: '',
+    standardsClause: '',
+    probability: '',
+    severity: '',
+    comments: '',
     recommendations: '',
-    images: [],
+    imageEditMode: false,
   }
 
   componentDidMount() {
     const {
       setRightNav,
-      initialData,
+      commonIssuesLoaded,
+      fetchCommonIssuesRealTime,
+      userId,
       equipmentsSite,
       siteId,
       fetchEquipmentsRealTime,
-      userId,
+      initialData,
     } = this.props
 
     setRightNav && setRightNav()
+    !commonIssuesLoaded && fetchCommonIssuesRealTime(userId)
     equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
     initialData && this.loadInitialData(initialData)
   }
@@ -43,15 +60,12 @@ export class MaintenanceIssueForm extends Component {
     if (initialData && initialData !== this.props.initialData) {
       this.loadInitialData(initialData)
     }
-
     if (imageCaptured && images !== this.props.images) {
       const { setFeedback } = this.props
       const notPortrait = images.some(
         ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
       )
-
       this.loadImages(images)
-
       if (images.length > 4 && notPortrait) {
         setFeedback({
           error: 'Please upload no more than 4 portrait image(s)!',
@@ -72,6 +86,17 @@ export class MaintenanceIssueForm extends Component {
     this.setState({
       ...data,
     })
+  }
+
+  onFindingChange = event => {
+    const commonIssueIndex = event.target.value
+
+    if (commonIssueIndex !== undefined) {
+      const { commonIssues } = this.props
+      const commonIssue = commonIssues[commonIssueIndex]
+
+      this.setState({ commonIssueIndex, ...commonIssue })
+    }
   }
 
   onInputChange = name => event => {
@@ -96,19 +121,42 @@ export class MaintenanceIssueForm extends Component {
   }
 
   submit = async () => {
+    const {
+      images,
+      finding,
+      equipment,
+      standardsClause,
+      probability,
+      severity,
+      comments,
+      recommendations,
+    } = this.state
+
     const { onSubmit, setFeedback } = this.props
-    const { images, finding, equipment, recommendations } = this.state
 
-    if (images.length > 0 && finding && equipment && recommendations) {
+    if (
+      images.length > 0 &&
+      finding &&
+      equipment &&
+      standardsClause &&
+      probability &&
+      severity &&
+      comments &&
+      recommendations
+    ) {
       setFeedback({ error: '', loading: true })
-
+      const dataToSave = {
+        finding,
+        equipment,
+        standardsClause,
+        probability,
+        severity,
+        comments,
+        recommendations,
+        images: images.slice(0, 4),
+      }
       try {
-        await onSubmit({
-          images: images.slice(0, 4),
-          finding,
-          equipment,
-          recommendations,
-        })
+        await onSubmit(dataToSave)
         setFeedback({ loading: false })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
@@ -122,33 +170,49 @@ export class MaintenanceIssueForm extends Component {
 
   render() {
     const {
+      commonIssuesLoaded,
+      equipmentsLoaded,
+      commonIssues,
       captureImage,
       equipments,
+      openDialog,
+      buttonText,
       error,
       loading,
-      buttonText,
-      openDialog,
-      equipmentsLoaded,
     } = this.props
-    const { images, finding, equipment, recommendations } = this.state
+
+    const {
+      images,
+      commonIssueIndex,
+      finding,
+      equipment,
+      standardsClause,
+      probability,
+      severity,
+      comments,
+      recommendations,
+    } = this.state
+
+    const riskLevel =
+      probability && severity ? riskLevels[probability - 1][severity - 1] : ''
+
     const imagesCopy =
       images &&
       images.map(({ image, imageNaturalAspectRatio }) =>
         Object.assign({}, { image, imageNaturalAspectRatio })
       )
 
-    return equipmentsLoaded ? (
-      <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
+    return commonIssuesLoaded && equipmentsLoaded ? (
+      <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card>
           {images &&
             images.length === 1 && (
               <img src={images[0].image} alt="equipment type" />
             )}
           {images && images.length > 1 && <Carousel images={images} />}
-
           <CardContent className="card-content">
-            {imagesCopy &&
-              imagesCopy.length > 0 && (
+            {images &&
+              images.length > 0 && (
                 <Button
                   variant="fab"
                   color="primary"
@@ -167,7 +231,6 @@ export class MaintenanceIssueForm extends Component {
                   <BrushIcon />
                 </Button>
               )}
-
             <Button
               fullWidth
               variant="raised"
@@ -178,7 +241,7 @@ export class MaintenanceIssueForm extends Component {
               }
             >
               Capture Image(s)
-              <StayCurrentLandscapeIcon className="button-icon" />
+              <StayCurrentPortraitIcon className="button-icon" />
             </Button>
 
             <form noValidate>
@@ -192,11 +255,95 @@ export class MaintenanceIssueForm extends Component {
 
               <TextField
                 fullWidth
+                select
+                label="Select a common issue"
+                value={commonIssueIndex}
+                onChange={this.onFindingChange}
+                margin="normal"
+              >
+                {commonIssues.length > 0 ? (
+                  commonIssues.map(({ finding }, index) => (
+                    <MenuItem key={index} value={index}>
+                      {finding}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem value={''}>No common issue added</MenuItem>
+                )}
+              </TextField>
+
+              <TextField
+                fullWidth
                 multiline
                 label="Finding"
                 value={finding}
                 margin="normal"
                 onChange={this.onInputChange('finding')}
+              />
+
+              <TextField
+                fullWidth
+                label="Standards Clause"
+                value={standardsClause}
+                onChange={this.onInputChange('standardsClause')}
+                margin="normal"
+              />
+
+              <Grid container>
+                <Grid item xs={12}>
+                  <InputLabel className="risk-assessment">
+                    Risk Assessment
+                  </InputLabel>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    fullWidth
+                    select
+                    label="Probability"
+                    value={probability}
+                    onChange={this.onInputChange('probability')}
+                    margin="normal"
+                  >
+                    {probabilities.map(({ probability, value }, index) => (
+                      <MenuItem key={index} value={value}>
+                        {probability}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    fullWidth
+                    select
+                    label="Injury Severity"
+                    value={severity}
+                    onChange={this.onInputChange('severity')}
+                    margin="normal"
+                  >
+                    {severities.map(({ serverity, value }, index) => (
+                      <MenuItem key={index} value={value}>
+                        {serverity}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    disabled
+                    label="Risk Level"
+                    value={riskLevel}
+                    margin="normal"
+                  />
+                </Grid>
+              </Grid>
+
+              <TextField
+                fullWidth
+                multiline
+                label="Comments"
+                value={comments}
+                margin="normal"
+                onChange={this.onInputChange('comments')}
               />
 
               <TextField
@@ -231,7 +378,7 @@ export class MaintenanceIssueForm extends Component {
             )}
           </CardContent>
         </Card>
-      </StyledMaintenanceIssueForm>
+      </StyledComplianceIssueForm>
     ) : (
       <LinearProgress />
     )
