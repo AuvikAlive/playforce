@@ -15,7 +15,7 @@ const EditMaintenanceIssue = Loadable({
 AddMaintenanceIssue.preload()
 EditMaintenanceIssue.preload()
 
-export const MaintenanceIssues = ({
+export const MaintenanceIssuesRoutes = ({
   inspectionLoaded,
   inspectionId,
   fetchInspectionRealTime,

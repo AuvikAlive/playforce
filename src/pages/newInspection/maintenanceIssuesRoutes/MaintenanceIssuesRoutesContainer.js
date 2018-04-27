@@ -4,7 +4,7 @@ import {
   fetchInspectionRealTime,
   fetchMaintenanceIssuesRealTime,
 } from '../../../store/actions/actionCreators/newInspectionActions/'
-import { MaintenanceIssues } from './MaintenanceIssues'
+import { MaintenanceIssuesRoutes } from './MaintenanceIssuesRoutes'
 
 const mapStateToProps = (
   {
@@ -30,6 +30,6 @@ const mapDispatchToProps = {
   fetchMaintenanceIssuesRealTime,
 }
 
-export const MaintenanceIssuesContainer = compose(
+export const MaintenanceIssuesRoutesContainer = compose(
   connect(mapStateToProps, mapDispatchToProps)
-)(MaintenanceIssues)
+)(MaintenanceIssuesRoutes)
