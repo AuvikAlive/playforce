@@ -1,4 +1,4 @@
-export const addMaintenanceIssue = (userId, inspectionId, data) => async (
+export const deleteMaintenanceIssue = (userId, inspectionId, id) => async (
   dispatch,
   getState,
   getFirebase
@@ -11,9 +11,7 @@ export const addMaintenanceIssue = (userId, inspectionId, data) => async (
     .collection('inspections')
     .doc(inspectionId)
     .collection('maintenanceIssues')
-    .doc()
+    .doc(id)
 
-  await ref.set(data)
-
-  return ref.id
+  return ref.delete()
 }

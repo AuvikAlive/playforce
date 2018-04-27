@@ -1,10 +1,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withRouter } from 'react-router-dom'
-import { withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
-import { Form } from './Form'
+import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
+import { MaintenanceIssueForm } from './MaintenanceIssueForm'
 
 const mapStateToProps = ({
   firestore: {
@@ -19,10 +18,9 @@ const mapStateToProps = ({
   equipments,
 })
 
-export const FormContainer = compose(
+export const MaintenanceIssueFormContainer = compose(
+  withFullscreenDialog,
   withImageCapture,
   withFeedback,
-  withFirestore,
-  withRouter,
   connect(mapStateToProps)
-)(Form)
+)(MaintenanceIssueForm)

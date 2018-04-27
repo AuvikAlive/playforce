@@ -32,10 +32,13 @@ export class EditInspection extends Component {
       standardsLoaded,
       fetchStandards,
       userId,
+      inspectionId,
     } = this.props
 
     !standardsLoaded && fetchStandards(userId)
-    !inspection.inspectionLoaded && this.loadInitialData()
+    inspection.id !== inspectionId &&
+      !inspection.inspectionLoaded &&
+      this.loadInitialData()
     // inspection.inspectionLoaded && this.renderPdf(inspection)
 
     setNavTitle('Edit Inspection')

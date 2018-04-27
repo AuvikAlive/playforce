@@ -10,6 +10,8 @@ import RedoIcon from 'material-ui-icons/Redo'
 import { CompactPicker } from 'react-color'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
+import NavBar from '../navBar/'
+import { StyledMainContent } from '../shell/StyledMainContent'
 import { Carousel } from '../carousel/Carousel'
 import { SketchPad } from './SketchPad'
 import { StyledSketch } from './StyledSketch'
@@ -96,7 +98,7 @@ export class Sketch extends Component {
 
   render() {
     const { images, currentSlide, tool, width, color } = this.state
-    const { aspectRatio } = this.props
+    const { aspectRatio, closeDialog } = this.props
     const settings = {
       infinite: false,
       autoplay: false,
@@ -106,81 +108,97 @@ export class Sketch extends Component {
     }
 
     return (
-      <StyledSketch className="StyledSketch">
-        <Card className="card">
-          <Carousel
-            images={images}
-            settings={settings}
-            ref={c => (this.carouselParent = c)}
-            SlideComponent={SketchPad}
-            slideProps={{ aspectRatio, width }}
-          />
-
-          <div className="sketch-actions">
-            <IconButton onClick={this.onPrev}>
+      <div>
+        <NavBar
+          title="Edit Images"
+          leftComponent={
+            <IconButton
+              color="inherit"
+              aria-label="close"
+              onClick={closeDialog}
+            >
               <ArrowBackIcon />
             </IconButton>
+          }
+        />
+        <StyledMainContent className="StyledMainContent">
+          <StyledSketch className="StyledSketch">
+            <Card className="card">
+              <Carousel
+                images={images}
+                settings={settings}
+                ref={c => (this.carouselParent = c)}
+                SlideComponent={SketchPad}
+                slideProps={{ aspectRatio, width }}
+              />
 
-            <IconButton onClick={this.onNext}>
-              <ArrowForwardIcon />
-            </IconButton>
+              <div className="sketch-actions">
+                <IconButton onClick={this.onPrev}>
+                  <ArrowBackIcon />
+                </IconButton>
 
-            <IconButton onClick={this.onSave}>
-              <SaveIcon />
-            </IconButton>
+                <IconButton onClick={this.onNext}>
+                  <ArrowForwardIcon />
+                </IconButton>
 
-            <IconButton
-              onClick={() =>
-                this.carouselParent[`sketchParent${currentSlide}`].undo()
-              }
-            >
-              <UndoIcon />
-            </IconButton>
+                <IconButton onClick={this.onSave}>
+                  <SaveIcon />
+                </IconButton>
 
-            <IconButton
-              onClick={() =>
-                this.carouselParent[`sketchParent${currentSlide}`].redo()
-              }
-            >
-              <RedoIcon />
-            </IconButton>
-          </div>
+                <IconButton
+                  onClick={() =>
+                    this.carouselParent[`sketchParent${currentSlide}`].undo()
+                  }
+                >
+                  <UndoIcon />
+                </IconButton>
 
-          <div className="sketch-actions">
-            <TextField
-              fullWidth
-              select
-              value={tool}
-              onChange={this.onToolSelect}
-              margin="none"
-              className="tool-select"
-            >
-              {tools.map((item, index) => (
-                <MenuItem key={index} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
+                <IconButton
+                  onClick={() =>
+                    this.carouselParent[`sketchParent${currentSlide}`].redo()
+                  }
+                >
+                  <RedoIcon />
+                </IconButton>
+              </div>
 
-          <div className="sketch-actions color-picker">
-            <CompactPicker
-              color={color}
-              onChangeComplete={color => this.onColorChange(color)}
-            />
-          </div>
+              <div className="sketch-actions">
+                <TextField
+                  fullWidth
+                  select
+                  value={tool}
+                  onChange={this.onToolSelect}
+                  margin="none"
+                  className="tool-select"
+                >
+                  {tools.map((item, index) => (
+                    <MenuItem key={index} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
 
-          <Button
-            fullWidth
-            variant="raised"
-            color="primary"
-            className="submit-button"
-            onClick={this.submit}
-          >
-            save changes
-          </Button>
-        </Card>
-      </StyledSketch>
+              <div className="sketch-actions color-picker">
+                <CompactPicker
+                  color={color}
+                  onChangeComplete={color => this.onColorChange(color)}
+                />
+              </div>
+
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="submit-button"
+                onClick={this.submit}
+              >
+                save changes
+              </Button>
+            </Card>
+          </StyledSketch>
+        </StyledMainContent>
+      </div>
     )
   }
 }

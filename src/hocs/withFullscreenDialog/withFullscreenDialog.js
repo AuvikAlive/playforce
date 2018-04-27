@@ -39,7 +39,11 @@ export const withFullscreenDialog = WrappedComponent => {
               )}
             </div>
           </Dialog>
-          <WrappedComponent openDialog={this.openDialog} {...this.props} />
+          <WrappedComponent
+            closeDialog={this.closeDialog}
+            openDialog={this.openDialog}
+            {...this.props}
+          />
         </div>
       )
     }

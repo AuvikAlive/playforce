@@ -25,15 +25,26 @@ export class AddMaintenanceIssue extends Component {
     removeLefNavComponent()
   }
 
-  onSubmit = maintenanceIssue => {
-    const { addMaintenanceIssue, history } = this.props
+  showActionGoBack = async (message, maintenanceIssueId) => {
+    const { setFeedback, history } = this.props
 
-    addMaintenanceIssue(maintenanceIssue)
-    history.goBack()
+    await setFeedback({ success: message })
+    history.replace(`edit/${maintenanceIssueId}`)
+  }
+
+  submit = async maintenanceIssue => {
+    const { addMaintenanceIssue, userId, inspectionId } = this.props
+
+    const maintenanceIssueId = await addMaintenanceIssue(
+      userId,
+      inspectionId,
+      maintenanceIssue
+    )
+    this.showActionGoBack('Issue published!', maintenanceIssueId)
   }
 
   render() {
-    return <MaintenanceIssueForm onSubmit={this.onSubmit} />
+    return <MaintenanceIssueForm onSubmit={this.submit} />
   }
 }
 

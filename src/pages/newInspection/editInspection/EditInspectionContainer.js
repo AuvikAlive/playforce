@@ -5,9 +5,11 @@ import { EditInspection } from './EditInspection'
 import {
   saveInspection,
   deleteInspection,
-  discardInspection,
 } from '../../../store/actions/actionCreators/inspectionActions/'
-import { fetchInspection } from '../../../store/actions/actionCreators/newInspectionActions/'
+import {
+  fetchInspection,
+  discardInspection,
+} from '../../../store/actions/actionCreators/newInspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'

@@ -46,34 +46,41 @@ export class EditMaintenanceIssue extends Component {
     )
   }
 
-  onSubmit = updatedValue => {
-    const {
-      editMaintenanceIssue,
-      maintenanceIssueIndex,
-      maintenanceIssue,
-      history,
-    } = this.props
+  showActionGoBack = async message => {
+    const { setFeedback, history } = this.props
 
-    if (maintenanceIssue.id) {
-      updatedValue.id = maintenanceIssue.id
-    }
-
-    editMaintenanceIssue({
-      issueIndex: maintenanceIssueIndex,
-      updatedValue,
-    })
+    await setFeedback({ success: message })
     history.goBack()
   }
 
-  delete = () => {
+  submit = async updatedValue => {
     const {
-      deleteMaintenanceIssue,
-      maintenanceIssueIndex,
-      history,
+      editMaintenanceIssue,
+      userId,
+      inspectionId,
+      maintenanceIssueId,
+      setFeedback,
     } = this.props
 
-    deleteMaintenanceIssue(maintenanceIssueIndex)
-    history.goBack()
+    await editMaintenanceIssue(
+      userId,
+      inspectionId,
+      maintenanceIssueId,
+      updatedValue
+    )
+    setFeedback({ success: 'Issue updated!' })
+  }
+
+  delete = async () => {
+    const {
+      deleteMaintenanceIssue,
+      userId,
+      inspectionId,
+      maintenanceIssueId,
+    } = this.props
+
+    await deleteMaintenanceIssue(userId, inspectionId, maintenanceIssueId)
+    this.showActionGoBack('Issue deleted!')
   }
 
   render() {
@@ -81,8 +88,9 @@ export class EditMaintenanceIssue extends Component {
 
     return (
       <MaintenanceIssueForm
+        buttonText="update"
         initialData={maintenanceIssue}
-        onSubmit={this.onSubmit}
+        onSubmit={this.submit}
         setRightNav={this.setRightNav}
         removeRightNav={this.context.removeRightNavComponent}
       />
