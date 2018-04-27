@@ -16,7 +16,7 @@ export class EditCover extends Component {
       inspectionId,
     } = this.props
 
-    setNavTitle('Edit Cover')
+    setNavTitle('Cover')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
@@ -47,7 +47,7 @@ export class EditCover extends Component {
 
     return inspectionLoaded ? (
       <CoverFormContainer
-        buttonText="update"
+        buttonText="save"
         onSubmit={this.submit}
         initialData={cover}
       />

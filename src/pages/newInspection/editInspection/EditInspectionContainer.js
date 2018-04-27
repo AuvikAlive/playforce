@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import { EditInspection } from './EditInspection'
 import {
   fetchInspectionRealTime,
+  deleteInspection,
   discardInspection,
   fetchMaintenanceIssuesRealTime,
 } from '../../../store/actions/actionCreators/newInspectionActions/'
@@ -44,6 +45,7 @@ const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchMaintenanceIssuesRealTime,
   fetchStandards,
+  deleteInspection,
   discardInspection,
   fetchEquipmentsRealTime,
 }

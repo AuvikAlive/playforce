@@ -147,10 +147,10 @@ export class EditInspection extends Component {
     }
   }
 
-  showActionGoBack = async () => {
+  showActionGoBack = async message => {
     const { setFeedback, history, discardInspection } = this.props
 
-    await setFeedback({ success: 'Inspection deleted!' })
+    await setFeedback({ success: message })
     discardInspection()
     history.goBack()
   }
@@ -158,12 +158,8 @@ export class EditInspection extends Component {
   delete = async () => {
     const { inspection, inspectionId, userId, deleteInspection } = this.props
 
-    await deleteInspection({
-      inspection,
-      userId,
-      inspectionId,
-    })
-    this.showActionGoBack()
+    await deleteInspection(inspection, userId, inspectionId)
+    this.showActionGoBack('Inspection deleted!')
   }
 
   generateReport = async () => {

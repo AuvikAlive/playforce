@@ -1,6 +1,7 @@
 import { addInspection } from './addInspection'
 import { fetchInspection } from './fetchInspection'
 import { fetchInspectionRealTime } from './fetchInspectionRealTime'
+import { deleteInspection } from './deleteInspection'
 import { editCover } from './editCover'
 import { addMaintenanceIssue } from './addMaintenanceIssue'
 import { editMaintenanceIssue } from './editMaintenanceIssue'
@@ -12,6 +13,7 @@ export {
   addInspection,
   fetchInspection,
   fetchInspectionRealTime,
+  deleteInspection,
   editCover,
   addMaintenanceIssue,
   editMaintenanceIssue,
