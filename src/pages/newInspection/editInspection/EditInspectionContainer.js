@@ -7,8 +7,9 @@ import {
   deleteInspection,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import {
-  fetchInspection,
+  fetchInspectionRealTime,
   discardInspection,
+  fetchMaintenanceIssuesRealTime,
 } from '../../../store/actions/actionCreators/newInspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions'
@@ -46,7 +47,8 @@ const mapStateToProps = (
 })
 
 const mapDispatchToProps = {
-  fetchInspection,
+  fetchInspectionRealTime,
+  fetchMaintenanceIssuesRealTime,
   fetchStandards,
   saveInspection,
   discardInspection,

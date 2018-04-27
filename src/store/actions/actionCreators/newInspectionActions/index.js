@@ -1,5 +1,6 @@
 import { addInspection } from './addInspection'
 import { fetchInspection } from './fetchInspection'
+import { fetchInspectionRealTime } from './fetchInspectionRealTime'
 import { addMaintenanceIssue } from './addMaintenanceIssue'
 import { editMaintenanceIssue } from './editMaintenanceIssue'
 import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
@@ -9,6 +10,7 @@ import { DISCARD_INSPECTION } from '../../actionTypes'
 export {
   addInspection,
   fetchInspection,
+  fetchInspectionRealTime,
   addMaintenanceIssue,
   editMaintenanceIssue,
   deleteMaintenanceIssue,

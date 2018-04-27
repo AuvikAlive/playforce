@@ -5,7 +5,8 @@ export const addMaintenanceIssue = (userId, inspectionId, data) => async (
 ) => {
   const firebase = getFirebase()
   const db = firebase.firestore()
-  const ref = await db
+
+  const ref = db
     .collection('users')
     .doc(userId)
     .collection('inspections')

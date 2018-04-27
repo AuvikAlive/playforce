@@ -18,13 +18,15 @@ EditMaintenanceIssue.preload()
 export const MaintenanceIssues = ({
   inspectionLoaded,
   inspectionId,
-  fetchInspection,
+  fetchInspectionRealTime,
   userId,
   maintenanceIssuesLoaded,
   fetchMaintenanceIssuesRealTime,
   match,
 }) => {
-  !inspectionLoaded && inspectionId && fetchInspection(userId, inspectionId)
+  !inspectionLoaded &&
+    inspectionId &&
+    fetchInspectionRealTime(userId, inspectionId)
   !maintenanceIssuesLoaded &&
     fetchMaintenanceIssuesRealTime(userId, inspectionId)
 

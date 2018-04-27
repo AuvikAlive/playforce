@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
-  fetchInspection,
+  fetchInspectionRealTime,
   fetchMaintenanceIssuesRealTime,
 } from '../../../store/actions/actionCreators/newInspectionActions/'
 import { MaintenanceIssues } from './MaintenanceIssues'
@@ -26,7 +26,7 @@ const mapStateToProps = (
 })
 
 const mapDispatchToProps = {
-  fetchInspection,
+  fetchInspectionRealTime,
   fetchMaintenanceIssuesRealTime,
 }
 

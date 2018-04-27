@@ -2,8 +2,8 @@ import React from 'react'
 import CheckCircleIcon from 'material-ui-icons/CheckCircle'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
-import Button from 'material-ui/Button'
-import { CircularProgress } from 'material-ui/Progress'
+// import Button from 'material-ui/Button'
+// import { CircularProgress } from 'material-ui/Progress'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledInspectionItems } from './StyledInspectionItems'
 
@@ -26,7 +26,7 @@ export const InspectionItems = ({
           <StyledNavLink to={`${match.url}/cover`}>
             <ListItem button>
               <ListItemText primary="Cover" />
-              {coverAdded && <CheckCircleIcon color="primary" />}
+              <CheckCircleIcon color="primary" />
             </ListItem>
           </StyledNavLink>
 
@@ -58,7 +58,7 @@ export const InspectionItems = ({
             </ListItem>
           </StyledNavLink>
 
-          <ListItem>{error && <p className="error">{error}</p>}</ListItem>
+          {/* <ListItem>{error && <p className="error">{error}</p>}</ListItem>
 
           {!error &&
             loading && (
@@ -80,7 +80,7 @@ export const InspectionItems = ({
                 {buttonText ? buttonText : 'Publish'}
               </Button>
             </div>
-          )}
+          )} */}
         </List>
       </Paper>
     </StyledInspectionItems>

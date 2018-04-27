@@ -38,6 +38,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ...state,
         maintenanceIssuesLoaded: true,
         maintenanceIssues: payload,
+        maintenanceIssuesAdded: payload.length > 0,
       }
 
     case DISCARD_INSPECTION:

@@ -20,8 +20,7 @@ export const addInspection = (userId, cover) => async (
       .doc()
 
     transaction.set(inspectionRef, {
-      cover: cover,
-      coverAdded: true,
+      cover,
       inspectionNumber: inspectionCount + 1,
     })
 

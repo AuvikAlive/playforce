@@ -33,12 +33,17 @@ export class EditInspection extends Component {
       fetchStandards,
       userId,
       inspectionId,
+      fetchInspectionRealTime,
+      fetchMaintenanceIssuesRealTime,
     } = this.props
+    const { id, inspectionLoaded, maintenanceIssuesLoaded } = inspection
 
     !standardsLoaded && fetchStandards(userId)
-    inspection.id !== inspectionId &&
-      !inspection.inspectionLoaded &&
-      this.loadInitialData()
+    if (id !== inspectionId) {
+      !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
+      !maintenanceIssuesLoaded &&
+        fetchMaintenanceIssuesRealTime(userId, inspectionId)
+    }
     // inspection.inspectionLoaded && this.renderPdf(inspection)
 
     setNavTitle('Edit Inspection')
@@ -93,19 +98,19 @@ export class EditInspection extends Component {
     this.setState({ menuAnchor: null })
   }
 
-  loadInitialData = async () => {
-    const {
-      fetchInspection,
-      userId,
-      inspectionId,
-      equipmentsSite,
-      fetchEquipmentsRealTime,
-    } = this.props
+  // loadInitialData = async () => {
+  //   const {
+  //     fetchInspectionRealTime,
+  //     userId,
+  //     inspectionId,
+  //     equipmentsSite,
+  //     fetchEquipmentsRealTime,
+  //   } = this.props
 
-    const inspection = await fetchInspection(userId, inspectionId)
-    const siteId = inspection.cover.location.id
-    equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
-  }
+  //   const inspection = await fetchInspectionRealTime(userId, inspectionId)
+  //   const siteId = inspection.cover.location.id
+  //   equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
+  // }
 
   submit = async () => {
     const {
@@ -220,28 +225,25 @@ export class EditInspection extends Component {
   render() {
     const { inspection, standardsLoaded, match, error, loading } = this.props
     const { menuAnchor } = this.state
+    const {
+      auditSummaryAdded,
+      complianceIssuesAdded,
+      conditionRatingsAdded,
+      coverAdded,
+      maintenanceIssuesAdded,
+      inspectionLoaded,
+      maintenanceIssuesLoaded,
+    } = inspection
 
-    let added
-
-    if (inspection) {
-      const {
-        auditSummaryAdded,
-        complianceIssuesAdded,
-        conditionRatingsAdded,
-        coverAdded,
-        maintenanceIssuesAdded,
-      } = inspection
-
-      added = {
-        auditSummaryAdded,
-        complianceIssuesAdded,
-        conditionRatingsAdded,
-        coverAdded,
-        maintenanceIssuesAdded,
-      }
+    const added = {
+      auditSummaryAdded,
+      complianceIssuesAdded,
+      conditionRatingsAdded,
+      coverAdded,
+      maintenanceIssuesAdded,
     }
 
-    return inspection && inspection.inspectionLoaded ? (
+    return inspectionLoaded && maintenanceIssuesLoaded ? (
       <div>
         <InspectionItems
           {...added}
