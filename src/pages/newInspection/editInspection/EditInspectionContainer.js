@@ -1,11 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore, withFirebase } from 'react-redux-firebase'
 import { EditInspection } from './EditInspection'
-import {
-  saveInspection,
-  deleteInspection,
-} from '../../../store/actions/actionCreators/inspectionActions/'
 import {
   fetchInspectionRealTime,
   discardInspection,
@@ -20,7 +15,7 @@ const mapStateToProps = (
   {
     firebase: {
       auth: { uid },
-      profile: { displayName, inspectionCount },
+      profile: { displayName },
     },
     firestore: {
       data: { users },
@@ -38,7 +33,6 @@ const mapStateToProps = (
   userId: uid,
   inspectionId: id,
   inspection,
-  inspectionCount,
   displayName,
   standardsLoaded,
   standards,
@@ -50,16 +44,12 @@ const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchMaintenanceIssuesRealTime,
   fetchStandards,
-  saveInspection,
   discardInspection,
-  deleteInspection,
   fetchEquipmentsRealTime,
 }
 
 export const EditInspectionContainer = compose(
   withDeleteModal,
   withFeedback,
-  withFirestore,
-  withFirebase,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditInspection)

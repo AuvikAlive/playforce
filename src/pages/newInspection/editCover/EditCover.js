@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { CoverFormContainer } from '../coverForm/CoverFormContainer'
 
-export class AddInspection extends Component {
+export class EditCover extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const {
+      history,
+      inspectionLoaded,
+      fetchInspectionRealTime,
+      userId,
+      inspectionId,
+    } = this.props
 
-    setNavTitle('Add Inspection')
+    setNavTitle('Edit Cover')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
       </IconButton>
     )
+
+    !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
   }
 
   componentWillUnmount() {
@@ -25,26 +34,30 @@ export class AddInspection extends Component {
     removeLefNavComponent()
   }
 
-  showActionGoBack = async inspectionId => {
-    const { setFeedback, history } = this.props
-
-    await setFeedback({ success: 'Inspection added!' })
-    history.replace(`edit/${inspectionId}`)
-  }
-
   submit = async cover => {
-    const { addInspection, userId } = this.props
-    const inspectionId = await addInspection(userId, cover)
+    const { editCover, userId, inspectionId, setFeedback } = this.props
 
-    this.showActionGoBack(inspectionId)
+    await editCover(userId, inspectionId, cover)
+
+    setFeedback({ success: 'Cover updated!' })
   }
 
   render() {
-    return <CoverFormContainer onSubmit={this.submit} />
+    const { inspectionLoaded, cover } = this.props
+
+    return inspectionLoaded ? (
+      <CoverFormContainer
+        buttonText="update"
+        onSubmit={this.submit}
+        initialData={cover}
+      />
+    ) : (
+      <LinearProgress />
+    )
   }
 }
 
-AddInspection.contextTypes = {
+EditCover.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

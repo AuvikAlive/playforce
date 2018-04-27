@@ -12,6 +12,7 @@ import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
+import { isEmpty } from 'lodash'
 import { AddSiteContainer } from '../addSite/AddSiteContainer'
 import { ClientsContainer } from '../clients/ClientsContainer'
 import { StyledCoverForm } from './StyledCoverForm'
@@ -36,7 +37,7 @@ export class CoverForm extends Component {
       userId,
     } = this.props
 
-    initialData && this.loadInitialData(initialData)
+    !isEmpty(initialData) && this.loadInitialData(initialData)
     !sitesLoaded && fetchSitesRealTime(userId)
     !standardsLoaded && fetchStandardsRealTime(userId)
     !clientsLoaded && fetchClientsRealTime(userId)

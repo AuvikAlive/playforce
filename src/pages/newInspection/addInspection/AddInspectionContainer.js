@@ -7,11 +7,9 @@ import { AddInspection } from './AddInspection'
 const mapStateToProps = ({
   firebase: {
     auth: { uid },
-    profile: { inspectionCount },
   },
 }) => ({
   userId: uid,
-  inspectionCount,
 })
 
 const mapDispatchToProps = {

@@ -36,14 +36,15 @@ export class EditInspection extends Component {
       fetchInspectionRealTime,
       fetchMaintenanceIssuesRealTime,
     } = this.props
-    const { id, inspectionLoaded, maintenanceIssuesLoaded } = inspection
+    const { inspectionLoaded, maintenanceIssuesLoaded } = inspection
 
     !standardsLoaded && fetchStandards(userId)
-    if (id !== inspectionId) {
-      !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
-      !maintenanceIssuesLoaded &&
-        fetchMaintenanceIssuesRealTime(userId, inspectionId)
-    }
+    !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
+    !maintenanceIssuesLoaded &&
+      fetchMaintenanceIssuesRealTime(userId, inspectionId)
+    // if (id !== inspectionId) {
+
+    // }
     // inspection.inspectionLoaded && this.renderPdf(inspection)
 
     setNavTitle('Edit Inspection')
@@ -242,6 +243,8 @@ export class EditInspection extends Component {
       coverAdded,
       maintenanceIssuesAdded,
     }
+
+    // console.log(inspectionLoaded, maintenanceIssuesLoaded)
 
     return inspectionLoaded && maintenanceIssuesLoaded ? (
       <div>
