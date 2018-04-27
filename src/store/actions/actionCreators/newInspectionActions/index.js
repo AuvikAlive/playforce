@@ -2,7 +2,8 @@ import { addInspection } from './addInspection'
 import { fetchInspection } from './fetchInspection'
 import { fetchInspectionRealTime } from './fetchInspectionRealTime'
 import { deleteInspection } from './deleteInspection'
-import { editCover } from './editCover'
+import { saveCover } from './saveCover'
+import { saveAuditSummary } from './saveAuditSummary'
 import { addMaintenanceIssue } from './addMaintenanceIssue'
 import { editMaintenanceIssue } from './editMaintenanceIssue'
 import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
@@ -14,7 +15,8 @@ export {
   fetchInspection,
   fetchInspectionRealTime,
   deleteInspection,
-  editCover,
+  saveCover,
+  saveAuditSummary,
   addMaintenanceIssue,
   editMaintenanceIssue,
   deleteMaintenanceIssue,

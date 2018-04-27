@@ -6,9 +6,9 @@ import EditInspection from '../editInspection/'
 const EditCover = Loadable({
   loader: () => import('../editCover'),
 })
-// const AuditSummary = Loadable({
-//   loader: () => import('../auditSummary'),
-// })
+const AuditSummary = Loadable({
+  loader: () => import('../auditSummary'),
+})
 // const ConditionRating = Loadable({
 //   loader: () => import('../conditionRating'),
 // })
@@ -29,8 +29,8 @@ export const EditInspectionRoutes = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/:id/cover`} component={EditCover} />
-      {/* <Route path={`${match.url}/:id/auditSummary`} component={AuditSummary} />
-      <Route
+      <Route path={`${match.url}/:id/auditSummary`} component={AuditSummary} />
+      {/* <Route
         path={`${match.url}/:id/conditionRating`}
         component={ConditionRating}
       />

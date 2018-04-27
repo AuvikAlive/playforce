@@ -12,6 +12,7 @@ import { flatten, map, filter } from 'lodash'
 import { Content } from '../../../components/content/Content'
 import { InspectionItems } from '../inspectionItems/InspectionItems'
 import { generatePdf } from '../pdfMake/generatePdf'
+import { isEmpty } from 'react-redux-firebase'
 
 export class EditInspection extends Component {
   state = {
@@ -168,9 +169,9 @@ export class EditInspection extends Component {
 
     this.closeMenu()
 
-    const { coverAdded, auditSummaryAdded, conditionRatingsAdded } = inspection
+    const { auditSummary, conditionRatingsAdded } = inspection
 
-    if (coverAdded && auditSummaryAdded && conditionRatingsAdded) {
+    if (!isEmpty(auditSummary) && conditionRatingsAdded) {
       setFeedback({ error: '', loading: true })
 
       inspection.displayName = displayName
@@ -199,7 +200,7 @@ export class EditInspection extends Component {
     } else {
       setFeedback({
         error:
-          'Please add a cover, audit summary & condition rating to generate report!',
+          'Please add audit summary & condition rating to generate report!',
         loading: false,
       })
     }
@@ -223,20 +224,18 @@ export class EditInspection extends Component {
     const { inspection, standardsLoaded, match, error, loading } = this.props
     const { menuAnchor } = this.state
     const {
-      auditSummaryAdded,
+      auditSummary,
       complianceIssuesAdded,
       conditionRatingsAdded,
-      coverAdded,
       maintenanceIssuesAdded,
       inspectionLoaded,
       maintenanceIssuesLoaded,
     } = inspection
 
     const added = {
-      auditSummaryAdded,
+      auditSummaryAdded: !isEmpty(auditSummary),
       complianceIssuesAdded,
       conditionRatingsAdded,
-      coverAdded,
       maintenanceIssuesAdded,
     }
 

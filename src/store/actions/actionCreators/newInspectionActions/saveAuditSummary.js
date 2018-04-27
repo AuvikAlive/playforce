@@ -1,4 +1,4 @@
-export const editCover = (userId, inspectionId, data) => async (
+export const saveAuditSummary = (userId, inspectionId, data) => async (
   dispatch,
   getState,
   getFirebase
@@ -11,5 +11,5 @@ export const editCover = (userId, inspectionId, data) => async (
     .collection('inspections')
     .doc(inspectionId)
 
-  return ref.update({ cover: data })
+  return ref.update({ auditSummary: data })
 }

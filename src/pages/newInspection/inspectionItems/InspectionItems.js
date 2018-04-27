@@ -1,4 +1,5 @@
 import React from 'react'
+import { CircularProgress } from 'material-ui/Progress'
 import CheckCircleIcon from 'material-ui-icons/CheckCircle'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
@@ -58,7 +59,7 @@ export const InspectionItems = ({
             </ListItem>
           </StyledNavLink>
 
-          {/* <ListItem>{error && <p className="error">{error}</p>}</ListItem>
+          <ListItem>{error && <p className="error">{error}</p>}</ListItem>
 
           {!error &&
             loading && (
@@ -67,7 +68,7 @@ export const InspectionItems = ({
               </ListItem>
             )}
 
-          {!loading && (
+          {/* {!loading && (
             <div className="button-container">
               <Button
                 fullWidth
