@@ -9,38 +9,38 @@ const EditCover = Loadable({
 const AuditSummary = Loadable({
   loader: () => import('../auditSummary'),
 })
-// const ConditionRating = Loadable({
-//   loader: () => import('../conditionRating'),
-// })
+const ConditionRatingRoutes = Loadable({
+  loader: () => import('../conditionRatingRoutes'),
+})
 // const ComplianceIssues = Loadable({
 //   loader: () => import('../complianceIssues'),
 // })
-const MaintenanceIssuesRoutes = Loadable({
-  loader: () => import('../maintenanceIssuesRoutes'),
+const MaintenanceIssueRoutes = Loadable({
+  loader: () => import('../maintenanceIssueRoutes'),
 })
 
-// Cover.preload()
-// AuditSummary.preload()
-// ConditionRating.preload()
+EditCover.preload()
+AuditSummary.preload()
+ConditionRatingRoutes.preload()
 // ComplianceIssues.preload()
-MaintenanceIssuesRoutes.preload()
+MaintenanceIssueRoutes.preload()
 
 export const EditInspectionRoutes = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/:id/cover`} component={EditCover} />
       <Route path={`${match.url}/:id/auditSummary`} component={AuditSummary} />
-      {/* <Route
-        path={`${match.url}/:id/conditionRating`}
-        component={ConditionRating}
-      />
       <Route
+        path={`${match.url}/:id/conditionRating`}
+        component={ConditionRatingRoutes}
+      />
+      {/* <Route
         path={`${match.url}/:id/complianceIssues`}
         component={ComplianceIssues}
       /> */}
       <Route
         path={`${match.url}/:id/maintenanceIssues`}
-        component={MaintenanceIssuesRoutes}
+        component={MaintenanceIssueRoutes}
       />
       <Route path={`${match.url}/:id`} component={EditInspection} />
     </Switch>

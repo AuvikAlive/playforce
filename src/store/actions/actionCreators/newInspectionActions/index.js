@@ -4,8 +4,12 @@ import { fetchInspectionRealTime } from './fetchInspectionRealTime'
 import { deleteInspection } from './deleteInspection'
 import { saveCover } from './saveCover'
 import { saveAuditSummary } from './saveAuditSummary'
+import { addConditionRating } from './addConditionRating'
+import { saveConditionRating } from './saveConditionRating'
+import { deleteConditionRating } from './deleteConditionRating'
+import { fetchConditionRatingsRealTime } from './fetchConditionRatingsRealTime'
 import { addMaintenanceIssue } from './addMaintenanceIssue'
-import { editMaintenanceIssue } from './editMaintenanceIssue'
+import { saveMaintenanceIssue } from './saveMaintenanceIssue'
 import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
 import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime'
 import { DISCARD_INSPECTION } from '../../actionTypes'
@@ -17,8 +21,12 @@ export {
   deleteInspection,
   saveCover,
   saveAuditSummary,
+  addConditionRating,
+  saveConditionRating,
+  deleteConditionRating,
+  fetchConditionRatingsRealTime,
   addMaintenanceIssue,
-  editMaintenanceIssue,
+  saveMaintenanceIssue,
   deleteMaintenanceIssue,
   fetchMaintenanceIssuesRealTime,
 }

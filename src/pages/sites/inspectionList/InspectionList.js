@@ -44,7 +44,11 @@ export class InspectionList extends Component {
   }
 
   render() {
-    const { inspectionsBySiteLoaded, inspectionsBySite, openDialog } = this.props
+    const {
+      inspectionsBySiteLoaded,
+      inspectionsBySite,
+      openDialog,
+    } = this.props
 
     if (inspectionsBySiteLoaded) {
       const { match } = this.props

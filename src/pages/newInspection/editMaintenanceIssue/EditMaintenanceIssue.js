@@ -55,14 +55,14 @@ export class EditMaintenanceIssue extends Component {
 
   submit = async updatedValue => {
     const {
-      editMaintenanceIssue,
+      saveMaintenanceIssue,
       userId,
       inspectionId,
       maintenanceIssueId,
       setFeedback,
     } = this.props
 
-    await editMaintenanceIssue(
+    await saveMaintenanceIssue(
       userId,
       inspectionId,
       maintenanceIssueId,
@@ -88,7 +88,7 @@ export class EditMaintenanceIssue extends Component {
 
     return (
       <MaintenanceIssueForm
-        buttonText="update"
+        buttonText="save"
         initialData={maintenanceIssue}
         onSubmit={this.submit}
         setRightNav={this.setRightNav}

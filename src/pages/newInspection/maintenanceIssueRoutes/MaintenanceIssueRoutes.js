@@ -15,7 +15,7 @@ const EditMaintenanceIssue = Loadable({
 AddMaintenanceIssue.preload()
 EditMaintenanceIssue.preload()
 
-export const MaintenanceIssuesRoutes = ({
+export const MaintenanceIssueRoutes = ({
   inspectionLoaded,
   inspectionId,
   fetchInspectionRealTime,
@@ -30,7 +30,7 @@ export const MaintenanceIssuesRoutes = ({
   !maintenanceIssuesLoaded &&
     fetchMaintenanceIssuesRealTime(userId, inspectionId)
 
-  return inspectionLoaded ? (
+  return inspectionLoaded && maintenanceIssuesLoaded ? (
     <Switch>
       <Route path={`${match.url}/add`} component={AddMaintenanceIssue} />
       <Route path={`${match.url}/edit/:id`} component={EditMaintenanceIssue} />

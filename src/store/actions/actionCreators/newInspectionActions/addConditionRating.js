@@ -1,17 +1,20 @@
-export const editMaintenanceIssue = (userId, inspectionId, id, data) => async (
+export const addConditionRating = (userId, inspectionId, data) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
   const firebase = getFirebase()
   const db = firebase.firestore()
-  const ref = await db
+
+  const ref = db
     .collection('users')
     .doc(userId)
     .collection('inspections')
     .doc(inspectionId)
-    .collection('maintenanceIssues')
-    .doc(id)
+    .collection('conditionRatings')
+    .doc()
 
-  return ref.update(data)
+  await ref.set(data)
+
+  return ref.id
 }

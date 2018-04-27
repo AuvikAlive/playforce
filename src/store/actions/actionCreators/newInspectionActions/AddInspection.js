@@ -21,6 +21,7 @@ export const addInspection = (userId, cover) => async (
 
     transaction.set(inspectionRef, {
       cover,
+      site: cover.location.id,
       inspectionNumber: inspectionCount + 1,
     })
 
