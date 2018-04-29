@@ -176,6 +176,7 @@ export class ComplianceIssueForm extends Component {
       captureImage,
       equipments,
       openDialog,
+      closeDialog,
       buttonText,
       error,
       loading,
@@ -224,6 +225,7 @@ export class ComplianceIssueForm extends Component {
                         aspectRatio={188 / 253}
                         images={imagesCopy}
                         onSubmit={this.saveImages}
+                        closeDialog={closeDialog}
                       />
                     ))
                   }

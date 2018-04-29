@@ -128,6 +128,7 @@ export class MaintenanceIssueForm extends Component {
       loading,
       buttonText,
       openDialog,
+      closeDialog,
       equipmentsLoaded,
     } = this.props
     const { images, finding, equipment, recommendations } = this.state
@@ -160,6 +161,7 @@ export class MaintenanceIssueForm extends Component {
                         aspectRatio={188 / 253}
                         images={imagesCopy}
                         onSubmit={this.saveImages}
+                        closeDialog={closeDialog}
                       />
                     ))
                   }
