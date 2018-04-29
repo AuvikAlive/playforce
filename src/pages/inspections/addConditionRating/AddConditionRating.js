@@ -14,7 +14,7 @@ export class AddConditionRating extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
@@ -25,15 +25,26 @@ export class AddConditionRating extends Component {
     removeLefNavComponent()
   }
 
-  onSubmit = conditionRating => {
-    const { addConditionRating, history } = this.props
+  showActionGoBack = async (message, conditionRatingId) => {
+    const { setFeedback, history } = this.props
 
-    addConditionRating(conditionRating)
-    history.goBack()
+    await setFeedback({ success: message })
+    history.replace(`edit/${conditionRatingId}`)
+  }
+
+  submit = async conditionRating => {
+    const { addConditionRating, userId, inspectionId } = this.props
+
+    const conditionRatingId = await addConditionRating(
+      userId,
+      inspectionId,
+      conditionRating
+    )
+    this.showActionGoBack('Condition published!', conditionRatingId)
   }
 
   render() {
-    return <ConditionRatingForm onSubmit={this.onSubmit} />
+    return <ConditionRatingForm onSubmit={this.submit} />
   }
 }
 

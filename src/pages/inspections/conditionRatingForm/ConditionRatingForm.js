@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { LinearProgress } from 'material-ui/Progress'
+import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import Card, { CardContent } from 'material-ui/Card'
@@ -31,20 +32,28 @@ export class ConditionRatingForm extends Component {
       manufacturersLoaded,
       fetchManufacturersRealTime,
       userId,
+      equipmentsSite,
+      siteId,
+      fetchEquipmentsRealTime,
       initialData,
     } = this.props
 
     !manufacturersLoaded && fetchManufacturersRealTime(userId)
+    equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
     initialData && this.loadInitialData(initialData)
   }
 
   componentWillReceiveProps({
-    imageCaptured,
     initialData,
+    imageCaptured,
+    image,
     imageNaturalAspectRatio,
   }) {
-    !imageCaptured && initialData && this.loadInitialData(initialData)
-    if (imageCaptured) {
+    if (initialData && initialData !== this.props.initialData) {
+      this.loadInitialData(initialData)
+    }
+
+    if (imageCaptured && image !== this.props.image) {
       const { setFeedback } = this.props
 
       imageNaturalAspectRatio <= 1
@@ -87,8 +96,15 @@ export class ConditionRatingForm extends Component {
     }
   }
 
-  onSubmit = () => {
-    const { onSubmit, setFeedback, image } = this.props
+  submit = async () => {
+    const {
+      onSubmit,
+      setFeedback,
+      image,
+      saveEquipment,
+      userId,
+      siteId,
+    } = this.props
     const {
       equipment,
       assetId,
@@ -105,8 +121,8 @@ export class ConditionRatingForm extends Component {
       condition &&
       estimatedDateInstalled
     ) {
-      setFeedback({ error: '' })
-      onSubmit({
+      setFeedback({ error: '', loading: true })
+      await onSubmit({
         image,
         equipment,
         assetId,
@@ -114,6 +130,13 @@ export class ConditionRatingForm extends Component {
         condition,
         estimatedDateInstalled,
       })
+      saveEquipment(userId, siteId, {
+        image,
+        equipment,
+        assetId,
+        manufacturer,
+      })
+      setFeedback({ loading: false })
     } else {
       setFeedback({
         error: 'Please fill up the form correctly!',
@@ -126,10 +149,13 @@ export class ConditionRatingForm extends Component {
       image,
       captureImage,
       manufacturersLoaded,
+      equipmentsLoaded,
       manufacturers,
       equipments,
       openDialog,
+      buttonText,
       error,
+      loading,
     } = this.props
     const {
       equipment,
@@ -139,7 +165,7 @@ export class ConditionRatingForm extends Component {
       estimatedDateInstalled,
     } = this.state
 
-    return manufacturersLoaded ? (
+    return manufacturersLoaded && equipmentsLoaded ? (
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card>
           {image && <img src={image} alt="equipment type" />}
@@ -238,15 +264,24 @@ export class ConditionRatingForm extends Component {
 
             {error && <p className="error">{error}</p>}
 
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.onSubmit}
-            >
-              save
-            </Button>
+            {!error &&
+              loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+
+            {!loading && (
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="submit-button"
+                onClick={this.submit}
+              >
+                {buttonText ? buttonText : 'Publish'}
+              </Button>
+            )}
           </CardContent>
         </Card>
       </StyledConditionRatingForm>

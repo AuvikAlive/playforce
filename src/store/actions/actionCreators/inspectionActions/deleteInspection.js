@@ -1,8 +1,8 @@
-export const deleteInspection = ({
-  inspection,
-  userId,
-  inspectionId,
-}) => async (dispatch, getState, getFirebase) => {
+export const deleteInspection = (inspection, userId, inspectionId) => async (
+  dispatch,
+  getState,
+  getFirebase
+) => {
   const {
     conditionRatingsAdded,
     complianceIssuesAdded,

@@ -1,26 +1,22 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AddComplianceIssue } from './AddComplianceIssue'
 import { addComplianceIssue } from '../../../store/actions/actionCreators/inspectionActions/'
 
 const mapStateToProps = ({
-  firestore: {
-    data: { users },
-  },
   firebase: {
     auth: { uid },
   },
-  inspection: { equipments },
+  inspection: { id },
 }) => ({
   userId: uid,
-  data: users && users[uid],
-  equipments,
+  inspectionId: id,
 })
 
 const mapDispatchToProps = { addComplianceIssue }
 
 export const AddComplianceIssueContainer = compose(
-  withFirestore,
+  withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
 )(AddComplianceIssue)

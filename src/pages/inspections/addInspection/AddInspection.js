@@ -1,48 +1,52 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../components/loadable/LoadableLinear'
-import InspectionItemsAdd from '../inspectionItemsAdd'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import IconButton from 'material-ui/IconButton'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import { CoverFormContainer } from '../coverForm/CoverFormContainer'
 
-const Cover = Loadable({
-  loader: () => import('../cover'),
-})
-const AuditSummary = Loadable({
-  loader: () => import('../auditSummary'),
-})
-const ConditionRating = Loadable({
-  loader: () => import('../conditionRating'),
-})
-const ComplianceIssues = Loadable({
-  loader: () => import('../complianceIssues'),
-})
-const MaintenanceIssues = Loadable({
-  loader: () => import('../maintenanceIssues'),
-})
+export class AddInspection extends Component {
+  componentDidMount() {
+    const { setNavTitle, setLeftNavComponent } = this.context
+    const { history } = this.props
 
-Cover.preload()
-AuditSummary.preload()
-ConditionRating.preload()
-ComplianceIssues.preload()
-MaintenanceIssues.preload()
+    setNavTitle('Add Inspection')
 
-export const AddInspection = ({ match }) => {
-  return (
-    <Switch>
-      <Route path={`${match.url}/cover`} component={Cover} />
-      <Route path={`${match.url}/auditSummary`} component={AuditSummary} />
-      <Route
-        path={`${match.url}/conditionRating`}
-        component={ConditionRating}
-      />
-      <Route
-        path={`${match.url}/complianceIssues`}
-        component={ComplianceIssues}
-      />
-      <Route
-        path={`${match.url}/maintenanceIssues`}
-        component={MaintenanceIssues}
-      />
-      <Route path={match.url} component={InspectionItemsAdd} />
-    </Switch>
-  )
+    setLeftNavComponent(
+      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
+        <ArrowBackIcon />
+      </IconButton>
+    )
+  }
+
+  componentWillUnmount() {
+    const { removeNavTitle, removeLefNavComponent } = this.context
+
+    removeNavTitle()
+    removeLefNavComponent()
+  }
+
+  showActionGoBack = async inspectionId => {
+    const { setFeedback, history } = this.props
+
+    await setFeedback({ success: 'Inspection added!' })
+    history.replace(`edit/${inspectionId}`)
+  }
+
+  submit = async cover => {
+    const { addInspection, userId } = this.props
+    const inspectionId = await addInspection(userId, cover)
+
+    this.showActionGoBack(inspectionId)
+  }
+
+  render() {
+    return <CoverFormContainer onSubmit={this.submit} />
+  }
+}
+
+AddInspection.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
 }

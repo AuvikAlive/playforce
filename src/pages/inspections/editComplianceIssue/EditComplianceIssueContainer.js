@@ -1,40 +1,32 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
-import { EditComplianceIssue } from './EditComplianceIssue'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
-  editComplianceIssue,
+  saveComplianceIssue,
   deleteComplianceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions/'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { EditComplianceIssue } from './EditComplianceIssue'
 
 const mapStateToProps = (
   {
-    firestore: {
-      data: { users },
-    },
     firebase: {
       auth: { uid },
     },
-    inspection: { complianceIssues, equipments },
+    inspection: { id, complianceIssues },
   },
-  {
-    match: {
-      params: { id },
-    },
-  }
+  { match }
 ) => ({
-  complianceIssueIndex: id,
-  complianceIssue: complianceIssues[id],
-  equipments,
   userId: uid,
-  data: users && users[uid],
+  inspectionId: id,
+  complianceIssueId: match.params.id,
+  complianceIssue: complianceIssues.find(item => item.id === match.params.id),
 })
 
-const mapDispatchToProps = { editComplianceIssue, deleteComplianceIssue }
+const mapDispatchToProps = { saveComplianceIssue, deleteComplianceIssue }
 
 export const EditComplianceIssueContainer = compose(
+  withFeedback,
   withDeleteModal,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditComplianceIssue)

@@ -28,7 +28,7 @@ export class ComplianceIssuesList extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
@@ -62,6 +62,7 @@ export class ComplianceIssuesList extends Component {
             {complianceIssues.map(
               (
                 {
+                  id,
                   images,
                   finding,
                   equipment,
@@ -71,7 +72,7 @@ export class ComplianceIssuesList extends Component {
                   comments,
                   recommendations,
                 },
-                index,
+                index
               ) => {
                 return (
                   <Grid item key={index} xs={12}>
@@ -81,7 +82,7 @@ export class ComplianceIssuesList extends Component {
                       )}
                     <CardContent className="card-content">
                       <StyledNavLink
-                        to={`${match.url}/edit/${index}`}
+                        to={`${match.url}/edit/${id}`}
                         className="edit-icon"
                       >
                         <Button
@@ -136,7 +137,7 @@ export class ComplianceIssuesList extends Component {
                     </CardContent>
                   </Grid>
                 )
-              },
+              }
             )}
           </Grid>
         ) : (

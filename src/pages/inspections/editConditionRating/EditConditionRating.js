@@ -45,30 +45,41 @@ export class EditConditionRating extends Component {
     removeRightNavComponent()
   }
 
-  onSubmit = updatedValue => {
+  submit = async updatedValue => {
     const {
-      editConditionRating,
-      conditionRatingIndex,
-      conditionRating,
-      history,
+      saveConditionRating,
+      userId,
+      inspectionId,
+      conditionRatingId,
+      setFeedback,
     } = this.props
 
-    if (conditionRating.id) {
-      updatedValue.id = conditionRating.id
-    }
+    await saveConditionRating(
+      userId,
+      inspectionId,
+      conditionRatingId,
+      updatedValue
+    )
+    setFeedback({ success: 'Rating updated!' })
+  }
 
-    editConditionRating({
-      issueIndex: conditionRatingIndex,
-      updatedValue,
-    })
+  showActionGoBack = async message => {
+    const { setFeedback, history } = this.props
+
+    await setFeedback({ success: message })
     history.goBack()
   }
 
-  delete = () => {
-    const { deleteConditionRating, conditionRatingIndex, history } = this.props
+  delete = async () => {
+    const {
+      deleteConditionRating,
+      userId,
+      inspectionId,
+      conditionRatingId,
+    } = this.props
 
-    deleteConditionRating(conditionRatingIndex)
-    history.goBack()
+    await deleteConditionRating(userId, inspectionId, conditionRatingId)
+    this.showActionGoBack('Rating deleted!')
   }
 
   render() {
@@ -76,8 +87,9 @@ export class EditConditionRating extends Component {
 
     return (
       <ConditionRatingForm
+        buttonText="save"
         initialData={conditionRating}
-        onSubmit={this.onSubmit}
+        onSubmit={this.submit}
       />
     )
   }

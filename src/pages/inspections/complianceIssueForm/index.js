@@ -1,3 +1,3 @@
-import { ComplianceIssueForm } from './ComplianceIssueForm'
+import { ComplianceIssueFormContainer } from './ComplianceIssueFormContainer'
 
-export default ComplianceIssueForm
+export default ComplianceIssueFormContainer

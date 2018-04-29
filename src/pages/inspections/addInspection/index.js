@@ -1,3 +1,3 @@
-import { AddInspection } from './AddInspection'
+import { AddInspectionContainer } from './AddInspectionContainer'
 
-export default AddInspection;
+export default AddInspectionContainer

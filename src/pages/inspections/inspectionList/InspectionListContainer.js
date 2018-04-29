@@ -5,7 +5,6 @@ import {
   openSearchBar,
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
-import { toggleEditInspection } from '../../../store/actions/actionCreators/inspectionActions/'
 import {
   fetchInspectionsRealTime,
   toggleView,
@@ -37,7 +36,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
   openSearchBar,
   closeSearchBar,
-  toggleEditInspection,
   fetchInspectionsRealTime,
   fetchStandards,
   toggleView,

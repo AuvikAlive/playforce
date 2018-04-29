@@ -1,10 +1,23 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { AddConditionRating } from './AddConditionRating'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { addConditionRating } from '../../../store/actions/actionCreators/inspectionActions/'
+import { AddConditionRating } from './AddConditionRating'
+
+const mapStateToProps = ({
+  firebase: {
+    auth: { uid },
+  },
+  inspection: { id, equipments },
+}) => ({
+  userId: uid,
+  inspectionId: id,
+  equipments,
+})
 
 const mapDispatchToProps = { addConditionRating }
 
 export const AddConditionRatingContainer = compose(
-  connect(null, mapDispatchToProps)
+  withFeedback,
+  connect(mapStateToProps, mapDispatchToProps)
 )(AddConditionRating)

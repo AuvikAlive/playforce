@@ -1,28 +1,32 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { EditMaintenanceIssue } from './EditMaintenanceIssue'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
-  editMaintenanceIssue,
+  saveMaintenanceIssue,
   deleteMaintenanceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions/'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { EditMaintenanceIssue } from './EditMaintenanceIssue'
 
 const mapStateToProps = (
-  { inspection: { maintenanceIssues, equipments } },
   {
-    match: {
-      params: { id },
+    firebase: {
+      auth: { uid },
     },
-  }
+    inspection: { id, maintenanceIssues },
+  },
+  { match }
 ) => ({
-  maintenanceIssueIndex: id,
-  maintenanceIssue: maintenanceIssues[id],
-  equipments,
+  userId: uid,
+  inspectionId: id,
+  maintenanceIssueId: match.params.id,
+  maintenanceIssue: maintenanceIssues.find(item => item.id === match.params.id),
 })
 
-const mapDispatchToProps = { editMaintenanceIssue, deleteMaintenanceIssue }
+const mapDispatchToProps = { saveMaintenanceIssue, deleteMaintenanceIssue }
 
 export const EditMaintenanceIssueContainer = compose(
+  withFeedback,
   withDeleteModal,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditMaintenanceIssue)

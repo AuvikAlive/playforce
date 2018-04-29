@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
+import { CircularProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
@@ -19,7 +21,7 @@ export class AuditSummary extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const {
       inspectionLoaded,
-      fetchInspection,
+      fetchInspectionRealTime,
       auditSummary,
       userId,
       inspectionId,
@@ -33,7 +35,7 @@ export class AuditSummary extends Component {
       </IconButton>
     )
 
-    !inspectionLoaded && inspectionId && fetchInspection(userId, inspectionId)
+    !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
     this.loadInitialData(auditSummary)
   }
 
@@ -45,7 +47,10 @@ export class AuditSummary extends Component {
   }
 
   componentWillReceiveProps({ inspectionLoaded, auditSummary, cover }) {
-    inspectionLoaded && this.loadInitialData(auditSummary, cover)
+    inspectionLoaded &&
+      auditSummary !== this.props.auditSummary &&
+      cover !== this.props.cover &&
+      this.loadInitialData(auditSummary, cover)
   }
 
   loadInitialData = (auditSummary, cover) => {
@@ -60,24 +65,26 @@ export class AuditSummary extends Component {
     })
   }
 
-  addInspectionSummary = () => {
+  submit = async () => {
     const {
-      addInspectionSummary,
-      history,
+      saveAuditSummary,
+      userId,
+      inspectionId,
       setFeedback,
       profile: { displayName, title, company, signature },
     } = this.props
     const { summary } = this.state
 
     if (summary) {
-      addInspectionSummary({
+      setFeedback({ error: '', loading: true })
+      await saveAuditSummary(userId, inspectionId, {
         summary,
         displayName,
         title,
         company,
         signature,
       })
-      history.goBack()
+      setFeedback({ success: 'Audit Summary saved!', loading: false })
     } else {
       setFeedback({
         error: 'Please fill up the form correctly!',
@@ -88,11 +95,13 @@ export class AuditSummary extends Component {
   render() {
     const { summary } = this.state
     const {
+      inspectionLoaded,
       profile: { displayName, title, company, signature },
       error,
+      loading,
     } = this.props
 
-    return (
+    return inspectionLoaded ? (
       <StyledAuditSummary className="StyledAuditSummary">
         <Card>
           <CardContent>
@@ -147,18 +156,29 @@ export class AuditSummary extends Component {
             </form>
             {error && <p className="error">{error}</p>}
 
-            <Button
-              fullWidth
-              variant="raised"
-              color="primary"
-              className="submit-button"
-              onClick={this.addInspectionSummary}
-            >
-              save
-            </Button>
+            {!error &&
+              loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+
+            {!loading && (
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="submit-button"
+                onClick={this.submit}
+              >
+                save
+              </Button>
+            )}
           </CardContent>
         </Card>
       </StyledAuditSummary>
+    ) : (
+      <LinearProgress />
     )
   }
 }

@@ -46,30 +46,41 @@ export class EditComplianceIssue extends Component {
     )
   }
 
-  onSubmit = updatedValue => {
+  submit = async updatedValue => {
     const {
-      editComplianceIssue,
-      complianceIssueIndex,
-      complianceIssue,
-      history,
+      saveComplianceIssue,
+      userId,
+      inspectionId,
+      complianceIssueId,
+      setFeedback,
     } = this.props
 
-    if (complianceIssue.id) {
-      updatedValue.id = complianceIssue.id
-    }
+    await saveComplianceIssue(
+      userId,
+      inspectionId,
+      complianceIssueId,
+      updatedValue
+    )
+    setFeedback({ success: 'Issue updated!' })
+  }
 
-    editComplianceIssue({
-      issueIndex: complianceIssueIndex,
-      updatedValue,
-    })
+  showActionGoBack = async message => {
+    const { setFeedback, history } = this.props
+
+    await setFeedback({ success: message })
     history.goBack()
   }
 
-  delete = () => {
-    const { deleteComplianceIssue, complianceIssueIndex, history } = this.props
+  delete = async () => {
+    const {
+      deleteComplianceIssue,
+      userId,
+      inspectionId,
+      complianceIssueId,
+    } = this.props
 
-    deleteComplianceIssue(complianceIssueIndex)
-    history.goBack()
+    await deleteComplianceIssue(userId, inspectionId, complianceIssueId)
+    this.showActionGoBack('Issue deleted!')
   }
 
   render() {
@@ -77,8 +88,9 @@ export class EditComplianceIssue extends Component {
 
     return (
       <ComplianceIssueForm
+        buttonText="save"
         initialData={complianceIssue}
-        onSubmit={this.onSubmit}
+        onSubmit={this.submit}
         setRightNav={this.setRightNav}
         removeRightNav={this.context.removeRightNavComponent}
       />

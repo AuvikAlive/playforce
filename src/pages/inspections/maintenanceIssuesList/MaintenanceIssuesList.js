@@ -16,15 +16,24 @@ export class MaintenanceIssuesList extends Component {
 
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const {
+      history,
+      // maintenanceIssuesLoaded,
+      // fetchMaintenanceIssuesRealTime,
+      // userId,
+      // inspectionId,
+    } = this.props
 
     setNavTitle('Maintenance Issues')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
+
+    // !maintenanceIssuesLoaded &&
+    //   fetchMaintenanceIssuesRealTime(userId, inspectionId)
   }
 
   componentWillUnmount() {
@@ -54,39 +63,41 @@ export class MaintenanceIssuesList extends Component {
 
         {!!maintenanceIssues && maintenanceIssues.length > 0 ? (
           <Grid container>
-            {maintenanceIssues.map(({ images, finding, equipment }, index) => {
-              return (
-                <Grid item key={index} xs={12}>
-                  {images &&
-                    images.length > 0 && (
-                      <img src={images[0].image} alt="equipment type" />
-                    )}
-                  <CardContent className="card-content">
-                    <StyledNavLink
-                      to={`${match.url}/edit/${index}`}
-                      className="edit-icon"
-                    >
-                      <Button
-                        variant="fab"
-                        color="primary"
-                        aria-label="edit compliance issue"
+            {maintenanceIssues.map(
+              ({ id, images, finding, equipment }, index) => {
+                return (
+                  <Grid item key={id} xs={12}>
+                    {images &&
+                      images.length > 0 && (
+                        <img src={images[0].image} alt="equipment type" />
+                      )}
+                    <CardContent className="card-content">
+                      <StyledNavLink
+                        to={`${match.url}/edit/${id}`}
+                        className="edit-icon"
                       >
-                        <ModeEditIcon />
-                      </Button>
-                    </StyledNavLink>
-                    <Typography variant="title">
-                      Issue #: {index + 1}
-                    </Typography>
-                    <Typography variant="subheading">
-                      Finding: {finding}
-                    </Typography>
-                    <Typography variant="subheading">
-                      Equipment: {equipment}
-                    </Typography>
-                  </CardContent>
-                </Grid>
-              )
-            })}
+                        <Button
+                          variant="fab"
+                          color="primary"
+                          aria-label="edit compliance issue"
+                        >
+                          <ModeEditIcon />
+                        </Button>
+                      </StyledNavLink>
+                      <Typography variant="title">
+                        Issue #: {index + 1}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Finding: {finding}
+                      </Typography>
+                      <Typography variant="subheading">
+                        Equipment: {equipment}
+                      </Typography>
+                    </CardContent>
+                  </Grid>
+                )
+              }
+            )}
           </Grid>
         ) : (
           <Typography variant="title" align="center">

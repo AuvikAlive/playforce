@@ -14,7 +14,7 @@ export class AddComplianceIssue extends Component {
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
         <ArrowBackIcon />
-      </IconButton>,
+      </IconButton>
     )
   }
 
@@ -25,15 +25,26 @@ export class AddComplianceIssue extends Component {
     removeLefNavComponent()
   }
 
-  onSubmit = complianceIssue => {
-    const { addComplianceIssue, history } = this.props
+  showActionGoBack = async (message, complianceIssueId) => {
+    const { setFeedback, history } = this.props
 
-    addComplianceIssue(complianceIssue)
-    history.goBack()
+    await setFeedback({ success: message })
+    history.replace(`edit/${complianceIssueId}`)
+  }
+
+  submit = async complianceIssue => {
+    const { addComplianceIssue, userId, inspectionId } = this.props
+
+    const complianceIssueId = await addComplianceIssue(
+      userId,
+      inspectionId,
+      complianceIssue
+    )
+    this.showActionGoBack('Issue published!', complianceIssueId)
   }
 
   render() {
-    return <ComplianceIssueForm onSubmit={this.onSubmit} />
+    return <ComplianceIssueForm onSubmit={this.submit} />
   }
 }
 

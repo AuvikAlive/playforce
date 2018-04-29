@@ -57,6 +57,7 @@ export class ConditionRatingList extends Component {
             {conditionRatings.map(
               (
                 {
+                  id,
                   image,
                   equipment,
                   assetId,
@@ -71,7 +72,7 @@ export class ConditionRatingList extends Component {
                     {image && <img src={image} alt="equipment type" />}
                     <CardContent className="card-content">
                       <StyledNavLink
-                        to={`${match.url}/edit/${index}`}
+                        to={`${match.url}/edit/${id}`}
                         className="edit-icon"
                       >
                         <Button

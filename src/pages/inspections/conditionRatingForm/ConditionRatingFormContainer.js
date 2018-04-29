@@ -2,6 +2,10 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
 import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions/'
+import {
+  saveEquipment,
+  fetchEquipmentsRealTime,
+} from '../../../store/actions/actionCreators/equipmentActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
@@ -12,16 +16,23 @@ const mapStateToProps = ({
     auth: { uid },
   },
   manufacturer: { manufacturersLoaded, manufacturers },
-  inspection: { cover, equipments },
+  inspection: { cover },
+  equipments: { equipmentsSite, equipmentsLoaded, equipments },
 }) => ({
   userId: uid,
+  siteId: cover.location.id,
   manufacturersLoaded,
   manufacturers,
+  equipmentsSite,
+  equipmentsLoaded,
   equipments,
-  cover,
 })
 
-const mapDispatchToProps = { fetchManufacturersRealTime }
+const mapDispatchToProps = {
+  saveEquipment,
+  fetchEquipmentsRealTime,
+  fetchManufacturersRealTime,
+}
 
 export const ConditionRatingFormContainer = compose(
   withFullscreenDialog,

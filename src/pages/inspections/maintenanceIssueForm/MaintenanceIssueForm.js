@@ -1,72 +1,241 @@
 import React, { Component } from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { LinearProgress } from 'material-ui/Progress'
+import { CircularProgress } from 'material-ui/Progress'
+import TextField from 'material-ui/TextField'
+import Card, { CardContent } from 'material-ui/Card'
+import Button from 'material-ui/Button'
+import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
+import BrushIcon from 'material-ui-icons/Brush'
+import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
-import { FormContainer } from './FormContainer'
+import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
 
-class MaintenanceIssueFormWithoutRouter extends Component {
-  state = { images: [] }
+export class MaintenanceIssueForm extends Component {
+  state = {
+    finding: '',
+    equipment: '',
+    recommendations: '',
+    images: [],
+  }
+
+  componentDidMount() {
+    const {
+      setRightNav,
+      initialData,
+      equipmentsSite,
+      siteId,
+      fetchEquipmentsRealTime,
+      userId,
+    } = this.props
+
+    setRightNav && setRightNav()
+    equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
+    initialData && this.loadInitialData(initialData)
+  }
+
+  componentWillUnmount() {
+    const { removeRightNav } = this.props
+    removeRightNav && removeRightNav()
+  }
+
+  componentWillReceiveProps({ imageCaptured, initialData, images }) {
+    if (initialData && initialData !== this.props.initialData) {
+      this.loadInitialData(initialData)
+    }
+
+    if (imageCaptured && images !== this.props.images) {
+      const { setFeedback } = this.props
+      const notPortrait = images.some(
+        ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
+      )
+
+      this.loadImages(images)
+
+      if (images.length > 4 && notPortrait) {
+        setFeedback({
+          error: 'Please upload no more than 4 portrait image(s)!',
+        })
+      } else if (images.length > 4) {
+        setFeedback({
+          error: 'Please upload no more than 4 image(s)!',
+        })
+      } else if (notPortrait) {
+        setFeedback({ error: 'Please upload portrait image(s)!' })
+      } else {
+        setFeedback({ error: '' })
+      }
+    }
+  }
+
+  loadInitialData = data => {
+    this.setState({
+      ...data,
+    })
+  }
+
+  onInputChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    })
+  }
+
+  onAutoCompleteChange = value => {
+    this.setState({ equipment: value.equipment || value })
+  }
 
   loadImages = images => {
     this.setState({ images })
   }
 
   saveImages = images => {
-    const { history } = this.props
+    const { closeDialog } = this.props
 
     this.loadImages(images)
-    history.goBack()
+    closeDialog()
+  }
+
+  submit = async () => {
+    const { onSubmit, setFeedback } = this.props
+    const { images, finding, equipment, recommendations } = this.state
+
+    if (images.length > 0 && finding && equipment && recommendations) {
+      setFeedback({ error: '', loading: true })
+
+      try {
+        await onSubmit({
+          images: images.slice(0, 4),
+          finding,
+          equipment,
+          recommendations,
+        })
+        setFeedback({ loading: false })
+      } catch (error) {
+        setFeedback({ error: error.message, loading: false })
+      }
+    } else {
+      setFeedback({
+        error: 'Please fill up the form correctly!',
+      })
+    }
   }
 
   render() {
     const {
-      match,
-      initialData,
-      onSubmit,
-      setRightNav,
-      removeRightNav,
+      captureImage,
+      equipments,
+      error,
+      loading,
+      buttonText,
+      openDialog,
+      closeDialog,
+      equipmentsLoaded,
     } = this.props
-    const { images } = this.state
-    const dataCopy = Object.assign({}, { ...initialData })
-
-    if (images.length > 0) {
-      dataCopy.images = images
-    }
-
+    const { images, finding, equipment, recommendations } = this.state
     const imagesCopy =
-      dataCopy.images &&
-      dataCopy.images.map(({ image, imageNaturalAspectRatio }) =>
+      images &&
+      images.map(({ image, imageNaturalAspectRatio }) =>
         Object.assign({}, { image, imageNaturalAspectRatio })
       )
 
-    return (
-      <Switch>
-        <Route
-          path={`${match.url}/editImages`}
-          component={() => (
-            <Sketch
-              aspectRatio={188 / 253}
-              images={imagesCopy}
-              onSubmit={this.saveImages}
-            />
-          )}
-        />
-        <Route
-          path={match.url}
-          component={() => (
-            <FormContainer
-              setRightNav={setRightNav}
-              removeRightNav={removeRightNav}
-              onSubmit={onSubmit}
-              initialData={dataCopy}
-              loadImages={this.loadImages}
-            />
-          )}
-        />
-      </Switch>
+    return equipmentsLoaded ? (
+      <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
+        <Card>
+          {images &&
+            images.length === 1 && (
+              <img src={images[0].image} alt="equipment type" />
+            )}
+          {images && images.length > 1 && <Carousel images={images} />}
+
+          <CardContent className="card-content">
+            {imagesCopy &&
+              imagesCopy.length > 0 && (
+                <Button
+                  variant="fab"
+                  color="primary"
+                  aria-label="edit compliance issue"
+                  className="edit-icon"
+                  onClick={() =>
+                    openDialog(() => (
+                      <Sketch
+                        aspectRatio={188 / 253}
+                        images={imagesCopy}
+                        onSubmit={this.saveImages}
+                        closeDialog={closeDialog}
+                      />
+                    ))
+                  }
+                >
+                  <BrushIcon />
+                </Button>
+              )}
+
+            <Button
+              fullWidth
+              variant="raised"
+              color="primary"
+              className="submit-button"
+              onClick={() =>
+                captureImage({ width: 188, height: 253, multiple: true })
+              }
+            >
+              Capture Image(s)
+              <StayCurrentLandscapeIcon className="button-icon" />
+            </Button>
+
+            <form noValidate>
+              <AutoComplete
+                onChange={this.onAutoCompleteChange}
+                domain={equipments}
+                label="Equipment"
+                value={equipment}
+                filterProperty="equipment"
+              />
+
+              <TextField
+                fullWidth
+                multiline
+                label="Finding"
+                value={finding}
+                margin="normal"
+                onChange={this.onInputChange('finding')}
+              />
+
+              <TextField
+                fullWidth
+                multiline
+                label="Recommendations"
+                value={recommendations}
+                margin="normal"
+                onChange={this.onInputChange('recommendations')}
+              />
+            </form>
+
+            {error && <p className="error">{error}</p>}
+
+            {!error &&
+              loading && (
+                <div className="loading">
+                  <CircularProgress />
+                </div>
+              )}
+
+            {!loading && (
+              <Button
+                fullWidth
+                variant="raised"
+                color="primary"
+                className="submit-button"
+                onClick={this.submit}
+              >
+                {buttonText ? buttonText : 'Publish'}
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+      </StyledMaintenanceIssueForm>
+    ) : (
+      <LinearProgress />
     )
   }
 }
-
-export const MaintenanceIssueForm = withRouter(
-  MaintenanceIssueFormWithoutRouter
-)

@@ -1,19 +1,17 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { AuditSummary } from './AuditSummary'
 import {
   fetchInspectionRealTime,
-  saveAuditSummary,
+  fetchMaintenanceIssuesRealTime,
 } from '../../../store/actions/actionCreators/inspectionActions/'
+import { MaintenanceIssueRoutes } from './MaintenanceIssueRoutes'
 
 const mapStateToProps = (
   {
     firebase: {
-      profile,
       auth: { uid },
     },
-    inspection: { inspectionLoaded, cover, auditSummary },
+    inspection: { inspectionLoaded, maintenanceIssuesLoaded },
   },
   {
     match: {
@@ -24,17 +22,14 @@ const mapStateToProps = (
   userId: uid,
   inspectionId: id,
   inspectionLoaded,
-  profile,
-  cover,
-  auditSummary,
+  maintenanceIssuesLoaded,
 })
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
-  saveAuditSummary,
+  fetchMaintenanceIssuesRealTime,
 }
 
-export const AuditSummaryContainer = compose(
-  withFeedback,
+export const MaintenanceIssueRoutesContainer = compose(
   connect(mapStateToProps, mapDispatchToProps)
-)(AuditSummary)
+)(MaintenanceIssueRoutes)
