@@ -3,13 +3,13 @@ import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card from 'material-ui/Card'
-import NavBar from '../../../components/navBar/'
-import { StyledMainContent } from '../../../components/shell/StyledMainContent'
-import { ClientList } from '../../settings/clients/ClientList'
-import { FormContainer } from '../../settings/clients/FormContainer'
-import { StyledClients } from '../../settings/clients/StyledClients'
+import NavBar from '../navBar/'
+import { StyledMainContent } from '../styledMainContent/StyledMainContent'
+import { Content } from '../content/Content'
+import { ClientList } from '../clientList/ClientList'
+import { ClientFormContainer } from '../clientForm/ClientFormContainer'
 
-export class Clients extends Component {
+export class ClientsDialog extends Component {
   componentDidMount() {
     const { userId, clientsLoaded, fetchClientsRealTime } = this.props
 
@@ -39,12 +39,12 @@ export class Clients extends Component {
           }
         />
         <StyledMainContent className="StyledMainContent">
-          <StyledClients className="StyledClients">
+          <Content>
             <Card className="card">
               <ClientList clients={clients} deletePrompt={this.delete} />
-              <FormContainer />
+              <ClientFormContainer />
             </Card>
-          </StyledClients>
+          </Content>
         </StyledMainContent>
       </div>
     ) : (
