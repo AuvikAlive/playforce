@@ -46,13 +46,6 @@ export class EditMaintenanceIssue extends Component {
     )
   }
 
-  showActionGoBack = async message => {
-    const { setFeedback, history } = this.props
-
-    await setFeedback({ success: message })
-    history.goBack()
-  }
-
   submit = async updatedValue => {
     const {
       saveMaintenanceIssue,
@@ -71,6 +64,13 @@ export class EditMaintenanceIssue extends Component {
     setFeedback({ success: 'Issue updated!' })
   }
 
+  showActionGoBack = () => {
+    const { setFeedback, history } = this.props
+
+    setFeedback({ success: 'Issue deleted!' })
+    history.goBack()
+  }
+
   delete = async () => {
     const {
       deleteMaintenanceIssue,
@@ -80,7 +80,7 @@ export class EditMaintenanceIssue extends Component {
     } = this.props
 
     await deleteMaintenanceIssue(userId, inspectionId, maintenanceIssueId)
-    this.showActionGoBack('Issue deleted!')
+    this.showActionGoBack()
   }
 
   render() {

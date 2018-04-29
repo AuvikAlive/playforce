@@ -99,6 +99,7 @@ export class ConditionRatingForm extends Component {
   submit = async () => {
     const {
       onSubmit,
+      afterSubmit,
       setFeedback,
       image,
       saveEquipment,
@@ -122,7 +123,7 @@ export class ConditionRatingForm extends Component {
       estimatedDateInstalled
     ) {
       setFeedback({ error: '', loading: true })
-      await onSubmit({
+      const result = await onSubmit({
         image,
         equipment,
         assetId,
@@ -137,6 +138,7 @@ export class ConditionRatingForm extends Component {
         manufacturer,
       })
       setFeedback({ loading: false })
+      afterSubmit && afterSubmit(result)
     } else {
       setFeedback({
         error: 'Please fill up the form correctly!',

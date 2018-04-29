@@ -64,10 +64,10 @@ export class EditComplianceIssue extends Component {
     setFeedback({ success: 'Issue updated!' })
   }
 
-  showActionGoBack = async message => {
+  showActionGoBack = () => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: message })
+    setFeedback({ success: 'Issue deleted!' })
     history.goBack()
   }
 
@@ -80,7 +80,7 @@ export class EditComplianceIssue extends Component {
     } = this.props
 
     await deleteComplianceIssue(userId, inspectionId, complianceIssueId)
-    this.showActionGoBack('Issue deleted!')
+    this.showActionGoBack()
   }
 
   render() {

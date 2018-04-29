@@ -132,7 +132,7 @@ export class ComplianceIssueForm extends Component {
       recommendations,
     } = this.state
 
-    const { onSubmit, setFeedback } = this.props
+    const { onSubmit, afterSubmit, setFeedback } = this.props
 
     if (
       images.length > 0 &&
@@ -156,8 +156,9 @@ export class ComplianceIssueForm extends Component {
         images: images.slice(0, 4),
       }
       try {
-        await onSubmit(dataToSave)
+        const result = await onSubmit(dataToSave)
         setFeedback({ loading: false })
+        afterSubmit && afterSubmit(result)
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }

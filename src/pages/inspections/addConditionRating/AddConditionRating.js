@@ -25,10 +25,10 @@ export class AddConditionRating extends Component {
     removeLefNavComponent()
   }
 
-  showActionGoBack = async (message, conditionRatingId) => {
+  showActionGoBack = conditionRatingId => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: message })
+    setFeedback({ success: 'Rating saved!' })
     history.replace(`edit/${conditionRatingId}`)
   }
 
@@ -40,11 +40,17 @@ export class AddConditionRating extends Component {
       inspectionId,
       conditionRating
     )
-    this.showActionGoBack('Condition published!', conditionRatingId)
+
+    return conditionRatingId
   }
 
   render() {
-    return <ConditionRatingForm onSubmit={this.submit} />
+    return (
+      <ConditionRatingForm
+        afterSubmit={this.showActionGoBack}
+        onSubmit={this.submit}
+      />
+    )
   }
 }
 

@@ -29,18 +29,23 @@ export class AddInspection extends Component {
     const { setFeedback, history } = this.props
 
     setFeedback({ success: 'Inspection added!' })
-    history.replace(`edit/${inspectionId}/cover`)
+    history.replace(`edit/${inspectionId}`)
   }
 
   submit = async cover => {
     const { addInspection, userId } = this.props
     const inspectionId = await addInspection(userId, cover)
 
-    this.showActionGoBack(inspectionId)
+    return inspectionId
   }
 
   render() {
-    return <CoverFormContainer onSubmit={this.submit} />
+    return (
+      <CoverFormContainer
+        afterSubmit={this.showActionGoBack}
+        onSubmit={this.submit}
+      />
+    )
   }
 }
 

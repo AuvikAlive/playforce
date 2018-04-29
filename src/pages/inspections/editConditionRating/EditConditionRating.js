@@ -63,10 +63,10 @@ export class EditConditionRating extends Component {
     setFeedback({ success: 'Rating updated!' })
   }
 
-  showActionGoBack = async message => {
+  showActionGoBack = () => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: message })
+    setFeedback({ success: 'Rating deleted!' })
     history.goBack()
   }
 
@@ -79,7 +79,7 @@ export class EditConditionRating extends Component {
     } = this.props
 
     await deleteConditionRating(userId, inspectionId, conditionRatingId)
-    this.showActionGoBack('Rating deleted!')
+    this.showActionGoBack()
   }
 
   render() {

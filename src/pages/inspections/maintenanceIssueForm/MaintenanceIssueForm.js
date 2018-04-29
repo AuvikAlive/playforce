@@ -96,20 +96,21 @@ export class MaintenanceIssueForm extends Component {
   }
 
   submit = async () => {
-    const { onSubmit, setFeedback } = this.props
+    const { onSubmit, afterSubmit, setFeedback } = this.props
     const { images, finding, equipment, recommendations } = this.state
 
     if (images.length > 0 && finding && equipment && recommendations) {
       setFeedback({ error: '', loading: true })
 
       try {
-        await onSubmit({
+        const result = await onSubmit({
           images: images.slice(0, 4),
           finding,
           equipment,
           recommendations,
         })
         setFeedback({ loading: false })
+        afterSubmit && afterSubmit(result)
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }

@@ -85,7 +85,14 @@ export class CoverForm extends Component {
   }
 
   submit = async () => {
-    const { onSubmit, setFeedback, image, displayName, sites } = this.props
+    const {
+      onSubmit,
+      afterSubmit,
+      setFeedback,
+      image,
+      displayName,
+      sites,
+    } = this.props
     const { location, client, inspectionDate, appliedStandards } = this.state
 
     if (
@@ -98,7 +105,7 @@ export class CoverForm extends Component {
       setFeedback({ error: '', loading: true })
 
       try {
-        await onSubmit({
+        const result = await onSubmit({
           image,
           displayName,
           location: sites.filter(({ id }) => id === location)[0],
@@ -106,6 +113,8 @@ export class CoverForm extends Component {
           inspectionDate,
           appliedStandards,
         })
+        setFeedback({ loading: false })
+        afterSubmit && afterSubmit(result)
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }

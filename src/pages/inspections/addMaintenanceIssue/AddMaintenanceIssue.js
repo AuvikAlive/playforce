@@ -25,10 +25,10 @@ export class AddMaintenanceIssue extends Component {
     removeLefNavComponent()
   }
 
-  showActionGoBack = async (message, maintenanceIssueId) => {
+  showActionGoBack = maintenanceIssueId => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: message })
+    setFeedback({ success: 'Issue published!' })
     history.replace(`edit/${maintenanceIssueId}`)
   }
 
@@ -40,11 +40,17 @@ export class AddMaintenanceIssue extends Component {
       inspectionId,
       maintenanceIssue
     )
-    this.showActionGoBack('Issue published!', maintenanceIssueId)
+
+    return maintenanceIssueId
   }
 
   render() {
-    return <MaintenanceIssueForm onSubmit={this.submit} />
+    return (
+      <MaintenanceIssueForm
+        onSubmit={this.submit}
+        afterSubmit={this.showActionGoBack}
+      />
+    )
   }
 }
 

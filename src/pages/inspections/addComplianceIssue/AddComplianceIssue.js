@@ -25,10 +25,10 @@ export class AddComplianceIssue extends Component {
     removeLefNavComponent()
   }
 
-  showActionGoBack = async (message, complianceIssueId) => {
+  showActionGoBack = complianceIssueId => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: message })
+    setFeedback({ success: 'Issue published!' })
     history.replace(`edit/${complianceIssueId}`)
   }
 
@@ -40,11 +40,16 @@ export class AddComplianceIssue extends Component {
       inspectionId,
       complianceIssue
     )
-    this.showActionGoBack('Issue published!', complianceIssueId)
+    return complianceIssueId
   }
 
   render() {
-    return <ComplianceIssueForm onSubmit={this.submit} />
+    return (
+      <ComplianceIssueForm
+        afterSubmit={this.showActionGoBack}
+        onSubmit={this.submit}
+      />
+    )
   }
 }
 
