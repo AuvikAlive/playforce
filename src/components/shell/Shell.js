@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
 import { isLoaded } from 'react-redux-firebase'
+import { LinearProgress } from 'material-ui/Progress'
+import Snackbar from 'material-ui/Snackbar'
 import NavBar from '../navBar'
 import SideMenu from '../sideMenu'
 import Routes from '../routes'
@@ -11,74 +12,56 @@ import { StyledMainContent } from './StyledMainContent'
 export class Shell extends Component {
   getChildContext() {
     return {
-      setNavTitle: this.setNavTitle,
-      removeNavTitle: this.removeNavTitle,
-      setLeftNavComponent: this.setLeftNavComponent,
-      removeLefNavComponent: this.removeLefNavComponent,
-      setRightNavComponent: this.setRightNavComponent,
-      removeRightNavComponent: this.removeRightNavComponent,
-      setSearchComponent: this.setSearchComponent,
-      removeSearchComponent: this.removeSearchComponent,
       disableNavBarShadow: this.disableNavBarShadow,
       enableNavBarShadow: this.enableNavBarShadow,
+      setNavTitle: this.setNavTitle,
+      removeNavTitle: this.removeNavTitle,
+      setLeftNavComponent: this.setComponent('leftNavComponent'),
+      removeLefNavComponent: this.removeComponent('leftNavComponent'),
+      setRightNavComponent: this.setComponent('rightNavComponent'),
+      removeRightNavComponent: this.removeComponent('rightNavComponent'),
+      setSearchComponent: this.setComponent('searchComponent'),
+      removeSearchComponent: this.removeComponent('searchComponent'),
+      openSnackbar: this.openSnackbar,
+      closeSnackbar: this.closeSnackbar,
     }
   }
 
   state = {
+    navBarShadowEnabled: true,
     navTitle: null,
     leftNavComponent: null,
     rightNavComponent: null,
     searchComponent: null,
-    navBarShadowEnabled: true,
+    snackbarOpen: false,
+    snackbarAutoHideDuration: 2000,
+    snackbarMessage: '',
   }
 
-  setNavTitle = title => {
-    this.setState({ navTitle: title })
-  }
-
-  removeNavTitle = title => {
-    this.setState({ navTitle: null })
-  }
-
-  setLeftNavComponent = component => {
-    this.setState({ leftNavComponent: component })
-  }
-
-  removeLefNavComponent = () => {
-    this.setState({ leftNavComponent: null })
-  }
-
-  setRightNavComponent = component => {
-    this.setState({ rightNavComponent: component })
-  }
-
-  removeRightNavComponent = () => {
-    this.setState({ rightNavComponent: null })
-  }
-
-  setSearchComponent = component => {
-    this.setState({ searchComponent: component })
-  }
-
-  removeSearchComponent = () => {
-    this.setState({ searchComponent: null })
-  }
-
-  disableNavBarShadow = () => {
-    this.setState({ navBarShadowEnabled: false })
-  }
-
-  enableNavBarShadow = () => {
-    this.setState({ navBarShadowEnabled: true })
-  }
+  setNavTitle = title => this.setState({ navTitle: title })
+  removeNavTitle = title => this.setState({ navTitle: null })
+  disableNavBarShadow = () => this.setState({ navBarShadowEnabled: false })
+  enableNavBarShadow = () => this.setState({ navBarShadowEnabled: true })
+  setComponent = name => component => this.setState({ [name]: component })
+  removeComponent = name => () => this.setState({ [name]: null })
+  openSnackbar = (snackbarAutoHideDuration, snackbarMessage) =>
+    this.setState({
+      snackbarOpen: true,
+      snackbarAutoHideDuration,
+      snackbarMessage,
+    })
+  closeSnackbar = () => this.setState({ snackbarOpen: false })
 
   render() {
     const {
+      navBarShadowEnabled,
       navTitle,
       leftNavComponent,
       rightNavComponent,
       searchComponent,
-      navBarShadowEnabled,
+      snackbarOpen,
+      snackbarAutoHideDuration,
+      snackbarMessage,
     } = this.state
 
     const { auth, profile } = this.props
@@ -86,16 +69,30 @@ export class Shell extends Component {
     return isLoaded(auth) && isLoaded(profile) ? (
       <div>
         <NavBar
+          shadow={navBarShadowEnabled}
           title={navTitle}
           leftComponent={leftNavComponent}
           rightComponent={rightNavComponent}
           searchComponent={searchComponent}
-          shadow={navBarShadowEnabled}
         />
+
         <SideMenu />
+
         <StyledMainContent className="StyledMainContent">
           <Routes />
         </StyledMainContent>
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={snackbarOpen}
+          autoHideDuration={snackbarAutoHideDuration}
+          onClose={this.closeSnackbar}
+          message={<span id="message-id">{snackbarMessage}</span>}
+        />
+
         <Footer />
       </div>
     ) : (
@@ -105,6 +102,8 @@ export class Shell extends Component {
 }
 
 Shell.childContextTypes = {
+  disableNavBarShadow: PropTypes.func,
+  enableNavBarShadow: PropTypes.func,
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
@@ -113,6 +112,6 @@ Shell.childContextTypes = {
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,
   removeSearchComponent: PropTypes.func,
-  disableNavBarShadow: PropTypes.func,
-  enableNavBarShadow: PropTypes.func,
+  openSnackbar: PropTypes.func,
+  closeSnackbar: PropTypes.func,
 }

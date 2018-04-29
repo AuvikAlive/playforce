@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Snackbar from 'material-ui/Snackbar'
+import PropTypes from 'prop-types'
 import { getDisplayName } from '../../utilities/getDisplayName'
 import { StyledFeedback } from './StyledFeedback'
 
@@ -11,15 +11,6 @@ export const withFeedback = WrappedComponent => {
       error: '',
       success: '',
       loading: false,
-      snackbarOpen: false,
-    }
-
-    openSnackbar = () => {
-      this.setState({ snackbarOpen: true })
-    }
-
-    closeSnackbar = () => {
-      this.setState({ snackbarOpen: false })
     }
 
     setFeedback = ({ error, success, loading }) => {
@@ -30,7 +21,7 @@ export const withFeedback = WrappedComponent => {
       })
 
       if (success) {
-        this.openSnackbar()
+        this.context.openSnackbar(snackbarAutoHideDuration, success)
         return new Promise(resolve => {
           setTimeout(() => resolve(), snackbarAutoHideDuration)
         })
@@ -38,7 +29,7 @@ export const withFeedback = WrappedComponent => {
     }
 
     render() {
-      const { error, success, loading, snackbarOpen } = this.state
+      const { error, loading } = this.state
 
       return (
         <StyledFeedback className="StyledFeedback">
@@ -48,19 +39,14 @@ export const withFeedback = WrappedComponent => {
             loading={loading}
             {...this.props}
           />
-          <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            open={snackbarOpen}
-            autoHideDuration={snackbarAutoHideDuration}
-            onClose={this.closeSnackbar}
-            message={<span id="message-id">{error || success}</span>}
-          />
         </StyledFeedback>
       )
     }
+  }
+
+  WithFeedback.contextTypes = {
+    openSnackbar: PropTypes.func,
+    closeSnackbar: PropTypes.func,
   }
 
   WithFeedback.displayName = `WithFeedback(${getDisplayName(WrappedComponent)})`

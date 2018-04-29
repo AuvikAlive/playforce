@@ -25,11 +25,11 @@ export class AddInspection extends Component {
     removeLefNavComponent()
   }
 
-  showActionGoBack = async inspectionId => {
+  showActionGoBack = inspectionId => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: 'Inspection added!' })
-    history.replace(`edit/${inspectionId}`)
+    setFeedback({ success: 'Inspection added!' })
+    history.replace(`edit/${inspectionId}/cover`)
   }
 
   submit = async cover => {

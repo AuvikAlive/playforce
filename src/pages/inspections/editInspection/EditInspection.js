@@ -155,10 +155,10 @@ export class EditInspection extends Component {
     }
   }
 
-  showActionGoBack = async message => {
+  showActionGoBack = message => {
     const { setFeedback, history, discardInspection } = this.props
 
-    await setFeedback({ success: message })
+    setFeedback({ success: message })
     discardInspection()
     history.goBack()
   }

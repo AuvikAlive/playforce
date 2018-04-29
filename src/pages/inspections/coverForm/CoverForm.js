@@ -106,8 +106,6 @@ export class CoverForm extends Component {
           inspectionDate,
           appliedStandards,
         })
-
-        setFeedback({ loading: false })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
