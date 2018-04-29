@@ -1,11 +1,11 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import NavBar from '../../../components/navBar/'
-import { StyledMainContent } from '../../../components/shell/StyledMainContent'
-import { SiteFormContainer } from '../../../components/siteForm/SiteFormContainer'
+import NavBar from '../navBar/'
+import { StyledMainContent } from '../styledMainContent/StyledMainContent'
+import { SiteFormContainer } from '../siteForm/SiteFormContainer'
 
-export const AddSite = ({ addSite, userId, closeDialog }) => {
+export const AddSiteDialog = ({ addSite, userId, closeDialog }) => {
   const submit = async site => {
     const siteId = await addSite(userId, site)
 

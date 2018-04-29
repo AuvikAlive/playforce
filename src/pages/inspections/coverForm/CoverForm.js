@@ -13,7 +13,7 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import { DatePicker } from 'material-ui-pickers'
 import { isEmpty } from 'lodash'
-import { AddSiteContainer } from '../addSite/AddSiteContainer'
+import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
 import { ClientsContainer } from '../clients/ClientsContainer'
 import { StyledCoverForm } from './StyledCoverForm'
 
@@ -182,7 +182,7 @@ export class CoverForm extends Component {
                   )}
                 </TextField>
 
-                <IconButton onClick={() => openDialog(AddSiteContainer)}>
+                <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
                   <AddBoxIcon />
                 </IconButton>
               </div>

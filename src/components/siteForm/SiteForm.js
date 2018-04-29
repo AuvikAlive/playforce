@@ -7,7 +7,7 @@ import { MenuItem } from 'material-ui/Menu'
 import { CircularProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import AddBoxIcon from 'material-ui-icons/AddBox'
-import { OperatorsContainer } from '../operators/OperatorsContainer'
+import { OperatorsDialogContainer } from '../operatorsDialog/OperatorsDialogContainer'
 import { StyledSiteForm } from './StyledSiteForm'
 
 export class SiteForm extends Component {
@@ -232,7 +232,9 @@ export class SiteForm extends Component {
                   )}
                 </TextField>
 
-                <IconButton onClick={() => openDialog(OperatorsContainer)}>
+                <IconButton
+                  onClick={() => openDialog(OperatorsDialogContainer)}
+                >
                   <AddBoxIcon />
                 </IconButton>
               </div>

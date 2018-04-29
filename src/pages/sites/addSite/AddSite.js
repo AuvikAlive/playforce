@@ -34,7 +34,6 @@ export class AddSite extends Component {
 
   submit = async site => {
     const { addSite, userId } = this.props
-
     const siteId = await addSite(userId, site)
 
     return siteId

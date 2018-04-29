@@ -7,7 +7,7 @@ import NavBar from '../navBar'
 import SideMenu from '../sideMenu'
 import Routes from '../routes'
 import Footer from '../footer'
-import { StyledMainContent } from './StyledMainContent'
+import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 
 export class Shell extends Component {
   getChildContext() {
