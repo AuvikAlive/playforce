@@ -1,14 +1,18 @@
 import { TOGGLE_SITELIST_VIEW, SET_SITELIST_VIEW } from '../../actionTypes'
+import { addSite } from './addSite'
 import { saveSite } from './saveSite'
 import { fetchSite } from './fetchSite'
+import { updateSite } from './updateSite'
 import { deleteSite } from './deleteSite'
 import { fetchSites } from './fetchSites'
 import { fetchSitesRealTime } from './fetchSitesRealTime'
 import { searchSites } from './searchSites'
 
 export {
+  addSite,
   saveSite,
   fetchSite,
+  updateSite,
   deleteSite,
   fetchSites,
   fetchSitesRealTime,

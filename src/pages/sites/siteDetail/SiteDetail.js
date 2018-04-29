@@ -78,10 +78,10 @@ export class SiteDetail extends Component {
     )
   }
 
-  showActionGoBack = async () => {
+  showActionGoBack = () => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: 'Site deleted!' })
+    setFeedback({ success: 'Site deleted!' })
     history.goBack()
   }
 

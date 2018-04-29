@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { addSite } from '../../../store/actions/actionCreators/siteActions/'
-import { AddSite } from './AddSite'
+import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
+import { fetchOperatorsRealTime } from '../../../store/actions/actionCreators/operatorActions/'
+import { SiteForm } from './SiteForm'
 
 const mapStateToProps = ({
   firebase: {
@@ -15,9 +16,10 @@ const mapStateToProps = ({
   operators,
 })
 
-const mapDispatchToProps = { addSite }
+const mapDispatchToProps = { fetchOperatorsRealTime }
 
-export const AddSiteContainer = compose(
+export const SiteFormContainer = compose(
+  withFullscreenDialog,
   withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
-)(AddSite)
+)(SiteForm)

@@ -1,20 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import { FormContainer } from './FormContainer'
-import { StyledAddSite } from './StyledAddSite'
+import { SiteFormContainer } from '../siteForm/SiteFormContainer'
 
 export class AddSite extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const {
-      history,
-      operatorsLoaded,
-      fetchOperatorsRealTime,
-      userId,
-    } = this.props
+    const { history } = this.props
 
     setNavTitle('Add Site')
 
@@ -23,8 +16,6 @@ export class AddSite extends Component {
         <ArrowBackIcon />
       </IconButton>
     )
-
-    !operatorsLoaded && fetchOperatorsRealTime(userId)
   }
 
   componentWillUnmount() {
@@ -34,15 +25,27 @@ export class AddSite extends Component {
     removeLefNavComponent()
   }
 
-  render() {
-    const { operatorsLoaded } = this.props
+  showActionGoBack = siteId => {
+    const { setFeedback, history } = this.props
 
-    return operatorsLoaded ? (
-      <StyledAddSite className="StyledAddSite">
-        <FormContainer />
-      </StyledAddSite>
-    ) : (
-      <LinearProgress />
+    setFeedback({ success: 'Site published!' })
+    history.replace(`${siteId}`)
+  }
+
+  submit = async site => {
+    const { addSite, userId } = this.props
+
+    const siteId = await addSite(userId, site)
+
+    return siteId
+  }
+
+  render() {
+    return (
+      <SiteFormContainer
+        onSubmit={this.submit}
+        afterSubmit={this.showActionGoBack}
+      />
     )
   }
 }
