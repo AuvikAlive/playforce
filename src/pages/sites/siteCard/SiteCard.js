@@ -68,7 +68,7 @@ export const SiteCard = ({
               <ListItemText primary="Operator" secondary={operator} />
             </ListItem>
             {division &&
-              !hideDivision(
+              !hideDivision && (
                 <ListItem divider>
                   <ListItemText primary="Division" secondary={division} />
                 </ListItem>
