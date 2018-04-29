@@ -1,4 +1,6 @@
 import {
+  FETCH_INSPECTION,
+  FETCH_INSPECTION_COMPLETED,
   LOAD_INSPECTION,
   DISCARD_INSPECTION,
   ADD_INSPECTION_COVER,
@@ -24,17 +26,20 @@ export const initialState = {
   auditSummaryAdded: false,
   conditionRatings: [],
   conditionRatingsAdded: false,
-  deletedConditionRatings: [],
   complianceIssues: [],
   complianceIssuesAdded: false,
-  deletedComplianceIssues: [],
   maintenanceIssues: [],
   maintenanceIssuesAdded: false,
-  deletedMaintenanceIssues: [],
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case FETCH_INSPECTION:
+      return { ...state, inspectionLoaded: false }
+
+    case FETCH_INSPECTION_COMPLETED:
+      return { ...state, inspectionLoaded: true, ...payload }
+
     case LOAD_INSPECTION:
       return {
         ...state,

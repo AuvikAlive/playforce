@@ -4,20 +4,20 @@ import Loadable from '../../components/loadable/LoadableLinear'
 import InspectionList from './inspectionList'
 
 const AddInspection = Loadable({
-  loader: () => import('./addInspection'),
+  loader: () => import('../newInspection/addInspection'),
 })
-const EditInspection = Loadable({
-  loader: () => import('./editInspection'),
+const EditInspectionRoutes = Loadable({
+  loader: () => import('../newInspection/editInspectionRoutes'),
 })
 
 AddInspection.preload()
-EditInspection.preload()
+EditInspectionRoutes.preload()
 
 export const Inspections = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/add`} component={AddInspection} />
-      <Route path={`${match.url}/edit`} component={EditInspection} />
+      <Route path={`${match.url}/edit`} component={EditInspectionRoutes} />
       <Route path={match.url} component={InspectionList} />
     </Switch>
   )

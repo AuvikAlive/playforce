@@ -63,7 +63,7 @@ export const withImageCapture = WrappedComponent => {
 
       const dataUrl = await downscale(image, width, height, {
         imageType: file.type,
-        quality: 0.5,
+        quality: 1,
       })
 
       return { image: dataUrl, imageNaturalAspectRatio }
