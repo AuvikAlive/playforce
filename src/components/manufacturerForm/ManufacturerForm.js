@@ -4,9 +4,9 @@ import TextField from 'material-ui/TextField'
 import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 
-export class Form extends Component {
+export class ManufacturerForm extends Component {
   state = {
-    client: '',
+    manufacturer: '',
   }
 
   onInputChange = name => event => {
@@ -16,38 +16,38 @@ export class Form extends Component {
   }
 
   submit = async () => {
-    const { client } = this.state
-    const { setFeedback, userId } = this.props
+    const { manufacturer } = this.state
+    const { saveManufacturer, userId, setFeedback } = this.props
 
-    if (client) {
+    if (manufacturer) {
       setFeedback({ error: '', loading: true })
-      const { saveClient } = this.props
 
       try {
-        await saveClient(userId, { name: client })
-        this.setState({ client: '' })
-        setFeedback({ success: 'Client added!', loading: false })
+        await saveManufacturer(userId, { name: manufacturer })
+        setFeedback({ loading: false })
+        this.setState({ manufacturer: '' })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
     } else {
       setFeedback({
         error: 'Please fill up the form correctly!',
+        loading: false,
       })
     }
   }
 
   render() {
-    const { client } = this.state
+    const { manufacturer } = this.state
     const { error, loading } = this.props
 
     return (
       <CardContent>
         <TextField
           fullWidth
-          label="Client"
-          value={client}
-          onChange={this.onInputChange('client')}
+          label="Manufacturer"
+          value={manufacturer}
+          onChange={this.onInputChange('manufacturer')}
           margin="normal"
         />
 
@@ -68,7 +68,7 @@ export class Form extends Component {
             className="submit-button"
             onClick={this.submit}
           >
-            Add Client
+            Add manufacturer
           </Button>
         )}
       </CardContent>

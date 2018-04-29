@@ -14,7 +14,7 @@ import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { DatePicker } from 'material-ui-pickers'
 import { defaultManufacturers, conditions } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { ManufacturersContainer } from '../manufacturers/ManufacturersContainer'
+import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 export class ConditionRatingForm extends Component {
@@ -227,7 +227,9 @@ export class ConditionRatingForm extends Component {
                       })}
                 </TextField>
 
-                <IconButton onClick={() => openDialog(ManufacturersContainer)}>
+                <IconButton
+                  onClick={() => openDialog(ManufacturersDialogContainer)}
+                >
                   <AddBoxIcon />
                 </IconButton>
               </div>

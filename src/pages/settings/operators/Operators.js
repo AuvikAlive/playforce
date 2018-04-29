@@ -4,8 +4,8 @@ import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card from 'material-ui/Card'
-import { OperatorList } from './OperatorList'
-import { FormContainer } from './FormContainer'
+import { OperatorList } from '../../../components/operatorList/OperatorList'
+import { OperatorForm } from '../../../components/operatorForm/OperatorForm'
 import { StyledOperators } from './StyledOperators'
 
 export class Operators extends Component {
@@ -47,7 +47,7 @@ export class Operators extends Component {
       <StyledOperators className="StyledOperators">
         <Card className="card">
           <OperatorList operators={operators} deletePrompt={this.delete} />
-          <FormContainer />
+          <OperatorForm />
         </Card>
       </StyledOperators>
     ) : (

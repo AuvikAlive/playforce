@@ -4,8 +4,8 @@ import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card from 'material-ui/Card'
-import { ClientList } from './ClientList'
-import { FormContainer } from './FormContainer'
+import { ClientList } from '../../../components/clientList/ClientList'
+import { ClientFormContainer } from '../../../components/clientForm/ClientFormContainer'
 import { StyledClients } from './StyledClients'
 
 export class Clients extends Component {
@@ -43,7 +43,7 @@ export class Clients extends Component {
       <StyledClients className="StyledClients">
         <Card className="card">
           <ClientList clients={clients} deletePrompt={this.delete} />
-          <FormContainer />
+          <ClientFormContainer />
         </Card>
       </StyledClients>
     ) : (

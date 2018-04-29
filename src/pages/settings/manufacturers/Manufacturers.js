@@ -4,8 +4,8 @@ import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card from 'material-ui/Card'
-import { ManufacturerList } from './ManufacturerList'
-import { FormContainer } from './FormContainer'
+import { ManufacturerList } from '../../../components/manufacturerList/ManufacturerList'
+import { ManufacturerFormContainer } from '../../../components/manufacturerForm/ManufacturerFormContainer'
 import { StyledManufacturers } from './StyledManufacturers'
 
 export class Manufacturers extends Component {
@@ -52,7 +52,7 @@ export class Manufacturers extends Component {
             deletePrompt={this.delete}
           />
 
-          <FormContainer />
+          <ManufacturerFormContainer />
         </Card>
       </StyledManufacturers>
     ) : (
