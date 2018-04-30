@@ -16,7 +16,7 @@ import { isEmpty } from 'react-redux-firebase'
 
 export class EditInspection extends Component {
   state = {
-    src: '',
+    src: undefined,
     menuAnchor: null,
     certificate: false,
   }
@@ -55,6 +55,8 @@ export class EditInspection extends Component {
     !maintenanceIssuesLoaded &&
       fetchMaintenanceIssuesRealTime(userId, inspectionId)
 
+    // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
+
     setNavTitle('Edit Inspection')
 
     setLeftNavComponent(
@@ -91,8 +93,8 @@ export class EditInspection extends Component {
     removeRightNavComponent()
   }
 
-  componentWillReceiveProps({ inspection }) {
-    // inspection.inspectionLoaded && this.renderPdf(inspection)
+  componentWillReceiveProps({ inspection, standardsLoaded }) {
+    // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
   }
 
   onSwitchChange = event => {
@@ -171,33 +173,15 @@ export class EditInspection extends Component {
   }
 
   generateReport = async () => {
-    const { inspection, setFeedback, displayName, standards } = this.props
-    const { certificate } = this.state
-
     this.closeMenu()
 
+    const { inspection, setFeedback } = this.props
     const { auditSummary, conditionRatingsAdded } = inspection
 
     if (!isEmpty(auditSummary) && conditionRatingsAdded) {
       setFeedback({ error: '', loading: true })
 
-      inspection.displayName = displayName
-
-      const appliedStandards = flatten(
-        map(inspection.cover.appliedStandards, standardId => {
-          return filter(standards, item => item.id === standardId)
-        })
-      )
-
-      let inspectionWithAppliedStandards = {
-        ...inspection,
-        cover: { ...inspection.cover, appliedStandards },
-      }
-
-      const pdfDocGenerator = await generatePdf(
-        inspectionWithAppliedStandards,
-        certificate
-      )
+      const pdfDocGenerator = await this.createPdf()
 
       pdfDocGenerator.download(
         `${inspection.cover.location.name} - inspection-report.pdf`
@@ -213,11 +197,42 @@ export class EditInspection extends Component {
     }
   }
 
-  renderPdf = async inspection => {
-    const pdfDocGenerator = await generatePdf(inspection, true)
-    pdfDocGenerator.getDataUrl(dataUrl => {
-      this.setState({ src: dataUrl })
-    })
+  createPdf = async () => {
+    const { inspection, displayName, standards } = this.props
+    const { certificate } = this.state
+
+    inspection.displayName = displayName
+
+    const appliedStandards = flatten(
+      map(inspection.cover.appliedStandards, standardId => {
+        return filter(standards, item => item.id === standardId)
+      })
+    )
+
+    let inspectionWithAppliedStandards = {
+      ...inspection,
+      cover: { ...inspection.cover, appliedStandards },
+    }
+
+    const pdfDocGenerator = await generatePdf(
+      inspectionWithAppliedStandards,
+      certificate
+    )
+
+    return pdfDocGenerator
+  }
+
+  renderPdf = async () => {
+    const { inspection } = this.props
+    const { auditSummary, conditionRatingsAdded } = inspection
+
+    if (!isEmpty(auditSummary) && conditionRatingsAdded) {
+      const pdfDocGenerator = await this.createPdf()
+
+      pdfDocGenerator.getDataUrl(dataUrl => {
+        this.setState({ src: dataUrl })
+      })
+    }
   }
 
   beforeBack = () => {
@@ -247,8 +262,6 @@ export class EditInspection extends Component {
       conditionRatingsAdded,
       maintenanceIssuesAdded,
     }
-
-    // console.log(inspectionLoaded, maintenanceIssuesLoaded)
 
     return inspectionLoaded &&
       conditionRatingsLoaded &&
@@ -289,12 +302,7 @@ export class EditInspection extends Component {
         </Menu>
         {this.state.src && (
           <div>
-            <object
-              width="100%"
-              height={500}
-              data={this.state.src}
-              type="application/pdf"
-            >
+            <object width="100%" height={500} data={this.state.src}>
               pdf
             </object>
           </div>

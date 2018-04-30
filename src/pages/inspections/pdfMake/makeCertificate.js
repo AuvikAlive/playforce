@@ -26,7 +26,7 @@ export const makeCertificate = async ({
   const pageFontSize = fontSize + 2
   const firstColumnWidth = 150
   const { name, street, suburb, state, postcode, country } = location
-  const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
+  const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
   const trimmedSignature = await trimImage(signature)
 
   const standardItems = appliedStandards.map(
@@ -37,14 +37,14 @@ export const makeCertificate = async ({
       }
 
       return item
-    },
+    }
   )
 
   const conditionRatingItems = conditionRatings.map(
     ({ equipment, manufacturer }) => ({
       text: `${equipment} - ${manufacturer}`,
       width: '*',
-    }),
+    })
   )
 
   return [
@@ -227,7 +227,7 @@ export const makeCertificate = async ({
         marginBottom: verticalMargin * 3,
         text: `Based on our on-site assessment conducted on the ${format(
           inspectionDate,
-          'DD MMMM YYYY',
+          'DD MMMM YYYY'
         )}, Play Force Pty Ltd hereby certify that the items listed above were installed to meet the requirements of the applied standard(s). The certificate holder is authorized to use the certificate in connection with the attached report.`,
       },
       {

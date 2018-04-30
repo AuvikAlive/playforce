@@ -21,7 +21,7 @@ export const makeCover = ({
   const middleSectionFontSize = fontSize + 2
   const middleSectionFirstColumnWidth = 150
   const { name, street, suburb, state, postcode, country } = location
-  const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
+  const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
 
   const standardItems = appliedStandards.map(
     ({ code, title }, index, array) => {
@@ -35,7 +35,7 @@ export const makeCover = ({
       }
 
       return item
-    },
+    }
   )
 
   return [

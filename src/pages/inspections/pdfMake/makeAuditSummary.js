@@ -12,7 +12,7 @@ export const makeAuditSummary = async ({ auditSummary, cover }) => {
       font: 'Oswald',
       // bold: true,
       fontSize: headerFontSize,
-      marginBottom: verticalMargin * 2,
+      marginBottom: verticalMargin,
     },
     {
       text: summary,

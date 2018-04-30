@@ -2,7 +2,7 @@ import { verticalMargin, headerFontSize } from './globals'
 
 export const makeReportNotes = ({ appliedStandards }) => {
   const standardItems = appliedStandards.map(
-    ({ code, title }, index, array) => (index === 0 ? `${code}` : `, ${code}`),
+    ({ code, title }, index, array) => (index === 0 ? `${code}` : `, ${code}`)
   )
 
   return [
@@ -11,7 +11,7 @@ export const makeReportNotes = ({ appliedStandards }) => {
       font: 'Oswald',
       // bold: true,
       fontSize: headerFontSize,
-      marginBottom: verticalMargin * 2,
+      marginBottom: verticalMargin,
     },
     {
       text: 'The following notes apply to this inspection report.',
@@ -60,7 +60,7 @@ export const makeReportNotes = ({ appliedStandards }) => {
           },
           {
             text: `The equipment in this report has been assessed, were applicable, in accordance with ${standardItems.join(
-              ' ',
+              ' '
             )}`,
             marginBottom: verticalMargin,
           },

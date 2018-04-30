@@ -18,7 +18,7 @@ export const makeMaintenanceIssues = maintenanceIssues => {
           columns: [
             {
               image: images[0].image,
-              width: 207,
+              width: imageWidth,
               marginBottom: verticalMargin,
             },
             [
@@ -72,7 +72,7 @@ export const makeMaintenanceIssues = maintenanceIssues => {
       ]
 
       if (images.length > 1) {
-        const marginLeft = 5
+        // const marginLeft = 5
         const extraImages = images.slice(1)
         const imageItems = extraImages.map(({ image }, index, array) => ({
           image,
@@ -81,7 +81,7 @@ export const makeMaintenanceIssues = maintenanceIssues => {
 
         item.push({
           pageBreak: 'after',
-          marginLeft,
+          // marginLeft,
           marginTop: verticalMargin,
           columnGap,
           columns: imageItems,
@@ -89,7 +89,7 @@ export const makeMaintenanceIssues = maintenanceIssues => {
       }
 
       return item
-    },
+    }
   )
 
   return [
@@ -98,7 +98,7 @@ export const makeMaintenanceIssues = maintenanceIssues => {
       font: 'Oswald',
       fontSize: headerFontSize,
       // bold: true,
-      marginBottom: verticalMargin * 2,
+      marginBottom: verticalMargin,
     },
     maintenanceIssueItems,
   ]

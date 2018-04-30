@@ -29,7 +29,7 @@ export const SiteCard = ({
     inspections,
   } = site
 
-  const address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
+  const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
   const chips =
     inspections &&
     inspections.map(({ type }) => (

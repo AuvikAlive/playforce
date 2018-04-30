@@ -17,7 +17,7 @@ export const makeIndividualConditionRatings = conditionRatings => {
         condition,
         estimatedDateInstalled,
       },
-      index,
+      index
     ) => [
       {
         image,
@@ -61,7 +61,7 @@ export const makeIndividualConditionRatings = conditionRatings => {
           condition,
         ],
       },
-    ],
+    ]
   )
 
   const tuples = chunk(conditionRatingItems, 2)
@@ -85,7 +85,7 @@ export const makeIndividualConditionRatings = conditionRatings => {
       font: 'Oswald',
       fontSize: headerFontSize,
       // bold: true,
-      marginBottom: verticalMargin * 2,
+      marginBottom: verticalMargin,
     },
     grid,
   ]

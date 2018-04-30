@@ -17,7 +17,7 @@ import {
 } from '../../../globals/constants'
 
 const colorMap = {
-  V: blue,
+  VL: blue,
   L: green,
   M: yellow,
   H: pink,
@@ -32,7 +32,7 @@ const title = {
 
 export const makeComplianceIssues = (
   complianceIssues,
-  complianceIssuesAdded,
+  complianceIssuesAdded
 ) => {
   if (!complianceIssuesAdded) {
     return [
@@ -60,7 +60,7 @@ export const makeComplianceIssues = (
         recommendations,
       },
       index,
-      array,
+      array
     ) => {
       const columnGap = 10
       const imageWidth =
@@ -68,7 +68,7 @@ export const makeComplianceIssues = (
 
       const item = [
         {
-          marginTop: verticalMargin * 2,
+          marginBottom: verticalMargin * 2,
           layout: {
             hLineWidth: function(i, node) {
               return i === 0 || i === node.table.body.length ? 0 : 1
@@ -83,7 +83,7 @@ export const makeComplianceIssues = (
               return lightGray
             },
             paddingLeft: function(i, node) {
-              return 4
+              return 0
             },
             paddingRight: function(i, node) {
               return i === 3 ? 0 : 4
@@ -214,7 +214,7 @@ export const makeComplianceIssues = (
       ]
 
       if (images.length > 1) {
-        const marginLeft = 5
+        // const marginLeft = 5
         const extraImages = images.slice(1)
         const imageItems = extraImages.map(({ image }, index, array) => ({
           image,
@@ -223,7 +223,7 @@ export const makeComplianceIssues = (
 
         item.push({
           pageBreak: 'after',
-          marginLeft,
+          // marginLeft,
           marginTop: verticalMargin,
           columnGap,
           columns: imageItems,
@@ -234,12 +234,17 @@ export const makeComplianceIssues = (
         item[0].pageBreak = 'after'
       }
 
-      // if (index + 1 !== array.length && index !== 0 && (index + 1) % 2 === 0) {
-      //   item[0].pageBreak = 'after'
-      // }
+      if (
+        images.length === 1 &&
+        index + 1 !== array.length &&
+        index !== 0 &&
+        (index + 1) % 2 === 0
+      ) {
+        item[0].pageBreak = 'after'
+      }
 
       return item
-    },
+    }
   )
 
   return [title, complianceIssueItems]

@@ -6,7 +6,7 @@ export const makeDefaultSummary = cover => {
     const { street, suburb, state, postcode, country } = cover.location
 
     name = cover.location.name
-    address = `${street} , ${suburb} ${state} ${postcode}, ${country}`
+    address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
   }
 
   return `The playground at ${name}, ${address} has been assessed and it is the opinion of Play Force Pty Ltd that this playground meets the requirements of the Standards and is suitable for opening to the public.

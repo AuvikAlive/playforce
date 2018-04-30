@@ -23,6 +23,7 @@ export class AuditSummary extends Component {
       inspectionLoaded,
       fetchInspectionRealTime,
       auditSummary,
+      cover,
       userId,
       inspectionId,
       history,
@@ -36,7 +37,7 @@ export class AuditSummary extends Component {
     )
 
     !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
-    this.loadInitialData(auditSummary)
+    !isEmpty(cover) && this.loadInitialData(auditSummary, cover)
   }
 
   componentWillUnmount() {
@@ -48,7 +49,7 @@ export class AuditSummary extends Component {
 
   componentWillReceiveProps({ inspectionLoaded, auditSummary, cover }) {
     inspectionLoaded &&
-      auditSummary !== this.props.auditSummary &&
+      (isEmpty(auditSummary) || auditSummary !== this.props.auditSummary) &&
       cover !== this.props.cover &&
       this.loadInitialData(auditSummary, cover)
   }
