@@ -68,7 +68,8 @@ export const makeComplianceIssues = (
 
       const item = [
         {
-          marginBottom: verticalMargin * 2,
+          unbreakable: true,
+          marginBottom: verticalMargin / 2,
           layout: {
             hLineWidth: function(i, node) {
               return i === 0 || i === node.table.body.length ? 0 : 1
@@ -222,26 +223,31 @@ export const makeComplianceIssues = (
         }))
 
         item.push({
-          pageBreak: 'after',
+          // pageBreak: 'after',
           // marginLeft,
-          marginTop: verticalMargin,
+          // marginTop: verticalMargin,
+          unbreakable: true,
+          marginBottom: verticalMargin / 2,
           columnGap,
           columns: imageItems,
         })
       }
 
-      if (images.length === 1 && index + 1 === array.length) {
-        item[0].pageBreak = 'after'
+      if (index + 1 === array.length) {
+        if (images.length > 1) {
+          item[1].pageBreak = 'after'
+        } else {
+          item[0].pageBreak = 'after'
+        }
       }
 
-      if (
-        images.length === 1 &&
-        index + 1 !== array.length &&
-        index !== 0 &&
-        (index + 1) % 2 === 0
-      ) {
-        item[0].pageBreak = 'after'
-      }
+      // if (index + 1 !== array.length && index !== 0 && (index + 1) % 2 === 0) {
+      //   if (images.length > 1) {
+      //     item[1].pageBreak = 'after'
+      //   } else {
+      //     item[0].pageBreak = 'after'
+      //   }
+      // }
 
       return item
     }

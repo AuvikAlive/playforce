@@ -14,16 +14,16 @@ export const makeMaintenanceIssues = maintenanceIssues => {
 
       const item = [
         {
+          unbreakable: true,
+          marginBottom: verticalMargin,
           columnGap: verticalMargin,
           columns: [
             {
               image: images[0].image,
               width: imageWidth,
-              marginBottom: verticalMargin,
             },
             [
               {
-                marginTop: verticalMargin,
                 text: [
                   {
                     text: 'Issue #: ',
@@ -33,7 +33,6 @@ export const makeMaintenanceIssues = maintenanceIssues => {
                 ],
               },
               {
-                marginTop: verticalMargin,
                 text: [
                   {
                     text: 'Equipment Type: ',
@@ -43,7 +42,6 @@ export const makeMaintenanceIssues = maintenanceIssues => {
                 ],
               },
               {
-                marginTop: verticalMargin,
                 text: [
                   {
                     text: 'Finding: ',
@@ -53,11 +51,6 @@ export const makeMaintenanceIssues = maintenanceIssues => {
                 ],
               },
               {
-                marginTop: verticalMargin,
-                pageBreak:
-                  images.length === 1 && index + 1 === array.length
-                    ? 'after'
-                    : null,
                 text: [
                   {
                     text: 'Recommendation: ',
@@ -80,12 +73,21 @@ export const makeMaintenanceIssues = maintenanceIssues => {
         }))
 
         item.push({
-          pageBreak: 'after',
+          // pageBreak: 'after',
           // marginLeft,
-          marginTop: verticalMargin,
+          unbreakable: true,
+          marginBottom: verticalMargin,
           columnGap,
           columns: imageItems,
         })
+      }
+
+      if (index + 1 === array.length) {
+        if (images.length > 1) {
+          item[1].pageBreak = 'after'
+        } else {
+          item[0].pageBreak = 'after'
+        }
       }
 
       return item
