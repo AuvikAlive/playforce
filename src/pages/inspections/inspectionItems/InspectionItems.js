@@ -23,7 +23,7 @@ export const InspectionItems = ({
   return (
     <StyledInspectionItems className="StyledInspectionItems">
       <Paper>
-        <List component="nav" disablePadding>
+        <List component="nav">
           <StyledNavLink to={`${match.url}/cover`}>
             <ListItem button>
               <ListItemText primary="Cover" />
@@ -59,7 +59,11 @@ export const InspectionItems = ({
             </ListItem>
           </StyledNavLink>
 
-          <ListItem>{error && <p className="error">{error}</p>}</ListItem>
+          {error && (
+            <ListItem>
+              <p className="error">{error}</p>
+            </ListItem>
+          )}
 
           {!error &&
             loading && (
