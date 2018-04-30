@@ -104,6 +104,7 @@ export const makeComplianceIssues = (
                   image: images[0].image,
                   width: imageWidth,
                   rowSpan: 6,
+                  marginRight: 8,
                 },
                 {
                   text: 'Issue #:',
