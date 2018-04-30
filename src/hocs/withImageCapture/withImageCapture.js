@@ -108,6 +108,7 @@ export const withImageCapture = WrappedComponent => {
             type="file"
             accept="image/*"
             multiple={multiple}
+            capture
             // capture="environment"
             style={{ display: 'none' }}
             ref={input => {

@@ -5,11 +5,17 @@ import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { SiteFormContainer } from '../siteForm/SiteFormContainer'
 
-export const AddSiteDialog = ({ addSite, userId, closeDialog }) => {
+export const AddSiteDialog = ({
+  addSite,
+  userId,
+  closeDialog,
+  setFeedback,
+}) => {
   const submit = async site => {
-    const siteId = await addSite(userId, site)
+    await addSite(userId, site)
 
-    return siteId
+    closeDialog()
+    setFeedback({ success: 'Site published!' })
   }
 
   return (
