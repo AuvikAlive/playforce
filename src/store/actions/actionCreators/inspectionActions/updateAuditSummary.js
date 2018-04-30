@@ -1,4 +1,4 @@
-export const saveAuditSummary = (userId, inspectionId, data) => async (
+export const updateAuditSummary = (userId, inspectionId, data) => async (
   dispatch,
   getState,
   getFirebase

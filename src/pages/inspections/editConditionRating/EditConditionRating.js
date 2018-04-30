@@ -47,14 +47,14 @@ export class EditConditionRating extends Component {
 
   submit = async updatedValue => {
     const {
-      saveConditionRating,
+      updateConditionRating,
       userId,
       inspectionId,
       conditionRatingId,
       setFeedback,
     } = this.props
 
-    await saveConditionRating(
+    await updateConditionRating(
       userId,
       inspectionId,
       conditionRatingId,

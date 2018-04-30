@@ -48,14 +48,14 @@ export class EditComplianceIssue extends Component {
 
   submit = async updatedValue => {
     const {
-      saveComplianceIssue,
+      updateComplianceIssue,
       userId,
       inspectionId,
       complianceIssueId,
       setFeedback,
     } = this.props
 
-    await saveComplianceIssue(
+    await updateComplianceIssue(
       userId,
       inspectionId,
       complianceIssueId,

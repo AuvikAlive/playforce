@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
-  saveComplianceIssue,
+  updateComplianceIssue,
   deleteComplianceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { EditComplianceIssue } from './EditComplianceIssue'
@@ -23,7 +23,7 @@ const mapStateToProps = (
   complianceIssue: complianceIssues.find(item => item.id === match.params.id),
 })
 
-const mapDispatchToProps = { saveComplianceIssue, deleteComplianceIssue }
+const mapDispatchToProps = { updateComplianceIssue, deleteComplianceIssue }
 
 export const EditComplianceIssueContainer = compose(
   withFeedback,

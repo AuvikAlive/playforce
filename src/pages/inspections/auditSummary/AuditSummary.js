@@ -68,7 +68,7 @@ export class AuditSummary extends Component {
 
   submit = async () => {
     const {
-      saveAuditSummary,
+      updateAuditSummary,
       userId,
       inspectionId,
       setFeedback,
@@ -78,7 +78,7 @@ export class AuditSummary extends Component {
 
     if (summary) {
       setFeedback({ error: '', loading: true })
-      await saveAuditSummary(userId, inspectionId, {
+      await updateAuditSummary(userId, inspectionId, {
         summary,
         displayName,
         title,

@@ -35,9 +35,9 @@ export class EditCover extends Component {
   }
 
   submit = async cover => {
-    const { saveCover, userId, inspectionId, setFeedback } = this.props
+    const { updateCover, userId, inspectionId, setFeedback } = this.props
 
-    await saveCover(userId, inspectionId, cover)
+    await updateCover(userId, inspectionId, cover)
 
     setFeedback({ success: 'Cover saved!' })
   }

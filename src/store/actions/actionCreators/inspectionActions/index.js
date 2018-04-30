@@ -2,18 +2,18 @@ import { addInspection } from './addInspection'
 import { fetchInspection } from './fetchInspection'
 import { fetchInspectionRealTime } from './fetchInspectionRealTime'
 import { deleteInspection } from './deleteInspection'
-import { saveCover } from './saveCover'
-import { saveAuditSummary } from './saveAuditSummary'
+import { updateCover } from './updateCover'
+import { updateAuditSummary } from './updateAuditSummary'
 import { addConditionRating } from './addConditionRating'
-import { saveConditionRating } from './saveConditionRating'
+import { updateConditionRating } from './updateConditionRating'
 import { deleteConditionRating } from './deleteConditionRating'
 import { fetchConditionRatingsRealTime } from './fetchConditionRatingsRealTime'
 import { addComplianceIssue } from './addComplianceIssue'
-import { saveComplianceIssue } from './saveComplianceIssue'
+import { updateComplianceIssue } from './updateComplianceIssue'
 import { deleteComplianceIssue } from './deleteComplianceIssue'
 import { fetchComplianceIssuesRealTime } from './fetchComplianceIssuesRealTime'
 import { addMaintenanceIssue } from './addMaintenanceIssue'
-import { saveMaintenanceIssue } from './saveMaintenanceIssue'
+import { updateMaintenanceIssue } from './updateMaintenanceIssue'
 import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
 import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime'
 import { DISCARD_INSPECTION } from '../../actionTypes'
@@ -23,18 +23,18 @@ export {
   fetchInspection,
   fetchInspectionRealTime,
   deleteInspection,
-  saveCover,
-  saveAuditSummary,
+  updateCover,
+  updateAuditSummary,
   addConditionRating,
-  saveConditionRating,
+  updateConditionRating,
   deleteConditionRating,
   fetchConditionRatingsRealTime,
   addComplianceIssue,
-  saveComplianceIssue,
+  updateComplianceIssue,
   deleteComplianceIssue,
   fetchComplianceIssuesRealTime,
   addMaintenanceIssue,
-  saveMaintenanceIssue,
+  updateMaintenanceIssue,
   deleteMaintenanceIssue,
   fetchMaintenanceIssuesRealTime,
 }

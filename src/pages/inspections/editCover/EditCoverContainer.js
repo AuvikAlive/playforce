@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchInspectionRealTime,
-  saveCover,
+  updateCover,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { EditCover } from './EditCover'
 
@@ -28,7 +28,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
-  saveCover,
+  updateCover,
 }
 
 export const EditCoverContainer = compose(

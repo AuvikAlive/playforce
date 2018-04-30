@@ -4,7 +4,7 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AuditSummary } from './AuditSummary'
 import {
   fetchInspectionRealTime,
-  saveAuditSummary,
+  updateAuditSummary,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 
 const mapStateToProps = (
@@ -31,7 +31,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
-  saveAuditSummary,
+  updateAuditSummary,
 }
 
 export const AuditSummaryContainer = compose(

@@ -1,4 +1,4 @@
-export const saveConditionRating = (userId, inspectionId, id, data) => async (
+export const updateCover = (userId, inspectionId, data) => async (
   dispatch,
   getState,
   getFirebase
@@ -10,8 +10,6 @@ export const saveConditionRating = (userId, inspectionId, id, data) => async (
     .doc(userId)
     .collection('inspections')
     .doc(inspectionId)
-    .collection('conditionRatings')
-    .doc(id)
 
-  return ref.update(data)
+  return ref.update({ cover: data })
 }
