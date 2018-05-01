@@ -118,8 +118,8 @@ export class SiteForm extends Component {
       state,
       postcode,
       country,
-      latitude,
-      longitude,
+      // latitude,
+      // longitude,
       division,
       operator,
     } = this.state
@@ -185,7 +185,7 @@ export class SiteForm extends Component {
                 margin="normal"
               />
 
-              <TextField
+              {/* <TextField
                 fullWidth
                 type="number"
                 label="Latitude"
@@ -201,7 +201,7 @@ export class SiteForm extends Component {
                 value={longitude}
                 onChange={this.onInputChange('longitude')}
                 margin="normal"
-              />
+              /> */}
 
               <TextField
                 fullWidth
