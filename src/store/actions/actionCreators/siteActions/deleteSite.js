@@ -5,11 +5,20 @@ export const deleteSite = (userId, id) => async (
 ) => {
   const firebase = getFirebase()
   const db = firebase.firestore()
-
-  return db
+  const batch = db.batch()
+  const siteRef = db
     .collection('users')
     .doc(userId)
     .collection('sites')
     .doc(id)
-    .delete()
+
+  batch.delete(siteRef)
+
+  const equipmentSnapshot = await siteRef.collection('equipments').get()
+
+  if (!equipmentSnapshot.empty) {
+    equipmentSnapshot.forEach(doc => batch.delete(doc.ref))
+  }
+
+  return batch.commit()
 }
