@@ -22,8 +22,8 @@ const Dashboard = Loadable({
 const InspectionRoutes = Loadable({
   loader: () => import('../../pages/inspections/inspectionRoutes'),
 })
-const Sites = Loadable({
-  loader: () => import('../../pages/sites'),
+const SiteRoutes = Loadable({
+  loader: () => import('../../pages/sites/siteRoutes'),
 })
 const SettingRoutes = Loadable({
   loader: () => import('../../pages/settings/settingRoutes'),
@@ -38,7 +38,7 @@ ResetPassword.preload()
 ConfirmPasswordReset.preload()
 Dashboard.preload()
 InspectionRoutes.preload()
-Sites.preload()
+SiteRoutes.preload()
 SettingRoutes.preload()
 Terms.preload()
 
@@ -101,7 +101,7 @@ const privateRoutes = [
     exact: false,
   },
   {
-    Component: Sites,
+    Component: SiteRoutes,
     pathname: '/Sites',
     name: 'Sites',
     exact: false,
