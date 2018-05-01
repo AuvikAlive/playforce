@@ -81,7 +81,7 @@ export class CoverForm extends Component {
   }
 
   onDateChange = date => {
-    this.setState({ publishDate: date })
+    this.setState({ inspectionDate: date })
   }
 
   submit = async () => {
