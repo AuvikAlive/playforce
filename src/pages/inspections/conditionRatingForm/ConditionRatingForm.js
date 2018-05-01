@@ -5,13 +5,14 @@ import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
-import DateRangeIcon from 'material-ui-icons/DateRange'
+// import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+// import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
+// import DateRangeIcon from 'material-ui-icons/DateRange'
 import AddBoxIcon from 'material-ui-icons/AddBox'
 import IconButton from 'material-ui/IconButton'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
-import { DatePicker } from 'material-ui-pickers'
+// import { DatePicker } from 'material-ui-pickers'
+import { format } from 'date-fns'
 import { defaultManufacturers, conditions } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
@@ -23,7 +24,7 @@ export class ConditionRatingForm extends Component {
     assetId: '',
     manufacturer: '',
     condition: conditions[0],
-    estimatedDateInstalled: new Date(),
+    estimatedDateInstalled: new Date().getFullYear(),
     unsubscribe: null,
   }
 
@@ -249,7 +250,15 @@ export class ConditionRatingForm extends Component {
                 ))}
               </TextField>
 
-              <DatePicker
+              <TextField
+                fullWidth
+                label="Estimated Date Installed"
+                value={format(estimatedDateInstalled, 'YYYY')}
+                onChange={this.onInputChange('estimatedDateInstalled')}
+                margin="normal"
+              />
+
+              {/* <DatePicker
                 fullWidth
                 keyboard
                 clearable
@@ -263,7 +272,7 @@ export class ConditionRatingForm extends Component {
                 rightArrowIcon={<ArrowForwardIcon />}
                 onChange={this.onDateChange}
                 animateYearScrolling={false}
-              />
+              /> */}
             </form>
 
             {error && <p className="error">{error}</p>}

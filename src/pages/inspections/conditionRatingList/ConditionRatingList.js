@@ -98,7 +98,7 @@ export class ConditionRatingList extends Component {
 
                       <Typography variant="subheading">
                         Estimated Date Installed:{' '}
-                        {format(estimatedDateInstalled, 'DD MMMM YYYY')}
+                        {format(estimatedDateInstalled, 'YYYY')}
                       </Typography>
                     </CardContent>
                   </Grid>
