@@ -63,7 +63,7 @@ export class Profile extends Component {
 
   submit = async () => {
     const { displayName, title, company, mobile } = this.state
-    const { firebase, setFeedback, image } = this.props
+    const { updateProfile, setFeedback, image } = this.props
 
     setFeedback({ error: '', loading: true })
 
@@ -79,7 +79,7 @@ export class Profile extends Component {
     )
 
     try {
-      await firebase.updateProfile(data)
+      await updateProfile(data)
       setFeedback({ success: 'Profile updated!', loading: false })
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
@@ -88,7 +88,6 @@ export class Profile extends Component {
 
   render() {
     const { displayName, title, company, mobile } = this.state
-
     const { image, captureImage, error, loading } = this.props
 
     return (
