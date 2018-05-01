@@ -1,10 +1,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
-  saveStandard,
+  updateStandard,
   fetchStandard,
   deleteStandard,
 } from '../../../store/actions/actionCreators/standardActions/'
@@ -14,9 +13,6 @@ const mapStateToProps = (
   {
     firebase: {
       auth: { uid },
-    },
-    firestore: {
-      ordered: { users },
     },
     standard: { standardsLoaded, standards, standard },
   },
@@ -32,11 +28,10 @@ const mapStateToProps = (
     (standardsLoaded && standards.find(item => item.id === id)) || standard,
 })
 
-const mapDispatchToProps = { saveStandard, fetchStandard, deleteStandard }
+const mapDispatchToProps = { updateStandard, fetchStandard, deleteStandard }
 
 export const EditStandardContainer = compose(
   withFeedback,
   withDeleteModal,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditStandard)

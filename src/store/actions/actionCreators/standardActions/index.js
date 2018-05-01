@@ -1,13 +1,15 @@
-import { saveStandard } from './saveStandard'
+import { addStandard } from './addStandard'
 import { fetchStandard } from './fetchStandard'
-import { fetchStandardsRealTime } from './fetchStandardsRealTime'
+import { updateStandard } from './updateStandard'
 import { deleteStandard } from './deleteStandard'
+import { fetchStandardsRealTime } from './fetchStandardsRealTime'
 import { fetchStandards } from './fetchStandards'
 
 export {
-  saveStandard,
+  addStandard,
   fetchStandard,
-  fetchStandardsRealTime,
+  updateStandard,
   deleteStandard,
+  fetchStandardsRealTime,
   fetchStandards,
 }

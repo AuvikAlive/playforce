@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { saveStandard } from '../../../store/actions/actionCreators/standardActions/'
+import { addStandard } from '../../../store/actions/actionCreators/standardActions/'
 import { AddStandard } from './AddStandard'
 
 const mapStateToProps = ({
@@ -13,10 +12,9 @@ const mapStateToProps = ({
   userId: uid,
 })
 
-const mapDispatchToProps = { saveStandard }
+const mapDispatchToProps = { addStandard }
 
 export const AddStandardContainer = compose(
   withFeedback,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(AddStandard)

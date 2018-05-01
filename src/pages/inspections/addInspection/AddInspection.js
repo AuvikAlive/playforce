@@ -42,8 +42,8 @@ export class AddInspection extends Component {
   render() {
     return (
       <CoverFormContainer
-        afterSubmit={this.showActionGoBack}
         onSubmit={this.submit}
+        afterSubmit={this.showActionGoBack}
       />
     )
   }

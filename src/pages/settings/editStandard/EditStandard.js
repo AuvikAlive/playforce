@@ -56,16 +56,16 @@ export class EditStandard extends Component {
   }
 
   submit = async standard => {
-    const { saveStandard, userId, standardId, setFeedback } = this.props
+    const { updateStandard, userId, standardId, setFeedback } = this.props
 
-    await saveStandard(userId, standard, standardId)
+    await updateStandard(userId, standardId, standard)
     setFeedback({ success: 'Standard updated!' })
   }
 
-  showActionGoBack = async () => {
+  showActionGoBack = () => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: 'Standard deleted!' })
+    setFeedback({ success: 'Standard deleted!' })
     history.goBack()
   }
 

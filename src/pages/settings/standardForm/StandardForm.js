@@ -44,16 +44,17 @@ export class StandardForm extends Component {
     this.setState({ publishDate: date })
   }
 
-  onSubmit = async () => {
-    const { onSubmit, setFeedback } = this.props
+  submit = async () => {
+    const { onSubmit, afterSubmit, setFeedback } = this.props
     const { code, title, publishDate } = this.state
 
     if (code && title && publishDate) {
       setFeedback({ error: '', loading: true })
 
       try {
-        await onSubmit({ code, title, publishDate })
+        const result = await onSubmit({ code, title, publishDate })
         setFeedback({ loading: false })
+        afterSubmit && afterSubmit(result)
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
@@ -120,7 +121,7 @@ export class StandardForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.onSubmit}
+                onClick={this.submit}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
