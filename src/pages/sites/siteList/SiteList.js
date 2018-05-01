@@ -135,6 +135,7 @@ export class SiteList extends Component {
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}
           onClose={this.closeMenu}
+          MenuListProps={{ disablePadding: true }}
         >
           {view !== 'grid' && (
             <MenuItem onClick={() => this.changeView('grid')}>

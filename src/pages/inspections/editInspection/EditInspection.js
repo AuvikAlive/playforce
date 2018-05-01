@@ -244,6 +244,7 @@ export class EditInspection extends Component {
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}
           onClose={this.closeMenu}
+          MenuListProps={{ disablePadding: true }}
         >
           {standardsLoaded && (
             <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>

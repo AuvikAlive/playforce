@@ -40,6 +40,16 @@ const getSuggestions = (value, domain, filterProperty) => {
   const inputValue = value.trim().toLowerCase()
   const inputLength = inputValue.length
 
+  // return inputLength === 0
+  //   ? []
+  //   : domain.filter(
+  //       item =>
+  //         filterProperty
+  //           ? item[filterProperty].toLowerCase().slice(0, inputLength) ===
+  //             inputValue
+  //           : item.toLowerCase().slice(0, inputLength) === inputValue
+  //     )
+
   return inputLength === 0
     ? domain
     : domain.filter(
