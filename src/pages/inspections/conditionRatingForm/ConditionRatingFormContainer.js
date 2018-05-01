@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions/'
 import {
-  saveEquipment,
+  addEquipment,
   fetchEquipmentsRealTime,
 } from '../../../store/actions/actionCreators/equipmentActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
@@ -29,7 +28,7 @@ const mapStateToProps = ({
 })
 
 const mapDispatchToProps = {
-  saveEquipment,
+  addEquipment,
   fetchEquipmentsRealTime,
   fetchManufacturersRealTime,
 }
@@ -38,6 +37,5 @@ export const ConditionRatingFormContainer = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(ConditionRatingForm)

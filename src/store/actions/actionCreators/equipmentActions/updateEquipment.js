@@ -1,18 +1,17 @@
-export const saveEquipment = (userId, siteId, equipmentData) => async (
+export const updateEquipment = (userId, siteId, equipmentData) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
   const firebase = getFirebase()
   const db = firebase.firestore()
-  const equipmentsRef = await db
+  const ref = db
     .collection('users')
     .doc(userId)
     .collection('sites')
     .doc(siteId)
     .collection('equipments')
-  const { assetId } = equipmentData
-  const ref = equipmentsRef.doc(assetId)
+    .doc(equipmentData.assetId)
 
-  return ref.set(equipmentData)
+  return ref.update(equipmentData)
 }

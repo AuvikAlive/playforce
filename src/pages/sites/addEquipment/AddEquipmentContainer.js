@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { saveEquipment } from '../../../store/actions/actionCreators/equipmentActions/'
+import { addEquipment } from '../../../store/actions/actionCreators/equipmentActions/'
 import { AddEquipment } from './AddEquipment'
 
 const mapStateToProps = ({
@@ -14,7 +14,7 @@ const mapStateToProps = ({
   userId: uid,
 })
 
-const mapDispatchToProps = { saveEquipment }
+const mapDispatchToProps = { addEquipment }
 
 export const AddEquipmentContainer = compose(
   withFeedback,

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
-  saveEquipment,
+  updateEquipment,
   fetchEquipment,
   deleteEquipment,
 } from '../../../store/actions/actionCreators/equipmentActions/'
@@ -32,7 +32,7 @@ const mapStateToProps = (
   assetId: id,
 })
 
-const mapDispatchToProps = { saveEquipment, fetchEquipment, deleteEquipment }
+const mapDispatchToProps = { updateEquipment, fetchEquipment, deleteEquipment }
 
 export const EditEquipmentContainer = compose(
   withFeedback,

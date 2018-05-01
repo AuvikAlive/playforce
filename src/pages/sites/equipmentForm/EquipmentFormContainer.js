@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions/'
-import { saveEquipment } from '../../../store/actions/actionCreators/equipmentActions/'
 import { EquipmentForm } from './EquipmentForm'
 
 const mapStateToProps = ({
@@ -18,7 +17,7 @@ const mapStateToProps = ({
   manufacturers,
 })
 
-const mapDispatchToProps = { fetchManufacturersRealTime, saveEquipment }
+const mapDispatchToProps = { fetchManufacturersRealTime }
 
 export const EquipmentFormContainer = compose(
   withRouter,

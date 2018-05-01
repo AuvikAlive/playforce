@@ -38,18 +38,18 @@ export class EditEquipment extends Component {
   }
 
   submit = async data => {
-    const { saveEquipment, userId, setFeedback, siteId, assetId } = this.props
+    const { updateEquipment, userId, setFeedback, siteId, assetId } = this.props
 
     data.assetId = assetId
 
-    await saveEquipment(userId, siteId, data)
+    await updateEquipment(userId, siteId, data)
     setFeedback({ success: 'Equipment updated!' })
   }
 
-  showActionGoBack = async () => {
+  showActionGoBack = () => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: 'Equipment deleted!' })
+    setFeedback({ success: 'Equipment deleted!' })
     history.goBack()
   }
 

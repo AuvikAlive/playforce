@@ -13,15 +13,26 @@ export class AddEquipment extends Component {
     removeNavTitle()
   }
 
-  submit = async data => {
-    const { saveEquipment, userId, setFeedback, siteId } = this.props
+  showActionGoBack = assetId => {
+    const { setFeedback, history } = this.props
 
-    await saveEquipment(userId, siteId, data)
-    setFeedback({ success: 'Equipment published!' })
+    setFeedback({ success: 'Site published!' })
+    history.replace(`${assetId}/edit`)
+  }
+
+  submit = async data => {
+    const { addEquipment, userId, siteId } = this.props
+
+    return await addEquipment(userId, siteId, data)
   }
 
   render() {
-    return <EquipmentForm onSubmit={this.submit} />
+    return (
+      <EquipmentForm
+        onSubmit={this.submit}
+        afterSubmit={this.showActionGoBack}
+      />
+    )
   }
 }
 

@@ -27,7 +27,7 @@ export class EquipmentList extends Component {
 
     return equipmentsLoaded ? (
       <StyledEquipmentList className="StyledEquipmentList">
-        <StyledNavLink to={match.url + '/addEquipment'} className="add-icon">
+        <StyledNavLink to={match.url + '/add'} className="add-icon">
           <Button variant="fab" color="primary" aria-label="add inspection">
             <AddIcon />
           </Button>
@@ -39,7 +39,7 @@ export class EquipmentList extends Component {
               equipments.map(({ assetId, equipment }) => (
                 <StyledNavLink
                   key={assetId}
-                  to={`${match.url}/${assetId}/editEquipment`}
+                  to={`${match.url}/${assetId}/edit`}
                 >
                   <ListItem button divider>
                     <ListItemText primary={equipment} />

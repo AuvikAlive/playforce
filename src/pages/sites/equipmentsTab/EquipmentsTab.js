@@ -18,12 +18,12 @@ const EquipmentsTabWithoutRouter = ({ match }) => {
   return (
     <Switch>
       <Route
-        path={match.url + '/:id/editEquipment'}
+        path={match.url + '/:id/edit'}
         render={() => <EditEquipment siteId={match.params.id} />}
       />
 
       <Route
-        path={match.url + '/addEquipment'}
+        path={match.url + '/add'}
         render={() => <AddEquipment siteId={match.params.id} />}
       />
 

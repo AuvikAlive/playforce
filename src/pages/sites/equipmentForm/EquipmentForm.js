@@ -51,20 +51,21 @@ export class EquipmentForm extends Component {
   }
 
   submit = async () => {
-    const { image, setFeedback, onSubmit } = this.props
+    const { image, setFeedback, onSubmit, afterSubmit } = this.props
     const { equipment, assetId, manufacturer } = this.state
 
     if (image && equipment && assetId && manufacturer) {
       setFeedback({ error: '', loading: true })
 
       try {
-        await onSubmit({
+        const result = await onSubmit({
           image,
           equipment,
           assetId,
           manufacturer,
         })
         setFeedback({ loading: false })
+        afterSubmit && afterSubmit(result)
       } catch (error) {
         setFeedback({
           error: error.message,

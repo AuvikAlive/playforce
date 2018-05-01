@@ -18,14 +18,15 @@ import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
+const today = new Date()
+
 export class ConditionRatingForm extends Component {
   state = {
     equipment: '',
     assetId: '',
     manufacturer: '',
     condition: conditions[0],
-    estimatedDateInstalled: new Date().getFullYear(),
-    unsubscribe: null,
+    estimatedDateInstalled: format(today, 'YYYY'),
   }
 
   componentDidMount() {
@@ -65,12 +66,13 @@ export class ConditionRatingForm extends Component {
 
   loadInitialData = conditionRating => {
     const { setCapturedImage } = this.props
-    const { image } = conditionRating
+    const { image, estimatedDateInstalled } = conditionRating
 
     setCapturedImage(image)
     this.setState({
       ...conditionRating,
       id: conditionRating.equipmentId,
+      estimatedDateInstalled: format(estimatedDateInstalled, 'YYYY'),
     })
   }
 
@@ -103,9 +105,11 @@ export class ConditionRatingForm extends Component {
       afterSubmit,
       setFeedback,
       image,
-      saveEquipment,
-      userId,
+      equipmentsSite,
       siteId,
+      equipments,
+      addEquipment,
+      userId,
     } = this.props
     const {
       equipment,
@@ -124,6 +128,14 @@ export class ConditionRatingForm extends Component {
       estimatedDateInstalled
     ) {
       setFeedback({ error: '', loading: true })
+      equipmentsSite === siteId &&
+        !equipments.find(item => item.assetId === assetId) &&
+        addEquipment(userId, siteId, {
+          image,
+          equipment,
+          assetId,
+          manufacturer,
+        })
       const result = await onSubmit({
         image,
         equipment,
@@ -131,12 +143,6 @@ export class ConditionRatingForm extends Component {
         manufacturer,
         condition,
         estimatedDateInstalled,
-      })
-      saveEquipment(userId, siteId, {
-        image,
-        equipment,
-        assetId,
-        manufacturer,
       })
       setFeedback({ loading: false })
       afterSubmit && afterSubmit(result)
@@ -253,7 +259,7 @@ export class ConditionRatingForm extends Component {
               <TextField
                 fullWidth
                 label="Estimated Date Installed"
-                value={format(estimatedDateInstalled, 'YYYY')}
+                value={estimatedDateInstalled}
                 onChange={this.onInputChange('estimatedDateInstalled')}
                 margin="normal"
               />
