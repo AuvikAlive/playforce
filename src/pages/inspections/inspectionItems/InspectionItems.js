@@ -23,7 +23,7 @@ export const InspectionItems = ({
   return (
     <StyledInspectionItems className="StyledInspectionItems">
       <Paper>
-        <List component="nav">
+        <List component="nav" disablePadding>
           <StyledNavLink to={`${match.url}/cover`}>
             <ListItem button>
               <ListItemText primary="Cover" />

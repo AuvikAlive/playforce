@@ -9,9 +9,9 @@ import { InputLabel } from 'material-ui/Input'
 import SignaturePad from 'react-signature-pad'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
-import { StyledProfileSettings } from './StyledProfileSettings'
+import { StyledProfile } from './StyledProfile'
 
-export class ProfileSettings extends Component {
+export class Profile extends Component {
   state = {
     displayName: '',
     image: null,
@@ -92,7 +92,7 @@ export class ProfileSettings extends Component {
     const { image, captureImage, error, loading } = this.props
 
     return (
-      <StyledProfileSettings className="StyledProfileSettings">
+      <StyledProfile className="StyledProfile">
         <Card>
           {image && <img src={image} alt="user" />}
 
@@ -178,23 +178,13 @@ export class ProfileSettings extends Component {
               </Button>
             )}
           </CardContent>
-
-          <input
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            ref={input => {
-              this.fileInput = input
-            }}
-            onChange={this.getFile}
-          />
         </Card>
-      </StyledProfileSettings>
+      </StyledProfile>
     )
   }
 }
 
-ProfileSettings.contextTypes = {
+Profile.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

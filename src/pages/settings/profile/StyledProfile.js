@@ -2,7 +2,7 @@ import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
 import { cardMedia } from '../../../styledMixins/cardMedia'
 
-export const StyledProfileSettings = Styled(Content)`
+export const StyledProfile = Styled(Content)`
   ${cardMedia};
 
   .loading {

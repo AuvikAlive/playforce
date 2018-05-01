@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirebase, withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
-import { ProfileSettings } from './ProfileSettings'
+import { Profile } from './Profile'
 
 const mapStateToProps = ({
   firebase: {
@@ -15,10 +14,8 @@ const mapStateToProps = ({
   uid,
 })
 
-export const ProfileSettingsContainer = compose(
+export const ProfileContainer = compose(
   withImageCapture,
   withFeedback,
-  withFirebase,
-  withFirestore,
   connect(mapStateToProps)
-)(ProfileSettings)
+)(Profile)
