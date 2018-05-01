@@ -1,11 +1,10 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchCommonIssue,
-  saveCommonIssue,
+  updateCommonIssue,
   deleteCommonIssue,
 } from '../../../store/actions/actionCreators/commonIssueActions/'
 import { EditCommonIssue } from './EditCommonIssue'
@@ -14,9 +13,6 @@ const mapStateToProps = (
   {
     firebase: {
       auth: { uid },
-    },
-    firestore: {
-      ordered: { users },
     },
     commonIssue: { commonIssuesLoaded, commonIssues, commonIssue },
   },
@@ -36,13 +32,12 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   fetchCommonIssue,
-  saveCommonIssue,
+  updateCommonIssue,
   deleteCommonIssue,
 }
 
 export const EditCommonIssueContainer = compose(
   withFeedback,
   withDeleteModal,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditCommonIssue)

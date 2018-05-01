@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { saveCommonIssue } from '../../../store/actions/actionCreators/commonIssueActions/'
+import { addCommonIssue } from '../../../store/actions/actionCreators/commonIssueActions/'
 import { AddCommonIssue } from './AddCommonIssue'
 
 const mapStateToProps = ({
@@ -13,10 +12,9 @@ const mapStateToProps = ({
   userId: uid,
 })
 
-const mapDispatchToProps = { saveCommonIssue }
+const mapDispatchToProps = { addCommonIssue }
 
 export const AddCommonIssueContainer = compose(
   withFeedback,
-  withFirestore,
   connect(mapStateToProps, mapDispatchToProps)
 )(AddCommonIssue)

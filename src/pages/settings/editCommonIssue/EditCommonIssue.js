@@ -56,16 +56,16 @@ export class EditCommonIssue extends Component {
   }
 
   submit = async commonIssue => {
-    const { saveCommonIssue, userId, commonIssueId, setFeedback } = this.props
+    const { updateCommonIssue, userId, commonIssueId, setFeedback } = this.props
 
-    await saveCommonIssue(userId, commonIssue, commonIssueId)
+    await updateCommonIssue(userId, commonIssueId, commonIssue)
     setFeedback({ success: 'Issue updated!' })
   }
 
-  showActionGoBack = async () => {
+  showActionGoBack = () => {
     const { setFeedback, history } = this.props
 
-    await setFeedback({ success: 'Issue deleted!' })
+    setFeedback({ success: 'Issue deleted!' })
     history.goBack()
   }
 

@@ -48,7 +48,7 @@ export class CommonIssueForm extends Component {
   }
 
   submit = async () => {
-    const { onSubmit, setFeedback } = this.props
+    const { onSubmit, afterSubmit, setFeedback } = this.props
     const {
       finding,
       standardsClause,
@@ -69,7 +69,7 @@ export class CommonIssueForm extends Component {
       setFeedback({ error: '', loading: true })
 
       try {
-        await onSubmit({
+        const result = await onSubmit({
           finding,
           standardsClause,
           probability,
@@ -79,6 +79,7 @@ export class CommonIssueForm extends Component {
         })
 
         setFeedback({ loading: false })
+        afterSubmit && afterSubmit(result)
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
@@ -176,7 +177,6 @@ export class CommonIssueForm extends Component {
               <TextField
                 fullWidth
                 multiline
-                rows="3"
                 label="Comments"
                 value={comments}
                 margin="normal"
@@ -186,7 +186,6 @@ export class CommonIssueForm extends Component {
               <TextField
                 fullWidth
                 multiline
-                rows="3"
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"

@@ -25,15 +25,27 @@ export class AddCommonIssue extends Component {
     removeLefNavComponent()
   }
 
-  onSubmit = async commonIssue => {
-    const { userId, saveCommonIssue, setFeedback } = this.props
+  showActionGoBack = commonIssueId => {
+    const { setFeedback, history } = this.props
 
-    await saveCommonIssue(userId, commonIssue)
-    setFeedback({ success: 'Common Issue published!' })
+    setFeedback({ success: 'Common issue added!' })
+    history.replace(`edit/${commonIssueId}`)
+  }
+
+  submit = async commonIssue => {
+    const { addCommonIssue, userId } = this.props
+    const commonIssueId = await addCommonIssue(userId, commonIssue)
+
+    return commonIssueId
   }
 
   render() {
-    return <CommonIssueForm onSubmit={this.onSubmit} />
+    return (
+      <CommonIssueForm
+        onSubmit={this.submit}
+        afterSubmit={this.showActionGoBack}
+      />
+    )
   }
 }
 
