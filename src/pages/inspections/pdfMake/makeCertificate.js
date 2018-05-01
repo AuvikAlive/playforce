@@ -171,7 +171,7 @@ export const makeCertificate = async ({
         marginBottom: verticalMargin * 3,
         columns: [
           {
-            text: 'CLIENT',
+            text: 'Client',
             bold: true,
             italics: true,
             width: firstColumnWidth,
