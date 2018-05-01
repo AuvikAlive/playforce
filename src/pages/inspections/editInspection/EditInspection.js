@@ -109,54 +109,6 @@ export class EditInspection extends Component {
     this.setState({ menuAnchor: null })
   }
 
-  // loadInitialData = async () => {
-  //   const {
-  //     fetchInspectionRealTime,
-  //     userId,
-  //     inspectionId,
-  //     equipmentsSite,
-  //     fetchEquipmentsRealTime,
-  //   } = this.props
-
-  //   const inspection = await fetchInspectionRealTime(userId, inspectionId)
-  //   const siteId = inspection.cover.location.id
-  //   equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
-  // }
-
-  submit = async () => {
-    const {
-      inspection,
-      setFeedback,
-      // history,
-      userId,
-      inspectionId,
-      saveInspection,
-      fetchInspection,
-      // discardInspection,
-    } = this.props
-
-    const { coverAdded } = inspection
-
-    if (coverAdded) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        await saveInspection({ inspection, userId, inspectionId })
-        await fetchInspection(userId, inspectionId)
-        // discardInspection()
-        setFeedback({ success: 'Inspection updated!', loading: false })
-        // history.goBack()
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please add a cover at least to save!',
-        loading: false,
-      })
-    }
-  }
-
   showActionGoBack = message => {
     const { setFeedback, history, discardInspection } = this.props
 
@@ -184,10 +136,9 @@ export class EditInspection extends Component {
       const pdfDocGenerator = await this.createPdf()
 
       pdfDocGenerator.download(
-        `${inspection.cover.location.name} - inspection-report.pdf`
+        `${inspection.cover.location.name} - inspection-report.pdf`,
+        () => setFeedback({ loading: false })
       )
-
-      setFeedback({ loading: false })
     } else {
       setFeedback({
         error:
@@ -273,8 +224,6 @@ export class EditInspection extends Component {
           match={match}
           error={error}
           loading={loading}
-          submit={this.submit}
-          buttonText="Update"
         />
 
         <Content>

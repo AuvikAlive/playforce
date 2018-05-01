@@ -8,15 +8,15 @@ import {
 export const makeMaintenanceIssues = maintenanceIssues => {
   const maintenanceIssueItems = maintenanceIssues.map(
     ({ images, finding, equipment, recommendations }, index, array) => {
-      const columnGap = 10
+      const columnGap = verticalMargin
       const imageWidth =
         (pageWidth - pageMarginHorizontal * 2 - columnGap * 3) / 3
 
       const item = [
         {
           unbreakable: true,
-          marginBottom: verticalMargin,
-          columnGap: verticalMargin,
+          marginBottom: images.length > 1 ? columnGap : columnGap * 2,
+          columnGap,
           columns: [
             {
               image: images[0].image,
@@ -65,7 +65,6 @@ export const makeMaintenanceIssues = maintenanceIssues => {
       ]
 
       if (images.length > 1) {
-        // const marginLeft = 5
         const extraImages = images.slice(1)
         const imageItems = extraImages.map(({ image }, index, array) => ({
           image,
@@ -73,10 +72,8 @@ export const makeMaintenanceIssues = maintenanceIssues => {
         }))
 
         item.push({
-          // pageBreak: 'after',
-          // marginLeft,
           unbreakable: true,
-          marginBottom: verticalMargin,
+          marginBottom: columnGap * 2,
           columnGap,
           columns: imageItems,
         })

@@ -28,6 +28,7 @@ const title = {
   text: 'IDENTIFIED COMPLIANCE ISSUES',
   fontSize: headerFontSize,
   font: 'Oswald',
+  marginBottom: verticalMargin,
 }
 
 export const makeComplianceIssues = (
@@ -36,10 +37,7 @@ export const makeComplianceIssues = (
 ) => {
   if (!complianceIssuesAdded) {
     return [
-      {
-        ...title,
-        marginBottom: verticalMargin,
-      },
+      title,
       {
         text: 'No compliance issues identified',
         pageBreak: 'after',
@@ -62,14 +60,14 @@ export const makeComplianceIssues = (
       index,
       array
     ) => {
-      const columnGap = 10
+      const columnGap = verticalMargin
       const imageWidth =
         (pageWidth - pageMarginHorizontal * 2 - columnGap * 3) / 3
 
       const item = [
         {
           unbreakable: true,
-          marginBottom: verticalMargin / 2,
+          marginBottom: images.length > 1 ? columnGap : columnGap * 2,
           layout: {
             hLineWidth: function(i, node) {
               return i === 0 || i === node.table.body.length ? 0 : 1
@@ -90,10 +88,10 @@ export const makeComplianceIssues = (
               return i === 3 ? 0 : 4
             },
             paddingTop: function(i, node) {
-              return i === 3 ? 0 : 8
+              return i === 0 || i === 3 ? 0 : 8
             },
             paddingBottom: function(i, node) {
-              return i === 3 ? 0 : 8
+              return i === 3 || i + 1 === node.table.body.length ? 0 : 8
             },
           },
           table: {
@@ -224,11 +222,8 @@ export const makeComplianceIssues = (
         }))
 
         item.push({
-          // pageBreak: 'after',
-          // marginLeft,
-          // marginTop: verticalMargin,
           unbreakable: true,
-          marginBottom: verticalMargin / 2,
+          marginBottom: columnGap * 2,
           columnGap,
           columns: imageItems,
         })
@@ -241,14 +236,6 @@ export const makeComplianceIssues = (
           item[0].pageBreak = 'after'
         }
       }
-
-      // if (index + 1 !== array.length && index !== 0 && (index + 1) % 2 === 0) {
-      //   if (images.length > 1) {
-      //     item[1].pageBreak = 'after'
-      //   } else {
-      //     item[0].pageBreak = 'after'
-      //   }
-      // }
 
       return item
     }
