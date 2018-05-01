@@ -55,7 +55,7 @@ class NavBar extends Component {
                 </Typography>
               )}
 
-              {rightComponent}
+              <div className="right-component">{rightComponent}</div>
             </Toolbar>
           </AppBar>
         )}

@@ -9,6 +9,7 @@ export const StyledNavBar = Styled.div`
 
   .toolbar {
     justify-content: space-between;
+    flex-wrap: nowrap;
     min-height: 56px;
   }
 
@@ -22,6 +23,14 @@ export const StyledNavBar = Styled.div`
     @media (min-width: 600px) {
       /* top: 64px; */
       padding-left: 24px;
+    }
+  }
+
+  .right-component {
+    > div {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: nowrap;
     }
   }
 
