@@ -36,6 +36,31 @@ const renderSuggestion = (suggestion, filterProperty) => (
   </MenuItem>
 )
 
+const getSuggestions = (value, domain, filterProperty) => {
+  const inputValue = value.trim().toLowerCase()
+  const inputLength = inputValue.length
+
+  // return inputLength === 0
+  //   ? []
+  //   : domain.filter(
+  //       item =>
+  //         filterProperty
+  //           ? item[filterProperty].toLowerCase().slice(0, inputLength) ===
+  //             inputValue
+  //           : item.toLowerCase().slice(0, inputLength) === inputValue
+  //     )
+
+  return inputLength === 0
+    ? domain
+    : domain.filter(
+        item =>
+          filterProperty
+            ? item[filterProperty].toLowerCase().slice(0, inputLength) ===
+              inputValue
+            : item.toLowerCase().slice(0, inputLength) === inputValue
+      )
+}
+
 const getSuggestionValue = suggestion => suggestion
 
 export class AutoComplete extends Component {
@@ -48,10 +73,10 @@ export class AutoComplete extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
-    const { getSuggestions } = this.props
+    const { domain = [], filterProperty } = this.props
 
     this.setState({
-      suggestions: getSuggestions(value),
+      suggestions: getSuggestions(value, domain, filterProperty),
     })
   }
 

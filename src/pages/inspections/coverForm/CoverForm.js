@@ -15,8 +15,9 @@ import { DatePicker } from 'material-ui-pickers'
 import { isEmpty } from 'lodash'
 import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
 import { ClientsDialogContainer } from '../../../components/clientsDialog/ClientsDialogContainer'
-import { onInputChange } from '../../../utilities/onInputChange'
-import { onDateChange } from '../../../utilities/onDateChange'
+import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {
@@ -72,12 +73,26 @@ export class CoverForm extends Component {
 
     this.setState({
       ...initialData,
-      location: initialData.location.id,
+      location: initialData.location.name,
     })
   }
 
-  onInputChange = onInputChange
-  onDateChange = onDateChange
+  onEventInputChange = onEventInputChange
+  onValueInputChange = onValueInputChange
+
+  getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+    const { sites } = this.props
+
+    return inputLength === 0
+      ? sites.map(item => item.name)
+      : sites
+          .filter(
+            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
+          )
+          .map(item => item.name)
+  }
 
   submit = async () => {
     const {
@@ -103,7 +118,7 @@ export class CoverForm extends Component {
         const result = await onSubmit({
           image,
           displayName,
-          location: sites.filter(({ id }) => id === location)[0],
+          location: sites.find(({ name }) => name === location),
           client,
           inspectionDate,
           appliedStandards,
@@ -127,7 +142,6 @@ export class CoverForm extends Component {
       captureImage,
       displayName,
       sitesLoaded,
-      sites,
       standardsLoaded,
       standards,
       clientsLoaded,
@@ -157,7 +171,7 @@ export class CoverForm extends Component {
               <StayCurrentLandscapeIcon className="button-icon" />
             </Button>
             <form noValidate>
-              <div className="with-button">
+              {/* <div className="with-button">
                 <TextField
                   fullWidth
                   select
@@ -180,6 +194,18 @@ export class CoverForm extends Component {
                 <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
                   <AddBoxIcon />
                 </IconButton>
+              </div> */}
+
+              <div className="with-button with-autocomplete">
+                <AutoComplete
+                  label="Location"
+                  value={location}
+                  onChange={this.onValueInputChange('location')}
+                  getSuggestions={this.getSuggestions}
+                />
+                <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
+                  <AddBoxIcon />
+                </IconButton>
               </div>
 
               <div className="with-button">
@@ -188,7 +214,7 @@ export class CoverForm extends Component {
                   select
                   label="Client"
                   value={client}
-                  onChange={this.onInputChange('client')}
+                  onChange={this.onEventInputChange('client')}
                   margin="normal"
                 >
                   {clients.length > 0 ? (
@@ -220,7 +246,7 @@ export class CoverForm extends Component {
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}
                 rightArrowIcon={<ArrowForwardIcon />}
-                onChange={this.onDateChange('inspectionDate')}
+                onChange={this.onValueInputChange('inspectionDate')}
                 animateYearScrolling={false}
               />
 
@@ -239,7 +265,7 @@ export class CoverForm extends Component {
                 }}
                 label="Applied Standard"
                 value={appliedStandards}
-                onChange={this.onInputChange('appliedStandards')}
+                onChange={this.onEventInputChange('appliedStandards')}
                 margin="normal"
               >
                 {standards.length > 0 ? (

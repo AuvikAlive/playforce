@@ -17,6 +17,8 @@ import {
   severities,
   riskLevels,
 } from '../../../globals/constants'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 
 export class ComplianceIssueForm extends Component {
@@ -99,14 +101,22 @@ export class ComplianceIssueForm extends Component {
     }
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
+  onEventInputChange = onEventInputChange
+  onValueInputChange = onValueInputChange
 
-  onAutoCompleteChange = value => {
-    this.setState({ equipment: value.equipment || value })
+  getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+    const { equipments } = this.props
+
+    return inputLength === 0
+      ? equipments.map(item => item.equipment)
+      : equipments
+          .filter(
+            item =>
+              item.equipment.toLowerCase().slice(0, inputLength) === inputValue
+          )
+          .map(item => item.equipment)
   }
 
   loadImages = images => {
@@ -175,7 +185,6 @@ export class ComplianceIssueForm extends Component {
       equipmentsLoaded,
       commonIssues,
       captureImage,
-      equipments,
       openDialog,
       closeDialog,
       buttonText,
@@ -249,11 +258,10 @@ export class ComplianceIssueForm extends Component {
 
             <form noValidate>
               <AutoComplete
-                onChange={this.onAutoCompleteChange}
-                domain={equipments}
                 label="Equipment"
                 value={equipment}
-                filterProperty="equipment"
+                onChange={this.onValueInputChange('equipment')}
+                getSuggestions={this.getSuggestions}
               />
 
               <TextField
@@ -281,14 +289,14 @@ export class ComplianceIssueForm extends Component {
                 label="Finding"
                 value={finding}
                 margin="normal"
-                onChange={this.onInputChange('finding')}
+                onChange={this.onEventInputChange('finding')}
               />
 
               <TextField
                 fullWidth
                 label="Standards Clause"
                 value={standardsClause}
-                onChange={this.onInputChange('standardsClause')}
+                onChange={this.onEventInputChange('standardsClause')}
                 margin="normal"
               />
 
@@ -304,7 +312,7 @@ export class ComplianceIssueForm extends Component {
                     select
                     label="Probability"
                     value={probability}
-                    onChange={this.onInputChange('probability')}
+                    onChange={this.onEventInputChange('probability')}
                     margin="normal"
                   >
                     {probabilities.map(({ probability, value }, index) => (
@@ -320,7 +328,7 @@ export class ComplianceIssueForm extends Component {
                     select
                     label="Injury Severity"
                     value={severity}
-                    onChange={this.onInputChange('severity')}
+                    onChange={this.onEventInputChange('severity')}
                     margin="normal"
                   >
                     {severities.map(({ serverity, value }, index) => (
@@ -346,7 +354,7 @@ export class ComplianceIssueForm extends Component {
                 label="Comments"
                 value={comments}
                 margin="normal"
-                onChange={this.onInputChange('comments')}
+                onChange={this.onEventInputChange('comments')}
               />
 
               <TextField
@@ -355,7 +363,7 @@ export class ComplianceIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={this.onInputChange('recommendations')}
+                onChange={this.onEventInputChange('recommendations')}
               />
             </form>
 

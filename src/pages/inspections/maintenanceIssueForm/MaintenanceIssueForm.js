@@ -9,7 +9,8 @@ import BrushIcon from 'material-ui-icons/Brush'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
-import { onInputChange } from '../../../utilities/onInputChange'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
 
 export class MaintenanceIssueForm extends Component {
@@ -69,16 +70,28 @@ export class MaintenanceIssueForm extends Component {
     }
   }
 
-  onInputChange = onInputChange
-
   loadInitialData = data => {
     this.setState({
       ...data,
     })
   }
 
-  onAutoCompleteChange = value => {
-    this.setState({ equipment: value.equipment || value })
+  onEventInputChange = onEventInputChange
+  onValueInputChange = onValueInputChange
+
+  getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+    const { equipments } = this.props
+
+    return inputLength === 0
+      ? equipments.map(item => item.equipment)
+      : equipments
+          .filter(
+            item =>
+              item.equipment.toLowerCase().slice(0, inputLength) === inputValue
+          )
+          .map(item => item.equipment)
   }
 
   loadImages = images => {
@@ -121,7 +134,6 @@ export class MaintenanceIssueForm extends Component {
   render() {
     const {
       captureImage,
-      equipments,
       error,
       loading,
       buttonText,
@@ -183,11 +195,10 @@ export class MaintenanceIssueForm extends Component {
 
             <form noValidate>
               <AutoComplete
-                onChange={this.onAutoCompleteChange}
-                domain={equipments}
                 label="Equipment"
                 value={equipment}
-                filterProperty="equipment"
+                onChange={this.onValueInputChange('equipment')}
+                getSuggestions={this.getSuggestions}
               />
 
               <TextField
@@ -196,7 +207,7 @@ export class MaintenanceIssueForm extends Component {
                 label="Finding"
                 value={finding}
                 margin="normal"
-                onChange={this.onInputChange('finding')}
+                onChange={this.onEventInputChange('finding')}
               />
 
               <TextField
@@ -205,7 +216,7 @@ export class MaintenanceIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={this.onInputChange('recommendations')}
+                onChange={this.onEventInputChange('recommendations')}
               />
             </form>
 
