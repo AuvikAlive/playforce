@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Autosuggest from 'react-autosuggest'
+import match from 'autosuggest-highlight/match'
+import parse from 'autosuggest-highlight/parse'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
@@ -30,11 +32,28 @@ const renderSuggestionsContainer = options => {
   )
 }
 
-const renderSuggestion = (suggestion, filterProperty) => (
-  <MenuItem component="div">
-    {filterProperty ? suggestion[filterProperty] : suggestion}
-  </MenuItem>
-)
+const renderSuggestion = (suggestion, { query, isHighlighted }) => {
+  const matches = match(suggestion, query)
+  const parts = parse(suggestion, matches)
+
+  return (
+    <MenuItem component="div" selected={isHighlighted}>
+      <div>
+        {parts.map((part, index) => {
+          return part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 500 }}>
+              {part.text}
+            </span>
+          ) : (
+            <strong key={String(index)} style={{ fontWeight: 300 }}>
+              {part.text}
+            </strong>
+          )
+        })}
+      </div>
+    </MenuItem>
+  )
+}
 
 const getSuggestionValue = suggestion => suggestion
 
@@ -63,7 +82,7 @@ export class AutoComplete extends Component {
 
   render() {
     const { suggestions } = this.state
-    const { label, value, filterProperty } = this.props
+    const { label, value } = this.props
 
     const inputProps = {
       label,
@@ -79,9 +98,7 @@ export class AutoComplete extends Component {
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={getSuggestionValue}
-          renderSuggestion={suggestion =>
-            renderSuggestion(suggestion, filterProperty)
-          }
+          renderSuggestion={renderSuggestion}
           inputProps={inputProps}
           renderSuggestionsContainer={renderSuggestionsContainer}
           renderInputComponent={renderInput}

@@ -80,7 +80,7 @@ export class CoverForm extends Component {
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
 
-  getSuggestions = value => {
+  getLocationSuggestions = value => {
     const inputValue = value.trim().toLowerCase()
     const inputLength = inputValue.length
     const { sites } = this.props
@@ -88,6 +88,20 @@ export class CoverForm extends Component {
     return inputLength === 0
       ? sites.map(item => item.name)
       : sites
+          .filter(
+            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
+          )
+          .map(item => item.name)
+  }
+
+  getClientSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+    const { clients } = this.props
+
+    return inputLength === 0
+      ? clients.map(item => item.name)
+      : clients
           .filter(
             item => item.name.toLowerCase().slice(0, inputLength) === inputValue
           )
@@ -145,7 +159,6 @@ export class CoverForm extends Component {
       standardsLoaded,
       standards,
       clientsLoaded,
-      clients,
       openDialog,
       error,
       loading,
@@ -201,14 +214,26 @@ export class CoverForm extends Component {
                   label="Location"
                   value={location}
                   onChange={this.onValueInputChange('location')}
-                  getSuggestions={this.getSuggestions}
+                  getSuggestions={this.getLocationSuggestions}
                 />
                 <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
                   <AddBoxIcon />
                 </IconButton>
               </div>
 
-              <div className="with-button">
+              <div className="with-button with-autocomplete">
+                <AutoComplete
+                  label="Client"
+                  value={client}
+                  onChange={this.onValueInputChange('client')}
+                  getSuggestions={this.getClientSuggestions}
+                />
+                <IconButton onClick={() => openDialog(ClientsDialogContainer)}>
+                  <AddBoxIcon />
+                </IconButton>
+              </div>
+
+              {/* <div className="with-button">
                 <TextField
                   fullWidth
                   select
@@ -233,7 +258,7 @@ export class CoverForm extends Component {
                 <IconButton onClick={() => openDialog(ClientsDialogContainer)}>
                   <AddBoxIcon />
                 </IconButton>
-              </div>
+              </div> */}
 
               <DatePicker
                 fullWidth
