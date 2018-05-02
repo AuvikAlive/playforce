@@ -9,10 +9,11 @@ import AddBoxIcon from 'material-ui-icons/AddBox'
 import IconButton from 'material-ui/IconButton'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import { format } from 'date-fns'
-import { defaultManufacturers, conditions } from '../../../globals/constants'
+import { conditions } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 const today = new Date()
@@ -74,8 +75,9 @@ export class ConditionRatingForm extends Component {
   }
 
   onEventInputChange = onEventInputChange
+  onValueInputChange = onValueInputChange
 
-  getSuggestions = value => {
+  getEquipmentSuggestions = value => {
     const inputValue = value.trim().toLowerCase()
     const inputLength = inputValue.length
     const { equipments } = this.props
@@ -88,6 +90,20 @@ export class ConditionRatingForm extends Component {
               item.equipment.toLowerCase().slice(0, inputLength) === inputValue
           )
           .map(item => item.equipment)
+  }
+
+  getManufacturerSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+    const { manufacturers } = this.props
+
+    return inputLength === 0
+      ? manufacturers.map(item => item.name)
+      : manufacturers
+          .filter(
+            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
+          )
+          .map(item => item.name)
   }
 
   onAutoCompleteChange = value => {
@@ -164,7 +180,6 @@ export class ConditionRatingForm extends Component {
       captureImage,
       manufacturersLoaded,
       equipmentsLoaded,
-      manufacturers,
       openDialog,
       buttonText,
       error,
@@ -200,7 +215,7 @@ export class ConditionRatingForm extends Component {
                 label="Equipment"
                 value={equipment}
                 onChange={this.onAutoCompleteChange}
-                getSuggestions={this.getSuggestions}
+                getSuggestions={this.getEquipmentSuggestions}
               />
 
               <TextField
@@ -212,6 +227,20 @@ export class ConditionRatingForm extends Component {
               />
 
               <div className="with-button">
+                <AutoComplete
+                  label="Manufacturer"
+                  value={manufacturer}
+                  onChange={this.onValueInputChange('manufacturer')}
+                  getSuggestions={this.getManufacturerSuggestions}
+                />
+                <IconButton
+                  onClick={() => openDialog(ManufacturersDialogContainer)}
+                >
+                  <AddBoxIcon />
+                </IconButton>
+              </div>
+
+              {/* <div className="with-button">
                 <TextField
                   fullWidth
                   select
@@ -242,7 +271,7 @@ export class ConditionRatingForm extends Component {
                 >
                   <AddBoxIcon />
                 </IconButton>
-              </div>
+              </div> */}
 
               <TextField
                 fullWidth
