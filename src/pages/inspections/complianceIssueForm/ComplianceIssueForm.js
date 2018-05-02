@@ -24,6 +24,7 @@ import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 export class ComplianceIssueForm extends Component {
   state = {
     commonIssues: [],
+    commonIssue: '',
     commonIssueIndex: '',
     finding: '',
     equipment: '',
@@ -104,7 +105,7 @@ export class ComplianceIssueForm extends Component {
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
 
-  getSuggestions = value => {
+  getEquipmentSuggestions = value => {
     const inputValue = value.trim().toLowerCase()
     const inputLength = inputValue.length
     const { equipments } = this.props
@@ -117,6 +118,28 @@ export class ComplianceIssueForm extends Component {
               item.equipment.toLowerCase().slice(0, inputLength) === inputValue
           )
           .map(item => item.equipment)
+  }
+
+  getCommonIssueSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+    const { commonIssues } = this.props
+
+    return inputLength === 0
+      ? commonIssues.map(item => item.finding)
+      : commonIssues
+          .filter(
+            item =>
+              item.finding.toLowerCase().slice(0, inputLength) === inputValue
+          )
+          .map(item => item.finding)
+  }
+
+  onCommonIssueSelect = value => {
+    const { commonIssues } = this.props
+    const commonIssue = commonIssues.find(({ finding }) => finding === value)
+
+    commonIssue && this.setState({ ...commonIssue })
   }
 
   loadImages = images => {
@@ -183,7 +206,7 @@ export class ComplianceIssueForm extends Component {
     const {
       commonIssuesLoaded,
       equipmentsLoaded,
-      commonIssues,
+      // commonIssues,
       captureImage,
       openDialog,
       closeDialog,
@@ -194,7 +217,8 @@ export class ComplianceIssueForm extends Component {
 
     const {
       images,
-      commonIssueIndex,
+      // commonIssueIndex,
+      commonIssue,
       finding,
       equipment,
       standardsClause,
@@ -261,10 +285,18 @@ export class ComplianceIssueForm extends Component {
                 label="Equipment"
                 value={equipment}
                 onChange={this.onValueInputChange('equipment')}
-                getSuggestions={this.getSuggestions}
+                getSuggestions={this.getEquipmentSuggestions}
               />
 
-              <TextField
+              <AutoComplete
+                label="Select a common issue"
+                value={commonIssue}
+                onChange={this.onValueInputChange('commonIssue')}
+                onSuggestionSelect={this.onCommonIssueSelect}
+                getSuggestions={this.getCommonIssueSuggestions}
+              />
+
+              {/* <TextField
                 fullWidth
                 select
                 label="Select a common issue"
@@ -281,7 +313,7 @@ export class ComplianceIssueForm extends Component {
                 ) : (
                   <MenuItem value={''}>No common issue added</MenuItem>
                 )}
-              </TextField>
+              </TextField> */}
 
               <TextField
                 fullWidth

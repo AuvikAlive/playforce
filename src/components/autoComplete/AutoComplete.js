@@ -62,8 +62,13 @@ export class AutoComplete extends Component {
 
   onChange = (event, { newValue }) => {
     const { onChange } = this.props
-
     onChange(newValue)
+  }
+
+  onSuggestionSelect = (event, { suggestion }) => {
+    const { onSuggestionSelect } = this.props
+
+    onSuggestionSelect && onSuggestionSelect(suggestion)
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
@@ -97,6 +102,7 @@ export class AutoComplete extends Component {
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={this.onSuggestionSelect}
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
