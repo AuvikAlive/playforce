@@ -9,6 +9,7 @@ import BrushIcon from 'material-ui-icons/Brush'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
+import { onInputChange } from '../../../utilities/onInputChange'
 import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
 
 export class MaintenanceIssueForm extends Component {
@@ -68,15 +69,11 @@ export class MaintenanceIssueForm extends Component {
     }
   }
 
+  onInputChange = onInputChange
+
   loadInitialData = data => {
     this.setState({
       ...data,
-    })
-  }
-
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
     })
   }
 

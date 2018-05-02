@@ -15,6 +15,8 @@ import { DatePicker } from 'material-ui-pickers'
 import { isEmpty } from 'lodash'
 import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
 import { ClientsDialogContainer } from '../../../components/clientsDialog/ClientsDialogContainer'
+import { onInputChange } from '../../../utilities/onInputChange'
+import { onDateChange } from '../../../utilities/onDateChange'
 import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {
@@ -74,15 +76,8 @@ export class CoverForm extends Component {
     })
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  onDateChange = date => {
-    this.setState({ inspectionDate: date })
-  }
+  onInputChange = onInputChange
+  onDateChange = onDateChange
 
   submit = async () => {
     const {
@@ -225,7 +220,7 @@ export class CoverForm extends Component {
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}
                 rightArrowIcon={<ArrowForwardIcon />}
-                onChange={this.onDateChange}
+                onChange={this.onDateChange('inspectionDate')}
                 animateYearScrolling={false}
               />
 
