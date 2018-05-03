@@ -29,7 +29,8 @@ export class AddComplianceIssue extends Component {
     const { setFeedback, history } = this.props
 
     setFeedback({ success: 'Issue published!' })
-    history.replace(`edit/${complianceIssueId}`)
+    history.goBack()
+    // history.replace(`edit/${complianceIssueId}`)
   }
 
   submit = async complianceIssue => {

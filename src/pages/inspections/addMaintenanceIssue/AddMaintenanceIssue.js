@@ -29,7 +29,8 @@ export class AddMaintenanceIssue extends Component {
     const { setFeedback, history } = this.props
 
     setFeedback({ success: 'Issue published!' })
-    history.replace(`edit/${maintenanceIssueId}`)
+    history.goBack()
+    // history.replace(`edit/${maintenanceIssueId}`)
   }
 
   submit = async maintenanceIssue => {
