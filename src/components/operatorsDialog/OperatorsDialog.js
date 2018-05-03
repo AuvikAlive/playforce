@@ -7,7 +7,7 @@ import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { Content } from '../content/Content'
 import { OperatorList } from '../operatorList/OperatorList'
-import { OperatorForm } from '../operatorForm/OperatorForm'
+import { OperatorFormContainer } from '../operatorForm/OperatorFormContainer'
 
 export class OperatorsDialog extends Component {
   componentDidMount() {
@@ -42,7 +42,7 @@ export class OperatorsDialog extends Component {
           <Content>
             <Card className="card">
               <OperatorList operators={operators} deletePrompt={this.delete} />
-              <OperatorForm />
+              <OperatorFormContainer />
             </Card>
           </Content>
         </StyledMainContent>
