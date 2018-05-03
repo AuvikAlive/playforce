@@ -55,7 +55,7 @@ export class EditInspection extends Component {
     !maintenanceIssuesLoaded &&
       fetchMaintenanceIssuesRealTime(userId, inspectionId)
 
-    // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
+    inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
 
     setNavTitle('Edit Inspection')
 
@@ -94,7 +94,7 @@ export class EditInspection extends Component {
   }
 
   componentWillReceiveProps({ inspection, standardsLoaded }) {
-    // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
+    inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
   }
 
   onSwitchChange = event => {
@@ -217,7 +217,8 @@ export class EditInspection extends Component {
     return inspectionLoaded &&
       conditionRatingsLoaded &&
       complianceIssuesLoaded &&
-      maintenanceIssuesLoaded ? (
+      maintenanceIssuesLoaded &&
+      standardsLoaded ? (
       <div>
         <InspectionItems
           {...added}
@@ -246,9 +247,7 @@ export class EditInspection extends Component {
           onClose={this.closeMenu}
           MenuListProps={{ disablePadding: true }}
         >
-          {standardsLoaded && (
-            <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
-          )}
+          <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
         </Menu>
         {this.state.src && (
           <div>
