@@ -14,6 +14,7 @@ const renderInput = inputProps => {
     <TextField
       fullWidth
       label={label}
+      style={{ marginTop: '8px' }}
       InputProps={{
         inputRef: ref,
         ...other,
@@ -71,11 +72,11 @@ export class AutoComplete extends Component {
     onSuggestionSelect && onSuggestionSelect(suggestion)
   }
 
-  onSuggestionsFetchRequested = ({ value }) => {
+  onSuggestionsFetchRequested = async ({ value }) => {
     const { getSuggestions } = this.props
 
     this.setState({
-      suggestions: getSuggestions(value),
+      suggestions: await getSuggestions(value),
     })
   }
 
