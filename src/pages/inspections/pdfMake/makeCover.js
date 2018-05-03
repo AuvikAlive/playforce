@@ -183,7 +183,7 @@ export const makeCover = ({
           'This playground has been assessed against the requirements of the following Standards:',
         bold: true,
         alignment: 'center',
-        marginTop: 140 - standardItems.length * headerFontSize / 1.5,
+        marginTop: 110 - standardItems.length * headerFontSize / 1.5,
       },
       standardItems,
     ],
