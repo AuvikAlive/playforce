@@ -197,7 +197,7 @@ export class SiteForm extends Component {
 
     return operatorsLoaded ? (
       <StyledSiteForm className="StyledSiteForm">
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <AutoComplete
