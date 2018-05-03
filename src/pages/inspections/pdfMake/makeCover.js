@@ -123,7 +123,7 @@ export const makeCover = ({
       ],
     },
     {
-      text: 'COMPREHENSIVE PLAYGROUND INSPECTION REPORT',
+      text: `${name.toUpperCase()} - COMPREHENSIVE PLAYGROUND INSPECTION REPORT`,
       font: 'Oswald',
       fontSize: headerFontSize * 1.5,
       marginTop: verticalMargin * 4,
