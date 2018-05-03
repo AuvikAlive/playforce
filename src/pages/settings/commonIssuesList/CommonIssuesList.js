@@ -58,11 +58,11 @@ export class CommonIssuesList extends Component {
         {commonIssues.length > 0 ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {commonIssues.map(({ id, finding }) => {
+              {commonIssues.map(({ id, issue, finding }) => {
                 return (
                   <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                     <ListItem button>
-                      <ListItemText primary={finding} />
+                      <ListItemText primary={issue || finding} />
                       <ListItemIcon>
                         <ModeEditIcon />
                       </ListItemIcon>

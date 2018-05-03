@@ -19,6 +19,7 @@
     "pica": "^4.0.2",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
+    "react-async-script-loader": "^0.3.0",
     "react-autosuggest": "^9.3.4",
     "react-color": "^2.14.1",
     "react-dom": "^16.0.0",

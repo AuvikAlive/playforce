@@ -15,6 +15,7 @@ import {
 
 export class CommonIssueForm extends Component {
   state = {
+    issue: '',
     finding: '',
     standardsClause: '',
     probability: '',
@@ -50,6 +51,7 @@ export class CommonIssueForm extends Component {
   submit = async () => {
     const { onSubmit, afterSubmit, setFeedback } = this.props
     const {
+      issue,
       finding,
       standardsClause,
       probability,
@@ -59,17 +61,19 @@ export class CommonIssueForm extends Component {
     } = this.state
 
     if (
+      (issue,
       finding &&
-      standardsClause &&
-      probability &&
-      severity &&
-      comments &&
-      recommendations
+        standardsClause &&
+        probability &&
+        severity &&
+        comments &&
+        recommendations)
     ) {
       setFeedback({ error: '', loading: true })
 
       try {
         const result = await onSubmit({
+          issue,
           finding,
           standardsClause,
           probability,
@@ -92,6 +96,7 @@ export class CommonIssueForm extends Component {
 
   render() {
     const {
+      issue,
       finding,
       standardsClause,
       probability,
@@ -110,6 +115,14 @@ export class CommonIssueForm extends Component {
         <Card>
           <CardContent>
             <form noValidate>
+              <TextField
+                fullWidth
+                label="Issue"
+                value={issue}
+                onChange={this.onInputChange('issue')}
+                margin="normal"
+              />
+
               <TextField
                 fullWidth
                 label="Finding"

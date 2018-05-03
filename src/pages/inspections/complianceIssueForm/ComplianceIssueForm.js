@@ -126,18 +126,18 @@ export class ComplianceIssueForm extends Component {
     const { commonIssues } = this.props
 
     return inputLength === 0
-      ? commonIssues.map(item => item.finding)
+      ? commonIssues.filter(item => !!item.issue).map(item => item.issue)
       : commonIssues
           .filter(
             item =>
-              item.finding.toLowerCase().slice(0, inputLength) === inputValue
+              item.issue.toLowerCase().slice(0, inputLength) === inputValue
           )
-          .map(item => item.finding)
+          .map(item => item.issue)
   }
 
   onCommonIssueSelect = value => {
     const { commonIssues } = this.props
-    const commonIssue = commonIssues.find(({ finding }) => finding === value)
+    const commonIssue = commonIssues.find(({ issue }) => issue === value)
 
     commonIssue && this.setState({ ...commonIssue })
   }

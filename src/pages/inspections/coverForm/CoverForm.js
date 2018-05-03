@@ -184,31 +184,6 @@ export class CoverForm extends Component {
               <StayCurrentLandscapeIcon className="button-icon" />
             </Button>
             <form noValidate>
-              {/* <div className="with-button">
-                <TextField
-                  fullWidth
-                  select
-                  label="Location"
-                  value={location}
-                  onChange={this.onInputChange('location')}
-                  margin="normal"
-                >
-                  {sites.length > 0 ? (
-                    sites.map(({ id, name }) => (
-                      <MenuItem key={id} value={id}>
-                        {name}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem value="">No site addded</MenuItem>
-                  )}
-                </TextField>
-
-                <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
-                  <AddBoxIcon />
-                </IconButton>
-              </div> */}
-
               <div className="with-button with-autocomplete">
                 <AutoComplete
                   label="Location"

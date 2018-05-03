@@ -7,10 +7,15 @@ import { MenuItem } from 'material-ui/Menu'
 import { CircularProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import AddBoxIcon from 'material-ui-icons/AddBox'
+import scriptLoader from 'react-async-script-loader'
 import { OperatorsDialogContainer } from '../operatorsDialog/OperatorsDialogContainer'
+// import { AutoComplete } from '../autoComplete/AutoComplete'
+import { onEventInputChange } from '../../utilities/onEventInputChange'
+import { onValueInputChange } from '../../utilities/onValueInputChange'
+import { key } from '../../config/googleMaps'
 import { StyledSiteForm } from './StyledSiteForm'
 
-export class SiteForm extends Component {
+class SiteFormWithout extends Component {
   state = {
     name: '',
     street: '',
@@ -24,7 +29,7 @@ export class SiteForm extends Component {
     operator: '',
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       userId,
       operatorsLoaded,
@@ -58,11 +63,31 @@ export class SiteForm extends Component {
       ...initialData,
     })
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
+  onEventInputChange = onEventInputChange
+  onValueInputChange = onValueInputChange
+
+  // onSearch = event => {
+  //   this.setState({ name: event.target.value }, () => {
+  //     const { name, latitude, longitude } = this.state
+  //     const location = new window.google.maps.LatLng(latitude, longitude)
+  //     const request = {
+  //       location,
+  //       radius: '500',
+  //     }
+  //     const map = new window.google.maps.Map(document.createElement('div'), {
+  //       center: location,
+  //       zoom: 15,
+  //     })
+
+  //     let service = new window.google.maps.places.PlacesService(map)
+
+  //     service.nearbySearch(request, (results, status) => {
+  //       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+  //         console.log(results)
+  //       }
+  //     })
+  //   })
+  // }
 
   submit = async () => {
     const {
@@ -130,6 +155,8 @@ export class SiteForm extends Component {
       buttonText,
       error,
       loading,
+      // isScriptLoaded,
+      // isScriptLoadSucceed,
     } = this.props
 
     return operatorsLoaded ? (
@@ -137,11 +164,18 @@ export class SiteForm extends Component {
         <Card>
           <CardContent>
             <form noValidate>
+              {/* <AutoComplete
+                label="Name"
+                value={name}
+                onChange={this.onValueInputChange('name')}
+                getSuggestions={this.getLocationSuggestions}
+              /> */}
+
               <TextField
                 fullWidth
                 label="Name"
                 value={name}
-                onChange={this.onInputChange('name')}
+                onChange={this.onEventInputChange('name')}
                 margin="normal"
               />
 
@@ -149,7 +183,7 @@ export class SiteForm extends Component {
                 fullWidth
                 label="Street"
                 value={street}
-                onChange={this.onInputChange('street')}
+                onChange={this.onEventInputChange('street')}
                 margin="normal"
               />
 
@@ -157,7 +191,7 @@ export class SiteForm extends Component {
                 fullWidth
                 label="Suburb"
                 value={suburb}
-                onChange={this.onInputChange('suburb')}
+                onChange={this.onEventInputChange('suburb')}
                 margin="normal"
               />
 
@@ -165,7 +199,7 @@ export class SiteForm extends Component {
                 fullWidth
                 label="State"
                 value={state}
-                onChange={this.onInputChange('state')}
+                onChange={this.onEventInputChange('state')}
                 margin="normal"
               />
 
@@ -173,7 +207,7 @@ export class SiteForm extends Component {
                 fullWidth
                 label="Postcode"
                 value={postcode}
-                onChange={this.onInputChange('postcode')}
+                onChange={this.onEventInputChange('postcode')}
                 margin="normal"
               />
 
@@ -181,7 +215,7 @@ export class SiteForm extends Component {
                 fullWidth
                 label="Country"
                 value={country}
-                onChange={this.onInputChange('country')}
+                onChange={this.onEventInputChange('country')}
                 margin="normal"
               />
 
@@ -190,7 +224,7 @@ export class SiteForm extends Component {
                 type="number"
                 label="Latitude"
                 value={latitude}
-                onChange={this.onInputChange('latitude')}
+                onChange={this.onEventInputChange('latitude')}
                 margin="normal"
               />
 
@@ -199,7 +233,7 @@ export class SiteForm extends Component {
                 type="number"
                 label="Longitude"
                 value={longitude}
-                onChange={this.onInputChange('longitude')}
+                onChange={this.onEventInputChange('longitude')}
                 margin="normal"
               /> */}
 
@@ -208,7 +242,7 @@ export class SiteForm extends Component {
                 type="number"
                 label="Division"
                 value={division}
-                onChange={this.onInputChange('division')}
+                onChange={this.onEventInputChange('division')}
                 margin="normal"
               />
 
@@ -218,7 +252,7 @@ export class SiteForm extends Component {
                   select
                   label="Operator"
                   value={operator}
-                  onChange={this.onInputChange('operator')}
+                  onChange={this.onEventInputChange('operator')}
                   margin="normal"
                 >
                   {operators.length > 0 ? (
@@ -268,3 +302,7 @@ export class SiteForm extends Component {
     )
   }
 }
+
+export const SiteForm = scriptLoader([
+  `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`,
+])(SiteFormWithout)
