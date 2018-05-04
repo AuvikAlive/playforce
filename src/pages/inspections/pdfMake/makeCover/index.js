@@ -11,11 +11,9 @@ export const makeCover = ({
   displayName,
   appliedStandards,
 }) => {
-  const { name } = location
-
   return [
     makeHeader(),
-    makeTitle(name),
+    makeTitle(),
     makeCoverImage(image),
     makeMiddleSection({
       location,
