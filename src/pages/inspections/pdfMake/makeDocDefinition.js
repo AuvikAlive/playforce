@@ -5,7 +5,7 @@ import { makeFooter } from './makeFooter'
 import { makeCertificate } from './makeCertificate/'
 import { makeCover } from './makeCover/'
 import { makeAuditSummary } from './makeAuditSummary'
-import { makeConditionRatingInfo } from './makeCondtionRatingInfo'
+import { makeConditionRatingInfo } from './makeConditionRatingInfo/'
 import { makeIndividualConditionRatings } from './makeIndividualConditionRatings'
 import { makeComplianceIssues } from './makeComplianceIssues'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues'
@@ -35,7 +35,7 @@ export const makeDocDefinition = async (
     footer: makeFooter(skipCommonHeaderFooter),
     content: [
       await makeCertificate({
-        certificate: true,
+        certificate,
         inspectionNumber,
         cover,
         auditSummary,
