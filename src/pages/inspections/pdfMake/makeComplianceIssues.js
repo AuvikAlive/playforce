@@ -32,8 +32,8 @@ const title = {
 }
 
 export const makeComplianceIssues = (
-  complianceIssues,
-  complianceIssuesAdded
+  complianceIssuesAdded,
+  complianceIssues
 ) => {
   if (!complianceIssuesAdded) {
     return [

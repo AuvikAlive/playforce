@@ -1,4 +1,4 @@
-export const makeThirdAddressRow = () => [
+export const makeThirdRow = () => [
   'Crestmead QLD 4132',
   {
     text: [

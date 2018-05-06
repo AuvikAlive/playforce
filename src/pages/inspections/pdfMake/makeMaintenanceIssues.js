@@ -5,7 +5,13 @@ import {
   pageMarginHorizontal,
 } from './globals'
 
-export const makeMaintenanceIssues = maintenanceIssues => {
+export const makeMaintenanceIssues = (
+  maintenanceIssuesAdded,
+  maintenanceIssues
+) => {
+  if (!maintenanceIssuesAdded) {
+    return null
+  }
   const maintenanceIssueItems = maintenanceIssues.map(
     ({ images, finding, equipment, recommendations }, index, array) => {
       const columnGap = verticalMargin

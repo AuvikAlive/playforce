@@ -2,7 +2,7 @@ import { pageMargins } from './pageMargins'
 import { pageSize } from './pageSize'
 import { makeHeader } from './makeHeader'
 import { makeFooter } from './makeFooter'
-import { makeCertificate } from './makeCertificate'
+import { makeCertificate } from './makeCertificate/'
 import { makeCover } from './makeCover/'
 import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeCondtionRatingInfo'
@@ -32,25 +32,21 @@ export const makeDocDefinition = async (
     pageMargins,
     pageSize,
     header: makeHeader(skipCommonHeaderFooter),
-    footer: (currentPage, pageCount) =>
-      currentPage > skipCommonHeaderFooter
-        ? makeFooter(currentPage, pageCount)
-        : null,
+    footer: makeFooter(skipCommonHeaderFooter),
     content: [
-      certificate
-        ? await makeCertificate({
-            inspectionNumber,
-            cover,
-            auditSummary,
-            conditionRatings,
-          })
-        : null,
+      await makeCertificate({
+        certificate: true,
+        inspectionNumber,
+        cover,
+        auditSummary,
+        conditionRatings,
+      }),
       makeCover(cover),
       await makeAuditSummary({ auditSummary, cover }),
       makeConditionRatingInfo(),
       makeIndividualConditionRatings(conditionRatings),
-      makeComplianceIssues(complianceIssues, complianceIssuesAdded),
-      maintenanceIssuesAdded ? makeMaintenanceIssues(maintenanceIssues) : null,
+      makeComplianceIssues(complianceIssuesAdded, complianceIssues),
+      makeMaintenanceIssues(maintenanceIssuesAdded, maintenanceIssues),
       makeAreasAssessed(),
       makeReportNotes(cover),
     ],

@@ -1,4 +1,4 @@
-export const makeSecondAddressRow = () => [
+export const makeSecondRow = () => [
   '34-36 Calcium Court',
   {
     text: [

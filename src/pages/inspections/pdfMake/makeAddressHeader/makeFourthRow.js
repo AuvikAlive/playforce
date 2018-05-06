@@ -1,4 +1,4 @@
-export const makeFourthAddressRow = () => [
+export const makeFourthRow = () => [
   {
     text: [
       {

@@ -1,13 +1,7 @@
 import { format } from 'date-fns/esm'
-import {
-  verticalMargin,
-  logoOffset,
-  fontSize,
-  headerFontSize,
-  pageMarginVertical,
-} from './globals'
-import { logo } from './logo'
-import { trimImage } from '../../../utilities/trimImage'
+import { verticalMargin, fontSize, headerFontSize } from '../globals'
+import { trimImage } from '../../../../utilities/trimImage'
+import { makeAddressHeader } from '../makeAddressHeader/'
 
 export const makeCertificate = async ({
   certificate,
@@ -16,10 +10,10 @@ export const makeCertificate = async ({
   auditSummary,
   conditionRatings,
 }) => {
-  if(!certificate) {
+  if (!certificate) {
     return null
   }
-  
+
   const {
     location,
     client,
@@ -53,89 +47,7 @@ export const makeCertificate = async ({
   )
 
   return [
-    {
-      marginTop: -logoOffset + pageMarginVertical,
-      columns: [
-        {
-          image: logo,
-          width: 208,
-        },
-        {
-          layout: 'noBorders',
-          marginLeft: 110,
-          table: {
-            body: [
-              [
-                { text: 'POSTAL ADDRESS', bold: true },
-                {
-                  text: [
-                    {
-                      text: 'Phone: ',
-                      bold: true,
-                    },
-                    {
-                      text: '(07) 3803 1788',
-                    },
-                  ],
-                },
-              ],
-              [
-                '34-36 Calcium Court',
-                {
-                  text: [
-                    {
-                      text: 'Mobile: ',
-                      bold: true,
-                    },
-                    {
-                      text: '0411 796 281',
-                    },
-                  ],
-                },
-              ],
-              [
-                'Crestmead QLD 4132',
-                {
-                  text: [
-                    {
-                      text: 'Email: ',
-                      bold: true,
-                    },
-                    {
-                      text: 'admin@play-force.com.au',
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    {
-                      text: 'ABN: ',
-                      bold: true,
-                    },
-                    {
-                      text: '69 106 457 176',
-                    },
-                  ],
-                },
-                {
-                  text: [
-                    {
-                      text: 'Web: ',
-                      bold: true,
-                    },
-                    {
-                      text: 'www.play-force.com.au',
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-      ],
-    },
+    makeAddressHeader(),
     {
       text: 'CERTIFICATE OF COMPLIANCE',
       font: 'Oswald',

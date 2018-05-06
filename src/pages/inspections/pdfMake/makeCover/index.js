@@ -1,4 +1,4 @@
-import { makeHeader } from './makeHeader'
+import { makeAddressHeader } from '../makeAddressHeader'
 import { makeTitle } from './makeTitle'
 import { makeCoverImage } from './makeCoverImage'
 import { makeMiddleSection } from './makeMiddleSection'
@@ -12,7 +12,7 @@ export const makeCover = ({
   appliedStandards,
 }) => {
   return [
-    makeHeader(),
+    makeAddressHeader(),
     makeTitle(),
     makeCoverImage(image),
     makeMiddleSection({
