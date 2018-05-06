@@ -1,7 +1,7 @@
 import { verticalMargin } from '../globals'
 
 export const makeMiddleSectionFirstRow = ({
-  middleSectionFontSize,
+  sectionFontSize,
   firstColumnWidth,
   name,
   location,
@@ -11,7 +11,7 @@ export const makeMiddleSectionFirstRow = ({
   const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
 
   return {
-    fontSize: middleSectionFontSize,
+    fontSize: sectionFontSize,
     columns: [
       {
         text: 'LOCATION',
