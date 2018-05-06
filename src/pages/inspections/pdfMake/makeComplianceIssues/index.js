@@ -1,5 +1,5 @@
 import { makeTitle } from './makeTitle'
-import { makeTable } from './makeTable'
+import { makeIssueItems } from './makeIssueItems'
 
 export const makeComplianceIssues = (
   complianceIssuesAdded,
@@ -15,5 +15,5 @@ export const makeComplianceIssues = (
     ]
   }
 
-  return [makeTitle(), makeTable(complianceIssues)]
+  return [makeTitle(), makeIssueItems(complianceIssues)]
 }
