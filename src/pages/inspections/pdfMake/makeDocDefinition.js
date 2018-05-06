@@ -6,7 +6,7 @@ import { makeCertificate } from './makeCertificate/'
 import { makeCover } from './makeCover/'
 import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeConditionRatingInfo/'
-import { makeIndividualConditionRatings } from './makeIndividualConditionRatings'
+import { makeConditionRatings } from './makeConditionRatings/'
 import { makeComplianceIssues } from './makeComplianceIssues'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues'
 import { makeAreasAssessed } from './makeAreasAssessed'
@@ -44,7 +44,7 @@ export const makeDocDefinition = async (
       makeCover(cover),
       await makeAuditSummary({ auditSummary, cover }),
       makeConditionRatingInfo(),
-      makeIndividualConditionRatings(conditionRatings),
+      makeConditionRatings(conditionRatings),
       makeComplianceIssues(complianceIssuesAdded, complianceIssues),
       makeMaintenanceIssues(maintenanceIssuesAdded, maintenanceIssues),
       makeAreasAssessed(),
