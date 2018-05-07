@@ -55,7 +55,7 @@ export class EditInspection extends Component {
     !maintenanceIssuesLoaded &&
       fetchMaintenanceIssuesRealTime(userId, inspectionId)
 
-    inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
+    // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
 
     setNavTitle('Edit Inspection')
 
@@ -94,7 +94,7 @@ export class EditInspection extends Component {
   }
 
   componentWillReceiveProps({ inspection, standardsLoaded }) {
-    inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
+    // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
   }
 
   onSwitchChange = event => {

@@ -10,7 +10,7 @@ import { makeConditionRatings } from './makeConditionRatings/'
 import { makeComplianceIssues } from './makeComplianceIssues/'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues/'
 import { makeAreasAssessed } from './makeAreasAssessed/'
-import { makeReportNotes } from './makeReportNotes'
+import { makeReportNotes } from './makeReportNotes/'
 import { logo } from './logo'
 
 export const makeDocDefinition = async (
@@ -34,7 +34,6 @@ export const makeDocDefinition = async (
     header: makeHeader(skipCommonHeaderFooter),
     footer: makeFooter(skipCommonHeaderFooter),
     content: [
-      makeAreasAssessed(),
       await makeCertificate({
         certificate,
         inspectionNumber,
