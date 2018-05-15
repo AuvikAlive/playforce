@@ -2,6 +2,7 @@ import {
   FETCH_COMPLIANCE_ISSUES,
   FETCH_COMPLIANCE_ISSUES_COMPLETED,
 } from '../../actionTypes'
+import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
 
 export const fetchComplianceIssuesRealTime = (userId, inspectionId) => async (
   dispatch,
@@ -19,15 +20,32 @@ export const fetchComplianceIssuesRealTime = (userId, inspectionId) => async (
     .doc(inspectionId)
     .collection('complianceIssues')
 
-  return ref.onSnapshot(querySnapshot => {
-    let items = []
+  return ref.onSnapshot(async querySnapshot => {
+    let items = querySnapshot.docs.map(async doc => {
+      let { images } = doc.data()
 
-    querySnapshot.forEach(doc =>
-      items.push({
+      images = images.map(async item => {
+        const response = await fetch(item.image)
+        const blob = await response.blob()
+        const dataUrl = await getDataUrlFromBlob(blob)
+
+        return {
+          ...item,
+          image: dataUrl,
+        }
+      })
+
+      images = await Promise.all(images)
+
+      return {
         id: doc.id,
         ...doc.data(),
-      })
-    )
+        images,
+      }
+    })
+
+    items = await Promise.all(items)
+
     dispatch({ type: FETCH_COMPLIANCE_ISSUES_COMPLETED, payload: items })
   })
 }

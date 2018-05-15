@@ -273,7 +273,13 @@ export class ComplianceIssueForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() =>
-                captureImage({ width: 188, height: 253, multiple: true })
+                // captureImage({ width: 188, height: 253, multiple: true })
+                captureImage({
+                  width: 1024,
+                  height: 1024 * 253 / 188,
+                  multiple: true,
+                  returnBlob: true,
+                })
               }
             >
               Capture Image(s)

@@ -13,16 +13,25 @@ export const withImageCapture = WrappedComponent => {
       multiple: false,
     }
 
-    capture = ({ width, height, multiple }) => {
-      if (width && height && multiple) {
-        this.setState({ width, height, multiple }, () => this.fileInput.click())
-      } else if (width && height) {
-        this.setState({ width, height }, () => this.fileInput.click())
-      } else if (multiple) {
-        this.setState({ multiple }, () => this.fileInput.click())
-      } else {
-        this.fileInput.click()
-      }
+    capture = ({ width, height, multiple, returnBlob }) => {
+      this.setState(
+        {
+          ...(width && { width }),
+          ...(height && { height }),
+          ...(multiple && { multiple }),
+          ...(returnBlob && { returnBlob }),
+        },
+        () => this.fileInput.click()
+      )
+      // if (width && height && multiple) {
+      //   this.setState({ width, height, multiple }, () => this.fileInput.click())
+      // } else if (width && height) {
+      //   this.setState({ width, height }, () => this.fileInput.click())
+      // } else if (multiple) {
+      //   this.setState({ multiple }, () => this.fileInput.click())
+      // } else {
+      //   this.fileInput.click()
+      // }
     }
 
     loadImage = file => {
@@ -53,20 +62,25 @@ export const withImageCapture = WrappedComponent => {
     }
 
     getImage = async file => {
+      const { returnBlob } = this.state
       const image = await this.loadImage(file)
       const { naturalHeight, naturalWidth } = image
       const imageNaturalAspectRatio = naturalWidth / naturalHeight
       const {
-        width = 500,
-        height = Number((1 / imageNaturalAspectRatio * 500).toFixed(2)),
+        width = 1024,
+        height = Number((1 / imageNaturalAspectRatio * width).toFixed(2)),
       } = this.state
 
-      const dataUrl = await downscale(image, width, height, {
+      const scaledImage = await downscale(image, width, height, {
         imageType: file.type,
-        // quality: 1,
+        quality: 1,
+        ...(returnBlob && { returnBlob: true }),
       })
 
-      return { image: dataUrl, imageNaturalAspectRatio }
+      return {
+        image: returnBlob ? URL.createObjectURL(scaledImage) : scaledImage,
+        imageNaturalAspectRatio,
+      }
     }
 
     getFile = async event => {

@@ -1,3 +1,5 @@
+import { saveImage } from '../saveImage'
+
 export const addConditionRating = (userId, inspectionId, data) => async (
   dispatch,
   getState,
@@ -13,6 +15,16 @@ export const addConditionRating = (userId, inspectionId, data) => async (
     .doc(inspectionId)
     .collection('conditionRatings')
     .doc()
+
+  const { image } = data
+  const downloadURL = await dispatch(
+    saveImage(
+      `${userId}/images/${inspectionId}/conditionRatings/${ref.id}`,
+      image
+    )
+  )
+
+  data.image = downloadURL
 
   await ref.set(data)
 

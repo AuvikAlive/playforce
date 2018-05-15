@@ -177,7 +177,8 @@ export class CoverForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() =>
-                captureImage({ width: 500, height: 500 * 432 / 764 })
+                // captureImage({ width: 500, height: 500 * 432 / 764 })
+                captureImage({ width: 1024, height: 1024 * 432 / 764 })
               }
             >
               Capture Image

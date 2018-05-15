@@ -1,4 +1,5 @@
 import { FETCH_INSPECTION, FETCH_INSPECTION_COMPLETED } from '../../actionTypes'
+import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
 
 export const fetchInspectionRealTime = (userId, inspectionId) => async (
   dispatch,
@@ -15,8 +16,16 @@ export const fetchInspectionRealTime = (userId, inspectionId) => async (
     .collection('inspections')
     .doc(inspectionId)
 
-  return ref.onSnapshot(doc => {
-    const item = { id: doc.id, ...doc.data() }
+  return ref.onSnapshot(async doc => {
+    const { cover } = doc.data()
+    const { image } = cover
+    const response = await fetch(image)
+    const blob = await response.blob()
+    const dataUrl = await getDataUrlFromBlob(blob)
+
+    cover.image = dataUrl
+
+    const item = { id: doc.id, ...doc.data(), cover }
 
     dispatch({ type: FETCH_INSPECTION_COMPLETED, payload: item })
 

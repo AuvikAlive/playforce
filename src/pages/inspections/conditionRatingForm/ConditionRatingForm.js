@@ -204,7 +204,10 @@ export class ConditionRatingForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ width: 300, height: 172 })}
+              onClick={() => {
+                // captureImage({ width: 300, height: 172 })
+                captureImage({ width: 1024, height: 1024 * 432 / 764 })
+              }}
             >
               Capture Image
               <StayCurrentLandscapeIcon className="button-icon" />

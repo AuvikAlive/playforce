@@ -1,3 +1,5 @@
+import { saveImage } from '../saveImage'
+
 export const addInspection = (userId, cover) => async (
   dispatch,
   getState,
@@ -18,6 +20,13 @@ export const addInspection = (userId, cover) => async (
       .doc(userId)
       .collection('inspections')
       .doc()
+
+    const { image } = cover
+    const downloadURL = await dispatch(
+      saveImage(`${userId}/images/${inspectionRef.id}/cover`, image)
+    )
+
+    cover.image = downloadURL
 
     transaction.set(inspectionRef, {
       cover,
