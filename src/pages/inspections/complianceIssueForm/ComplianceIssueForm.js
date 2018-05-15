@@ -278,7 +278,6 @@ export class ComplianceIssueForm extends Component {
                   width: 1024,
                   height: 1024 * 253 / 188,
                   multiple: true,
-                  returnBlob: true,
                 })
               }
             >
