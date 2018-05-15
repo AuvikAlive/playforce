@@ -7,6 +7,7 @@ import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import GridOnIcon from 'material-ui-icons/GridOn'
 import ListIcon from 'material-ui-icons/List'
+import ArchiveIcon from 'material-ui-icons/Archive'
 // import Chip from 'material-ui/Chip'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledInspectionList } from './StyledInspectionList'
@@ -16,6 +17,11 @@ import { ListView } from './ListView'
 import { GridView } from './GridView'
 
 export class InspectionList extends Component {
+  state = {
+    selectedItems: [],
+    selectMode: false,
+  }
+
   componentDidMount() {
     const {
       standardsLoaded,
@@ -85,6 +91,42 @@ export class InspectionList extends Component {
     )
   }
 
+  archiveInspections = async () => {
+    const { archiveInspections, userId } = this.props
+    const { selectedItems } = this.state
+
+    try {
+      await archiveInspections(userId, selectedItems)
+      this.setSelectMode(false)
+      this.setSelectedItems([])
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  setSelectedItems = selectedItems => this.setState({ selectedItems })
+
+  setSelectMode = selectMode => {
+    if (selectMode) {
+      const { setRightNavComponent } = this.context
+
+      setRightNavComponent(
+        <IconButton
+          color="inherit"
+          aria-label="archive"
+          onClick={this.archiveInspections}
+        >
+          <ArchiveIcon />
+        </IconButton>
+      )
+    } else {
+      const { view } = this.props
+      this.setRightNav(view)
+    }
+
+    this.setState({ selectMode })
+  }
+
   render() {
     const {
       match,
@@ -94,6 +136,7 @@ export class InspectionList extends Component {
       standards,
       view,
     } = this.props
+    const { selectedItems, selectMode } = this.state
 
     return inspectionsLoaded && (view === 'list' || standardsLoaded) ? (
       <StyledInspectionList
@@ -111,7 +154,13 @@ export class InspectionList extends Component {
         </StyledNavLink>
 
         {view === 'list' ? (
-          <ListView inspections={inspections} match={match} />
+          <ListView
+            inspections={inspections}
+            selectedItems={selectedItems}
+            selectMode={selectMode}
+            setSelectedItems={this.setSelectedItems}
+            setSelectMode={this.setSelectMode}
+          />
         ) : (
           <GridView
             inspections={inspections}

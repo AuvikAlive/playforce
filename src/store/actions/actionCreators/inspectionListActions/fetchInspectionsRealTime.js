@@ -17,6 +17,7 @@ export const fetchInspectionsRealTime = userId => async (
     .doc(userId)
     .collection('inspections')
     .orderBy('inspectionNumber')
+    .where('archived', '==', false)
 
   return ref.onSnapshot(querySnapshot => {
     let items = []

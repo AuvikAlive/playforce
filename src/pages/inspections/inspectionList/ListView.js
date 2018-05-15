@@ -12,47 +12,39 @@ import List, {
 import Avatar from 'material-ui/Avatar'
 
 class ListViewWithout extends Component {
-  state = {
-    selectedItems: [],
-    selectMode: false,
-  }
-
   handleClick = id => {
-    const { selectMode } = this.state
-    const { history, match } = this.props
+    const { selectMode, history, match } = this.props
 
     !selectMode && history.push(`${match.url}/edit/${id}`)
   }
 
   handleButtonPress = id => {
-    this.buttonPressTimer = setTimeout(() => {
-      const { selectedItems } = this.state
+    const { setSelectedItems, selectedItems } = this.props
 
+    this.buttonPressTimer = setTimeout(() => {
       if (selectedItems.find(item => item === id)) {
-        this.setState({
-          selectedItems: selectedItems.filter(item => item !== id),
-        })
+        setSelectedItems(selectedItems.filter(item => item !== id))
       } else {
-        this.setState({ selectedItems: [...selectedItems, id] })
+        setSelectedItems([...selectedItems, id])
       }
     }, 300)
   }
 
   handleButtonRelease = id => {
-    const { selectedItems } = this.state
+    const { selectedItems, setSelectMode } = this.props
+
     clearTimeout(this.buttonPressTimer)
 
     if (selectedItems.length === 0) {
       this.handleClick(id)
-      this.setState({ selectMode: false })
+      setSelectMode(false)
     } else {
-      this.setState({ selectMode: true })
+      setSelectMode(true)
     }
   }
 
   render() {
-    const { inspections } = this.props
-    const { selectedItems } = this.state
+    const { inspections, selectedItems } = this.props
 
     return inspections.length > 0 ? (
       <Paper className="paper">

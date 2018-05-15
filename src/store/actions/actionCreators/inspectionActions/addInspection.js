@@ -23,6 +23,7 @@ export const addInspection = (userId, cover) => async (
       cover,
       site: cover.location.id,
       inspectionNumber: inspectionCount + 1,
+      archived: false,
     })
 
     return inspectionRef.id

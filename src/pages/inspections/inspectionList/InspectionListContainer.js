@@ -7,6 +7,7 @@ import {
 } from '../../../store/actions/actionCreators/searchBarActions'
 import {
   fetchInspectionsRealTime,
+  archiveInspections,
   toggleView,
 } from '../../../store/actions/actionCreators/inspectionListActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
@@ -37,6 +38,7 @@ const mapDispatchToProps = {
   openSearchBar,
   closeSearchBar,
   fetchInspectionsRealTime,
+  archiveInspections,
   fetchStandards,
   toggleView,
 }
