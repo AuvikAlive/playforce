@@ -1,4 +1,4 @@
-import { saveImage } from '../saveImage'
+import { saveImage } from '../storageActions/'
 
 export const updateMaintenanceIssue = (
   userId,

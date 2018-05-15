@@ -1,4 +1,4 @@
-import { saveImage } from '../saveImage'
+import { saveImage } from '../storageActions/'
 
 export const addComplianceIssue = (userId, inspectionId, data) => async (
   dispatch,
