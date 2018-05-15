@@ -64,4 +64,8 @@ export const StyledInspectionList = Styled(Content)`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .list-item.selected {
+    background-color: rgba(0, 0, 0, 0.14);
+  }
 `
