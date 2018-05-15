@@ -1,3 +1,5 @@
+import { saveImage } from '../saveImage'
+
 export const updateMaintenanceIssue = (
   userId,
   inspectionId,
@@ -13,6 +15,25 @@ export const updateMaintenanceIssue = (
     .doc(inspectionId)
     .collection('maintenanceIssues')
     .doc(id)
+
+  const { images } = data
+
+  let downloadURLs = images.map(async (item, index) => {
+    const { image } = item
+    const downloadURL = await dispatch(
+      saveImage(
+        `${userId}/images/${inspectionId}/maintenanceIssues/${id}/issue${index}`,
+        image
+      )
+    )
+
+    return {
+      ...item,
+      image: downloadURL,
+    }
+  })
+
+  data.images = await Promise.all(downloadURLs)
 
   return ref.update(data)
 }

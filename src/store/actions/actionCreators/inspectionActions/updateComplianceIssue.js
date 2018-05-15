@@ -1,3 +1,5 @@
+import { saveImage } from '../saveImage'
+
 export const updateComplianceIssue = (userId, inspectionId, id, data) => async (
   dispatch,
   getState,
@@ -12,6 +14,25 @@ export const updateComplianceIssue = (userId, inspectionId, id, data) => async (
     .doc(inspectionId)
     .collection('complianceIssues')
     .doc(id)
+
+  const { images } = data
+
+  let downloadURLs = images.map(async (item, index) => {
+    const { image } = item
+    const downloadURL = await dispatch(
+      saveImage(
+        `${userId}/images/${inspectionId}/complianceIssues/${id}/issue${index}`,
+        image
+      )
+    )
+
+    return {
+      ...item,
+      image: downloadURL,
+    }
+  })
+
+  data.images = await Promise.all(downloadURLs)
 
   return ref.update(data)
 }

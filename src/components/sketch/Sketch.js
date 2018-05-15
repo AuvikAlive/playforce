@@ -24,7 +24,7 @@ export class Sketch extends Component {
     imagesLength: undefined,
     currentSlide: 0,
     tool: tools[0],
-    width: 600,
+    width: 1024,
     color: {
       hex: '#000',
     },

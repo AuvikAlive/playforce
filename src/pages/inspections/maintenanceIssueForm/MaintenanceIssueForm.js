@@ -186,7 +186,12 @@ export class MaintenanceIssueForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() =>
-                captureImage({ width: 188, height: 253, multiple: true })
+                // captureImage({ width: 188, height: 253, multiple: true })
+                captureImage({
+                  width: 1024,
+                  height: 1024 * 253 / 188,
+                  multiple: true,
+                })
               }
             >
               Capture Image(s)
