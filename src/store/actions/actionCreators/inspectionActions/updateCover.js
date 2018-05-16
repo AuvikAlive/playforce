@@ -20,5 +20,5 @@ export const updateCover = (userId, inspectionId, data) => async (
 
   data.image = downloadURL
 
-  return ref.update({ data })
+  return ref.update({ cover: data })
 }
