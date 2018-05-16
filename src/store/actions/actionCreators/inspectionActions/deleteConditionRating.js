@@ -1,3 +1,5 @@
+import { deleteImage } from '../storageActions/'
+
 export const deleteConditionRating = (userId, inspectionId, id) => async (
   dispatch,
   getState,
@@ -14,5 +16,10 @@ export const deleteConditionRating = (userId, inspectionId, id) => async (
     .collection('conditionRatings')
     .doc(id)
 
-  return ref.delete()
+  return Promise.all([
+    ref.delete(),
+    dispatch(
+      deleteImage(`${userId}/images/${inspectionId}/conditionRatings/${id}`)
+    ),
+  ])
 }

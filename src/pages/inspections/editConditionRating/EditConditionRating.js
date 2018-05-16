@@ -75,10 +75,10 @@ export class EditConditionRating extends Component {
       deleteConditionRating,
       userId,
       inspectionId,
-      conditionRating,
+      conditionRatingId,
     } = this.props
 
-    await deleteConditionRating({ userId, inspectionId, conditionRating })
+    await deleteConditionRating(userId, inspectionId, conditionRatingId)
     this.showActionGoBack()
   }
 
