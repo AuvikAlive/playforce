@@ -6,6 +6,7 @@ import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
 import GridOnIcon from 'material-ui-icons/GridOn'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import ListIcon from 'material-ui-icons/List'
 import ArchiveIcon from 'material-ui-icons/Archive'
 // import Chip from 'material-ui/Chip'
@@ -104,7 +105,6 @@ export class InspectionList extends Component {
     try {
       await archiveInspections(userId, selectedItems)
       this.setSelectMode(false)
-      this.setSelectedItems([])
     } catch (error) {
       console.log(error)
     }
@@ -112,9 +112,25 @@ export class InspectionList extends Component {
 
   setSelectedItems = selectedItems => this.setState({ selectedItems })
 
-  setSelectMode = selectMode => {
+  setSelectMode = (selectMode, selectedItemsLength) => {
     if (selectMode) {
-      const { setRightNavComponent } = this.context
+      const {
+        setNavTitle,
+        setLeftNavComponent,
+        setRightNavComponent,
+      } = this.context
+
+      setNavTitle(selectedItemsLength)
+
+      setLeftNavComponent(
+        <IconButton
+          color="inherit"
+          aria-label="Search"
+          onClick={() => this.setSelectMode(false)}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+      )
 
       setRightNavComponent(
         <IconButton
@@ -127,7 +143,13 @@ export class InspectionList extends Component {
       )
     } else {
       const { view } = this.props
+      const { setNavTitle, removeLefNavComponent } = this.context
+
+      setNavTitle('Inspections')
+      removeLefNavComponent()
       this.setRightNav(view)
+
+      this.setSelectedItems([])
     }
 
     this.setState({ selectMode })
@@ -191,6 +213,8 @@ export class InspectionList extends Component {
 InspectionList.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,

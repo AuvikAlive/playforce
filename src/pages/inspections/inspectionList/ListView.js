@@ -39,7 +39,7 @@ class ListViewWithout extends Component {
       this.handleClick(id)
       setSelectMode(false)
     } else {
-      setSelectMode(true)
+      setSelectMode(true, selectedItems.length)
     }
   }
 
