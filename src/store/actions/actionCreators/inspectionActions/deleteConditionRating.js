@@ -16,10 +16,9 @@ export const deleteConditionRating = (userId, inspectionId, id) => async (
     .collection('conditionRatings')
     .doc(id)
 
-  return Promise.all([
-    ref.delete(),
-    dispatch(
-      deleteImage(`${userId}/images/${inspectionId}/conditionRatings/${id}`)
-    ),
-  ])
+  dispatch(
+    deleteImage(`${userId}/images/${inspectionId}/conditionRating-${id}`)
+  )
+
+  return ref.delete()
 }

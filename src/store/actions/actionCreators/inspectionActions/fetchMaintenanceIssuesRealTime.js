@@ -22,25 +22,27 @@ export const fetchMaintenanceIssuesRealTime = (userId, inspectionId) => async (
 
   return ref.onSnapshot(async querySnapshot => {
     let items = querySnapshot.docs.map(async doc => {
-      let { images } = doc.data()
+      if (doc.exists) {
+        let { images } = doc.data()
 
-      images = images.map(async item => {
-        const response = await fetch(item.image)
-        const blob = await response.blob()
-        const dataUrl = await getDataUrlFromBlob(blob)
+        images = images.map(async item => {
+          const response = await fetch(item.image)
+          const blob = await response.blob()
+          const dataUrl = await getDataUrlFromBlob(blob)
+
+          return {
+            ...item,
+            image: dataUrl,
+          }
+        })
+
+        images = await Promise.all(images)
 
         return {
-          ...item,
-          image: dataUrl,
+          id: doc.id,
+          ...doc.data(),
+          images,
         }
-      })
-
-      images = await Promise.all(images)
-
-      return {
-        id: doc.id,
-        ...doc.data(),
-        images,
       }
     })
 

@@ -77,9 +77,15 @@ export class EditComplianceIssue extends Component {
       userId,
       inspectionId,
       complianceIssueId,
+      complianceIssue,
     } = this.props
 
-    await deleteComplianceIssue(userId, inspectionId, complianceIssueId)
+    await deleteComplianceIssue(
+      userId,
+      inspectionId,
+      complianceIssueId,
+      complianceIssue.images
+    )
     this.showActionGoBack()
   }
 

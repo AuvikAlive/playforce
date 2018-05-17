@@ -17,7 +17,7 @@ export const updateConditionRating = (userId, inspectionId, id, data) => async (
 
   const { image } = data
   const downloadURL = await dispatch(
-    saveImage(`${userId}/images/${inspectionId}/conditionRatings/${id}`, image)
+    saveImage(`${userId}/images/${inspectionId}/conditionRating-${id}`, image)
   )
 
   data.image = downloadURL

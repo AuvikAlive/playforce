@@ -22,9 +22,9 @@ export const addMaintenanceIssue = (userId, inspectionId, data) => async (
     const { image } = item
     const downloadURL = await dispatch(
       saveImage(
-        `${userId}/images/${inspectionId}/maintenanceIssues/${
+        `${userId}/images/${inspectionId}/maintenanceIssue-${
           ref.id
-        }/issue${index}`,
+        }-issue${index}`,
         image
       )
     )

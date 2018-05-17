@@ -21,7 +21,7 @@ export const updateComplianceIssue = (userId, inspectionId, id, data) => async (
     const { image } = item
     const downloadURL = await dispatch(
       saveImage(
-        `${userId}/images/${inspectionId}/complianceIssues/${id}/issue${index}`,
+        `${userId}/images/${inspectionId}/complianceIssue-${id}-issue${index}`,
         image
       )
     )

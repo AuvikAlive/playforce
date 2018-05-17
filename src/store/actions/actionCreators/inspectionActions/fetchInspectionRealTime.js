@@ -17,18 +17,20 @@ export const fetchInspectionRealTime = (userId, inspectionId) => async (
     .doc(inspectionId)
 
   return ref.onSnapshot(async doc => {
-    const { cover } = doc.data()
-    const { image } = cover
-    const response = await fetch(image)
-    const blob = await response.blob()
-    const dataUrl = await getDataUrlFromBlob(blob)
+    if (doc.exists) {
+      const { cover } = doc.data()
+      const { image } = cover
+      const response = await fetch(image)
+      const blob = await response.blob()
+      const dataUrl = await getDataUrlFromBlob(blob)
 
-    cover.image = dataUrl
+      cover.image = dataUrl
 
-    const item = { id: doc.id, ...doc.data(), cover }
+      const item = { id: doc.id, ...doc.data(), cover }
 
-    dispatch({ type: FETCH_INSPECTION_COMPLETED, payload: item })
+      dispatch({ type: FETCH_INSPECTION_COMPLETED, payload: item })
 
-    return item
+      return item
+    }
   })
 }

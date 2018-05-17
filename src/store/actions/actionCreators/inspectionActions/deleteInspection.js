@@ -1,3 +1,5 @@
+import { deleteImage } from '../storageActions/'
+
 export const deleteInspection = (inspection, userId, inspectionId) => async (
   dispatch,
   getState,
@@ -18,37 +20,83 @@ export const deleteInspection = (inspection, userId, inspectionId) => async (
     .collection('inspections')
     .doc(inspectionId)
 
-  if (conditionRatingsAdded) {
-    const querySnapshot = await inspectionRef
-      .collection('conditionRatings')
-      .get()
+  let storageImages = [`${userId}/images/${inspectionId}/cover`]
 
-    querySnapshot.forEach(doc => {
-      batch.delete(doc.ref)
+  if (conditionRatingsAdded) {
+    const { conditionRatings } = inspection
+
+    conditionRatings.forEach(({ id }) => {
+      batch.delete(inspectionRef.collection('conditionRatings').doc(id))
+
+      storageImages.push(
+        `${userId}/images/${inspectionId}/conditionRating-${id}`
+      )
     })
   }
 
   if (complianceIssuesAdded) {
-    const querySnapshot = await inspectionRef
-      .collection('complianceIssues')
-      .get()
+    const { complianceIssues } = inspection
 
-    querySnapshot.forEach(doc => {
-      batch.delete(doc.ref)
+    complianceIssues.forEach(({ id, images }) => {
+      batch.delete(inspectionRef.collection('complianceIssues').doc(id))
+
+      images.forEach((item, index) => {
+        storageImages.push(
+          `${userId}/images/${inspectionId}/complianceIssue-${id}-issue${index}`
+        )
+      })
     })
   }
 
   if (maintenanceIssuesAdded) {
-    const querySnapshot = await inspectionRef
-      .collection('maintenanceIssues')
-      .get()
+    const { maintenanceIssues } = inspection
 
-    querySnapshot.forEach(doc => {
-      batch.delete(doc.ref)
+    maintenanceIssues.forEach(({ id, images }) => {
+      batch.delete(inspectionRef.collection('maintenanceIssues').doc(id))
+
+      images.forEach((item, index) => {
+        storageImages.push(
+          `${userId}/images/${inspectionId}/maintenanceIssue-${id}-issue${index}`
+        )
+      })
     })
   }
 
+  // if (conditionRatingsAdded) {
+  //   const querySnapshot = await inspectionRef
+  //     .collection('conditionRatings')
+  //     .get()
+
+  //   querySnapshot.forEach(doc => {
+  //     batch.delete(doc.ref)
+  //   })
+  // }
+
+  // if (complianceIssuesAdded) {
+  //   const querySnapshot = await inspectionRef
+  //     .collection('complianceIssues')
+  //     .get()
+
+  //   querySnapshot.forEach(doc => {
+  //     batch.delete(doc.ref)
+  //   })
+  // }
+
+  // if (maintenanceIssuesAdded) {
+  //   const querySnapshot = await inspectionRef
+  //     .collection('maintenanceIssues')
+  //     .get()
+
+  //   querySnapshot.forEach(doc => {
+  //     batch.delete(doc.ref)
+  //   })
+  // }
+
   batch.delete(inspectionRef)
 
-  return batch.commit()
+  await batch.commit()
+
+  storageImages.forEach(item => {
+    dispatch(deleteImage(item))
+  })
 }

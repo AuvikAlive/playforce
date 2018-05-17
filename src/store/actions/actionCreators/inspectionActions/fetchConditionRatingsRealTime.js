@@ -22,16 +22,17 @@ export const fetchConditionRatingsRealTime = (userId, inspectionId) => async (
 
   return ref.onSnapshot(async querySnapshot => {
     let items = querySnapshot.docs.map(async doc => {
-      const { image } = doc.data()
+      if (doc.exists) {
+        const { image } = doc.data()
+        const response = await fetch(image)
+        const blob = await response.blob()
+        const dataUrl = await getDataUrlFromBlob(blob)
 
-      const response = await fetch(image)
-      const blob = await response.blob()
-      const dataUrl = await getDataUrlFromBlob(blob)
-
-      return {
-        id: doc.id,
-        ...doc.data(),
-        image: dataUrl,
+        return {
+          id: doc.id,
+          ...doc.data(),
+          image: dataUrl,
+        }
       }
     })
 

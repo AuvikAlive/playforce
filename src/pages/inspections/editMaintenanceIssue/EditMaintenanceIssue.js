@@ -77,9 +77,15 @@ export class EditMaintenanceIssue extends Component {
       userId,
       inspectionId,
       maintenanceIssueId,
+      maintenanceIssue,
     } = this.props
 
-    await deleteMaintenanceIssue(userId, inspectionId, maintenanceIssueId)
+    await deleteMaintenanceIssue(
+      userId,
+      inspectionId,
+      maintenanceIssueId,
+      maintenanceIssue.images
+    )
     this.showActionGoBack()
   }
 

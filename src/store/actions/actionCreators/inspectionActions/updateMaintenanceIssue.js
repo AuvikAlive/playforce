@@ -22,7 +22,7 @@ export const updateMaintenanceIssue = (
     const { image } = item
     const downloadURL = await dispatch(
       saveImage(
-        `${userId}/images/${inspectionId}/maintenanceIssues/${id}/issue${index}`,
+        `${userId}/images/${inspectionId}/maintenanceIssue-${id}-issue${index}`,
         image
       )
     )
