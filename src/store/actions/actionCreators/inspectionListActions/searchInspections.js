@@ -1,4 +1,4 @@
-export const searchSites = (userId, name) => async (
+export const searchInspections = (userId, query) => async (
   dispatch,
   getState,
   getFirebase
@@ -8,16 +8,16 @@ export const searchSites = (userId, name) => async (
   const ref = db
     .collection('users')
     .doc(userId)
-    .collection('sites')
+    .collection('inspections')
 
   let items = []
-  let querySnapshot = await ref.where('name', '==', name).get()
+  let querySnapshot = await ref.where('name', '==', query).get()
 
   if (querySnapshot.empty) {
-    querySnapshot = await ref.where('name', '>=', name).get()
+    querySnapshot = await ref.where('name', '>=', query).get()
 
     if (querySnapshot.empty) {
-      querySnapshot = await ref.where('name', '<=', name).get()
+      querySnapshot = await ref.where('name', '<=', query).get()
     }
   }
 

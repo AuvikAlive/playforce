@@ -21,7 +21,11 @@ export const addInspection = (userId, cover) => async (
       .collection('inspections')
       .doc()
 
-    const { image } = cover
+    const {
+      image,
+      location: { name },
+    } = cover
+
     const downloadURL = await dispatch(
       saveImage(`${userId}/images/${inspectionRef.id}/cover`, image)
     )
@@ -33,6 +37,7 @@ export const addInspection = (userId, cover) => async (
       site: cover.location.id,
       inspectionNumber: inspectionCount + 1,
       archived: false,
+      name,
     })
 
     return inspectionRef.id

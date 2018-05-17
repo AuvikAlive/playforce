@@ -35,7 +35,7 @@ export class InspectionList extends Component {
 
     setNavTitle('Inspections')
     this.setRightNav(view)
-    setSearchComponent(<SearchBar />)
+    setSearchComponent(<SearchBar onSearch={this.onSearch} />)
     !standardsLoaded && fetchStandards(userId)
     !inspectionsLoaded && fetchInspectionsRealTime(userId)
   }
@@ -56,6 +56,12 @@ export class InspectionList extends Component {
 
   componentWillReceiveProps({ view }) {
     view !== this.props.view && this.setRightNav(view)
+  }
+
+  onSearch = async query => {
+    const { searchInspections, userId } = this.props
+
+    return searchInspections(userId, query)
   }
 
   setRightNav = view => {
@@ -135,8 +141,15 @@ export class InspectionList extends Component {
       standardsLoaded,
       standards,
       view,
+      searchBarOpen,
+      searchResults,
     } = this.props
     const { selectedItems, selectMode } = this.state
+
+    const inspectionsToShow =
+      searchBarOpen && searchResults && searchResults.length > 0
+        ? searchResults
+        : inspections
 
     return inspectionsLoaded && (view === 'list' || standardsLoaded) ? (
       <StyledInspectionList
@@ -155,7 +168,7 @@ export class InspectionList extends Component {
 
         {view === 'list' ? (
           <ListView
-            inspections={inspections}
+            inspections={inspectionsToShow}
             selectedItems={selectedItems}
             selectMode={selectMode}
             setSelectedItems={this.setSelectedItems}
@@ -163,7 +176,7 @@ export class InspectionList extends Component {
           />
         ) : (
           <GridView
-            inspections={inspections}
+            inspections={inspectionsToShow}
             match={match}
             standards={standards}
           />

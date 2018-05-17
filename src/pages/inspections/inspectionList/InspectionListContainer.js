@@ -8,24 +8,24 @@ import {
 import {
   fetchInspectionsRealTime,
   archiveInspections,
+  searchInspections,
   toggleView,
 } from '../../../store/actions/actionCreators/inspectionListActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { InspectionList } from './InspectionList'
 
 const mapStateToProps = ({
-  firestore: {
-    data: { users },
-  },
   firebase: {
     auth: { uid },
   },
-  searchBar: { open, query },
+  searchBar: { open, query, results },
   inspectionList: { view, inspectionsLoaded, inspections },
   standard: { standardsLoaded, standards },
 }) => ({
   userId: uid,
   open,
+  searchBarOpen: open,
+  searchResults: results,
   query,
   view,
   inspectionsLoaded,
@@ -39,6 +39,7 @@ const mapDispatchToProps = {
   closeSearchBar,
   fetchInspectionsRealTime,
   archiveInspections,
+  searchInspections,
   fetchStandards,
   toggleView,
 }
