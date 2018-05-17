@@ -7,14 +7,17 @@ import { updateAuditSummary } from './updateAuditSummary'
 import { addConditionRating } from './addConditionRating'
 import { updateConditionRating } from './updateConditionRating'
 import { deleteConditionRating } from './deleteConditionRating'
+import { fetchConditionRatings } from './fetchConditionRatings'
 import { fetchConditionRatingsRealTime } from './fetchConditionRatingsRealTime'
 import { addComplianceIssue } from './addComplianceIssue'
 import { updateComplianceIssue } from './updateComplianceIssue'
 import { deleteComplianceIssue } from './deleteComplianceIssue'
+import { fetchComplianceIssues } from './fetchComplianceIssues'
 import { fetchComplianceIssuesRealTime } from './fetchComplianceIssuesRealTime'
 import { addMaintenanceIssue } from './addMaintenanceIssue'
 import { updateMaintenanceIssue } from './updateMaintenanceIssue'
 import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
+import { fetchMaintenanceIssues } from './fetchMaintenanceIssues'
 import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime'
 import { DISCARD_INSPECTION } from '../../actionTypes'
 
@@ -28,14 +31,17 @@ export {
   addConditionRating,
   updateConditionRating,
   deleteConditionRating,
+  fetchConditionRatings,
   fetchConditionRatingsRealTime,
   addComplianceIssue,
   updateComplianceIssue,
   deleteComplianceIssue,
+  fetchComplianceIssues,
   fetchComplianceIssuesRealTime,
   addMaintenanceIssue,
   updateMaintenanceIssue,
   deleteMaintenanceIssue,
+  fetchMaintenanceIssues,
   fetchMaintenanceIssuesRealTime,
 }
 

@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import {
   fetchInspectionRealTime,
   fetchConditionRatingsRealTime,
+  fetchConditionRatings,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ConditionRatingRoutes } from './ConditionRatingRoutes'
 
@@ -28,6 +29,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchConditionRatingsRealTime,
+  fetchConditionRatings,
 }
 
 export const ConditionRatingRoutesContainer = compose(

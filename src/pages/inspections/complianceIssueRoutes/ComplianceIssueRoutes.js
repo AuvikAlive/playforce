@@ -21,11 +21,11 @@ export const ComplianceIssueRoutes = ({
   inspectionId,
   fetchInspectionRealTime,
   complianceIssuesLoaded,
-  fetchComplianceIssuesRealTime,
+  fetchComplianceIssues,
   match,
 }) => {
   !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
-  !complianceIssuesLoaded && fetchComplianceIssuesRealTime(userId, inspectionId)
+  !complianceIssuesLoaded && fetchComplianceIssues(userId, inspectionId)
 
   return inspectionLoaded && complianceIssuesLoaded ? (
     <Switch>

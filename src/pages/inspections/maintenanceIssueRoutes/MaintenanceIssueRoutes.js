@@ -21,12 +21,11 @@ export const MaintenanceIssueRoutes = ({
   inspectionId,
   fetchInspectionRealTime,
   maintenanceIssuesLoaded,
-  fetchMaintenanceIssuesRealTime,
+  fetchMaintenanceIssues,
   match,
 }) => {
   !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
-  !maintenanceIssuesLoaded &&
-    fetchMaintenanceIssuesRealTime(userId, inspectionId)
+  !maintenanceIssuesLoaded && fetchMaintenanceIssues(userId, inspectionId)
 
   return inspectionLoaded && maintenanceIssuesLoaded ? (
     <Switch>

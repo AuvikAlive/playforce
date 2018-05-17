@@ -6,8 +6,11 @@ import {
   deleteInspection,
   discardInspection,
   fetchConditionRatingsRealTime,
+  fetchConditionRatings,
   fetchComplianceIssuesRealTime,
+  fetchComplianceIssues,
   fetchMaintenanceIssuesRealTime,
+  fetchMaintenanceIssues,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
@@ -42,8 +45,11 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchConditionRatingsRealTime,
+  fetchConditionRatings,
   fetchComplianceIssuesRealTime,
+  fetchComplianceIssues,
   fetchMaintenanceIssuesRealTime,
+  fetchMaintenanceIssues,
   fetchStandards,
   deleteInspection,
   discardInspection,

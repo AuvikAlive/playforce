@@ -21,13 +21,13 @@ export const ConditionRatingRoutes = ({
   inspectionLoaded,
   fetchInspectionRealTime,
   conditionRatingsLoaded,
-  fetchConditionRatingsRealTime,
+  fetchConditionRatings,
   match,
 }) => {
   !inspectionLoaded &&
     inspectionId &&
     fetchInspectionRealTime(userId, inspectionId)
-  !conditionRatingsLoaded && fetchConditionRatingsRealTime(userId, inspectionId)
+  !conditionRatingsLoaded && fetchConditionRatings(userId, inspectionId)
 
   return inspectionLoaded ? (
     <Switch>

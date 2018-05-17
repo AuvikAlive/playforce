@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
   fetchInspectionRealTime,
+  fetchComplianceIssues,
   fetchComplianceIssuesRealTime,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ComplianceIssueRoutes } from './ComplianceIssueRoutes'
@@ -27,6 +28,7 @@ const mapStateToProps = (
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
+  fetchComplianceIssues,
   fetchComplianceIssuesRealTime,
 }
 

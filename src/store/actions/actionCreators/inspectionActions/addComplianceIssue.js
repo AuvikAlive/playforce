@@ -1,4 +1,5 @@
 import { saveImage } from '../storageActions/'
+import { ADD_COMPLIANCE_ISSUE } from '../../actionTypes'
 
 export const addComplianceIssue = (userId, inspectionId, data) => async (
   dispatch,
@@ -38,6 +39,11 @@ export const addComplianceIssue = (userId, inspectionId, data) => async (
   data.images = await Promise.all(downloadURLs)
 
   await ref.set(data)
+
+  dispatch({
+    type: ADD_COMPLIANCE_ISSUE,
+    payload: { ...data, id: ref.id, images },
+  })
 
   return ref.id
 }

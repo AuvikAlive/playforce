@@ -35,9 +35,9 @@ export class EditInspection extends Component {
       userId,
       inspectionId,
       fetchInspectionRealTime,
-      fetchConditionRatingsRealTime,
-      fetchComplianceIssuesRealTime,
-      fetchMaintenanceIssuesRealTime,
+      fetchConditionRatings,
+      fetchComplianceIssues,
+      fetchMaintenanceIssues,
     } = this.props
     const {
       inspectionLoaded,
@@ -48,12 +48,9 @@ export class EditInspection extends Component {
 
     !standardsLoaded && fetchStandards(userId)
     !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
-    !conditionRatingsLoaded &&
-      fetchConditionRatingsRealTime(userId, inspectionId)
-    !complianceIssuesLoaded &&
-      fetchComplianceIssuesRealTime(userId, inspectionId)
-    !maintenanceIssuesLoaded &&
-      fetchMaintenanceIssuesRealTime(userId, inspectionId)
+    !conditionRatingsLoaded && fetchConditionRatings(userId, inspectionId)
+    !complianceIssuesLoaded && fetchComplianceIssues(userId, inspectionId)
+    !maintenanceIssuesLoaded && fetchMaintenanceIssues(userId, inspectionId)
 
     // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
 

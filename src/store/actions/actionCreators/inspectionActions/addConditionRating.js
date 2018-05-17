@@ -1,4 +1,5 @@
 import { saveImage } from '../storageActions/'
+import { ADD_CONDITION_RATING } from '../../actionTypes'
 
 export const addConditionRating = (userId, inspectionId, data) => async (
   dispatch,
@@ -27,6 +28,11 @@ export const addConditionRating = (userId, inspectionId, data) => async (
   data.image = downloadURL
 
   await ref.set(data)
+
+  dispatch({
+    type: ADD_CONDITION_RATING,
+    payload: { ...data, id: ref.id, image },
+  })
 
   return ref.id
 }
