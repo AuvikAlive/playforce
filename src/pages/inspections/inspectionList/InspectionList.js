@@ -4,11 +4,7 @@ import { LinearProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
-import SearchIcon from 'material-ui-icons/Search'
-import GridOnIcon from 'material-ui-icons/GridOn'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import ListIcon from 'material-ui-icons/List'
-import ArchiveIcon from 'material-ui-icons/Archive'
 // import Chip from 'material-ui/Chip'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledInspectionList } from './StyledInspectionList'
@@ -16,6 +12,8 @@ import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { ListView } from './ListView'
 import { GridView } from './GridView'
+import { DefaultModeRightComponent } from './defaultModeRightComponent'
+import { SelectModeRightComponent } from './selectModeRightComponent'
 
 export class InspectionList extends Component {
   state = {
@@ -30,13 +28,13 @@ export class InspectionList extends Component {
       userId,
       inspectionsLoaded,
       fetchInspectionsRealTime,
-      view,
     } = this.props
-    const { setNavTitle, setSearchComponent } = this.context
+    const { setSearchComponent } = this.context
 
-    setNavTitle('Inspections')
-    this.setRightNav(view)
+    this.setNav()
+
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
+
     !standardsLoaded && fetchStandards(userId)
     !inspectionsLoaded && fetchInspectionsRealTime(userId)
   }
@@ -65,36 +63,24 @@ export class InspectionList extends Component {
     return searchInspections(userId, query)
   }
 
+  setNav = () => {
+    const { setNavTitle } = this.context
+    const { view } = this.props
+
+    setNavTitle('Inspections')
+    this.setRightNav(view)
+  }
+
   setRightNav = view => {
     const { openSearchBar, toggleView } = this.props
     const { setRightNavComponent } = this.context
 
     setRightNavComponent(
-      <div>
-        <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
-          <SearchIcon />
-        </IconButton>
-
-        {view === 'list' && (
-          <IconButton
-            color="inherit"
-            aria-label="Grid View"
-            onClick={toggleView}
-          >
-            <GridOnIcon />
-          </IconButton>
-        )}
-
-        {view === 'grid' && (
-          <IconButton
-            color="inherit"
-            aria-label="List View"
-            onClick={toggleView}
-          >
-            <ListIcon />
-          </IconButton>
-        )}
-      </div>
+      <DefaultModeRightComponent
+        view={view}
+        openSearchBar={openSearchBar}
+        toggleView={toggleView}
+      />
     )
   }
 
@@ -104,6 +90,18 @@ export class InspectionList extends Component {
 
     try {
       await archiveInspections(userId, selectedItems)
+      this.setSelectMode(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  deleteInspections = async () => {
+    const { deleteInspections, userId } = this.props
+    const { selectedItems } = this.state
+
+    try {
+      await deleteInspections(userId, selectedItems)
       this.setSelectMode(false)
     } catch (error) {
       console.log(error)
@@ -133,22 +131,17 @@ export class InspectionList extends Component {
       )
 
       setRightNavComponent(
-        <IconButton
-          color="inherit"
-          aria-label="archive"
-          onClick={this.archiveInspections}
-        >
-          <ArchiveIcon />
-        </IconButton>
+        <SelectModeRightComponent
+          archiveInspections={this.archiveInspections}
+          deleteInspections={this.deleteInspections}
+        />
       )
     } else {
-      const { view } = this.props
-      const { setNavTitle, removeLefNavComponent } = this.context
+      const { removeLefNavComponent } = this.context
 
-      setNavTitle('Inspections')
       removeLefNavComponent()
-      this.setRightNav(view)
 
+      this.setNav()
       this.setSelectedItems([])
     }
 

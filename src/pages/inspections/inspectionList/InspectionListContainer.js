@@ -9,6 +9,7 @@ import {
   fetchInspectionsRealTime,
   archiveInspections,
   searchInspections,
+  deleteInspections,
   toggleView,
 } from '../../../store/actions/actionCreators/inspectionListActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
@@ -40,6 +41,7 @@ const mapDispatchToProps = {
   fetchInspectionsRealTime,
   archiveInspections,
   searchInspections,
+  deleteInspections,
   fetchStandards,
   toggleView,
 }

@@ -1,11 +1,12 @@
 import { deleteImage } from '../storageActions/'
 
-export const deleteInspection = (inspection, userId, inspectionId) => async (
+export const deleteInspection = (inspection, userId) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
   const {
+    id: inspectionId,
     conditionRatingsAdded,
     complianceIssuesAdded,
     maintenanceIssuesAdded,
