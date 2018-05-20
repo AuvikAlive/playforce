@@ -29,7 +29,7 @@ export const SearchBar = ({
   const onClose = () => {
     closeSearchBar()
     // setSearchQuery('')
-    setSearchResults([])
+    // setSearchResults([])
     onSearchEnd && onSearchEnd()
   }
 

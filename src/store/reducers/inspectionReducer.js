@@ -82,18 +82,21 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         conditionRatings: [...state.conditionRatings, payload],
+        conditionRatingsAdded: true,
       }
 
     case ADD_COMPLIANCE_ISSUE:
       return {
         ...state,
         complianceIssues: [...state.complianceIssues, payload],
+        complianceIssuesAdded: true,
       }
 
     case ADD_MAINTENANCE_ISSUE:
       return {
         ...state,
         maintenanceIssues: [...state.maintenanceIssues, payload],
+        maintenanceIssuesAdded: true,
       }
 
     case UPDATE_CONDITION_RATING:

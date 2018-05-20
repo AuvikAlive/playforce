@@ -29,7 +29,7 @@ export const ConditionRatingRoutes = ({
     fetchInspectionRealTime(userId, inspectionId)
   !conditionRatingsLoaded && fetchConditionRatings(userId, inspectionId)
 
-  return inspectionLoaded ? (
+  return inspectionLoaded && conditionRatingsLoaded ? (
     <Switch>
       <Route path={`${match.url}/add`} component={AddConditionRating} />
       <Route path={`${match.url}/edit/:id`} component={EditConditionRating} />

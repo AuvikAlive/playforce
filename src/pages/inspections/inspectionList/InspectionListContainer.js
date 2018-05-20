@@ -8,6 +8,7 @@ import {
 import {
   fetchInspectionsRealTime,
   archiveInspections,
+  unarchiveInspections,
   searchInspections,
   deleteInspections,
   toggleView,
@@ -40,6 +41,7 @@ const mapDispatchToProps = {
   closeSearchBar,
   fetchInspectionsRealTime,
   archiveInspections,
+  unarchiveInspections,
   searchInspections,
   deleteInspections,
   fetchStandards,

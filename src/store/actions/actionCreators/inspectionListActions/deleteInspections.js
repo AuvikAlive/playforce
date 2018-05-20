@@ -1,3 +1,5 @@
+import { deleteImage } from '../storageActions/'
+
 export const deleteInspections = (userId, list) => async (
   dispatch,
   getState,
@@ -11,46 +13,77 @@ export const deleteInspections = (userId, list) => async (
     .doc(userId)
     .collection('inspections')
 
-  const Promises = list.map(async item => {
-    const inspectionRef = ref.doc(item)
-    const doc = await inspectionRef.get()
-    const inspection = doc.data()
-    const { conditionRatings, complianceIssues, maintenanceIssues } = inspection
+  let storageImages = []
 
-    if (conditionRatings) {
-      const querySnapshot = await inspectionRef
-        .collection('conditionRatings')
-        .get()
+  const Promises = list.map(async inspectionId => {
+    const inspectionRef = ref.doc(inspectionId)
 
-      querySnapshot.docs.forEach(doc => {
+    storageImages.push(`${userId}/images/${inspectionId}/cover`)
+
+    const conditionRatingsSnapshot = await inspectionRef
+      .collection('conditionRatings')
+      .get()
+
+    if (!conditionRatingsSnapshot.empty) {
+      conditionRatingsSnapshot.forEach(doc => {
         batch.delete(doc.ref)
+
+        storageImages.push(
+          `${userId}/images/${inspectionId}/conditionRating-${doc.id}`
+        )
       })
     }
 
-    if (complianceIssues) {
-      const querySnapshot = await inspectionRef
-        .collection('complianceIssues')
-        .get()
+    const complianceIssuesSnapshot = await inspectionRef
+      .collection('complianceIssues')
+      .get()
 
-      querySnapshot.docs.forEach(doc => {
+    if (!complianceIssuesSnapshot.empty) {
+      complianceIssuesSnapshot.forEach(doc => {
         batch.delete(doc.ref)
+
+        const { images } = doc.data()
+
+        images.forEach((item, index) => {
+          storageImages.push(
+            `${userId}/images/${inspectionId}/complianceIssue-${
+              doc.id
+            }-issue${index}`
+          )
+        })
       })
     }
 
-    if (maintenanceIssues) {
-      const querySnapshot = await inspectionRef
-        .collection('maintenanceIssues')
-        .get()
+    const maintenanceIssuesSnapshot = await inspectionRef
+      .collection('maintenanceIssues')
+      .get()
 
-      querySnapshot.docs.forEach(doc => {
+    if (!maintenanceIssuesSnapshot.empty) {
+      maintenanceIssuesSnapshot.forEach(doc => {
         batch.delete(doc.ref)
+
+        const { images } = doc.data()
+
+        images.forEach((item, index) => {
+          storageImages.push(
+            `${userId}/images/${inspectionId}/maintenanceIssue-${
+              doc.id
+            }-issue${index}`
+          )
+        })
       })
     }
 
     batch.delete(inspectionRef)
+
+    return storageImages
   })
 
   await Promise.all(Promises)
 
-  return batch.commit()
+  await batch.commit()
+
+  storageImages.forEach(item => {
+    dispatch(deleteImage(item))
+  })
 }

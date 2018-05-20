@@ -96,6 +96,18 @@ export class InspectionList extends Component {
     }
   }
 
+  unarchiveInspections = async () => {
+    const { unarchiveInspections, userId } = this.props
+    const { selectedItems } = this.state
+
+    try {
+      await unarchiveInspections(userId, selectedItems)
+      this.setSelectMode(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   deleteInspections = async () => {
     const { deleteInspections, userId } = this.props
     const { selectedItems } = this.state
@@ -117,6 +129,7 @@ export class InspectionList extends Component {
         setLeftNavComponent,
         setRightNavComponent,
       } = this.context
+      const { searchResults } = this.props
 
       setNavTitle(selectedItemsLength)
 
@@ -132,7 +145,9 @@ export class InspectionList extends Component {
 
       setRightNavComponent(
         <SelectModeRightComponent
+          unarchive={searchResults.length > 0}
           archiveInspections={this.archiveInspections}
+          unarchiveInspections={this.unarchiveInspections}
           deleteInspections={this.deleteInspections}
         />
       )
@@ -162,7 +177,8 @@ export class InspectionList extends Component {
     const { selectedItems, selectMode } = this.state
 
     const inspectionsToShow =
-      searchBarOpen && searchResults && searchResults.length > 0
+      (searchBarOpen && searchResults && searchResults.length > 0) ||
+      (selectMode && searchResults.length > 0)
         ? searchResults
         : inspections
 
