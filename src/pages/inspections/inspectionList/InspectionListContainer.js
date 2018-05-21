@@ -7,6 +7,7 @@ import {
 } from '../../../store/actions/actionCreators/searchBarActions'
 import {
   fetchInspectionsRealTime,
+  fetchInspectionsById,
   archiveInspections,
   unarchiveInspections,
   searchInspections,
@@ -40,6 +41,7 @@ const mapDispatchToProps = {
   openSearchBar,
   closeSearchBar,
   fetchInspectionsRealTime,
+  fetchInspectionsById,
   archiveInspections,
   unarchiveInspections,
   searchInspections,

@@ -1,42 +1,79 @@
-import React from 'react'
+import React, { Component } from 'react'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui-icons/Delete'
 import ArchiveIcon from 'material-ui-icons/Archive'
 import UnarchiveIcon from 'material-ui-icons/Unarchive'
+import MoreVertIcon from 'material-ui-icons/MoreVert'
+import Menu, { MenuItem } from 'material-ui/Menu'
 
-export const SelectModeRightComponent = ({
-  unarchive,
-  archiveInspections,
-  unarchiveInspections,
-  deleteInspections,
-}) => {
-  return (
-    <div>
-      {unarchive ? (
+export class SelectModeRightComponent extends Component {
+  state = {
+    menuAnchor: null,
+  }
+
+  openMenu = event => {
+    this.setState({ menuAnchor: event.currentTarget })
+  }
+
+  closeMenu = () => {
+    this.setState({ menuAnchor: null })
+  }
+
+  exportCSV = () => {
+    this.closeMenu()
+    this.props.exportCSV()
+  }
+
+  render() {
+    const {
+      unarchive,
+      archiveInspections,
+      unarchiveInspections,
+      deleteInspections,
+    } = this.props
+    const { menuAnchor } = this.state
+
+    return (
+      <div>
+        {unarchive ? (
+          <IconButton
+            color="inherit"
+            aria-label="unarchive"
+            onClick={unarchiveInspections}
+          >
+            <UnarchiveIcon />
+          </IconButton>
+        ) : (
+          <IconButton
+            color="inherit"
+            aria-label="archive"
+            onClick={archiveInspections}
+          >
+            <ArchiveIcon />
+          </IconButton>
+        )}
+
         <IconButton
           color="inherit"
-          aria-label="unarchive"
-          onClick={unarchiveInspections}
+          aria-label="delete"
+          onClick={deleteInspections}
         >
-          <UnarchiveIcon />
+          <DeleteIcon />
         </IconButton>
-      ) : (
-        <IconButton
-          color="inherit"
-          aria-label="archive"
-          onClick={archiveInspections}
-        >
-          <ArchiveIcon />
-        </IconButton>
-      )}
 
-      <IconButton
-        color="inherit"
-        aria-label="delete"
-        onClick={deleteInspections}
-      >
-        <DeleteIcon />
-      </IconButton>
-    </div>
-  )
+        <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
+          <MoreVertIcon aria-label="More" />
+        </IconButton>
+
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={this.closeMenu}
+          MenuListProps={{ disablePadding: true }}
+        >
+          <MenuItem onClick={this.exportCSV}>Export as csv</MenuItem>
+        </Menu>
+      </div>
+    )
+  }
 }

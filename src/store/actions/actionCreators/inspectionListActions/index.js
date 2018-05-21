@@ -1,5 +1,6 @@
 import { fetchInspectionsRealTime } from './fetchInspectionsRealTime'
 import { fetchInspectionsBySiteRealTime } from './fetchInspectionsBySiteRealTime'
+import { fetchInspectionsById } from './fetchInspectionsById'
 import { archiveInspections } from './archiveInspections'
 import { unarchiveInspections } from './unarchiveInspections'
 import { searchInspections } from './searchInspections'
@@ -9,6 +10,7 @@ import { TOGGLE_INSPECTIONLIST_VIEW } from '../../actionTypes'
 export {
   fetchInspectionsRealTime,
   fetchInspectionsBySiteRealTime,
+  fetchInspectionsById,
   archiveInspections,
   unarchiveInspections,
   searchInspections,

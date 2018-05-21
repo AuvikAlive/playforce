@@ -7,13 +7,14 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 // import Chip from 'material-ui/Chip'
 import { isEmpty } from 'react-redux-firebase'
+import { Parser } from 'json2csv'
 import { StyledInspectionList } from './StyledInspectionList'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { ListView } from './ListView'
 import { GridView } from './GridView'
-import { DefaultModeRightComponent } from './defaultModeRightComponent'
-import { SelectModeRightComponent } from './selectModeRightComponent'
+import { DefaultModeRightComponent } from './DefaultModeRightComponent'
+import { SelectModeRightComponent } from './SelectModeRightComponent'
 
 export class InspectionList extends Component {
   state = {
@@ -120,6 +121,40 @@ export class InspectionList extends Component {
     }
   }
 
+  exportCSV = async () => {
+    const { fetchInspectionsById, userId } = this.props
+    const { selectedItems } = this.state
+
+    try {
+      const inspections = await fetchInspectionsById(userId, selectedItems)
+      const fields = [
+        'id',
+        'inspectionNumber',
+        'name',
+        'archived',
+        'auditSummary',
+        'conditionRatings',
+        'complianceIssues',
+        'maintenanceIssues',
+      ]
+      const json2csvParser = new Parser({ fields })
+      const csv = json2csvParser.parse(inspections)
+      const a = document.createElement('a')
+
+      a.href = URL.createObjectURL(
+        new Blob([csv], {
+          type: 'text/csv;encoding:utf-8',
+        })
+      )
+      a.setAttribute('download', 'inspections.csv')
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   setSelectedItems = selectedItems => this.setState({ selectedItems })
 
   setSelectMode = (selectMode, selectedItemsLength) => {
@@ -149,6 +184,7 @@ export class InspectionList extends Component {
           archiveInspections={this.archiveInspections}
           unarchiveInspections={this.unarchiveInspections}
           deleteInspections={this.deleteInspections}
+          exportCSV={this.exportCSV}
         />
       )
     } else {
