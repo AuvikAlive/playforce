@@ -19,6 +19,13 @@ export class SidenavBackground extends Component {
     )
   }
 
+  componentWillUnmount() {
+    const { removeNavTitle, removeLefNavComponent } = this.context
+
+    removeNavTitle()
+    removeLefNavComponent()
+  }
+
   render() {
     return (
       <StyledSidenavBackground className="StyledSidenavBackground">
