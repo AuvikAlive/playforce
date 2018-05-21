@@ -19,9 +19,9 @@ export class SelectModeRightComponent extends Component {
     this.setState({ menuAnchor: null })
   }
 
-  exportCSV = () => {
+  exportComplianceIssues = () => {
     this.closeMenu()
-    this.props.exportCSV()
+    this.props.exportComplianceIssues()
   }
 
   render() {
@@ -71,7 +71,9 @@ export class SelectModeRightComponent extends Component {
           onClose={this.closeMenu}
           MenuListProps={{ disablePadding: true }}
         >
-          <MenuItem onClick={this.exportCSV}>Export as csv</MenuItem>
+          <MenuItem onClick={this.exportComplianceIssues}>
+            Export Complinace Issues
+          </MenuItem>
         </Menu>
       </div>
     )

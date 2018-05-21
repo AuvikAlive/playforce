@@ -8,6 +8,7 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 // import Chip from 'material-ui/Chip'
 import { isEmpty } from 'react-redux-firebase'
 import { Parser } from 'json2csv'
+import { format } from 'date-fns/esm'
 import { StyledInspectionList } from './StyledInspectionList'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
@@ -15,6 +16,7 @@ import { ListView } from './ListView'
 import { GridView } from './GridView'
 import { DefaultModeRightComponent } from './DefaultModeRightComponent'
 import { SelectModeRightComponent } from './SelectModeRightComponent'
+import { riskLevels } from '../../../globals/constants'
 
 export class InspectionList extends Component {
   state = {
@@ -121,35 +123,82 @@ export class InspectionList extends Component {
     }
   }
 
-  exportCSV = async () => {
-    const { fetchInspectionsById, userId } = this.props
+  exportCSV = (fields, data) => {
+    const json2csvParser = new Parser({ fields })
+    const csv = json2csvParser.parse(data)
+    const a = document.createElement('a')
+
+    a.href = URL.createObjectURL(
+      new Blob([csv], {
+        type: 'text/csv;encoding:utf-8',
+      })
+    )
+    a.setAttribute('download', 'complianceIssues.csv')
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
+  exportComplianceIssues = async () => {
+    const { fetchInspectionsByIdWithComplianceIssues, userId } = this.props
     const { selectedItems } = this.state
 
     try {
-      const inspections = await fetchInspectionsById(userId, selectedItems)
-      const fields = [
-        'id',
-        'inspectionNumber',
-        'name',
-        'archived',
-        'auditSummary',
-        'conditionRatings',
-        'complianceIssues',
-        'maintenanceIssues',
-      ]
-      const json2csvParser = new Parser({ fields })
-      const csv = json2csvParser.parse(inspections)
-      const a = document.createElement('a')
-
-      a.href = URL.createObjectURL(
-        new Blob([csv], {
-          type: 'text/csv;encoding:utf-8',
-        })
+      const inspections = await fetchInspectionsByIdWithComplianceIssues(
+        userId,
+        selectedItems
       )
-      a.setAttribute('download', 'inspections.csv')
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
+
+      let issues = []
+
+      inspections.forEach(
+        ({
+          name,
+          inspectionNumber,
+          complianceIssues,
+          cover: { inspectionDate, displayName },
+        }) => {
+          complianceIssues.forEach(
+            ({
+              id,
+              equipment,
+              finding,
+              standardsClause,
+              probability,
+              severity,
+              recommendations,
+            }) => {
+              issues.push({
+                SITE: name,
+                'REPORT NUMBER': inspectionNumber,
+                DATE: format(inspectionDate, 'dddd, MMMM DD, YYYY'),
+                AUDITOR: displayName,
+                ID: id,
+                EQUIPMENT: equipment,
+                ISSUE: finding,
+                CLAUSE: standardsClause,
+                'RISK RATING': riskLevels[probability - 1][severity - 1],
+                RECOMMENDATIONS: recommendations,
+              })
+            }
+          )
+        }
+      )
+
+      const fields = [
+        'ID',
+        'SITE',
+        'EQUIPMENT',
+        'ISSUE',
+        'CLAUSE',
+        'RISK RATING',
+        'RECOMMENDATIONS',
+        'REPORT NUMBER',
+        'AUDITOR',
+        'DATE',
+      ]
+
+      this.exportCSV(fields, issues)
     } catch (error) {
       console.log(error)
     }
@@ -184,7 +233,7 @@ export class InspectionList extends Component {
           archiveInspections={this.archiveInspections}
           unarchiveInspections={this.unarchiveInspections}
           deleteInspections={this.deleteInspections}
-          exportCSV={this.exportCSV}
+          exportComplianceIssues={this.exportComplianceIssues}
         />
       )
     } else {

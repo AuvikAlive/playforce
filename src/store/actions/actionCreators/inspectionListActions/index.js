@@ -1,6 +1,7 @@
 import { fetchInspectionsRealTime } from './fetchInspectionsRealTime'
 import { fetchInspectionsBySiteRealTime } from './fetchInspectionsBySiteRealTime'
 import { fetchInspectionsById } from './fetchInspectionsById'
+import { fetchInspectionsByIdWithComplianceIssues } from './fetchInspectionsByIdWithComplianceIssues'
 import { archiveInspections } from './archiveInspections'
 import { unarchiveInspections } from './unarchiveInspections'
 import { searchInspections } from './searchInspections'
@@ -11,6 +12,7 @@ export {
   fetchInspectionsRealTime,
   fetchInspectionsBySiteRealTime,
   fetchInspectionsById,
+  fetchInspectionsByIdWithComplianceIssues,
   archiveInspections,
   unarchiveInspections,
   searchInspections,

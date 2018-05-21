@@ -8,6 +8,7 @@ import {
 import {
   fetchInspectionsRealTime,
   fetchInspectionsById,
+  fetchInspectionsByIdWithComplianceIssues,
   archiveInspections,
   unarchiveInspections,
   searchInspections,
@@ -42,6 +43,7 @@ const mapDispatchToProps = {
   closeSearchBar,
   fetchInspectionsRealTime,
   fetchInspectionsById,
+  fetchInspectionsByIdWithComplianceIssues,
   archiveInspections,
   unarchiveInspections,
   searchInspections,
