@@ -2,6 +2,7 @@ import { fetchInspectionsRealTime } from './fetchInspectionsRealTime'
 import { fetchInspectionsBySiteRealTime } from './fetchInspectionsBySiteRealTime'
 import { fetchInspectionsById } from './fetchInspectionsById'
 import { fetchInspectionsByIdWithComplianceIssues } from './fetchInspectionsByIdWithComplianceIssues'
+import { fetchInspectionsByIdWithMaintenanceIssues } from './fetchInspectionsByIdWithMaintenanceIssues'
 import { archiveInspections } from './archiveInspections'
 import { unarchiveInspections } from './unarchiveInspections'
 import { searchInspections } from './searchInspections'
@@ -13,6 +14,7 @@ export {
   fetchInspectionsBySiteRealTime,
   fetchInspectionsById,
   fetchInspectionsByIdWithComplianceIssues,
+  fetchInspectionsByIdWithMaintenanceIssues,
   archiveInspections,
   unarchiveInspections,
   searchInspections,

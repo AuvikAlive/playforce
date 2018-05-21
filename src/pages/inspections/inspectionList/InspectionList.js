@@ -123,7 +123,7 @@ export class InspectionList extends Component {
     }
   }
 
-  exportCSV = (fields, data) => {
+  exportCSV = (fields, data, fileName) => {
     const json2csvParser = new Parser({ fields })
     const csv = json2csvParser.parse(data)
     const a = document.createElement('a')
@@ -133,7 +133,7 @@ export class InspectionList extends Component {
         type: 'text/csv;encoding:utf-8',
       })
     )
-    a.setAttribute('download', 'complianceIssues.csv')
+    a.setAttribute('download', `${fileName}.csv`)
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -198,7 +198,64 @@ export class InspectionList extends Component {
         'DATE',
       ]
 
-      this.exportCSV(fields, issues)
+      this.exportCSV(fields, issues, 'complianceIssues')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  exportMaintenanceIssues = async () => {
+    const { fetchInspectionsByIdWithMaintenanceIssues, userId } = this.props
+    const { selectedItems } = this.state
+
+    try {
+      const inspections = await fetchInspectionsByIdWithMaintenanceIssues(
+        userId,
+        selectedItems
+      )
+      let issues = []
+      inspections.forEach(
+        ({
+          name,
+          inspectionNumber,
+          maintenanceIssues,
+          cover: { inspectionDate, displayName },
+        }) => {
+          maintenanceIssues.forEach(
+            ({
+              id,
+              equipment,
+              finding,
+              standardsClause,
+              probability,
+              severity,
+              recommendations,
+            }) => {
+              issues.push({
+                SITE: name,
+                'REPORT NUMBER': inspectionNumber,
+                DATE: format(inspectionDate, 'dddd, MMMM DD, YYYY'),
+                AUDITOR: displayName,
+                ID: id,
+                EQUIPMENT: equipment,
+                ISSUE: finding,
+                RECOMMENDATIONS: recommendations,
+              })
+            }
+          )
+        }
+      )
+      const fields = [
+        'ID',
+        'SITE',
+        'EQUIPMENT',
+        'ISSUE',
+        'RECOMMENDATIONS',
+        'REPORT NUMBER',
+        'AUDITOR',
+        'DATE',
+      ]
+      this.exportCSV(fields, issues, 'maintenanceIssues')
     } catch (error) {
       console.log(error)
     }
@@ -234,6 +291,7 @@ export class InspectionList extends Component {
           unarchiveInspections={this.unarchiveInspections}
           deleteInspections={this.deleteInspections}
           exportComplianceIssues={this.exportComplianceIssues}
+          exportMaintenanceIssues={this.exportMaintenanceIssues}
         />
       )
     } else {

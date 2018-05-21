@@ -24,6 +24,11 @@ export class SelectModeRightComponent extends Component {
     this.props.exportComplianceIssues()
   }
 
+  exportMaintenanceIssues = () => {
+    this.closeMenu()
+    this.props.exportMaintenanceIssues()
+  }
+
   render() {
     const {
       unarchive,
@@ -72,7 +77,11 @@ export class SelectModeRightComponent extends Component {
           MenuListProps={{ disablePadding: true }}
         >
           <MenuItem onClick={this.exportComplianceIssues}>
-            Export Complinace Issues
+            Export Compliance Issues
+          </MenuItem>
+
+          <MenuItem onClick={this.exportMaintenanceIssues}>
+            Export Maintenance Issues
           </MenuItem>
         </Menu>
       </div>
