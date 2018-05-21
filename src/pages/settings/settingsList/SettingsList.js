@@ -68,6 +68,12 @@ export class SettingsList extends Component {
                     <ListItemText primary="Company Information" />
                   </ListItem>
                 </StyledNavLink>
+
+                <StyledNavLink to={`${match.url}/sidenavBackground`}>
+                  <ListItem button>
+                    <ListItemText primary="Sidenav Background" />
+                  </ListItem>
+                </StyledNavLink>
               </List>
             </Grid>
           </Grid>

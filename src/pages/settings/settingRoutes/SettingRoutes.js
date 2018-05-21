@@ -31,6 +31,10 @@ const Company = Loadable({
   loader: () => import('../company'),
 })
 
+const SidenavBackground = Loadable({
+  loader: () => import('../sidenavBackground'),
+})
+
 Profile.preload()
 Standards.preload()
 Clients.preload()
@@ -38,6 +42,7 @@ Manufacturers.preload()
 Operators.preload()
 CommonIssues.preload()
 Company.preload()
+SidenavBackground.preload()
 
 export const SettingRoutes = ({ match }) => {
   return (
@@ -49,6 +54,10 @@ export const SettingRoutes = ({ match }) => {
       <Route path={`${match.url}/operators`} component={Operators} />
       <Route path={`${match.url}/commonIssues`} component={CommonIssues} />
       <Route path={`${match.url}/companyInformation`} component={Company} />
+      <Route
+        path={`${match.url}/sidenavBackground`}
+        component={SidenavBackground}
+      />
       <Route path={match.url} component={SettingsList} />
     </Switch>
   )
