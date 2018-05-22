@@ -12,8 +12,11 @@ import {
   ADD_COMPLIANCE_ISSUE,
   ADD_MAINTENANCE_ISSUE,
   UPDATE_CONDITION_RATING,
+  DELETE_CONDITION_RATING,
   UPDATE_COMPLIANCE_ISSUE,
+  DELETE_COMPLIANCE_ISSUE,
   UPDATE_MAINTENANCE_ISSUE,
+  DELETE_MAINTENANCE_ISSUE,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -108,6 +111,18 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ],
       }
 
+    case DELETE_CONDITION_RATING: {
+      const filteredConditionRatings = state.conditionRatings.filter(
+        ({ id }) => id !== payload
+      )
+
+      return {
+        ...state,
+        conditionRatings: filteredConditionRatings,
+        conditionRatingsAdded: filteredConditionRatings.length > 0,
+      }
+    }
+
     case UPDATE_COMPLIANCE_ISSUE:
       return {
         ...state,
@@ -117,6 +132,18 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ],
       }
 
+    case DELETE_COMPLIANCE_ISSUE: {
+      const filteredComplianceIssues = state.complianceIssues.filter(
+        ({ id }) => id !== payload
+      )
+
+      return {
+        ...state,
+        complianceIssues: filteredComplianceIssues,
+        complianceIssuesAdded: filteredComplianceIssues.length > 0,
+      }
+    }
+
     case UPDATE_MAINTENANCE_ISSUE:
       return {
         ...state,
@@ -125,6 +152,18 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           payload,
         ],
       }
+
+    case DELETE_MAINTENANCE_ISSUE: {
+      const filteredMaintenanceIssues = state.maintenanceIssues.filter(
+        ({ id }) => id !== payload
+      )
+
+      return {
+        ...state,
+        maintenanceIssues: filteredMaintenanceIssues,
+        maintenanceIssuesAdded: filteredMaintenanceIssues.length > 0,
+      }
+    }
 
     default:
       return state

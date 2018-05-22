@@ -1,4 +1,5 @@
 import { deleteImage } from '../storageActions/'
+import { DELETE_CONDITION_RATING } from '../../actionTypes'
 
 export const deleteConditionRating = (userId, inspectionId, id) => async (
   dispatch,
@@ -16,9 +17,14 @@ export const deleteConditionRating = (userId, inspectionId, id) => async (
     .collection('conditionRatings')
     .doc(id)
 
+  await ref.delete()
+
   dispatch(
     deleteImage(`${userId}/images/${inspectionId}/conditionRating-${id}`)
   )
 
-  return ref.delete()
+  dispatch({
+    type: DELETE_CONDITION_RATING,
+    payload: id,
+  })
 }

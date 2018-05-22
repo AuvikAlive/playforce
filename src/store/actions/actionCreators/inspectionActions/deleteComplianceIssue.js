@@ -1,4 +1,5 @@
 import { deleteImage } from '../storageActions/'
+import { DELETE_COMPLIANCE_ISSUE } from '../../actionTypes'
 
 export const deleteComplianceIssue = (
   userId,
@@ -17,6 +18,8 @@ export const deleteComplianceIssue = (
     .collection('complianceIssues')
     .doc(id)
 
+  await ref.delete()
+
   images.forEach((item, index) => {
     dispatch(
       deleteImage(
@@ -25,5 +28,8 @@ export const deleteComplianceIssue = (
     )
   })
 
-  return ref.delete()
+  dispatch({
+    type: DELETE_COMPLIANCE_ISSUE,
+    payload: id,
+  })
 }
