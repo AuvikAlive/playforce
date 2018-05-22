@@ -101,7 +101,9 @@ export class EquipmentForm extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage({ width: 300, height: 172 })}
+              onClick={() =>
+                captureImage({ width: 1024, height: 1024 * 172 / 300 })
+              }
             >
               Capture Image
               <StayCurrentLandscapeIcon className="button-icon" />
