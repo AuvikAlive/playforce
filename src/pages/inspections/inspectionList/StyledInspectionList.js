@@ -5,12 +5,14 @@ import {
   editIcon,
   pulseEffect,
   cardMedia,
+  listItemSelected,
 } from '../../../styledMixins/'
 
 export const StyledInspectionList = Styled(Content)`
   ${addIcon};
   ${pulseEffect};
   ${cardMedia};
+  ${listItemSelected};
 
   &.grid {
     max-width: 100%;
@@ -63,9 +65,5 @@ export const StyledInspectionList = Styled(Content)`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .list-item.selected {
-    background-color: rgba(0, 0, 0, 0.14);
   }
 `

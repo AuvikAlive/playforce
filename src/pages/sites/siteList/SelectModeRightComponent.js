@@ -22,14 +22,14 @@ export class SelectModeRightComponent extends Component {
   }
 
   render() {
-    const { deleteSites } = this.props
+    // const { deleteSites } = this.props
     const { menuAnchor } = this.state
 
     return (
       <div>
-        <IconButton color="inherit" aria-label="delete" onClick={deleteSites}>
+        {/* <IconButton color="inherit" aria-label="delete" onClick={deleteSites}>
           <DeleteIcon />
-        </IconButton>
+        </IconButton> */}
 
         <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
           <MoreVertIcon aria-label="More" />

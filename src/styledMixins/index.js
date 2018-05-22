@@ -9,6 +9,7 @@ import { pulseEffect } from './pulseEffect'
 import { riskAssessment } from './riskAssessment'
 import { setContentAreaHeight } from './setContentAreaHeight'
 import { withButton } from './withButton'
+import { listItemSelected } from './listItemSelected'
 
 export {
   addIcon,
@@ -22,4 +23,5 @@ export {
   riskAssessment,
   setContentAreaHeight,
   withButton,
+  listItemSelected,
 }

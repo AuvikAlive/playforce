@@ -264,17 +264,18 @@ export class InspectionList extends Component {
   setSelectedItems = selectedItems => this.setState({ selectedItems })
 
   setSelectMode = (selectMode, selectedItemsLength) => {
+    const {
+      setNavColor,
+      setNavTitle,
+      setLeftNavComponent,
+      removeLefNavComponent,
+      setRightNavComponent,
+    } = this.context
+
     if (selectMode) {
-      const {
-        setNavColor,
-        setNavTitle,
-        setLeftNavComponent,
-        setRightNavComponent,
-      } = this.context
       const { searchResults } = this.props
 
       setNavColor('default')
-
       setNavTitle(selectedItemsLength)
 
       setLeftNavComponent(
@@ -298,10 +299,7 @@ export class InspectionList extends Component {
         />
       )
     } else {
-      const { setNavColor, removeLefNavComponent } = this.context
-
       setNavColor('primary')
-
       removeLefNavComponent()
 
       this.setNav()

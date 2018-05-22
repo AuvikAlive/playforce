@@ -25,29 +25,11 @@ export class SiteList extends Component {
   }
 
   componentDidMount() {
-    const {
-      userId,
-      sitesLoaded,
-      fetchSitesRealTime,
-      openSearchBar,
-    } = this.props
-    const {
-      setNavTitle,
-      setSearchComponent,
-      setRightNavComponent,
-    } = this.context
+    const { userId, sitesLoaded, fetchSitesRealTime } = this.props
+    const { setSearchComponent } = this.context
 
-    setNavTitle('Sites')
-    setRightNavComponent(
-      <div>
-        <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
-          <SearchIcon />
-        </IconButton>
-        <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
-          <MoreVertIcon aria-label="More" />
-        </IconButton>
-      </div>
-    )
+    this.setNav()
+
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     !sitesLoaded && fetchSitesRealTime(userId)
@@ -71,6 +53,23 @@ export class SiteList extends Component {
   //   view !== this.props.view && this.setRightNav(view)
   // }
 
+  setNav = () => {
+    const { setNavTitle, setRightNavComponent } = this.context
+    const { openSearchBar } = this.props
+
+    setNavTitle('Sites')
+    setRightNavComponent(
+      <div>
+        <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
+          <SearchIcon />
+        </IconButton>
+        <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
+          <MoreVertIcon aria-label="More" />
+        </IconButton>
+      </div>
+    )
+  }
+
   onSearch = query => {
     const { searchSites, userId } = this.props
     return searchSites(userId, query)
@@ -93,13 +92,16 @@ export class SiteList extends Component {
   setSelectedItems = selectedItems => this.setState({ selectedItems })
 
   setSelectMode = (selectMode, selectedItemsLength) => {
-    if (selectMode) {
-      const {
-        setNavTitle,
-        setLeftNavComponent,
-        setRightNavComponent,
-      } = this.context
+    const {
+      setNavColor,
+      setNavTitle,
+      setLeftNavComponent,
+      removeLefNavComponent,
+      setRightNavComponent,
+    } = this.context
 
+    if (selectMode) {
+      setNavColor('default')
       setNavTitle(selectedItemsLength)
 
       setLeftNavComponent(
@@ -114,8 +116,7 @@ export class SiteList extends Component {
 
       setRightNavComponent(<SelectModeRightComponent />)
     } else {
-      const { removeLefNavComponent } = this.context
-
+      setNavColor('primary')
       removeLefNavComponent()
 
       this.setNav()
@@ -134,7 +135,7 @@ export class SiteList extends Component {
       sites,
       view,
     } = this.props
-    const { menuAnchor } = this.state
+    const { menuAnchor, selectedItems, selectMode } = this.state
 
     const sitesToShow =
       searchBarOpen && searchResults.length > 0 ? searchResults : sites
@@ -157,7 +158,15 @@ export class SiteList extends Component {
         {(() => {
           switch (view) {
             case 'list':
-              return <ListView sites={sitesToShow} />
+              return (
+                <ListView
+                  sites={sitesToShow}
+                  selectedItems={selectedItems}
+                  selectMode={selectMode}
+                  setSelectedItems={this.setSelectedItems}
+                  setSelectMode={this.setSelectMode}
+                />
+              )
 
             case 'grid':
               return <GridView sites={sitesToShow} />
@@ -202,8 +211,11 @@ export class SiteList extends Component {
 }
 
 SiteList.contextTypes = {
+  setNavColor: PropTypes.func,
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,
