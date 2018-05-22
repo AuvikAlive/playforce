@@ -1,4 +1,5 @@
 import { deleteImage } from '../storageActions/'
+import { DELETE_EQUIPMENT } from '../../actionTypes'
 
 export const deleteEquipment = (userId, siteId, id) => async (
   dispatch,
@@ -7,17 +8,22 @@ export const deleteEquipment = (userId, siteId, id) => async (
 ) => {
   const firebase = getFirebase()
   const db = firebase.firestore()
-
-  await dispatch(
-    deleteImage(`${userId}/images/sites/${siteId}/equipments/${id}`)
-  )
-
-  return db
+  const ref = db
     .collection('users')
     .doc(userId)
     .collection('sites')
     .doc(siteId)
     .collection('equipments')
     .doc(id)
-    .delete()
+
+  await dispatch(
+    deleteImage(`${userId}/images/sites/${siteId}/equipments/${id}`)
+  )
+
+  await ref.delete()
+
+  dispatch({
+    type: DELETE_EQUIPMENT,
+    payload: ref.id,
+  })
 }

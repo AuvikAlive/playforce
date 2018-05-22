@@ -16,7 +16,7 @@ export class AddEquipment extends Component {
   showActionGoBack = assetId => {
     const { setFeedback, history } = this.props
 
-    setFeedback({ success: 'Site published!' })
+    setFeedback({ success: 'Equipment published!' })
     history.replace(`${assetId}/edit`)
   }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui-icons/Delete'
 import EquipmentForm from '../equipmentForm/'
@@ -63,12 +64,14 @@ export class EditEquipment extends Component {
   render() {
     const { equipment } = this.props
 
-    return (
+    return equipment ? (
       <EquipmentForm
         buttonText="update"
         initialData={equipment}
         onSubmit={this.submit}
       />
+    ) : (
+      <LinearProgress />
     )
   }
 }

@@ -1,4 +1,7 @@
 import {
+  ADD_EQUIPMENT,
+  UPDATE_EQUIPMENT,
+  DELETE_EQUIPMENT,
   FETCH_EQUIPMENT,
   FETCH_EQUIPMENT_COMPLETED,
   FETCH_EQUIPMENTS,
@@ -15,6 +18,29 @@ export const initialState = {
 
 export const equipmentsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case ADD_EQUIPMENT:
+      return {
+        ...state,
+        equipments: [...state.equipments, payload],
+      }
+
+    case UPDATE_EQUIPMENT:
+      return {
+        ...state,
+        equipments: [
+          ...state.equipments.filter(({ assetId }) => assetId !== payload.id),
+          payload,
+        ],
+      }
+
+    case DELETE_EQUIPMENT:
+      return {
+        ...state,
+        equipments: [
+          ...state.equipments.filter(({ assetId }) => assetId !== payload),
+        ],
+      }
+
     case FETCH_EQUIPMENT:
       return { ...state, equipmentLoaded: false }
 

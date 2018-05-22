@@ -1,4 +1,5 @@
 import { saveImage } from '../storageActions/'
+import { ADD_EQUIPMENT } from '../../actionTypes'
 
 export const addEquipment = (userId, siteId, data) => async (
   dispatch,
@@ -23,6 +24,11 @@ export const addEquipment = (userId, siteId, data) => async (
   data.image = downloadURL
 
   await ref.set(data)
+
+  dispatch({
+    type: ADD_EQUIPMENT,
+    payload: { ...data, id: ref.id, image },
+  })
 
   return ref.id
 }

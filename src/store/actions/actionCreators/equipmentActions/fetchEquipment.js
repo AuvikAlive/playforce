@@ -1,4 +1,5 @@
 import { FETCH_EQUIPMENT, FETCH_EQUIPMENT_COMPLETED } from '../../actionTypes'
+import { fetchImageAsDataUrl } from '../../../../utilities/fetchImageAsDataUrl'
 
 export const fetchEquipment = (userId, siteId, id) => async (
   dispatch,
@@ -17,7 +18,12 @@ export const fetchEquipment = (userId, siteId, id) => async (
     .collection('equipments')
     .doc(id)
     .get()
-  const item = { id: doc.id, ...doc.data() }
+
+  let { image } = doc.data()
+
+  image = await fetchImageAsDataUrl(image)
+
+  const item = { id: doc.id, ...doc.data(), image }
 
   dispatch({ type: FETCH_EQUIPMENT_COMPLETED, payload: item })
 }

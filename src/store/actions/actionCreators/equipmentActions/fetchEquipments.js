@@ -1,4 +1,5 @@
 import { FETCH_EQUIPMENTS, FETCH_EQUIPMENTS_COMPLETED } from '../../actionTypes'
+import { fetchImageAsDataUrl } from '../../../../utilities/fetchImageAsDataUrl'
 
 export const fetchEquipments = (userId, siteId) => async (
   dispatch,
@@ -17,13 +18,18 @@ export const fetchEquipments = (userId, siteId) => async (
     .collection('equipments')
     .get()
 
-  let items = []
+  let items = querySnapshot.docs.map(async doc => {
+    let { image } = doc.data()
 
-  querySnapshot.forEach(doc =>
-    items.push({
+    image = await fetchImageAsDataUrl(image)
+
+    return {
       ...doc.data(),
-    })
-  )
+      image,
+    }
+  })
+
+  items = await Promise.all(items)
 
   dispatch({ type: FETCH_EQUIPMENTS_COMPLETED, payload: { items, siteId } })
 }
