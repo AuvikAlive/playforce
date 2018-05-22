@@ -14,6 +14,7 @@ export class Shell extends Component {
     return {
       disableNavBarShadow: this.disableNavBarShadow,
       enableNavBarShadow: this.enableNavBarShadow,
+      setNavColor: this.setNavColor,
       setNavTitle: this.setNavTitle,
       removeNavTitle: this.removeNavTitle,
       setLeftNavComponent: this.setComponent('leftNavComponent'),
@@ -29,6 +30,7 @@ export class Shell extends Component {
 
   state = {
     navBarShadowEnabled: true,
+    navColor: undefined,
     navTitle: null,
     leftNavComponent: null,
     rightNavComponent: null,
@@ -40,6 +42,7 @@ export class Shell extends Component {
 
   setNavTitle = title => this.setState({ navTitle: title })
   removeNavTitle = title => this.setState({ navTitle: null })
+  setNavColor = navColor => this.setState({ navColor })
   disableNavBarShadow = () => this.setState({ navBarShadowEnabled: false })
   enableNavBarShadow = () => this.setState({ navBarShadowEnabled: true })
   setComponent = name => component => this.setState({ [name]: component })
@@ -55,6 +58,7 @@ export class Shell extends Component {
   render() {
     const {
       navBarShadowEnabled,
+      navColor,
       navTitle,
       leftNavComponent,
       rightNavComponent,
@@ -70,6 +74,7 @@ export class Shell extends Component {
       <div>
         <NavBar
           shadow={navBarShadowEnabled}
+          color={navColor}
           title={navTitle}
           leftComponent={leftNavComponent}
           rightComponent={rightNavComponent}
@@ -104,6 +109,7 @@ export class Shell extends Component {
 Shell.childContextTypes = {
   disableNavBarShadow: PropTypes.func,
   enableNavBarShadow: PropTypes.func,
+  setNavColor: PropTypes.func,
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

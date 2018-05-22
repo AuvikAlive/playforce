@@ -266,18 +266,21 @@ export class InspectionList extends Component {
   setSelectMode = (selectMode, selectedItemsLength) => {
     if (selectMode) {
       const {
+        setNavColor,
         setNavTitle,
         setLeftNavComponent,
         setRightNavComponent,
       } = this.context
       const { searchResults } = this.props
 
+      setNavColor('default')
+
       setNavTitle(selectedItemsLength)
 
       setLeftNavComponent(
         <IconButton
           color="inherit"
-          aria-label="Search"
+          aria-label="back"
           onClick={() => this.setSelectMode(false)}
         >
           <ArrowBackIcon />
@@ -295,7 +298,9 @@ export class InspectionList extends Component {
         />
       )
     } else {
-      const { removeLefNavComponent } = this.context
+      const { setNavColor, removeLefNavComponent } = this.context
+
+      setNavColor('primary')
 
       removeLefNavComponent()
 
@@ -363,6 +368,7 @@ export class InspectionList extends Component {
 }
 
 InspectionList.contextTypes = {
+  setNavColor: PropTypes.func,
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

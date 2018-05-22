@@ -5,8 +5,9 @@ import Menu, { MenuItem } from 'material-ui/Menu'
 import MoreVertIcon from 'material-ui-icons/MoreVert'
 import IconButton from 'material-ui/IconButton'
 import SearchIcon from 'material-ui-icons/Search'
-import Button from 'material-ui/Button'
+import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import AddIcon from 'material-ui-icons/Add'
+import Button from 'material-ui/Button'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
@@ -14,10 +15,13 @@ import { ListView } from './ListView'
 import { GridView } from './GridView'
 import { MapView } from './MapView'
 import { StyledSiteList } from './StyledSiteList'
+import { SelectModeRightComponent } from './SelectModeRightComponent'
 
 export class SiteList extends Component {
   state = {
     menuAnchor: null,
+    selectedItems: [],
+    selectMode: false,
   }
 
   componentDidMount() {
@@ -84,6 +88,41 @@ export class SiteList extends Component {
     const { setView } = this.props
     this.closeMenu()
     setView(view)
+  }
+
+  setSelectedItems = selectedItems => this.setState({ selectedItems })
+
+  setSelectMode = (selectMode, selectedItemsLength) => {
+    if (selectMode) {
+      const {
+        setNavTitle,
+        setLeftNavComponent,
+        setRightNavComponent,
+      } = this.context
+
+      setNavTitle(selectedItemsLength)
+
+      setLeftNavComponent(
+        <IconButton
+          color="inherit"
+          aria-label="back"
+          onClick={() => this.setSelectMode(false)}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+      )
+
+      setRightNavComponent(<SelectModeRightComponent />)
+    } else {
+      const { removeLefNavComponent } = this.context
+
+      removeLefNavComponent()
+
+      this.setNav()
+      this.setSelectedItems([])
+    }
+
+    this.setState({ selectMode })
   }
 
   render() {

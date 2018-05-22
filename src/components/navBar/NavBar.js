@@ -22,6 +22,7 @@ class NavBar extends Component {
       rightComponent,
       searchComponent,
       shadow,
+      color,
       toggleSideMenu,
       searchBarOpen,
     } = this.props
@@ -31,7 +32,7 @@ class NavBar extends Component {
         {searchBarOpen && searchComponent ? (
           searchComponent
         ) : (
-          <AppBar className={shadow ? '' : 'disable-shadow'}>
+          <AppBar className={shadow ? '' : 'disable-shadow'} color={color}>
             <Toolbar className="toolbar">
               {leftComponent ? (
                 leftComponent
