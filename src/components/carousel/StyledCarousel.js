@@ -6,4 +6,8 @@ export const StyledCarousel = Styled.div`
     display: flex;
     justify-content: center;
   }
+
+  img {
+    width: 100%;
+  }
 `

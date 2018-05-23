@@ -18,8 +18,6 @@ export const StyledUserView = Styled.div`
   }
 
   .background {
-    img {
-      width: 300px;
-    }
+    width: 300px;
   }
 `

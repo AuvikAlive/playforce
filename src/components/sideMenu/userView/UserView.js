@@ -6,7 +6,7 @@ import { StyledUserView } from './StyledUserView'
 import { backgroundLowPng } from './backgroundLowPng'
 
 export const UserView = ({ profile }) => {
-  const { image, displayName, email } = profile
+  const { image, displayName, email, background } = profile
   return (
     <StyledUserView>
       <div className="content">
@@ -22,7 +22,11 @@ export const UserView = ({ profile }) => {
           {email}
         </Typography>
       </div>
-      <img src={backgroundLowPng} alt="background" className="background" />
+      <img
+        src={background || backgroundLowPng}
+        alt="background"
+        className="background"
+      />
       {/* <picture className="background">
         <source srcSet={backgroundLowWebp} type="image/webp" />
         <source
