@@ -16,6 +16,7 @@ import {
 export class CommonIssueForm extends Component {
   state = {
     issue: '',
+    category: '',
     finding: '',
     standardsClause: '',
     probability: '',
@@ -52,6 +53,7 @@ export class CommonIssueForm extends Component {
     const { onSubmit, afterSubmit, setFeedback } = this.props
     const {
       issue,
+      category,
       finding,
       standardsClause,
       probability,
@@ -74,6 +76,7 @@ export class CommonIssueForm extends Component {
       try {
         const result = await onSubmit({
           issue,
+          category,
           finding,
           standardsClause,
           probability,
@@ -97,6 +100,7 @@ export class CommonIssueForm extends Component {
   render() {
     const {
       issue,
+      category,
       finding,
       standardsClause,
       probability,
@@ -120,6 +124,14 @@ export class CommonIssueForm extends Component {
                 label="Issue"
                 value={issue}
                 onChange={this.onInputChange('issue')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="Category"
+                value={category}
+                onChange={this.onInputChange('category')}
                 margin="normal"
               />
 
