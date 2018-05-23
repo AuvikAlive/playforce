@@ -11,7 +11,7 @@ export class SidenavBackground extends Component {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Set Sidenav Background')
+    setNavTitle('Select Sidenav Background')
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
         <ArrowBackIcon />
