@@ -7,8 +7,14 @@ import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import ModeEditIcon from 'material-ui-icons/ModeEdit'
 import Paper from 'material-ui/Paper'
-import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
+import List, {
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  ListSubheader,
+} from 'material-ui/List'
 import Typography from 'material-ui/Typography'
+import { groupBy, map } from 'lodash'
 import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -42,6 +48,16 @@ export class CommonIssuesList extends Component {
   render() {
     const { match, commonIssuesLoaded, commonIssues } = this.props
 
+    const categorizedCommonIssues = commonIssues.map(item => {
+      if (!item.category) {
+        item.category = 'uncategorized'
+      }
+
+      return item
+    })
+
+    const groupedCommonIssues = groupBy(categorizedCommonIssues, 'category')
+
     return commonIssuesLoaded ? (
       <StyledCommonIssuesList className="StyledCommonIssuesList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
@@ -56,22 +72,32 @@ export class CommonIssuesList extends Component {
         </StyledNavLink>
 
         {commonIssues.length > 0 ? (
-          <Paper className="paper">
-            <List component="nav" disablePadding>
-              {commonIssues.map(({ id, issue, finding }) => {
-                return (
-                  <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
-                    <ListItem button>
-                      <ListItemText primary={issue || finding} />
-                      <ListItemIcon>
-                        <ModeEditIcon />
-                      </ListItemIcon>
-                    </ListItem>
-                  </StyledNavLink>
-                )
-              })}
-            </List>
-          </Paper>
+          map(groupedCommonIssues, (value, key) => {
+            return (
+              <Paper className="paper" key={key}>
+                <List
+                  disablePadding
+                  component="nav"
+                  subheader={
+                    <ListSubheader component="div">{key}</ListSubheader>
+                  }
+                >
+                  {value.map(({ id, issue, finding }) => {
+                    return (
+                      <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
+                        <ListItem button>
+                          <ListItemText primary={issue || finding} />
+                          <ListItemIcon>
+                            <ModeEditIcon />
+                          </ListItemIcon>
+                        </ListItem>
+                      </StyledNavLink>
+                    )
+                  })}
+                </List>
+              </Paper>
+            )
+          })
         ) : (
           <Typography variant="title" align="center">
             Try adding an item to get started!

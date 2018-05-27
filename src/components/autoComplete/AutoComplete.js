@@ -4,7 +4,7 @@ import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
+import { ListItem } from 'material-ui/List'
 import { StyledAutoComplete } from './StyledAutoComplete'
 
 const renderInput = inputProps => {
@@ -38,7 +38,7 @@ const renderSuggestion = (suggestion, { query, isHighlighted }) => {
   const parts = parse(suggestion, matches)
 
   return (
-    <MenuItem component="div" selected={isHighlighted}>
+    <ListItem button component="div" selected={isHighlighted}>
       <div>
         {parts.map((part, index) => {
           return part.highlight ? (
@@ -52,7 +52,7 @@ const renderSuggestion = (suggestion, { query, isHighlighted }) => {
           )
         })}
       </div>
-    </MenuItem>
+    </ListItem>
   )
 }
 
@@ -105,7 +105,7 @@ export class AutoComplete extends Component {
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionSelected={this.onSuggestionSelect}
           getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
+          renderSuggestion={this.props.renderSuggestion || renderSuggestion}
           inputProps={inputProps}
           renderSuggestionsContainer={renderSuggestionsContainer}
           renderInputComponent={renderInput}
