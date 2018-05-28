@@ -6,12 +6,12 @@ import { StyledUserView } from './StyledUserView'
 import { backgroundLowPng } from './backgroundLowPng'
 
 export const UserView = ({ profile }) => {
-  const { image, displayName, email, background } = profile
+  const { image, photoURL, displayName, email, background } = profile
   return (
     <StyledUserView>
       <div className="content">
-        {image ? (
-          <Avatar alt="User Name" src={image} className="avatar" />
+        {image || photoURL ? (
+          <Avatar alt="User Name" src={image || photoURL} className="avatar" />
         ) : (
           <Avatar className="avatar">{getInitials(displayName)}</Avatar>
         )}

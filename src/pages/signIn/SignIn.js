@@ -6,8 +6,10 @@ import Typography from 'material-ui/Typography'
 import { FormControlLabel } from 'material-ui/Form'
 import Checkbox from 'material-ui/Checkbox'
 import { CircularProgress } from 'material-ui/Progress'
-import { StyledForm } from '../../components/styledForm/StyledForm'
 import { StyledLink } from '../../components/styledLink/StyledLink'
+import { StyledSignIn } from './StyledSignIn'
+import google from './google.svg'
+import facebook from './facebook.svg'
 
 export class SignIn extends Component {
   state = {
@@ -61,12 +63,29 @@ export class SignIn extends Component {
     }
   }
 
+  signInWithProvider = provider => async () => {
+    const { checked } = this.state
+    const { setFeedback, signInWithProvider, history } = this.props
+
+    setFeedback({ error: '', loading: true })
+
+    try {
+      await signInWithProvider(provider, checked)
+      history.push({
+        pathname: '/dashboard',
+        state: { name: 'Dashboard' },
+      })
+    } catch (error) {
+      setFeedback({ error: error.message, loading: false })
+    }
+  }
+
   render() {
     const { checked } = this.state
     const { error, loading } = this.props
 
     return (
-      <StyledForm className="StyledForm">
+      <StyledSignIn className="StyledSignIn">
         <form noValidate autoComplete="off">
           <Typography variant="display1" align="center">
             Sign In
@@ -111,9 +130,24 @@ export class SignIn extends Component {
             )}
 
           {!loading && (
-            <Button variant="raised" color="primary" onClick={this.signIn}>
-              Sign In
-            </Button>
+            <div>
+              <Button variant="raised" color="primary" onClick={this.signIn}>
+                Sign In
+              </Button>
+              <Button
+                variant="raised"
+                className="social-button"
+                onClick={this.signInWithProvider('google')}
+              >
+                <img src={google} alt="google sign-in" />
+                With Google
+              </Button>
+
+              <Button variant="raised" className="social-button">
+                <img src={facebook} alt="facebook sign-in" />
+                With Facebook
+              </Button>
+            </div>
           )}
 
           <p>
@@ -125,7 +159,7 @@ export class SignIn extends Component {
             <StyledLink to="/SignUp">Sign up for free!</StyledLink>
           </p>
         </form>
-      </StyledForm>
+      </StyledSignIn>
     )
   }
 }

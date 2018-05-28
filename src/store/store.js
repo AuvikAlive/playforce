@@ -33,7 +33,7 @@ firebase.firestore().enablePersistence()
 const firebaseStore = reactReduxFirebase(firebase, {
   userProfile: 'users',
   useFirestoreForProfile: true,
-  profileFactory: (userData, profileData) => profileData,
+  // profileFactory: (userData, profileData) => profileData,
 })
 const fireStore = reduxFirestore(firebase)
 

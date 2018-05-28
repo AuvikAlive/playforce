@@ -4681,6 +4681,10 @@ lodash@^4.0.1, lodash@^4.16.2, lodash@^4.17.5, lodash@^4.2.1:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
+lodash@^4.17.10:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
 loglevel@^1.4.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.5.1.tgz#189078c94ab9053ee215a0acdbf24244ea0f6502"
@@ -6219,13 +6223,13 @@ react-popper@^0.10.0:
     popper.js "^1.14.1"
     prop-types "^15.6.1"
 
-react-redux-firebase@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-2.0.5.tgz#d2c312efc999c5e20d206758dace4e809e86e5ba"
+react-redux-firebase@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-2.1.4.tgz#07452180c0d273c8e572291837bf6017531a7fa6"
   dependencies:
     hoist-non-react-statics "^2.3.1"
-    lodash "^4.17.4"
-    prop-types "^15.6.0"
+    lodash "^4.17.10"
+    prop-types "^15.6.1"
 
 react-redux@^5.0.7:
   version "5.0.7"
