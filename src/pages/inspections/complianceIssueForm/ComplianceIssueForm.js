@@ -8,10 +8,6 @@ import Grid from 'material-ui/Grid'
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import BrushIcon from 'material-ui-icons/Brush'
-import { ListItem, ListSubheader } from 'material-ui/List'
-import { groupBy, map } from 'lodash'
-import match from 'autosuggest-highlight/match'
-import parse from 'autosuggest-highlight/parse'
 import StayCurrentPortraitIcon from 'material-ui-icons/StayCurrentPortrait'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
@@ -23,46 +19,12 @@ import {
 } from '../../../globals/constants'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
-
-function renderSectionTitle(section) {
-  return <ListSubheader component="div">{section.title}</ListSubheader>
-}
-
-function getSectionSuggestions(section) {
-  return section.items
-}
-
-const getSuggestionValue = suggestion => suggestion.issue
-
-const renderSuggestion = (item, { query, isHighlighted }) => {
-  const suggestion = item.issue
-  const matches = match(suggestion, query)
-  const parts = parse(suggestion, matches)
-
-  return (
-    <ListItem button component="div" selected={isHighlighted}>
-      <div>
-        {parts.map((part, index) => {
-          return part.highlight ? (
-            <span key={String(index)} style={{ fontWeight: 500 }}>
-              {part.text}
-            </span>
-          ) : (
-            <strong key={String(index)} style={{ fontWeight: 300 }}>
-              {part.text}
-            </strong>
-          )
-        })}
-      </div>
-    </ListItem>
-  )
-}
 
 export class ComplianceIssueForm extends Component {
   state = {
     commonIssues: [],
-    commonIssue: '',
     commonIssueIndex: '',
     finding: '',
     equipment: '',
@@ -78,7 +40,6 @@ export class ComplianceIssueForm extends Component {
     const {
       setRightNav,
       commonIssuesLoaded,
-      commonIssues,
       fetchCommonIssuesRealTime,
       userId,
       equipmentsSite,
@@ -88,9 +49,7 @@ export class ComplianceIssueForm extends Component {
     } = this.props
 
     setRightNav && setRightNav()
-    commonIssuesLoaded
-      ? this.loadCommonIssues(commonIssues)
-      : fetchCommonIssuesRealTime(userId)
+    !commonIssuesLoaded && fetchCommonIssuesRealTime(userId)
     equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
     initialData && this.loadInitialData(initialData)
   }
@@ -109,10 +68,6 @@ export class ComplianceIssueForm extends Component {
   }) {
     if (initialData && initialData !== this.props.initialData) {
       this.loadInitialData(initialData)
-    }
-
-    if (commonIssuesLoaded && commonIssues !== this.props.commonIssues) {
-      this.loadCommonIssues(commonIssues)
     }
 
     if (imageCaptured && images !== this.props.images) {
@@ -141,26 +96,6 @@ export class ComplianceIssueForm extends Component {
     this.setState({
       ...data,
     })
-  }
-
-  loadCommonIssues = commonIssues => {
-    const categorizedCommonIssues = commonIssues.map(item => {
-      if (!item.category) {
-        item.category = 'uncategorized'
-      }
-
-      return item
-    })
-
-    const groupedCommonIssues = groupBy(categorizedCommonIssues, 'category')
-    const sectionedCommonIssues = map(groupedCommonIssues, (value, key) => {
-      return {
-        title: key,
-        items: value,
-      }
-    })
-
-    this.setState({ commonIssues: sectionedCommonIssues })
   }
 
   onFindingChange = event => {
@@ -192,31 +127,12 @@ export class ComplianceIssueForm extends Component {
           .map(item => item.equipment)
   }
 
-  getCommonIssueSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
-    const { commonIssues } = this.state
-
-    return inputLength === 0
-      ? commonIssues.filter(({ items }) => !!items.every(item => !!item.issue))
-      : commonIssues
-          .map(({ title, items }) => {
-            return {
-              title,
-              items: items.filter(
-                item =>
-                  item.issue.toLowerCase().slice(0, inputLength) === inputValue
-              ),
-            }
-          })
-          .filter(({ items }) => items.length > 0)
-  }
-
   onCommonIssueSelect = value => {
-    const { commonIssues } = this.props
-    const commonIssue = commonIssues.find(({ issue }) => issue === value)
+    // const { commonIssues } = this.props
+    // const commonIssue = commonIssues.find(({ issue }) => issue === value)
 
-    commonIssue && this.setState({ ...commonIssue })
+    // commonIssue && this.setState({ ...commonIssue })
+    this.setState({ ...value })
   }
 
   loadImages = images => {
@@ -283,7 +199,7 @@ export class ComplianceIssueForm extends Component {
     const {
       commonIssuesLoaded,
       equipmentsLoaded,
-      // commonIssues,
+      commonIssues,
       captureImage,
       openDialog,
       closeDialog,
@@ -295,7 +211,7 @@ export class ComplianceIssueForm extends Component {
     const {
       images,
       // commonIssueIndex,
-      commonIssue,
+      // commonIssue,
       finding,
       equipment,
       standardsClause,
@@ -370,17 +286,9 @@ export class ComplianceIssueForm extends Component {
                 getSuggestions={this.getEquipmentSuggestions}
               />
 
-              <AutoComplete
-                label="Select a common issue"
-                multiSection={true}
-                value={commonIssue}
-                onChange={this.onValueInputChange('commonIssue')}
-                onSuggestionSelect={this.onCommonIssueSelect}
-                getSuggestionValue={getSuggestionValue}
-                getSuggestions={this.getCommonIssueSuggestions}
-                renderSuggestion={renderSuggestion}
-                renderSectionTitle={renderSectionTitle}
-                getSectionSuggestions={getSectionSuggestions}
+              <CommonIssueAutoComplete
+                commonIssues={commonIssues}
+                onCommonIssueSelect={this.onCommonIssueSelect}
               />
 
               {/* <TextField
