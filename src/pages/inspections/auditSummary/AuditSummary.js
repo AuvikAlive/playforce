@@ -55,8 +55,14 @@ export class AuditSummary extends Component {
   }
 
   loadInitialData = (auditSummary, cover) => {
+    const {
+      profile: { standardAuditSummary },
+    } = this.props
+
     isEmpty(auditSummary)
-      ? this.setState({ summary: makeDefaultSummary(cover) })
+      ? this.setState({
+          summary: standardAuditSummary || makeDefaultSummary(cover),
+        })
       : this.setState({ ...auditSummary })
   }
 

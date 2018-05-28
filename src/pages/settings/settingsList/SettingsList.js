@@ -74,6 +74,12 @@ export class SettingsList extends Component {
                     <ListItemText primary="Sidenav Background" />
                   </ListItem>
                 </StyledNavLink>
+
+                <StyledNavLink to={`${match.url}/auditSummary`}>
+                  <ListItem button>
+                    <ListItemText primary="Standard Audit Summary" />
+                  </ListItem>
+                </StyledNavLink>
               </List>
             </Grid>
           </Grid>

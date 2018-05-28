@@ -35,6 +35,10 @@ const SidenavBackground = Loadable({
   loader: () => import('../sidenavBackground'),
 })
 
+const StandardAuditSummary = Loadable({
+  loader: () => import('../standardAuditSummary'),
+})
+
 Profile.preload()
 Standards.preload()
 Clients.preload()
@@ -43,6 +47,7 @@ Operators.preload()
 CommonIssues.preload()
 Company.preload()
 SidenavBackground.preload()
+StandardAuditSummary.preload()
 
 export const SettingRoutes = ({ match }) => {
   return (
@@ -57,6 +62,10 @@ export const SettingRoutes = ({ match }) => {
       <Route
         path={`${match.url}/sidenavBackground`}
         component={SidenavBackground}
+      />
+      <Route
+        path={`${match.url}/auditSummary`}
+        component={StandardAuditSummary}
       />
       <Route path={match.url} component={SettingsList} />
     </Switch>
