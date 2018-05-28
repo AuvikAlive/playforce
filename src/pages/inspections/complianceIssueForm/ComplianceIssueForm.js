@@ -8,6 +8,10 @@ import Grid from 'material-ui/Grid'
 import Card, { CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import BrushIcon from 'material-ui-icons/Brush'
+import { ListItem, ListSubheader } from 'material-ui/List'
+import { groupBy, map } from 'lodash'
+import match from 'autosuggest-highlight/match'
+import parse from 'autosuggest-highlight/parse'
 import StayCurrentPortraitIcon from 'material-ui-icons/StayCurrentPortrait'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
@@ -20,6 +24,40 @@ import {
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
+
+function renderSectionTitle(section) {
+  return <ListSubheader component="div">{section.title}</ListSubheader>
+}
+
+function getSectionSuggestions(section) {
+  return section.items
+}
+
+const getSuggestionValue = suggestion => suggestion.issue
+
+const renderSuggestion = (item, { query, isHighlighted }) => {
+  const suggestion = item.issue
+  const matches = match(suggestion, query)
+  const parts = parse(suggestion, matches)
+
+  return (
+    <ListItem button component="div" selected={isHighlighted}>
+      <div>
+        {parts.map((part, index) => {
+          return part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 500 }}>
+              {part.text}
+            </span>
+          ) : (
+            <strong key={String(index)} style={{ fontWeight: 300 }}>
+              {part.text}
+            </strong>
+          )
+        })}
+      </div>
+    </ListItem>
+  )
+}
 
 export class ComplianceIssueForm extends Component {
   state = {
@@ -40,6 +78,7 @@ export class ComplianceIssueForm extends Component {
     const {
       setRightNav,
       commonIssuesLoaded,
+      commonIssues,
       fetchCommonIssuesRealTime,
       userId,
       equipmentsSite,
@@ -49,7 +88,9 @@ export class ComplianceIssueForm extends Component {
     } = this.props
 
     setRightNav && setRightNav()
-    !commonIssuesLoaded && fetchCommonIssuesRealTime(userId)
+    commonIssuesLoaded
+      ? this.loadCommonIssues(commonIssues)
+      : fetchCommonIssuesRealTime(userId)
     equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
     initialData && this.loadInitialData(initialData)
   }
@@ -59,10 +100,21 @@ export class ComplianceIssueForm extends Component {
     removeRightNav && removeRightNav()
   }
 
-  componentWillReceiveProps({ imageCaptured, initialData, images }) {
+  componentWillReceiveProps({
+    imageCaptured,
+    initialData,
+    images,
+    commonIssuesLoaded,
+    commonIssues,
+  }) {
     if (initialData && initialData !== this.props.initialData) {
       this.loadInitialData(initialData)
     }
+
+    if (commonIssuesLoaded && commonIssues !== this.props.commonIssues) {
+      this.loadCommonIssues(commonIssues)
+    }
+
     if (imageCaptured && images !== this.props.images) {
       const { setFeedback } = this.props
       const notPortrait = images.some(
@@ -89,6 +141,26 @@ export class ComplianceIssueForm extends Component {
     this.setState({
       ...data,
     })
+  }
+
+  loadCommonIssues = commonIssues => {
+    const categorizedCommonIssues = commonIssues.map(item => {
+      if (!item.category) {
+        item.category = 'uncategorized'
+      }
+
+      return item
+    })
+
+    const groupedCommonIssues = groupBy(categorizedCommonIssues, 'category')
+    const sectionedCommonIssues = map(groupedCommonIssues, (value, key) => {
+      return {
+        title: key,
+        items: value,
+      }
+    })
+
+    this.setState({ commonIssues: sectionedCommonIssues })
   }
 
   onFindingChange = event => {
@@ -123,16 +195,21 @@ export class ComplianceIssueForm extends Component {
   getCommonIssueSuggestions = value => {
     const inputValue = value.trim().toLowerCase()
     const inputLength = inputValue.length
-    const { commonIssues } = this.props
+    const { commonIssues } = this.state
 
     return inputLength === 0
-      ? commonIssues.filter(item => !!item.issue).map(item => item.issue)
+      ? commonIssues.filter(({ items }) => !!items.every(item => !!item.issue))
       : commonIssues
-          .filter(
-            item =>
-              item.issue.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.issue)
+          .map(({ title, items }) => {
+            return {
+              title,
+              items: items.filter(
+                item =>
+                  item.issue.toLowerCase().slice(0, inputLength) === inputValue
+              ),
+            }
+          })
+          .filter(({ items }) => items.length > 0)
   }
 
   onCommonIssueSelect = value => {
@@ -295,10 +372,15 @@ export class ComplianceIssueForm extends Component {
 
               <AutoComplete
                 label="Select a common issue"
+                multiSection={true}
                 value={commonIssue}
                 onChange={this.onValueInputChange('commonIssue')}
                 onSuggestionSelect={this.onCommonIssueSelect}
+                getSuggestionValue={getSuggestionValue}
                 getSuggestions={this.getCommonIssueSuggestions}
+                renderSuggestion={renderSuggestion}
+                renderSectionTitle={renderSectionTitle}
+                getSectionSuggestions={getSectionSuggestions}
               />
 
               {/* <TextField

@@ -74,9 +74,10 @@ export class AutoComplete extends Component {
 
   onSuggestionsFetchRequested = async ({ value }) => {
     const { getSuggestions } = this.props
+    const suggestions = await getSuggestions(value)
 
     this.setState({
-      suggestions: await getSuggestions(value),
+      suggestions,
     })
   }
 
@@ -88,7 +89,13 @@ export class AutoComplete extends Component {
 
   render() {
     const { suggestions } = this.state
-    const { label, value } = this.props
+    const {
+      label,
+      value,
+      multiSection,
+      renderSectionTitle,
+      getSectionSuggestions,
+    } = this.props
 
     const inputProps = {
       label,
@@ -99,16 +106,21 @@ export class AutoComplete extends Component {
     return (
       <StyledAutoComplete className="StyledAutoComplete">
         <Autosuggest
-          shouldRenderSuggestions={() => true}
+          multiSection={multiSection || false}
           suggestions={suggestions}
+          shouldRenderSuggestions={() => true}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           onSuggestionSelected={this.onSuggestionSelect}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={this.props.renderSuggestion || renderSuggestion}
+          getSuggestionValue={
+            this.props.getSuggestionValue || getSuggestionValue
+          }
           inputProps={inputProps}
+          renderSuggestion={this.props.renderSuggestion || renderSuggestion}
           renderSuggestionsContainer={renderSuggestionsContainer}
           renderInputComponent={renderInput}
+          renderSectionTitle={renderSectionTitle}
+          getSectionSuggestions={getSectionSuggestions}
           theme={{
             container: {
               position: 'relative',
