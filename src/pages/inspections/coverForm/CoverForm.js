@@ -19,6 +19,7 @@ import { ClientsDialogContainer } from '../../../components/clientsDialog/Client
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { inspectionTypes } from '../../../globals/constants'
 import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {
@@ -27,6 +28,7 @@ export class CoverForm extends Component {
     client: '',
     inspectionDate: new Date(),
     appliedStandards: [],
+    inspectionType: '',
   }
 
   async componentDidMount() {
@@ -120,14 +122,21 @@ export class CoverForm extends Component {
       displayName,
       sites,
     } = this.props
-    const { location, client, inspectionDate, appliedStandards } = this.state
+    const {
+      location,
+      client,
+      inspectionDate,
+      appliedStandards,
+      inspectionType,
+    } = this.state
 
     if (
       image &&
       location &&
       client &&
       inspectionDate &&
-      appliedStandards.length > 0
+      appliedStandards.length > 0 &&
+      inspectionType
     ) {
       setFeedback({ error: '', loading: true })
 
@@ -139,6 +148,7 @@ export class CoverForm extends Component {
           client,
           inspectionDate,
           appliedStandards,
+          inspectionType,
         })
         setFeedback({ loading: false })
         afterSubmit && afterSubmit(result)
@@ -153,7 +163,13 @@ export class CoverForm extends Component {
   }
 
   render() {
-    const { location, client, inspectionDate, appliedStandards } = this.state
+    const {
+      location,
+      client,
+      inspectionDate,
+      appliedStandards,
+      inspectionType,
+    } = this.state
     const {
       image,
       captureImage,
@@ -283,6 +299,23 @@ export class CoverForm extends Component {
                 ) : (
                   <MenuItem value="">No standards addded</MenuItem>
                 )}
+              </TextField>
+
+              <TextField
+                fullWidth
+                select
+                label="Inspection Type"
+                value={inspectionType}
+                onChange={this.onEventInputChange('inspectionType')}
+                margin="normal"
+              >
+                {inspectionTypes.map((type, index) => {
+                  return (
+                    <MenuItem key={index} value={type}>
+                      {type}
+                    </MenuItem>
+                  )
+                })}
               </TextField>
             </form>
 

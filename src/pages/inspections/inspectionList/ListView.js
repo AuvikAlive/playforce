@@ -10,6 +10,7 @@ import List, {
   ListItemSecondaryAction,
 } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
+import Chip from 'material-ui/Chip'
 
 class ListViewWithout extends Component {
   handleClick = id => {
@@ -63,13 +64,8 @@ class ListViewWithout extends Component {
               },
               index
             ) => {
-              const { location, client } = cover
+              const { location, client, inspectionType } = cover
               const { name, suburb } = location
-              // const reportTypes = [
-              //   'Comprehensive',
-              //   'Operational',
-              //   'Routine',
-              // ]
               const completed =
                 coverAdded && auditSummaryAdded && conditionRatingsAdded
 
@@ -95,14 +91,10 @@ class ListViewWithout extends Component {
                     secondary={client}
                   />
                   <ListItemSecondaryAction className="secondary-actions">
-                    {/* <Chip
-                        label={
-                          reportTypes[index % 3].substring(0, 4) + '...'
-                        }
-                        className={`chip ${reportTypes[
-                          index % 3
-                        ].toLowerCase()}`}
-                      /> */}
+                    <Chip
+                      label={inspectionType.substring(0, 4) + '...'}
+                      className={`chip ${inspectionType.toLowerCase()}`}
+                    />
                     <CheckCircleIcon
                       style={{
                         visibility: completed ? '' : 'hidden',
