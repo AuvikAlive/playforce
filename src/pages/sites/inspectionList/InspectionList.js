@@ -14,7 +14,7 @@ export class InspectionList extends Component {
   state = { unsubscribe: undefined }
 
   async componentDidMount() {
-    this.context.setNavTitle('Edit Site')
+    const { setNavTitle, addUnsubscriber } = this.context
 
     const {
       inspectionsBySiteLoaded,
@@ -23,7 +23,10 @@ export class InspectionList extends Component {
       siteId,
     } = this.props
 
-    !inspectionsBySiteLoaded && fetchInspectionsBySiteRealTime(userId, siteId)
+    setNavTitle('Edit Site')
+
+    !inspectionsBySiteLoaded &&
+      addUnsubscriber(await fetchInspectionsBySiteRealTime(userId, siteId))
   }
 
   delete = async (index, inspectionId) => {
@@ -98,4 +101,5 @@ export class InspectionList extends Component {
 InspectionList.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

@@ -24,15 +24,15 @@ export class SiteList extends Component {
     selectMode: false,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { userId, sitesLoaded, fetchSitesRealTime } = this.props
-    const { setSearchComponent } = this.context
+    const { setSearchComponent, addUnsubscriber } = this.context
 
     this.setNav()
 
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
-    !sitesLoaded && fetchSitesRealTime(userId)
+    !sitesLoaded && addUnsubscriber(await fetchSitesRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -220,4 +220,5 @@ SiteList.contextTypes = {
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,
   removeSearchComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
@@ -10,10 +11,11 @@ import { FormContainer } from '../../settings/operators/FormContainer'
 import { StyledOperators } from '../../settings/operators/StyledOperators'
 
 export class Operators extends Component {
-  componentDidMount() {
+  async componentDidMount() {
+    const { addUnsubscriber } = this.context
     const { userId, operatorsLoaded, fetchOperatorsRealTime } = this.props
 
-    !operatorsLoaded && fetchOperatorsRealTime(userId)
+    !operatorsLoaded && addUnsubscriber(await fetchOperatorsRealTime(userId))
   }
 
   delete = async id => {
@@ -51,4 +53,8 @@ export class Operators extends Component {
       <LinearProgress />
     )
   }
+}
+
+Operators.contextTypes = {
+  addUnsubscriber: PropTypes.func,
 }

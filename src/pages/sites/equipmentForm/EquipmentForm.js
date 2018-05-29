@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import { CircularProgress } from 'material-ui/Progress'
 import Card, { CardContent } from 'material-ui/Card'
@@ -16,7 +17,7 @@ export class EquipmentForm extends Component {
     manufacturer: '',
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       manufacturersLoaded,
       fetchManufacturersRealTime,
@@ -24,7 +25,10 @@ export class EquipmentForm extends Component {
       initialData,
     } = this.props
 
-    !manufacturersLoaded && fetchManufacturersRealTime(userId)
+    const { addUnsubscriber } = this.context
+
+    !manufacturersLoaded &&
+      addUnsubscriber(await fetchManufacturersRealTime(userId))
     initialData && this.loadInitialData(initialData)
   }
 
@@ -178,4 +182,12 @@ export class EquipmentForm extends Component {
       <LinearProgress />
     )
   }
+}
+
+EquipmentForm.contextTypes = {
+  setNavTitle: PropTypes.func,
+  removeNavTitle: PropTypes.func,
+  setLeftNavComponent: PropTypes.func,
+  removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }
