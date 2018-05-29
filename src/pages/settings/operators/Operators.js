@@ -9,8 +9,8 @@ import { OperatorFormContainer } from '../../../components/operatorForm/Operator
 import { StyledOperators } from './StyledOperators'
 
 export class Operators extends Component {
-  componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
+  async componentDidMount() {
+    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
     const {
       history,
       userId,
@@ -25,7 +25,7 @@ export class Operators extends Component {
       </IconButton>
     )
 
-    !operatorsLoaded && fetchOperatorsRealTime(userId)
+    !operatorsLoaded && addUnsubscriber(await fetchOperatorsRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -61,4 +61,5 @@ Operators.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

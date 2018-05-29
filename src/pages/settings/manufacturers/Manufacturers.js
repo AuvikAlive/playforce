@@ -9,8 +9,8 @@ import { ManufacturerFormContainer } from '../../../components/manufacturerForm/
 import { StyledManufacturers } from './StyledManufacturers'
 
 export class Manufacturers extends Component {
-  componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
+  async componentDidMount() {
+    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
     const {
       history,
       manufacturersLoaded,
@@ -26,7 +26,8 @@ export class Manufacturers extends Component {
       </IconButton>
     )
 
-    !manufacturersLoaded && fetchManufacturersRealTime(userId)
+    !manufacturersLoaded &&
+      addUnsubscriber(await fetchManufacturersRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -66,4 +67,5 @@ Manufacturers.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

@@ -13,8 +13,8 @@ import { StyledStandardList } from './StyledStandardList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class StandardsList extends Component {
-  componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
+  async componentDidMount() {
+    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
     const {
       history,
       userId,
@@ -30,7 +30,7 @@ export class StandardsList extends Component {
       </IconButton>
     )
 
-    !standardsLoaded && fetchStandardsRealTime(userId)
+    !standardsLoaded && addUnsubscriber(await fetchStandardsRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -89,4 +89,5 @@ StandardsList.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

@@ -19,8 +19,8 @@ import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class CommonIssuesList extends Component {
-  componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
+  async componentDidMount() {
+    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
     const {
       history,
       commonIssuesLoaded,
@@ -36,7 +36,8 @@ export class CommonIssuesList extends Component {
       </IconButton>
     )
 
-    !commonIssuesLoaded && fetchCommonIssuesRealTime(userId)
+    !commonIssuesLoaded &&
+      addUnsubscriber(await fetchCommonIssuesRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -115,4 +116,5 @@ CommonIssuesList.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }
