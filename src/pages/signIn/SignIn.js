@@ -9,7 +9,7 @@ import { CircularProgress } from 'material-ui/Progress'
 import { StyledLink } from '../../components/styledLink/StyledLink'
 import { StyledSignIn } from './StyledSignIn'
 import google from './google.svg'
-import facebook from './facebook.svg'
+// import facebook from './facebook.svg'
 
 export class SignIn extends Component {
   state = {
@@ -143,10 +143,10 @@ export class SignIn extends Component {
                 With Google
               </Button>
 
-              <Button variant="raised" className="social-button">
+              {/* <Button variant="raised" className="social-button">
                 <img src={facebook} alt="facebook sign-in" />
                 With Facebook
-              </Button>
+              </Button> */}
             </div>
           )}
 
