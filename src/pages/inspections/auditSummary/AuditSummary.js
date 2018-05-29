@@ -17,8 +17,9 @@ export class AuditSummary extends Component {
   state = {
     summary: '',
   }
-  componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
+
+  async componentDidMount() {
+    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
     const {
       inspectionLoaded,
       fetchInspectionRealTime,
@@ -36,7 +37,8 @@ export class AuditSummary extends Component {
       </IconButton>
     )
 
-    !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
+    !inspectionLoaded &&
+      addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
     !isEmpty(cover) && this.loadInitialData(auditSummary, cover)
   }
 
@@ -195,4 +197,5 @@ AuditSummary.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

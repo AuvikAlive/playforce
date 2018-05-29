@@ -11,14 +11,17 @@ import { FormContainer } from '../../settings/manufacturers/FormContainer'
 import { StyledManufacturers } from '../../settings/manufacturers/StyledManufacturers'
 
 export class Manufacturers extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const {
       manufacturersLoaded,
       fetchManufacturersRealTime,
       userId,
     } = this.props
 
-    !manufacturersLoaded && fetchManufacturersRealTime(userId)
+    const { addUnsubscriber } = this.context
+
+    !manufacturersLoaded &&
+      addUnsubscriber(await fetchManufacturersRealTime(userId))
   }
 
   delete = async id => {
@@ -67,4 +70,5 @@ Manufacturers.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

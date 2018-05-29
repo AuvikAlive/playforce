@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
@@ -27,7 +28,7 @@ export class ConditionRatingForm extends Component {
     estimatedDateInstalled: format(today, 'YYYY'),
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       manufacturersLoaded,
       fetchManufacturersRealTime,
@@ -38,8 +39,12 @@ export class ConditionRatingForm extends Component {
       initialData,
     } = this.props
 
-    !manufacturersLoaded && fetchManufacturersRealTime(userId)
-    equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
+    const { addUnsubscriber } = this.context
+
+    !manufacturersLoaded &&
+      addUnsubscriber(await fetchManufacturersRealTime(userId))
+    equipmentsSite !== siteId &&
+      addUnsubscriber(await fetchEquipmentsRealTime(userId, siteId))
     initialData && this.loadInitialData(initialData)
   }
 
@@ -327,4 +332,8 @@ export class ConditionRatingForm extends Component {
       <LinearProgress />
     )
   }
+}
+
+ConditionRatingForm.contextTypes = {
+  addUnsubscriber: PropTypes.func,
 }

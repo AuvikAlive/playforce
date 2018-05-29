@@ -24,7 +24,7 @@ export class InspectionList extends Component {
     selectMode: false,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       standardsLoaded,
       fetchStandards,
@@ -32,14 +32,15 @@ export class InspectionList extends Component {
       inspectionsLoaded,
       fetchInspectionsRealTime,
     } = this.props
-    const { setSearchComponent } = this.context
+    const { setSearchComponent, addUnsubscriber } = this.context
 
     this.setNav()
 
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     !standardsLoaded && fetchStandards(userId)
-    !inspectionsLoaded && fetchInspectionsRealTime(userId)
+    !inspectionsLoaded &&
+      addUnsubscriber(await fetchInspectionsRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -375,4 +376,5 @@ InspectionList.contextTypes = {
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,
   removeSearchComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

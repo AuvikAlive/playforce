@@ -44,8 +44,8 @@ export class CoverForm extends Component {
     const { addUnsubscriber } = this.context
 
     !isEmpty(initialData) && this.loadInitialData(initialData)
-    !sitesLoaded && fetchSitesRealTime(userId)
-    !standardsLoaded && fetchStandardsRealTime(userId)
+    !sitesLoaded && addUnsubscriber(await fetchSitesRealTime(userId))
+    !standardsLoaded && addUnsubscriber(await fetchStandardsRealTime(userId))
     !clientsLoaded && addUnsubscriber(await fetchClientsRealTime(userId))
   }
 

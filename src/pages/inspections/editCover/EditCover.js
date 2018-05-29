@@ -6,8 +6,8 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { CoverFormContainer } from '../coverForm/CoverFormContainer'
 
 export class EditCover extends Component {
-  componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
+  async componentDidMount() {
+    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
     const {
       history,
       inspectionLoaded,
@@ -24,7 +24,8 @@ export class EditCover extends Component {
       </IconButton>
     )
 
-    !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
+    !inspectionLoaded &&
+      addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
   }
 
   componentWillUnmount() {
@@ -38,7 +39,6 @@ export class EditCover extends Component {
     const { updateCover, userId, inspectionId, setFeedback } = this.props
 
     await updateCover(userId, inspectionId, cover)
-
     setFeedback({ success: 'Cover saved!' })
   }
 
@@ -62,4 +62,5 @@ EditCover.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

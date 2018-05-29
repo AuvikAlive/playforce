@@ -21,11 +21,12 @@ export class EditInspection extends Component {
     certificate: false,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       setNavTitle,
       setLeftNavComponent,
       setRightNavComponent,
+      addUnsubscriber,
     } = this.context
     const {
       openDialog,
@@ -47,7 +48,8 @@ export class EditInspection extends Component {
     } = inspection
 
     !standardsLoaded && fetchStandards(userId)
-    !inspectionLoaded && fetchInspectionRealTime(userId, inspectionId)
+    !inspectionLoaded &&
+      addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
     !conditionRatingsLoaded && fetchConditionRatings(userId, inspectionId)
     !complianceIssuesLoaded && fetchComplianceIssues(userId, inspectionId)
     !maintenanceIssuesLoaded && fetchMaintenanceIssues(userId, inspectionId)
@@ -269,4 +271,5 @@ EditInspection.contextTypes = {
   removeLefNavComponent: PropTypes.func,
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

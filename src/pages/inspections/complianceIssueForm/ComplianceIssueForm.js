@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import { CircularProgress } from 'material-ui/Progress'
 import TextField from 'material-ui/TextField'
@@ -36,7 +37,7 @@ export class ComplianceIssueForm extends Component {
     imageEditMode: false,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       setRightNav,
       commonIssuesLoaded,
@@ -48,9 +49,13 @@ export class ComplianceIssueForm extends Component {
       initialData,
     } = this.props
 
+    const { addUnsubscriber } = this.context
+
     setRightNav && setRightNav()
-    !commonIssuesLoaded && fetchCommonIssuesRealTime(userId)
-    equipmentsSite !== siteId && fetchEquipmentsRealTime(userId, siteId)
+    !commonIssuesLoaded &&
+      addUnsubscriber(await fetchCommonIssuesRealTime(userId))
+    equipmentsSite !== siteId &&
+      addUnsubscriber(await fetchEquipmentsRealTime(userId, siteId))
     initialData && this.loadInitialData(initialData)
   }
 
@@ -421,4 +426,8 @@ export class ComplianceIssueForm extends Component {
       <LinearProgress />
     )
   }
+}
+
+ComplianceIssueForm.contextTypes = {
+  addUnsubscriber: PropTypes.func,
 }
