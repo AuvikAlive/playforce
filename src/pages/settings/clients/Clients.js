@@ -10,7 +10,7 @@ import { StyledClients } from './StyledClients'
 
 export class Clients extends Component {
   async componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
+    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
     const { history, userId, clientsLoaded, fetchClientsRealTime } = this.props
 
     setNavTitle('Clients')
@@ -21,7 +21,7 @@ export class Clients extends Component {
       </IconButton>
     )
 
-    !clientsLoaded && fetchClientsRealTime(userId)
+    !clientsLoaded && addUnsubscriber(await fetchClientsRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -57,4 +57,5 @@ Clients.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
 }

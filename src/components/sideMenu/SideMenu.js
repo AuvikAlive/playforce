@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Drawer from 'material-ui/Drawer'
 import List from 'material-ui/List'
 import { isEmpty } from 'react-redux-firebase'
@@ -30,6 +31,9 @@ class SideMenu extends Component {
 
   signOut = () => {
     const { firebase, history } = this.props
+    const { clearSubscriptions } = this.context
+
+    clearSubscriptions()
 
     firebase.logout()
     history.push('/signIn')
@@ -58,3 +62,7 @@ class SideMenu extends Component {
 }
 
 export default SideMenu
+
+SideMenu.contextTypes = {
+  clearSubscriptions: PropTypes.func,
+}

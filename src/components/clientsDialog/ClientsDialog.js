@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
@@ -10,10 +11,11 @@ import { ClientList } from '../clientList/ClientList'
 import { ClientFormContainer } from '../clientForm/ClientFormContainer'
 
 export class ClientsDialog extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const { userId, clientsLoaded, fetchClientsRealTime } = this.props
+    const { addUnsubscriber } = this.context
 
-    !clientsLoaded && fetchClientsRealTime(userId)
+    !clientsLoaded && addUnsubscriber(await fetchClientsRealTime(userId))
   }
 
   delete = async id => {
@@ -51,4 +53,8 @@ export class ClientsDialog extends Component {
       <LinearProgress />
     )
   }
+}
+
+ClientsDialog.contextTypes = {
+  addUnsubscriber: PropTypes.func,
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { LinearProgress } from 'material-ui/Progress'
 import { CircularProgress } from 'material-ui/Progress'
 import Card, { CardContent } from 'material-ui/Card'
@@ -28,7 +29,7 @@ export class CoverForm extends Component {
     appliedStandards: [],
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       initialData,
       sitesLoaded,
@@ -40,10 +41,12 @@ export class CoverForm extends Component {
       userId,
     } = this.props
 
+    const { addUnsubscriber } = this.context
+
     !isEmpty(initialData) && this.loadInitialData(initialData)
     !sitesLoaded && fetchSitesRealTime(userId)
     !standardsLoaded && fetchStandardsRealTime(userId)
-    !clientsLoaded && fetchClientsRealTime(userId)
+    !clientsLoaded && addUnsubscriber(await fetchClientsRealTime(userId))
   }
 
   componentWillReceiveProps({
@@ -310,4 +313,8 @@ export class CoverForm extends Component {
       <LinearProgress />
     )
   }
+}
+
+CoverForm.contextTypes = {
+  addUnsubscriber: PropTypes.func,
 }

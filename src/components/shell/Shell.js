@@ -25,6 +25,8 @@ export class Shell extends Component {
       removeSearchComponent: this.removeComponent('searchComponent'),
       openSnackbar: this.openSnackbar,
       closeSnackbar: this.closeSnackbar,
+      addUnsubscriber: this.addUnsubscriber,
+      clearSubscriptions: this.clearSubscriptions,
     }
   }
 
@@ -38,6 +40,7 @@ export class Shell extends Component {
     snackbarOpen: false,
     snackbarAutoHideDuration: 2000,
     snackbarMessage: '',
+    unsubscribers: [],
   }
 
   setNavTitle = title => this.setState({ navTitle: title })
@@ -54,6 +57,18 @@ export class Shell extends Component {
       snackbarMessage,
     })
   closeSnackbar = () => this.setState({ snackbarOpen: false })
+  addUnsubscriber = unsubscriber => {
+    this.setState({
+      unsubscribers: [...this.state.unsubscribers, unsubscriber],
+    })
+  }
+  clearSubscriptions = () => {
+    const { unsubscribers } = this.state
+
+    unsubscribers.forEach(unsubscribe => unsubscribe())
+
+    this.setState({ unsubscribers: [] })
+  }
 
   render() {
     const {
@@ -120,4 +135,6 @@ Shell.childContextTypes = {
   removeSearchComponent: PropTypes.func,
   openSnackbar: PropTypes.func,
   closeSnackbar: PropTypes.func,
+  addUnsubscriber: PropTypes.func,
+  clearSubscriptions: PropTypes.func,
 }
