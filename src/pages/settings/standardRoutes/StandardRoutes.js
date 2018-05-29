@@ -14,7 +14,7 @@ const EditStandard = Loadable({
 AddStandard.preload()
 EditStandard.preload()
 
-export const Standards = ({ match }) => {
+export const StandardRoutes = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/edit/:id`} component={EditStandard} />

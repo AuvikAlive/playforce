@@ -7,8 +7,8 @@ const Profile = Loadable({
   loader: () => import('../profile'),
 })
 
-const Standards = Loadable({
-  loader: () => import('../standards'),
+const StandardRoutes = Loadable({
+  loader: () => import('../standardRoutes'),
 })
 
 const Clients = Loadable({
@@ -23,8 +23,8 @@ const Operators = Loadable({
   loader: () => import('../operators'),
 })
 
-const CommonIssues = Loadable({
-  loader: () => import('../commonIssues'),
+const CommonIssueRoutes = Loadable({
+  loader: () => import('../commonIssueRoutes'),
 })
 
 const Company = Loadable({
@@ -40,11 +40,11 @@ const StandardAuditSummary = Loadable({
 })
 
 Profile.preload()
-Standards.preload()
+StandardRoutes.preload()
 Clients.preload()
 Manufacturers.preload()
 Operators.preload()
-CommonIssues.preload()
+CommonIssueRoutes.preload()
 Company.preload()
 SidenavBackground.preload()
 StandardAuditSummary.preload()
@@ -53,11 +53,11 @@ export const SettingRoutes = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/profile`} component={Profile} />
-      <Route path={`${match.url}/standards`} component={Standards} />
+      <Route path={`${match.url}/standards`} component={StandardRoutes} />
       <Route path={`${match.url}/clients`} component={Clients} />
       <Route path={`${match.url}/manufacturers`} component={Manufacturers} />
       <Route path={`${match.url}/operators`} component={Operators} />
-      <Route path={`${match.url}/commonIssues`} component={CommonIssues} />
+      <Route path={`${match.url}/commonIssues`} component={CommonIssueRoutes} />
       <Route path={`${match.url}/companyInformation`} component={Company} />
       <Route
         path={`${match.url}/sidenavBackground`}

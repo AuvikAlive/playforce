@@ -14,7 +14,7 @@ const AddCommonIssue = Loadable({
 EditCommonIssue.preload()
 AddCommonIssue.preload()
 
-export const CommonIssues = ({ match }) => {
+export const CommonIssueRoutes = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/edit/:id`} component={EditCommonIssue} />
