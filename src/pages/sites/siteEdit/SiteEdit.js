@@ -6,10 +6,10 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { StyledSiteEdit } from './StyledSiteEdit'
 import GeneralTab from '../generalTab'
-import InspectionsTab from '../inspectionsTab/InspectionsTab'
-import { EquipmentsTab } from '../equipmentsTab/EquipmentsTab'
+import { InspectionTabRoutes } from '../inspectionTabRoutes/InspectionTabRoutes'
+import { EquipmentTabRoutes } from '../equipmentTabRoutes/EquipmentTabRoutes'
 
-class SiteEditWithoutRouter extends Component {
+class SiteEditWithout extends Component {
   componentDidMount() {
     const { history } = this.props
 
@@ -57,16 +57,20 @@ class SiteEditWithoutRouter extends Component {
           <Tab className="tab-title" value="equipments" label="Equipments" />
         </Tabs>
         {match.params.tabstate === 'general' && <GeneralTab id={id} />}
-        {match.params.tabstate === 'inspections' && <InspectionsTab id={id} />}
-        {match.params.tabstate === 'equipments' && <EquipmentsTab id={id} />}
+        {match.params.tabstate === 'inspections' && (
+          <InspectionTabRoutes id={id} />
+        )}
+        {match.params.tabstate === 'equipments' && (
+          <EquipmentTabRoutes id={id} />
+        )}
       </StyledSiteEdit>
     )
   }
 }
 
-export const SiteEdit = withRouter(SiteEditWithoutRouter)
+export const SiteEdit = withRouter(SiteEditWithout)
 
-SiteEditWithoutRouter.contextTypes = {
+SiteEditWithout.contextTypes = {
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
   disableNavBarShadow: PropTypes.func,

@@ -9,7 +9,7 @@ const SiteEdit = Loadable({
 
 SiteEdit.preload()
 
-export const Site = () => {
+export const SiteEditRoutes = () => {
   return (
     <Switch>
       <Route path={'/sites/:id/edit/:tabstate'} component={SiteEdit} />

@@ -14,7 +14,7 @@ const EditEquipment = Loadable({
 AddEquipment.preload()
 EditEquipment.preload()
 
-const EquipmentsTabWithoutRouter = ({ match }) => {
+const EquipmentTabWithout = ({ match }) => {
   return (
     <Switch>
       <Route
@@ -35,4 +35,4 @@ const EquipmentsTabWithoutRouter = ({ match }) => {
   )
 }
 
-export const EquipmentsTab = withRouter(EquipmentsTabWithoutRouter)
+export const EquipmentTabRoutes = withRouter(EquipmentTabWithout)

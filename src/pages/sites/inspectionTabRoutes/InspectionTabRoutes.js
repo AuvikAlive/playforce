@@ -10,7 +10,7 @@ const AddInspection = Loadable({
 
 AddInspection.preload()
 
-export class InspectionsTab extends Component {
+class InspectionTabRoutesWithout extends Component {
   render() {
     const { match } = this.props
 
@@ -29,4 +29,4 @@ export class InspectionsTab extends Component {
   }
 }
 
-export default withRouter(InspectionsTab)
+export const InspectionTabRoutes = withRouter(InspectionTabRoutesWithout)
