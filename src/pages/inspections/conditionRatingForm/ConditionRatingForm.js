@@ -272,6 +272,14 @@ export class ConditionRatingForm extends Component {
             </Button>
 
             <form noValidate>
+              <AutoComplete
+                label="Equipment"
+                value={equipment}
+                onChange={this.onValueInputChange('equipment')}
+                onSuggestionSelect={this.onEquipmentSelect}
+                getSuggestions={this.getEquipmentSuggestions}
+              />
+
               <TextField
                 fullWidth
                 select
@@ -288,14 +296,6 @@ export class ConditionRatingForm extends Component {
                   )
                 })}
               </TextField>
-
-              <AutoComplete
-                label="Equipment"
-                value={equipment}
-                onChange={this.onValueInputChange('equipment')}
-                onSuggestionSelect={this.onEquipmentSelect}
-                getSuggestions={this.getEquipmentSuggestions}
-              />
 
               {itemType === 'play' && (
                 <TextField
