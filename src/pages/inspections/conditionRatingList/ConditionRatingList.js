@@ -9,8 +9,9 @@ import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import { CardContent } from 'material-ui/Card'
 import { format } from 'date-fns'
-import { StyledConditionRatingList } from './StyledConditionRatingList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { capitalize } from '../../../utilities/capitalize'
+import { StyledConditionRatingList } from './StyledConditionRatingList'
 
 export class ConditionRatingList extends Component {
   state = {}
@@ -91,7 +92,7 @@ export class ConditionRatingList extends Component {
 
                       {itemType && (
                         <Typography variant="subheading">
-                          Item Type: {itemType}
+                          Item Type: {capitalize(itemType)}
                         </Typography>
                       )}
 
