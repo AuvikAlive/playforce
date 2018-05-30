@@ -4,6 +4,7 @@ import { makeCoverImage } from './makeCoverImage'
 import { makeMiddleSection } from './makeMiddleSection'
 
 export const makeCover = ({
+  inspectionType,
   image,
   location,
   client,
@@ -13,7 +14,7 @@ export const makeCover = ({
 }) => {
   return [
     makeAddressHeader(),
-    makeTitle(),
+    makeTitle(inspectionType),
     makeCoverImage(image),
     makeMiddleSection({
       location,

@@ -127,7 +127,11 @@ export class EditInspection extends Component {
     this.closeMenu()
 
     const { inspection, setFeedback } = this.props
-    const { auditSummary, conditionRatingsAdded } = inspection
+    const {
+      cover: { location, inspectionType },
+      auditSummary,
+      conditionRatingsAdded,
+    } = inspection
 
     if (!isEmpty(auditSummary) && conditionRatingsAdded) {
       setFeedback({ error: '', loading: true })
@@ -135,9 +139,8 @@ export class EditInspection extends Component {
       const pdfDocGenerator = await this.createPdf()
 
       pdfDocGenerator.download(
-        `${
-          inspection.cover.location.name
-        } - Comprehensive Playground Inspection Report.pdf`,
+        `${location.name} - ${inspectionType ||
+          'Comprehensive'} Playground Inspection Report.pdf`,
         () => setFeedback({ loading: false })
       )
     } else {
