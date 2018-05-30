@@ -91,10 +91,12 @@ class ListViewWithout extends Component {
                     secondary={client}
                   />
                   <ListItemSecondaryAction className="secondary-actions">
-                    <Chip
-                      label={inspectionType.substring(0, 4) + '...'}
-                      className={`chip ${inspectionType.toLowerCase()}`}
-                    />
+                    {inspectionType && (
+                      <Chip
+                        label={inspectionType.substring(0, 4) + '...'}
+                        className={`chip ${inspectionType.toLowerCase()}`}
+                      />
+                    )}
                     <CheckCircleIcon
                       style={{
                         visibility: completed ? '' : 'hidden',
