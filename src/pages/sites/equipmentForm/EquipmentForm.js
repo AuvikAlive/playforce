@@ -7,11 +7,16 @@ import Button from 'material-ui/Button'
 import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
 import TextField from 'material-ui/TextField'
 import { MenuItem } from 'material-ui/Menu'
-import { defaultManufacturers } from '../../../globals/constants'
+import {
+  defaultManufacturers,
+  equipmentTypes,
+} from '../../../globals/constants'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { StyledEquipmentForm } from './StyledEquipmentForm'
 
 export class EquipmentForm extends Component {
   state = {
+    itemType: '',
     equipment: '',
     assetId: '',
     manufacturer: '',
@@ -48,15 +53,11 @@ export class EquipmentForm extends Component {
     })
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
+  onEventInputChange = onEventInputChange
 
-  submit = async () => {
+  submitPlayItem = async () => {
     const { image, setFeedback, onSubmit, afterSubmit } = this.props
-    const { equipment, assetId, manufacturer } = this.state
+    const { itemType, equipment, assetId, manufacturer } = this.state
 
     if (image && equipment && assetId && manufacturer) {
       setFeedback({ error: '', loading: true })
@@ -64,6 +65,7 @@ export class EquipmentForm extends Component {
       try {
         const result = await onSubmit({
           image,
+          itemType,
           equipment,
           assetId,
           manufacturer,
@@ -83,6 +85,46 @@ export class EquipmentForm extends Component {
     }
   }
 
+  submitAncillaryItem = async () => {
+    const { image, setFeedback, onSubmit, afterSubmit } = this.props
+    const { itemType, equipment } = this.state
+
+    if (image && equipment) {
+      setFeedback({ error: '', loading: true })
+
+      try {
+        const result = await onSubmit({
+          image,
+          itemType,
+          equipment,
+          assetId: '',
+          manufacturer: '',
+        })
+        setFeedback({ loading: false })
+        afterSubmit && afterSubmit(result)
+      } catch (error) {
+        setFeedback({
+          error: error.message,
+          loading: false,
+        })
+      }
+    } else {
+      setFeedback({
+        error: 'Please fill up the form correctly!',
+      })
+    }
+  }
+
+  submit = async () => {
+    const { itemType } = this.state
+
+    if (itemType === 'play') {
+      this.submitPlayItem()
+    } else {
+      this.submitAncillaryItem()
+    }
+  }
+
   render() {
     const {
       image,
@@ -93,7 +135,7 @@ export class EquipmentForm extends Component {
       error,
       loading,
     } = this.props
-    const { equipment, assetId, manufacturer } = this.state
+    const { itemType, equipment, assetId, manufacturer } = this.state
 
     return manufacturersLoaded ? (
       <StyledEquipmentForm className="StyledEquipmentForm">
@@ -116,43 +158,65 @@ export class EquipmentForm extends Component {
             <form noValidate>
               <TextField
                 fullWidth
-                label="Equipment"
-                value={equipment}
+                select
+                label="Item Type"
+                value={itemType}
+                onChange={this.onEventInputChange('itemType')}
                 margin="normal"
-                onChange={this.onInputChange('equipment')}
-              />
-              <TextField
-                fullWidth
-                label="Asset Id"
-                value={assetId}
-                margin="normal"
-                onChange={this.onInputChange('assetId')}
-              />
+              >
+                {equipmentTypes.map((type, index) => {
+                  return (
+                    <MenuItem key={index} value={type}>
+                      {type}
+                    </MenuItem>
+                  )
+                })}
+              </TextField>
 
               <TextField
                 fullWidth
-                select
-                label="Manufacturer"
-                value={manufacturer}
-                onChange={this.onInputChange('manufacturer')}
+                label="Equipment"
+                value={equipment}
                 margin="normal"
-              >
-                {manufacturers.length > 0
-                  ? manufacturers.map(({ name }, index) => {
-                      return (
-                        <MenuItem key={index} value={name}>
-                          {name}
-                        </MenuItem>
-                      )
-                    })
-                  : defaultManufacturers.map((item, index) => {
-                      return (
-                        <MenuItem key={index} value={item}>
-                          {item}
-                        </MenuItem>
-                      )
-                    })}
-              </TextField>
+                onChange={this.onEventInputChange('equipment')}
+              />
+
+              {itemType === 'play' && (
+                <TextField
+                  fullWidth
+                  label="Asset Id"
+                  value={assetId}
+                  margin="normal"
+                  onChange={this.onEventInputChange('assetId')}
+                />
+              )}
+
+              {itemType === 'play' && (
+                <TextField
+                  fullWidth
+                  select
+                  label="Manufacturer"
+                  value={manufacturer}
+                  onChange={this.onEventInputChange('manufacturer')}
+                  margin="normal"
+                >
+                  {manufacturers.length > 0
+                    ? manufacturers.map(({ name }, index) => {
+                        return (
+                          <MenuItem key={index} value={name}>
+                            {name}
+                          </MenuItem>
+                        )
+                      })
+                    : defaultManufacturers.map((item, index) => {
+                        return (
+                          <MenuItem key={index} value={item}>
+                            {item}
+                          </MenuItem>
+                        )
+                      })}
+                </TextField>
+              )}
             </form>
 
             {error && <p className="error">{error}</p>}

@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions/'
 import {
   addEquipment,
-  fetchEquipmentsRealTime,
+  fetchEquipments,
 } from '../../../store/actions/actionCreators/equipmentActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
@@ -29,7 +29,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
   addEquipment,
-  fetchEquipmentsRealTime,
+  fetchEquipments,
   fetchManufacturersRealTime,
 }
 

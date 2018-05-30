@@ -28,7 +28,9 @@ export const equipmentsReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         equipments: [
-          ...state.equipments.filter(({ assetId }) => assetId !== payload.id),
+          ...state.equipments.filter(
+            ({ equipment }) => equipment !== payload.id
+          ),
           payload,
         ],
       }
@@ -37,7 +39,7 @@ export const equipmentsReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         equipments: [
-          ...state.equipments.filter(({ assetId }) => assetId !== payload),
+          ...state.equipments.filter(({ equipment }) => equipment !== payload),
         ],
       }
 

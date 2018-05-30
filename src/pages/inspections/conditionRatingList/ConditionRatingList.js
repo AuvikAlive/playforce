@@ -59,6 +59,7 @@ export class ConditionRatingList extends Component {
                 {
                   id,
                   image,
+                  itemType,
                   equipment,
                   assetId,
                   manufacturer,
@@ -83,24 +84,39 @@ export class ConditionRatingList extends Component {
                           <ModeEditIcon />
                         </Button>
                       </StyledNavLink>
+
                       <Typography variant="title">
                         Equipment: {equipment}
                       </Typography>
-                      <Typography variant="subheading">
-                        Asset Id: {assetId}
-                      </Typography>
-                      <Typography variant="subheading">
-                        Manufacturer: {manufacturer}
-                      </Typography>
+
+                      {itemType && (
+                        <Typography variant="subheading">
+                          Item Type: {itemType}
+                        </Typography>
+                      )}
+
+                      {assetId && (
+                        <Typography variant="subheading">
+                          Asset Id: {assetId}
+                        </Typography>
+                      )}
+
+                      {manufacturer && (
+                        <Typography variant="subheading">
+                          Manufacturer: {manufacturer}
+                        </Typography>
+                      )}
+
                       <Typography variant="subheading">
                         Condition: {condition}
                       </Typography>
 
-                      <Typography variant="subheading">
-                        Estimated Date Installed:{' '}
-                        {/* {new Date(estimatedDateInstalled).getFullYear()} */}
-                        {format(estimatedDateInstalled, 'YYYY')}
-                      </Typography>
+                      {estimatedDateInstalled && (
+                        <Typography variant="subheading">
+                          Estimated Date Installed:{' '}
+                          {format(estimatedDateInstalled, 'YYYY')}
+                        </Typography>
+                      )}
                     </CardContent>
                   </Grid>
                 )

@@ -31,10 +31,10 @@ export class EquipmentList extends Component {
         <Paper className="paper">
           <List component="nav" disablePadding>
             {equipments.length > 0 ? (
-              equipments.map(({ assetId, equipment }) => (
+              equipments.map(({ equipment }) => (
                 <StyledNavLink
-                  key={assetId}
-                  to={`${match.url}/${assetId}/edit`}
+                  key={equipment}
+                  to={`${match.url}/${equipment}/edit`}
                 >
                   <ListItem button divider>
                     <ListItemText primary={equipment} />

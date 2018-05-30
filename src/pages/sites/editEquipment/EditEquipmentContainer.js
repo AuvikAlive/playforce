@@ -27,9 +27,9 @@ const mapStateToProps = (
   equipmentsLoaded,
   equipments,
   equipment:
-    (equipmentsLoaded && equipments.find(item => item.assetId === id)) ||
+    (equipmentsLoaded && equipments.find(item => item.equipment === id)) ||
     equipment,
-  assetId: id,
+  id,
 })
 
 const mapDispatchToProps = { updateEquipment, fetchEquipment, deleteEquipment }

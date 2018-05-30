@@ -228,33 +228,6 @@ export class CoverForm extends Component {
                 </IconButton>
               </div>
 
-              {/* <div className="with-button">
-                <TextField
-                  fullWidth
-                  select
-                  label="Client"
-                  value={client}
-                  onChange={this.onEventInputChange('client')}
-                  margin="normal"
-                >
-                  {clients.length > 0 ? (
-                    clients.map(({ name }, index) => {
-                      return (
-                        <MenuItem key={index} value={name}>
-                          {name}
-                        </MenuItem>
-                      )
-                    })
-                  ) : (
-                    <MenuItem value="">No client addded</MenuItem>
-                  )}
-                </TextField>
-
-                <IconButton onClick={() => openDialog(ClientsDialogContainer)}>
-                  <AddBoxIcon />
-                </IconButton>
-              </div> */}
-
               <DatePicker
                 fullWidth
                 keyboard

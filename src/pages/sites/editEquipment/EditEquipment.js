@@ -14,7 +14,7 @@ export class EditEquipment extends Component {
       fetchEquipment,
       userId,
       siteId,
-      assetId,
+      id,
     } = this.props
 
     setNavTitle('Edit Equipment')
@@ -28,7 +28,7 @@ export class EditEquipment extends Component {
       </IconButton>
     )
 
-    !equipment && fetchEquipment(userId, siteId, assetId)
+    !equipment && fetchEquipment(userId, siteId, id)
   }
 
   componentWillUnmount() {
@@ -39,9 +39,7 @@ export class EditEquipment extends Component {
   }
 
   submit = async data => {
-    const { updateEquipment, userId, setFeedback, siteId, assetId } = this.props
-
-    data.assetId = assetId
+    const { updateEquipment, userId, setFeedback, siteId } = this.props
 
     await updateEquipment(userId, siteId, data)
     setFeedback({ success: 'Equipment updated!' })
@@ -55,9 +53,9 @@ export class EditEquipment extends Component {
   }
 
   delete = async () => {
-    const { deleteEquipment, userId, siteId, assetId } = this.props
+    const { deleteEquipment, userId, siteId, id } = this.props
 
-    await deleteEquipment(userId, siteId, assetId)
+    await deleteEquipment(userId, siteId, id)
     this.showActionGoBack()
   }
 

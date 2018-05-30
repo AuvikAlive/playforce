@@ -15,12 +15,14 @@ import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { equipmentTypes } from '../../../globals/constants'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 const today = new Date()
 
 export class ConditionRatingForm extends Component {
   state = {
+    itemType: 'play',
     equipment: '',
     assetId: '',
     manufacturer: '',
@@ -35,7 +37,7 @@ export class ConditionRatingForm extends Component {
       userId,
       equipmentsSite,
       siteId,
-      fetchEquipmentsRealTime,
+      fetchEquipments,
       initialData,
     } = this.props
 
@@ -43,8 +45,7 @@ export class ConditionRatingForm extends Component {
 
     !manufacturersLoaded &&
       addUnsubscriber(await fetchManufacturersRealTime(userId))
-    equipmentsSite !== siteId &&
-      addUnsubscriber(await fetchEquipmentsRealTime(userId, siteId))
+    equipmentsSite !== siteId && fetchEquipments(userId, siteId)
     initialData && this.loadInitialData(initialData)
   }
 
@@ -111,7 +112,7 @@ export class ConditionRatingForm extends Component {
           .map(item => item.name)
   }
 
-  onAutoCompleteChange = value => {
+  onEquipmentSelect = value => {
     const { equipments, setCapturedImage } = this.props
     const equipment = equipments.find(({ equipment }) => equipment === value)
 
@@ -125,7 +126,7 @@ export class ConditionRatingForm extends Component {
     }
   }
 
-  submit = async () => {
+  submitPlayItem = async () => {
     const {
       onSubmit,
       afterSubmit,
@@ -138,6 +139,7 @@ export class ConditionRatingForm extends Component {
       userId,
     } = this.props
     const {
+      itemType,
       equipment,
       assetId,
       manufacturer,
@@ -155,15 +157,17 @@ export class ConditionRatingForm extends Component {
     ) {
       setFeedback({ error: '', loading: true })
       equipmentsSite === siteId &&
-        !equipments.find(item => item.assetId === assetId) &&
+        !equipments.find(item => item.equipment === equipment) &&
         addEquipment(userId, siteId, {
           image,
+          itemType,
           equipment,
           assetId,
           manufacturer,
         })
       const result = await onSubmit({
         image,
+        itemType,
         equipment,
         assetId,
         manufacturer,
@@ -179,6 +183,54 @@ export class ConditionRatingForm extends Component {
     }
   }
 
+  submitAncillaryItem = async () => {
+    const {
+      onSubmit,
+      afterSubmit,
+      setFeedback,
+      image,
+      equipmentsSite,
+      siteId,
+      equipments,
+      addEquipment,
+      userId,
+    } = this.props
+    const { itemType, equipment, condition } = this.state
+
+    if (image && equipment && condition) {
+      setFeedback({ error: '', loading: true })
+      equipmentsSite === siteId &&
+        !equipments.find(item => item.equipment === equipment) &&
+        addEquipment(userId, siteId, {
+          image,
+          itemType,
+          equipment,
+        })
+      const result = await onSubmit({
+        image,
+        itemType,
+        equipment,
+        condition,
+      })
+      setFeedback({ loading: false })
+      afterSubmit && afterSubmit(result)
+    } else {
+      setFeedback({
+        error: 'Please fill up the form correctly!',
+      })
+    }
+  }
+
+  submit = () => {
+    const { itemType } = this.state
+
+    if (itemType === 'play') {
+      this.submitPlayItem()
+    } else {
+      this.submitAncillaryItem()
+    }
+  }
+
   render() {
     const {
       image,
@@ -191,6 +243,7 @@ export class ConditionRatingForm extends Component {
       loading,
     } = this.props
     const {
+      itemType,
       equipment,
       assetId,
       manufacturer,
@@ -219,67 +272,56 @@ export class ConditionRatingForm extends Component {
             </Button>
 
             <form noValidate>
+              <TextField
+                fullWidth
+                select
+                label="Item Type"
+                value={itemType}
+                onChange={this.onEventInputChange('itemType')}
+                margin="normal"
+              >
+                {equipmentTypes.map((type, index) => {
+                  return (
+                    <MenuItem key={index} value={type}>
+                      {type}
+                    </MenuItem>
+                  )
+                })}
+              </TextField>
+
               <AutoComplete
                 label="Equipment"
                 value={equipment}
-                onChange={this.onAutoCompleteChange}
+                onChange={this.onValueInputChange('equipment')}
+                onSuggestionSelect={this.onEquipmentSelect}
                 getSuggestions={this.getEquipmentSuggestions}
               />
 
-              <TextField
-                fullWidth
-                label="Asset Id"
-                value={assetId}
-                margin="normal"
-                onChange={this.onEventInputChange('assetId')}
-              />
-
-              <div className="with-button">
-                <AutoComplete
-                  label="Manufacturer"
-                  value={manufacturer}
-                  onChange={this.onValueInputChange('manufacturer')}
-                  getSuggestions={this.getManufacturerSuggestions}
-                />
-                <IconButton
-                  onClick={() => openDialog(ManufacturersDialogContainer)}
-                >
-                  <AddBoxIcon />
-                </IconButton>
-              </div>
-
-              {/* <div className="with-button">
+              {itemType === 'play' && (
                 <TextField
                   fullWidth
-                  select
-                  label="Manufacturer"
-                  value={manufacturer}
-                  onChange={this.onEventInputChange('manufacturer')}
+                  label="Asset Id"
+                  value={assetId}
                   margin="normal"
-                >
-                  {manufacturers.length > 0
-                    ? manufacturers.map(({ name }, index) => {
-                        return (
-                          <MenuItem key={index} value={name}>
-                            {name}
-                          </MenuItem>
-                        )
-                      })
-                    : defaultManufacturers.map((item, index) => {
-                        return (
-                          <MenuItem key={index} value={item}>
-                            {item}
-                          </MenuItem>
-                        )
-                      })}
-                </TextField>
+                  onChange={this.onEventInputChange('assetId')}
+                />
+              )}
 
-                <IconButton
-                  onClick={() => openDialog(ManufacturersDialogContainer)}
-                >
-                  <AddBoxIcon />
-                </IconButton>
-              </div> */}
+              {itemType === 'play' && (
+                <div className="with-button">
+                  <AutoComplete
+                    label="Manufacturer"
+                    value={manufacturer}
+                    onChange={this.onValueInputChange('manufacturer')}
+                    getSuggestions={this.getManufacturerSuggestions}
+                  />
+                  <IconButton
+                    onClick={() => openDialog(ManufacturersDialogContainer)}
+                  >
+                    <AddBoxIcon />
+                  </IconButton>
+                </div>
+              )}
 
               <TextField
                 fullWidth
@@ -296,13 +338,15 @@ export class ConditionRatingForm extends Component {
                 ))}
               </TextField>
 
-              <TextField
-                fullWidth
-                label="Estimated Date Installed"
-                value={estimatedDateInstalled}
-                onChange={this.onEventInputChange('estimatedDateInstalled')}
-                margin="normal"
-              />
+              {itemType === 'play' && (
+                <TextField
+                  fullWidth
+                  label="Estimated Date Installed"
+                  value={estimatedDateInstalled}
+                  onChange={this.onEventInputChange('estimatedDateInstalled')}
+                  margin="normal"
+                />
+              )}
             </form>
 
             {error && <p className="error">{error}</p>}
