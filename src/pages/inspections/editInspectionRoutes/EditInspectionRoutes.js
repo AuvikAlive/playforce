@@ -18,12 +18,16 @@ const ComplianceIssueRoutes = Loadable({
 const MaintenanceIssueRoutes = Loadable({
   loader: () => import('../maintenanceIssueRoutes'),
 })
+const ImpactTestRoutes = Loadable({
+  loader: () => import('../impactTestRoutes'),
+})
 
 EditCover.preload()
 AuditSummary.preload()
 ConditionRatingRoutes.preload()
 ComplianceIssueRoutes.preload()
 MaintenanceIssueRoutes.preload()
+ImpactTestRoutes.preload()
 
 export const EditInspectionRoutes = ({ match }) => {
   return (
@@ -41,6 +45,10 @@ export const EditInspectionRoutes = ({ match }) => {
       <Route
         path={`${match.url}/:id/maintenanceIssues`}
         component={MaintenanceIssueRoutes}
+      />
+      <Route
+        path={`${match.url}/:id/impactTest`}
+        component={ImpactTestRoutes}
       />
       <Route path={`${match.url}/:id`} component={EditInspection} />
     </Switch>

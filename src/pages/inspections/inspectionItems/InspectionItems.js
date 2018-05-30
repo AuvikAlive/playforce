@@ -3,8 +3,6 @@ import { CircularProgress } from 'material-ui/Progress'
 import CheckCircleIcon from 'material-ui-icons/CheckCircle'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
-// import Button from 'material-ui/Button'
-// import { CircularProgress } from 'material-ui/Progress'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledInspectionItems } from './StyledInspectionItems'
 
@@ -15,6 +13,7 @@ export const InspectionItems = ({
   conditionRatingsAdded,
   complianceIssuesAdded,
   maintenanceIssuesAdded,
+  impactTestAdded,
   error,
   loading,
   submit,
@@ -56,6 +55,13 @@ export const InspectionItems = ({
             <ListItem button>
               <ListItemText primary="Identified Maintenance Issues" />
               {maintenanceIssuesAdded && <CheckCircleIcon color="primary" />}
+            </ListItem>
+          </StyledNavLink>
+
+          <StyledNavLink to={`${match.url}/impactTest`}>
+            <ListItem button>
+              <ListItemText primary="Impact Attenuation Test" />
+              {impactTestAdded && <CheckCircleIcon color="primary" />}
             </ListItem>
           </StyledNavLink>
 

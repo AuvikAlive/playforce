@@ -59,7 +59,11 @@ export class EditInspection extends Component {
     setNavTitle('Edit Inspection')
 
     setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={this.beforeBack}>
+      <IconButton
+        color="inherit"
+        aria-label="navigate back"
+        onClick={this.beforeBack}
+      >
         <ArrowBackIcon />
       </IconButton>
     )
