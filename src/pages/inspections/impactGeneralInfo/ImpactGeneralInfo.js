@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { StyledImpactGeneralInfo } from './StyledImpactGeneralInfo'
 
 export class ImpactGeneralInfo extends Component {
@@ -33,6 +34,8 @@ export class ImpactGeneralInfo extends Component {
     removeLefNavComponent()
   }
 
+  onEventInputChange = onEventInputChange
+
   render() {
     const { temperature, humidity, rain, apparatus } = this.state
 
@@ -43,30 +46,34 @@ export class ImpactGeneralInfo extends Component {
             <form noValidate>
               <TextField
                 fullWidth
+                margin="normal"
                 label="Temperature (°C)"
                 value={temperature}
-                margin="normal"
+                onChange={this.onEventInputChange('temperature')}
               />
 
               <TextField
                 fullWidth
+                margin="normal"
                 label="Humidity (%)"
                 value={humidity}
-                margin="normal"
+                onChange={this.onEventInputChange('humidity')}
               />
 
               <TextField
                 fullWidth
+                margin="normal"
                 label="Comment on rain"
                 value={rain}
-                margin="normal"
+                onChange={this.onEventInputChange('rain')}
               />
 
               <TextField
                 fullWidth
+                margin="normal"
                 label="Test apparatus"
                 value={apparatus}
-                margin="normal"
+                onChange={this.onEventInputChange('apparatus')}
               />
             </form>
           </CardContent>

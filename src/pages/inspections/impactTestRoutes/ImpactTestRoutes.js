@@ -9,7 +9,17 @@ const ImpactGeneralInfo = Loadable({
   loader: () => import('../impactGeneralInfo'),
 })
 
+const AddImpactTest = Loadable({
+  loader: () => import('../addImpactTest'),
+})
+
+const EditImpactTest = Loadable({
+  loader: () => import('../editImpactTest'),
+})
+
 ImpactGeneralInfo.preload()
+AddImpactTest.preload()
+EditImpactTest.preload()
 
 export class ImpactTestRoutes extends Component {
   async componentDidMount() {
@@ -32,6 +42,8 @@ export class ImpactTestRoutes extends Component {
     return inspectionLoaded ? (
       <Switch>
         <Route path={`${match.url}/general`} component={ImpactGeneralInfo} />
+        <Route path={`${match.url}/addTest`} component={AddImpactTest} />
+        <Route path={`${match.url}/editTest/:id`} component={EditImpactTest} />
         <Route path={match.url} component={ImpactTestItems} />
       </Switch>
     ) : (

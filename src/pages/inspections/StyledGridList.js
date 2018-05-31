@@ -1,8 +1,6 @@
 import Styled from 'styled-components'
 import { Content } from '../../components/content/Content'
-import { addIcon } from '../../styledMixins/addIcon'
-import { pulseEffect } from '../../styledMixins/pulseEffect'
-import { cardMedia } from '../../styledMixins/cardMedia'
+import { addIcon, pulseEffect, cardMedia } from '../../styledMixins/'
 
 export const StyledGridList = Styled(Content)`
   ${addIcon};

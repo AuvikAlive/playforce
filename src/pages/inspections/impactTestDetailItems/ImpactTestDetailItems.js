@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List'
 import Button from 'material-ui/Button'
+import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import AddIcon from 'material-ui-icons/Add'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { StyledImpactTestItems } from './StyledImpactTestItems'
+import { StyledImpactTestDetailItems } from './StyledImpactTestDetailItems'
 
-export class ImpactTestItems extends Component {
+class ImpactTestDetailItemsWithout extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { mode, history } = this.props
 
-    setNavTitle('Impact Testing')
+    setNavTitle(`${mode} impact test`)
 
     setLeftNavComponent(
       <IconButton
@@ -38,17 +39,17 @@ export class ImpactTestItems extends Component {
     const { match } = this.props
 
     return (
-      <StyledImpactTestItems className="StyledImpactTestItems">
-        <StyledNavLink to={`${match.url}/addTest`} className="add-icon">
+      <StyledImpactTestDetailItems className="StyledImpactTestDetailItems">
+        <StyledNavLink to={`${match.url}/addDrop`} className="add-icon">
           <Button variant="fab" color="primary" aria-label="add impact test">
             <AddIcon />
           </Button>
         </StyledNavLink>
         <Paper>
           <List component="nav" disablePadding>
-            <StyledNavLink to={`${match.url}/general`}>
+            <StyledNavLink to={`${match.url}/surface`}>
               <ListItem button>
-                <ListItemText primary="General Info" />
+                <ListItemText primary="Surface Details" />
               </ListItem>
             </StyledNavLink>
           </List>
@@ -56,21 +57,23 @@ export class ImpactTestItems extends Component {
           <List
             component="nav"
             disablePadding
-            subheader={<ListSubheader component="div">Tests</ListSubheader>}
+            subheader={<ListSubheader component="div">Drops</ListSubheader>}
           >
-            <StyledNavLink to={`${match.url}/editTest/123`}>
+            <StyledNavLink to={`${match.url}/editDrop/123`}>
               <ListItem button>
-                <ListItemText primary="Area 1" />
+                <ListItemText primary="Drop 1" />
               </ListItem>
             </StyledNavLink>
           </List>
         </Paper>
-      </StyledImpactTestItems>
+      </StyledImpactTestDetailItems>
     )
   }
 }
 
-ImpactTestItems.contextTypes = {
+export const ImpactTestDetailItems = withRouter(ImpactTestDetailItemsWithout)
+
+ImpactTestDetailItemsWithout.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
