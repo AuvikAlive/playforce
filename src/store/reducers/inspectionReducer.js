@@ -17,6 +17,7 @@ import {
   DELETE_COMPLIANCE_ISSUE,
   UPDATE_MAINTENANCE_ISSUE,
   DELETE_MAINTENANCE_ISSUE,
+  FETCH_IMPACT_GENERALINFO_COMPLETED,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -35,6 +36,7 @@ export const initialState = {
   maintenanceIssuesLoaded: false,
   maintenanceIssues: [],
   maintenanceIssuesAdded: false,
+  impactTests: [],
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {

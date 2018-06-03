@@ -19,6 +19,7 @@ import { updateMaintenanceIssue } from './updateMaintenanceIssue'
 import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
 import { fetchMaintenanceIssues } from './fetchMaintenanceIssues'
 import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime'
+import { saveImpactGeneralInfo } from './saveImpactGeneralInfo'
 import { DISCARD_INSPECTION } from '../../actionTypes'
 
 export {
@@ -43,6 +44,7 @@ export {
   deleteMaintenanceIssue,
   fetchMaintenanceIssues,
   fetchMaintenanceIssuesRealTime,
+  saveImpactGeneralInfo,
 }
 
 export const discardInspection = () => ({
