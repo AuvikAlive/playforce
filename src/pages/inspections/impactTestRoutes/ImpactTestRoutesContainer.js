@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { fetchInspectionRealTime } from '../../../store/actions/actionCreators/inspectionActions/'
+import {
+  fetchInspectionRealTime,
+  fetchImpactTestsRealTime,
+} from '../../../store/actions/actionCreators/inspectionActions/'
 import { ImpactTestRoutes } from './ImpactTestRoutes'
 
 const mapStateToProps = (
@@ -8,7 +11,7 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    inspection: { inspectionLoaded, conditionRatingsLoaded },
+    inspection: { inspectionLoaded, impactTestsLoaded },
   },
   {
     match: {
@@ -19,10 +22,12 @@ const mapStateToProps = (
   userId: uid,
   inspectionId: id,
   inspectionLoaded,
+  impactTestsLoaded,
 })
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
+  fetchImpactTestsRealTime,
 }
 
 export const ImpactTestRoutesContainer = compose(

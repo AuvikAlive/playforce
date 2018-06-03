@@ -35,11 +35,11 @@ export class ImpactTestItems extends Component {
   }
 
   render() {
-    const { match } = this.props
+    const { match, impactTests } = this.props
 
     return (
       <StyledImpactTestItems className="StyledImpactTestItems">
-        <StyledNavLink to={`${match.url}/addTest`} className="add-icon">
+        <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button variant="fab" color="primary" aria-label="add impact test">
             <AddIcon />
           </Button>
@@ -58,11 +58,13 @@ export class ImpactTestItems extends Component {
             disablePadding
             subheader={<ListSubheader component="div">Tests</ListSubheader>}
           >
-            <StyledNavLink to={`${match.url}/editTest/123`}>
-              <ListItem button>
-                <ListItemText primary="Area 1" />
-              </ListItem>
-            </StyledNavLink>
+            {impactTests.map(({ id, surface: { location } }) => (
+              <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
+                <ListItem button>
+                  <ListItemText primary={location} />
+                </ListItem>
+              </StyledNavLink>
+            ))}
           </List>
         </Paper>
       </StyledImpactTestItems>

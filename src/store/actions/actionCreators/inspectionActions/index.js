@@ -20,6 +20,9 @@ import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
 import { fetchMaintenanceIssues } from './fetchMaintenanceIssues'
 import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime'
 import { saveImpactGeneralInfo } from './saveImpactGeneralInfo'
+import { addImpactSurface } from './addImpactSurface'
+import { updateImpactSurface } from './updateImpactSurface'
+import { fetchImpactTestsRealTime } from './fetchImpactTestsRealTime';
 import { DISCARD_INSPECTION } from '../../actionTypes'
 
 export {
@@ -45,6 +48,9 @@ export {
   fetchMaintenanceIssues,
   fetchMaintenanceIssuesRealTime,
   saveImpactGeneralInfo,
+  addImpactSurface,
+  updateImpactSurface,
+  fetchImpactTestsRealTime
 }
 
 export const discardInspection = () => ({

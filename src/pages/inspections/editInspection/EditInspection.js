@@ -196,7 +196,7 @@ export class EditInspection extends Component {
   addImpactTest = () => {
     const { history, inspectionId } = this.props
 
-    history.push(`${inspectionId}/impactTest/addTest`)
+    history.push(`${inspectionId}/impactTest/addAttenuationTest`)
   }
 
   beforeBack = () => {

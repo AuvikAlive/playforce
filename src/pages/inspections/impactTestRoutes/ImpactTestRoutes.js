@@ -2,24 +2,29 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 import { LinearProgress } from 'material-ui/Progress'
-import { ImpactTestItems } from '../impactTestItems/ImpactTestItems'
+import { ImpactTestItemsContainer } from '../impactTestItems/ImpactTestItemsContainer'
 import Loadable from '../../../components/loadable/LoadableLinear'
 
 const EditImpactGeneralInfo = Loadable({
   loader: () => import('../editImpactGeneralInfo'),
 })
 
-const AddImpactTest = Loadable({
-  loader: () => import('../addImpactTest'),
+const AddImpactAttenuationTest = Loadable({
+  loader: () => import('../addImpactAttenuationTest'),
 })
 
 const EditImpactTest = Loadable({
   loader: () => import('../editImpactTest'),
 })
 
+const AddImpactSurface = Loadable({
+  loader: () => import('../addImpactSurface'),
+})
+
 EditImpactGeneralInfo.preload()
-AddImpactTest.preload()
+AddImpactAttenuationTest.preload()
 EditImpactTest.preload()
+AddImpactSurface.preload()
 
 export class ImpactTestRoutes extends Component {
   async componentDidMount() {
@@ -28,6 +33,8 @@ export class ImpactTestRoutes extends Component {
       userId,
       inspectionLoaded,
       fetchInspectionRealTime,
+      impactTestsLoaded,
+      fetchImpactTestsRealTime,
     } = this.props
 
     const { addUnsubscriber } = this.context
@@ -35,6 +42,9 @@ export class ImpactTestRoutes extends Component {
     !inspectionLoaded &&
       inspectionId &&
       addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
+    !impactTestsLoaded &&
+      inspectionId &&
+      addUnsubscriber(await fetchImpactTestsRealTime(userId, inspectionId))
   }
   render() {
     const { inspectionLoaded, match } = this.props
@@ -45,9 +55,13 @@ export class ImpactTestRoutes extends Component {
           path={`${match.url}/general`}
           component={EditImpactGeneralInfo}
         />
-        <Route path={`${match.url}/addTest`} component={AddImpactTest} />
-        <Route path={`${match.url}/editTest/:id`} component={EditImpactTest} />
-        <Route path={match.url} component={ImpactTestItems} />
+        <Route
+          path={`${match.url}/addAttenuationTest`}
+          component={AddImpactAttenuationTest}
+        />
+        <Route path={`${match.url}/edit/:id`} component={EditImpactTest} />
+        <Route path={`${match.url}/add`} component={AddImpactSurface} />
+        <Route path={match.url} component={ImpactTestItemsContainer} />
       </Switch>
     ) : (
       <LinearProgress />

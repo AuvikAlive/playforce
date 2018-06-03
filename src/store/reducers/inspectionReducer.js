@@ -17,6 +17,8 @@ import {
   DELETE_COMPLIANCE_ISSUE,
   UPDATE_MAINTENANCE_ISSUE,
   DELETE_MAINTENANCE_ISSUE,
+  FETCH_IMPACT_TESTS,
+  FETCH_IMPACT_TESTS_COMPLETED,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -35,7 +37,9 @@ export const initialState = {
   maintenanceIssuesLoaded: false,
   maintenanceIssues: [],
   maintenanceIssuesAdded: false,
+  impactTestsLoaded: false,
   impactTests: [],
+  impactTestsAdded: false,
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
@@ -165,6 +169,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         maintenanceIssuesAdded: filteredMaintenanceIssues.length > 0,
       }
     }
+
+    case FETCH_IMPACT_TESTS:
+      return { ...state, impactTestsLoaded: false }
+
+    case FETCH_IMPACT_TESTS_COMPLETED:
+      return { ...state, impactTestsLoaded: true, impactTests: payload }
 
     default:
       return state

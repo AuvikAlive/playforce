@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { AddImpactTest } from './AddImpactTest'
+import { AddImpactAttenuationTest } from './AddImpactAttenuationTest'
 import { saveImpactGeneralInfo } from '../../../store/actions/actionCreators/inspectionActions/'
 
 const mapStateToProps = ({
@@ -17,7 +17,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = { saveImpactGeneralInfo }
 
-export const AddImpactTestContainer = compose(
+export const AddImpactAttenuationTestContainer = compose(
   withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
-)(AddImpactTest)
+)(AddImpactAttenuationTest)

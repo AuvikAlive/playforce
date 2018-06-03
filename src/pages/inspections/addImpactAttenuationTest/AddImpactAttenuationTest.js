@@ -4,12 +4,12 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { ImpactGeneralInfoForm } from '../impactGeneralInfoForm/ImpactGeneralInfoForm'
 
-export class AddImpactTest extends Component {
+export class AddImpactAttenuationTest extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Add Impact Test')
+    setNavTitle('Impact Attenuation Test')
 
     setLeftNavComponent(
       <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
@@ -48,7 +48,7 @@ export class AddImpactTest extends Component {
   }
 }
 
-AddImpactTest.contextTypes = {
+AddImpactAttenuationTest.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
