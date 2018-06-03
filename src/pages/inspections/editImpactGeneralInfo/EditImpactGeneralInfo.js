@@ -2,17 +2,22 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { ImpactGeneralInfoForm } from '../impactGeneralInfoForm/ImpactGeneralInfoForm'
 
-export class AddImpactTest extends Component {
+export class EditImpactGeneralInfo extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Add Impact Test')
+    setNavTitle('General Info')
 
     setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
+      <IconButton
+        color="inherit"
+        aria-label="navigate back"
+        onClick={() => history.goBack()}
+      >
         <ArrowBackIcon />
       </IconButton>
     )
@@ -25,30 +30,34 @@ export class AddImpactTest extends Component {
     removeLefNavComponent()
   }
 
-  showActionGoBack = () => {
-    const { setFeedback, history, inspectionId } = this.props
-
-    setFeedback({ success: 'General info added!' })
-    history.replace(`/inspections/edit/${inspectionId}/impactTest`)
-  }
+  onEventInputChange = onEventInputChange
 
   submit = async data => {
-    const { saveImpactGeneralInfo, userId, inspectionId } = this.props
+    const {
+      saveImpactGeneralInfo,
+      userId,
+      inspectionId,
+      setFeedback,
+    } = this.props
 
     await saveImpactGeneralInfo(userId, inspectionId, data)
+    setFeedback({ success: 'Info updated!' })
   }
 
   render() {
+    const { impactGeneralInfo } = this.props
+
     return (
       <ImpactGeneralInfoForm
+        buttonText="update"
+        initialData={impactGeneralInfo}
         onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
       />
     )
   }
 }
 
-AddImpactTest.contextTypes = {
+EditImpactGeneralInfo.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

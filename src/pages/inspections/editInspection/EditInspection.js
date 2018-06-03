@@ -8,11 +8,10 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import { LinearProgress } from 'material-ui/Progress'
 import { FormControlLabel } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
-import { flatten, map, filter } from 'lodash'
+import { flatten, map, filter, isEmpty } from 'lodash'
 import { Content } from '../../../components/content/Content'
 import { InspectionItems } from '../inspectionItems/InspectionItems'
 import { generatePdf } from '../pdfMake/generatePdf'
-import { isEmpty } from 'react-redux-firebase'
 
 export class EditInspection extends Component {
   state = {
@@ -194,6 +193,12 @@ export class EditInspection extends Component {
     }
   }
 
+  addImpactTest = () => {
+    const { history, inspectionId } = this.props
+
+    history.push(`${inspectionId}/impactTest/addTest`)
+  }
+
   beforeBack = () => {
     const { history, discardInspection } = this.props
 
@@ -205,22 +210,14 @@ export class EditInspection extends Component {
     const { inspection, standardsLoaded, match, error, loading } = this.props
     const { menuAnchor } = this.state
     const {
-      auditSummary,
-      complianceIssuesAdded,
-      conditionRatingsAdded,
-      maintenanceIssuesAdded,
       inspectionLoaded,
       conditionRatingsLoaded,
       maintenanceIssuesLoaded,
       complianceIssuesLoaded,
+      impactGeneralInfo,
     } = inspection
 
-    const added = {
-      auditSummaryAdded: !isEmpty(auditSummary),
-      complianceIssuesAdded,
-      conditionRatingsAdded,
-      maintenanceIssuesAdded,
-    }
+    const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
 
     return inspectionLoaded &&
       conditionRatingsLoaded &&
@@ -229,7 +226,7 @@ export class EditInspection extends Component {
       standardsLoaded ? (
       <div>
         <InspectionItems
-          {...added}
+          inspection={inspection}
           match={match}
           error={error}
           loading={loading}
@@ -256,6 +253,9 @@ export class EditInspection extends Component {
           MenuListProps={{ disablePadding: true }}
         >
           <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
+          {!impactGeneralInfoAdded && (
+            <MenuItem onClick={this.addImpactTest}>Add Impact Test</MenuItem>
+          )}
         </Menu>
         {this.state.src && (
           <div>

@@ -1,3 +1,3 @@
-import { AddImpactTest } from './AddImpactTest'
+import { AddImpactTestContainer } from './AddImpactTestContainer'
 
-export default AddImpactTest
+export default AddImpactTestContainer

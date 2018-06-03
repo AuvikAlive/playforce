@@ -3,22 +3,30 @@ import { CircularProgress } from 'material-ui/Progress'
 import CheckCircleIcon from 'material-ui-icons/CheckCircle'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText } from 'material-ui/List'
+import { isEmpty } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledInspectionItems } from './StyledInspectionItems'
 
 export const InspectionItems = ({
   match,
-  coverAdded,
-  auditSummaryAdded,
-  conditionRatingsAdded,
-  complianceIssuesAdded,
-  maintenanceIssuesAdded,
-  impactTestAdded,
   error,
   loading,
   submit,
   buttonText,
+  inspection,
 }) => {
+  const {
+    auditSummary,
+    complianceIssuesAdded,
+    conditionRatingsAdded,
+    maintenanceIssuesAdded,
+    impactGeneralInfo,
+    impactTests,
+  } = inspection
+  const auditSummaryAdded = !isEmpty(auditSummary)
+  const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
+  const impactTestsAdded = impactTests.length > 0
+
   return (
     <StyledInspectionItems className="StyledInspectionItems">
       <Paper>
@@ -58,12 +66,14 @@ export const InspectionItems = ({
             </ListItem>
           </StyledNavLink>
 
-          <StyledNavLink to={`${match.url}/impactTest`}>
-            <ListItem button>
-              <ListItemText primary="Impact Attenuation Test" />
-              {impactTestAdded && <CheckCircleIcon color="primary" />}
-            </ListItem>
-          </StyledNavLink>
+          {impactGeneralInfoAdded && (
+            <StyledNavLink to={`${match.url}/impactTest`}>
+              <ListItem button>
+                <ListItemText primary="Impact Attenuation Test" />
+                {impactTestsAdded && <CheckCircleIcon color="primary" />}
+              </ListItem>
+            </StyledNavLink>
+          )}
 
           {error && (
             <ListItem>

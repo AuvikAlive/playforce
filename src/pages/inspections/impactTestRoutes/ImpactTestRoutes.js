@@ -5,8 +5,8 @@ import { LinearProgress } from 'material-ui/Progress'
 import { ImpactTestItems } from '../impactTestItems/ImpactTestItems'
 import Loadable from '../../../components/loadable/LoadableLinear'
 
-const ImpactGeneralInfo = Loadable({
-  loader: () => import('../impactGeneralInfo'),
+const EditImpactGeneralInfo = Loadable({
+  loader: () => import('../editImpactGeneralInfo'),
 })
 
 const AddImpactTest = Loadable({
@@ -17,7 +17,7 @@ const EditImpactTest = Loadable({
   loader: () => import('../editImpactTest'),
 })
 
-ImpactGeneralInfo.preload()
+EditImpactGeneralInfo.preload()
 AddImpactTest.preload()
 EditImpactTest.preload()
 
@@ -41,7 +41,10 @@ export class ImpactTestRoutes extends Component {
 
     return inspectionLoaded ? (
       <Switch>
-        <Route path={`${match.url}/general`} component={ImpactGeneralInfo} />
+        <Route
+          path={`${match.url}/general`}
+          component={EditImpactGeneralInfo}
+        />
         <Route path={`${match.url}/addTest`} component={AddImpactTest} />
         <Route path={`${match.url}/editTest/:id`} component={EditImpactTest} />
         <Route path={match.url} component={ImpactTestItems} />

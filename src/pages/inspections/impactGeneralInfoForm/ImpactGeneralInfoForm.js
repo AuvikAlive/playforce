@@ -1,65 +1,49 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { CircularProgress } from 'material-ui/Progress'
-import IconButton from 'material-ui/IconButton'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
-import { StyledImpactGeneralInfo } from './StyledImpactGeneralInfo'
+import { StyledImpactGeneralInfoForm } from './StyledImpactGeneralInfoForm'
 
-export class ImpactGeneralInfo extends Component {
+export class ImpactGeneralInfoFormWithout extends Component {
   state = { temperature: '', humidity: '', rain: '', apparatus: '' }
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, impactGeneralInfo } = this.props
+    const { initialData } = this.props
 
-    setNavTitle('General Info')
-
-    setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="navigate back"
-        onClick={() => history.goBack()}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    this.setState({ ...impactGeneralInfo })
+    this.loadInitialData(initialData)
   }
 
-  componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+  componentWillReceiveProps({ initialData }) {
+    if (initialData && initialData !== this.props.initialData) {
+      this.loadInitialData(initialData)
+    }
+  }
 
-    removeNavTitle()
-    removeLefNavComponent()
+  loadInitialData = initialData => {
+    this.setState({ ...initialData })
   }
 
   onEventInputChange = onEventInputChange
 
   submit = async () => {
     const { temperature, humidity, rain, apparatus } = this.state
-    const {
-      setFeedback,
-      saveImpactGeneralInfo,
-      userId,
-      inspectionId,
-    } = this.props
+    const { setFeedback, onSubmit, afterSubmit } = this.props
 
     if (temperature && humidity && rain && apparatus) {
       setFeedback({ error: '', loading: true })
 
       try {
-        await saveImpactGeneralInfo(userId, inspectionId, {
+        await onSubmit({
           temperature,
           humidity,
           rain,
           apparatus,
         })
-        setFeedback({ loading: false, success: 'Info saved!' })
+        setFeedback({ loading: false })
+        afterSubmit && afterSubmit()
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
@@ -72,10 +56,10 @@ export class ImpactGeneralInfo extends Component {
 
   render() {
     const { temperature, humidity, rain, apparatus } = this.state
-    const { error, loading } = this.props
+    const { buttonText, error, loading } = this.props
 
     return (
-      <StyledImpactGeneralInfo className="StyledImpactGeneralInfo">
+      <StyledImpactGeneralInfoForm className="StyledImpactGeneralInfoForm">
         <Card>
           <CardContent>
             <form noValidate>
@@ -129,19 +113,14 @@ export class ImpactGeneralInfo extends Component {
                 className="submit-button"
                 onClick={this.submit}
               >
-                save
+                {buttonText ? buttonText : 'Publish'}
               </Button>
             )}
           </CardContent>
         </Card>
-      </StyledImpactGeneralInfo>
+      </StyledImpactGeneralInfoForm>
     )
   }
 }
 
-ImpactGeneralInfo.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+export const ImpactGeneralInfoForm = withFeedback(ImpactGeneralInfoFormWithout)

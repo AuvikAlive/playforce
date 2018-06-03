@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { ImpactGeneralInfo } from './ImpactGeneralInfo'
 import { saveImpactGeneralInfo } from '../../../store/actions/actionCreators/inspectionActions/'
+import { EditImpactGeneralInfo } from './EditImpactGeneralInfo'
 
 const mapStateToProps = ({
   firebase: {
@@ -17,7 +17,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = { saveImpactGeneralInfo }
 
-export const ImpactGeneralInfoContainer = compose(
+export const EditImpactGeneralInfoContainer = compose(
   withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
-)(ImpactGeneralInfo)
+)(EditImpactGeneralInfo)
