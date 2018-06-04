@@ -13,8 +13,8 @@ const AddImpactAttenuationTest = Loadable({
   loader: () => import('../addImpactAttenuationTest'),
 })
 
-const EditImpactTest = Loadable({
-  loader: () => import('../editImpactTest'),
+const ImpactTestDetailRoutes = Loadable({
+  loader: () => import('../impactTestDetailRoutes'),
 })
 
 const AddImpactSurface = Loadable({
@@ -23,7 +23,7 @@ const AddImpactSurface = Loadable({
 
 EditImpactGeneralInfo.preload()
 AddImpactAttenuationTest.preload()
-EditImpactTest.preload()
+ImpactTestDetailRoutes.preload()
 AddImpactSurface.preload()
 
 export class ImpactTestRoutes extends Component {
@@ -59,7 +59,7 @@ export class ImpactTestRoutes extends Component {
           path={`${match.url}/addAttenuationTest`}
           component={AddImpactAttenuationTest}
         />
-        <Route path={`${match.url}/edit/:id`} component={EditImpactTest} />
+        <Route path={`${match.url}/edit/:id`} component={ImpactTestDetailRoutes} />
         <Route path={`${match.url}/add`} component={AddImpactSurface} />
         <Route path={match.url} component={ImpactTestItemsContainer} />
       </Switch>

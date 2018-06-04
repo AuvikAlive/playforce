@@ -2,17 +2,24 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
 
-export class AddImpactSurface extends Component {
+export class EditImpactSurface extends Component {
+  state = { location: '', description: '', material: '', condition: '' }
+
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
 
-    setNavTitle('Add test')
+    setNavTitle('Surface details')
 
     setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
+      <IconButton
+        color="inherit"
+        aria-label="navigate back"
+        onClick={() => history.goBack()}
+      >
         <ArrowBackIcon />
       </IconButton>
     )
@@ -25,33 +32,38 @@ export class AddImpactSurface extends Component {
     removeLefNavComponent()
   }
 
-  showActionGoBack = surfaceId => {
-    const { setFeedback, history, inspectionId } = this.props
-
-    setFeedback({ success: 'Surface added!' })
-    history.replace(
-      `/inspections/edit/${inspectionId}/impactTest/edit/${surfaceId}`
-    )
-  }
+  onEventInputChange = onEventInputChange
 
   submit = async data => {
-    const { addImpactSurface, userId, inspectionId } = this.props
-    const surfaceId = await addImpactSurface(userId, inspectionId, data)
+    const {
+      updateImpactSurface,
+      userId,
+      id,
+      inspectionId,
+      setFeedback,
+    } = this.props
 
-    return surfaceId
+    await updateImpactSurface(userId, inspectionId, id, data)
+
+    setFeedback({ success: 'Surface updated!' })
   }
 
   render() {
+    const {
+      impactTest: { surface },
+    } = this.props
+
     return (
       <ImpactSurfaceDetailsForm
+        buttonText="update"
+        initialData={surface}
         onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
       />
     )
   }
 }
 
-AddImpactSurface.contextTypes = {
+EditImpactSurface.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

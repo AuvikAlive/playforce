@@ -13,9 +13,9 @@ import { StyledImpactTestDetailItems } from './StyledImpactTestDetailItems'
 class ImpactTestDetailItemsWithout extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { mode, history } = this.props
+    const { history } = this.props
 
-    setNavTitle(`${mode} impact test`)
+    setNavTitle(`Edit test`)
 
     setLeftNavComponent(
       <IconButton
