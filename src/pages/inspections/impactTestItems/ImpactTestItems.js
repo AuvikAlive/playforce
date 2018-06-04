@@ -40,7 +40,12 @@ export class ImpactTestItems extends Component {
     return (
       <StyledImpactTestItems className="StyledImpactTestItems">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button variant="fab" color="primary" aria-label="add impact test">
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="add impact test"
+            className={!!impactTests && impactTests.length > 0 ? '' : 'pulse'}
+          >
             <AddIcon />
           </Button>
         </StyledNavLink>

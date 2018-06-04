@@ -47,9 +47,9 @@ export class ImpactTestRoutes extends Component {
       addUnsubscriber(await fetchImpactTestsRealTime(userId, inspectionId))
   }
   render() {
-    const { inspectionLoaded, match } = this.props
+    const { inspectionLoaded, impactTestsLoaded, match } = this.props
 
-    return inspectionLoaded ? (
+    return inspectionLoaded && impactTestsLoaded ? (
       <Switch>
         <Route
           path={`${match.url}/general`}
@@ -59,7 +59,10 @@ export class ImpactTestRoutes extends Component {
           path={`${match.url}/addAttenuationTest`}
           component={AddImpactAttenuationTest}
         />
-        <Route path={`${match.url}/edit/:id`} component={ImpactTestDetailRoutes} />
+        <Route
+          path={`${match.url}/edit/:id`}
+          component={ImpactTestDetailRoutes}
+        />
         <Route path={`${match.url}/add`} component={AddImpactSurface} />
         <Route path={match.url} component={ImpactTestItemsContainer} />
       </Switch>

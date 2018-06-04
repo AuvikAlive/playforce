@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
-import { ImpactTestDetailItems } from '../impactTestDetailItems/ImpactTestDetailItems'
+import { ImpactTestDetailItemsContainer } from '../impactTestDetailItems/ImpactTestDetailItemsContainer'
 
 const EditImpactSurface = Loadable({
   loader: () => import('../editImpactSurface'),
@@ -28,9 +28,20 @@ export const ImpactTestDetailRoutes = ({ match }) => {
         path={`${match.url}/surface`}
         component={() => <EditImpactSurface impactTestId={impactTestId} />}
       />
-      <Route path={`${match.url}/addDrop`} component={AddDropTest} />
-      <Route path={`${match.url}/editDrop/:id`} component={EditDropTest} />
-      <Route path={match.url} component={ImpactTestDetailItems} />
+      <Route
+        path={`${match.url}/addDrop`}
+        component={() => <AddDropTest impactTestId={impactTestId} />}
+      />
+      <Route
+        path={`${match.url}/editDrop/:id`}
+        component={() => <EditDropTest impactTestId={impactTestId} />}
+      />
+      <Route
+        path={match.url}
+        component={() => (
+          <ImpactTestDetailItemsContainer impactTestId={impactTestId} />
+        )}
+      />
     </Switch>
   )
 }

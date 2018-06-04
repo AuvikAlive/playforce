@@ -38,12 +38,14 @@ export class EditInspection extends Component {
       fetchConditionRatings,
       fetchComplianceIssues,
       fetchMaintenanceIssues,
+      fetchImpactTestsRealTime,
     } = this.props
     const {
       inspectionLoaded,
       conditionRatingsLoaded,
       complianceIssuesLoaded,
       maintenanceIssuesLoaded,
+      impactTestsLoaded,
     } = inspection
 
     !standardsLoaded && fetchStandards(userId)
@@ -52,6 +54,8 @@ export class EditInspection extends Component {
     !conditionRatingsLoaded && fetchConditionRatings(userId, inspectionId)
     !complianceIssuesLoaded && fetchComplianceIssues(userId, inspectionId)
     !maintenanceIssuesLoaded && fetchMaintenanceIssues(userId, inspectionId)
+    !impactTestsLoaded &&
+      addUnsubscriber(await fetchImpactTestsRealTime(userId, inspectionId))
 
     // inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
 
@@ -214,6 +218,7 @@ export class EditInspection extends Component {
       conditionRatingsLoaded,
       maintenanceIssuesLoaded,
       complianceIssuesLoaded,
+      impactTestsLoaded,
       impactGeneralInfo,
     } = inspection
 
@@ -223,6 +228,7 @@ export class EditInspection extends Component {
       conditionRatingsLoaded &&
       complianceIssuesLoaded &&
       maintenanceIssuesLoaded &&
+      impactTestsLoaded &&
       standardsLoaded ? (
       <div>
         <InspectionItems

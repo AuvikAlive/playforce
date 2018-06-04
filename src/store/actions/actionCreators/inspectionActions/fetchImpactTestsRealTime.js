@@ -2,6 +2,7 @@ import {
   FETCH_IMPACT_TESTS,
   FETCH_IMPACT_TESTS_COMPLETED,
 } from '../../actionTypes'
+import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
 
 export const fetchImpactTestsRealTime = (userId, inspectionId) => async (
   dispatch,
@@ -19,15 +20,34 @@ export const fetchImpactTestsRealTime = (userId, inspectionId) => async (
     .doc(inspectionId)
     .collection('impactTests')
 
-  return ref.onSnapshot(querySnapshot => {
-    let items = []
+  return ref.onSnapshot(async querySnapshot => {
+    let items = querySnapshot.docs.map(async doc => {
+      const querySnapshot = await doc.ref.collection('dropTests').get()
 
-    querySnapshot.forEach(doc =>
-      items.push({
+      let dropTests = querySnapshot.docs.map(async doc => {
+        const { image } = doc.data()
+        const response = await fetch(image)
+        const blob = await response.blob()
+        const dataUrl = await getDataUrlFromBlob(blob)
+
+        return {
+          id: doc.id,
+          ...doc.data(),
+          image: dataUrl,
+        }
+      })
+
+      dropTests = await Promise.all(dropTests)
+
+      return {
         id: doc.id,
         ...doc.data(),
-      })
-    )
+        dropTests,
+      }
+    })
+
+    items = await Promise.all(items)
+
     dispatch({ type: FETCH_IMPACT_TESTS_COMPLETED, payload: items })
   })
 }

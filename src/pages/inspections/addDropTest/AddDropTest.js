@@ -29,8 +29,34 @@ export class AddDropTest extends Component {
     removeLefNavComponent()
   }
 
+  showActionGoBack = dropNumber => {
+    const { setFeedback, history, inspectionId, impactTestId } = this.props
+
+    setFeedback({ success: 'Drop added!' })
+    history.replace(
+      `/inspections/edit/${inspectionId}/impactTest/edit/${impactTestId}/editDrop/${dropNumber}`
+    )
+  }
+
+  submit = async data => {
+    const { addDropTest, userId, inspectionId, impactTestId } = this.props
+    const dropNumber = await addDropTest(
+      userId,
+      inspectionId,
+      impactTestId,
+      data
+    )
+
+    return dropNumber
+  }
+
   render() {
-    return <DropTestForm />
+    return (
+      <DropTestForm
+        onSubmit={this.submit}
+        afterSubmit={this.showActionGoBack}
+      />
+    )
   }
 }
 

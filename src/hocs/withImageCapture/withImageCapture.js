@@ -13,7 +13,7 @@ export const withImageCapture = WrappedComponent => {
       multiple: false,
     }
 
-    capture = ({ width, height, multiple, returnBlob }) => {
+    capture = ({ width, height, multiple, returnBlob } = {}) => {
       this.setState(
         {
           ...(width && { width }),
@@ -23,15 +23,6 @@ export const withImageCapture = WrappedComponent => {
         },
         () => this.fileInput.click()
       )
-      // if (width && height && multiple) {
-      //   this.setState({ width, height, multiple }, () => this.fileInput.click())
-      // } else if (width && height) {
-      //   this.setState({ width, height }, () => this.fileInput.click())
-      // } else if (multiple) {
-      //   this.setState({ multiple }, () => this.fileInput.click())
-      // } else {
-      //   this.fileInput.click()
-      // }
     }
 
     loadImage = file => {

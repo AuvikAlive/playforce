@@ -25,7 +25,9 @@ export const InspectionItems = ({
   } = inspection
   const auditSummaryAdded = !isEmpty(auditSummary)
   const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
-  const impactTestsAdded = impactTests.length > 0
+  const impactTestsAdded =
+    !!impactTests &&
+    impactTests.some(({ dropTests }) => !!dropTests && dropTests.length > 0)
 
   return (
     <StyledInspectionItems className="StyledInspectionItems">

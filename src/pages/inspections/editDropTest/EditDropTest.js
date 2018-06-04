@@ -7,9 +7,9 @@ import { DropTestForm } from '../dropTestForm/DropTestForm'
 export class EditDropTest extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const { history, id } = this.props
 
-    setNavTitle('Edit drop test')
+    setNavTitle(`Edit drop ${id}`)
 
     setLeftNavComponent(
       <IconButton
@@ -29,8 +29,37 @@ export class EditDropTest extends Component {
     removeLefNavComponent()
   }
 
+  submit = async data => {
+    const {
+      updateDropTest,
+      userId,
+      inspectionId,
+      impactTestId,
+      id,
+      setFeedback,
+    } = this.props
+
+    await updateDropTest({
+      userId,
+      inspectionId,
+      impactTestId,
+      id,
+      data,
+    })
+
+    setFeedback({ success: 'Test updated!' })
+  }
+
   render() {
-    return <DropTestForm />
+    const { dropTest } = this.props
+
+    return (
+      <DropTestForm
+        buttonText="update"
+        initialData={dropTest}
+        onSubmit={this.submit}
+      />
+    )
   }
 }
 

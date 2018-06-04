@@ -36,12 +36,23 @@ class ImpactTestDetailItemsWithout extends Component {
   }
 
   render() {
-    const { match } = this.props
+    const { match, impactTest } = this.props
 
     return (
       <StyledImpactTestDetailItems className="StyledImpactTestDetailItems">
         <StyledNavLink to={`${match.url}/addDrop`} className="add-icon">
-          <Button variant="fab" color="primary" aria-label="add impact test">
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="add drop test"
+            className={
+              impactTest &&
+              impactTest.dropTests &&
+              impactTest.dropTests.length > 0
+                ? ''
+                : 'pulse'
+            }
+          >
             <AddIcon />
           </Button>
         </StyledNavLink>
@@ -59,11 +70,15 @@ class ImpactTestDetailItemsWithout extends Component {
             disablePadding
             subheader={<ListSubheader component="div">Drops</ListSubheader>}
           >
-            <StyledNavLink to={`${match.url}/editDrop/123`}>
-              <ListItem button>
-                <ListItemText primary="Drop 1" />
-              </ListItem>
-            </StyledNavLink>
+            {impactTest &&
+              impactTest.dropTests &&
+              impactTest.dropTests.map(({ id }) => (
+                <StyledNavLink key={id} to={`${match.url}/editDrop/${id}`}>
+                  <ListItem button>
+                    <ListItemText primary={`Drop ${id}`} />
+                  </ListItem>
+                </StyledNavLink>
+              ))}
           </List>
         </Paper>
       </StyledImpactTestDetailItems>

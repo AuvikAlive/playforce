@@ -11,6 +11,7 @@ import {
   fetchComplianceIssues,
   fetchMaintenanceIssuesRealTime,
   fetchMaintenanceIssues,
+  fetchImpactTestsRealTime,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
@@ -50,6 +51,7 @@ const mapDispatchToProps = {
   fetchComplianceIssues,
   fetchMaintenanceIssuesRealTime,
   fetchMaintenanceIssues,
+  fetchImpactTestsRealTime,
   fetchStandards,
   deleteInspection,
   discardInspection,

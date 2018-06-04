@@ -28,7 +28,7 @@ export class AddImpactSurface extends Component {
   showActionGoBack = surfaceId => {
     const { setFeedback, history, inspectionId } = this.props
 
-    setFeedback({ success: 'Surface added!' })
+    setFeedback({ success: 'Test added!' })
     history.replace(
       `/inspections/edit/${inspectionId}/impactTest/edit/${surfaceId}`
     )

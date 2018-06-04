@@ -45,7 +45,7 @@ export class EditImpactSurface extends Component {
 
     await updateImpactSurface(userId, inspectionId, id, data)
 
-    setFeedback({ success: 'Surface updated!' })
+    setFeedback({ success: 'Details updated!' })
   }
 
   render() {

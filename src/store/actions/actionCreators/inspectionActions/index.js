@@ -22,7 +22,9 @@ import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime
 import { saveImpactGeneralInfo } from './saveImpactGeneralInfo'
 import { addImpactSurface } from './addImpactSurface'
 import { updateImpactSurface } from './updateImpactSurface'
-import { fetchImpactTestsRealTime } from './fetchImpactTestsRealTime';
+import { fetchImpactTestsRealTime } from './fetchImpactTestsRealTime'
+import { addDropTest } from './addDropTest'
+import { updateDropTest } from './updateDropTest'
 import { DISCARD_INSPECTION } from '../../actionTypes'
 
 export {
@@ -50,7 +52,9 @@ export {
   saveImpactGeneralInfo,
   addImpactSurface,
   updateImpactSurface,
-  fetchImpactTestsRealTime
+  fetchImpactTestsRealTime,
+  addDropTest,
+  updateDropTest,
 }
 
 export const discardInspection = () => ({

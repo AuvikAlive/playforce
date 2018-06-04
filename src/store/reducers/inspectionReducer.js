@@ -19,6 +19,8 @@ import {
   DELETE_MAINTENANCE_ISSUE,
   FETCH_IMPACT_TESTS,
   FETCH_IMPACT_TESTS_COMPLETED,
+  ADD_DROP_TEST,
+  UPDATE_DROP_TEST,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -175,6 +177,50 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
     case FETCH_IMPACT_TESTS_COMPLETED:
       return { ...state, impactTestsLoaded: true, impactTests: payload }
+
+    case ADD_DROP_TEST: {
+      const { impactTestId } = payload
+
+      delete payload.impactTestId
+
+      const impactTests = state.impactTests.map(item => {
+        if (item.id === impactTestId) {
+          item.dropTests.push(payload)
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        impactTests,
+      }
+    }
+
+    case UPDATE_DROP_TEST: {
+      const { impactTestId, id } = payload
+
+      delete payload.impactTestId
+
+      const impactTests = state.impactTests.map(item => {
+        if (item.id === impactTestId) {
+          item.dropTests = item.dropTests.map(item => {
+            if (item.id === id) {
+              return payload
+            }
+
+            return item
+          })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        impactTests,
+      }
+    }
 
     default:
       return state
