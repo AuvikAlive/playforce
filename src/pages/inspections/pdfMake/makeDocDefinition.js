@@ -7,6 +7,7 @@ import { makeCover } from './makeCover/'
 import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeConditionRatingInfo/'
 import { makeConditionRatings } from './makeConditionRatings/'
+import { makeImpactTests } from './makeImpactTests/'
 import { makeComplianceIssues } from './makeComplianceIssues/'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues/'
 import { makeAreasAssessed } from './makeAreasAssessed/'
@@ -23,6 +24,8 @@ export const makeDocDefinition = async (
     complianceIssues,
     maintenanceIssuesAdded,
     maintenanceIssues,
+    impactGeneralInfo,
+    impactTests,
   },
   certificate
 ) => {
@@ -41,14 +44,15 @@ export const makeDocDefinition = async (
         auditSummary,
         conditionRatings,
       }),
-      makeCover(cover),
-      await makeAuditSummary({ auditSummary, cover }),
-      makeConditionRatingInfo(),
-      makeConditionRatings(conditionRatings),
-      makeComplianceIssues(complianceIssuesAdded, complianceIssues),
-      makeMaintenanceIssues(maintenanceIssuesAdded, maintenanceIssues),
-      makeAreasAssessed(),
-      makeReportNotes(cover),
+      // makeCover(cover),
+      // await makeAuditSummary({ auditSummary, cover }),
+      // makeConditionRatingInfo(),
+      // makeConditionRatings(conditionRatings),
+      makeImpactTests(impactGeneralInfo, impactTests, cover.appliedStandards),
+      // makeComplianceIssues(complianceIssuesAdded, complianceIssues),
+      // makeMaintenanceIssues(maintenanceIssuesAdded, maintenanceIssues),
+      // makeAreasAssessed(),
+      // makeReportNotes(cover),
     ],
     images: {
       logo,
