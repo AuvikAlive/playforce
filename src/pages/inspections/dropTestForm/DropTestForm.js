@@ -10,7 +10,14 @@ import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { StyledDropTestForm } from './StyledDropTestForm'
 
 class DropTestFormWithout extends Component {
-  state = { dropNumber: '', dropHeight: '', hic: '', hicDuration: '', gmax: '' }
+  state = {
+    dropNumber: '',
+    location: '',
+    dropHeight: '',
+    hic: '',
+    hicDuration: '',
+    gmax: '',
+  }
 
   componentDidMount() {
     const { initialData } = this.props
@@ -60,16 +67,24 @@ class DropTestFormWithout extends Component {
   }
 
   submit = async () => {
-    const { dropNumber, dropHeight, hic, hicDuration, gmax } = this.state
+    const {
+      dropNumber,
+      dropHeight,
+      location,
+      hic,
+      hicDuration,
+      gmax,
+    } = this.state
     const { setFeedback, onSubmit, afterSubmit, image } = this.props
 
-    if (dropNumber && dropHeight && hic && hicDuration && gmax) {
+    if (dropNumber && location && dropHeight && hic && hicDuration && gmax) {
       setFeedback({ error: '', loading: true })
 
       try {
         const result = await onSubmit({
           image,
           dropNumber,
+          location,
           dropHeight,
           hic,
           hicDuration,
@@ -89,7 +104,14 @@ class DropTestFormWithout extends Component {
   }
 
   render() {
-    const { dropNumber, dropHeight, hic, hicDuration, gmax } = this.state
+    const {
+      dropNumber,
+      location,
+      dropHeight,
+      hic,
+      hicDuration,
+      gmax,
+    } = this.state
     const { image, captureImage, buttonText, error, loading } = this.props
     const result = this.getResult(hic, hicDuration, gmax)
 
@@ -118,6 +140,14 @@ class DropTestFormWithout extends Component {
                 label="Drop Number"
                 value={dropNumber}
                 onChange={this.onEventInputChange('dropNumber')}
+              />
+
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Location"
+                value={location}
+                onChange={this.onEventInputChange('location')}
               />
 
               <TextField
