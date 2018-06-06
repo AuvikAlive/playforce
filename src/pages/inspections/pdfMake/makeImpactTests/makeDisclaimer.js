@@ -6,5 +6,6 @@ export const makeDisclaimer = () => ({
   fontSize: fontSize / 1.5,
   marginTop: verticalMargin,
   italics: true,
+  marginLeft: 85,
   pageBreak: 'after',
 })
