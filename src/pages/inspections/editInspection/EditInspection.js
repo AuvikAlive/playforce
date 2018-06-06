@@ -57,10 +57,10 @@ export class EditInspection extends Component {
     !impactTestsLoaded &&
       addUnsubscriber(await fetchImpactTestsRealTime(userId, inspectionId))
 
-    // inspectionLoaded &&
-    //   impactTestsLoaded &&
-    //   standardsLoaded &&
-    //   this.renderPdf(inspection)
+    inspectionLoaded &&
+      impactTestsLoaded &&
+      standardsLoaded &&
+      this.renderPdf(inspection)
 
     setNavTitle('Edit Inspection')
 
@@ -103,10 +103,10 @@ export class EditInspection extends Component {
   }
 
   componentWillReceiveProps({ inspection, standardsLoaded }) {
-    // inspection.inspectionLoaded &&
-    //   inspection.impactTestsLoaded &&
-    //   standardsLoaded &&
-    //   this.renderPdf(inspection)
+    inspection.inspectionLoaded &&
+      inspection.impactTestsLoaded &&
+      standardsLoaded &&
+      this.renderPdf(inspection)
   }
 
   onSwitchChange = event => {

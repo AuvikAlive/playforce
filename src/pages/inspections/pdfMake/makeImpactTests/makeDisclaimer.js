@@ -5,5 +5,6 @@ export const makeDisclaimer = () => ({
     '*The results of this on-site test report are not to be considered comparable to those of a laboratory test.',
   fontSize: fontSize / 1.5,
   marginTop: verticalMargin,
+  italics: true,
   pageBreak: 'after',
 })

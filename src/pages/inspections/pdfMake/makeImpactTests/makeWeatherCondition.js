@@ -19,6 +19,7 @@ export const makeWeatherCondition = (
       {
         text: '*Conditions taken from the Australian Bureau of Meteorology',
         fontSize: fontSize / 1.5,
+        italics: true,
       },
     ],
   ],
