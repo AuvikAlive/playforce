@@ -57,7 +57,10 @@ export class EditInspection extends Component {
     !impactTestsLoaded &&
       addUnsubscriber(await fetchImpactTestsRealTime(userId, inspectionId))
 
-    inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
+    inspectionLoaded &&
+      impactTestsLoaded &&
+      standardsLoaded &&
+      this.renderPdf(inspection)
 
     setNavTitle('Edit Inspection')
 
@@ -100,7 +103,10 @@ export class EditInspection extends Component {
   }
 
   componentWillReceiveProps({ inspection, standardsLoaded }) {
-    inspection.inspectionLoaded && standardsLoaded && this.renderPdf()
+    inspection.inspectionLoaded &&
+      inspection.impactTestsLoaded &&
+      standardsLoaded &&
+      this.renderPdf(inspection)
   }
 
   onSwitchChange = event => {
@@ -143,7 +149,7 @@ export class EditInspection extends Component {
     if (!isEmpty(auditSummary) && conditionRatingsAdded) {
       setFeedback({ error: '', loading: true })
 
-      const pdfDocGenerator = await this.createPdf()
+      const pdfDocGenerator = await this.createPdf(inspection)
 
       pdfDocGenerator.download(
         `${location.name} - ${inspectionType ||
@@ -159,8 +165,8 @@ export class EditInspection extends Component {
     }
   }
 
-  createPdf = async () => {
-    const { inspection, displayName, standards } = this.props
+  createPdf = async inspection => {
+    const { displayName, standards } = this.props
     const { certificate } = this.state
 
     inspection.displayName = displayName
@@ -184,12 +190,11 @@ export class EditInspection extends Component {
     return pdfDocGenerator
   }
 
-  renderPdf = async () => {
-    const { inspection } = this.props
+  renderPdf = async inspection => {
     const { auditSummary, conditionRatingsAdded } = inspection
 
     if (!isEmpty(auditSummary) && conditionRatingsAdded) {
-      const pdfDocGenerator = await this.createPdf()
+      const pdfDocGenerator = await this.createPdf(inspection)
 
       pdfDocGenerator.getDataUrl(dataUrl => {
         this.setState({ src: dataUrl })
