@@ -5,11 +5,11 @@ import { makeDropRows } from './makeDropRows'
 export const makeDrops = (marginLeft, dropTests) => ({
   layout: 'noBorders',
   marginLeft,
-  marginBottom: verticalMargin,
+  marginBottom: verticalMargin * 2,
   alignment: 'center',
   unbreakable: true,
   table: {
-    widths: ['*', '*', '*', '*', '*', '*', '*'],
+    widths: ['*', 100, '*', '*', '*', '*', 100],
     body: [makeDropHeader(), ...makeDropRows(dropTests)],
   },
 })
