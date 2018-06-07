@@ -27,6 +27,7 @@ import { updateImpactSurface } from './updateImpactSurface'
 import { fetchImpactTestsRealTime } from './fetchImpactTestsRealTime'
 import { addDropTest } from './addDropTest'
 import { updateDropTest } from './updateDropTest'
+import { deleteDropTest } from './deleteDropTest'
 import { DISCARD_INSPECTION } from '../../actionTypes'
 
 export {
@@ -59,6 +60,7 @@ export {
   fetchImpactTestsRealTime,
   addDropTest,
   updateDropTest,
+  deleteDropTest,
 }
 
 export const discardInspection = () => ({

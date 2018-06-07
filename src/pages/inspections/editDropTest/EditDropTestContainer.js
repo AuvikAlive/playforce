@@ -2,7 +2,11 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { updateDropTest } from '../../../store/actions/actionCreators/inspectionActions/'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import {
+  updateDropTest,
+  deleteDropTest,
+} from '../../../store/actions/actionCreators/inspectionActions/'
 import { EditDropTest } from './EditDropTest'
 
 const mapStateToProps = (
@@ -24,10 +28,14 @@ const mapStateToProps = (
       .dropTests.find(({ id }) => id === params.id),
 })
 
-const mapDispatchToProps = { updateDropTest }
+const mapDispatchToProps = { updateDropTest, deleteDropTest }
 
 export const EditDropTestContainer = compose(
+  withDeleteModal,
   withFeedback,
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(EditDropTest)

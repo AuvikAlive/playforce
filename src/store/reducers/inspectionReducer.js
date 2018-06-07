@@ -21,6 +21,7 @@ import {
   FETCH_IMPACT_TESTS_COMPLETED,
   ADD_DROP_TEST,
   UPDATE_DROP_TEST,
+  DELETE_DROP_TEST,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -211,6 +212,25 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
             return item
           })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        impactTests,
+      }
+    }
+
+    case DELETE_DROP_TEST: {
+      const { impactTestId, id } = payload
+
+      delete payload.impactTestId
+
+      const impactTests = state.impactTests.map(item => {
+        if (item.id === impactTestId) {
+          item.dropTests = item.dropTests.filter(item => item.id !== id)
         }
 
         return item

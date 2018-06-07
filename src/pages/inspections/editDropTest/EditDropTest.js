@@ -2,12 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import DeleteIcon from 'material-ui-icons/Delete'
 import { DropTestForm } from '../dropTestForm/DropTestForm'
 
 export class EditDropTest extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, id } = this.props
+    const {
+      setNavTitle,
+      setLeftNavComponent,
+      setRightNavComponent,
+    } = this.context
+    const { history, id, openDialog } = this.props
 
     setNavTitle(`Edit drop ${id}`)
 
@@ -20,13 +25,49 @@ export class EditDropTest extends Component {
         <ArrowBackIcon />
       </IconButton>
     )
+
+    setRightNavComponent(
+      <IconButton
+        color="inherit"
+        aria-label="delete surface test"
+        onClick={() => openDialog(this.delete)}
+      >
+        <DeleteIcon />
+      </IconButton>
+    )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeLefNavComponent,
+      removeRightNavComponent,
+    } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
+    removeRightNavComponent()
+  }
+
+  showActionGoBack = message => {
+    const { setFeedback, history } = this.props
+
+    setFeedback({ success: message })
+    history.goBack()
+  }
+
+  delete = async () => {
+    const {
+      inspectionId,
+      userId,
+      impactTestId,
+      id,
+      deleteDropTest,
+    } = this.props
+
+    await deleteDropTest(userId, inspectionId, impactTestId, id)
+
+    this.showActionGoBack(`Drop ${id} deleted!`)
   }
 
   submit = async data => {
@@ -68,4 +109,6 @@ EditDropTest.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }
