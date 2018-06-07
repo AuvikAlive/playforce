@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router-dom'
 import Paper from 'material-ui/Paper'
 import List, { ListItem, ListItemText, ListSubheader } from 'material-ui/List'
 import Button from 'material-ui/Button'
@@ -10,7 +9,7 @@ import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledImpactTestDetailItems } from './StyledImpactTestDetailItems'
 
-class ImpactTestDetailItemsWithout extends Component {
+export class ImpactTestDetailItems extends Component {
   componentDidMount() {
     const { setNavTitle, setLeftNavComponent } = this.context
     const { history } = this.props
@@ -86,9 +85,7 @@ class ImpactTestDetailItemsWithout extends Component {
   }
 }
 
-export const ImpactTestDetailItems = withRouter(ImpactTestDetailItemsWithout)
-
-ImpactTestDetailItemsWithout.contextTypes = {
+ImpactTestDetailItems.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

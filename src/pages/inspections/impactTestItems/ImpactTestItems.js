@@ -6,13 +6,18 @@ import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import AddIcon from 'material-ui-icons/Add'
+import DeleteIcon from 'material-ui-icons/Delete'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledImpactTestItems } from './StyledImpactTestItems'
 
 export class ImpactTestItems extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const {
+      setNavTitle,
+      setLeftNavComponent,
+      setRightNavComponent,
+    } = this.context
+    const { history, openDialog } = this.props
 
     setNavTitle('Impact Testing')
 
@@ -25,13 +30,43 @@ export class ImpactTestItems extends Component {
         <ArrowBackIcon />
       </IconButton>
     )
+
+    setRightNavComponent(
+      <IconButton
+        color="inherit"
+        aria-label="delete condition rating"
+        onClick={() => openDialog(this.delete)}
+      >
+        <DeleteIcon />
+      </IconButton>
+    )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeLefNavComponent,
+      removeRightNavComponent,
+    } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
+    removeRightNavComponent()
+  }
+
+  showActionGoBack = message => {
+    const { setFeedback, history } = this.props
+
+    setFeedback({ success: message })
+    history.goBack()
+  }
+
+  delete = async () => {
+    const { inspectionId, userId, impactTests, deleteImpactTest } = this.props
+
+    await deleteImpactTest(userId, inspectionId, impactTests)
+
+    this.showActionGoBack('Impact test deleted!')
   }
 
   render() {
@@ -82,4 +117,6 @@ ImpactTestItems.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }

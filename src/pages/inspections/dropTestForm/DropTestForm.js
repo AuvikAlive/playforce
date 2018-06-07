@@ -146,7 +146,7 @@ class DropTestFormWithout extends Component {
                 type="number"
                 margin="normal"
                 label="Drop Number"
-                value={dropNumber}
+                value={dropNumber > 0 ? dropNumber : ''}
                 onChange={this.onEventInputChange('dropNumber')}
               />
 

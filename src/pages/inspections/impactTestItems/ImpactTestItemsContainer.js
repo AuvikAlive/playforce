@@ -1,5 +1,8 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
+import { deleteImpactTest } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ImpactTestItems } from './ImpactTestItems'
 
 const mapStateToProps = ({
@@ -13,6 +16,13 @@ const mapStateToProps = ({
   impactTests,
 })
 
-export const ImpactTestItemsContainer = compose(connect(mapStateToProps))(
-  ImpactTestItems
-)
+const mapDispatchToProps = { deleteImpactTest }
+
+export const ImpactTestItemsContainer = compose(
+  withFeedback,
+  withDeleteModal,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(ImpactTestItems)
