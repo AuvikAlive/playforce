@@ -77,7 +77,15 @@ class DropTestFormWithout extends Component {
     } = this.state
     const { setFeedback, onSubmit, afterSubmit, image } = this.props
 
-    if (dropNumber && location && dropHeight && hic && hicDuration && gmax) {
+    if (
+      image &&
+      dropNumber &&
+      location &&
+      dropHeight &&
+      hic &&
+      hicDuration &&
+      gmax
+    ) {
       setFeedback({ error: '', loading: true })
 
       try {
