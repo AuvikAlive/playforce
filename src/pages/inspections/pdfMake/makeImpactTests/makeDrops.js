@@ -9,7 +9,7 @@ export const makeDrops = (marginLeft, dropTests) => ({
   alignment: 'center',
   unbreakable: true,
   table: {
-    widths: ['*', 100, '*', '*', '*', '*', 100],
+    widths: ['*', 150, '*', '*', '*', '*', 100],
     body: [makeDropHeader(), ...makeDropRows(dropTests)],
   },
 })
