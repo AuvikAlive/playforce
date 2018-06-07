@@ -271,10 +271,14 @@ export class InspectionList extends Component {
       setLeftNavComponent,
       removeLefNavComponent,
       setRightNavComponent,
+      setSearchOnBottom,
+      setSearchOnTop,
     } = this.context
 
     if (selectMode) {
-      const { searchResults } = this.props
+      const { searchBarOpen, searchResults } = this.props
+      const searchMode =
+        searchBarOpen && searchResults && searchResults.length > 0
 
       setNavColor('default')
       setNavTitle(selectedItemsLength)
@@ -291,7 +295,7 @@ export class InspectionList extends Component {
 
       setRightNavComponent(
         <SelectModeRightComponent
-          unarchive={searchResults.length > 0}
+          unarchive={searchMode}
           archiveInspections={this.archiveInspections}
           unarchiveInspections={this.unarchiveInspections}
           deleteInspections={this.deleteInspections}
@@ -299,7 +303,10 @@ export class InspectionList extends Component {
           exportMaintenanceIssues={this.exportMaintenanceIssues}
         />
       )
+
+      searchMode && setSearchOnBottom()
     } else {
+      setSearchOnTop()
       setNavColor('primary')
       removeLefNavComponent()
 
@@ -324,8 +331,7 @@ export class InspectionList extends Component {
     const { selectedItems, selectMode } = this.state
 
     const inspectionsToShow =
-      (searchBarOpen && searchResults && searchResults.length > 0) ||
-      (selectMode && searchResults.length > 0)
+      searchBarOpen && searchResults && searchResults.length > 0
         ? searchResults
         : inspections
 
@@ -376,5 +382,7 @@ InspectionList.contextTypes = {
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,
   removeSearchComponent: PropTypes.func,
+  setSearchOnTop: PropTypes.func,
+  setSearchOnBottom: PropTypes.func,
   addUnsubscriber: PropTypes.func,
 }

@@ -35,7 +35,7 @@ export const SearchBar = ({
 
   return (
     <AppBar color="default">
-      <Toolbar>
+      <Toolbar style={{ minHeight: 56 }}>
         <FormControl fullWidth>
           <Input
             disableUnderline

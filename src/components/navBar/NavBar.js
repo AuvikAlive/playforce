@@ -24,12 +24,42 @@ class NavBar extends Component {
       shadow,
       color,
       toggleSideMenu,
+      searchOnTop,
       searchBarOpen,
     } = this.props
 
     return (
       <StyledNavBar>
-        {searchBarOpen && searchComponent ? (
+        {!searchOnTop && searchBarOpen && searchComponent}
+        <AppBar className={shadow ? '' : 'disable-shadow'} color={color}>
+          <Toolbar className="toolbar">
+            {leftComponent ? (
+              leftComponent
+            ) : (
+              <IconButton
+                color="inherit"
+                aria-label="Menu"
+                onClick={toggleSideMenu}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+
+            {title && (
+              <Typography
+                variant="title"
+                color="inherit"
+                className="page-title"
+              >
+                {title}
+              </Typography>
+            )}
+
+            <div className="right-component">{rightComponent}</div>
+          </Toolbar>
+        </AppBar>
+        {searchOnTop && searchBarOpen && searchComponent}
+        {/* {searchBarOpen && searchComponent ? (
           searchComponent
         ) : (
           <AppBar className={shadow ? '' : 'disable-shadow'} color={color}>
@@ -59,7 +89,7 @@ class NavBar extends Component {
               <div className="right-component">{rightComponent}</div>
             </Toolbar>
           </AppBar>
-        )}
+        )} */}
       </StyledNavBar>
     )
   }

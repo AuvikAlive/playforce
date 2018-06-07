@@ -22,6 +22,8 @@ export class Shell extends Component {
       setRightNavComponent: this.setComponent('rightNavComponent'),
       removeRightNavComponent: this.removeComponent('rightNavComponent'),
       setSearchComponent: this.setComponent('searchComponent'),
+      setSearchOnTop: this.setSearchOnTop,
+      setSearchOnBottom: this.setSearchOnBottom,
       removeSearchComponent: this.removeComponent('searchComponent'),
       openSnackbar: this.openSnackbar,
       closeSnackbar: this.closeSnackbar,
@@ -37,6 +39,7 @@ export class Shell extends Component {
     leftNavComponent: null,
     rightNavComponent: null,
     searchComponent: null,
+    searchOnTop: true,
     snackbarOpen: false,
     snackbarAutoHideDuration: 2000,
     snackbarMessage: '',
@@ -49,6 +52,8 @@ export class Shell extends Component {
   disableNavBarShadow = () => this.setState({ navBarShadowEnabled: false })
   enableNavBarShadow = () => this.setState({ navBarShadowEnabled: true })
   setComponent = name => component => this.setState({ [name]: component })
+  setSearchOnTop = () => this.setState({ searchOnTop: true })
+  setSearchOnBottom = () => this.setState({ searchOnTop: false })
   removeComponent = name => () => this.setState({ [name]: null })
   openSnackbar = (snackbarAutoHideDuration, snackbarMessage) =>
     this.setState({
@@ -78,6 +83,7 @@ export class Shell extends Component {
       leftNavComponent,
       rightNavComponent,
       searchComponent,
+      searchOnTop,
       snackbarOpen,
       snackbarAutoHideDuration,
       snackbarMessage,
@@ -94,6 +100,7 @@ export class Shell extends Component {
           leftComponent={leftNavComponent}
           rightComponent={rightNavComponent}
           searchComponent={searchComponent}
+          searchOnTop={searchOnTop}
         />
 
         <SideMenu />
@@ -133,6 +140,8 @@ Shell.childContextTypes = {
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,
   removeSearchComponent: PropTypes.func,
+  setSearchOnTop: PropTypes.func,
+  setSearchOnBottom: PropTypes.func,
   openSnackbar: PropTypes.func,
   closeSnackbar: PropTypes.func,
   addUnsubscriber: PropTypes.func,

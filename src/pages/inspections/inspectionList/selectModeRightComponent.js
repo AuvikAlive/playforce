@@ -40,21 +40,21 @@ export class SelectModeRightComponent extends Component {
 
     return (
       <div>
-        {unarchive ? (
+        <IconButton
+          color="inherit"
+          aria-label="archive"
+          onClick={archiveInspections}
+        >
+          <ArchiveIcon />
+        </IconButton>
+
+        {unarchive && (
           <IconButton
             color="inherit"
             aria-label="unarchive"
             onClick={unarchiveInspections}
           >
             <UnarchiveIcon />
-          </IconButton>
-        ) : (
-          <IconButton
-            color="inherit"
-            aria-label="archive"
-            onClick={archiveInspections}
-          >
-            <ArchiveIcon />
           </IconButton>
         )}
 
