@@ -6,15 +6,20 @@ import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import DeleteIcon from 'material-ui-icons/Delete'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledImpactTestDetailItems } from './StyledImpactTestDetailItems'
 
 export class ImpactTestDetailItems extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const {
+      setNavTitle,
+      setLeftNavComponent,
+      setRightNavComponent,
+    } = this.context
+    const { history, openDialog, impactTest } = this.props
 
-    setNavTitle(`Edit test`)
+    setNavTitle(`Edit ${impactTest.surface.location}`)
 
     setLeftNavComponent(
       <IconButton
@@ -25,13 +30,43 @@ export class ImpactTestDetailItems extends Component {
         <ArrowBackIcon />
       </IconButton>
     )
+
+    setRightNavComponent(
+      <IconButton
+        color="inherit"
+        aria-label="delete surface test"
+        onClick={() => openDialog(this.delete)}
+      >
+        <DeleteIcon />
+      </IconButton>
+    )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeLefNavComponent,
+      removeRightNavComponent,
+    } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
+    removeRightNavComponent()
+  }
+
+  showActionGoBack = message => {
+    const { setFeedback, history } = this.props
+
+    setFeedback({ success: message })
+    history.goBack()
+  }
+
+  delete = async () => {
+    const { inspectionId, userId, impactTest, deleteImpactSurface } = this.props
+
+    await deleteImpactSurface(userId, inspectionId, impactTest)
+
+    this.showActionGoBack(`${impactTest.surface.location} deleted!`)
   }
 
   render() {
@@ -90,4 +125,6 @@ ImpactTestDetailItems.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }

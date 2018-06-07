@@ -34,7 +34,7 @@ export class ImpactTestItems extends Component {
     setRightNavComponent(
       <IconButton
         color="inherit"
-        aria-label="delete condition rating"
+        aria-label="delete impact test"
         onClick={() => openDialog(this.delete)}
       >
         <DeleteIcon />

@@ -22,6 +22,7 @@ import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime
 import { saveImpactGeneralInfo } from './saveImpactGeneralInfo'
 import { deleteImpactTest } from './deleteImpactTest'
 import { addImpactSurface } from './addImpactSurface'
+import { deleteImpactSurface } from './deleteImpactSurface'
 import { updateImpactSurface } from './updateImpactSurface'
 import { fetchImpactTestsRealTime } from './fetchImpactTestsRealTime'
 import { addDropTest } from './addDropTest'
@@ -53,6 +54,7 @@ export {
   saveImpactGeneralInfo,
   deleteImpactTest,
   addImpactSurface,
+  deleteImpactSurface,
   updateImpactSurface,
   fetchImpactTestsRealTime,
   addDropTest,
