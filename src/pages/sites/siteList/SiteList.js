@@ -98,9 +98,15 @@ export class SiteList extends Component {
       setLeftNavComponent,
       removeLefNavComponent,
       setRightNavComponent,
+      setSearchOnBottom,
+      setSearchOnTop,
     } = this.context
 
     if (selectMode) {
+      const { searchBarOpen, searchResults } = this.props
+      const searchMode =
+        searchBarOpen && searchResults && searchResults.length > 0
+
       setNavColor('default')
       setNavTitle(selectedItemsLength)
 
@@ -115,9 +121,12 @@ export class SiteList extends Component {
       )
 
       setRightNavComponent(<SelectModeRightComponent />)
+
+      searchMode && setSearchOnBottom()
     } else {
       setNavColor('primary')
       removeLefNavComponent()
+      setSearchOnTop()
 
       this.setNav()
       this.setSelectedItems([])
@@ -220,5 +229,7 @@ SiteList.contextTypes = {
   removeRightNavComponent: PropTypes.func,
   setSearchComponent: PropTypes.func,
   removeSearchComponent: PropTypes.func,
+  setSearchOnTop: PropTypes.func,
+  setSearchOnBottom: PropTypes.func,
   addUnsubscriber: PropTypes.func,
 }

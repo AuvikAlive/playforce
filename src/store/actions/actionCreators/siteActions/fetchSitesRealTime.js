@@ -13,6 +13,7 @@ export const fetchSitesRealTime = userId => async (
     .collection('users')
     .doc(userId)
     .collection('sites')
+    .orderBy('name')
 
   return ref.onSnapshot(querySnapshot => {
     let items = []
