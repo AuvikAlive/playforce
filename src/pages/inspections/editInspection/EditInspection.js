@@ -165,6 +165,51 @@ export class EditInspection extends Component {
     }
   }
 
+  emailReport = async () => {
+    this.closeMenu()
+
+    const { inspection, setFeedback } = this.props
+    const {
+      cover: { location, inspectionType },
+      auditSummary,
+      conditionRatingsAdded,
+    } = inspection
+
+    if (!isEmpty(auditSummary) && conditionRatingsAdded) {
+      setFeedback({ error: '', loading: true })
+
+      const pdfDocGenerator = await this.createPdf(inspection)
+      const url =
+        'https://us-central1-inspection-app-49829.cloudfunctions.net/sendEmail'
+
+      pdfDocGenerator.getDataUrl(async dataUrl => {
+        const data = {
+          filename: `${location.name} - ${inspectionType ||
+            'Comprehensive'} Playground Inspection Report.pdf`,
+          dataUrl,
+        }
+
+        try {
+          await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+          })
+
+          setFeedback({ loading: false, success: 'Report sent as email!' })
+        } catch (error) {
+          setFeedback({ loading: false, error: 'Sorry, something went wrong' })
+          console.log(error)
+        }
+      })
+    } else {
+      setFeedback({
+        error:
+          'Please add audit summary & condition rating to generate report!',
+        loading: false,
+      })
+    }
+  }
+
   createPdf = async inspection => {
     const { displayName, standards } = this.props
     const { certificate } = this.state
@@ -264,6 +309,7 @@ export class EditInspection extends Component {
           MenuListProps={{ disablePadding: true }}
         >
           <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
+          <MenuItem onClick={this.emailReport}>Email Report</MenuItem>
           {!impactGeneralInfoAdded && (
             <MenuItem onClick={this.addImpactTest}>Add Impact Test</MenuItem>
           )}
