@@ -21,7 +21,7 @@ const mapStateToProps = (
   {
     firebase: {
       auth: { uid },
-      profile: { displayName },
+      profile: { displayName, email },
     },
     firestore: {
       data: { users },
@@ -39,6 +39,7 @@ const mapStateToProps = (
   inspectionId: id,
   inspection,
   displayName,
+  email,
   standardsLoaded,
   standards,
 })

@@ -168,7 +168,7 @@ export class EditInspection extends Component {
   emailReport = async () => {
     this.closeMenu()
 
-    const { inspection, setFeedback } = this.props
+    const { inspection, setFeedback, email } = this.props
     const {
       cover: { location, inspectionType },
       auditSummary,
@@ -187,6 +187,7 @@ export class EditInspection extends Component {
           filename: `${location.name} - ${inspectionType ||
             'Comprehensive'} Playground Inspection Report.pdf`,
           dataUrl,
+          email,
         }
 
         try {
