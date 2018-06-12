@@ -1,11 +1,6 @@
 import { verticalMargin } from '../globals'
 
-export const makeStandards = (firstColumnWidth, appliedStandards) => {
-  const standardItems = appliedStandards.map(
-    ({ code, title }, index, array) =>
-      index === 0 ? `${code}: ${title}` : `, ${code}: ${title}`
-  )
-
+export const makeStandards = firstColumnWidth => {
   return {
     marginBottom: verticalMargin,
     columns: [
@@ -16,7 +11,7 @@ export const makeStandards = (firstColumnWidth, appliedStandards) => {
         width: firstColumnWidth,
       },
       {
-        text: standardItems,
+        text: 'AS 4422:2016',
       },
     ],
   }

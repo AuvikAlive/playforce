@@ -160,6 +160,7 @@ class DropTestFormWithout extends Component {
 
               <TextField
                 fullWidth
+                type="number"
                 margin="normal"
                 label="Drop Height (cm)"
                 value={dropHeight}
@@ -168,6 +169,7 @@ class DropTestFormWithout extends Component {
 
               <TextField
                 fullWidth
+                type="number"
                 margin="normal"
                 label="HIC"
                 value={hic}
@@ -176,6 +178,7 @@ class DropTestFormWithout extends Component {
 
               <TextField
                 fullWidth
+                type="number"
                 margin="normal"
                 label="HIC Duration (ms)"
                 value={hicDuration}
@@ -184,6 +187,7 @@ class DropTestFormWithout extends Component {
 
               <TextField
                 fullWidth
+                type="number"
                 margin="normal"
                 label="Gmax (g)"
                 value={gmax}

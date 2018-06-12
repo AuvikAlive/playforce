@@ -9,10 +9,11 @@ import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { StyledImpactSurfaceDetailsForm } from './StyledImpactSurfaceDetailsForm'
 
 const conditions = ['Excellent', 'Good', 'Average', 'Poor', 'Failed']
-const descriptions = ['Unitary - Sand', 'Loose-fill - Bark']
+const surfaceTypes = ['Unitary', 'Loose-fill']
+const materials = ['Sand', 'Bark', 'Rubber', 'Synthetic']
 
 class ImpactSurfaceDetailsFormWithout extends Component {
-  state = { location: '', description: '', material: '', condition: '' }
+  state = { location: '', surfaceType: '', material: '', condition: '' }
 
   componentDidMount() {
     const { initialData } = this.props
@@ -33,16 +34,16 @@ class ImpactSurfaceDetailsFormWithout extends Component {
   onEventInputChange = onEventInputChange
 
   submit = async () => {
-    const { location, description, material, condition } = this.state
+    const { location, surfaceType, material, condition } = this.state
     const { setFeedback, onSubmit, afterSubmit } = this.props
 
-    if (location && description && material && condition) {
+    if (location && surfaceType && material && condition) {
       setFeedback({ error: '', loading: true })
 
       try {
         const result = await onSubmit({
           location,
-          description,
+          surfaceType,
           material,
           condition,
         })
@@ -59,7 +60,7 @@ class ImpactSurfaceDetailsFormWithout extends Component {
   }
 
   render() {
-    const { location, description, material, condition } = this.state
+    const { location, surfaceType, material, condition } = this.state
     const { buttonText, error, loading } = this.props
 
     return (
@@ -79,11 +80,11 @@ class ImpactSurfaceDetailsFormWithout extends Component {
                 fullWidth
                 select
                 margin="normal"
-                label="Description"
-                value={description}
-                onChange={this.onEventInputChange('description')}
+                label="Surface Type"
+                value={surfaceType}
+                onChange={this.onEventInputChange('surfaceType')}
               >
-                {descriptions.map(item => (
+                {surfaceTypes.map(item => (
                   <MenuItem key={item} value={item}>
                     {item}
                   </MenuItem>
@@ -92,11 +93,18 @@ class ImpactSurfaceDetailsFormWithout extends Component {
 
               <TextField
                 fullWidth
+                select
                 margin="normal"
-                label="Material Type"
+                label="Material"
                 value={material}
                 onChange={this.onEventInputChange('material')}
-              />
+              >
+                {materials.map(item => (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </TextField>
 
               <TextField
                 fullWidth

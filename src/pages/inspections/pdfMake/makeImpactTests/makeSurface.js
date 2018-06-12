@@ -3,7 +3,7 @@ import { verticalMargin } from '../globals'
 export const makeSurface = (
   marginLeft,
   marginBottom,
-  { location, description, condition }
+  { location, surfaceType, material, condition }
 ) => [
   {
     marginLeft,
@@ -33,6 +33,6 @@ export const makeSurface = (
   {
     marginLeft,
     marginBottom: verticalMargin,
-    columns: [location, description, condition],
+    columns: [location, `${surfaceType} - ${material}`, condition],
   },
 ]

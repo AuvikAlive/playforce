@@ -198,7 +198,7 @@ export class EditInspection extends Component {
 
           setFeedback({ loading: false, success: 'Report sent as email!' })
         } catch (error) {
-          setFeedback({ loading: false, error: 'Sorry, something went wrong' })
+          setFeedback({ loading: false, error: 'Sorry, something went wrong!' })
           console.log(error)
         }
       })
