@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { addImpactSurface } from '../../../store/actions/actionCreators/inspectionActions/'
+import { addSurfaceTest } from '../../../store/actions/actionCreators/inspectionActions/'
 import { AddImpactSurface } from './AddImpactSurface'
 
 const mapStateToProps = ({
@@ -14,9 +14,12 @@ const mapStateToProps = ({
   inspectionId: id,
 })
 
-const mapDispatchToProps = { addImpactSurface }
+const mapDispatchToProps = { addSurfaceTest }
 
 export const AddImpactSurfaceContainer = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(AddImpactSurface)

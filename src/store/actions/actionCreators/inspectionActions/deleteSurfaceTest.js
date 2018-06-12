@@ -1,6 +1,7 @@
 import { deleteImage } from '../storageActions/'
+import { DELETE_SURFACE_TEST } from '../../actionTypes'
 
-export const deleteImpactSurface = (userId, inspectionId, impactTest) => async (
+export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
   dispatch,
   getState,
   getFirebase
@@ -33,6 +34,8 @@ export const deleteImpactSurface = (userId, inspectionId, impactTest) => async (
   })
 
   await batch.commit()
+
+  dispatch({ type: DELETE_SURFACE_TEST, payload: id })
 
   storageImages.forEach(item => {
     dispatch(deleteImage(item))

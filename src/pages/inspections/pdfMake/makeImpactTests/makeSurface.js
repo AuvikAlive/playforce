@@ -33,6 +33,6 @@ export const makeSurface = (
   {
     marginLeft,
     marginBottom: verticalMargin,
-    columns: [location, `${surfaceType} - ${material}`, condition],
+    columns: [location, `${surfaceType} | ${material}`, condition],
   },
 ]

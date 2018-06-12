@@ -19,6 +19,9 @@ import {
   DELETE_MAINTENANCE_ISSUE,
   FETCH_IMPACT_TESTS,
   FETCH_IMPACT_TESTS_COMPLETED,
+  ADD_SURFACE_TEST,
+  UPDATE_IMPACT_SURFACE,
+  DELETE_SURFACE_TEST,
   ADD_DROP_TEST,
   UPDATE_DROP_TEST,
   DELETE_DROP_TEST,
@@ -170,6 +173,41 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ...state,
         maintenanceIssues: filteredMaintenanceIssues,
         maintenanceIssuesAdded: filteredMaintenanceIssues.length > 0,
+      }
+    }
+
+    case ADD_SURFACE_TEST: {
+      payload.dropTests = []
+
+      return {
+        ...state,
+        impactTests: [...state.impactTests, payload],
+      }
+    }
+
+    case UPDATE_IMPACT_SURFACE: {
+      const updatedImpactTests = state.impactTests.map(item => {
+        if (item.id === payload.id) {
+          item.surface = payload.surface
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        impactTests: updatedImpactTests,
+      }
+    }
+
+    case DELETE_SURFACE_TEST: {
+      const filteredImpactTests = state.impactTests.filter(
+        ({ id }) => id !== payload
+      )
+
+      return {
+        ...state,
+        impactTests: filteredImpactTests,
       }
     }
 

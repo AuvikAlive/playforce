@@ -34,7 +34,7 @@ export class ImpactTestRoutes extends Component {
       inspectionLoaded,
       fetchInspectionRealTime,
       impactTestsLoaded,
-      fetchImpactTestsRealTime,
+      fetchImpactTests,
     } = this.props
 
     const { addUnsubscriber } = this.context
@@ -42,9 +42,7 @@ export class ImpactTestRoutes extends Component {
     !inspectionLoaded &&
       inspectionId &&
       addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
-    !impactTestsLoaded &&
-      inspectionId &&
-      addUnsubscriber(await fetchImpactTestsRealTime(userId, inspectionId))
+    !impactTestsLoaded && inspectionId && fetchImpactTests(userId, inspectionId)
   }
   render() {
     const { inspectionLoaded, impactTestsLoaded, match } = this.props

@@ -1,3 +1,5 @@
+import { UPDATE_IMPACT_SURFACE } from '../../actionTypes'
+
 export const updateImpactSurface = (userId, inspectionId, id, data) => async (
   dispatch,
   getState,
@@ -13,5 +15,7 @@ export const updateImpactSurface = (userId, inspectionId, id, data) => async (
     .collection('impactTests')
     .doc(id)
 
-  return ref.update({ surface: data })
+  await ref.update({ surface: data })
+
+  dispatch({ type: UPDATE_IMPACT_SURFACE, payload: { surface: data, id } })
 }

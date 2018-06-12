@@ -62,9 +62,9 @@ export class ImpactTestDetailItems extends Component {
   }
 
   delete = async () => {
-    const { inspectionId, userId, impactTest, deleteImpactSurface } = this.props
+    const { inspectionId, userId, impactTest, deleteSurfaceTest } = this.props
 
-    await deleteImpactSurface(userId, inspectionId, impactTest)
+    await deleteSurfaceTest(userId, inspectionId, impactTest)
 
     this.showActionGoBack(`${impactTest.surface.location} deleted!`)
   }

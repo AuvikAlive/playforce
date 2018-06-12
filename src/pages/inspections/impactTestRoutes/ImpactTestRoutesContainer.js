@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import {
   fetchInspectionRealTime,
   fetchImpactTestsRealTime,
+  fetchImpactTests,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ImpactTestRoutes } from './ImpactTestRoutes'
 
@@ -28,8 +29,12 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchImpactTestsRealTime,
+  fetchImpactTests,
 }
 
 export const ImpactTestRoutesContainer = compose(
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(ImpactTestRoutes)

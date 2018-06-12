@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { deleteImpactSurface } from '../../../store/actions/actionCreators/inspectionActions/'
+import { deleteSurfaceTest } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ImpactTestDetailItems } from './ImpactTestDetailItems'
 
 const mapStateToProps = (
@@ -21,7 +21,7 @@ const mapStateToProps = (
   impactTest: impactTests.find(({ id }) => id === impactTestId),
 })
 
-const mapDispatchToProps = { deleteImpactSurface }
+const mapDispatchToProps = { deleteSurfaceTest }
 
 export const ImpactTestDetailItemsContainer = compose(
   withFeedback,

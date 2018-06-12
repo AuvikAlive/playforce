@@ -21,10 +21,11 @@ import { fetchMaintenanceIssues } from './fetchMaintenanceIssues'
 import { fetchMaintenanceIssuesRealTime } from './fetchMaintenanceIssuesRealTime'
 import { saveImpactGeneralInfo } from './saveImpactGeneralInfo'
 import { deleteImpactTest } from './deleteImpactTest'
-import { addImpactSurface } from './addImpactSurface'
-import { deleteImpactSurface } from './deleteImpactSurface'
+import { addSurfaceTest } from './addSurfaceTest'
+import { deleteSurfaceTest } from './deleteSurfaceTest'
 import { updateImpactSurface } from './updateImpactSurface'
 import { fetchImpactTestsRealTime } from './fetchImpactTestsRealTime'
+import { fetchImpactTests } from './fetchImpactTests'
 import { addDropTest } from './addDropTest'
 import { updateDropTest } from './updateDropTest'
 import { deleteDropTest } from './deleteDropTest'
@@ -54,10 +55,11 @@ export {
   fetchMaintenanceIssuesRealTime,
   saveImpactGeneralInfo,
   deleteImpactTest,
-  addImpactSurface,
-  deleteImpactSurface,
+  addSurfaceTest,
+  deleteSurfaceTest,
   updateImpactSurface,
   fetchImpactTestsRealTime,
+  fetchImpactTests,
   addDropTest,
   updateDropTest,
   deleteDropTest,

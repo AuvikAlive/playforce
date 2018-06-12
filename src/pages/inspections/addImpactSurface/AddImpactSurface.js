@@ -35,8 +35,8 @@ export class AddImpactSurface extends Component {
   }
 
   submit = async data => {
-    const { addImpactSurface, userId, inspectionId } = this.props
-    const surfaceId = await addImpactSurface(userId, inspectionId, data)
+    const { addSurfaceTest, userId, inspectionId } = this.props
+    const surfaceId = await addSurfaceTest(userId, inspectionId, data)
 
     return surfaceId
   }

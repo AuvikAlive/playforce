@@ -11,7 +11,6 @@ import { StyledDropTestForm } from './StyledDropTestForm'
 
 class DropTestFormWithout extends Component {
   state = {
-    dropNumber: '',
     location: '',
     dropHeight: '',
     hic: '',
@@ -67,31 +66,15 @@ class DropTestFormWithout extends Component {
   }
 
   submit = async () => {
-    const {
-      dropNumber,
-      dropHeight,
-      location,
-      hic,
-      hicDuration,
-      gmax,
-    } = this.state
+    const { dropHeight, location, hic, hicDuration, gmax } = this.state
     const { setFeedback, onSubmit, afterSubmit, image } = this.props
 
-    if (
-      image &&
-      dropNumber &&
-      location &&
-      dropHeight &&
-      hic &&
-      hicDuration &&
-      gmax
-    ) {
+    if (image && location && dropHeight && hic && hicDuration && gmax) {
       setFeedback({ error: '', loading: true })
 
       try {
         const result = await onSubmit({
           image,
-          dropNumber,
           location,
           dropHeight,
           hic,
@@ -112,14 +95,7 @@ class DropTestFormWithout extends Component {
   }
 
   render() {
-    const {
-      dropNumber,
-      location,
-      dropHeight,
-      hic,
-      hicDuration,
-      gmax,
-    } = this.state
+    const { location, dropHeight, hic, hicDuration, gmax } = this.state
     const { image, captureImage, buttonText, error, loading } = this.props
     const result = this.getResult(hic, hicDuration, gmax)
 
@@ -141,15 +117,6 @@ class DropTestFormWithout extends Component {
             </Button>
 
             <form noValidate>
-              <TextField
-                fullWidth
-                type="number"
-                margin="normal"
-                label="Drop Number"
-                value={dropNumber > 0 ? dropNumber : ''}
-                onChange={this.onEventInputChange('dropNumber')}
-              />
-
               <TextField
                 fullWidth
                 margin="normal"

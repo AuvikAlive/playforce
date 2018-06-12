@@ -1,4 +1,4 @@
-import { reverse } from 'lodash'
+// import { reverse } from 'lodash'
 import {
   FETCH_IMPACT_TESTS,
   FETCH_IMPACT_TESTS_COMPLETED,
@@ -49,6 +49,6 @@ export const fetchImpactTestsRealTime = (userId, inspectionId) => async (
 
     items = await Promise.all(items)
 
-    dispatch({ type: FETCH_IMPACT_TESTS_COMPLETED, payload: reverse(items) })
+    dispatch({ type: FETCH_IMPACT_TESTS_COMPLETED, payload: items })
   })
 }

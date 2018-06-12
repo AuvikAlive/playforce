@@ -5,39 +5,43 @@ export const deleteDropTest = (
   userId,
   inspectionId,
   impactTestId,
-  dropNumber
+  id
 ) => async (dispatch, getState, getFirebase) => {
   const firebase = getFirebase()
   const db = firebase.firestore()
-  const batch = db.batch()
-  const inspectionRef = db
-    .collection('users')
-    .doc(userId)
-    .collection('inspections')
-    .doc(inspectionId)
 
   let storageImages = []
 
-  const dropRef = inspectionRef
-    .collection('impactTests')
-    .doc(impactTestId)
-    .collection('dropTests')
-    .doc(dropNumber)
+  return db.runTransaction(async transaction => {
+    const userRef = db.collection('users').doc(userId)
+    const userDoc = await transaction.get(userRef)
+    const dropCount = userDoc.data().dropCount
 
-  storageImages.push(
-    `${userId}/images/${inspectionId}/impactTests/${impactTestId}/${dropNumber}`
-  )
+    transaction.update(userRef, { dropCount: dropCount - 1 })
 
-  batch.delete(dropRef)
+    const ref = db
+      .collection('users')
+      .doc(userId)
+      .collection('inspections')
+      .doc(inspectionId)
+      .collection('impactTests')
+      .doc(impactTestId)
+      .collection('dropTests')
+      .doc(id)
 
-  await batch.commit()
+    storageImages.push(
+      `${userId}/images/${inspectionId}/impactTests/${impactTestId}/${id}`
+    )
 
-  dispatch({
-    type: DELETE_DROP_TEST,
-    payload: { id: dropNumber, impactTestId },
-  })
+    await transaction.delete(ref)
 
-  storageImages.forEach(item => {
-    dispatch(deleteImage(item))
+    dispatch({
+      type: DELETE_DROP_TEST,
+      payload: { id, impactTestId },
+    })
+
+    storageImages.forEach(item => {
+      dispatch(deleteImage(item))
+    })
   })
 }

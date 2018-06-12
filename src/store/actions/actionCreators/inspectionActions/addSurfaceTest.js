@@ -1,4 +1,6 @@
-export const addImpactSurface = (userId, inspectionId, data) => async (
+import { ADD_SURFACE_TEST } from '../../actionTypes'
+
+export const addSurfaceTest = (userId, inspectionId, data) => async (
   dispatch,
   getState,
   getFirebase
@@ -14,6 +16,8 @@ export const addImpactSurface = (userId, inspectionId, data) => async (
     .doc()
 
   await ref.set({ surface: data })
+
+  dispatch({ type: ADD_SURFACE_TEST, payload: { surface: data, id: ref.id } })
 
   return ref.id
 }
