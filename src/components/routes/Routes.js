@@ -25,6 +25,9 @@ const InspectionRoutes = Loadable({
 const SiteRoutes = Loadable({
   loader: () => import('../../pages/sites/siteRoutes'),
 })
+const GroupRoutes = Loadable({
+  loader: () => import('../../pages/groups/groupRoutes'),
+})
 const SettingRoutes = Loadable({
   loader: () => import('../../pages/settings/settingRoutes'),
 })
@@ -39,6 +42,7 @@ ConfirmPasswordReset.preload()
 Dashboard.preload()
 InspectionRoutes.preload()
 SiteRoutes.preload()
+GroupRoutes.preload()
 SettingRoutes.preload()
 Terms.preload()
 
@@ -104,6 +108,12 @@ const privateRoutes = [
     Component: SiteRoutes,
     pathname: '/Sites',
     name: 'Sites',
+    exact: false,
+  },
+  {
+    Component: GroupRoutes,
+    pathname: '/groups',
+    name: 'Groups',
     exact: false,
   },
   {

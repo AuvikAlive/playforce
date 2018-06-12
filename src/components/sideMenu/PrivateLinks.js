@@ -3,6 +3,7 @@ import { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
 import DashboardIcon from 'material-ui-icons/Dashboard'
 import AssignmentTurnedInIcon from 'material-ui-icons/AssignmentTurnedIn'
 import LocationOnIcon from 'material-ui-icons/LocationOn'
+import GroupIcon from 'material-ui-icons/Group'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import SettingsIcon from 'material-ui-icons/Settings'
 import HelpIcon from 'material-ui-icons/Help'
@@ -38,6 +39,14 @@ export const PrivateLinks = ({ signOut }) => (
           <LocationOnIcon />
         </ListItemIcon>
         <ListItemText primary="Sites" />
+      </ListItem>
+    </StyledNavLink>
+    <StyledNavLink to="/groups">
+      <ListItem button className="list-item">
+        <ListItemIcon>
+          <GroupIcon />
+        </ListItemIcon>
+        <ListItemText primary="Groups" />
       </ListItem>
     </StyledNavLink>
     <ListItem button className="list-item" onClick={signOut}>

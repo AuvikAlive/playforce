@@ -11,8 +11,6 @@ import { StyledInspectionList } from './StyledInspectionList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
 export class InspectionList extends Component {
-  state = { unsubscribe: undefined }
-
   async componentDidMount() {
     const { setNavTitle, addUnsubscriber } = this.context
 
