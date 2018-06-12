@@ -11,6 +11,7 @@ import { makeImpactTests } from './makeImpactTests/'
 import { makeComplianceIssues } from './makeComplianceIssues/'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues/'
 import { makeAreasAssessed } from './makeAreasAssessed/'
+import { makeImpactTestImages } from './makeImpactTestImages/'
 import { makeReportNotes } from './makeReportNotes/'
 import { logo } from './logo'
 
@@ -52,6 +53,7 @@ export const makeDocDefinition = async (
       makeComplianceIssues(complianceIssuesAdded, complianceIssues),
       makeMaintenanceIssues(maintenanceIssuesAdded, maintenanceIssues),
       makeAreasAssessed(),
+      makeImpactTestImages(impactTests),
       makeReportNotes(cover),
     ],
     images: {

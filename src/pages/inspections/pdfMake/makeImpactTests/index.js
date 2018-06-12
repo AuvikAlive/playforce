@@ -8,7 +8,11 @@ export const makeImpactTests = (
   impactTests,
   appliedStandards
 ) => {
-  if (impactTests && impactTests.length > 0) {
+  if (
+    impactTests &&
+    impactTests.length > 0 &&
+    impactTests.some(({ dropTests }) => dropTests.length > 0)
+  ) {
     return [
       makeTitle('IMPACT ATTENUATION TEST'),
       makeGeneralInfo(impactGeneralInfo, appliedStandards),
