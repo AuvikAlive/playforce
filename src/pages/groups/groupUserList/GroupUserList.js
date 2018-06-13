@@ -14,12 +14,7 @@ import { StyledGroupUserList } from './StyledGroupUserList'
 export class GroupUserList extends Component {
   async componentDidMount() {
     const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
-    const {
-      id,
-      history,
-      groupUsersLoaded,
-      fetchGroupUsersRealTime,
-    } = this.props
+    const { id, history, fetchGroupUsersRealTime } = this.props
 
     setNavTitle(`Manage ${id}`)
 
@@ -33,7 +28,7 @@ export class GroupUserList extends Component {
       </IconButton>
     )
 
-    !groupUsersLoaded && addUnsubscriber(await fetchGroupUsersRealTime(id))
+    addUnsubscriber(await fetchGroupUsersRealTime(id))
   }
 
   componentWillUnmount() {
@@ -63,9 +58,9 @@ export class GroupUserList extends Component {
         {groupUsersAdded ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {groupUsers.map(({ name, id }) => (
+              {groupUsers.map(({ displayName, id }) => (
                 <ListItem divider button key={id}>
-                  <ListItemText primary={name} />
+                  <ListItemText primary={displayName} />
                 </ListItem>
               ))}
             </List>
