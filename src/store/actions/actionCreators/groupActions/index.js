@@ -1,4 +1,5 @@
 import { addGroup } from './addGroup'
-import { fetchGroupsRealTime } from './FetchGroupsRealTime'
+import { fetchGroupsRealTime } from './fetchGroupsRealTime'
+import { fetchGroupUsersRealTime } from './fetchGroupUsersRealtime'
 
-export { addGroup, fetchGroupsRealTime }
+export { addGroup, fetchGroupsRealTime, fetchGroupUsersRealTime }

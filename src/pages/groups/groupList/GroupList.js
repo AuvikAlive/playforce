@@ -41,13 +41,16 @@ export class GroupList extends Component {
             <AddIcon />
           </Button>
         </StyledNavLink>
+
         {groupsAdded ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
               {groups.map(({ name, id }) => (
-                <ListItem divider button key={id}>
-                  <ListItemText primary={name} />
-                </ListItem>
+                <StyledNavLink key={id} to={`${match.url}/manageGroup/${id}`}>
+                  <ListItem divider button>
+                    <ListItemText primary={name} />
+                  </ListItem>
+                </StyledNavLink>
               ))}
             </List>
           </Paper>
