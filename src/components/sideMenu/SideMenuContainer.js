@@ -5,9 +5,16 @@ import { withFirebase } from 'react-redux-firebase'
 import { closeSideMenu } from '../../store/actions/actionCreators/sideMenuActions'
 import SideMenu from './SideMenu'
 
-const mapStateToProps = ({ firebase: { auth }, sideMenu: { open } }) => ({
+const mapStateToProps = ({
+  firebase: {
+    auth,
+    profile: { role },
+  },
+  sideMenu: { open },
+}) => ({
   auth,
-  open
+  role,
+  open,
 })
 
 const mapDispatchToProps = { closeSideMenu }
@@ -15,5 +22,8 @@ const mapDispatchToProps = { closeSideMenu }
 export const SideMenuContainer = compose(
   withRouter,
   withFirebase,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(SideMenu)

@@ -40,7 +40,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { open, auth } = this.props
+    const { open, auth, role } = this.props
 
     return (
       <Drawer open={open} anchor={'left'} onClick={this.closeSideMenuIfOpen}>
@@ -52,7 +52,7 @@ class SideMenu extends Component {
           <div>
             <UserView />
             <List onClick={this.closeSideMenuIfOpen} style={{ width: 300 }}>
-              <PrivateLinks signOut={this.signOut} />
+              <PrivateLinks role={role} signOut={this.signOut} />
             </List>
           </div>
         )}

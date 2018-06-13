@@ -11,7 +11,7 @@ import Divider from 'material-ui/Divider'
 import { StyledLinks } from './StyledLinks'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 
-export const PrivateLinks = ({ signOut }) => (
+export const PrivateLinks = ({ role, signOut }) => (
   <StyledLinks>
     <StyledNavLink
       to={{ pathname: '/dashboard', state: { name: 'Dashboard' } }}
@@ -23,6 +23,7 @@ export const PrivateLinks = ({ signOut }) => (
         <ListItemText primary="Dashboard" />
       </ListItem>
     </StyledNavLink>
+
     <StyledNavLink
       to={{ pathname: '/inspections', state: { name: 'Inspections' } }}
     >
@@ -33,6 +34,7 @@ export const PrivateLinks = ({ signOut }) => (
         <ListItemText primary="Inspections" />
       </ListItem>
     </StyledNavLink>
+
     <StyledNavLink to={{ pathname: '/sites', state: { name: 'Sites' } }}>
       <ListItem button className="list-item">
         <ListItemIcon>
@@ -41,21 +43,27 @@ export const PrivateLinks = ({ signOut }) => (
         <ListItemText primary="Sites" />
       </ListItem>
     </StyledNavLink>
-    <StyledNavLink to="/groups">
-      <ListItem button className="list-item">
-        <ListItemIcon>
-          <GroupIcon />
-        </ListItemIcon>
-        <ListItemText primary="Groups" />
-      </ListItem>
-    </StyledNavLink>
+
+    {role === 'admin' && (
+      <StyledNavLink to="/groups">
+        <ListItem button className="list-item">
+          <ListItemIcon>
+            <GroupIcon />
+          </ListItemIcon>
+          <ListItemText primary="Groups" />
+        </ListItem>
+      </StyledNavLink>
+    )}
+
     <ListItem button className="list-item" onClick={signOut}>
       <ListItemIcon>
         <ArrowBackIcon />
       </ListItemIcon>
       <ListItemText primary="Sign Out" />
     </ListItem>
+
     <Divider />
+
     <StyledNavLink to={{ pathname: '/settings', state: { name: 'Settings' } }}>
       <ListItem button className="list-item">
         <ListItemIcon>
@@ -64,6 +72,7 @@ export const PrivateLinks = ({ signOut }) => (
         <ListItemText primary="Settings" />
       </ListItem>
     </StyledNavLink>
+
     <StyledNavLink to={{ pathname: '/help', state: { name: 'Help' } }}>
       <ListItem button className="list-item">
         <ListItemIcon>
