@@ -3,7 +3,14 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { fetchGroupUsersRealTime } from '../../../store/actions/actionCreators/groupActions/'
+import {
+  fetchGroupUsersRealTime,
+  deleteMembers,
+} from '../../../store/actions/actionCreators/groupActions/'
+import {
+  openSearchBar,
+  closeSearchBar,
+} from '../../../store/actions/actionCreators/searchBarActions'
 import { GroupUserList } from './GroupUserList'
 
 const mapStateToProps = ({
@@ -17,7 +24,12 @@ const mapStateToProps = ({
   groupUsers,
 })
 
-const mapDispatchToProps = { fetchGroupUsersRealTime }
+const mapDispatchToProps = {
+  fetchGroupUsersRealTime,
+  deleteMembers,
+  openSearchBar,
+  closeSearchBar,
+}
 
 export const GroupUserListContainer = compose(
   withFeedback,

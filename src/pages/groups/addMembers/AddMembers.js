@@ -216,8 +216,8 @@ AddMembers.contextTypes = {
   setRightNavComponent: PropTypes.func,
   removeRightNavComponent: PropTypes.func,
   addUnsubscriber: PropTypes.func,
+  setSearchComponent: PropTypes.func,
   setNavColor: PropTypes.func,
   setSearchOnTop: PropTypes.func,
   setSearchOnBottom: PropTypes.func,
-  setSearchComponent: PropTypes.func,
 }
