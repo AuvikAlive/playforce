@@ -26,11 +26,16 @@ export const addInspection = (userId, cover) => async (
       location: { name },
     } = cover
 
-    const downloadURL = await dispatch(
-      saveImage(`${userId}/images/${inspectionRef.id}/cover`, image)
-    )
+    if (image) {
+      console.log(image)
+      const downloadURL = await dispatch(
+        saveImage(`${userId}/images/${inspectionRef.id}/cover`, image)
+      )
 
-    cover.image = downloadURL
+      cover.image = downloadURL
+    } else {
+      delete cover.image
+    }
 
     transaction.set(inspectionRef, {
       cover,

@@ -131,7 +131,6 @@ export class CoverForm extends Component {
     } = this.state
 
     if (
-      image &&
       location &&
       client &&
       inspectionDate &&
