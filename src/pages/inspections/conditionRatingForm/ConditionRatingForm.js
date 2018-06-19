@@ -22,7 +22,7 @@ const today = new Date()
 
 export class ConditionRatingForm extends Component {
   state = {
-    itemType: 'play',
+    itemType: equipmentTypes[0],
     equipment: '',
     assetId: '',
     manufacturer: '',
@@ -264,7 +264,7 @@ export class ConditionRatingForm extends Component {
               className="submit-button"
               onClick={() => {
                 // captureImage({ width: 300, height: 172 })
-                captureImage({ width: 1024, height: 1024 * 432 / 764 })
+                captureImage({ width: 1024, height: (1024 * 432) / 764 })
               }}
             >
               Capture Image
@@ -297,7 +297,7 @@ export class ConditionRatingForm extends Component {
                 })}
               </TextField>
 
-              {itemType === 'play' && (
+              {itemType === equipmentTypes[0] && (
                 <TextField
                   fullWidth
                   label="Asset Id"
@@ -307,7 +307,7 @@ export class ConditionRatingForm extends Component {
                 />
               )}
 
-              {itemType === 'play' && (
+              {itemType === equipmentTypes[0] && (
                 <div className="with-button">
                   <AutoComplete
                     label="Manufacturer"
@@ -338,7 +338,7 @@ export class ConditionRatingForm extends Component {
                 ))}
               </TextField>
 
-              {itemType === 'play' && (
+              {itemType === equipmentTypes[0] && (
                 <TextField
                   fullWidth
                   label="Estimated Date Installed"
