@@ -4,11 +4,9 @@ import IconButton from 'material-ui/IconButton'
 import ArrowBackIcon from 'material-ui-icons/ArrowBack'
 import Card, { CardContent } from 'material-ui/Card'
 import TextField from 'material-ui/TextField'
-import { FormControl } from 'material-ui/Form'
-import { InputLabel } from 'material-ui/Input'
-import SignaturePad from 'react-signature-pad'
 import Button from 'material-ui/Button'
 import { CircularProgress } from 'material-ui/Progress'
+import { Signature } from '../../../components/signature/Signature'
 import { StyledProfile } from './StyledProfile'
 
 export class Profile extends Component {
@@ -45,7 +43,8 @@ export class Profile extends Component {
 
     this.setState({ displayName, image, title, company, mobile })
     setCapturedImage(image)
-    signature && this.mySignature.fromDataURL(signature)
+    // signature && this.mySignature.fromDataURL(signature)
+    signature && this.signature.setSignature(signature)
   }
 
   componentWillUnmount() {
@@ -75,7 +74,8 @@ export class Profile extends Component {
       company && { company },
       mobile && { mobile },
       image && { image },
-      !this.mySignature.isEmpty() && { signature: this.mySignature.toDataURL() }
+      !this.signature.isEmpty() && { signature: this.signature.getSignature() }
+      // !this.mySignature.isEmpty() && { signature: this.mySignature.toDataURL() }
     )
 
     try {
@@ -140,7 +140,7 @@ export class Profile extends Component {
               margin="normal"
             />
 
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel
                 shrink={false}
                 focused={false}
@@ -154,7 +154,13 @@ export class Profile extends Component {
                   this.mySignature = input
                 }}
               />
-            </FormControl>
+            </FormControl> */}
+
+            <Signature
+              ref={node => {
+                this.signature = node
+              }}
+            />
 
             {error && <p className="error">{error}</p>}
 

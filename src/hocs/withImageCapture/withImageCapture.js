@@ -59,7 +59,7 @@ export const withImageCapture = WrappedComponent => {
       const imageNaturalAspectRatio = naturalWidth / naturalHeight
       const {
         width = 1024,
-        height = Number((1 / imageNaturalAspectRatio * width).toFixed(2)),
+        height = Number(((1 / imageNaturalAspectRatio) * width).toFixed(2)),
       } = this.state
 
       const scaledImage = await downscale(image, width, height, {
