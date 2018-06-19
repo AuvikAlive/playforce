@@ -1,6 +1,6 @@
 export const findings = ['Finding 1', 'Finding 2', 'Finding 3']
 export const inspectionTypes = ['Routine', 'Operational', 'Comprehensive']
-export const equipmentTypes = ['play', 'ancillary']
+export const equipmentTypes = ['Play', 'Ancillary']
 
 export const probabilities = [
   { probability: 'A - Very Unlikely', value: 1 },
