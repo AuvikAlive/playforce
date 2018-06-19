@@ -1,6 +1,9 @@
 import Styled from 'styled-components'
 
 export const StyledSignature = Styled.div`
+  margin-top: 16px;
+  margin-bottom: 8px;
+
   .signature-label {
     display: flex;
     justify-content: space-between;
@@ -12,7 +15,7 @@ export const StyledSignature = Styled.div`
     width: 100%;
 
     canvas {
-      margin-top: 64px;
+      margin-top: 8px;
       width: 100%;
       height: 40vw;
       max-height: 250px;
@@ -20,6 +23,12 @@ export const StyledSignature = Styled.div`
       /* @media screen and (orientation: landscape) {
         height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
       } */
+    }
+  }
+
+  .action-buttons {
+    > :first-child {
+      margin-right: 8px;
     }
   }
 `

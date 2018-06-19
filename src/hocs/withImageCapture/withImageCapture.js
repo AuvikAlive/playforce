@@ -107,6 +107,8 @@ export const withImageCapture = WrappedComponent => {
         images,
       } = this.state
 
+      const { forwardedRef, ...rest } = this.props
+
       return (
         <div>
           <input
@@ -128,7 +130,8 @@ export const withImageCapture = WrappedComponent => {
             images={images}
             setCapturedImage={this.setImage}
             captureImage={this.capture}
-            {...this.props}
+            ref={forwardedRef}
+            {...rest}
           />
         </div>
       )
@@ -139,5 +142,7 @@ export const withImageCapture = WrappedComponent => {
     WrappedComponent
   )})`
 
-  return WithImageCapture
+  return React.forwardRef((props, ref) => {
+    return <WithImageCapture {...props} forwardedRef={ref} />
+  })
 }
