@@ -1,4 +1,4 @@
-import { reverse } from 'lodash'
+// import { reverse } from 'lodash'
 
 export const searchInspections = (userId, query) => async (
   dispatch,
@@ -30,5 +30,5 @@ export const searchInspections = (userId, query) => async (
     })
   )
 
-  return reverse(items)
+  return items
 }

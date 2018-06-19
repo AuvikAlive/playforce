@@ -19,6 +19,16 @@ export class SelectModeRightComponent extends Component {
     this.setState({ menuAnchor: null })
   }
 
+  archiveInspections = () => {
+    this.closeMenu()
+    this.props.archiveInspections()
+  }
+
+  unarchiveInspections = () => {
+    this.closeMenu()
+    this.props.unarchiveInspections()
+  }
+
   exportComplianceIssues = () => {
     this.closeMenu()
     this.props.exportComplianceIssues()
@@ -32,15 +42,15 @@ export class SelectModeRightComponent extends Component {
   render() {
     const {
       unarchive,
-      archiveInspections,
-      unarchiveInspections,
+      // archiveInspections,
+      // unarchiveInspections,
       deleteInspections,
     } = this.props
     const { menuAnchor } = this.state
 
     return (
       <div>
-        <IconButton
+        {/* <IconButton
           color="inherit"
           aria-label="archive"
           onClick={archiveInspections}
@@ -56,7 +66,7 @@ export class SelectModeRightComponent extends Component {
           >
             <UnarchiveIcon />
           </IconButton>
-        )}
+        )} */}
 
         <IconButton
           color="inherit"
@@ -76,6 +86,12 @@ export class SelectModeRightComponent extends Component {
           onClose={this.closeMenu}
           MenuListProps={{ disablePadding: true }}
         >
+          <MenuItem onClick={this.archiveInspections}>Archive</MenuItem>
+
+          {unarchive && (
+            <MenuItem onClick={this.unarchiveInspections}>Unarchive</MenuItem>
+          )}
+
           <MenuItem onClick={this.exportComplianceIssues}>
             Export Compliance Issues
           </MenuItem>
