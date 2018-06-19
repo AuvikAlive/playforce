@@ -124,16 +124,21 @@ export class AuditSummary extends Component {
                 onChange={this.onInputChange('summary')}
               />
 
-              <FormControl fullWidth>
-                <InputLabel
-                  shrink={false}
-                  focused={false}
-                  className="signature-label"
-                >
-                  Signature
-                </InputLabel>
-              </FormControl>
-              <img src={signature} alt="signature" className="signature" />
+              {signature && (
+                <div>
+                  <FormControl fullWidth>
+                    <InputLabel
+                      shrink={false}
+                      focused={false}
+                      className="signature-label"
+                    >
+                      Signature
+                    </InputLabel>
+                  </FormControl>
+
+                  <img src={signature} alt="signature" className="signature" />
+                </div>
+              )}
 
               <TextField
                 fullWidth

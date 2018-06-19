@@ -28,8 +28,9 @@ export const StyledInspectionList = Styled(Content)`
 
   .secondary-actions {
     height: 100%;
+    padding: 12px 0;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     align-self: flex-end;
 
     .chip {
