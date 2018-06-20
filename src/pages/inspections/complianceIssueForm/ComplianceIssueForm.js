@@ -134,16 +134,59 @@ export class ComplianceIssueForm extends Component {
   }
 
   onCommonIssueSelect = value => {
-    // const { commonIssues } = this.props
-    // const commonIssue = commonIssues.find(({ issue }) => issue === value)
+    const { estimatedDateInstalled } = this.state
+    const { implementationDate, preImplementationText, comments } = value
 
-    // commonIssue && this.setState({ ...commonIssue })
-    this.setState({ ...value })
+    if (
+      estimatedDateInstalled &&
+      implementationDate &&
+      Number(estimatedDateInstalled) < Number(implementationDate)
+    ) {
+      this.setState({
+        ...value,
+        comments: comments + '\n' + preImplementationText,
+        recommendations: 'Default',
+      })
+    } else {
+      this.setState({ ...value })
+    }
   }
 
-  loadImages = images => {
-    this.setState({ images })
+  onEquipmentSelect = value => {
+    const { equipments } = this.props
+    const equipment = equipments.find(({ equipment }) => equipment === value)
+
+    if (equipment) {
+      const { estimatedDateInstalled } = equipment
+      const { id } = this.state
+      const { commonIssues } = this.props
+      const commonIssue = commonIssues.find(item => item.id === id)
+
+      if (
+        estimatedDateInstalled &&
+        commonIssue &&
+        commonIssue.implementationDate &&
+        Number(estimatedDateInstalled) < Number(commonIssue.implementationDate)
+      ) {
+        this.setState({
+          ...equipment,
+          comments:
+            commonIssue.comments + '\n' + commonIssue.preImplementationText,
+          recommendations: 'Default',
+        })
+      } else {
+        this.setState({
+          ...equipment,
+        })
+      }
+    } else {
+      this.setState({ equipment: value })
+    }
   }
+
+  setPreImplementation = () => {}
+
+  loadImages = images => this.setState({ images })
 
   saveImages = images => {
     const { closeDialog } = this.props
@@ -289,6 +332,7 @@ export class ComplianceIssueForm extends Component {
                 label="Equipment"
                 value={equipment}
                 onChange={this.onValueInputChange('equipment')}
+                onSuggestionSelect={this.onEquipmentSelect}
                 getSuggestions={this.getEquipmentSuggestions}
               />
 
@@ -296,25 +340,6 @@ export class ComplianceIssueForm extends Component {
                 commonIssues={commonIssues}
                 onCommonIssueSelect={this.onCommonIssueSelect}
               />
-
-              {/* <TextField
-                fullWidth
-                select
-                label="Select a common issue"
-                value={commonIssueIndex}
-                onChange={this.onFindingChange}
-                margin="normal"
-              >
-                {commonIssues.length > 0 ? (
-                  commonIssues.map(({ finding }, index) => (
-                    <MenuItem key={index} value={index}>
-                      {finding}
-                    </MenuItem>
-                  ))
-                ) : (
-                  <MenuItem value={''}>No common issue added</MenuItem>
-                )}
-              </TextField> */}
 
               <TextField
                 fullWidth
