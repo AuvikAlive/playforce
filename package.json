@@ -15,7 +15,7 @@
     "localforage": "^1.6.0",
     "lodash": "^4.17.5",
     "material-ui": "^1.0.0-beta.43",
-    "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-pickers": "^1.0.0-rc.2",
     "pdfmake": "^0.1.36",
     "pica": "^4.0.2",
