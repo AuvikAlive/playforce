@@ -118,7 +118,7 @@ export class EquipmentForm extends Component {
   submit = async () => {
     const { itemType } = this.state
 
-    if (itemType === 'play') {
+    if (itemType === equipmentTypes[0]) {
       this.submitPlayItem()
     } else {
       this.submitAncillaryItem()
@@ -148,7 +148,7 @@ export class EquipmentForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() =>
-                captureImage({ width: 1024, height: 1024 * 172 / 300 })
+                captureImage({ width: 1024, height: (1024 * 172) / 300 })
               }
             >
               Capture Image
@@ -181,7 +181,7 @@ export class EquipmentForm extends Component {
                 onChange={this.onEventInputChange('equipment')}
               />
 
-              {itemType === 'play' && (
+              {itemType === equipmentTypes[0] && (
                 <TextField
                   fullWidth
                   label="Asset Id"
@@ -191,7 +191,7 @@ export class EquipmentForm extends Component {
                 />
               )}
 
-              {itemType === 'play' && (
+              {itemType === equipmentTypes[0] && (
                 <TextField
                   fullWidth
                   select

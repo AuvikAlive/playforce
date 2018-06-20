@@ -224,7 +224,7 @@ export class ConditionRatingForm extends Component {
   submit = () => {
     const { itemType } = this.state
 
-    if (itemType === 'play') {
+    if (itemType === equipmentTypes[0]) {
       this.submitPlayItem()
     } else {
       this.submitAncillaryItem()
