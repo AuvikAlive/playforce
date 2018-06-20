@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { LinearProgress } from 'material-ui/Progress'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import Loadable from '../../../components/loadable/LoadableLinear'
 import MaintenanceIssuesList from '../maintenanceIssuesList'
 

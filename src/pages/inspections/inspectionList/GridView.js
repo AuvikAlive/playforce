@@ -1,16 +1,16 @@
 import React from 'react'
-import Grid from 'material-ui/Grid'
-import Card, { CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import ModeEditIcon from 'material-ui-icons/ModeEdit'
-import CheckCircleIcon from 'material-ui-icons/CheckCircle'
-import Typography from 'material-ui/Typography'
-import List, {
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-} from 'material-ui/List'
-import Avatar from 'material-ui/Avatar'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import ModeEditIcon from '@material-ui/icons/ModeEdit'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import Typography from '@material-ui/core/Typography'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import Avatar from '@material-ui/core/Avatar'
 import { format } from 'date-fns/esm'
 import { flatten, map, filter } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'

@@ -1,6 +1,6 @@
 import React from 'react'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
+import Card, { CardActions, CardContent } from '@material-ui/core/Card'
+import Button from '@material-ui/core/Button'
 import { StyledModalContent } from './StyledModalContent'
 
 export const ModalContent = ({ closeDialog, handleConfirmation }) => {

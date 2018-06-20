@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import IconButton from 'material-ui/IconButton'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import ConditionRatingForm from '../conditionRatingForm/'
 
 export class AddConditionRating extends Component {

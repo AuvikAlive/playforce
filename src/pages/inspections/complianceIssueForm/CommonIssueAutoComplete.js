@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { ListItem, ListSubheader } from 'material-ui/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListSubheader from '@material-ui/core/ListSubheader'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
 import { groupBy, map } from 'lodash'

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { InputLabel } from 'material-ui/Input'
+import InputLabel from '@material-ui/core/InputLabel'
 import SignaturePad from 'react-signature-pad'
-import IconButton from 'material-ui/IconButton'
-import ClearIcon from 'material-ui-icons/Clear'
-import CloudUploadIcon from 'material-ui-icons/CloudUpload'
+import IconButton from '@material-ui/core/IconButton'
+import ClearIcon from '@material-ui/icons/Clear'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { withImageCapture } from '../../hocs/withImageCapture/withImageCapture'
 import { StyledSignature } from './StyledSignature'
 

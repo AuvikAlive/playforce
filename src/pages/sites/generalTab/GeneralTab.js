@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import { SiteFormContainer } from '../../../components/siteForm/SiteFormContainer'
 
 export class GeneralTab extends Component {

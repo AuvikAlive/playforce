@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
-import IconButton from 'material-ui/IconButton'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { CoverFormContainer } from '../coverForm/CoverFormContainer'
 
 export class EditCover extends Component {

@@ -1,12 +1,13 @@
 import React from 'react'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import IconButton from 'material-ui/IconButton'
-import SearchIcon from 'material-ui-icons/Search'
-import CloseIcon from 'material-ui-icons/Close'
-import Input, { InputAdornment } from 'material-ui/Input'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import SearchIcon from '@material-ui/icons/Search'
+import CloseIcon from '@material-ui/icons/Close'
+import Input from '@material-ui/core/Input'
+import InputAdornment from '@material-ui/core/InputAdornment'
 // import { debounce } from 'lodash'
-import { FormControl } from 'material-ui/Form'
+import FormControl from '@material-ui/core/FormControl'
 
 export const SearchBar = ({
   query,

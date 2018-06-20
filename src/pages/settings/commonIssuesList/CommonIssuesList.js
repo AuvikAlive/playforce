@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
-import IconButton from 'material-ui/IconButton'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import Button from 'material-ui/Button'
-import AddIcon from 'material-ui-icons/Add'
-import ModeEditIcon from 'material-ui-icons/ModeEdit'
-import Paper from 'material-ui/Paper'
-import List, {
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  ListSubheader,
-} from 'material-ui/List'
-import Typography from 'material-ui/Typography'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
+import ModeEditIcon from '@material-ui/icons/ModeEdit'
+import Paper from '@material-ui/core/Paper'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListSubheader from '@material-ui/core/ListSubheader'
+import Typography from '@material-ui/core/Typography'
 import { groupBy, map } from 'lodash'
 import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'

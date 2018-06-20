@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import Typography from 'material-ui/Typography'
-import CheckCircleIcon from 'material-ui-icons/CheckCircle'
-import CheckIcon from 'material-ui-icons/Check'
-import Paper from 'material-ui/Paper'
-import List, {
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-} from 'material-ui/List'
-import Avatar from 'material-ui/Avatar'
-import Chip from 'material-ui/Chip'
+import Typography from '@material-ui/core/Typography'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import CheckIcon from '@material-ui/icons/Check'
+import Paper from '@material-ui/core/Paper'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import Avatar from '@material-ui/core/Avatar'
+import Chip from '@material-ui/core/Chip'
 
 class ListViewWithout extends Component {
   handleClick = id => {

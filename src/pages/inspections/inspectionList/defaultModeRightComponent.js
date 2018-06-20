@@ -1,8 +1,8 @@
 import React from 'react'
-import IconButton from 'material-ui/IconButton'
-import SearchIcon from 'material-ui-icons/Search'
-import GridOnIcon from 'material-ui-icons/GridOn'
-import ListIcon from 'material-ui-icons/List'
+import IconButton from '@material-ui/core/IconButton'
+import SearchIcon from '@material-ui/icons/Search'
+import GridOnIcon from '@material-ui/icons/GridOn'
+import ListIcon from '@material-ui/icons/List'
 
 export const DefaultModeRightComponent = ({
   view,

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Autosuggest from 'react-autosuggest'
-import Paper from 'material-ui/Paper'
-import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
+import Paper from '@material-ui/core/Paper'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
 import { StyledAutoComplete } from './StyledAutoComplete'
 
 const renderInput = inputProps => {

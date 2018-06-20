@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Slider from 'react-slick'
-import IconButton from 'material-ui/IconButton'
-import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import IconButton from '@material-ui/core/IconButton'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { StyledCarousel } from './StyledCarousel'
 
 const defaultSettings = {

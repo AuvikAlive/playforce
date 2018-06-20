@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
-import { CircularProgress } from 'material-ui/Progress'
-import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
-import Card, { CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import AddBoxIcon from 'material-ui-icons/AddBox'
-import IconButton from 'material-ui/IconButton'
-import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import IconButton from '@material-ui/core/IconButton'
+import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
 import { format } from 'date-fns'
 import { conditions } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
@@ -264,7 +265,7 @@ export class ConditionRatingForm extends Component {
               className="submit-button"
               onClick={() => {
                 // captureImage({ width: 300, height: 172 })
-                captureImage({ width: 1024, height: 1024 * 432 / 764 })
+                captureImage({ width: 1024, height: (1024 * 432) / 764 })
               }}
             >
               Capture Image

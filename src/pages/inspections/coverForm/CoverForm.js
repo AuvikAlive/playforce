@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
-import { CircularProgress } from 'material-ui/Progress'
-import Card, { CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
-import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
-import AddBoxIcon from 'material-ui-icons/AddBox'
-import DateRangeIcon from 'material-ui-icons/DateRange'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import ArrowForwardIcon from 'material-ui-icons/ArrowForward'
-import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import DateRangeIcon from '@material-ui/icons/DateRange'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
 import { DatePicker } from 'material-ui-pickers'
 import { isEmpty } from 'lodash'
 import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
@@ -196,7 +197,7 @@ export class CoverForm extends Component {
               className="submit-button"
               onClick={() =>
                 // captureImage({ width: 500, height: 500 * 432 / 764 })
-                captureImage({ width: 1024, height: 1024 * 432 / 764 })
+                captureImage({ width: 1024, height: (1024 * 432) / 764 })
               }
             >
               Capture Image

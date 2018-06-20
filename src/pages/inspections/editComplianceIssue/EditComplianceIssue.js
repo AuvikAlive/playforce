@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import IconButton from 'material-ui/IconButton'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
-import DeleteIcon from 'material-ui-icons/Delete'
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import DeleteIcon from '@material-ui/icons/Delete'
 import ComplianceIssueForm from '../complianceIssueForm/'
 
 export class EditComplianceIssue extends Component {

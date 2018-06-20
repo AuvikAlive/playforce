@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Autosuggest from 'react-autosuggest'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
-import Paper from 'material-ui/Paper'
-import TextField from 'material-ui/TextField'
-import { ListItem } from 'material-ui/List'
+import Paper from '@material-ui/core/Paper'
+import TextField from '@material-ui/core/TextField'
+import ListItem from '@material-ui/core/ListItem'
 import { StyledAutoComplete } from './StyledAutoComplete'
 
 const renderInput = inputProps => {

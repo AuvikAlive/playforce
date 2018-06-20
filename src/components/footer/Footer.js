@@ -1,6 +1,6 @@
 import React from 'react'
-import Typography from 'material-ui/Typography'
-import Toolbar from 'material-ui/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Toolbar from '@material-ui/core/Toolbar'
 import { StyledFooter } from './StyledFooter'
 
 export const Footer = () => (

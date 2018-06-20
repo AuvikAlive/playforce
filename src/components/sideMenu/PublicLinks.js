@@ -1,6 +1,7 @@
 import React from 'react'
-import { ListItem, ListItemText } from 'material-ui/List'
-import Button from 'material-ui/Button'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Button from '@material-ui/core/Button'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import { StyledLinks } from './StyledLinks'
 
