@@ -5,14 +5,16 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import IconButton from '@material-ui/core/IconButton'
 import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
-import {
-  defaultManufacturers,
-  equipmentTypes,
-} from '../../../globals/constants'
+import { equipmentTypes } from '../../../globals/constants'
+import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { StyledEquipmentForm } from './StyledEquipmentForm'
 
 export class EquipmentForm extends Component {
@@ -21,6 +23,7 @@ export class EquipmentForm extends Component {
     equipment: '',
     assetId: '',
     manufacturer: '',
+    estimatedDateInstalled: '',
   }
 
   async componentDidMount() {
@@ -55,12 +58,39 @@ export class EquipmentForm extends Component {
   }
 
   onEventInputChange = onEventInputChange
+  onValueInputChange = onValueInputChange
+
+  getManufacturerSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+    const { manufacturers } = this.props
+
+    return inputLength === 0
+      ? manufacturers.map(item => item.name)
+      : manufacturers
+          .filter(
+            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
+          )
+          .map(item => item.name)
+  }
 
   submitPlayItem = async () => {
     const { image, setFeedback, onSubmit, afterSubmit } = this.props
-    const { itemType, equipment, assetId, manufacturer } = this.state
+    const {
+      itemType,
+      equipment,
+      assetId,
+      manufacturer,
+      estimatedDateInstalled,
+    } = this.state
 
-    if (image && equipment && assetId && manufacturer) {
+    if (
+      image &&
+      equipment &&
+      assetId &&
+      manufacturer &&
+      estimatedDateInstalled
+    ) {
       setFeedback({ error: '', loading: true })
 
       try {
@@ -70,6 +100,7 @@ export class EquipmentForm extends Component {
           equipment,
           assetId,
           manufacturer,
+          estimatedDateInstalled,
         })
         setFeedback({ loading: false })
         afterSubmit && afterSubmit(result)
@@ -131,12 +162,18 @@ export class EquipmentForm extends Component {
       image,
       captureImage,
       manufacturersLoaded,
-      manufacturers,
       buttonText,
+      openDialog,
       error,
       loading,
     } = this.props
-    const { itemType, equipment, assetId, manufacturer } = this.state
+    const {
+      itemType,
+      equipment,
+      assetId,
+      manufacturer,
+      estimatedDateInstalled,
+    } = this.state
 
     return manufacturersLoaded ? (
       <StyledEquipmentForm className="StyledEquipmentForm">
@@ -193,30 +230,29 @@ export class EquipmentForm extends Component {
               )}
 
               {itemType === equipmentTypes[0] && (
+                <div className="with-button">
+                  <AutoComplete
+                    label="Manufacturer"
+                    value={manufacturer}
+                    onChange={this.onValueInputChange('manufacturer')}
+                    getSuggestions={this.getManufacturerSuggestions}
+                  />
+                  <IconButton
+                    onClick={() => openDialog(ManufacturersDialogContainer)}
+                  >
+                    <AddBoxIcon />
+                  </IconButton>
+                </div>
+              )}
+
+              {itemType === equipmentTypes[0] && (
                 <TextField
                   fullWidth
-                  select
-                  label="Manufacturer"
-                  value={manufacturer}
-                  onChange={this.onEventInputChange('manufacturer')}
+                  label="Estimated Date Installed"
+                  value={estimatedDateInstalled}
+                  onChange={this.onEventInputChange('estimatedDateInstalled')}
                   margin="normal"
-                >
-                  {manufacturers.length > 0
-                    ? manufacturers.map(({ name }, index) => {
-                        return (
-                          <MenuItem key={index} value={name}>
-                            {name}
-                          </MenuItem>
-                        )
-                      })
-                    : defaultManufacturers.map((item, index) => {
-                        return (
-                          <MenuItem key={index} value={item}>
-                            {item}
-                          </MenuItem>
-                        )
-                      })}
-                </TextField>
+                />
               )}
             </form>
 

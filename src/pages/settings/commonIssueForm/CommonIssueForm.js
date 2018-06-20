@@ -7,12 +7,13 @@ import TextField from '@material-ui/core/TextField'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Grid from '@material-ui/core/Grid'
-import { StyledCommonIssueForm } from './StyledCommonIssueForm'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import {
   probabilities,
   severities,
   riskLevels,
 } from '../../../globals/constants'
+import { StyledCommonIssueForm } from './StyledCommonIssueForm'
 
 export class CommonIssueForm extends Component {
   state = {
@@ -20,6 +21,8 @@ export class CommonIssueForm extends Component {
     category: '',
     finding: '',
     standardsClause: '',
+    implementationDate: '',
+    preImplementationText: '',
     probability: '',
     severity: '',
     comments: '',
@@ -44,11 +47,7 @@ export class CommonIssueForm extends Component {
     })
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
+  onEventInputChange = onEventInputChange
 
   submit = async () => {
     const { onSubmit, afterSubmit, setFeedback } = this.props
@@ -57,6 +56,8 @@ export class CommonIssueForm extends Component {
       category,
       finding,
       standardsClause,
+      implementationDate,
+      preImplementationText,
       probability,
       severity,
       comments,
@@ -67,6 +68,8 @@ export class CommonIssueForm extends Component {
       (issue,
       finding &&
         standardsClause &&
+        implementationDate &&
+        preImplementationText &&
         probability &&
         severity &&
         comments &&
@@ -80,6 +83,8 @@ export class CommonIssueForm extends Component {
           category,
           finding,
           standardsClause,
+          implementationDate,
+          preImplementationText,
           probability,
           severity,
           comments,
@@ -104,6 +109,8 @@ export class CommonIssueForm extends Component {
       category,
       finding,
       standardsClause,
+      implementationDate,
+      preImplementationText,
       probability,
       severity,
       comments,
@@ -124,7 +131,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Issue"
                 value={issue}
-                onChange={this.onInputChange('issue')}
+                onChange={this.onEventInputChange('issue')}
                 margin="normal"
               />
 
@@ -132,7 +139,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Category"
                 value={category}
-                onChange={this.onInputChange('category')}
+                onChange={this.onEventInputChange('category')}
                 margin="normal"
               />
 
@@ -140,7 +147,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Finding"
                 value={finding}
-                onChange={this.onInputChange('finding')}
+                onChange={this.onEventInputChange('finding')}
                 margin="normal"
               />
 
@@ -148,8 +155,25 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Standards Clause"
                 value={standardsClause}
-                onChange={this.onInputChange('standardsClause')}
+                onChange={this.onEventInputChange('standardsClause')}
                 margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                label="Implementation Date"
+                value={implementationDate}
+                onChange={this.onEventInputChange('implementationDate')}
+                margin="normal"
+              />
+
+              <TextField
+                fullWidth
+                multiline
+                label="Pre-implementation Text"
+                value={preImplementationText}
+                margin="normal"
+                onChange={this.onEventInputChange('preImplementationText')}
               />
 
               <Grid container>
@@ -164,7 +188,7 @@ export class CommonIssueForm extends Component {
                     select
                     label="Probability"
                     value={probability}
-                    onChange={this.onInputChange('probability')}
+                    onChange={this.onEventInputChange('probability')}
                     margin="normal"
                   >
                     {probabilities.map(({ probability, value }, index) => (
@@ -180,7 +204,7 @@ export class CommonIssueForm extends Component {
                     select
                     label="Injury Severity"
                     value={severity}
-                    onChange={this.onInputChange('severity')}
+                    onChange={this.onEventInputChange('severity')}
                     margin="normal"
                   >
                     {severities.map(({ serverity, value }, index) => (
@@ -206,7 +230,7 @@ export class CommonIssueForm extends Component {
                 label="Comments"
                 value={comments}
                 margin="normal"
-                onChange={this.onInputChange('comments')}
+                onChange={this.onEventInputChange('comments')}
               />
 
               <TextField
@@ -215,7 +239,7 @@ export class CommonIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={this.onInputChange('recommendations')}
+                onChange={this.onEventInputChange('recommendations')}
               />
             </form>
 

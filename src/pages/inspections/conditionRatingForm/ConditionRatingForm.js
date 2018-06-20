@@ -165,6 +165,7 @@ export class ConditionRatingForm extends Component {
           equipment,
           assetId,
           manufacturer,
+          estimatedDateInstalled,
         })
       const result = await onSubmit({
         image,
@@ -172,8 +173,8 @@ export class ConditionRatingForm extends Component {
         equipment,
         assetId,
         manufacturer,
-        condition,
         estimatedDateInstalled,
+        condition,
       })
       setFeedback({ loading: false })
       afterSubmit && afterSubmit(result)
@@ -324,6 +325,16 @@ export class ConditionRatingForm extends Component {
                 </div>
               )}
 
+              {itemType === equipmentTypes[0] && (
+                <TextField
+                  fullWidth
+                  label="Estimated Date Installed"
+                  value={estimatedDateInstalled}
+                  onChange={this.onEventInputChange('estimatedDateInstalled')}
+                  margin="normal"
+                />
+              )}
+
               <TextField
                 fullWidth
                 select
@@ -338,16 +349,6 @@ export class ConditionRatingForm extends Component {
                   </MenuItem>
                 ))}
               </TextField>
-
-              {itemType === equipmentTypes[0] && (
-                <TextField
-                  fullWidth
-                  label="Estimated Date Installed"
-                  value={estimatedDateInstalled}
-                  onChange={this.onEventInputChange('estimatedDateInstalled')}
-                  margin="normal"
-                />
-              )}
             </form>
 
             {error && <p className="error">{error}</p>}
