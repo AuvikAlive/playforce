@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { CardContent } from 'material-ui/Card'
-import TextField from 'material-ui/TextField'
-import { CircularProgress } from 'material-ui/Progress'
-import Button from 'material-ui/Button'
+import CardContent from '@material-ui/core/CardContent'
+import TextField from '@material-ui/core/TextField'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Button from '@material-ui/core/Button'
 
 export class OperatorForm extends Component {
   state = {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Dialog from 'material-ui/Dialog'
-import Slide from 'material-ui/transitions/Slide'
+import Dialog from '@material-ui/core/Dialog'
+import Slide from '@material-ui/core/Slide'
 import { getDisplayName } from '../../utilities/getDisplayName'
 
 const Transition = props => {
@@ -29,7 +29,7 @@ export const withFullscreenDialog = WrappedComponent => {
         <div>
           <Dialog
             fullScreen
-            transition={Transition}
+            TransitionComponent={Transition}
             open={dialogOpen}
             onClose={this.closeDialog}
           >

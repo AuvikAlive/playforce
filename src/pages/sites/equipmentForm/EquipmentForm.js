@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
-import { CircularProgress } from 'material-ui/Progress'
-import Card, { CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
-import TextField from 'material-ui/TextField'
-import { MenuItem } from 'material-ui/Menu'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
 import {
   defaultManufacturers,
   equipmentTypes,

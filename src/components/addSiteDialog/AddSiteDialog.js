@@ -1,6 +1,6 @@
 import React from 'react'
-import IconButton from 'material-ui/IconButton'
-import ArrowBackIcon from 'material-ui-icons/ArrowBack'
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { SiteFormContainer } from '../siteForm/SiteFormContainer'

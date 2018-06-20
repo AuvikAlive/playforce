@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
-import { LinearProgress } from 'material-ui/Progress'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import { ImpactTestItemsContainer } from '../impactTestItems/ImpactTestItemsContainer'
 import Loadable from '../../../components/loadable/LoadableLinear'
 

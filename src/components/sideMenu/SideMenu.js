@@ -1,29 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Drawer from 'material-ui/Drawer'
-import List from 'material-ui/List'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
 import { isEmpty } from 'react-redux-firebase'
 import { PublicLinks } from './PublicLinks'
 import UserView from './userView'
 import { PrivateLinks } from './PrivateLinks'
 
 class SideMenu extends Component {
-  // state = { unlisten: '' }
-
-  // componentDidMount() {
-  //   const { history } = this.props
-
-  //   const unlisten = history.listen(() => {
-  //     this.closeSideMenuIfOpen()
-  //   })
-
-  //   this.setState({ unlisten })
-  // }
-
-  // componentWillUnmount() {
-  //   this.closeSideMenuIfOpen()
-  // }
-
   closeSideMenuIfOpen = () => {
     const { open, closeSideMenu } = this.props
     open && closeSideMenu()

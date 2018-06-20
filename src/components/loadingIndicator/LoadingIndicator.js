@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircularProgress } from 'material-ui/Progress'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { StyledLoadingIndicator } from './StyledLoadingIndicator'
 
 export const LoadingIndicator = props => {

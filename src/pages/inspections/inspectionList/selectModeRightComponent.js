@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import IconButton from 'material-ui/IconButton'
-import DeleteIcon from 'material-ui-icons/Delete'
-// import ArchiveIcon from 'material-ui-icons/Archive'
-// import UnarchiveIcon from 'material-ui-icons/Unarchive'
-import MoreVertIcon from 'material-ui-icons/MoreVert'
-import Menu, { MenuItem } from 'material-ui/Menu'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 
 export class SelectModeRightComponent extends Component {
   state = {
@@ -40,34 +39,11 @@ export class SelectModeRightComponent extends Component {
   }
 
   render() {
-    const {
-      unarchive,
-      // archiveInspections,
-      // unarchiveInspections,
-      deleteInspections,
-    } = this.props
+    const { unarchive, deleteInspections } = this.props
     const { menuAnchor } = this.state
 
     return (
       <div>
-        {/* <IconButton
-          color="inherit"
-          aria-label="archive"
-          onClick={archiveInspections}
-        >
-          <ArchiveIcon />
-        </IconButton>
-
-        {unarchive && (
-          <IconButton
-            color="inherit"
-            aria-label="unarchive"
-            onClick={unarchiveInspections}
-          >
-            <UnarchiveIcon />
-          </IconButton>
-        )} */}
-
         <IconButton
           color="inherit"
           aria-label="delete"

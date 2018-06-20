@@ -1,7 +1,8 @@
 import React from 'react'
-import Button from 'material-ui/Button'
-import ArrowDropDown from 'material-ui-icons/ArrowDropDown'
-import Menu, { MenuItem } from 'material-ui/Menu'
+import Button from '@material-ui/core/Button'
+import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import { StyledMenuLink } from './StyledMenuLink'
 
 export const UserMenu = ({
@@ -9,7 +10,7 @@ export const UserMenu = ({
   profile,
   openMenu,
   closeMenu,
-  signOut
+  signOut,
 }) => (
   <div>
     <Button

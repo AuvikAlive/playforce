@@ -1,7 +1,10 @@
 import React from 'react'
-import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List'
-import Typography from 'material-ui/Typography'
-import DeleteIcon from 'material-ui-icons/Delete'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import Typography from '@material-ui/core/Typography'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 export const ClientList = ({ clients, deletePrompt }) => {
   return clients.length > 0 ? (

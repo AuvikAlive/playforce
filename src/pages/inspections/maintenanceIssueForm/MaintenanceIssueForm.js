@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { LinearProgress } from 'material-ui/Progress'
-import { CircularProgress } from 'material-ui/Progress'
-import TextField from 'material-ui/TextField'
-import Card, { CardContent } from 'material-ui/Card'
-import Button from 'material-ui/Button'
-import StayCurrentLandscapeIcon from 'material-ui-icons/StayCurrentLandscape'
-import BrushIcon from 'material-ui-icons/Brush'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import TextField from '@material-ui/core/TextField'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
+import BrushIcon from '@material-ui/icons/Brush'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
@@ -193,7 +194,7 @@ export class MaintenanceIssueForm extends Component {
                 // captureImage({ width: 188, height: 253, multiple: true })
                 captureImage({
                   width: 1024,
-                  height: 1024 * 253 / 188,
+                  height: (1024 * 253) / 188,
                   multiple: true,
                 })
               }

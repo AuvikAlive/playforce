@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^1.2.2",
+    "@material-ui/icons": "^1.1.0",
     "autosuggest-highlight": "^3.1.1",
     "date-fns": "^2.0.0-alpha.7",
     "downscale": "^1.0.3",
@@ -14,9 +15,7 @@
     "jspdf-autotable": "^2.3.2",
     "localforage": "^1.6.0",
     "lodash": "^4.17.5",
-    "material-ui": "^1.0.0-beta.43",
-    "material-ui-icons": "^1.0.0-beta.36",
-    "material-ui-pickers": "^1.0.0-rc.2",
+    "material-ui-pickers": "^1.0.0-rc.10",
     "pdfmake": "^0.1.36",
     "pica": "^4.0.2",
     "prop-types": "^15.6.1",
