@@ -57,13 +57,15 @@ class SiteEditWithout extends Component {
           <Tab className="tab-title" value="inspections" label="Inspections" />
           <Tab className="tab-title" value="equipments" label="Equipments" />
         </Tabs>
-        {match.params.tabstate === 'general' && <GeneralTab id={id} />}
-        {match.params.tabstate === 'inspections' && (
-          <InspectionTabRoutes id={id} />
-        )}
-        {match.params.tabstate === 'equipments' && (
-          <EquipmentTabRoutes id={id} />
-        )}
+        <div className="tab-content">
+          {match.params.tabstate === 'general' && <GeneralTab id={id} />}
+          {match.params.tabstate === 'inspections' && (
+            <InspectionTabRoutes id={id} />
+          )}
+          {match.params.tabstate === 'equipments' && (
+            <EquipmentTabRoutes id={id} />
+          )}
+        </div>
       </StyledSiteEdit>
     )
   }

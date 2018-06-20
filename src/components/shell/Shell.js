@@ -109,6 +109,8 @@ export class Shell extends Component {
           <Routes />
         </StyledMainContent>
 
+        <Footer />
+
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
@@ -119,8 +121,6 @@ export class Shell extends Component {
           onClose={this.closeSnackbar}
           message={<span id="message-id">{snackbarMessage}</span>}
         />
-
-        <Footer />
       </div>
     ) : (
       <LinearProgress />
