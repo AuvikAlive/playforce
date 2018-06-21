@@ -1,5 +1,10 @@
 export const findings = ['Finding 1', 'Finding 2', 'Finding 3']
-export const inspectionTypes = ['Routine', 'Operational', 'Comprehensive']
+export const inspectionTypes = [
+  'Routine',
+  'Operational',
+  'Comprehensive',
+  'Post-Installation Inspection',
+]
 export const equipmentTypes = ['Play', 'Ancillary']
 
 export const probabilities = [

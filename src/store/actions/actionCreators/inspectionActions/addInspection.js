@@ -27,7 +27,6 @@ export const addInspection = (userId, cover) => async (
     } = cover
 
     if (image) {
-      console.log(image)
       const downloadURL = await dispatch(
         saveImage(`${userId}/images/${inspectionRef.id}/cover`, image)
       )
