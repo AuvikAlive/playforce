@@ -113,7 +113,7 @@ export class AuditSummary extends Component {
 
     return inspectionLoaded ? (
       <StyledAuditSummary className="StyledAuditSummary">
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField

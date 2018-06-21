@@ -93,7 +93,7 @@ export class Profile extends Component {
 
     return (
       <StyledProfile className="StyledProfile">
-        <Card>
+        <Card className="card">
           {image && <img src={image} alt="user" />}
 
           <CardContent>

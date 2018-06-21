@@ -4,8 +4,4 @@ import { withButton } from '../../styledMixins/'
 
 export const StyledSiteForm = Styled(Content)`
   ${withButton};
-
-  .card {
-    overflow: visible;
-  }
 `

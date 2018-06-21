@@ -177,7 +177,7 @@ export class EquipmentForm extends Component {
 
     return manufacturersLoaded ? (
       <StyledEquipmentForm className="StyledEquipmentForm">
-        <Card>
+        <Card className="card">
           {image && <img src={image} alt="equipment type" />}
           <CardContent>
             <Button

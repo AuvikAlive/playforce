@@ -11,7 +11,7 @@ export const ModalContent = ({ closeDialog, handleConfirmation }) => {
 
   return (
     <StyledModalContent className="StyledModalContent">
-      <Card>
+      <Card className="card">
         <CardContent>Delete this site?</CardContent>
         <CardActions className="card-actions">
           <Button size="small" onClick={closeDialog}>

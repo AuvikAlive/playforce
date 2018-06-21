@@ -72,7 +72,7 @@ export class StandardForm extends Component {
 
     return (
       <StyledStandardForm className="StyledStandardForm">
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField

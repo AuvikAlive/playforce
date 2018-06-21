@@ -66,7 +66,7 @@ class ImpactSurfaceDetailsFormWithout extends Component {
 
     return (
       <StyledImpactSurfaceDetailsForm className="StyledImpactSurfaceDetailsForm">
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField

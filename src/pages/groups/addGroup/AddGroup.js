@@ -68,7 +68,7 @@ export class AddGroup extends Component {
 
     return (
       <StyledAddGroup className="StyledAddGroup">
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField

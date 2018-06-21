@@ -281,7 +281,7 @@ export class ComplianceIssueForm extends Component {
 
     return commonIssuesLoaded && equipmentsLoaded ? (
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
-        <Card>
+        <Card className="card">
           {images &&
             images.length === 1 && (
               <img src={images[0].image} alt="equipment type" />

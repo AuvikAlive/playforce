@@ -255,7 +255,7 @@ export class ConditionRatingForm extends Component {
 
     return manufacturersLoaded && equipmentsLoaded ? (
       <StyledConditionRatingForm className="StyledConditionRatingForm">
-        <Card>
+        <Card className="card">
           {image && <img src={image} alt="equipment type" />}
 
           <CardContent>

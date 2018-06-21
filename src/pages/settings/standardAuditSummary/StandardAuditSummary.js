@@ -63,7 +63,7 @@ export class StandardAuditSummary extends Component {
 
     return (
       <StyledStandardAuditSummary className="StyledStandardAuditSummary">
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField

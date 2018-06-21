@@ -61,7 +61,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
 
     return (
       <StyledImpactGeneralInfoForm className="StyledImpactGeneralInfoForm">
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField

@@ -55,7 +55,7 @@ export const GridView = ({ inspections, match, standards }) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4} xl={3}>
               <List>
-                <Card>
+                <Card className="card">
                   <ListItem divider button className="list-item">
                     <Avatar className="avatar">{inspectionNumber}</Avatar>
                     <ListItemText

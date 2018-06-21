@@ -124,7 +124,7 @@ export class CommonIssueForm extends Component {
 
     return (
       <StyledCommonIssueForm className={StyledCommonIssueForm}>
-        <Card>
+        <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField

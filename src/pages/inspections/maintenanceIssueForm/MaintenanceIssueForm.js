@@ -155,7 +155,7 @@ export class MaintenanceIssueForm extends Component {
 
     return equipmentsLoaded ? (
       <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
-        <Card>
+        <Card className="card">
           {images &&
             images.length === 1 && (
               <img src={images[0].image} alt="equipment type" />

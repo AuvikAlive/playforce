@@ -102,7 +102,7 @@ class DropTestFormWithout extends Component {
 
     return (
       <StyledDropTestForm className="StyledDropTestForm">
-        <Card>
+        <Card className="card">
           {image && <img src={image} alt="cover" />}
 
           <CardContent>

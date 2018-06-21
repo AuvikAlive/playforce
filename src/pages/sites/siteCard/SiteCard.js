@@ -46,7 +46,7 @@ export const SiteCard = ({
     ))
   return (
     <StyledSiteCard className="StyledSiteCard">
-      <Card>
+      <Card className="card">
         {showHeader && <CardHeader title={name} />}
         <Map lat={latitude} lng={longitude} />
         <CardContent className="card-content">
