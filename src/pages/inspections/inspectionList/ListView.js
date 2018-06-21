@@ -12,6 +12,28 @@ import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
 
 class ListViewWithout extends Component {
+  state = {
+    scrolling: false,
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll, false)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll, false)
+  }
+
+  handleScroll = () => {
+    this.setState({ scrolling: true })
+
+    window.clearTimeout(this.scrollTimer)
+
+    this.scrollTimer = setTimeout(() => {
+      this.setState({ scrolling: false })
+    }, 1000)
+  }
+
   handleClick = id => {
     const { selectMode, history, match } = this.props
 
@@ -36,7 +58,9 @@ class ListViewWithout extends Component {
     clearTimeout(this.buttonPressTimer)
 
     if (selectedItems.length === 0) {
-      this.handleClick(id)
+      const { scrolling } = this.state
+
+      !scrolling && this.handleClick(id)
       setSelectMode(false)
     } else {
       setSelectMode(true, selectedItems.length)

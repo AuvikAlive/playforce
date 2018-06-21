@@ -14,7 +14,7 @@ export const fetchInspectionsRealTime = userId => async (
   const db = firebase.firestore()
   const ref = await db
     .collection('users')
-    .doc(userId)
+    .doc('xf58ubuagCNyMqWJD3yXCADxoSJ3')
     .collection('inspections')
     .orderBy('inspectionNumber')
     .where('archived', '==', false)
