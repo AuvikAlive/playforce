@@ -290,18 +290,6 @@ export class CoverForm extends Component {
                   )
                 })}
               </TextField>
-
-              <div className="with-button with-autocomplete">
-                <AutoComplete
-                  label="Client"
-                  value={client}
-                  onChange={this.onValueInputChange('client')}
-                  getSuggestions={this.getClientSuggestions}
-                />
-                <IconButton onClick={() => openDialog(ClientsDialogContainer)}>
-                  <AddBoxIcon />
-                </IconButton>
-              </div>
             </form>
 
             {error && <p className="error">{error}</p>}
