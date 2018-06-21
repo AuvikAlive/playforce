@@ -61,6 +61,7 @@ class ListViewWithout extends Component {
       const { scrolling } = this.state
 
       !scrolling && this.handleClick(id)
+
       setSelectMode(false)
     } else {
       setSelectMode(true, selectedItems.length)
