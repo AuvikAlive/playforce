@@ -13,7 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import Typography from '@material-ui/core/Typography'
-import { groupBy, map } from 'lodash'
+import { groupBy, sortBy, map } from 'lodash'
 import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 
@@ -56,7 +56,9 @@ export class CommonIssuesList extends Component {
       return item
     })
 
-    const groupedCommonIssues = groupBy(categorizedCommonIssues, 'category')
+    const sortedCommonIssues = sortBy(categorizedCommonIssues, ['category'])
+
+    const groupedCommonIssues = groupBy(sortedCommonIssues, 'category')
 
     return commonIssuesLoaded ? (
       <StyledCommonIssuesList className="StyledCommonIssuesList">
@@ -79,7 +81,9 @@ export class CommonIssuesList extends Component {
                   disablePadding
                   component="nav"
                   subheader={
-                    <ListSubheader component="div">{key}</ListSubheader>
+                    <ListSubheader color="primary" component="div">
+                      {key}
+                    </ListSubheader>
                   }
                 >
                   {value.map(({ id, issue, finding }) => {
