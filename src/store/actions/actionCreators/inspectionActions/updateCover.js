@@ -14,11 +14,16 @@ export const updateCover = (userId, inspectionId, data) => async (
     .doc(inspectionId)
 
   const { image } = data
-  const downloadURL = await dispatch(
-    saveImage(`${userId}/images/${inspectionId}-cover`, image)
-  )
 
-  data.image = downloadURL
+  if (image) {
+    const downloadURL = await dispatch(
+      saveImage(`${userId}/images/${inspectionId}-cover`, image)
+    )
+
+    data.image = downloadURL
+  } else {
+    delete data.image
+  }
 
   return ref.update({ cover: data })
 }

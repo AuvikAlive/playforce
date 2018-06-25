@@ -13,6 +13,7 @@ import { flatten, map, filter, isEmpty } from 'lodash'
 import { Content } from '../../../components/content/Content'
 import { InspectionItems } from '../inspectionItems/InspectionItems'
 import { generatePdf } from '../pdfMake/generatePdf'
+import { makeReportTitle } from '../makeReportTitle'
 
 export class EditInspection extends Component {
   state = {
@@ -153,8 +154,7 @@ export class EditInspection extends Component {
       const pdfDocGenerator = await this.createPdf(inspection)
 
       pdfDocGenerator.download(
-        `${location.name} - ${inspectionType ||
-          'Comprehensive'} Playground Inspection Report.pdf`,
+        `${location.name} - ${makeReportTitle(inspectionType)}.pdf`,
         () => setFeedback({ loading: false })
       )
     } else {
@@ -185,8 +185,7 @@ export class EditInspection extends Component {
 
       pdfDocGenerator.getDataUrl(async dataUrl => {
         const data = {
-          filename: `${location.name} - ${inspectionType ||
-            'Comprehensive'} Playground Inspection Report.pdf`,
+          filename: `${location.name} - ${makeReportTitle(inspectionType)}.pdf`,
           dataUrl,
           email,
         }
