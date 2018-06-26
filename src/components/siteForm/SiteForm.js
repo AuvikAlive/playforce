@@ -12,6 +12,9 @@ import { AutoComplete } from '../autoComplete/AutoComplete'
 import { onEventInputChange } from '../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../utilities/onValueInputChange'
 import { getCurrentPosition } from './getCurrentPosition'
+import { getQueryPredictions } from './getQueryPredictions'
+import { getGeocode } from './getGeocode'
+import { getOperatorSuggestions } from './getOperatorSuggestions'
 import { StyledSiteForm } from './StyledSiteForm'
 
 export class SiteForm extends Component {
@@ -46,17 +49,17 @@ export class SiteForm extends Component {
       this.loadInitialData(initialData)
   }
 
-  loadInitialData = initialData =>
+  loadInitialData = initialData => {
     this.setState({
       ...initialData,
     })
+  }
 
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
 
   setPosition = async () => {
     const { latitude, longitude, radius } = await getCurrentPosition()
-
     this.setState({ position: { latitude, longitude, radius } })
   }
 
@@ -66,11 +69,9 @@ export class SiteForm extends Component {
         const results = await this.getQueryPredictions(value, type && [type])
         return results.map(({ description }) => description)
       } catch (error) {
-        if (error === 'ZERO_RESULTS') {
-          return []
-        } else {
-          console.log(error)
-        }
+        return error === 'ZERO_RESULTS'
+          ? []
+          : this.props.setFeedback({ error, loading: false })
       }
     }
 
@@ -79,56 +80,12 @@ export class SiteForm extends Component {
 
   getQueryPredictions = async (input, types) => {
     const { position } = this.state
-    const { latitude, longitude, radius } =
-      position || (await getCurrentPosition())
-    const googleMaps = window.google.maps
-    const location = new googleMaps.LatLng(latitude, longitude)
-    const places = googleMaps.places
-    const service = new places.AutocompleteService()
-
-    return new Promise((resolve, reject) => {
-      service.getPlacePredictions(
-        {
-          input,
-          location,
-          radius,
-          ...(types && { types }),
-        },
-        (predictions, status) =>
-          status === places.PlacesServiceStatus.OK
-            ? resolve(predictions)
-            : reject(status)
-      )
-    })
+    return await getQueryPredictions(position, input, types)
   }
 
   getOperatorSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
     const { operators } = this.props
-
-    return inputLength === 0
-      ? operators.map(item => item.name)
-      : operators
-          .filter(
-            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.name)
-  }
-
-  getGeocode = address => {
-    const geocoder = new window.google.maps.Geocoder()
-
-    return new Promise((resolve, reject) => {
-      geocoder.geocode({ address }, (results, status) => {
-        if (status === 'OK') {
-          resolve(results[0].geometry.location)
-        } else {
-          console.log(status)
-          reject(status)
-        }
-      })
-    })
+    return getOperatorSuggestions(value, operators)
   }
 
   submit = async () => {
@@ -149,7 +106,7 @@ export class SiteForm extends Component {
       const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
 
       try {
-        const location = await this.getGeocode(address)
+        const location = await getGeocode(address)
         const site = {
           addedUser: userId,
           name,
@@ -295,7 +252,3 @@ export class SiteForm extends Component {
     )
   }
 }
-
-// export const SiteForm = scriptLoader([
-//   `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`,
-// ])(SiteFormWithout)
