@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
@@ -13,7 +11,7 @@ import { flatten, map, filter, isEmpty } from 'lodash'
 import { Content } from '../../../components/content/Content'
 import { InspectionItems } from '../inspectionItems/InspectionItems'
 import { generatePdf } from '../pdfMake/generatePdf'
-import { makeReportTitle } from '../makeReportTitle'
+import { MoreMenu } from './MoreMenu'
 
 export class EditInspection extends Component {
   state = {
@@ -138,79 +136,6 @@ export class EditInspection extends Component {
     this.showActionGoBack('Inspection deleted!')
   }
 
-  generateReport = async () => {
-    this.closeMenu()
-
-    const { inspection, setFeedback } = this.props
-    const {
-      cover: { location, inspectionType },
-      auditSummary,
-      conditionRatingsAdded,
-    } = inspection
-
-    if (!isEmpty(auditSummary) && conditionRatingsAdded) {
-      setFeedback({ error: '', loading: true })
-
-      const pdfDocGenerator = await this.createPdf(inspection)
-
-      pdfDocGenerator.download(
-        `${location.name} - ${makeReportTitle(inspectionType)}.pdf`,
-        () => setFeedback({ loading: false })
-      )
-    } else {
-      setFeedback({
-        error:
-          'Please add audit summary & condition rating to generate report!',
-        loading: false,
-      })
-    }
-  }
-
-  emailReport = async () => {
-    this.closeMenu()
-
-    const { inspection, setFeedback, email } = this.props
-    const {
-      cover: { location, inspectionType },
-      auditSummary,
-      conditionRatingsAdded,
-    } = inspection
-
-    if (!isEmpty(auditSummary) && conditionRatingsAdded) {
-      setFeedback({ error: '', loading: true })
-
-      const pdfDocGenerator = await this.createPdf(inspection)
-      const url =
-        'https://us-central1-inspection-app-49829.cloudfunctions.net/sendEmail'
-
-      pdfDocGenerator.getDataUrl(async dataUrl => {
-        const data = {
-          filename: `${location.name} - ${makeReportTitle(inspectionType)}.pdf`,
-          dataUrl,
-          email,
-        }
-
-        try {
-          await fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(data),
-          })
-
-          setFeedback({ loading: false, success: 'Report sent as email!' })
-        } catch (error) {
-          setFeedback({ loading: false, error: 'Sorry, something went wrong!' })
-          console.log(error)
-        }
-      })
-    } else {
-      setFeedback({
-        error:
-          'Please add audit summary & condition rating to generate report!',
-        loading: false,
-      })
-    }
-  }
-
   createPdf = async inspection => {
     const { displayName, standards } = this.props
     const { certificate } = this.state
@@ -248,12 +173,6 @@ export class EditInspection extends Component {
     }
   }
 
-  addImpactTest = () => {
-    const { history, inspectionId } = this.props
-
-    history.push(`${inspectionId}/impactTest/addAttenuationTest`)
-  }
-
   beforeBack = () => {
     const { history, discardInspection } = this.props
 
@@ -262,8 +181,16 @@ export class EditInspection extends Component {
   }
 
   render() {
-    const { inspection, standardsLoaded, match, error, loading } = this.props
-    const { menuAnchor } = this.state
+    const {
+      inspection,
+      standardsLoaded,
+      match,
+      email,
+      history,
+      error,
+      loading,
+      setFeedback,
+    } = this.props
     const {
       inspectionLoaded,
       conditionRatingsLoaded,
@@ -272,8 +199,6 @@ export class EditInspection extends Component {
       impactTestsLoaded,
       impactGeneralInfo,
     } = inspection
-
-    const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
 
     return inspectionLoaded &&
       conditionRatingsLoaded &&
@@ -303,18 +228,17 @@ export class EditInspection extends Component {
           />
         </Content>
 
-        <Menu
-          anchorEl={menuAnchor}
-          open={Boolean(menuAnchor)}
-          onClose={this.closeMenu}
-          MenuListProps={{ disablePadding: true }}
-        >
-          <MenuItem onClick={this.generateReport}>Generate Report</MenuItem>
-          <MenuItem onClick={this.emailReport}>Email Report</MenuItem>
-          {!impactGeneralInfoAdded && (
-            <MenuItem onClick={this.addImpactTest}>Add Impact Test</MenuItem>
-          )}
-        </Menu>
+        <MoreMenu
+          menuAnchor={this.state.menuAnchor}
+          closeMenu={this.closeMenu}
+          impactGeneralInfo={impactGeneralInfo}
+          email={email}
+          inspection={inspection}
+          history={history}
+          setFeedback={setFeedback}
+          createPdf={this.createPdf}
+        />
+
         {this.state.src && (
           <div>
             <object width="100%" height={500} data={this.state.src}>

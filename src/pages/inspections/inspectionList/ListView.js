@@ -31,7 +31,7 @@ class ListViewWithout extends Component {
 
     this.scrollTimer = setTimeout(() => {
       this.setState({ scrolling: false })
-    }, 1000)
+    }, 300)
   }
 
   handleClick = id => {
