@@ -22,7 +22,11 @@ import {
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
+import { getEquipmentSuggestions } from './getEquipmentSuggestions'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
+
+const defaultRecommendation =
+  'No action required. Consider the findings of this report when determining priority for asset repair/replacement.'
 
 export class ComplianceIssueForm extends Component {
   state = {
@@ -119,22 +123,17 @@ export class ComplianceIssueForm extends Component {
   onValueInputChange = onValueInputChange
 
   getEquipmentSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
     const { equipments } = this.props
 
-    return inputLength === 0
-      ? equipments.map(item => item.equipment)
-      : equipments
-          .filter(
-            item =>
-              item.equipment.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.equipment)
+    return getEquipmentSuggestions(value, equipments)
   }
 
   onCommonIssueSelect = value => {
-    const { estimatedDateInstalled } = this.state
+    const { equipment } = this.state
+    const { equipments } = this.props
+    const { estimatedDateInstalled } = equipments.find(
+      item => item.equipment === equipment
+    )
     const { implementationDate, preImplementationText, comments } = value
 
     if (
@@ -145,7 +144,7 @@ export class ComplianceIssueForm extends Component {
       this.setState({
         ...value,
         comments: comments + '\n' + preImplementationText,
-        recommendations: 'Default',
+        recommendations: defaultRecommendation,
       })
     } else {
       this.setState({ ...value })
@@ -153,7 +152,7 @@ export class ComplianceIssueForm extends Component {
   }
 
   onEquipmentSelect = value => {
-    const { equipments } = this.props
+    const { equipments, initialData } = this.props
     const equipment = equipments.find(({ equipment }) => equipment === value)
 
     if (equipment) {
@@ -172,10 +171,11 @@ export class ComplianceIssueForm extends Component {
           ...equipment,
           comments:
             commonIssue.comments + '\n' + commonIssue.preImplementationText,
-          recommendations: 'Default',
+          recommendations: defaultRecommendation,
         })
       } else {
         this.setState({
+          ...initialData,
           ...equipment,
         })
       }
@@ -183,8 +183,6 @@ export class ComplianceIssueForm extends Component {
       this.setState({ equipment: value })
     }
   }
-
-  setPreImplementation = () => {}
 
   loadImages = images => this.setState({ images })
 
