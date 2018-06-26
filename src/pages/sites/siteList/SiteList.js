@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button'
 import { isEmpty } from 'react-redux-firebase'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import SearchBar from '../../../components/searchBar'
+import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { ListView } from './ListView'
 import { GridView } from './GridView'
 import { MapView } from './MapView'
@@ -88,6 +89,11 @@ export class SiteList extends Component {
     const { setView } = this.props
     this.closeMenu()
     setView(view)
+  }
+
+  handleSelectClick = id => {
+    const { history } = this.props
+    history.push(`/sites/${id}`)
   }
 
   setSelectedItems = selectedItems => this.setState({ selectedItems })
@@ -169,12 +175,14 @@ export class SiteList extends Component {
           switch (view) {
             case 'list':
               return (
-                <ListView
+                <SelectableList
                   sites={sitesToShow}
                   selectedItems={selectedItems}
                   selectMode={selectMode}
                   setSelectedItems={this.setSelectedItems}
                   setSelectMode={this.setSelectMode}
+                  handleClick={this.handleSelectClick}
+                  ListView={ListView}
                 />
               )
 

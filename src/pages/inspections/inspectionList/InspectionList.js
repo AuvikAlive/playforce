@@ -9,6 +9,7 @@ import { isEmpty } from 'react-redux-firebase'
 import { StyledInspectionList } from './StyledInspectionList'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { ListView } from './ListView'
 import { GridView } from './GridView'
 import { DefaultModeRightComponent } from './DefaultModeRightComponent'
@@ -82,6 +83,11 @@ export class InspectionList extends Component {
         toggleView={toggleView}
       />
     )
+  }
+
+  handleSelectClick = id => {
+    const { history, match } = this.props
+    history.push(`${match.url}/edit/${id}`)
   }
 
   setSelectedItems = selectedItems => this.setState({ selectedItems })
@@ -171,12 +177,14 @@ export class InspectionList extends Component {
         </StyledNavLink>
 
         {view === 'list' ? (
-          <ListView
+          <SelectableList
             inspections={inspectionsToShow}
             selectedItems={selectedItems}
             selectMode={selectMode}
             setSelectedItems={this.setSelectedItems}
             setSelectMode={this.setSelectMode}
+            handleClick={this.handleSelectClick}
+            ListView={ListView}
           />
         ) : (
           <GridView
