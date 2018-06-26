@@ -3,12 +3,17 @@ import ListItem from '@material-ui/core/ListItem'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
-import { groupBy, map } from 'lodash'
+import { map } from 'lodash'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { groupCommonIssues } from '../../../utilities/groupCommonIssues'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 
 const renderSectionTitle = section => {
-  return <ListSubheader component="div">{section.title}</ListSubheader>
+  return (
+    <ListSubheader color="primary" component="div">
+      {section.title}
+    </ListSubheader>
+  )
 }
 
 const getSectionSuggestions = section => {
@@ -51,15 +56,8 @@ export class CommonIssueAutoComplete extends Component {
   }
 
   loadCommonIssues = commonIssues => {
-    const categorizedCommonIssues = commonIssues.map(item => {
-      if (!item.category) {
-        item.category = 'uncategorized'
-      }
+    const groupedCommonIssues = groupCommonIssues(commonIssues)
 
-      return item
-    })
-
-    const groupedCommonIssues = groupBy(categorizedCommonIssues, 'category')
     const sectionedCommonIssues = map(groupedCommonIssues, (value, key) => {
       return {
         title: key,

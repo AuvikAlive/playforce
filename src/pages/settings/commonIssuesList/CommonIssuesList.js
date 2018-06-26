@@ -13,9 +13,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import Typography from '@material-ui/core/Typography'
-import { groupBy, sortBy, map } from 'lodash'
-import { StyledCommonIssuesList } from './StyledCommonIssuesList'
+import { map } from 'lodash'
+import { groupCommonIssues } from '../../../utilities/groupCommonIssues'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 
 export class CommonIssuesList extends Component {
   async componentDidMount() {
@@ -48,17 +49,7 @@ export class CommonIssuesList extends Component {
   render() {
     const { match, commonIssuesLoaded, commonIssues } = this.props
 
-    const categorizedCommonIssues = commonIssues.map(item => {
-      if (!item.category) {
-        item.category = 'uncategorized'
-      }
-
-      return item
-    })
-
-    const sortedCommonIssues = sortBy(categorizedCommonIssues, ['category'])
-
-    const groupedCommonIssues = groupBy(sortedCommonIssues, 'category')
+    const groupedCommonIssues = groupCommonIssues(commonIssues)
 
     return commonIssuesLoaded ? (
       <StyledCommonIssuesList className="StyledCommonIssuesList">
