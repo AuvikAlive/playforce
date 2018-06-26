@@ -15,6 +15,7 @@ import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { getSuggestionsByName } from '../../../utilities/getSuggestionsByName'
 import { StyledEquipmentForm } from './StyledEquipmentForm'
 
 export class EquipmentForm extends Component {
@@ -61,17 +62,9 @@ export class EquipmentForm extends Component {
   onValueInputChange = onValueInputChange
 
   getManufacturerSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
     const { manufacturers } = this.props
 
-    return inputLength === 0
-      ? manufacturers.map(item => item.name)
-      : manufacturers
-          .filter(
-            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.name)
+    return getSuggestionsByName(value, manufacturers)
   }
 
   submitPlayItem = async () => {

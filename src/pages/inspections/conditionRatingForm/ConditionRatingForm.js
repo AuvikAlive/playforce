@@ -17,6 +17,7 @@ import { ManufacturersDialogContainer } from '../../../components/manufacturersD
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { equipmentTypes } from '../../../globals/constants'
+import { getSuggestionsByName } from '../../../utilities/getSuggestionsByName'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 const today = new Date()
@@ -85,32 +86,15 @@ export class ConditionRatingForm extends Component {
   onValueInputChange = onValueInputChange
 
   getEquipmentSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
     const { equipments } = this.props
 
-    return inputLength === 0
-      ? equipments.map(item => item.equipment)
-      : equipments
-          .filter(
-            item =>
-              item.equipment.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.equipment)
+    return getSuggestionsByName(value, equipments)
   }
 
   getManufacturerSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
     const { manufacturers } = this.props
 
-    return inputLength === 0
-      ? manufacturers.map(item => item.name)
-      : manufacturers
-          .filter(
-            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.name)
+    return getSuggestionsByName(value, manufacturers)
   }
 
   onEquipmentSelect = value => {
