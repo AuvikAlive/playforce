@@ -14,6 +14,7 @@ import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { Carousel } from '../carousel/Carousel'
 import { SketchPad } from './SketchPad'
+import { getWidth } from './getWidth'
 import { StyledSketch } from './StyledSketch'
 
 const tools = ['Pencil', 'Line', 'Rectangle', 'Circle']
@@ -34,10 +35,7 @@ export class Sketch extends Component {
     const { images } = this.props
 
     if (images && images.length > 0) {
-      const { width } = document
-        .querySelector('.StyledSketch')
-        .getBoundingClientRect()
-
+      const width = getWidth('.StyledSketch')
       this.setState({ width, images, imagesLength: images.length })
     }
   }
@@ -78,15 +76,26 @@ export class Sketch extends Component {
     this.setState({ color })
   }
 
-  onSave = () => {
-    const { currentSlide, images } = this.state
+  getCurrentImage = currentSlide => {
     const image = this.carouselParent[
       `sketchParent${currentSlide}`
     ]._sketch.toDataURL()
 
-    images[currentSlide].image = image
+    return image
+  }
 
+  saveCurrentImage = (currentSlide, image) => {
+    const { images } = this.state
+
+    images[currentSlide].image = image
     this.setState({ images })
+  }
+
+  onSave = () => {
+    const { currentSlide } = this.state
+    const image = this.getCurrentImage(currentSlide)
+
+    this.saveCurrentImage(currentSlide, image)
   }
 
   submit = () => {
