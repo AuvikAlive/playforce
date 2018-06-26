@@ -16,8 +16,9 @@ import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
-import { equipmentTypes } from '../../../globals/constants'
 import { getSuggestionsByName } from '../../../utilities/getSuggestionsByName'
+import { equipmentTypes } from '../../../globals/constants'
+import { getEquipmentSuggestions } from '../getEquipmentSuggestions'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 const today = new Date()
@@ -88,7 +89,7 @@ export class ConditionRatingForm extends Component {
   getEquipmentSuggestions = value => {
     const { equipments } = this.props
 
-    return getSuggestionsByName(value, equipments)
+    return getEquipmentSuggestions(value, equipments)
   }
 
   getManufacturerSuggestions = value => {

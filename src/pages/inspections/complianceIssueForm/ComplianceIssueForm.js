@@ -22,7 +22,7 @@ import {
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
 import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
-import { getSuggestionsByName } from '../../../utilities/getSuggestionsByName'
+import { getEquipmentSuggestions } from '../getEquipmentSuggestions'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 
 const defaultRecommendation =
@@ -125,7 +125,7 @@ export class ComplianceIssueForm extends Component {
   getEquipmentSuggestions = value => {
     const { equipments } = this.props
 
-    return getSuggestionsByName(value, equipments)
+    return getEquipmentSuggestions(value, equipments)
   }
 
   onCommonIssueSelect = value => {
