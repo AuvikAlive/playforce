@@ -5,8 +5,8 @@ import { makeEquipmentType } from './makeEquipmentType'
 import { makeManufacturer } from './makeManufacturer'
 import { makeCondition } from './makeCondition'
 
-export const makePlayItems = playItems => {
-  const conditionRatingItems = playItems.map(
+export const makeItems = (items, itemName) => {
+  const conditionRatingItems = items.map(
     (
       { image, equipment, manufacturer, condition, estimatedDateInstalled },
       index
@@ -32,7 +32,7 @@ export const makePlayItems = playItems => {
 
   return [
     {
-      text: 'Play Items',
+      text: `${itemName} Items`,
       fontSize: subHeaderFontSize,
       font: 'Oswald',
       marginBottom: verticalMargin,

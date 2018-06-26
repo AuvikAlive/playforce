@@ -5,7 +5,7 @@ export const inspectionTypes = [
   'Comprehensive',
   'Post-Installation Inspection',
 ]
-export const equipmentTypes = ['Play', 'Ancillary']
+export const equipmentTypes = ['Play', 'Fitness', 'Ancillary']
 
 export const probabilities = [
   { probability: 'A - Very Unlikely', value: 1 },

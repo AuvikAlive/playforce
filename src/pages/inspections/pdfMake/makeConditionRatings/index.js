@@ -1,5 +1,5 @@
 import { makeTitle } from './makeTitle'
-import { makePlayItems } from './makePlayItems'
+import { makeItems } from './makeItems'
 import { makeAncillaryItems } from './makeAncillaryItems'
 import { equipmentTypes } from '../../../../globals/constants'
 import { capitalize } from '../../../../utilities/capitalize'
@@ -9,14 +9,19 @@ export const makeConditionRatings = conditionRatings => {
     ({ itemType }) => capitalize(itemType) === equipmentTypes[0]
   )
 
-  const ancillaryItems = conditionRatings.filter(
+  const fitnessItems = conditionRatings.filter(
     ({ itemType }) => capitalize(itemType) === equipmentTypes[1]
+  )
+
+  const ancillaryItems = conditionRatings.filter(
+    ({ itemType }) => capitalize(itemType) === equipmentTypes[2]
   )
 
   return [
     makeTitle(),
-    makePlayItems(playItems),
-    ancillaryItems.length > 0 ? makeAncillaryItems(ancillaryItems) : null,
+    makeItems(playItems, 'Play'),
+    makeItems(fitnessItems, 'Fitness'),
+    makeAncillaryItems(ancillaryItems),
     {
       text: '',
       pageBreak: 'after',

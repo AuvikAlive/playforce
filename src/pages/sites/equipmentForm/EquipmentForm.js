@@ -67,7 +67,7 @@ export class EquipmentForm extends Component {
     return getSuggestionsByName(value, manufacturers)
   }
 
-  submitPlayItem = async () => {
+  submitItem = async () => {
     const { image, setFeedback, onSubmit, afterSubmit } = this.props
     const {
       itemType,
@@ -143,8 +143,8 @@ export class EquipmentForm extends Component {
   submit = async () => {
     const { itemType } = this.state
 
-    if (itemType === equipmentTypes[0]) {
-      this.submitPlayItem()
+    if (itemType !== equipmentTypes[2]) {
+      this.submitItem()
     } else {
       this.submitAncillaryItem()
     }
@@ -212,7 +212,7 @@ export class EquipmentForm extends Component {
                 onChange={this.onEventInputChange('equipment')}
               />
 
-              {itemType === equipmentTypes[0] && (
+              {itemType !== equipmentTypes[2] && (
                 <TextField
                   fullWidth
                   label="Asset Id"
@@ -222,7 +222,7 @@ export class EquipmentForm extends Component {
                 />
               )}
 
-              {itemType === equipmentTypes[0] && (
+              {itemType !== equipmentTypes[2] && (
                 <div className="with-button">
                   <AutoComplete
                     label="Manufacturer"
@@ -238,7 +238,7 @@ export class EquipmentForm extends Component {
                 </div>
               )}
 
-              {itemType === equipmentTypes[0] && (
+              {itemType !== equipmentTypes[2] && (
                 <TextField
                   fullWidth
                   label="Estimated Date Installed"

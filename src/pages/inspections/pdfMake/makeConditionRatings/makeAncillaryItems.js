@@ -5,6 +5,10 @@ import { makeEquipmentType } from './makeEquipmentType'
 import { makeCondition } from './makeCondition'
 
 export const makeAncillaryItems = ancillaryItems => {
+  if (ancillaryItems.length === 0) {
+    return null
+  }
+
   const conditionRatingItems = ancillaryItems.map(
     (
       {

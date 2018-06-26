@@ -112,7 +112,7 @@ export class ConditionRatingForm extends Component {
     }
   }
 
-  submitPlayItem = async () => {
+  submitItem = async () => {
     const {
       onSubmit,
       afterSubmit,
@@ -211,8 +211,8 @@ export class ConditionRatingForm extends Component {
   submit = () => {
     const { itemType } = this.state
 
-    if (itemType === equipmentTypes[0]) {
-      this.submitPlayItem()
+    if (itemType !== equipmentTypes[2]) {
+      this.submitItem()
     } else {
       this.submitAncillaryItem()
     }
@@ -284,7 +284,7 @@ export class ConditionRatingForm extends Component {
                 })}
               </TextField>
 
-              {itemType === equipmentTypes[0] && (
+              {itemType !== equipmentTypes[2] && (
                 <TextField
                   fullWidth
                   label="Asset Id"
@@ -294,7 +294,7 @@ export class ConditionRatingForm extends Component {
                 />
               )}
 
-              {itemType === equipmentTypes[0] && (
+              {itemType !== equipmentTypes[2] && (
                 <div className="with-button">
                   <AutoComplete
                     label="Manufacturer"
@@ -310,7 +310,7 @@ export class ConditionRatingForm extends Component {
                 </div>
               )}
 
-              {itemType === equipmentTypes[0] && (
+              {itemType !== equipmentTypes[2] && (
                 <TextField
                   fullWidth
                   label="Estimated Date Installed"
