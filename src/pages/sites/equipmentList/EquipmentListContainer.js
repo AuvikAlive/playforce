@@ -13,7 +13,7 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    equipments: { equipmentsSite, equipmentsLoaded, equipments },
+    equipment: { equipmentsSite, equipmentsLoaded, equipments },
   },
   { siteId }
 ) => ({
@@ -24,9 +24,16 @@ const mapStateToProps = (
   equipments,
 })
 
-const mapDispatchToProps = { fetchEquipments, fetchEquipmentsRealTime, deleteEquipment }
+const mapDispatchToProps = {
+  fetchEquipments,
+  fetchEquipmentsRealTime,
+  deleteEquipment,
+}
 
 export const EquipmentListContainer = compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(EquipmentList)

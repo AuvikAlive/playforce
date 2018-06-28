@@ -12,7 +12,7 @@ import { clientReducer } from './clientReducer'
 import { manufacturerReducer } from './manufacturerReducer'
 import { operatorReducer } from './operatorReducer'
 import { commonIssueReducer } from './commonIssueReducer'
-import { equipmentsReducer } from './equipmentsReducer'
+import { equipmentReducer } from './equipmentReducer'
 import { groupReducer } from './groupReducer'
 import { inspectionTypeReducer } from './inspectionTypeReducer'
 
@@ -30,7 +30,7 @@ export const reducers = {
   manufacturer: manufacturerReducer,
   operator: operatorReducer,
   commonIssue: commonIssueReducer,
-  equipments: equipmentsReducer,
+  equipment: equipmentReducer,
   group: groupReducer,
   inspectionType: inspectionTypeReducer,
 }

@@ -16,7 +16,7 @@ export const initialState = {
   equipments: [],
 }
 
-export const equipmentsReducer = (state = initialState, { type, payload }) => {
+export const equipmentReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_EQUIPMENT:
       return {

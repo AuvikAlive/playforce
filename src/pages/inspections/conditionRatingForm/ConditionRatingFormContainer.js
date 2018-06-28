@@ -16,7 +16,7 @@ const mapStateToProps = ({
   },
   manufacturer: { manufacturersLoaded, manufacturers },
   inspection: { cover },
-  equipments: { equipmentsSite, equipmentsLoaded, equipments },
+  equipment: { equipmentsSite, equipmentsLoaded, equipments },
 }) => ({
   userId: uid,
   siteId: cover.location.id,
@@ -37,5 +37,8 @@ export const ConditionRatingFormContainer = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(ConditionRatingForm)

@@ -15,7 +15,7 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    equipments: { equipmentsLoaded, equipments, equipment },
+    equipment: { equipmentsLoaded, equipments, equipment },
   },
   {
     match: {
@@ -38,5 +38,8 @@ export const EditEquipmentContainer = compose(
   withFeedback,
   withDeleteDialog,
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(EditEquipment)

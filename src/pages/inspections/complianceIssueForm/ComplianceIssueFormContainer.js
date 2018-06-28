@@ -13,7 +13,7 @@ const mapStateToProps = ({
     profile: { preimplementationRecommendation },
   },
   inspection: { cover },
-  equipments: { equipmentsSite, equipmentsLoaded, equipments },
+  equipment: { equipmentsSite, equipmentsLoaded, equipments },
   commonIssue: { commonIssuesLoaded, commonIssues },
 }) => ({
   userId: uid,
