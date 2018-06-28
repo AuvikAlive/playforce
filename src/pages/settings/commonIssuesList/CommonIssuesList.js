@@ -65,12 +65,13 @@ export class CommonIssuesList extends Component {
         </StyledNavLink>
 
         {commonIssues.length > 0 ? (
-          map(groupedCommonIssues, (value, key) => {
-            return (
-              <Paper className="paper" key={key}>
+          <Paper className="paper">
+            {map(groupedCommonIssues, (value, key) => {
+              return (
                 <List
                   disablePadding
                   component="nav"
+                  key={key}
                   subheader={
                     <ListSubheader color="primary" component="div">
                       {key}
@@ -90,9 +91,9 @@ export class CommonIssuesList extends Component {
                     )
                   })}
                 </List>
-              </Paper>
-            )
-          })
+              )
+            })}
+          </Paper>
         ) : (
           <Typography variant="title" align="center">
             Try adding an item to get started!

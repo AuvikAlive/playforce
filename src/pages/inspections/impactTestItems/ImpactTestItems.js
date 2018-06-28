@@ -68,7 +68,6 @@ export class ImpactTestItems extends Component {
     const { inspectionId, userId, impactTests, deleteImpactTest } = this.props
 
     await deleteImpactTest(userId, inspectionId, impactTests)
-
     this.showActionGoBack('Impact test deleted!')
   }
 
