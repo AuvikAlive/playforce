@@ -1,5 +1,5 @@
 export const findings = ['Finding 1', 'Finding 2', 'Finding 3']
-export const inspectionTypes = [
+export const defaultInspectionTypes = [
   'Routine',
   'Operational',
   'Comprehensive',

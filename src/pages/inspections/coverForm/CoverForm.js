@@ -20,7 +20,7 @@ import { ClientsDialogContainer } from '../../../components/clientsDialog/Client
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import { onValueInputChange } from '../../../utilities/onValueInputChange'
-import { inspectionTypes } from '../../../globals/constants'
+import { defaultInspectionTypes } from '../../../globals/constants'
 import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {
@@ -178,13 +178,18 @@ export class CoverForm extends Component {
       standardsLoaded,
       standards,
       clientsLoaded,
+      inspectionTypesLoaded,
+      inspectionTypes,
       openDialog,
       error,
       loading,
       buttonText,
     } = this.props
 
-    return sitesLoaded && standardsLoaded && clientsLoaded ? (
+    return sitesLoaded &&
+      standardsLoaded &&
+      clientsLoaded &&
+      inspectionTypesLoaded ? (
       <StyledCoverForm className="StyledCoverForm">
         <Card className="card">
           {image && <img src={image} alt="cover" />}
@@ -282,13 +287,21 @@ export class CoverForm extends Component {
                 onChange={this.onEventInputChange('inspectionType')}
                 margin="normal"
               >
-                {inspectionTypes.map((type, index) => {
-                  return (
-                    <MenuItem key={index} value={type}>
-                      {type}
-                    </MenuItem>
-                  )
-                })}
+                {inspectionTypes.length > 0
+                  ? inspectionTypes.map(({ name, id }) => {
+                      return (
+                        <MenuItem key={id} value={name}>
+                          {name}
+                        </MenuItem>
+                      )
+                    })
+                  : defaultInspectionTypes.map((type, index) => {
+                      return (
+                        <MenuItem key={index} value={type}>
+                          {type}
+                        </MenuItem>
+                      )
+                    })}
               </TextField>
             </form>
 

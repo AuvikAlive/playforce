@@ -14,6 +14,7 @@ import { operatorReducer } from './operatorReducer'
 import { commonIssueReducer } from './commonIssueReducer'
 import { equipmentsReducer } from './equipmentsReducer'
 import { groupReducer } from './groupReducer'
+import { inspectionTypeReducer } from './inspectionTypeReducer'
 
 export const reducers = {
   router: routerReducer,
@@ -31,6 +32,7 @@ export const reducers = {
   commonIssue: commonIssueReducer,
   equipments: equipmentsReducer,
   groups: groupReducer,
+  inspectionType: inspectionTypeReducer,
 }
 
 export const rootReducer = combineReducers(reducers)

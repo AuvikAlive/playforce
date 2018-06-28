@@ -3,27 +3,28 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
-import { onEventInputChange } from '../../utilities/onEventInputChange'
+import { onEventInputChange } from '../../../utilities/onEventInputChange'
 
-export class ClientForm extends Component {
+export class InspectionTypeForm extends Component {
   state = {
-    client: '',
+    inspectionType: '',
   }
 
   onEventInputChange = onEventInputChange
 
   submit = async () => {
-    const { client } = this.state
+    const { inspectionType } = this.state
     const { setFeedback, userId } = this.props
 
-    if (client) {
+    if (inspectionType) {
       setFeedback({ error: '', loading: true })
-      const { saveClient } = this.props
+
+      const { saveInspectionType } = this.props
 
       try {
-        await saveClient(userId, { name: client })
-        this.setState({ client: '' })
-        setFeedback({ success: 'Client added!', loading: false })
+        await saveInspectionType(userId, { name: inspectionType })
+        this.setState({ inspectionType: '' })
+        setFeedback({ success: 'Inspection type added!', loading: false })
       } catch (error) {
         setFeedback({ error: error.message, loading: false })
       }
@@ -35,16 +36,16 @@ export class ClientForm extends Component {
   }
 
   render() {
-    const { client } = this.state
+    const { inspectionType } = this.state
     const { error, loading } = this.props
 
     return (
       <CardContent>
         <TextField
           fullWidth
-          label="Client"
-          value={client}
-          onChange={this.onEventInputChange('client')}
+          label="Inspection Type"
+          value={inspectionType}
+          onChange={this.onEventInputChange('inspectionType')}
           margin="normal"
         />
 
@@ -65,7 +66,7 @@ export class ClientForm extends Component {
             className="submit-button"
             onClick={this.submit}
           >
-            Add Client
+            Add
           </Button>
         )}
       </CardContent>

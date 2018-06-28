@@ -1,9 +1,9 @@
-import { inspectionTypes } from '../../globals/constants'
+import { defaultInspectionTypes } from '../../globals/constants'
 
 export const makeReportTitle = inspectionType => {
   let title
 
-  if (inspectionType && inspectionType === inspectionTypes[3]) {
+  if (inspectionType && inspectionType === defaultInspectionTypes[3]) {
     title = `${inspectionType} Report`
   } else {
     title = `${inspectionType || 'Comprehensive'} Playground Inspection Report`

@@ -43,6 +43,10 @@ const PreimplementationRecommendation = Loadable({
   loader: () => import('../preimplementationRecommendation'),
 })
 
+const InspectionTypes = Loadable({
+  loader: () => import('../inspectionTypes'),
+})
+
 Profile.preload()
 StandardRoutes.preload()
 Clients.preload()
@@ -53,6 +57,7 @@ Company.preload()
 SidenavBackground.preload()
 StandardAuditSummary.preload()
 PreimplementationRecommendation.preload()
+InspectionTypes.preload()
 
 export const SettingRoutes = ({ match }) => {
   return (
@@ -75,6 +80,10 @@ export const SettingRoutes = ({ match }) => {
       <Route
         path={`${match.url}/preimplementationRecommendation`}
         component={PreimplementationRecommendation}
+      />
+      <Route
+        path={`${match.url}/inspectionTypes`}
+        component={InspectionTypes}
       />
       <Route path={match.url} component={SettingsList} />
     </Switch>

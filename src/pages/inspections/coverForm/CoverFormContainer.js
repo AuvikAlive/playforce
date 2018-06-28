@@ -16,6 +16,7 @@ const mapStateToProps = ({
   site: { sitesLoaded, sites },
   standard: { standardsLoaded, standards },
   client: { clientsLoaded, clients },
+  inspectionType: { inspectionTypesLoaded, inspectionTypes },
 }) => ({
   displayName,
   email,
@@ -26,6 +27,8 @@ const mapStateToProps = ({
   standards,
   clientsLoaded,
   clients,
+  inspectionTypesLoaded,
+  inspectionTypes,
 })
 
 const mapDispatchToProps = {
@@ -38,5 +41,8 @@ export const CoverFormContainer = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(CoverForm)
