@@ -31,7 +31,7 @@ export const reducers = {
   operator: operatorReducer,
   commonIssue: commonIssueReducer,
   equipments: equipmentsReducer,
-  groups: groupReducer,
+  group: groupReducer,
   inspectionType: inspectionTypeReducer,
 }
 

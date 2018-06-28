@@ -17,7 +17,7 @@ const mapStateToProps = ({
   firebase: {
     auth: { uid },
   },
-  groups: { groupUsersLoaded, groupUsers },
+  group: { groupUsersLoaded, groupUsers },
 }) => ({
   userId: uid,
   groupUsersLoaded,
