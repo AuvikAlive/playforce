@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
@@ -14,6 +9,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SearchIcon from '@material-ui/icons/Search'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { SelectableList } from '../../../components/selectableList/SelectableList'
+import { ListView } from './ListView'
 import { StyledGroupUserList } from './StyledGroupUserList'
 
 export class GroupUserList extends Component {
@@ -124,30 +121,6 @@ export class GroupUserList extends Component {
     this.setState({ selectMode })
   }
 
-  handleButtonPress = user => {
-    const { selectedItems } = this.state
-
-    this.buttonPressTimer = setTimeout(() => {
-      if (selectedItems.find(item => item.id === user.id)) {
-        this.setSelectedItems(selectedItems.filter(item => item.id !== user.id))
-      } else {
-        this.setSelectedItems([...selectedItems, user])
-      }
-    }, 300)
-  }
-
-  handleButtonRelease = user => {
-    const { selectedItems } = this.state
-
-    clearTimeout(this.buttonPressTimer)
-
-    if (selectedItems.length === 0) {
-      this.setSelectMode(false)
-    } else {
-      this.setSelectMode(true, selectedItems.length)
-    }
-  }
-
   deleteMembers = async () => {
     const { selectedItems } = this.state
     const { deleteMembers, id } = this.props
@@ -162,8 +135,7 @@ export class GroupUserList extends Component {
 
   render() {
     const { groupUsersLoaded, groupUsers, match } = this.props
-    const { selectedItems } = this.state
-    const groupUsersAdded = groupUsers.length > 0
+    const { selectedItems, selectMode } = this.state
 
     return groupUsersLoaded ? (
       <StyledGroupUserList className="StyledGroupUserList">
@@ -172,43 +144,21 @@ export class GroupUserList extends Component {
             variant="fab"
             color="primary"
             aria-label="add inspection"
-            className={groupUsersAdded ? '' : 'pulse'}
+            className={groupUsers.length > 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {groupUsersAdded ? (
-          <Paper className="paper">
-            <List component="nav" disablePadding>
-              {groupUsers.map(user => {
-                const itemSelected = selectedItems.find(
-                  item => item.id === user.id
-                )
-
-                return (
-                  <ListItem
-                    divider
-                    button
-                    key={user.id}
-                    selected={itemSelected ? true : false}
-                    className={`list-item ${itemSelected && 'selected'}`}
-                    onTouchStart={() => this.handleButtonPress(user)}
-                    onTouchEnd={() => this.handleButtonRelease(user)}
-                    onMouseDown={() => this.handleButtonPress(user)}
-                    onMouseUp={() => this.handleButtonRelease(user)}
-                  >
-                    <ListItemText primary={user.displayName} />
-                  </ListItem>
-                )
-              })}
-            </List>
-          </Paper>
-        ) : (
-          <Typography variant="title" align="center">
-            Try adding a member to get started!
-          </Typography>
-        )}
+        <SelectableList
+          groupUsers={groupUsers}
+          selectedItems={selectedItems}
+          selectMode={selectMode}
+          setSelectedItems={this.setSelectedItems}
+          setSelectMode={this.setSelectMode}
+          handleClick={this.handleSelectClick}
+          ListView={ListView}
+        />
       </StyledGroupUserList>
     ) : (
       <LinearProgress />
