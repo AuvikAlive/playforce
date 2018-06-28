@@ -9,16 +9,16 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { StyledGroupList } from './StyledGroupList'
+import { StyledProjectList } from './StyledProjectList'
 
 export class ProjectList extends Component {
   async componentDidMount() {
     const { setNavTitle, addUnsubscriber } = this.context
-    const { projectsLoaded, fetchProjectsRealTime } = this.props
+    const { projectsLoaded, fetchProjectsRealTime, userId } = this.props
 
     setNavTitle('Manage Projects')
 
-    !projectsLoaded && addUnsubscriber(await fetchProjectsRealTime())
+    !projectsLoaded && addUnsubscriber(await fetchProjectsRealTime(userId))
   }
 
   componentWillUnmount() {
@@ -32,8 +32,8 @@ export class ProjectList extends Component {
     const projectsAdded = projects.length > 0
 
     return projectsLoaded ? (
-      <StyledGroupList className="StyledGroupList">
-        <StyledNavLink to={match.url + '/addGroup'} className="add-icon">
+      <StyledProjectList className="StyledProjectList">
+        <StyledNavLink to={match.url + '/addProject'} className="add-icon">
           <Button
             variant="fab"
             color="primary"
@@ -61,7 +61,7 @@ export class ProjectList extends Component {
             Try adding a project to get started!
           </Typography>
         )}
-      </StyledGroupList>
+      </StyledProjectList>
     ) : (
       <LinearProgress />
     )

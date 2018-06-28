@@ -6,6 +6,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard'
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import GroupIcon from '@material-ui/icons/Group'
+import FolderIcon from '@material-ui/icons/Folder'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SettingsIcon from '@material-ui/icons/Settings'
 import HelpIcon from '@material-ui/icons/Help'
@@ -56,6 +57,15 @@ export const PrivateLinks = ({ role, signOut }) => (
         </ListItem>
       </StyledNavLink>
     )}
+
+    <StyledNavLink to="/projects">
+      <ListItem button className="list-item">
+        <ListItemIcon>
+          <FolderIcon />
+        </ListItemIcon>
+        <ListItemText primary="Projects" />
+      </ListItem>
+    </StyledNavLink>
 
     <ListItem button className="list-item" onClick={signOut}>
       <ListItemIcon>

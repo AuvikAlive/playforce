@@ -21,34 +21,39 @@ const SettingRoutes = Loadable({
   loader: () => import('../../pages/settings/settingRoutes'),
 })
 
+const ProjectRoutes = Loadable({
+  loader: () => import('../../pages/projects/projectRoutes'),
+})
+
 Dashboard.preload()
 InspectionRoutes.preload()
 SiteRoutes.preload()
 GroupRoutes.preload()
 SettingRoutes.preload()
+ProjectRoutes.preload()
 
 export const privateRoutes = [
   {
     Component: Home,
     pathname: '/',
-    name: 'Home',
+    name: 'home',
     exact: true,
   },
   {
     Component: Dashboard,
-    pathname: '/Dashboard',
+    pathname: '/dashboard',
     name: 'Dashboard',
     exact: false,
   },
   {
     Component: InspectionRoutes,
-    pathname: '/Inspections',
+    pathname: '/inspections',
     name: 'Inspections',
     exact: false,
   },
   {
     Component: SiteRoutes,
-    pathname: '/Sites',
+    pathname: '/sites',
     name: 'Sites',
     exact: false,
   },
@@ -60,8 +65,14 @@ export const privateRoutes = [
   },
   {
     Component: SettingRoutes,
-    pathname: '/Settings',
+    pathname: '/settings',
     name: 'Settings',
+    exact: false,
+  },
+  {
+    Component: ProjectRoutes,
+    pathname: '/projects',
+    name: 'Projects',
     exact: false,
   },
 ]
