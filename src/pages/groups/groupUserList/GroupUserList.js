@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
-import { ListView } from './ListView'
+import { UserListView } from '../UserListView'
 import { StyledGroupUserList } from './StyledGroupUserList'
 
 export class GroupUserList extends Component {
@@ -151,13 +151,13 @@ export class GroupUserList extends Component {
         </StyledNavLink>
 
         <SelectableList
-          groupUsers={groupUsers}
+          ListView={UserListView}
+          users={groupUsers}
           selectedItems={selectedItems}
           selectMode={selectMode}
           setSelectedItems={this.setSelectedItems}
           setSelectMode={this.setSelectMode}
           handleClick={this.handleSelectClick}
-          ListView={ListView}
         />
       </StyledGroupUserList>
     ) : (

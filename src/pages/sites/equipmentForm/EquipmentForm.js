@@ -20,7 +20,7 @@ import { StyledEquipmentForm } from './StyledEquipmentForm'
 
 export class EquipmentForm extends Component {
   state = {
-    itemType: '',
+    itemType: equipmentTypes[0],
     equipment: '',
     assetId: '',
     manufacturer: '',

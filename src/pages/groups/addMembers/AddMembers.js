@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SearchIcon from '@material-ui/icons/Search'
 import AddIcon from '@material-ui/icons/Add'
 import { differenceWith, isEqual } from 'lodash'
 import SearchBar from '../../../components/searchBar'
+import { SelectableList } from '../../../components/selectableList/SelectableList'
+import { UserListView } from '../UserListView'
 import { StyledAddMembers } from './StyledAddMembers'
 
 export class AddMembers extends Component {
@@ -129,30 +126,6 @@ export class AddMembers extends Component {
     this.setState({ selectMode })
   }
 
-  handleButtonPress = user => {
-    const { selectedItems } = this.state
-
-    this.buttonPressTimer = setTimeout(() => {
-      if (selectedItems.find(item => item.id === user.id)) {
-        this.setSelectedItems(selectedItems.filter(item => item.id !== user.id))
-      } else {
-        this.setSelectedItems([...selectedItems, user])
-      }
-    }, 300)
-  }
-
-  handleButtonRelease = user => {
-    const { selectedItems } = this.state
-
-    clearTimeout(this.buttonPressTimer)
-
-    if (selectedItems.length === 0) {
-      this.setSelectMode(false)
-    } else {
-      this.setSelectMode(true, selectedItems.length)
-    }
-  }
-
   addMembers = async () => {
     const { selectedItems } = this.state
     const { addMembers, id } = this.props
@@ -167,42 +140,20 @@ export class AddMembers extends Component {
 
   render() {
     const { usersLoaded, groupUsersLoaded, users, groupUsers } = this.props
-    const { selectedItems } = this.state
+    const { selectedItems, selectMode } = this.state
     const usersToShow = differenceWith(users, groupUsers, isEqual)
 
     return usersLoaded && groupUsersLoaded ? (
       <StyledAddMembers className="StyledAddMembers">
-        {usersToShow.length > 0 ? (
-          <Paper className="paper">
-            <List component="nav" disablePadding>
-              {usersToShow.map(user => {
-                const itemSelected = selectedItems.find(
-                  item => item.id === user.id
-                )
-
-                return (
-                  <ListItem
-                    divider
-                    button
-                    key={user.id}
-                    selected={itemSelected ? true : false}
-                    className={`list-item ${itemSelected && 'selected'}`}
-                    onTouchStart={() => this.handleButtonPress(user)}
-                    onTouchEnd={() => this.handleButtonRelease(user)}
-                    onMouseDown={() => this.handleButtonPress(user)}
-                    onMouseUp={() => this.handleButtonRelease(user)}
-                  >
-                    <ListItemText primary={user.displayName} />
-                  </ListItem>
-                )
-              })}
-            </List>
-          </Paper>
-        ) : (
-          <Typography variant="title" align="center">
-            No user to found to be added!
-          </Typography>
-        )}
+        <SelectableList
+          users={usersToShow}
+          ListView={UserListView}
+          selectedItems={selectedItems}
+          selectMode={selectMode}
+          setSelectedItems={this.setSelectedItems}
+          setSelectMode={this.setSelectMode}
+          handleClick={this.handleSelectClick}
+        />
       </StyledAddMembers>
     ) : (
       <LinearProgress />

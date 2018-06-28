@@ -8,17 +8,17 @@ import IconButton from '@material-ui/core/IconButton'
 import CheckIcon from '@material-ui/icons/Check'
 import Typography from '@material-ui/core/Typography'
 
-export const ListView = ({
-  groupUsers,
+export const UserListView = ({
+  users,
   selectedItems,
   handleButtonPress,
   handleButtonRelease,
 }) => {
-  return groupUsers.length > 0 ? (
+  return users.length > 0 ? (
     <Paper className="paper">
       <List component="nav" disablePadding>
-        {groupUsers.map(user => {
-          const itemSelected = selectedItems.find(item => item === user)
+        {users.map(user => {
+          const itemSelected = selectedItems.find(item => item.id === user.id)
 
           return (
             <ListItem
