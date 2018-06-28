@@ -11,9 +11,9 @@ import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { UserListView } from '../UserListView'
-import { StyledGroupUserList } from './StyledGroupUserList'
+import { StyledMemberList } from './StyledMemberList'
 
-export class GroupUserList extends Component {
+export class MemberList extends Component {
   state = {
     selectedItems: [],
     selectMode: false,
@@ -138,7 +138,7 @@ export class GroupUserList extends Component {
     const { selectedItems, selectMode } = this.state
 
     return groupUsersLoaded ? (
-      <StyledGroupUserList className="StyledGroupUserList">
+      <StyledMemberList className="StyledMemberList">
         <StyledNavLink to={match.url + '/addMember'} className="add-icon">
           <Button
             variant="fab"
@@ -159,14 +159,14 @@ export class GroupUserList extends Component {
           setSelectMode={this.setSelectMode}
           handleClick={this.handleSelectClick}
         />
-      </StyledGroupUserList>
+      </StyledMemberList>
     ) : (
       <LinearProgress />
     )
   }
 }
 
-GroupUserList.contextTypes = {
+MemberList.contextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

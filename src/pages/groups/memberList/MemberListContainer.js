@@ -11,7 +11,7 @@ import {
   openSearchBar,
   closeSearchBar,
 } from '../../../store/actions/actionCreators/searchBarActions'
-import { GroupUserList } from './GroupUserList'
+import { MemberList } from './MemberList'
 
 const mapStateToProps = ({
   firebase: {
@@ -31,7 +31,7 @@ const mapDispatchToProps = {
   closeSearchBar,
 }
 
-export const GroupUserListContainer = compose(
+export const MemberListContainer = compose(
   withFeedback,
   withDeleteDialog,
   withRouter,
@@ -39,4 +39,4 @@ export const GroupUserListContainer = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(GroupUserList)
+)(MemberList)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
-import GroupUserList from '../groupUserList/'
+import MemberList from '../memberList/'
 
 const AddMembers = Loadable({
   loader: () => import('../addMembers'),
@@ -18,7 +18,7 @@ export const ManageGroupRoutes = ({ match }) => {
       />
       <Route
         path={match.url}
-        component={() => <GroupUserList id={match.params.id} />}
+        component={() => <MemberList id={match.params.id} />}
       />
     </Switch>
   )
