@@ -6,7 +6,7 @@ import {
   deleteClient,
   fetchClientsRealTime,
 } from '../../../store/actions/actionCreators/clientActions/'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = ({
   firebase: {
@@ -22,6 +22,9 @@ const mapStateToProps = ({
 const mapDispatchToProps = { saveClient, deleteClient, fetchClientsRealTime }
 
 export const ClientsContainer = compose(
-  withDeleteModal,
-  connect(mapStateToProps, mapDispatchToProps)
+  withDeleteDialog,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(Clients)

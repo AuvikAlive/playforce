@@ -6,7 +6,7 @@ import {
   fetchOperatorsRealTime,
 } from '../../../store/actions/actionCreators/operatorActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = ({
   firebase: {
@@ -25,7 +25,7 @@ const mapDispatchToProps = {
 }
 
 export const OperatorsContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
 )(Operators)

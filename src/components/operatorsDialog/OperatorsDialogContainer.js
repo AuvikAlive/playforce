@@ -5,7 +5,7 @@ import {
   fetchOperatorsRealTime,
 } from '../../store/actions/actionCreators/operatorActions/'
 import { withFeedback } from '../../hocs/withFeedback/withFeedback'
-import { withDeleteModal } from '../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../hocs/withDeleteDialog/withDeleteDialog'
 import { OperatorsDialog } from './OperatorsDialog'
 
 const mapStateToProps = ({
@@ -25,7 +25,7 @@ const mapDispatchToProps = {
 }
 
 export const OperatorsDialogContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
 )(OperatorsDialog)

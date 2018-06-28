@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   updateConditionRating,
@@ -27,6 +27,6 @@ const mapDispatchToProps = { updateConditionRating, deleteConditionRating }
 
 export const EditConditionRatingContainer = compose(
   withFeedback,
-  withDeleteModal,
+  withDeleteDialog,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditConditionRating)

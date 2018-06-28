@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { deleteSurfaceTest } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ImpactTestDetailItems } from './ImpactTestDetailItems'
@@ -25,7 +25,7 @@ const mapDispatchToProps = { deleteSurfaceTest }
 
 export const ImpactTestDetailItemsContainer = compose(
   withFeedback,
-  withDeleteModal,
+  withDeleteDialog,
   withRouter,
   connect(
     mapStateToProps,

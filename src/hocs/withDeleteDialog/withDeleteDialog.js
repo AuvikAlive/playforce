@@ -3,8 +3,8 @@ import Dialog from '@material-ui/core/Dialog'
 import { getDisplayName } from '../../utilities/getDisplayName'
 import { DialogContent } from './DialogContent'
 
-export const withDeleteModal = WrappedComponent => {
-  class WithDeleteModal extends Component {
+export const withDeleteDialog = WrappedComponent => {
+  class WithDeleteDialog extends Component {
     state = {
       dialogOpen: false,
       handleConfirmation: null,
@@ -35,9 +35,9 @@ export const withDeleteModal = WrappedComponent => {
     }
   }
 
-  WithDeleteModal.displayName = `WithDeleteModal(${getDisplayName(
+  WithDeleteDialog.displayName = `WithDeleteDialog(${getDisplayName(
     WrappedComponent
   )})`
 
-  return WithDeleteModal
+  return WithDeleteDialog
 }

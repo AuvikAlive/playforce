@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchSite,
@@ -31,7 +31,7 @@ const mapDispatchToProps = { fetchSite, deleteSite }
 
 export const SiteDetailContainer = compose(
   withFeedback,
-  withDeleteModal,
+  withDeleteDialog,
   withRouter,
   connect(mapStateToProps, mapDispatchToProps)
 )(SiteDetail)

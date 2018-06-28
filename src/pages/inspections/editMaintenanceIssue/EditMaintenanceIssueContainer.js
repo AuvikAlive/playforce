@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   updateMaintenanceIssue,
@@ -27,6 +27,6 @@ const mapDispatchToProps = { updateMaintenanceIssue, deleteMaintenanceIssue }
 
 export const EditMaintenanceIssueContainer = compose(
   withFeedback,
-  withDeleteModal,
+  withDeleteDialog,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditMaintenanceIssue)

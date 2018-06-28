@@ -5,7 +5,7 @@ import {
   deleteManufacturer,
   fetchManufacturersRealTime,
 } from '../../../store/actions/actionCreators/manufacturerActions/'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = ({
   firebase: {
@@ -24,6 +24,6 @@ const mapDispatchToProps = {
 }
 
 export const ManufacturersContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   connect(mapStateToProps, mapDispatchToProps)
 )(Manufacturers)

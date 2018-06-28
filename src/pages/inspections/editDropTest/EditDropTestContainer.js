@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import {
   updateDropTest,
   deleteDropTest,
@@ -31,7 +31,7 @@ const mapStateToProps = (
 const mapDispatchToProps = { updateDropTest, deleteDropTest }
 
 export const EditDropTestContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   withFeedback,
   withRouter,
   connect(

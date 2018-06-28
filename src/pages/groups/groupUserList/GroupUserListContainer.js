@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchGroupUsersRealTime,
@@ -33,7 +33,7 @@ const mapDispatchToProps = {
 
 export const GroupUserListContainer = compose(
   withFeedback,
-  withDeleteModal,
+  withDeleteDialog,
   withRouter,
   connect(
     mapStateToProps,

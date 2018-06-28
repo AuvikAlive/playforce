@@ -5,7 +5,7 @@ import {
   deleteClient,
   fetchClientsRealTime,
 } from '../../store/actions/actionCreators/clientActions/'
-import { withDeleteModal } from '../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../hocs/withDeleteDialog/withDeleteDialog'
 import { ClientsDialog } from './ClientsDialog'
 
 const mapStateToProps = ({
@@ -22,6 +22,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = { saveClient, deleteClient, fetchClientsRealTime }
 
 export const ClientsDialogContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   connect(mapStateToProps, mapDispatchToProps)
 )(ClientsDialog)

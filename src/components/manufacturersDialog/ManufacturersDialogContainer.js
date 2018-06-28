@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteModal } from '../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../hocs/withDeleteDialog/withDeleteDialog'
 import {
   deleteManufacturer,
   fetchManufacturersRealTime,
@@ -24,6 +24,6 @@ const mapDispatchToProps = {
 }
 
 export const ManufacturersDialogContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   connect(mapStateToProps, mapDispatchToProps)
 )(ManufacturersDialog)

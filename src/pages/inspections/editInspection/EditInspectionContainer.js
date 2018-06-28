@@ -15,7 +15,7 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
 const mapStateToProps = (
   {
@@ -59,7 +59,7 @@ const mapDispatchToProps = {
 }
 
 export const EditInspectionContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   withFeedback,
   connect(mapStateToProps, mapDispatchToProps)
 )(EditInspection)

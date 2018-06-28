@@ -4,7 +4,7 @@ import {
   deleteInspectionType,
   fetchInspectionTypesRealTime,
 } from '../../../store/actions/actionCreators/inspectionTypeActions/'
-import { withDeleteModal } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { InspectionTypes } from './InspectionTypes'
 
 const mapStateToProps = ({
@@ -24,7 +24,7 @@ const mapDispatchToProps = {
 }
 
 export const InspectionTypesContainer = compose(
-  withDeleteModal,
+  withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
