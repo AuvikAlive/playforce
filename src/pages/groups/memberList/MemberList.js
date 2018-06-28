@@ -21,13 +21,13 @@ export class MemberList extends Component {
 
   async componentDidMount() {
     const { addUnsubscriber, setSearchComponent } = this.context
-    const { id, fetchGroupUsersRealTime } = this.props
+    const { id, fetchMembersRealTime } = this.props
 
     this.setNav()
 
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
-    addUnsubscriber(await fetchGroupUsersRealTime(id))
+    addUnsubscriber(await fetchMembersRealTime(id))
   }
 
   componentWillUnmount() {

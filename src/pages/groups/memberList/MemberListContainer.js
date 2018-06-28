@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
-  fetchGroupUsersRealTime,
+  fetchMembersRealTime,
   deleteMembers,
 } from '../../../store/actions/actionCreators/groupActions/'
 import {
@@ -25,7 +25,7 @@ const mapStateToProps = ({
 })
 
 const mapDispatchToProps = {
-  fetchGroupUsersRealTime,
+  fetchMembersRealTime,
   deleteMembers,
   openSearchBar,
   closeSearchBar,

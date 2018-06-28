@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchUsersRealTime,
-  fetchGroupUsersRealTime,
+  fetchMembersRealTime,
   addMembers,
 } from '../../../store/actions/actionCreators/groupActions/'
 import {
@@ -28,7 +28,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
   fetchUsersRealTime,
-  fetchGroupUsersRealTime,
+  fetchMembersRealTime,
   addMembers,
   openSearchBar,
   closeSearchBar,

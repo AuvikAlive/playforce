@@ -23,7 +23,7 @@ export class AddMembers extends Component {
       usersLoaded,
       fetchUsersRealTime,
       membersLoaded,
-      fetchGroupUsersRealTime,
+      fetchMembersRealTime,
       id,
     } = this.props
 
@@ -32,7 +32,7 @@ export class AddMembers extends Component {
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     !usersLoaded && addUnsubscriber(await fetchUsersRealTime())
-    !membersLoaded && addUnsubscriber(await fetchGroupUsersRealTime(id))
+    !membersLoaded && addUnsubscriber(await fetchMembersRealTime(id))
   }
 
   componentWillUnmount() {
