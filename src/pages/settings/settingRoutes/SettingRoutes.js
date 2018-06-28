@@ -39,6 +39,10 @@ const StandardAuditSummary = Loadable({
   loader: () => import('../standardAuditSummary'),
 })
 
+const PreimplementationRecommendation = Loadable({
+  loader: () => import('../preimplementationRecommendation'),
+})
+
 Profile.preload()
 StandardRoutes.preload()
 Clients.preload()
@@ -48,6 +52,7 @@ CommonIssueRoutes.preload()
 Company.preload()
 SidenavBackground.preload()
 StandardAuditSummary.preload()
+PreimplementationRecommendation.preload()
 
 export const SettingRoutes = ({ match }) => {
   return (
@@ -66,6 +71,10 @@ export const SettingRoutes = ({ match }) => {
       <Route
         path={`${match.url}/auditSummary`}
         component={StandardAuditSummary}
+      />
+      <Route
+        path={`${match.url}/preimplementationRecommendation`}
+        component={PreimplementationRecommendation}
       />
       <Route path={match.url} component={SettingsList} />
     </Switch>

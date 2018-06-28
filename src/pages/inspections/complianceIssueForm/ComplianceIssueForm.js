@@ -128,6 +128,12 @@ export class ComplianceIssueForm extends Component {
     return getEquipmentSuggestions(value, equipments)
   }
 
+  makeRecommendations = () => {
+    const { preimplementationRecommendation } = this.props
+
+    return preimplementationRecommendation || defaultRecommendation
+  }
+
   onCommonIssueSelect = value => {
     const { equipment } = this.state
     const { equipments } = this.props
@@ -144,7 +150,7 @@ export class ComplianceIssueForm extends Component {
       this.setState({
         ...value,
         comments: comments + '\n' + preImplementationText,
-        recommendations: defaultRecommendation,
+        recommendations: this.makeRecommendations(),
       })
     } else {
       this.setState({ ...value })
@@ -171,7 +177,7 @@ export class ComplianceIssueForm extends Component {
           ...equipment,
           comments:
             commonIssue.comments + '\n' + commonIssue.preImplementationText,
-          recommendations: defaultRecommendation,
+          recommendations: this.makeRecommendations(),
         })
       } else {
         this.setState({

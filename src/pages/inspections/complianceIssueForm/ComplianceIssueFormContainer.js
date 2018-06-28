@@ -10,6 +10,7 @@ import { ComplianceIssueForm } from './ComplianceIssueForm'
 const mapStateToProps = ({
   firebase: {
     auth: { uid },
+    profile: { preimplementationRecommendation },
   },
   inspection: { cover },
   equipments: { equipmentsSite, equipmentsLoaded, equipments },
@@ -22,6 +23,7 @@ const mapStateToProps = ({
   equipmentsSite,
   equipmentsLoaded,
   equipments,
+  preimplementationRecommendation,
 })
 
 const mapDispatchToProps = {
@@ -33,5 +35,8 @@ export const ComplianceIssueFormContainer = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(ComplianceIssueForm)

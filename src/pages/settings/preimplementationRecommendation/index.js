@@ -1,0 +1,3 @@
+import { PreimplementationRecommendationContainer } from './PreimplementationRecommendationContainer'
+
+export default PreimplementationRecommendationContainer

@@ -82,6 +82,14 @@ export class SettingsList extends Component {
                     <ListItemText primary="Standard Audit Summary" />
                   </ListItem>
                 </StyledNavLink>
+
+                <StyledNavLink
+                  to={`${match.url}/preimplementationRecommendation`}
+                >
+                  <ListItem button>
+                    <ListItemText primary="Preimplementation Recommendation" />
+                  </ListItem>
+                </StyledNavLink>
               </List>
             </Grid>
           </Grid>
