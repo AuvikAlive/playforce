@@ -1,3 +1,4 @@
+import { addProject } from './addProject'
 import { fetchProjectsRealTime } from './fetchProjectsRealTime'
 
-export { fetchProjectsRealTime }
+export { addProject, fetchProjectsRealTime }
