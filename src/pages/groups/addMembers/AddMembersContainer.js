@@ -17,13 +17,13 @@ const mapStateToProps = ({
   firebase: {
     auth: { uid },
   },
-  group: { usersLoaded, users, groupUsersLoaded, groupUsers },
+  group: { usersLoaded, users, membersLoaded, members },
 }) => ({
   userId: uid,
   usersLoaded,
   users,
-  groupUsersLoaded,
-  groupUsers,
+  membersLoaded,
+  members,
 })
 
 const mapDispatchToProps = {

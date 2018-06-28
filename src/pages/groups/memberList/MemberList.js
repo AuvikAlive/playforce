@@ -134,17 +134,17 @@ export class MemberList extends Component {
   }
 
   render() {
-    const { groupUsersLoaded, groupUsers, match } = this.props
+    const { membersLoaded, members, match } = this.props
     const { selectedItems, selectMode } = this.state
 
-    return groupUsersLoaded ? (
+    return membersLoaded ? (
       <StyledMemberList className="StyledMemberList">
         <StyledNavLink to={match.url + '/addMember'} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add inspection"
-            className={groupUsers.length > 0 ? '' : 'pulse'}
+            className={members.length > 0 ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
@@ -152,7 +152,7 @@ export class MemberList extends Component {
 
         <SelectableList
           ListView={UserListView}
-          users={groupUsers}
+          users={members}
           selectedItems={selectedItems}
           selectMode={selectMode}
           setSelectedItems={this.setSelectedItems}

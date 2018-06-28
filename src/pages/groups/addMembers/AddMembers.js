@@ -22,7 +22,7 @@ export class AddMembers extends Component {
     const {
       usersLoaded,
       fetchUsersRealTime,
-      groupUsersLoaded,
+      membersLoaded,
       fetchGroupUsersRealTime,
       id,
     } = this.props
@@ -32,7 +32,7 @@ export class AddMembers extends Component {
     setSearchComponent(<SearchBar onSearch={this.onSearch} />)
 
     !usersLoaded && addUnsubscriber(await fetchUsersRealTime())
-    !groupUsersLoaded && addUnsubscriber(await fetchGroupUsersRealTime(id))
+    !membersLoaded && addUnsubscriber(await fetchGroupUsersRealTime(id))
   }
 
   componentWillUnmount() {
@@ -139,11 +139,11 @@ export class AddMembers extends Component {
   }
 
   render() {
-    const { usersLoaded, groupUsersLoaded, users, groupUsers } = this.props
+    const { usersLoaded, membersLoaded, users, members } = this.props
     const { selectedItems, selectMode } = this.state
-    const usersToShow = differenceWith(users, groupUsers, isEqual)
+    const usersToShow = differenceWith(users, members, isEqual)
 
-    return usersLoaded && groupUsersLoaded ? (
+    return usersLoaded && membersLoaded ? (
       <StyledAddMembers className="StyledAddMembers">
         <SelectableList
           users={usersToShow}

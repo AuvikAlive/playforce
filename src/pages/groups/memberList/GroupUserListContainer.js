@@ -17,7 +17,7 @@ const mapStateToProps = ({
   firebase: {
     auth: { uid },
   },
-  group: { membersLoaded, members },
+  groups: { membersLoaded, members },
 }) => ({
   userId: uid,
   membersLoaded,
@@ -31,7 +31,7 @@ const mapDispatchToProps = {
   closeSearchBar,
 }
 
-export const MemberListContainer = compose(
+export const GroupUserListContainer = compose(
   withFeedback,
   withDeleteDialog,
   withRouter,

@@ -1,14 +1,11 @@
-import {
-  FETCH_GROUP_USERS,
-  FETCH_GROUP_USERS_COMPLETED,
-} from '../../actionTypes'
+import { FETCH_MEMBERS, FETCH_MEMBERS_COMPLETED } from '../../actionTypes'
 
 export const fetchGroupUsersRealTime = groupId => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  dispatch({ type: FETCH_GROUP_USERS })
+  dispatch({ type: FETCH_MEMBERS })
 
   const firebase = getFirebase()
   const db = firebase.firestore()
@@ -26,6 +23,6 @@ export const fetchGroupUsersRealTime = groupId => async (
         ...doc.data(),
       })
     )
-    dispatch({ type: FETCH_GROUP_USERS_COMPLETED, payload: items })
+    dispatch({ type: FETCH_MEMBERS_COMPLETED, payload: items })
   })
 }

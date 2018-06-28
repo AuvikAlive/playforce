@@ -44,7 +44,7 @@ export class SelectableList extends Component {
     if (selectedItems.length === 0) {
       const { scrolling } = this.state
 
-      !scrolling && !selectMode && handleClick(key)
+      !scrolling && !selectMode && handleClick && handleClick(key)
       setSelectMode(false)
     } else {
       setSelectMode(true, selectedItems.length)
