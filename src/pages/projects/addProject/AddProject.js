@@ -47,7 +47,7 @@ export class AddProject extends Component {
       setFeedback({ error: '', loading: true })
 
       try {
-        await addProject(userId, { name })
+        await addProject(userId, name)
 
         setFeedback({ loading: false, success: 'Project published!' })
 

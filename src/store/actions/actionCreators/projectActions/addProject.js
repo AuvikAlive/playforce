@@ -1,4 +1,4 @@
-export const addProject = (userId, data) => async (
+export const addProject = (userId, name) => async (
   dispatch,
   getState,
   getFirebase
@@ -9,9 +9,13 @@ export const addProject = (userId, data) => async (
     .collection('users')
     .doc(userId)
     .collection('projects')
-    .doc()
+    .doc(name)
+  const doc = await ref.get()
 
-  await ref.set(data)
-
-  return ref.id
+  if (doc.exists) {
+    throw new Error('Project with this name already exists!')
+  } else {
+    await ref.set({ name })
+    return ref.id
+  }
 }
