@@ -3,6 +3,9 @@ import { compose } from 'redux'
 import { fetchSitesRealTime } from '../../../store/actions/actionCreators/siteActions/'
 import { fetchStandardsRealTime } from '../../../store/actions/actionCreators/standardActions'
 import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions/'
+import {
+  fetchInspectionTypesRealTime,
+} from '../../../store/actions/actionCreators/inspectionTypeActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
@@ -35,6 +38,7 @@ const mapDispatchToProps = {
   fetchSitesRealTime,
   fetchStandardsRealTime,
   fetchClientsRealTime,
+  fetchInspectionTypesRealTime
 }
 
 export const CoverFormContainer = compose(

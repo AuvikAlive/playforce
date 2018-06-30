@@ -41,6 +41,8 @@ export class CoverForm extends Component {
       fetchStandardsRealTime,
       clientsLoaded,
       fetchClientsRealTime,
+      inspectionTypesLoaded,
+      fetchInspectionTypesRealTime,
       userId,
     } = this.props
 
@@ -50,6 +52,8 @@ export class CoverForm extends Component {
     !sitesLoaded && addUnsubscriber(await fetchSitesRealTime(userId))
     !standardsLoaded && addUnsubscriber(await fetchStandardsRealTime(userId))
     !clientsLoaded && addUnsubscriber(await fetchClientsRealTime(userId))
+    !inspectionTypesLoaded &&
+      addUnsubscriber(await fetchInspectionTypesRealTime(userId))
   }
 
   componentWillReceiveProps({

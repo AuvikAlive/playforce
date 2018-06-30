@@ -16,7 +16,7 @@ export class ProjectList extends Component {
     const { setNavTitle, addUnsubscriber } = this.context
     const { projectsLoaded, fetchProjectsRealTime, userId } = this.props
 
-    setNavTitle('Manage Projects')
+    setNavTitle('Projects')
 
     !projectsLoaded && addUnsubscriber(await fetchProjectsRealTime(userId))
   }
