@@ -56,7 +56,7 @@ export class DeleteInspections extends Component {
     } = this.context
     const { history, openSearchBar } = this.props
 
-    setNavTitle(`Add Inspections`)
+    setNavTitle(`Remove Inspections`)
 
     setLeftNavComponent(
       <IconButton
