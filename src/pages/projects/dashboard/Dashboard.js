@@ -3,16 +3,27 @@ import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Typography from '@material-ui/core/Typography'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import { StyledDashboard } from './StyledDashboard'
 
 export class Dashboard extends Component {
-  componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+  state = {
+    menuAnchor: null,
+  }
 
-    setNavTitle('Dashboard')
+  componentDidMount() {
+    const {
+      setNavTitle,
+      setLeftNavComponent,
+      setRightNavComponent,
+    } = this.context
+    const { history, id } = this.props
+
+    setNavTitle(`Manage ${id}`)
 
     setLeftNavComponent(
       <IconButton
@@ -23,15 +34,45 @@ export class Dashboard extends Component {
         <ArrowBackIcon />
       </IconButton>
     )
+
+    setRightNavComponent(
+      <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
+        <MoreVertIcon aria-label="More" />
+      </IconButton>
+    )
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
+    const {
+      removeNavTitle,
+      removeLefNavComponent,
+      removeRightNavComponent,
+    } = this.context
 
     removeNavTitle()
     removeLefNavComponent()
+    removeRightNavComponent()
   }
+
+  openMenu = event => {
+    this.setState({ menuAnchor: event.currentTarget })
+  }
+
+  closeMenu = () => {
+    this.setState({ menuAnchor: null })
+  }
+
+  addInspections = () => {
+    this.closeMenu()
+  }
+
+  removeInspections = () => {
+    this.closeMenu()
+  }
+
   render() {
+    const { menuAnchor } = this.state
+
     return (
       <StyledDashboard className="StyledDashboard">
         <Typography variant="display1" align="center" className="title">
@@ -51,6 +92,18 @@ export class Dashboard extends Component {
             <Paper className="paper">Tile</Paper>
           </Grid>
         </Grid>
+
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={this.closeMenu}
+          MenuListProps={{ disablePadding: true }}
+        >
+          <MenuItem onClick={this.addInspections}>Add inspctions</MenuItem>
+          <MenuItem onClick={this.removeInspections}>
+            Remove inspctions
+          </MenuItem>
+        </Menu>
       </StyledDashboard>
     )
   }
@@ -61,4 +114,6 @@ Dashboard.contextTypes = {
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,
   removeLefNavComponent: PropTypes.func,
+  setRightNavComponent: PropTypes.func,
+  removeRightNavComponent: PropTypes.func,
 }
