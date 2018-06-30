@@ -7,7 +7,12 @@ const AddInspections = Loadable({
   loader: () => import('../addInspections'),
 })
 
+const DeleteInspections = Loadable({
+  loader: () => import('../deleteInspections'),
+})
+
 AddInspections.preload()
+DeleteInspections.preload()
 
 export const ManageProjectRoutes = ({ match }) => {
   return (
@@ -15,6 +20,12 @@ export const ManageProjectRoutes = ({ match }) => {
       <Route
         path={`${match.url}/add`}
         component={props => <AddInspections id={match.params.id} {...props} />}
+      />
+      <Route
+        path={`${match.url}/remove`}
+        component={props => (
+          <DeleteInspections id={match.params.id} {...props} />
+        )}
       />
       <Route
         path={match.url}
