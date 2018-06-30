@@ -64,10 +64,18 @@ export class Dashboard extends Component {
 
   addInspections = () => {
     this.closeMenu()
+
+    const { history, match } = this.props
+
+    history.push(`${match.url}/add`)
   }
 
   removeInspections = () => {
     this.closeMenu()
+
+    const { history, match } = this.props
+
+    history.push(`${match.url}/remove`)
   }
 
   render() {
@@ -99,9 +107,9 @@ export class Dashboard extends Component {
           onClose={this.closeMenu}
           MenuListProps={{ disablePadding: true }}
         >
-          <MenuItem onClick={this.addInspections}>Add inspctions</MenuItem>
+          <MenuItem onClick={this.addInspections}>Add inspections</MenuItem>
           <MenuItem onClick={this.removeInspections}>
-            Remove inspctions
+            Remove inspections
           </MenuItem>
         </Menu>
       </StyledDashboard>

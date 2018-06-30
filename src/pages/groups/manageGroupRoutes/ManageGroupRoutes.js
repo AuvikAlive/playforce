@@ -14,11 +14,11 @@ export const ManageGroupRoutes = ({ match }) => {
     <Switch>
       <Route
         path={`${match.url}/addMember`}
-        component={() => <AddMembers id={match.params.id} />}
+        render={props => <AddMembers id={match.params.id} {...props} />}
       />
       <Route
         path={match.url}
-        component={() => <MemberList id={match.params.id} />}
+        render={props => <MemberList id={match.params.id} {...props} />}
       />
     </Switch>
   )
