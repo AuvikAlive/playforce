@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -30,7 +31,8 @@ export class SiteForm extends Component {
     position: undefined,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { addUnsubscriber } = this.context
     const {
       userId,
       operatorsLoaded,
@@ -38,9 +40,8 @@ export class SiteForm extends Component {
       initialData,
     } = this.props
 
-    !operatorsLoaded && fetchOperatorsRealTime(userId)
+    !operatorsLoaded && addUnsubscriber(await fetchOperatorsRealTime(userId))
     initialData && this.loadInitialData(initialData)
-    this.setPosition()
   }
 
   componentWillReceiveProps({ initialData }) {
@@ -58,15 +59,29 @@ export class SiteForm extends Component {
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
 
-  setPosition = async () => {
-    const { latitude, longitude, radius } = await getCurrentPosition()
-    this.setState({ position: { latitude, longitude, radius } })
+  getPosition = async () => {
+    const { position } = this.state
+
+    if (position) {
+      return position
+    } else {
+      const position = await getCurrentPosition()
+
+      this.setState({ position: { ...position } })
+
+      return position
+    }
   }
 
   getPlaceSuggestions = type => async value => {
     if (value) {
       try {
-        const results = await this.getQueryPredictions(value, type && [type])
+        const position = await this.getPosition()
+        const results = await getQueryPredictions(
+          position,
+          value,
+          type && [type]
+        )
         return results.map(({ description }) => description)
       } catch (error) {
         return error === 'ZERO_RESULTS'
@@ -76,11 +91,6 @@ export class SiteForm extends Component {
     }
 
     return []
-  }
-
-  getQueryPredictions = async (input, types) => {
-    const { position } = this.state
-    return await getQueryPredictions(position, input, types)
   }
 
   getOperatorSuggestions = value => {
@@ -251,4 +261,8 @@ export class SiteForm extends Component {
       <LinearProgress />
     )
   }
+}
+
+SiteForm.contextTypes = {
+  addUnsubscriber: PropTypes.func,
 }

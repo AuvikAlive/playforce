@@ -26,20 +26,27 @@ export const ImpactTestDetailRoutes = ({ match }) => {
     <Switch>
       <Route
         path={`${match.url}/surface`}
-        component={() => <EditImpactSurface impactTestId={impactTestId} />}
+        render={props => (
+          <EditImpactSurface impactTestId={impactTestId} {...props} />
+        )}
       />
       <Route
         path={`${match.url}/addDrop`}
-        component={() => <AddDropTest impactTestId={impactTestId} />}
+        render={props => <AddDropTest impactTestId={impactTestId} {...props} />}
       />
       <Route
         path={`${match.url}/editDrop/:id`}
-        component={() => <EditDropTest impactTestId={impactTestId} />}
+        render={props => (
+          <EditDropTest impactTestId={impactTestId} {...props} />
+        )}
       />
       <Route
         path={match.url}
-        component={() => (
-          <ImpactTestDetailItemsContainer impactTestId={impactTestId} />
+        render={props => (
+          <ImpactTestDetailItemsContainer
+            impactTestId={impactTestId}
+            {...props}
+          />
         )}
       />
     </Switch>

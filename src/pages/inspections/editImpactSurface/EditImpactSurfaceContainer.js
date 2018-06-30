@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withRouter } from 'react-router-dom'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { updateImpactSurface } from '../../../store/actions/actionCreators/inspectionActions/'
 import { EditImpactSurface } from './EditImpactSurface'
@@ -24,6 +23,8 @@ const mapDispatchToProps = { updateImpactSurface }
 
 export const EditImpactSurfaceContainer = compose(
   withFeedback,
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(EditImpactSurface)

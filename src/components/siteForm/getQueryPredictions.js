@@ -1,8 +1,5 @@
-import { getCurrentPosition } from './getCurrentPosition'
-
 export const getQueryPredictions = async (position, input, types) => {
-  const { latitude, longitude, radius } =
-    position || (await getCurrentPosition())
+  const { latitude, longitude, radius } = position
   const googleMaps = window.google.maps
   const location = new googleMaps.LatLng(latitude, longitude)
   const places = googleMaps.places

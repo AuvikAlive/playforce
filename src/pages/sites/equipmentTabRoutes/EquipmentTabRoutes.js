@@ -19,17 +19,17 @@ const EquipmentTabWithout = ({ match }) => {
     <Switch>
       <Route
         path={match.url + '/:id/edit'}
-        render={() => <EditEquipment siteId={match.params.id} />}
+        render={props => <EditEquipment siteId={match.params.id} {...props} />}
       />
 
       <Route
         path={match.url + '/add'}
-        render={() => <AddEquipment siteId={match.params.id} />}
+        render={props => <AddEquipment siteId={match.params.id} {...props} />}
       />
 
       <Route
         path={match.url}
-        render={() => <EquipmentList siteId={match.params.id} />}
+        render={props => <EquipmentList siteId={match.params.id} {...props} />}
       />
     </Switch>
   )

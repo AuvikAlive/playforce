@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withRouter } from 'react-router-dom'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { addEquipment } from '../../../store/actions/actionCreators/equipmentActions/'
@@ -19,6 +18,8 @@ const mapDispatchToProps = { addEquipment }
 export const AddEquipmentContainer = compose(
   withFeedback,
   withDeleteDialog,
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(AddEquipment)

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withRouter } from 'react-router-dom'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
@@ -37,7 +36,6 @@ const mapDispatchToProps = { updateEquipment, fetchEquipment, deleteEquipment }
 export const EditEquipmentContainer = compose(
   withFeedback,
   withDeleteDialog,
-  withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps
