@@ -4,11 +4,11 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import SearchBar from '../../../components/searchBar'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import SearchIcon from '@material-ui/icons/Search'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { intersectionWith } from 'lodash'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
+import { setInspectionNav } from '../utilities/setInspectionNav'
 import { onInspectionSearch } from '../utilities/onInspectionSearch'
 import { StyledDeleteInspections } from './StyledDeleteInspections'
 
@@ -28,7 +28,7 @@ export class DeleteInspections extends Component {
       id,
     } = this.props
 
-    this.setNav()
+    setInspectionNav(this, 'Remove Inspections')
 
     setSearchComponent(<SearchBar onSearch={onInspectionSearch(this)} />)
 
@@ -47,33 +47,6 @@ export class DeleteInspections extends Component {
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
-  }
-
-  setNav = () => {
-    const {
-      setNavTitle,
-      setLeftNavComponent,
-      setRightNavComponent,
-    } = this.context
-    const { history, openSearchBar } = this.props
-
-    setNavTitle(`Remove Inspections`)
-
-    setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="navigate back"
-        onClick={() => history.goBack()}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    setRightNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
-        <SearchIcon />
-      </IconButton>
-    )
   }
 
   setSelectedItems = selectedItems => this.setState({ selectedItems })
@@ -121,7 +94,7 @@ export class DeleteInspections extends Component {
       setSearchOnTop()
       setNavColor('primary')
 
-      this.setNav()
+      setInspectionNav(this, 'Add Inspections')
       this.setSelectedItems([])
     }
 

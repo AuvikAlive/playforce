@@ -4,11 +4,11 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import SearchBar from '../../../components/searchBar'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import SearchIcon from '@material-ui/icons/Search'
 import AddIcon from '@material-ui/icons/Add'
 import { differenceWith } from 'lodash'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
+import { setInspectionNav } from '../utilities/setInspectionNav'
 import { onInspectionSearch } from '../utilities/onInspectionSearch'
 import { StyledAddInspections } from './StyledAddInspections'
 
@@ -28,7 +28,7 @@ export class AddInspections extends Component {
       id,
     } = this.props
 
-    this.setNav()
+    setInspectionNav(this, 'Add Inspections')
 
     setSearchComponent(<SearchBar onSearch={onInspectionSearch(this)} />)
 
@@ -51,33 +51,6 @@ export class AddInspections extends Component {
     removeRightNavComponent()
     searchBarOpen && closeSearchBar()
     removeSearchComponent()
-  }
-
-  setNav = () => {
-    const {
-      setNavTitle,
-      setLeftNavComponent,
-      setRightNavComponent,
-    } = this.context
-    const { history, openSearchBar } = this.props
-
-    setNavTitle(`Add Inspections`)
-
-    setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="navigate back"
-        onClick={() => history.goBack()}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    setRightNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={openSearchBar}>
-        <SearchIcon />
-      </IconButton>
-    )
   }
 
   setSelectedItems = selectedItems => this.setState({ selectedItems })
@@ -125,7 +98,7 @@ export class AddInspections extends Component {
       setSearchOnTop()
       setNavColor('primary')
 
-      this.setNav()
+      setInspectionNav(this, 'Add Inspections')
       this.setSelectedItems([])
     }
 
