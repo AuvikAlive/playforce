@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add'
 import { differenceWith } from 'lodash'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
+import { onInspectionSearch } from '../utilities/onInspectionSearch'
 import { StyledAddInspections } from './StyledAddInspections'
 
 export class AddInspections extends Component {
@@ -29,7 +30,7 @@ export class AddInspections extends Component {
 
     this.setNav()
 
-    setSearchComponent(<SearchBar onSearch={this.onSearch} />)
+    setSearchComponent(<SearchBar onSearch={onInspectionSearch(this)} />)
 
     !inspectionsLoaded &&
       addUnsubscriber(await fetchInspectionsRealTime(userId))
@@ -141,18 +142,6 @@ export class AddInspections extends Component {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onSearch = async query => {
-    const { inspections } = this.props
-    const inputValue = query.trim().toLowerCase()
-    const inputLength = inputValue.length
-
-    return inputLength === 0
-      ? []
-      : inspections.filter(
-          ({ name }) => name.toLowerCase().slice(0, inputLength) === inputValue
-        )
   }
 
   render() {

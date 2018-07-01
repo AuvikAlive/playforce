@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { intersectionWith } from 'lodash'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
+import { onInspectionSearch } from '../utilities/onInspectionSearch'
 import { StyledDeleteInspections } from './StyledDeleteInspections'
 
 export class DeleteInspections extends Component {
@@ -29,7 +30,7 @@ export class DeleteInspections extends Component {
 
     this.setNav()
 
-    setSearchComponent(<SearchBar onSearch={this.onSearch} />)
+    setSearchComponent(<SearchBar onSearch={onInspectionSearch(this)} />)
 
     !inspectionsLoaded &&
       addUnsubscriber(await fetchInspectionsRealTime(userId))
@@ -137,18 +138,6 @@ export class DeleteInspections extends Component {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  onSearch = async query => {
-    const { inspections } = this.props
-    const inputValue = query.trim().toLowerCase()
-    const inputLength = inputValue.length
-
-    return inputLength === 0
-      ? []
-      : inspections.filter(
-          ({ name }) => name.toLowerCase().slice(0, inputLength) === inputValue
-        )
   }
 
   render() {
