@@ -41,11 +41,15 @@ export class AddInspections extends Component {
       removeNavTitle,
       removeLefNavComponent,
       removeRightNavComponent,
+      removeSearchComponent,
     } = this.context
+    const { searchBarOpen, closeSearchBar } = this.props
 
     removeNavTitle()
     removeLefNavComponent()
     removeRightNavComponent()
+    searchBarOpen && closeSearchBar()
+    removeSearchComponent()
   }
 
   setNav = () => {
@@ -139,6 +143,18 @@ export class AddInspections extends Component {
     }
   }
 
+  onSearch = async query => {
+    const { inspections } = this.props
+    const inputValue = query.trim().toLowerCase()
+    const inputLength = inputValue.length
+
+    return inputLength === 0
+      ? []
+      : inspections.filter(
+          ({ name }) => name.toLowerCase().slice(0, inputLength) === inputValue
+        )
+  }
+
   render() {
     const { selectedItems, selectMode } = this.state
     const {
@@ -146,12 +162,22 @@ export class AddInspections extends Component {
       projectMembersLoaded,
       inspections,
       projectMembers,
+      searchBarOpen,
+      searchResults,
     } = this.props
-    const inspectionsToShow = differenceWith(
-      inspections,
-      projectMembers,
-      (arrVal, othVal) => arrVal.id === othVal.id
-    )
+
+    const inspectionsToShow =
+      searchBarOpen && searchResults && searchResults.length > 0
+        ? differenceWith(
+            searchResults,
+            projectMembers,
+            (arrVal, othVal) => arrVal.id === othVal.id
+          )
+        : differenceWith(
+            inspections,
+            projectMembers,
+            (arrVal, othVal) => arrVal.id === othVal.id
+          )
 
     return inspectionsLoaded && projectMembersLoaded ? (
       <StyledAddInspections className="StyledAddInspections">
@@ -180,6 +206,7 @@ AddInspections.contextTypes = {
   removeRightNavComponent: PropTypes.func,
   addUnsubscriber: PropTypes.func,
   setSearchComponent: PropTypes.func,
+  removeSearchComponent: PropTypes.func,
   setNavColor: PropTypes.func,
   setSearchOnTop: PropTypes.func,
   setSearchOnBottom: PropTypes.func,

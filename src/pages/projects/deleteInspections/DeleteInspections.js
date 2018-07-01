@@ -139,6 +139,18 @@ export class DeleteInspections extends Component {
     }
   }
 
+  onSearch = async query => {
+    const { inspections } = this.props
+    const inputValue = query.trim().toLowerCase()
+    const inputLength = inputValue.length
+
+    return inputLength === 0
+      ? []
+      : inspections.filter(
+          ({ name }) => name.toLowerCase().slice(0, inputLength) === inputValue
+        )
+  }
+
   render() {
     const { selectedItems, selectMode } = this.state
     const {
@@ -146,13 +158,22 @@ export class DeleteInspections extends Component {
       projectMembersLoaded,
       inspections,
       projectMembers,
+      searchBarOpen,
+      searchResults,
     } = this.props
 
-    const inspectionsToShow = intersectionWith(
-      inspections,
-      projectMembers,
-      (arrVal, othVal) => arrVal.id === othVal.id
-    )
+    const inspectionsToShow =
+      searchBarOpen && searchResults && searchResults.length > 0
+        ? intersectionWith(
+            searchResults,
+            projectMembers,
+            (arrVal, othVal) => arrVal.id === othVal.id
+          )
+        : intersectionWith(
+            inspections,
+            projectMembers,
+            (arrVal, othVal) => arrVal.id === othVal.id
+          )
 
     return inspectionsLoaded && projectMembersLoaded ? (
       <StyledDeleteInspections className="StyledDeleteInspections">
