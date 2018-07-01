@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import SearchBar from '../../../components/searchBar'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { intersectionWith } from 'lodash'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
+import { onInspectionComponentDidMount } from '../functions/onInspectionComponentDidMount'
+import { onInspectionComponentWillUnmount } from '../functions/onInspectionComponentWillUnmount'
 import { setInspectionNav } from '../functions/setInspectionNav'
-import { onInspectionSearch } from '../functions/onInspectionSearch'
 import { StyledDeleteInspections } from './StyledDeleteInspections'
 
 export class DeleteInspections extends Component {
@@ -18,35 +18,12 @@ export class DeleteInspections extends Component {
     selectMode: false,
   }
 
-  async componentDidMount() {
-    const { addUnsubscriber, setSearchComponent } = this.context
-    const {
-      inspectionsLoaded,
-      fetchInspectionsRealTime,
-      fetchProjectMembersRealTime,
-      userId,
-      id,
-    } = this.props
-
-    setInspectionNav(this, 'Remove Inspections')
-
-    setSearchComponent(<SearchBar onSearch={onInspectionSearch(this)} />)
-
-    !inspectionsLoaded &&
-      addUnsubscriber(await fetchInspectionsRealTime(userId))
-    addUnsubscriber(await fetchProjectMembersRealTime(userId, id))
+  componentDidMount() {
+    onInspectionComponentDidMount(this, 'Remove Inspections')
   }
 
   componentWillUnmount() {
-    const {
-      removeNavTitle,
-      removeLefNavComponent,
-      removeRightNavComponent,
-    } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-    removeRightNavComponent()
+    onInspectionComponentWillUnmount(this)
   }
 
   setSelectedItems = selectedItems => this.setState({ selectedItems })

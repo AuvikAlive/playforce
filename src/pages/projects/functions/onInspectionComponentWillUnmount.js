@@ -1,4 +1,4 @@
-export const onComponentWillUnmount = component => {
+export const onInspectionComponentWillUnmount = component => {
   const {
     removeNavTitle,
     removeLefNavComponent,

@@ -3,8 +3,8 @@ import { showContentWhenLoaded } from '../../../functions/showContentWhenLoaded'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
 import { setSelectedItems } from '../../../functions/setSelectedItems'
-import { onComponentDidMount } from './functions/onComponentDidMount'
-import { onComponentWillUnmount } from './functions/onComponentWillUnmount'
+import { onInspectionComponentDidMount } from '../functions/onInspectionComponentDidMount'
+import { onInspectionComponentWillUnmount } from '../functions/onInspectionComponentWillUnmount'
 import { setSelectMode } from './functions/setSelectMode'
 import { getInspectionsToShow } from './functions/getInspectionsToShow'
 import { contextTypes } from './contextTypes'
@@ -17,11 +17,11 @@ export class AddInspections extends Component {
   }
 
   componentDidMount() {
-    onComponentDidMount(this)
+    onInspectionComponentDidMount(this, 'Add Inspections')
   }
 
   componentWillUnmount() {
-    onComponentWillUnmount(this)
+    onInspectionComponentWillUnmount(this)
   }
 
   render() {
