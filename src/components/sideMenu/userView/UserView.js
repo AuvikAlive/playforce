@@ -1,7 +1,7 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
-import { getInitials } from '../../../utilities/getInitials'
+import { getInitials } from '../../../functions/getInitials'
 import { StyledUserView } from './StyledUserView'
 import { backgroundLowPng } from './backgroundLowPng'
 

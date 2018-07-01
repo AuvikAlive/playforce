@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import StayCurrentPortraitIcon from '@material-ui/icons/StayCurrentPortrait'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
 import { StyledDropTestForm } from './StyledDropTestForm'
 
 class DropTestFormWithout extends Component {

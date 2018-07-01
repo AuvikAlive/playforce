@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
 import { StyledConfirmPasswordReset } from './StyledConfirmPasswordReset'
 import { StyledLink } from '../../components/styledLink/StyledLink'
-import { parseQuery } from '../../utilities/parseQuery'
+import { parseQuery } from '../../functions/parseQuery'
 
 export class ConfirmPasswordReset extends Component {
   state = {

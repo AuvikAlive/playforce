@@ -1,5 +1,5 @@
 import { FETCH_EQUIPMENT, FETCH_EQUIPMENT_COMPLETED } from '../../actionTypes'
-import { fetchImageAsDataUrl } from '../../../../utilities/fetchImageAsDataUrl'
+import { fetchImageAsDataUrl } from '../../../../functions/fetchImageAsDataUrl'
 
 export const fetchEquipment = (userId, siteId, id) => async (
   dispatch,

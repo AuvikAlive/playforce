@@ -8,8 +8,8 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { intersectionWith } from 'lodash'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
-import { setInspectionNav } from '../utilities/setInspectionNav'
-import { onInspectionSearch } from '../utilities/onInspectionSearch'
+import { setInspectionNav } from '../functions/setInspectionNav'
+import { onInspectionSearch } from '../functions/onInspectionSearch'
 import { StyledDeleteInspections } from './StyledDeleteInspections'
 
 export class DeleteInspections extends Component {

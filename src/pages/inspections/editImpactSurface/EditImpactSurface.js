@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
 
 export class EditImpactSurface extends Component {

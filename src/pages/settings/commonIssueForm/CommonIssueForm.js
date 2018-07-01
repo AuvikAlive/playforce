@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Grid from '@material-ui/core/Grid'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
 import {
   probabilities,
   severities,

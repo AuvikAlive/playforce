@@ -11,8 +11,8 @@ import BrushIcon from '@material-ui/icons/Brush'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
-import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
+import { onValueInputChange } from '../../../functions/onValueInputChange'
 import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
 
 export class MaintenanceIssueForm extends Component {

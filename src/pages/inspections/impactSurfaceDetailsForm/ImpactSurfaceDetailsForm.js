@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
 import { StyledImpactSurfaceDetailsForm } from './StyledImpactSurfaceDetailsForm'
 
 const conditions = ['Excellent', 'Good', 'Average', 'Poor', 'Failed']

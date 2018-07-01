@@ -14,7 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import Typography from '@material-ui/core/Typography'
 import { map } from 'lodash'
-import { groupCommonIssues } from '../../../utilities/groupCommonIssues'
+import { groupCommonIssues } from '../../../functions/groupCommonIssues'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { StyledCommonIssuesList } from './StyledCommonIssuesList'
 

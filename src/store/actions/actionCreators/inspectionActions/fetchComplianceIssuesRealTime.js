@@ -2,7 +2,7 @@ import {
   FETCH_COMPLIANCE_ISSUES,
   FETCH_COMPLIANCE_ISSUES_COMPLETED,
 } from '../../actionTypes'
-import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
+import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
 
 export const fetchComplianceIssuesRealTime = (userId, inspectionId) => async (
   dispatch,

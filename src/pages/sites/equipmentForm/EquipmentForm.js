@@ -13,9 +13,9 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { equipmentTypes } from '../../../globals/constants'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
-import { onValueInputChange } from '../../../utilities/onValueInputChange'
-import { getSuggestionsByName } from '../../../utilities/getSuggestionsByName'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
+import { onValueInputChange } from '../../../functions/onValueInputChange'
+import { getSuggestionsByName } from '../../../functions/getSuggestionsByName'
 import { StyledEquipmentForm } from './StyledEquipmentForm'
 
 export class EquipmentForm extends Component {

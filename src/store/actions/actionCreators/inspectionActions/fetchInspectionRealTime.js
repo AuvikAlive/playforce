@@ -1,5 +1,5 @@
 import { FETCH_INSPECTION, FETCH_INSPECTION_COMPLETED } from '../../actionTypes'
-import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
+import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
 
 export const fetchInspectionRealTime = (userId, inspectionId) => async (
   dispatch,

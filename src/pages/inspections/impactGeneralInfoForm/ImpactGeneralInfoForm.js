@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
 import { StyledImpactGeneralInfoForm } from './StyledImpactGeneralInfoForm'
 
 export class ImpactGeneralInfoFormWithout extends Component {

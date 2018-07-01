@@ -19,8 +19,8 @@ import {
   severities,
   riskLevels,
 } from '../../../globals/constants'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
-import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { onEventInputChange } from '../../../functions/onEventInputChange'
+import { onValueInputChange } from '../../../functions/onValueInputChange'
 import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
 import { getEquipmentSuggestions } from '../getEquipmentSuggestions'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'

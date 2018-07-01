@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
-import { getDisplayName } from '../../utilities/getDisplayName'
+import { getDisplayName } from '../../functions/getDisplayName'
 
 const Transition = props => {
   return <Slide direction="up" {...props} />

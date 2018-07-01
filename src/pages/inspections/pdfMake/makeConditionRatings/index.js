@@ -2,7 +2,7 @@ import { makeTitle } from './makeTitle'
 import { makeItems } from './makeItems'
 import { makeAncillaryItems } from './makeAncillaryItems'
 import { equipmentTypes } from '../../../../globals/constants'
-import { capitalize } from '../../../../utilities/capitalize'
+import { capitalize } from '../../../../functions/capitalize'
 
 export const makeConditionRatings = conditionRatings => {
   const playItems = conditionRatings.filter(

@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
 import { format } from 'date-fns'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { capitalize } from '../../../utilities/capitalize'
+import { capitalize } from '../../../functions/capitalize'
 import { StyledConditionRatingList } from './StyledConditionRatingList'
 
 export class ConditionRatingList extends Component {

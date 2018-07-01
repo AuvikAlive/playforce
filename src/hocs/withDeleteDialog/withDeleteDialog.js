@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Dialog from '@material-ui/core/Dialog'
-import { getDisplayName } from '../../utilities/getDisplayName'
+import { getDisplayName } from '../../functions/getDisplayName'
 import { DialogContent } from './DialogContent'
 
 export const withDeleteDialog = WrappedComponent => {

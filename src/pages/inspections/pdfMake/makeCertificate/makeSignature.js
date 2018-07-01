@@ -1,4 +1,4 @@
-import { trimImage } from '../../../../utilities/trimImage'
+import { trimImage } from '../../../../functions/trimImage'
 import { verticalMargin } from '../globals'
 
 export const makeSignature = async (

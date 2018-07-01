@@ -4,8 +4,8 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
 import { map } from 'lodash'
-import { onValueInputChange } from '../../../utilities/onValueInputChange'
-import { groupCommonIssues } from '../../../utilities/groupCommonIssues'
+import { onValueInputChange } from '../../../functions/onValueInputChange'
+import { groupCommonIssues } from '../../../functions/groupCommonIssues'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 
 const renderSectionTitle = section => {

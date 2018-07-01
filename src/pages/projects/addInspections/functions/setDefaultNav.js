@@ -1,5 +1,5 @@
-import { setInspectionNav } from '../../utilities/setInspectionNav'
-import { setSelectedItems } from '../../../../utilities/setSelectedItems'
+import { setInspectionNav } from '../../functions/setInspectionNav'
+import { setSelectedItems } from '../../../../functions/setSelectedItems'
 
 export const setDefaultNav = component => {
   const { setNavColor, setSearchOnTop } = component.context
