@@ -1,7 +1,7 @@
 import React from 'react'
-import { setInspectionNav } from '../utilities/setInspectionNav'
-import { onInspectionSearch } from '../utilities/onInspectionSearch'
-import SearchBar from '../../../components/searchBar'
+import { setInspectionNav } from '../../utilities/setInspectionNav'
+import { onInspectionSearch } from '../../utilities/onInspectionSearch'
+import SearchBar from '../../../../components/searchBar'
 
 export const onComponentDidMount = async component => {
   const { addUnsubscriber, setSearchComponent } = component.context
