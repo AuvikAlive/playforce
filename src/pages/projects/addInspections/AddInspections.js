@@ -10,6 +10,7 @@ import { InspectionListView } from '../../../components/inspectionListView/Inspe
 import { onComponentDidMount } from './onComponentDidMount'
 import { onComponentWillUnmount } from './onComponentWillUnmount'
 import { setInspectionNav } from '../utilities/setInspectionNav'
+import { setSelectedItems } from '../../../utilities/setSelectedItems'
 import { StyledAddInspections } from './StyledAddInspections'
 
 export class AddInspections extends Component {
@@ -25,8 +26,6 @@ export class AddInspections extends Component {
   componentWillUnmount() {
     onComponentWillUnmount(this)
   }
-
-  setSelectedItems = selectedItems => this.setState({ selectedItems })
 
   setSelectMode = (selectMode, selectedItemsLength) => {
     const {
@@ -72,7 +71,7 @@ export class AddInspections extends Component {
       setNavColor('primary')
 
       setInspectionNav(this, 'Add Inspections')
-      this.setSelectedItems([])
+      setSelectedItems(this)([])
     }
 
     this.setState({ selectMode })
@@ -121,7 +120,7 @@ export class AddInspections extends Component {
           ListView={InspectionListView}
           selectedItems={selectedItems}
           selectMode={selectMode}
-          setSelectedItems={this.setSelectedItems}
+          setSelectedItems={setSelectedItems(this)}
           setSelectMode={this.setSelectMode}
           handleClick={this.handleSelectClick}
         />
