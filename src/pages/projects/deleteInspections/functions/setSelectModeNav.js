@@ -1,8 +1,8 @@
 import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import AddIcon from '@material-ui/icons/Add'
-import { addInspections } from './addInspections'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { deleteInspections } from './deleteInspections'
 
 export const setSelectModeNav = (
   component,
@@ -37,9 +37,9 @@ export const setSelectModeNav = (
     <IconButton
       color="inherit"
       aria-label="add to project"
-      onClick={addInspections(component, setSelectMode)}
+      onClick={deleteInspections(component, setSelectMode)}
     >
-      <AddIcon />
+      <DeleteIcon />
     </IconButton>
   )
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-export const contextTypes = {
+export const inspectionContextTypes = {
   setNavTitle: PropTypes.func,
   removeNavTitle: PropTypes.func,
   setLeftNavComponent: PropTypes.func,

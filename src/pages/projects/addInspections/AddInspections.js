@@ -3,12 +3,16 @@ import { showContentWhenLoaded } from '../../../functions/showContentWhenLoaded'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
 import { setSelectedItems } from '../../../functions/setSelectedItems'
-import { onInspectionComponentDidMount } from '../functions/onInspectionComponentDidMount'
-import { onInspectionComponentWillUnmount } from '../functions/onInspectionComponentWillUnmount'
+import {
+  onInspectionComponentDidMount,
+  onInspectionComponentWillUnmount,
+} from '../functions/'
 import { setSelectMode } from './functions/setSelectMode'
 import { getInspectionsToShow } from './functions/getInspectionsToShow'
-import { contextTypes } from './contextTypes'
+import { inspectionContextTypes } from '../constants/inspectionContextTypes'
 import { StyledAddInspections } from './StyledAddInspections'
+
+const title = 'Add Inspections'
 
 export class AddInspections extends Component {
   state = {
@@ -17,7 +21,7 @@ export class AddInspections extends Component {
   }
 
   componentDidMount() {
-    onInspectionComponentDidMount(this, 'Add Inspections')
+    onInspectionComponentDidMount(this, title)
   }
 
   componentWillUnmount() {
@@ -27,8 +31,8 @@ export class AddInspections extends Component {
   render() {
     const { selectedItems, selectMode } = this.state
     const { inspectionsLoaded, projectMembersLoaded } = this.props
-    const inspectionsToShow = getInspectionsToShow(this)
     const isLoaded = inspectionsLoaded && projectMembersLoaded
+    const inspectionsToShow = getInspectionsToShow(this)
 
     return showContentWhenLoaded(
       isLoaded,
@@ -39,11 +43,11 @@ export class AddInspections extends Component {
           selectedItems={selectedItems}
           selectMode={selectMode}
           setSelectedItems={setSelectedItems(this)}
-          setSelectMode={setSelectMode(this)}
+          setSelectMode={setSelectMode(this, title)}
         />
       </StyledAddInspections>
     )
   }
 }
 
-AddInspections.contextTypes = contextTypes
+AddInspections.contextTypes = inspectionContextTypes
