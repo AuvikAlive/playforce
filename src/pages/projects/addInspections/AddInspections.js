@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import LinearProgress from '@material-ui/core/LinearProgress'
+import { showContentWhenLoaded } from '../../../utilities/showContentWhenLoaded'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
 import { setSelectedItems } from '../../../utilities/setSelectedItems'
@@ -28,8 +28,10 @@ export class AddInspections extends Component {
     const { selectedItems, selectMode } = this.state
     const { inspectionsLoaded, projectMembersLoaded } = this.props
     const inspectionsToShow = getInspectionsToShow(this)
+    const isLoaded = inspectionsLoaded && projectMembersLoaded
 
-    return inspectionsLoaded && projectMembersLoaded ? (
+    return showContentWhenLoaded(
+      isLoaded,
       <StyledAddInspections className="StyledAddInspections">
         <SelectableList
           inspections={inspectionsToShow}
@@ -40,8 +42,6 @@ export class AddInspections extends Component {
           setSelectMode={setSelectMode(this)}
         />
       </StyledAddInspections>
-    ) : (
-      <LinearProgress />
     )
   }
 }
