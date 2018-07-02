@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -9,29 +7,26 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { showContentWhenLoaded } from '../../../functions/'
+import { contextTypes } from './contextTypes'
+import { onComponentDidMount, onComponentWillUnmount } from './functions/'
 import { StyledGroupList } from './StyledGroupList'
 
 export class GroupList extends Component {
-  async componentDidMount() {
-    const { setNavTitle, addUnsubscriber } = this.context
-    const { groupsLoaded, fetchGroupsRealTime } = this.props
-
-    setNavTitle('Manage Groups')
-
-    !groupsLoaded && addUnsubscriber(await fetchGroupsRealTime())
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
-
-    removeNavTitle()
+    onComponentWillUnmount(this)
   }
 
   render() {
     const { groupsLoaded, groups, match } = this.props
     const groupsAdded = groups.length > 0
 
-    return groupsLoaded ? (
+    return showContentWhenLoaded(
+      groupsLoaded,
       <StyledGroupList className="StyledGroupList">
         <StyledNavLink to={match.url + '/addGroup'} className="add-icon">
           <Button
@@ -62,14 +57,8 @@ export class GroupList extends Component {
           </Typography>
         )}
       </StyledGroupList>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-GroupList.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+GroupList.contextTypes = contextTypes
