@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Typography from '@material-ui/core/Typography'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import { closeMenu } from '../../../functions/'
+import { contextTypes } from './contextTypes'
+import {
+  onComponentDidMount,
+  onComponentWillUnmount,
+  addInspections,
+  removeInspections,
+} from './functions/'
 import { StyledDashboard } from './StyledDashboard'
 
 export class Dashboard extends Component {
@@ -16,66 +20,11 @@ export class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const {
-      setNavTitle,
-      setLeftNavComponent,
-      setRightNavComponent,
-    } = this.context
-    const { history, id } = this.props
-
-    setNavTitle(`Manage ${id}`)
-
-    setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="navigate back"
-        onClick={() => history.goBack()}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    setRightNavComponent(
-      <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
-        <MoreVertIcon aria-label="More" />
-      </IconButton>
-    )
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const {
-      removeNavTitle,
-      removeLefNavComponent,
-      removeRightNavComponent,
-    } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-    removeRightNavComponent()
-  }
-
-  openMenu = event => {
-    this.setState({ menuAnchor: event.currentTarget })
-  }
-
-  closeMenu = () => {
-    this.setState({ menuAnchor: null })
-  }
-
-  addInspections = () => {
-    this.closeMenu()
-
-    const { history, match } = this.props
-
-    history.push(`${match.url}/add`)
-  }
-
-  removeInspections = () => {
-    this.closeMenu()
-
-    const { history, match } = this.props
-
-    history.push(`${match.url}/remove`)
+    onComponentWillUnmount(this)
   }
 
   render() {
@@ -104,11 +53,11 @@ export class Dashboard extends Component {
         <Menu
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}
-          onClose={this.closeMenu}
+          onClose={closeMenu(this)}
           MenuListProps={{ disablePadding: true }}
         >
-          <MenuItem onClick={this.addInspections}>Add inspections</MenuItem>
-          <MenuItem onClick={this.removeInspections}>
+          <MenuItem onClick={addInspections(this)}>Add inspections</MenuItem>
+          <MenuItem onClick={removeInspections(this)}>
             Remove inspections
           </MenuItem>
         </Menu>
@@ -117,11 +66,4 @@ export class Dashboard extends Component {
   }
 }
 
-Dashboard.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  setRightNavComponent: PropTypes.func,
-  removeRightNavComponent: PropTypes.func,
-}
+Dashboard.contextTypes = contextTypes
