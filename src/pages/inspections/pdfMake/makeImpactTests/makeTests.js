@@ -1,4 +1,4 @@
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 import { makeTest } from './makeTest'
 
 export const makeTests = impactTests => {

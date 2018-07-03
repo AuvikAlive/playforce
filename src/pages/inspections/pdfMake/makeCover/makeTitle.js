@@ -1,4 +1,4 @@
-import { headerFontSize, verticalMargin } from '../globals'
+import { headerFontSize, verticalMargin } from '../constants'
 import { makeReportTitle } from '../../makeReportTitle'
 
 export const makeTitle = inspectionType => {

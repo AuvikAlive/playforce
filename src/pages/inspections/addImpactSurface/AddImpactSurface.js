@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { contextTypesTitleLeftNav } from '../../../globals/contextTypesTitleLeftNav'
+import { contextTypesTitleLeftNav } from '../../../constants/contextTypesTitleLeftNav'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,

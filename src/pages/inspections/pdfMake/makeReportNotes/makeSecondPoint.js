@@ -1,4 +1,4 @@
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 
 export const makeSecondPoint = standardItems => ({
   columnGap: 20,

@@ -1,4 +1,4 @@
-import { theme } from '../globals/theme'
+import { theme } from '../constants/theme'
 
 export const cardMedia = `
   img {

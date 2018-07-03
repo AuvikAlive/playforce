@@ -1,5 +1,5 @@
 import chunk from 'lodash/chunk'
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 import { makeImage } from './makeImage'
 import { makeEquipmentType } from './makeEquipmentType'
 import { makeAssetId } from './makeAssetId'

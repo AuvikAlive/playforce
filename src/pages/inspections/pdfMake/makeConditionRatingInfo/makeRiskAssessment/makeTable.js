@@ -1,4 +1,4 @@
-import { verticalMargin } from '../../globals'
+import { verticalMargin } from '../../constants'
 import { firstRow } from './firstRow'
 import { secondRow } from './secondRow'
 import { thirdRow } from './thirdRow'

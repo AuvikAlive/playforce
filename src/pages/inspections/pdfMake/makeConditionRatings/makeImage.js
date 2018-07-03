@@ -1,4 +1,4 @@
-import { pageWidth, pageMarginHorizontal, verticalMargin } from '../globals'
+import { pageWidth, pageMarginHorizontal, verticalMargin } from '../constants'
 
 export const makeImage = image => ({
   image,

@@ -1,4 +1,4 @@
-import { verticalMargin, pageWidth, pageMarginHorizontal } from '../globals'
+import { verticalMargin, pageWidth, pageMarginHorizontal } from '../constants'
 import { makeTable } from './makeTable'
 
 const columnGap = verticalMargin

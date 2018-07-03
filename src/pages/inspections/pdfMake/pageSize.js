@@ -1,3 +1,3 @@
-import { pageWidth, pageHeight } from './globals'
+import { pageWidth, pageHeight } from './constants'
 
 export const pageSize = { width: pageWidth, height: pageHeight }

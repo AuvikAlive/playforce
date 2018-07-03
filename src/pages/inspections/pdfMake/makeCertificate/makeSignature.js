@@ -1,5 +1,5 @@
 import { trimImage } from '../../../../functions/trimImage'
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 
 export const makeSignature = async (
   pageFontSize,

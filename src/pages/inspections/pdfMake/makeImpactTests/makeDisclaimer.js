@@ -1,4 +1,4 @@
-import { fontSize, verticalMargin } from '../globals'
+import { fontSize, verticalMargin } from '../constants'
 
 export const makeDisclaimer = () => ({
   text:

@@ -1,4 +1,4 @@
-import { fontSize } from '../globals'
+import { fontSize } from '../constants'
 import { makeMiddleSectionFirstRow } from './makeMiddleSectionFirstRow'
 import { makeMiddleSectionSecondRow } from './makeMiddleSectionSecondRow'
 import { makeMiddleSectionThirdRow } from './makeMiddleSectionThirdRow'

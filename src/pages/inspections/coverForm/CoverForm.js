@@ -20,7 +20,7 @@ import { ClientsDialogContainer } from '../../../components/clientsDialog/Client
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { onEventInputChange } from '../../../functions/onEventInputChange'
 import { onValueInputChange } from '../../../functions/onValueInputChange'
-import { defaultInspectionTypes } from '../../../globals/constants'
+import { defaultInspectionTypes } from '../../../constants/'
 import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {

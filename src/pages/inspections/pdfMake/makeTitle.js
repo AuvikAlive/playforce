@@ -1,4 +1,4 @@
-import { headerFontSize, verticalMargin } from './globals'
+import { headerFontSize, verticalMargin } from './constants'
 
 export const makeTitle = title => ({
   text: title,

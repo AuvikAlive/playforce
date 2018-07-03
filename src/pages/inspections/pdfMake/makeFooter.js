@@ -1,4 +1,4 @@
-import { pageMarginHorizontal } from './globals'
+import { pageMarginHorizontal } from './constants'
 
 export const makeFooter = skipCommonHeaderFooter => (currentPage, pageCount) =>
   currentPage > skipCommonHeaderFooter

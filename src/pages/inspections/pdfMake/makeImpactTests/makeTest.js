@@ -1,4 +1,4 @@
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 import { makeSurface } from './makeSurface'
 import { makeDrops } from './makeDrops'
 

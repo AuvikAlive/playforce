@@ -1,4 +1,4 @@
-import { pageMarginHorizontal, logoOffset, pageMarginVertical } from './globals'
+import { pageMarginHorizontal, logoOffset, pageMarginVertical } from './constants'
 
 export const pageMargins = [
   pageMarginHorizontal,

@@ -18,7 +18,7 @@ import {
   probabilities,
   severities,
   riskLevels,
-} from '../../../globals/constants'
+} from '../../../constants/'
 import { onEventInputChange } from '../../../functions/onEventInputChange'
 import { onValueInputChange } from '../../../functions/onValueInputChange'
 import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'

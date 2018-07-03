@@ -1,4 +1,4 @@
-import { defaultInspectionTypes } from '../../globals/constants'
+import { defaultInspectionTypes } from '../../constants/'
 
 export const makeReportTitle = inspectionType => {
   let title

@@ -1,5 +1,5 @@
 import { format } from 'date-fns/esm'
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 
 export const makeDescription = (pageFontSize, inspectionDate) => ({
   fontSize: pageFontSize,

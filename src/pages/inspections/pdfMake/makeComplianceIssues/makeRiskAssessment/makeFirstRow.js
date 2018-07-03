@@ -1,4 +1,4 @@
-import { lightGray } from '../../globals'
+import { lightGray } from '../../constants'
 
 export const makeFirstRow = () => [
   {

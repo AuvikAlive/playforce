@@ -1,4 +1,4 @@
-import { verticalMargin, lightGray } from '../globals'
+import { verticalMargin, lightGray } from '../constants'
 import { makeDropHeader } from './makeDropHeader'
 import { makeDropRows } from './makeDropRows'
 

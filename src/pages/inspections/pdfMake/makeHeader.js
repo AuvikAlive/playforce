@@ -1,5 +1,5 @@
 import { logo } from './logo'
-import { pageMarginHorizontal, pageMarginVertical } from './globals'
+import { pageMarginHorizontal, pageMarginVertical } from './constants'
 
 export const makeHeader = skipCommonHeaderFooter => currentPage =>
   currentPage > skipCommonHeaderFooter

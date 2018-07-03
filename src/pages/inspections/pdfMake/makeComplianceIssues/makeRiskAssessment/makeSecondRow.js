@@ -1,9 +1,9 @@
-import { blue, green, yellow, pink, purple } from '../../globals'
+import { blue, green, yellow, pink, purple } from '../../constants'
 import {
   probabilities,
   severities,
   riskLevels,
-} from '../../../../../globals/constants'
+} from '../../../../../constants/'
 
 const colorMap = {
   VL: blue,

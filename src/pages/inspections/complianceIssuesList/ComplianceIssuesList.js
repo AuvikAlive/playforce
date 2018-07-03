@@ -14,7 +14,7 @@ import {
   probabilities,
   severities,
   riskLevels,
-} from '../../../globals/constants'
+} from '../../../constants/'
 
 export class ComplianceIssuesList extends Component {
   state = {}

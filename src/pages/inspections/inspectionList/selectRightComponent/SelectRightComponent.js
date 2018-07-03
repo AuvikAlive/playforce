@@ -5,7 +5,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { format } from 'date-fns/esm'
-import { riskLevels } from '../../../../globals/constants'
+import { riskLevels } from '../../../../constants/'
 import { exportCSV } from './exportCSV'
 
 export class SelectRightComponent extends Component {

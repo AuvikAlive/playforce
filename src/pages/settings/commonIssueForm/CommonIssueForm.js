@@ -12,7 +12,7 @@ import {
   probabilities,
   severities,
   riskLevels,
-} from '../../../globals/constants'
+} from '../../../constants/'
 import { StyledCommonIssueForm } from './StyledCommonIssueForm'
 
 export class CommonIssueForm extends Component {

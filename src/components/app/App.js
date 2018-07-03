@@ -8,7 +8,7 @@ import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils'
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'
 import { store, history } from '../../store/store'
 // import LinearProgress from '@material-ui/core/LinearProgress'
-import { theme } from '../../globals/theme'
+import { theme } from '../../constants/theme'
 import Shell from '../shell'
 
 const App = () => (
