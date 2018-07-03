@@ -3,6 +3,7 @@ import { closeMenu } from './closeMenu'
 import { showContentWhenLoaded } from './showContentWhenLoaded'
 import { setSelectedItems } from './setSelectedItems'
 import { showActionGoBack } from './showActionGoBack'
+import { showActionGo } from './showActionGo'
 
 export {
   openMenu,
@@ -10,4 +11,5 @@ export {
   showContentWhenLoaded,
   setSelectedItems,
   showActionGoBack,
+  showActionGo,
 }
