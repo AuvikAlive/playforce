@@ -6,6 +6,8 @@ import { showActionGoBack } from './showActionGoBack'
 import { showActionGo } from './showActionGo'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
+import { onEventInputChange } from './onEventInputChange'
+import { onValueInputChange } from './onValueInputChange'
 
 export {
   openMenu,
@@ -16,4 +18,6 @@ export {
   showActionGo,
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
+  onEventInputChange,
+  onValueInputChange,
 }
