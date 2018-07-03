@@ -4,6 +4,8 @@ import { showContentWhenLoaded } from './showContentWhenLoaded'
 import { setSelectedItems } from './setSelectedItems'
 import { showActionGoBack } from './showActionGoBack'
 import { showActionGo } from './showActionGo'
+import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
+import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
 
 export {
   openMenu,
@@ -12,4 +14,6 @@ export {
   setSelectedItems,
   showActionGoBack,
   showActionGo,
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
 }
