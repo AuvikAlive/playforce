@@ -1,63 +1,34 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  showActionGoBack,
+} from '../../../functions/'
 import MaintenanceIssueForm from '../maintenanceIssueForm/'
+import { submit } from './submit'
+
+const message = 'Issue published!'
 
 export class AddMaintenanceIssue extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Add Maintenance Issue'
 
-    setNavTitle('Add Maintenance Issue')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  showActionGoBack = maintenanceIssueId => {
-    const { setFeedback, history } = this.props
-
-    setFeedback({ success: 'Issue published!' })
-    history.goBack()
-    // history.replace(`edit/${maintenanceIssueId}`)
-  }
-
-  submit = async maintenanceIssue => {
-    const { addMaintenanceIssue, userId, inspectionId } = this.props
-
-    const maintenanceIssueId = await addMaintenanceIssue(
-      userId,
-      inspectionId,
-      maintenanceIssue
-    )
-
-    return maintenanceIssueId
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     return (
       <MaintenanceIssueForm
-        onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
+        onSubmit={submit(this)}
+        afterSubmit={showActionGoBack(this, message)}
       />
     )
   }
 }
 
-AddMaintenanceIssue.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+AddMaintenanceIssue.contextTypes = contextTypesTitleLeftNav
