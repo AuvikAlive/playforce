@@ -1,56 +1,37 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  showActionGo,
+} from '../../../functions/'
 import { ImpactGeneralInfoForm } from '../impactGeneralInfoForm/ImpactGeneralInfoForm'
+import { contextTypes } from './contextTypes'
+import { submit } from './submit'
+
+const message = 'General info added!'
 
 export class AddImpactAttenuationTest extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Impact Attenuation Test'
 
-    setNavTitle('Impact Attenuation Test')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  showActionGoBack = () => {
-    const { setFeedback, history, inspectionId } = this.props
-
-    setFeedback({ success: 'General info added!' })
-    history.replace(`/inspections/edit/${inspectionId}/impactTest`)
-  }
-
-  submit = async data => {
-    const { saveImpactGeneralInfo, userId, inspectionId } = this.props
-
-    await saveImpactGeneralInfo(userId, inspectionId, data)
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
+    const { inspectionId } = this.props
+    const pathHead = `/inspections/edit/${inspectionId}/impactTest/`
+
     return (
       <ImpactGeneralInfoForm
-        onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
+        onSubmit={submit(this)}
+        afterSubmit={showActionGo(this, message, pathHead)}
       />
     )
   }
 }
 
-AddImpactAttenuationTest.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+AddImpactAttenuationTest.contextTypes = contextTypes
