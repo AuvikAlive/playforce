@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -14,20 +12,30 @@ import StayCurrentPortraitIcon from '@material-ui/icons/StayCurrentPortrait'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
-import { probabilities, severities, riskLevels } from '../../../constants/'
-import { onEventInputChange } from '../../../functions/onEventInputChange'
-import { onValueInputChange } from '../../../functions/onValueInputChange'
-import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
-import { getEquipmentSuggestions } from '../getEquipmentSuggestions'
+import {
+  probabilities,
+  severities,
+  contextTypesUnsubscriber,
+} from '../../../constants/'
+import {
+  onEventInputChange,
+  onValueInputChange,
+  saveEditedImages,
+  getRiskLevel,
+  getImagesCopy,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import {
   onComponentDidMount,
   onComponentWillUnmount,
   onComponentWillReceiveProps,
+  onCommonIssueSelect,
+  onEquipmentSelect,
+  getEquipmentSuggestions,
+  submit,
 } from './functions/'
+import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
-
-const defaultRecommendation =
-  'No action required. Consider the findings of this report when determining priority for asset repair/replacement.'
 
 export class ComplianceIssueForm extends Component {
   state = {
@@ -58,126 +66,6 @@ export class ComplianceIssueForm extends Component {
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
 
-  makeRecommendations = () => {
-    const { preimplementationRecommendation } = this.props
-
-    return preimplementationRecommendation || defaultRecommendation
-  }
-
-  onCommonIssueSelect = value => {
-    const { equipment } = this.state
-    const { equipments } = this.props
-    const { estimatedDateInstalled } = equipments.find(
-      item => item.equipment === equipment
-    )
-    const { implementationDate, preImplementationText, comments } = value
-
-    if (
-      estimatedDateInstalled &&
-      implementationDate &&
-      Number(estimatedDateInstalled) < Number(implementationDate)
-    ) {
-      this.setState({
-        ...value,
-        comments: comments + '\n' + preImplementationText,
-        recommendations: this.makeRecommendations(),
-      })
-    } else {
-      this.setState({ ...value })
-    }
-  }
-
-  onEquipmentSelect = value => {
-    const { equipments, initialData } = this.props
-    const equipment = equipments.find(({ equipment }) => equipment === value)
-
-    if (equipment) {
-      const { estimatedDateInstalled } = equipment
-      const { id } = this.state
-      const { commonIssues } = this.props
-      const commonIssue = commonIssues.find(item => item.id === id)
-
-      if (
-        estimatedDateInstalled &&
-        commonIssue &&
-        commonIssue.implementationDate &&
-        Number(estimatedDateInstalled) < Number(commonIssue.implementationDate)
-      ) {
-        this.setState({
-          ...equipment,
-          comments:
-            commonIssue.comments + '\n' + commonIssue.preImplementationText,
-          recommendations: this.makeRecommendations(),
-        })
-      } else {
-        this.setState({
-          ...initialData,
-          ...equipment,
-        })
-      }
-    } else {
-      this.setState({ equipment: value })
-    }
-  }
-
-  loadImages = images => this.setState({ images })
-
-  saveImages = images => {
-    const { closeDialog } = this.props
-
-    this.loadImages(images)
-    closeDialog()
-  }
-
-  submit = async () => {
-    const {
-      images,
-      finding,
-      equipment,
-      standardsClause,
-      probability,
-      severity,
-      comments,
-      recommendations,
-    } = this.state
-
-    const { onSubmit, afterSubmit, setFeedback } = this.props
-
-    if (
-      images.length > 0 &&
-      finding &&
-      equipment &&
-      standardsClause &&
-      probability &&
-      severity &&
-      comments &&
-      recommendations
-    ) {
-      setFeedback({ error: '', loading: true })
-      const dataToSave = {
-        finding,
-        equipment,
-        standardsClause,
-        probability,
-        severity,
-        comments,
-        recommendations,
-        images: images.slice(0, 4),
-      }
-      try {
-        const result = await onSubmit(dataToSave)
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
-
   render() {
     const {
       commonIssuesLoaded,
@@ -193,8 +81,6 @@ export class ComplianceIssueForm extends Component {
 
     const {
       images,
-      // commonIssueIndex,
-      // commonIssue,
       finding,
       equipment,
       standardsClause,
@@ -204,23 +90,19 @@ export class ComplianceIssueForm extends Component {
       recommendations,
     } = this.state
 
-    const riskLevel =
-      probability && severity ? riskLevels[probability - 1][severity - 1] : ''
+    const riskLevel = getRiskLevel(probability, severity)
+    const imagesCopy = getImagesCopy(images)
+    const isLoaded = commonIssuesLoaded && equipmentsLoaded
+    const imageLoaded = images && images.length === 1
+    const imagesLoaded = images && images.length > 1
 
-    const imagesCopy =
-      images &&
-      images.map(({ image, imageNaturalAspectRatio }) =>
-        Object.assign({}, { image, imageNaturalAspectRatio })
-      )
-
-    return commonIssuesLoaded && equipmentsLoaded ? (
+    return showContentWhenLoaded(
+      isLoaded,
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card className="card">
-          {images &&
-            images.length === 1 && (
-              <img src={images[0].image} alt="equipment type" />
-            )}
-          {images && images.length > 1 && <Carousel images={images} />}
+          {imageLoaded && <img src={images[0].image} alt="equipment type" />}
+          {imagesLoaded && <Carousel images={images} />}
+
           <CardContent className="card-content">
             {images &&
               images.length > 0 && (
@@ -234,7 +116,7 @@ export class ComplianceIssueForm extends Component {
                       <Sketch
                         aspectRatio={188 / 253}
                         images={imagesCopy}
-                        onSubmit={this.saveImages}
+                        onSubmit={saveEditedImages(this)}
                         closeDialog={closeDialog}
                       />
                     ))
@@ -249,7 +131,6 @@ export class ComplianceIssueForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() =>
-                // captureImage({ width: 188, height: 253, multiple: true })
                 captureImage({
                   width: 1024,
                   height: (1024 * 253) / 188,
@@ -266,13 +147,13 @@ export class ComplianceIssueForm extends Component {
                 label="Equipment"
                 value={equipment}
                 onChange={this.onValueInputChange('equipment')}
-                onSuggestionSelect={this.onEquipmentSelect}
+                onSuggestionSelect={onEquipmentSelect(this)}
                 getSuggestions={getEquipmentSuggestions(this)}
               />
 
               <CommonIssueAutoComplete
                 commonIssues={commonIssues}
-                onCommonIssueSelect={this.onCommonIssueSelect}
+                onCommonIssueSelect={onCommonIssueSelect(this)}
               />
 
               <TextField
@@ -374,7 +255,7 @@ export class ComplianceIssueForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
@@ -382,12 +263,8 @@ export class ComplianceIssueForm extends Component {
           </CardContent>
         </Card>
       </StyledComplianceIssueForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-ComplianceIssueForm.contextTypes = {
-  addUnsubscriber: PropTypes.func,
-}
+ComplianceIssueForm.contextTypes = contextTypesUnsubscriber

@@ -10,7 +10,10 @@ import { onEventInputChange } from './onEventInputChange'
 import { onValueInputChange } from './onValueInputChange'
 import { loadInitialData } from './loadInitialData'
 import { loadImages } from './loadImages'
+import { saveEditedImages } from './saveEditedImages'
 import { showImageNumberNotPortraitError } from './showImageNumberNotPortraitError'
+import { getRiskLevel } from './getRiskLevel'
+import { getImagesCopy } from './getImagesCopy'
 
 export {
   openMenu,
@@ -25,5 +28,8 @@ export {
   onValueInputChange,
   loadInitialData,
   loadImages,
+  saveEditedImages,
   showImageNumberNotPortraitError,
+  getRiskLevel,
+  getImagesCopy,
 }

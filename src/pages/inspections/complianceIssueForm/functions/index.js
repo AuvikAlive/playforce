@@ -3,6 +3,9 @@ import { onComponentWillUnmount } from './onComponentWillUnmount'
 import { onComponentWillReceiveProps } from './onComponentWillReceiveProps'
 import { onFindingChange } from './onFindingChange'
 import { getEquipmentSuggestions } from './getEquipmentSuggestions'
+import { onCommonIssueSelect } from './onCommonIssueSelect'
+import { onEquipmentSelect } from './onEquipmentSelect'
+import { submit } from './submit'
 
 export {
   onComponentDidMount,
@@ -10,4 +13,7 @@ export {
   onComponentWillReceiveProps,
   onFindingChange,
   getEquipmentSuggestions,
+  onCommonIssueSelect,
+  onEquipmentSelect,
+  submit,
 }
