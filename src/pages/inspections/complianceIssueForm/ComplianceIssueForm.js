@@ -139,7 +139,8 @@ export class ComplianceIssueForm extends Component {
     const { equipments } = this.props
     const { estimatedDateInstalled } = equipments.find(
       item => item.equipment === equipment
-    )
+    ) || { estimatedDateInstalled: undefined }
+
     const { implementationDate, preImplementationText, comments } = value
 
     if (
