@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
@@ -10,34 +7,31 @@ import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
 import { format } from 'date-fns'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { capitalize } from '../../../functions/capitalize'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  capitalize,
+} from '../../../functions/'
 import { StyledConditionRatingList } from './StyledConditionRatingList'
 
 export class ConditionRatingList extends Component {
   state = {}
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Condition Ratings'
 
-    setNavTitle('Condition Ratings')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     const { match, conditionRatings } = this.props
+    const conditionRatingsAdded =
+      !!conditionRatings && conditionRatings.length > 0
 
     return (
       <StyledConditionRatingList className="StyledConditionRatingList">
@@ -46,14 +40,12 @@ export class ConditionRatingList extends Component {
             variant="fab"
             color="primary"
             aria-label="add condition rating"
-            className={
-              !!conditionRatings && conditionRatings.length > 0 ? '' : 'pulse'
-            }
+            className={conditionRatingsAdded ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
-        {!!conditionRatings && conditionRatings.length > 0 ? (
+        {conditionRatingsAdded ? (
           <Grid container>
             {conditionRatings.map(
               (
@@ -134,9 +126,4 @@ export class ConditionRatingList extends Component {
   }
 }
 
-ConditionRatingList.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+ConditionRatingList.contextTypes = contextTypesTitleLeftNav

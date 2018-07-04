@@ -16,6 +16,7 @@ import { getRiskLevel } from './getRiskLevel'
 import { getImagesCopy } from './getImagesCopy'
 import { getEquipmentSuggestions } from './getEquipmentSuggestions'
 import { getSuggestionsByName } from './getSuggestionsByName'
+import { capitalize } from './capitalize'
 
 export {
   openMenu,
@@ -36,4 +37,5 @@ export {
   getImagesCopy,
   getEquipmentSuggestions,
   getSuggestionsByName,
+  capitalize,
 }
