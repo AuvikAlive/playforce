@@ -1,46 +1,40 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
-import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import {
+  contextTypesTitleLeftNav,
   probabilities,
   severities,
-  riskLevels,
 } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  getRiskLevel,
+} from '../../../functions/'
+import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 
 export class ComplianceIssuesList extends Component {
   state = {}
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Compliance Issues'
 
-    setNavTitle('Compliance Issues')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     const { match, complianceIssues } = this.props
+    const complianceIssuesAdded =
+      !!complianceIssues && complianceIssues.length > 0
 
     return (
       <StyledComplianceIssuesList className="StyledComplianceIssuesList">
@@ -49,15 +43,13 @@ export class ComplianceIssuesList extends Component {
             variant="fab"
             color="primary"
             aria-label="add compliance issue"
-            className={
-              !!complianceIssues && complianceIssues.length > 0 ? '' : 'pulse'
-            }
+            className={complianceIssuesAdded ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {!!complianceIssues && complianceIssues.length > 0 ? (
+        {complianceIssuesAdded ? (
           <Grid container>
             {complianceIssues.map(
               (
@@ -123,8 +115,7 @@ export class ComplianceIssuesList extends Component {
                         </Grid>
                         <Grid item xs={4}>
                           <Typography variant="subheading">
-                            Risk Level:{' '}
-                            {riskLevels[probability - 1][severity - 1]}
+                            Risk Level: {getRiskLevel(probability, severity)}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -150,9 +141,4 @@ export class ComplianceIssuesList extends Component {
   }
 }
 
-ComplianceIssuesList.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+ComplianceIssuesList.contextTypes = contextTypesTitleLeftNav
