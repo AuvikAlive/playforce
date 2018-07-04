@@ -14,6 +14,8 @@ import { saveEditedImages } from './saveEditedImages'
 import { showImageNumberNotPortraitError } from './showImageNumberNotPortraitError'
 import { getRiskLevel } from './getRiskLevel'
 import { getImagesCopy } from './getImagesCopy'
+import { getEquipmentSuggestions } from './getEquipmentSuggestions'
+import { getSuggestionsByName } from './getSuggestionsByName'
 
 export {
   openMenu,
@@ -32,4 +34,6 @@ export {
   showImageNumberNotPortraitError,
   getRiskLevel,
   getImagesCopy,
+  getEquipmentSuggestions,
+  getSuggestionsByName,
 }

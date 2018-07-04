@@ -1,4 +1,4 @@
-export const getSuggestionsByName = (value, array) => {
+export const getSuggestionsByName = array => value => {
   const inputValue = value.trim().toLowerCase()
   const inputLength = inputValue.length
 
