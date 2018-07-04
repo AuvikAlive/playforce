@@ -1,52 +1,27 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import { onEventInputChange } from '../../../functions/onEventInputChange'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  onEventInputChange,
+} from '../../../functions/'
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
+import { submit } from './submit'
 
 export class EditImpactSurface extends Component {
   state = { location: '', description: '', material: '', condition: '' }
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Surface details'
 
-    setNavTitle('Surface details')
-
-    setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="navigate back"
-        onClick={() => history.goBack()}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   onEventInputChange = onEventInputChange
-
-  submit = async data => {
-    const {
-      updateImpactSurface,
-      userId,
-      id,
-      inspectionId,
-      setFeedback,
-    } = this.props
-
-    await updateImpactSurface(userId, inspectionId, id, data)
-
-    setFeedback({ success: 'Details updated!' })
-  }
 
   render() {
     const {
@@ -57,15 +32,10 @@ export class EditImpactSurface extends Component {
       <ImpactSurfaceDetailsForm
         buttonText="update"
         initialData={surface}
-        onSubmit={this.submit}
+        onSubmit={submit(this)}
       />
     )
   }
 }
 
-EditImpactSurface.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+EditImpactSurface.contextTypes = contextTypesTitleLeftNav
