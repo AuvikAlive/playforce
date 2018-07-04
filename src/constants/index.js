@@ -1,6 +1,7 @@
 import { conditions } from './conditions'
 import { contextTypesUnsubscriber } from './contextTypesUnsubscriber'
 import { contextTypesTitleLeftNav } from './contextTypesTitleLeftNav'
+import { contextTypesTitleLeftRightNav } from './contextTypesTitleLeftRightNav'
 import { contextTypesTitleLeftNavUnsubscriber } from './contextTypesTitleLeftNavUnsubscriber'
 import { defaultAuditSummary } from './defaultAuditSummary'
 import { defaultInspectionTypes } from './defaultInspectionTypes'
@@ -15,6 +16,7 @@ export {
   conditions,
   contextTypesUnsubscriber,
   contextTypesTitleLeftNav,
+  contextTypesTitleLeftRightNav,
   contextTypesTitleLeftNavUnsubscriber,
   defaultAuditSummary,
   defaultInspectionTypes,

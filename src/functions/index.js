@@ -6,6 +6,7 @@ import { showActionGoBack } from './showActionGoBack'
 import { showActionGo } from './showActionGo'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
+import { onComponentWillUnmountWithTitleLeftRightNav } from './onComponentWillUnmountWithTitleLeftRightNav'
 import { onEventInputChange } from './onEventInputChange'
 import { onValueInputChange } from './onValueInputChange'
 import { loadInitialData } from './loadInitialData'
@@ -28,6 +29,7 @@ export {
   showActionGo,
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftRightNav,
   onEventInputChange,
   onValueInputChange,
   loadInitialData,
