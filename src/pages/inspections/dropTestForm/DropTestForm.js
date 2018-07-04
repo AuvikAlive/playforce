@@ -8,6 +8,11 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
 import StayCurrentPortraitIcon from '@material-ui/icons/StayCurrentPortrait'
 import { onEventInputChange } from '../../../functions/onEventInputChange'
+import {
+  onComponentDidMount,
+  onComponentWillReceiveProps,
+  getResult,
+} from './functions/'
 import { StyledDropTestForm } from './StyledDropTestForm'
 
 class DropTestFormWithout extends Component {
@@ -20,51 +25,14 @@ class DropTestFormWithout extends Component {
   }
 
   componentDidMount() {
-    const { initialData } = this.props
-
-    initialData && this.loadInitialData(initialData)
+    onComponentDidMount(this)
   }
 
-  componentWillReceiveProps({
-    initialData,
-    imageCaptured,
-    image,
-    imageNaturalAspectRatio,
-  }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-
-    if (imageCaptured && image !== this.props.image) {
-      const { setFeedback } = this.props
-
-      imageNaturalAspectRatio >= 1
-        ? setFeedback({ error: 'Please upload a portrait image!' })
-        : setFeedback({ error: '' })
-    }
-  }
-
-  loadInitialData = initialData => {
-    const { image } = initialData
-    const { setCapturedImage } = this.props
-
-    setCapturedImage(image)
-
-    this.setState({ ...initialData })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
-
-  getResult = (hic, hicDuration, gmax) => {
-    return hic &&
-      Number(hic) <= 1000 &&
-      hicDuration &&
-      Number(hicDuration) > 3 &&
-      gmax &&
-      Number(gmax) <= 200
-      ? 'Satisfactory'
-      : 'Not Satisfactory'
-  }
 
   submit = async () => {
     const { dropHeight, location, hic, hicDuration, gmax } = this.state
@@ -81,7 +49,7 @@ class DropTestFormWithout extends Component {
           hic,
           hicDuration,
           gmax,
-          result: this.getResult(hic, hicDuration, gmax),
+          result: getResult(hic, hicDuration, gmax),
         })
         setFeedback({ loading: false })
         afterSubmit && afterSubmit(result)
@@ -98,7 +66,7 @@ class DropTestFormWithout extends Component {
   render() {
     const { location, dropHeight, hic, hicDuration, gmax } = this.state
     const { image, captureImage, buttonText, error, loading } = this.props
-    const result = this.getResult(hic, hicDuration, gmax)
+    const result = getResult(hic, hicDuration, gmax)
 
     return (
       <StyledDropTestForm className="StyledDropTestForm">

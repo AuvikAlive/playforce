@@ -9,6 +9,7 @@ import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmount
 import { onEventInputChange } from './onEventInputChange'
 import { onValueInputChange } from './onValueInputChange'
 import { loadInitialData } from './loadInitialData'
+import { loadInitialDataWithImage } from './loadInitialDataWithImage'
 import { loadImages } from './loadImages'
 import { saveEditedImages } from './saveEditedImages'
 import { showImageNumberNotPortraitError } from './showImageNumberNotPortraitError'
@@ -30,6 +31,7 @@ export {
   onEventInputChange,
   onValueInputChange,
   loadInitialData,
+  loadInitialDataWithImage,
   loadImages,
   saveEditedImages,
   showImageNumberNotPortraitError,
