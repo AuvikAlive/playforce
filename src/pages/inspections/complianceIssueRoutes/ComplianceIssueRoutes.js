@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Loadable from '../../../components/loadable/LoadableLinear'
+import { contextTypesUnsubscriber } from '../../../constants/'
+import { showContentWhenLoaded } from '../../../functions/'
 import ComplianceIssuesList from '../complianceIssuesList'
+import { onComponentDidMount } from './onComponentDidMount'
 
 const AddComplianceIssue = Loadable({
   loader: () => import('../addComplianceIssue'),
@@ -17,37 +18,23 @@ AddComplianceIssue.preload()
 EditComplianceIssue.preload()
 
 export class ComplianceIssueRoutes extends Component {
-  async componentDidMount() {
-    const {
-      inspectionLoaded,
-      complianceIssuesLoaded,
-      userId,
-      inspectionId,
-      fetchInspectionRealTime,
-      fetchComplianceIssues,
-    } = this.props
-
-    const { addUnsubscriber } = this.context
-
-    !inspectionLoaded &&
-      addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
-    !complianceIssuesLoaded && fetchComplianceIssues(userId, inspectionId)
+  componentDidMount() {
+    onComponentDidMount(this)
   }
+
   render() {
     const { inspectionLoaded, complianceIssuesLoaded, match } = this.props
+    const isLoaded = inspectionLoaded && complianceIssuesLoaded
 
-    return inspectionLoaded && complianceIssuesLoaded ? (
+    return showContentWhenLoaded(
+      isLoaded,
       <Switch>
         <Route path={`${match.url}/add`} component={AddComplianceIssue} />
         <Route path={`${match.url}/edit/:id`} component={EditComplianceIssue} />
         <Route path={match.url} component={ComplianceIssuesList} />
       </Switch>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-ComplianceIssueRoutes.contextTypes = {
-  addUnsubscriber: PropTypes.func,
-}
+ComplianceIssueRoutes.contextTypes = contextTypesUnsubscriber
