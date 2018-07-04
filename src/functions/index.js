@@ -8,6 +8,9 @@ import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTi
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
 import { onEventInputChange } from './onEventInputChange'
 import { onValueInputChange } from './onValueInputChange'
+import { loadInitialData } from './loadInitialData'
+import { loadImages } from './loadImages'
+import { showImageNumberNotPortraitError } from './showImageNumberNotPortraitError'
 
 export {
   openMenu,
@@ -20,4 +23,7 @@ export {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
   onValueInputChange,
+  loadInitialData,
+  loadImages,
+  showImageNumberNotPortraitError,
 }

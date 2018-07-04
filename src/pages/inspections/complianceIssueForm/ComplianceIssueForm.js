@@ -14,15 +14,16 @@ import StayCurrentPortraitIcon from '@material-ui/icons/StayCurrentPortrait'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
-import {
-  probabilities,
-  severities,
-  riskLevels,
-} from '../../../constants/'
+import { probabilities, severities, riskLevels } from '../../../constants/'
 import { onEventInputChange } from '../../../functions/onEventInputChange'
 import { onValueInputChange } from '../../../functions/onValueInputChange'
 import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
 import { getEquipmentSuggestions } from '../getEquipmentSuggestions'
+import {
+  onComponentDidMount,
+  onComponentWillUnmount,
+  onComponentWillReceiveProps,
+} from './functions/'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 
 const defaultRecommendation =
@@ -42,91 +43,20 @@ export class ComplianceIssueForm extends Component {
     imageEditMode: false,
   }
 
-  async componentDidMount() {
-    const {
-      setRightNav,
-      commonIssuesLoaded,
-      fetchCommonIssuesRealTime,
-      userId,
-      equipmentsSite,
-      siteId,
-      fetchEquipmentsRealTime,
-      initialData,
-    } = this.props
-
-    const { addUnsubscriber } = this.context
-
-    setRightNav && setRightNav()
-    !commonIssuesLoaded &&
-      addUnsubscriber(await fetchCommonIssuesRealTime(userId))
-    equipmentsSite !== siteId &&
-      addUnsubscriber(await fetchEquipmentsRealTime(userId, siteId))
-    initialData && this.loadInitialData(initialData)
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeRightNav } = this.props
-    removeRightNav && removeRightNav()
+    onComponentWillUnmount(this)
   }
 
-  componentWillReceiveProps({
-    imageCaptured,
-    initialData,
-    images,
-    commonIssuesLoaded,
-    commonIssues,
-  }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-
-    if (imageCaptured && images !== this.props.images) {
-      const { setFeedback } = this.props
-      const notPortrait = images.some(
-        ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
-      )
-      this.loadImages(images)
-      if (images.length > 4 && notPortrait) {
-        setFeedback({
-          error: 'Please upload no more than 4 portrait image(s)!',
-        })
-      } else if (images.length > 4) {
-        setFeedback({
-          error: 'Please upload no more than 4 image(s)!',
-        })
-      } else if (notPortrait) {
-        setFeedback({ error: 'Please upload portrait image(s)!' })
-      } else {
-        setFeedback({ error: '' })
-      }
-    }
-  }
-
-  loadInitialData = data => {
-    this.setState({
-      ...data,
-    })
-  }
-
-  onFindingChange = event => {
-    const commonIssueIndex = event.target.value
-
-    if (commonIssueIndex !== undefined) {
-      const { commonIssues } = this.props
-      const commonIssue = commonIssues[commonIssueIndex]
-
-      this.setState({ commonIssueIndex, ...commonIssue })
-    }
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
-
-  getEquipmentSuggestions = value => {
-    const { equipments } = this.props
-
-    return getEquipmentSuggestions(value, equipments)
-  }
 
   makeRecommendations = () => {
     const { preimplementationRecommendation } = this.props
@@ -337,7 +267,7 @@ export class ComplianceIssueForm extends Component {
                 value={equipment}
                 onChange={this.onValueInputChange('equipment')}
                 onSuggestionSelect={this.onEquipmentSelect}
-                getSuggestions={this.getEquipmentSuggestions}
+                getSuggestions={getEquipmentSuggestions(this)}
               />
 
               <CommonIssueAutoComplete
