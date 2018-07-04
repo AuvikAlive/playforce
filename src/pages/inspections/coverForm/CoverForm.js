@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -14,13 +12,25 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import { DatePicker } from 'material-ui-pickers'
-import { isEmpty } from 'lodash'
 import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
 import { ClientsDialogContainer } from '../../../components/clientsDialog/ClientsDialogContainer'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { onEventInputChange } from '../../../functions/onEventInputChange'
-import { onValueInputChange } from '../../../functions/onValueInputChange'
-import { defaultInspectionTypes } from '../../../constants/'
+import {
+  showContentWhenLoaded,
+  onEventInputChange,
+  onValueInputChange,
+} from '../../../functions/'
+import {
+  contextTypesUnsubscriber,
+  defaultInspectionTypes,
+} from '../../../constants/'
+import {
+  onComponentDidMount,
+  onComponentWillReceiveProps,
+  getLocationSuggestions,
+  getClientSuggestions,
+  submit,
+} from './functions/'
 import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {
@@ -32,139 +42,16 @@ export class CoverForm extends Component {
     inspectionType: '',
   }
 
-  async componentDidMount() {
-    const {
-      initialData,
-      sitesLoaded,
-      fetchSitesRealTime,
-      standardsLoaded,
-      fetchStandardsRealTime,
-      clientsLoaded,
-      fetchClientsRealTime,
-      inspectionTypesLoaded,
-      fetchInspectionTypesRealTime,
-      userId,
-    } = this.props
-
-    const { addUnsubscriber } = this.context
-
-    !isEmpty(initialData) && this.loadInitialData(initialData)
-    !sitesLoaded && addUnsubscriber(await fetchSitesRealTime(userId))
-    !standardsLoaded && addUnsubscriber(await fetchStandardsRealTime(userId))
-    !clientsLoaded && addUnsubscriber(await fetchClientsRealTime(userId))
-    !inspectionTypesLoaded &&
-      addUnsubscriber(await fetchInspectionTypesRealTime(userId))
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
-  componentWillReceiveProps({
-    initialData,
-    imageCaptured,
-    image,
-    imageNaturalAspectRatio,
-  }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-
-    if (imageCaptured && image !== this.props.image) {
-      const { setFeedback } = this.props
-
-      imageNaturalAspectRatio <= 1
-        ? setFeedback({ error: 'Please upload a landscape image!' })
-        : setFeedback({ error: '' })
-    }
-  }
-
-  loadInitialData = initialData => {
-    const { image } = initialData
-    const { setCapturedImage } = this.props
-
-    setCapturedImage(image)
-
-    this.setState({
-      ...initialData,
-      location: initialData.location.name,
-    })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
-
-  getLocationSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
-    const { sites } = this.props
-
-    return inputLength === 0
-      ? sites.map(item => item.name)
-      : sites
-          .filter(
-            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.name)
-  }
-
-  getClientSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
-    const { clients } = this.props
-
-    return inputLength === 0
-      ? clients.map(item => item.name)
-      : clients
-          .filter(
-            item => item.name.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.name)
-  }
-
-  submit = async () => {
-    const {
-      onSubmit,
-      afterSubmit,
-      setFeedback,
-      image,
-      displayName,
-      sites,
-    } = this.props
-    const {
-      location,
-      client,
-      inspectionDate,
-      appliedStandards,
-      inspectionType,
-    } = this.state
-
-    if (
-      location &&
-      client &&
-      inspectionDate &&
-      appliedStandards.length > 0 &&
-      inspectionType
-    ) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({
-          image,
-          displayName,
-          location: sites.find(({ name }) => name === location),
-          client,
-          inspectionDate,
-          appliedStandards,
-          inspectionType,
-        })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
 
   render() {
     const {
@@ -190,10 +77,11 @@ export class CoverForm extends Component {
       buttonText,
     } = this.props
 
-    return sitesLoaded &&
-      standardsLoaded &&
-      clientsLoaded &&
-      inspectionTypesLoaded ? (
+    const isLoaded =
+      sitesLoaded && standardsLoaded && clientsLoaded && inspectionTypesLoaded
+
+    return showContentWhenLoaded(
+      isLoaded,
       <StyledCoverForm className="StyledCoverForm">
         <Card className="card">
           {image && <img src={image} alt="cover" />}
@@ -205,7 +93,6 @@ export class CoverForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() =>
-                // captureImage({ width: 500, height: 500 * 432 / 764 })
                 captureImage({ width: 1024, height: (1024 * 432) / 764 })
               }
             >
@@ -218,7 +105,7 @@ export class CoverForm extends Component {
                   label="Location"
                   value={location}
                   onChange={this.onValueInputChange('location')}
-                  getSuggestions={this.getLocationSuggestions}
+                  getSuggestions={getLocationSuggestions(this)}
                 />
                 <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
                   <AddBoxIcon />
@@ -230,7 +117,7 @@ export class CoverForm extends Component {
                   label="Client"
                   value={client}
                   onChange={this.onValueInputChange('client')}
-                  getSuggestions={this.getClientSuggestions}
+                  getSuggestions={getClientSuggestions(this)}
                 />
                 <IconButton onClick={() => openDialog(ClientsDialogContainer)}>
                   <AddBoxIcon />
@@ -324,7 +211,7 @@ export class CoverForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
@@ -332,12 +219,8 @@ export class CoverForm extends Component {
           </CardContent>
         </Card>
       </StyledCoverForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-CoverForm.contextTypes = {
-  addUnsubscriber: PropTypes.func,
-}
+CoverForm.contextTypes = contextTypesUnsubscriber
