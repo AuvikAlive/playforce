@@ -1,74 +1,24 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import AddIcon from '@material-ui/icons/Add'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { contextTypesTitleLeftRightNav } from '../../../constants/'
+import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
 import { StyledImpactTestItems } from './StyledImpactTestItems'
+import { onComponentDidMount } from './functions/'
 
 export class ImpactTestItems extends Component {
   componentDidMount() {
-    const {
-      setNavTitle,
-      setLeftNavComponent,
-      setRightNavComponent,
-    } = this.context
-    const { history, openDialog } = this.props
-
-    setNavTitle('Impact Testing')
-
-    setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="navigate back"
-        onClick={() => history.goBack()}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    setRightNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="delete impact test"
-        onClick={() => openDialog(this.delete)}
-      >
-        <DeleteIcon />
-      </IconButton>
-    )
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const {
-      removeNavTitle,
-      removeLefNavComponent,
-      removeRightNavComponent,
-    } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-    removeRightNavComponent()
-  }
-
-  showActionGoBack = message => {
-    const { setFeedback, history } = this.props
-
-    setFeedback({ success: message })
-    history.goBack()
-  }
-
-  delete = async () => {
-    const { inspectionId, userId, impactTests, deleteImpactTest } = this.props
-
-    await deleteImpactTest(userId, inspectionId, impactTests)
-    this.showActionGoBack('Impact test deleted!')
+    onComponentWillUnmountWithTitleLeftRightNav(this)
   }
 
   render() {
@@ -114,11 +64,4 @@ export class ImpactTestItems extends Component {
   }
 }
 
-ImpactTestItems.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  setRightNavComponent: PropTypes.func,
-  removeRightNavComponent: PropTypes.func,
-}
+ImpactTestItems.contextTypes = contextTypesTitleLeftRightNav
