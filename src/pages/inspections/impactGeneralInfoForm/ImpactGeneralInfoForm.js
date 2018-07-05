@@ -5,23 +5,23 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { onEventInputChange } from '../../../functions/'
-import { StyledImpactGeneralInfoForm } from './StyledImpactGeneralInfoForm'
 import {
-  onComponentDidMount,
-  onComponentWillReceiveProps,
-  submit,
-} from './functions/'
+  onComponentDidMountLoadData,
+  onComponentWillReceivePropsLoadData,
+  onEventInputChange,
+} from '../../../functions/'
+import { StyledImpactGeneralInfoForm } from './StyledImpactGeneralInfoForm'
+import { submit } from './submit'
 
 export class ImpactGeneralInfoFormWithout extends Component {
   state = { temperature: '', humidity: '', rain: '', apparatus: '' }
 
   componentDidMount() {
-    onComponentDidMount(this)
+    onComponentDidMountLoadData(this)
   }
 
   componentWillReceiveProps(nextProps) {
-    onComponentWillReceiveProps(this, nextProps)
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange

@@ -1,6 +1,6 @@
-import { loadInitialData } from '../../../../functions/'
+import { loadInitialData } from './loadInitialData'
 
-export const onComponentWillReceiveProps = (component, nextProps) => {
+export const onComponentWillReceivePropsLoadData = (component, nextProps) => {
   const { initialData } = nextProps
 
   initialData &&

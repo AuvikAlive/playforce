@@ -6,8 +6,13 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { onEventInputChange } from '../../../functions/onEventInputChange'
+import {
+  onComponentDidMountLoadData,
+  onComponentWillReceivePropsLoadData,
+  onEventInputChange,
+} from '../../../functions/'
 import { StyledImpactSurfaceDetailsForm } from './StyledImpactSurfaceDetailsForm'
+import { submit } from './submit'
 
 const conditions = ['Excellent', 'Good', 'Average', 'Poor', 'Failed']
 const surfaceTypes = ['Unitary', 'Loose-fill']
@@ -17,48 +22,14 @@ class ImpactSurfaceDetailsFormWithout extends Component {
   state = { location: '', surfaceType: '', material: '', condition: '' }
 
   componentDidMount() {
-    const { initialData } = this.props
-
-    this.loadInitialData(initialData)
+    onComponentDidMountLoadData(this)
   }
 
-  componentWillReceiveProps({ initialData }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-  }
-
-  loadInitialData = initialData => {
-    this.setState({ ...initialData })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
-
-  submit = async () => {
-    const { location, surfaceType, material, condition } = this.state
-    const { setFeedback, onSubmit, afterSubmit } = this.props
-
-    if (location && surfaceType && material && condition) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({
-          location,
-          surfaceType,
-          material,
-          condition,
-        })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
 
   render() {
     const { location, surfaceType, material, condition } = this.state
@@ -138,7 +109,7 @@ class ImpactSurfaceDetailsFormWithout extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>

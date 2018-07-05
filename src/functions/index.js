@@ -4,6 +4,8 @@ import { showContentWhenLoaded } from './showContentWhenLoaded'
 import { setSelectedItems } from './setSelectedItems'
 import { showActionGoBack } from './showActionGoBack'
 import { showActionGo } from './showActionGo'
+import { onComponentDidMountLoadData } from './onComponentDidMountLoadData'
+import { onComponentWillReceivePropsLoadData } from './onComponentWillReceivePropsLoadData'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitleLeftRightNav } from './onComponentWillUnmountWithTitleLeftRightNav'
@@ -27,6 +29,8 @@ export {
   setSelectedItems,
   showActionGoBack,
   showActionGo,
+  onComponentDidMountLoadData,
+  onComponentWillReceivePropsLoadData,
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftRightNav,
