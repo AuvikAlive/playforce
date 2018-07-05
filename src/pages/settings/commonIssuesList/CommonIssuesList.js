@@ -1,8 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
@@ -14,57 +10,45 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import Typography from '@material-ui/core/Typography'
 import { map } from 'lodash'
-import { groupCommonIssues } from '../../../functions/groupCommonIssues'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  groupCommonIssues,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import { StyledCommonIssuesList } from './StyledCommonIssuesList'
+import { onComponentDidMount } from './onComponentDidMount'
 
 export class CommonIssuesList extends Component {
-  async componentDidMount() {
-    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
-    const {
-      history,
-      commonIssuesLoaded,
-      fetchCommonIssuesRealTime,
-      userId,
-    } = this.props
-
-    setNavTitle('Common Issues')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    !commonIssuesLoaded &&
-      addUnsubscriber(await fetchCommonIssuesRealTime(userId))
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
+
   render() {
     const { match, commonIssuesLoaded, commonIssues } = this.props
-
     const groupedCommonIssues = groupCommonIssues(commonIssues)
+    const commonIssuesAdded = commonIssues.length > 0
 
-    return commonIssuesLoaded ? (
+    return showContentWhenLoaded(
+      commonIssuesLoaded,
       <StyledCommonIssuesList className="StyledCommonIssuesList">
         <StyledNavLink to={`${match.url}/add`} className="add-icon">
           <Button
             variant="fab"
             color="primary"
             aria-label="add a standard"
-            className={commonIssues.length > 0 ? '' : 'pulse'}
+            className={commonIssuesAdded ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {commonIssues.length > 0 ? (
+        {commonIssuesAdded ? (
           <Paper className="paper">
             {map(groupedCommonIssues, (value, key) => {
               return (
@@ -100,16 +84,8 @@ export class CommonIssuesList extends Component {
           </Typography>
         )}
       </StyledCommonIssuesList>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-CommonIssuesList.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+CommonIssuesList.contextTypes = contextTypesTitleLeftNavUnsubscriber

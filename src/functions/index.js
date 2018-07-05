@@ -25,6 +25,7 @@ import { getSuggestionsByName } from './getSuggestionsByName'
 import { capitalize } from './capitalize'
 import { exportCSV } from './exportCSV'
 import { makeReportTitle } from './makeReportTitle'
+import { groupCommonIssues } from './groupCommonIssues'
 
 export {
   openMenu,
@@ -54,4 +55,5 @@ export {
   capitalize,
   exportCSV,
   makeReportTitle,
+  groupCommonIssues,
 }
