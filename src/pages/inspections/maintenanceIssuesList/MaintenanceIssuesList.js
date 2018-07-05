@@ -1,50 +1,35 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
-import { StyledMaintenanceIssuesList } from './StyledMaintenanceIssuesList'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+} from '../../../functions/'
+import { StyledMaintenanceIssuesList } from './StyledMaintenanceIssuesList'
 
 export class MaintenanceIssuesList extends Component {
   state = {}
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const {
-      history,
-      // maintenanceIssuesLoaded,
-      // fetchMaintenanceIssuesRealTime,
-      // userId,
-      // inspectionId,
-    } = this.props
+    const title = 'Maintenance Issues'
 
-    setNavTitle('Maintenance Issues')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    // !maintenanceIssuesLoaded &&
-    //   fetchMaintenanceIssuesRealTime(userId, inspectionId)
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     const { match, maintenanceIssues } = this.props
+    const maintenanceIssuesAdded =
+      !!maintenanceIssues && maintenanceIssues.length > 0
 
     return (
       <StyledMaintenanceIssuesList className="StyledMaintenanceIssuesList">
@@ -53,15 +38,13 @@ export class MaintenanceIssuesList extends Component {
             variant="fab"
             color="primary"
             aria-label="add compliance issue"
-            className={
-              !!maintenanceIssues && maintenanceIssues.length > 0 ? '' : 'pulse'
-            }
+            className={maintenanceIssuesAdded ? '' : 'pulse'}
           >
             <AddIcon />
           </Button>
         </StyledNavLink>
 
-        {!!maintenanceIssues && maintenanceIssues.length > 0 ? (
+        {maintenanceIssuesAdded ? (
           <Grid container>
             {maintenanceIssues.map(
               ({ id, images, finding, equipment }, index) => {
@@ -109,9 +92,4 @@ export class MaintenanceIssuesList extends Component {
   }
 }
 
-MaintenanceIssuesList.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+MaintenanceIssuesList.contextTypes = contextTypesTitleLeftNav
