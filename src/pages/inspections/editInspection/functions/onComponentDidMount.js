@@ -58,7 +58,7 @@ export const onComponentDidMount = async component => {
     <IconButton
       color="inherit"
       aria-label="navigate back"
-      onClick={beforeBack(this)}
+      onClick={beforeBack(component)}
     >
       <ArrowBackIcon />
     </IconButton>
