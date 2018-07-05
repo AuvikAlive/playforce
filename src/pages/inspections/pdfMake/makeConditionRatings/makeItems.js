@@ -6,6 +6,10 @@ import { makeManufacturer } from './makeManufacturer'
 import { makeCondition } from './makeCondition'
 
 export const makeItems = (items, itemName) => {
+  if (items.length === 0) {
+    return null
+  }
+
   const conditionRatingItems = items.map(
     (
       { image, equipment, manufacturer, condition, estimatedDateInstalled },
