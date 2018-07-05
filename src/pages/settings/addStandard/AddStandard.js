@@ -1,57 +1,35 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  showActionGo,
+} from '../../../functions/'
 import StandardForm from '../standardForm/'
+import { submit } from './submit'
+
+const message = 'Standard added!'
+const pathHead = 'edit/'
 
 export class AddStandard extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Add a Standard'
 
-    setNavTitle('Add a Standard')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  showActionGoBack = standardId => {
-    const { setFeedback, history } = this.props
-
-    setFeedback({ success: 'Standard added!' })
-    history.replace(`edit/${standardId}`)
-  }
-
-  submit = async standard => {
-    const { addStandard, userId } = this.props
-    const standardId = await addStandard(userId, standard)
-
-    return standardId
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     return (
       <StandardForm
-        onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
+        onSubmit={submit(this)}
+        afterSubmit={showActionGo(this, message, pathHead)}
       />
     )
   }
 }
 
-AddStandard.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+AddStandard.contextTypes = contextTypesTitleLeftNav
