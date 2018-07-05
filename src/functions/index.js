@@ -24,6 +24,7 @@ import { getEquipmentSuggestions } from './getEquipmentSuggestions'
 import { getSuggestionsByName } from './getSuggestionsByName'
 import { capitalize } from './capitalize'
 import { exportCSV } from './exportCSV'
+import { makeReportTitle } from './makeReportTitle'
 
 export {
   openMenu,
@@ -52,4 +53,5 @@ export {
   getSuggestionsByName,
   capitalize,
   exportCSV,
+  makeReportTitle,
 }
