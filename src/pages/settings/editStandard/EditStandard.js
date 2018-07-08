@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import {
-  onComponentWillUnmountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftRightNav,
   showContentWhenLoaded,
 } from '../../../functions/'
 import StandardForm from '../standardForm/'
@@ -13,7 +13,7 @@ export class EditStandard extends Component {
   }
 
   componentWillUnmount() {
-    onComponentWillUnmountWithTitleLeftNav(this)
+    onComponentWillUnmountWithTitleLeftRightNav(this)
   }
 
   render() {
