@@ -1,42 +1,35 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import EquipmentForm from '../equipmentForm/'
+import { contextTypesTitle } from '../../../constants/'
+import {
+  onComponentDidMountWithTitle,
+  onComponentWillUnmountWithTitle,
+  showActionGo,
+} from '../../../functions/'
+import { submit } from './submit'
+
+const message = 'Equipment published!'
+const pathHead = 'edit/'
 
 export class AddEquipment extends Component {
   componentDidMount() {
-    const { setNavTitle } = this.context
-    setNavTitle('Add an Equipment')
+    const title = 'Add an Equipment'
+
+    onComponentDidMountWithTitle(this, title)
   }
 
   componentWillMount() {
-    const { removeNavTitle } = this.context
-    removeNavTitle()
-  }
-
-  showActionGoBack = assetId => {
-    const { setFeedback, history } = this.props
-
-    setFeedback({ success: 'Equipment published!' })
-    history.replace(`${assetId}/edit`)
-  }
-
-  submit = async data => {
-    const { addEquipment, userId, siteId } = this.props
-
-    return await addEquipment(userId, siteId, data)
+    onComponentWillUnmountWithTitle(this)
   }
 
   render() {
     return (
       <EquipmentForm
-        onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
+        onSubmit={submit(this)}
+        afterSubmit={showActionGo(this, message, pathHead)}
       />
     )
   }
 }
 
-AddEquipment.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+AddEquipment.contextTypes = contextTypesTitle

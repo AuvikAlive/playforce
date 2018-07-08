@@ -36,7 +36,7 @@ export class EquipmentList extends Component {
               equipments.map(({ equipment }) => (
                 <StyledNavLink
                   key={equipment}
-                  to={`${match.url}/${equipment}/edit`}
+                  to={`${match.url}/edit/${equipment}`}
                 >
                   <ListItem button divider>
                     <ListItemText primary={equipment} />
