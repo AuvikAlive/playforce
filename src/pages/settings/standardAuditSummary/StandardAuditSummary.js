@@ -1,61 +1,30 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { onEventInputChange } from '../../../functions/onEventInputChange'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  onEventInputChange,
+} from '../../../functions/'
 import { StyledStandardAuditSummary } from './StyledStandardAuditSummary'
+import { state } from './state'
+import { onComponentDidMount, submit } from './functions/'
 
 export class StandardAuditSummary extends Component {
-  state = { standardAuditSummary: '' }
+  state = state
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history, standardAuditSummary } = this.props
-
-    setNavTitle('Standard Audit Summary')
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    standardAuditSummary && this.setState({ standardAuditSummary })
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   onEventInputChange = onEventInputChange
-
-  submit = async () => {
-    const { updateProfile, setFeedback } = this.props
-    const { standardAuditSummary } = this.state
-
-    setFeedback({ error: '', loading: true })
-
-    if (standardAuditSummary) {
-      try {
-        await updateProfile({ standardAuditSummary })
-        setFeedback({ success: 'Summary updated!', loading: false })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-        loading: false,
-      })
-    }
-  }
 
   render() {
     const { standardAuditSummary } = this.state
@@ -91,7 +60,7 @@ export class StandardAuditSummary extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 save
               </Button>
@@ -103,9 +72,4 @@ export class StandardAuditSummary extends Component {
   }
 }
 
-StandardAuditSummary.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+StandardAuditSummary.contextTypes = contextTypesTitleLeftNav
