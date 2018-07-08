@@ -1,84 +1,37 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { contextTypesTitle } from '../../constants/'
+import {
+  onComponentDidMountWithTitle,
+  onComponentWillUnmountWithTitle,
+  onEventInputChange,
+} from '../../functions/'
 import { StyledLink } from '../../components/styledLink/StyledLink'
 import { StyledSignIn } from './StyledSignIn'
+import { onCheckboxChange, signIn, signInWithProvider } from './functions/'
+import { state } from './state'
 import google from './google.svg'
 // import facebook from './facebook.svg'
 
 export class SignIn extends Component {
-  state = {
-    email: '',
-    password: '',
-    checked: true,
-  }
+  state = state
 
   componentDidMount() {
-    const { setNavTitle } = this.context
-    setNavTitle('Sign In')
+    const title = 'Sign In'
+
+    onComponentDidMountWithTitle(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
-    removeNavTitle()
+    onComponentWillUnmountWithTitle(this)
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  onCheckboxChange = event => {
-    const checked = event.target.checked
-    this.setState({ checked })
-  }
-
-  signIn = async () => {
-    const { email, password, checked } = this.state
-    const { setFeedback, signIn, history } = this.props
-
-    setFeedback({ error: '', loading: true })
-
-    if (email && password) {
-      try {
-        await signIn(email, password, checked)
-        history.push({
-          pathname: '/dashboard',
-          state: { name: 'Dashboard' },
-        })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form properly!',
-        loading: false,
-      })
-    }
-  }
-
-  signInWithProvider = provider => async () => {
-    const { checked } = this.state
-    const { setFeedback, signInWithProvider, history } = this.props
-
-    setFeedback({ error: '', loading: true })
-
-    try {
-      await signInWithProvider(provider, checked)
-      history.push({
-        pathname: '/dashboard',
-        state: { name: 'Dashboard' },
-      })
-    } catch (error) {
-      setFeedback({ error: error.message, loading: false })
-    }
-  }
+  onEventInputChange = onEventInputChange
 
   render() {
     const { checked } = this.state
@@ -96,7 +49,7 @@ export class SignIn extends Component {
             type="email"
             margin="normal"
             fullWidth
-            onChange={this.onInputChange('email')}
+            onChange={this.onEventInputChange('email')}
           />
 
           <TextField
@@ -105,7 +58,7 @@ export class SignIn extends Component {
             type="password"
             margin="normal"
             fullWidth
-            onChange={this.onInputChange('password')}
+            onChange={this.onEventInputChange('password')}
           />
 
           <FormControlLabel
@@ -113,7 +66,7 @@ export class SignIn extends Component {
             control={
               <Checkbox
                 checked={checked}
-                onChange={this.onCheckboxChange}
+                onChange={onCheckboxChange(this)}
                 color="primary"
               />
             }
@@ -131,13 +84,13 @@ export class SignIn extends Component {
 
           {!loading && (
             <div>
-              <Button variant="raised" color="primary" onClick={this.signIn}>
+              <Button variant="raised" color="primary" onClick={signIn(this)}>
                 Sign In
               </Button>
               <Button
                 variant="raised"
                 className="social-button"
-                onClick={this.signInWithProvider('google')}
+                onClick={signInWithProvider(this, 'google')}
               >
                 <img src={google} alt="google sign-in" />
                 With Google
@@ -164,7 +117,4 @@ export class SignIn extends Component {
   }
 }
 
-SignIn.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+SignIn.contextTypes = contextTypesTitle
