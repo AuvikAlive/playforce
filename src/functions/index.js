@@ -7,7 +7,9 @@ import { showActionGoBack } from './showActionGoBack'
 import { showActionGo } from './showActionGo'
 import { onComponentDidMountLoadData } from './onComponentDidMountLoadData'
 import { onComponentWillReceivePropsLoadData } from './onComponentWillReceivePropsLoadData'
+import { onComponentDidMountWithTitle } from './onComponentDidMountWithTitle'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
+import { onComponentWillUnmountWithTitle } from './onComponentWillUnmountWithTitle'
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitleLeftRightNav } from './onComponentWillUnmountWithTitleLeftRightNav'
 import { onComponentWillUnmountTitleSearchRightNav } from './onComponentWillUnmountTitleSearchRightNav'
@@ -37,7 +39,9 @@ export {
   showActionGo,
   onComponentDidMountLoadData,
   onComponentWillReceivePropsLoadData,
+  onComponentDidMountWithTitle,
   onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitle,
   onComponentWillUnmountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftRightNav,
   onComponentWillUnmountTitleSearchRightNav,

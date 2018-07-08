@@ -1,5 +1,6 @@
 import { conditions } from './conditions'
 import { contextTypesUnsubscriber } from './contextTypesUnsubscriber'
+import { contextTypesTitle } from './contextTypesTitle'
 import { contextTypesTitleLeftNav } from './contextTypesTitleLeftNav'
 import { contextTypesTitleLeftRightNav } from './contextTypesTitleLeftRightNav'
 import { contextTypesTitleLeftNavUnsubscriber } from './contextTypesTitleLeftNavUnsubscriber'
@@ -16,6 +17,7 @@ import { theme } from './theme'
 export {
   conditions,
   contextTypesUnsubscriber,
+  contextTypesTitle,
   contextTypesTitleLeftNav,
   contextTypesTitleLeftRightNav,
   contextTypesTitleLeftNavUnsubscriber,
