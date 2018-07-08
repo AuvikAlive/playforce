@@ -1,91 +1,31 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Signature } from '../../../components/signature/Signature'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  onEventInputChange,
+} from '../../../functions/'
 import { StyledProfile } from './StyledProfile'
+import { state } from './state'
+import { onComponentDidMount, submit } from './functions/'
 
 export class Profile extends Component {
-  state = {
-    displayName: '',
-    image: null,
-    displayImage: null,
-    title: '',
-    company: '',
-    mobile: '',
-  }
+  state = state
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const {
-      history,
-      setCapturedImage,
-      profile: {
-        displayName,
-        image,
-        title = '',
-        company = '',
-        mobile = '',
-        signature,
-      },
-    } = this.props
-
-    setNavTitle('Profile')
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    this.setState({ displayName, image, title, company, mobile })
-    setCapturedImage(image)
-    // signature && this.mySignature.fromDataURL(signature)
-    signature && this.signature.setSignature(signature)
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  submit = async () => {
-    const { displayName, title, company, mobile } = this.state
-    const { updateProfile, setFeedback, image } = this.props
-
-    setFeedback({ error: '', loading: true })
-
-    let data = {}
-    Object.assign(
-      data,
-      displayName && { displayName },
-      title && { title },
-      company && { company },
-      mobile && { mobile },
-      image && { image },
-      !this.signature.isEmpty() && { signature: this.signature.getSignature() }
-      // !this.mySignature.isEmpty() && { signature: this.mySignature.toDataURL() }
-    )
-
-    try {
-      await updateProfile(data)
-      setFeedback({ success: 'Profile updated!', loading: false })
-    } catch (error) {
-      setFeedback({ error: error.message, loading: false })
-    }
-  }
+  onEventInputChange = onEventInputChange
 
   render() {
     const { displayName, title, company, mobile } = this.state
@@ -113,7 +53,7 @@ export class Profile extends Component {
               fullWidth
               label="Name"
               value={displayName}
-              onChange={this.onInputChange('displayName')}
+              onChange={this.onEventInputChange('displayName')}
               margin="normal"
             />
 
@@ -121,7 +61,7 @@ export class Profile extends Component {
               fullWidth
               label="Title"
               value={title}
-              onChange={this.onInputChange('title')}
+              onChange={this.onEventInputChange('title')}
               margin="normal"
             />
 
@@ -129,7 +69,7 @@ export class Profile extends Component {
               fullWidth
               label="Company"
               value={company}
-              onChange={this.onInputChange('company')}
+              onChange={this.onEventInputChange('company')}
               margin="normal"
             />
 
@@ -137,25 +77,9 @@ export class Profile extends Component {
               fullWidth
               label="Mobile"
               value={mobile}
-              onChange={this.onInputChange('mobile')}
+              onChange={this.onEventInputChange('mobile')}
               margin="normal"
             />
-
-            {/* <FormControl fullWidth>
-              <InputLabel
-                shrink={false}
-                focused={false}
-                className="signature-label"
-              >
-                <div>Signature</div>
-                <Button onClick={() => this.mySignature.clear()}>Clear</Button>
-              </InputLabel>
-              <SignaturePad
-                ref={input => {
-                  this.mySignature = input
-                }}
-              />
-            </FormControl> */}
 
             <Signature
               ref={node => {
@@ -178,7 +102,7 @@ export class Profile extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 Update
               </Button>
@@ -190,9 +114,4 @@ export class Profile extends Component {
   }
 }
 
-Profile.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+Profile.contextTypes = contextTypesTitleLeftNav
