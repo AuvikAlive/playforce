@@ -8,7 +8,14 @@ import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import TextField from '@material-ui/core/TextField'
 import { DatePicker } from 'material-ui-pickers'
+import {
+  onComponentDidMountLoadData,
+  onComponentWillReceivePropsLoadData,
+  onEventInputChange,
+  onValueInputChange,
+} from '../../../functions/'
 import { StyledStandardForm } from './StyledStandardForm'
+import { submit } from './submit'
 
 export class StandardForm extends Component {
   state = {
@@ -18,53 +25,15 @@ export class StandardForm extends Component {
   }
 
   componentDidMount() {
-    const { initialData } = this.props
-
-    initialData && this.loadInitialData(initialData)
+    onComponentDidMountLoadData(this)
   }
 
-  componentWillReceiveProps({ initialData }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
-  loadInitialData = initialData => {
-    this.setState({
-      ...initialData,
-    })
-  }
-
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  onDateChange = date => {
-    this.setState({ publishDate: date })
-  }
-
-  submit = async () => {
-    const { onSubmit, afterSubmit, setFeedback } = this.props
-    const { code, title, publishDate } = this.state
-
-    if (code && title && publishDate) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({ code, title, publishDate })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
+  onEventInputChange = onEventInputChange
+  onValueInputChange = onValueInputChange
 
   render() {
     const { code, title, publishDate } = this.state
@@ -79,7 +48,7 @@ export class StandardForm extends Component {
                 fullWidth
                 label="Code"
                 value={code}
-                onChange={this.onInputChange('code')}
+                onChange={this.onEventInputChange('code')}
                 margin="normal"
               />
 
@@ -87,7 +56,7 @@ export class StandardForm extends Component {
                 fullWidth
                 label="Title"
                 value={title}
-                onChange={this.onInputChange('title')}
+                onChange={this.onEventInputChange('title')}
                 margin="normal"
               />
 
@@ -102,7 +71,7 @@ export class StandardForm extends Component {
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}
                 rightArrowIcon={<ArrowForwardIcon />}
-                onChange={this.onDateChange}
+                onChange={this.onValueInputChange('publishDate')}
                 animateYearScrolling={false}
               />
             </form>
@@ -122,7 +91,7 @@ export class StandardForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
