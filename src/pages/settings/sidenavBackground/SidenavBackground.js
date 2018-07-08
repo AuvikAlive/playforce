@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
@@ -7,72 +6,32 @@ import CheckIcon from '@material-ui/icons/Check'
 import Card from '@material-ui/core/Card'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Carousel } from '../../../components/carousel/Carousel'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+} from '../../../functions/'
 import { StyledSidenavBackground } from './StyledSidenavBackround'
-import { background1 } from './images/background1'
-import { background2 } from './images/background2'
-import { background3 } from './images/background3'
-
-const images = [
-  { image: background1 },
-  { image: background2 },
-  { image: background3 },
-]
+import { images, state } from './constants/'
+import { onSlideChange, onSlidePrev, onSlideNext, onSave } from './functions/'
 
 export class SidenavBackground extends Component {
-  state = { currentSlide: 0 }
+  state = state
 
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Select Sidenav Background'
 
-    setNavTitle('Select Sidenav Background')
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  onSlideChange = (current, next) => {
-    if (next !== current) {
-      this.setState({ currentSlide: next })
-    }
-  }
-
-  onPrev = () => {
-    this.carouselParent.carousel.slickPrev()
-  }
-
-  onNext = () => {
-    this.carouselParent.carousel.slickNext()
-  }
-
-  onSave = async () => {
-    const { currentSlide } = this.state
-    const { updateProfile, setFeedback } = this.props
-    const image = images[currentSlide].image
-
-    setFeedback({ error: '', loading: true })
-
-    try {
-      await updateProfile({ background: image })
-      setFeedback({ success: 'Background updated!', loading: false })
-    } catch (error) {
-      setFeedback({ error: error.message, loading: false })
-    }
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     const settings = {
       autoplay: false,
-      beforeChange: this.onSlideChange,
+      beforeChange: onSlideChange(this),
     }
 
     const { error, loading } = this.props
@@ -88,15 +47,15 @@ export class SidenavBackground extends Component {
 
           {!loading && (
             <div className="actions">
-              <IconButton onClick={this.onPrev}>
+              <IconButton onClick={onSlidePrev(this)}>
                 <ArrowBackIcon />
               </IconButton>
 
-              <IconButton onClick={this.onNext}>
+              <IconButton onClick={onSlideNext(this)}>
                 <ArrowForwardIcon />
               </IconButton>
 
-              <IconButton onClick={this.onSave}>
+              <IconButton onClick={onSave(this)}>
                 <CheckIcon />
               </IconButton>
             </div>
@@ -116,9 +75,4 @@ export class SidenavBackground extends Component {
   }
 }
 
-SidenavBackground.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+SidenavBackground.contextTypes = contextTypesTitleLeftNav
