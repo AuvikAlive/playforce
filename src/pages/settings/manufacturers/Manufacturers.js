@@ -1,71 +1,41 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
 import { ManufacturerList } from '../../../components/manufacturerList/ManufacturerList'
 import { ManufacturerFormContainer } from '../../../components/manufacturerForm/ManufacturerFormContainer'
+import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import { StyledManufacturers } from './StyledManufacturers'
+import { onComponentDidMount, deleteManufacturer } from './functions/'
 
 export class Manufacturers extends Component {
-  async componentDidMount() {
-    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
-    const {
-      history,
-      manufacturersLoaded,
-      fetchManufacturersRealTime,
-      userId,
-    } = this.props
-
-    setNavTitle('Manufacturers')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    !manufacturersLoaded &&
-      addUnsubscriber(await fetchManufacturersRealTime(userId))
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  delete = async id => {
-    const { openDialog, deleteManufacturer, userId } = this.props
-    openDialog(() => deleteManufacturer(userId, id))
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     const { manufacturersLoaded, manufacturers } = this.props
 
-    return manufacturersLoaded ? (
+    return showContentWhenLoaded(
+      manufacturersLoaded,
       <StyledManufacturers className="StyledManufacturers">
         <Card className="card">
           <ManufacturerList
             manufacturers={manufacturers}
-            deletePrompt={this.delete}
+            deletePrompt={deleteManufacturer(this)}
           />
 
           <ManufacturerFormContainer />
         </Card>
       </StyledManufacturers>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-Manufacturers.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+Manufacturers.contextTypes = contextTypesTitleLeftNavUnsubscriber
