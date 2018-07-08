@@ -11,6 +11,7 @@ import { onComponentDidMountWithTitle } from './onComponentDidMountWithTitle'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitle } from './onComponentWillUnmountWithTitle'
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
+import { onComponentWillUnmountWithTitleRightNav } from './onComponentWillUnmountWithTitleRightNav'
 import { onComponentWillUnmountWithTitleLeftRightNav } from './onComponentWillUnmountWithTitleLeftRightNav'
 import { onComponentWillUnmountTitleSearchRightNav } from './onComponentWillUnmountTitleSearchRightNav'
 import { onEventInputChange } from './onEventInputChange'
@@ -43,6 +44,7 @@ export {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitle,
   onComponentWillUnmountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleRightNav,
   onComponentWillUnmountWithTitleLeftRightNav,
   onComponentWillUnmountTitleSearchRightNav,
   onEventInputChange,

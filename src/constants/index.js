@@ -2,6 +2,7 @@ import { conditions } from './conditions'
 import { contextTypesUnsubscriber } from './contextTypesUnsubscriber'
 import { contextTypesTitle } from './contextTypesTitle'
 import { contextTypesTitleLeftNav } from './contextTypesTitleLeftNav'
+import { contextTypesTitleRightNav } from './contextTypesTitleRightNav'
 import { contextTypesTitleLeftRightNav } from './contextTypesTitleLeftRightNav'
 import { contextTypesTitleLeftNavUnsubscriber } from './contextTypesTitleLeftNavUnsubscriber'
 import { contextTypesTitleLeftRightNavUnsubscriber } from './contextTypesTitleLeftRightNavUnsubscriber'
@@ -19,6 +20,7 @@ export {
   contextTypesUnsubscriber,
   contextTypesTitle,
   contextTypesTitleLeftNav,
+  contextTypesTitleRightNav,
   contextTypesTitleLeftRightNav,
   contextTypesTitleLeftNavUnsubscriber,
   contextTypesTitleLeftRightNavUnsubscriber,
