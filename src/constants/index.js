@@ -9,6 +9,7 @@ import { contextTypesTitleLeftRightNavUnsubscriber } from './contextTypesTitleLe
 import { defaultAuditSummary } from './defaultAuditSummary'
 import { defaultInspectionTypes } from './defaultInspectionTypes'
 import { equipmentTypes } from './equipmentTypes'
+import { equipmentState } from './equipmentState'
 import { findings } from './findings'
 import { probabilities } from './probabilities'
 import { riskLevels } from './riskLevels'
@@ -27,6 +28,7 @@ export {
   defaultAuditSummary,
   defaultInspectionTypes,
   equipmentTypes,
+  equipmentState,
   findings,
   probabilities,
   riskLevels,

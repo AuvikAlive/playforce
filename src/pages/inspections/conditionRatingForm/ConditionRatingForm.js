@@ -8,8 +8,12 @@ import Button from '@material-ui/core/Button'
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import IconButton from '@material-ui/core/IconButton'
 import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
-import { format } from 'date-fns'
-import { contextTypesUnsubscriber, conditions } from '../../../constants/'
+import {
+  contextTypesUnsubscriber,
+  conditions,
+  equipmentState,
+  equipmentTypes,
+} from '../../../constants/'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import {
@@ -18,26 +22,19 @@ import {
   getEquipmentSuggestions,
   getSuggestionsByName,
   showContentWhenLoaded,
+  submitConditionRatingAndEquipment,
 } from '../../../functions/'
-import { equipmentTypes } from '../../../constants/'
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
   onEquipmentSelect,
-  submit,
 } from './functions'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
-const today = new Date()
-
 export class ConditionRatingForm extends Component {
   state = {
-    itemType: equipmentTypes[0],
-    equipment: '',
-    assetId: '',
-    manufacturer: '',
+    ...equipmentState,
     condition: conditions[0],
-    estimatedDateInstalled: format(today, 'YYYY'),
   }
 
   componentDidMount() {
@@ -187,7 +184,7 @@ export class ConditionRatingForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={submit(this)}
+                onClick={submitConditionRatingAndEquipment(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>

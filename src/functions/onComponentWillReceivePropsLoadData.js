@@ -4,6 +4,6 @@ export const onComponentWillReceivePropsLoadData = (component, nextProps) => {
   const { initialData } = nextProps
 
   initialData &&
-    initialData !== this.props.initialData &&
+    initialData !== component.props.initialData &&
     loadInitialData(component, initialData)
 }

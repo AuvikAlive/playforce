@@ -29,6 +29,7 @@ import { capitalize } from './capitalize'
 import { exportCSV } from './exportCSV'
 import { makeReportTitle } from './makeReportTitle'
 import { groupCommonIssues } from './groupCommonIssues'
+import { submitConditionRatingAndEquipment } from './submitConditionRatingAndEquipment'
 
 export {
   openMenu,
@@ -62,4 +63,5 @@ export {
   exportCSV,
   makeReportTitle,
   groupCommonIssues,
+  submitConditionRatingAndEquipment,
 }

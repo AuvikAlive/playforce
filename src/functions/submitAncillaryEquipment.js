@@ -1,4 +1,4 @@
-export const submitAncillaryItem = async component => {
+export const submitAncillaryEquipment = async component => {
   const {
     onSubmit,
     afterSubmit,
@@ -15,7 +15,8 @@ export const submitAncillaryItem = async component => {
   if (image && equipment && condition) {
     setFeedback({ error: '', loading: true })
 
-    equipmentsSite === siteId &&
+    addEquipment &&
+      equipmentsSite === siteId &&
       !equipments.find(item => item.equipment === equipment) &&
       addEquipment(userId, siteId, {
         image,

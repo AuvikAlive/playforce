@@ -1,4 +1,4 @@
-export const submitAncillaryItem = async component => {
+export const submitEquipment = async component => {
   const {
     onSubmit,
     afterSubmit,
@@ -10,23 +10,44 @@ export const submitAncillaryItem = async component => {
     addEquipment,
     userId,
   } = component.props
-  const { itemType, equipment, condition } = component.state
+  const {
+    itemType,
+    equipment,
+    assetId,
+    manufacturer,
+    condition,
+    estimatedDateInstalled,
+  } = component.state
 
-  if (image && equipment && condition) {
+  if (
+    image &&
+    equipment &&
+    assetId &&
+    manufacturer &&
+    condition &&
+    estimatedDateInstalled
+  ) {
     setFeedback({ error: '', loading: true })
 
-    equipmentsSite === siteId &&
+    addEquipment &&
+      equipmentsSite === siteId &&
       !equipments.find(item => item.equipment === equipment) &&
       addEquipment(userId, siteId, {
         image,
         itemType,
         equipment,
+        assetId,
+        manufacturer,
+        estimatedDateInstalled,
       })
 
     const result = await onSubmit({
       image,
       itemType,
       equipment,
+      assetId,
+      manufacturer,
+      estimatedDateInstalled,
       condition,
     })
     setFeedback({ loading: false })

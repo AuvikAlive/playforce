@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -13,153 +11,44 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { equipmentTypes } from '../../../constants/'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
-import { onEventInputChange } from '../../../functions/onEventInputChange'
-import { onValueInputChange } from '../../../functions/onValueInputChange'
-import { getSuggestionsByName } from '../../../functions/getSuggestionsByName'
+import { equipmentState, contextTypesUnsubscriber } from '../../../constants/'
+import {
+  onEventInputChange,
+  onValueInputChange,
+  getSuggestionsByName,
+  onComponentWillReceivePropsLoadData,
+  submitConditionRatingAndEquipment,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import { StyledEquipmentForm } from './StyledEquipmentForm'
+import { onComponentDidMount } from './functions/'
 
 export class EquipmentForm extends Component {
-  state = {
-    itemType: equipmentTypes[0],
-    equipment: '',
-    assetId: '',
-    manufacturer: '',
-    estimatedDateInstalled: '',
+  state = equipmentState
+
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
-  async componentDidMount() {
-    const {
-      manufacturersLoaded,
-      fetchManufacturersRealTime,
-      userId,
-      initialData,
-    } = this.props
-
-    const { addUnsubscriber } = this.context
-
-    !manufacturersLoaded &&
-      addUnsubscriber(await fetchManufacturersRealTime(userId))
-    initialData && this.loadInitialData(initialData)
-  }
-
-  componentWillReceiveProps({ initialData }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-  }
-
-  loadInitialData = initialData => {
-    const { setCapturedImage } = this.props
-    const { image } = initialData
-
-    setCapturedImage(image)
-    this.setState({
-      ...initialData,
-    })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
-
-  getManufacturerSuggestions = value => {
-    const { manufacturers } = this.props
-
-    return getSuggestionsByName(value, manufacturers)
-  }
-
-  submitItem = async () => {
-    const { image, setFeedback, onSubmit, afterSubmit } = this.props
-    const {
-      itemType,
-      equipment,
-      assetId,
-      manufacturer,
-      estimatedDateInstalled,
-    } = this.state
-
-    if (
-      image &&
-      equipment &&
-      assetId &&
-      manufacturer &&
-      estimatedDateInstalled
-    ) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({
-          image,
-          itemType,
-          equipment,
-          assetId,
-          manufacturer,
-          estimatedDateInstalled,
-        })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({
-          error: error.message,
-          loading: false,
-        })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
-
-  submitAncillaryItem = async () => {
-    const { image, setFeedback, onSubmit, afterSubmit } = this.props
-    const { itemType, equipment } = this.state
-
-    if (image && equipment) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({
-          image,
-          itemType,
-          equipment,
-          assetId: '',
-          manufacturer: '',
-        })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({
-          error: error.message,
-          loading: false,
-        })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
-
-  submit = async () => {
-    const { itemType } = this.state
-
-    if (itemType !== equipmentTypes[2]) {
-      this.submitItem()
-    } else {
-      this.submitAncillaryItem()
-    }
-  }
 
   render() {
     const {
       image,
       captureImage,
       manufacturersLoaded,
+      manufacturers,
       buttonText,
       openDialog,
       error,
       loading,
     } = this.props
+
     const {
       itemType,
       equipment,
@@ -168,7 +57,10 @@ export class EquipmentForm extends Component {
       estimatedDateInstalled,
     } = this.state
 
-    return manufacturersLoaded ? (
+    const isNotAncillary = itemType !== equipmentTypes[2]
+
+    return showContentWhenLoaded(
+      manufacturersLoaded,
       <StyledEquipmentForm className="StyledEquipmentForm">
         <Card className="card">
           {image && <img src={image} alt="equipment type" />}
@@ -212,7 +104,7 @@ export class EquipmentForm extends Component {
                 onChange={this.onEventInputChange('equipment')}
               />
 
-              {itemType !== equipmentTypes[2] && (
+              {isNotAncillary && (
                 <TextField
                   fullWidth
                   label="Asset Id"
@@ -222,13 +114,13 @@ export class EquipmentForm extends Component {
                 />
               )}
 
-              {itemType !== equipmentTypes[2] && (
+              {isNotAncillary && (
                 <div className="with-button">
                   <AutoComplete
                     label="Manufacturer"
                     value={manufacturer}
                     onChange={this.onValueInputChange('manufacturer')}
-                    getSuggestions={this.getManufacturerSuggestions}
+                    getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
                     onClick={() => openDialog(ManufacturersDialogContainer)}
@@ -238,7 +130,7 @@ export class EquipmentForm extends Component {
                 </div>
               )}
 
-              {itemType !== equipmentTypes[2] && (
+              {isNotAncillary && (
                 <TextField
                   fullWidth
                   label="Estimated Date Installed"
@@ -264,7 +156,7 @@ export class EquipmentForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submitConditionRatingAndEquipment(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
@@ -272,16 +164,8 @@ export class EquipmentForm extends Component {
           </CardContent>
         </Card>
       </StyledEquipmentForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-EquipmentForm.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+EquipmentForm.contextTypes = contextTypesUnsubscriber
