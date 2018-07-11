@@ -1,52 +1,29 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import { SiteFormContainer } from '../../../components/siteForm/SiteFormContainer'
+import { contextTypesTitle } from '../../../constants/'
+import { showContentWhenLoaded } from '../../../functions/'
+import { state } from './state'
+import { onComponentDidMount, submit } from './functions/'
 
 export class GeneralTab extends Component {
-  state = {
-    operator: '',
-    name: '',
-    address: '',
-    division: '',
-  }
+  state = state
 
   componentDidMount() {
-    this.context.setNavTitle('Edit Site')
-    const { site, fetchSite, userId, siteId } = this.props
-
-    !site && fetchSite(userId, siteId)
-  }
-
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  submit = async site => {
-    const { updateSite, userId, siteId, setFeedback } = this.props
-
-    await updateSite(userId, siteId, site)
-    setFeedback({ success: 'Site updated!' })
+    onComponentDidMount(this)
   }
 
   render() {
     const { site } = this.props
 
-    return site ? (
+    return showContentWhenLoaded(
+      site,
       <SiteFormContainer
         buttonText="update"
         initialData={site}
-        onSubmit={this.submit}
+        onSubmit={submit(this)}
       />
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-GeneralTab.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+GeneralTab.contextTypes = contextTypesTitle
