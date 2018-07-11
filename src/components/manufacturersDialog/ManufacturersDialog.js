@@ -1,34 +1,25 @@
 import React, { Component } from 'react'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
+import { showContentWhenLoaded } from '../../functions/'
 import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { Content } from '../content/Content'
 import { ManufacturerList } from '../manufacturerList/ManufacturerList'
 import { ManufacturerFormContainer } from '../manufacturerForm/ManufacturerFormContainer'
+import { onComponentDidMount, deleteManufacturer } from './functions/'
 
 export class ManufacturersDialog extends Component {
   componentDidMount() {
-    const {
-      manufacturersLoaded,
-      fetchManufacturersRealTime,
-      userId,
-    } = this.props
-
-    !manufacturersLoaded && fetchManufacturersRealTime(userId)
-  }
-
-  delete = async id => {
-    const { openDialog, deleteManufacturer, userId } = this.props
-    openDialog(() => deleteManufacturer(userId, id))
+    onComponentDidMount(this)
   }
 
   render() {
     const { manufacturersLoaded, manufacturers, closeDialog } = this.props
 
-    return manufacturersLoaded ? (
+    return showContentWhenLoaded(
+      manufacturersLoaded,
       <div>
         <NavBar
           title="Manufacturers"
@@ -47,7 +38,7 @@ export class ManufacturersDialog extends Component {
             <Card className="card">
               <ManufacturerList
                 manufacturers={manufacturers}
-                deletePrompt={this.delete}
+                deletePrompt={deleteManufacturer(this)}
               />
 
               <ManufacturerFormContainer />
@@ -55,8 +46,6 @@ export class ManufacturersDialog extends Component {
           </Content>
         </StyledMainContent>
       </div>
-    ) : (
-      <LinearProgress />
     )
   }
 }
