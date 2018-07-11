@@ -13,5 +13,5 @@ export const deleteDropTest = component => async () => {
 
   await deleteDropTest(userId, inspectionId, impactTestId, id)
 
-  showActionGoBack(component, message)
+  showActionGoBack(component, message)()
 }

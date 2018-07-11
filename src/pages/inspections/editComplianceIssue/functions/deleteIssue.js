@@ -2,14 +2,14 @@ import { showActionGoBack } from '../../../../functions/'
 
 const message = 'Issue deleted!'
 
-export const deleteIssue = async () => {
+export const deleteIssue = component => async () => {
   const {
     deleteComplianceIssue,
     userId,
     inspectionId,
     complianceIssueId,
     complianceIssue,
-  } = this.props
+  } = component.props
 
   await deleteComplianceIssue(
     userId,
@@ -17,5 +17,5 @@ export const deleteIssue = async () => {
     complianceIssueId,
     complianceIssue.images
   )
-  showActionGoBack(this, message)
+  showActionGoBack(component, message)()
 }

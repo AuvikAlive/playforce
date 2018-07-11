@@ -7,5 +7,5 @@ export const deleteEquipment = component => async () => {
 
   const message = 'Equipment deleted!'
 
-  showActionGoBack(component, message)
+  showActionGoBack(component, message)()
 }

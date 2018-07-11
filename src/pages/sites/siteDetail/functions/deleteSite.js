@@ -7,5 +7,5 @@ export const deleteSite = component => async () => {
 
   const message = 'Site deleted!'
 
-  showActionGoBack(component, message)
+  showActionGoBack(component, message)()
 }

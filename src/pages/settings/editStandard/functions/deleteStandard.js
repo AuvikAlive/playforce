@@ -7,5 +7,5 @@ export const deleteStandard = component => async () => {
 
   const message = 'Standard deleted!'
 
-  showActionGoBack(component, message)
+  showActionGoBack(component, message)()
 }

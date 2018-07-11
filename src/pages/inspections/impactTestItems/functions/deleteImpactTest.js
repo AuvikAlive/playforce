@@ -1,4 +1,4 @@
-import { showActionGoBack } from '../../../../functions/';
+import { showActionGoBack } from '../../../../functions/'
 
 export const deleteImpactTest = component => async () => {
   const { inspectionId, userId, impactTests, deleteImpactTest } = this.props
@@ -6,6 +6,6 @@ export const deleteImpactTest = component => async () => {
   await deleteImpactTest(userId, inspectionId, impactTests)
 
   const message = 'Impact test deleted!'
-  
-  showActionGoBack(component, message)
+
+  showActionGoBack(component, message)()
 }

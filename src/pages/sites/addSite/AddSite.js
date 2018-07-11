@@ -9,7 +9,7 @@ import {
 import { submit } from './submit'
 
 const message = 'Site published!'
-const pathHead = '/'
+const pathHead = '/sites/'
 
 export class AddSite extends Component {
   componentDidMount() {

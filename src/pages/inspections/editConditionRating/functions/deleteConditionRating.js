@@ -11,5 +11,6 @@ export const deleteConditionRating = component => async () => {
   } = component.props
 
   await deleteConditionRating(userId, inspectionId, conditionRatingId)
-  showActionGoBack(component, message)
+
+  showActionGoBack(component, message)()
 }

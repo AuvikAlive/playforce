@@ -12,5 +12,5 @@ export const deleteSurfaceTest = component => async () => {
 
   const message = `${impactTest.surface.location} deleted!`
 
-  showActionGoBack(component, message)
+  showActionGoBack(component, message)()
 }

@@ -33,7 +33,7 @@ export class SettingsList extends Component {
             <Grid item xs={12}>
               <List component="nav" disablePadding>
                 {links.map(({ route, name }) => (
-                  <StyledNavLink to={`${match.url}/${route}`}>
+                  <StyledNavLink key={name} to={`${match.url}/${route}`}>
                     <ListItem button>
                       <ListItemText primary={name} />
                     </ListItem>
