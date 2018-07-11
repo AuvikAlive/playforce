@@ -1,48 +1,34 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { withRouter } from 'react-router'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { StyledSiteEdit } from './StyledSiteEdit'
 import GeneralTab from '../generalTab'
 import { InspectionTabRoutes } from '../inspectionTabRoutes/InspectionTabRoutes'
 import { EquipmentTabRoutes } from '../equipmentTabRoutes/EquipmentTabRoutes'
+import { contextTypes } from './contextTypes'
+import {
+  onComponentDidMount,
+  onComponentWillUnmount,
+  onTabChange,
+} from './functions/'
 
-class SiteEditWithout extends Component {
+export class SiteEdit extends Component {
   componentDidMount() {
-    const { history } = this.props
-
-    const { setLeftNavComponent, disableNavBarShadow } = this.context
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    disableNavBarShadow()
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeLefNavComponent, enableNavBarShadow } = this.context
-
-    removeLefNavComponent()
-    enableNavBarShadow()
-  }
-
-  handleChange = (event, value) => {
-    const { match, history } = this.props
-    const urlWithoutParam = match.url.substr(0, match.url.lastIndexOf('/'))
-    const url = urlWithoutParam + `/${value}`
-
-    history.replace(url)
+    onComponentWillUnmount(this)
   }
 
   render() {
-    const { match } = this.props
-    const id = parseInt(match.params.id, 10)
+    const {
+      match: {
+        params: { tabstate, id },
+      },
+    } = this.props
+
+    const tabId = parseInt(id, 10)
 
     return (
       <StyledSiteEdit className="StyledSiteEdit">
@@ -50,34 +36,22 @@ class SiteEditWithout extends Component {
           fullWidth
           // centered
           classes={{ root: 'my-root' }}
-          value={match.params.tabstate}
-          onChange={this.handleChange}
+          value={tabstate}
+          onChange={onTabChange(this)}
         >
           <Tab className="tab-title" value="general" label="General" />
           <Tab className="tab-title" value="inspections" label="Inspections" />
           <Tab className="tab-title" value="equipments" label="Equipments" />
         </Tabs>
+
         <div className="tab-content">
-          {match.params.tabstate === 'general' && <GeneralTab id={id} />}
-          {match.params.tabstate === 'inspections' && (
-            <InspectionTabRoutes id={id} />
-          )}
-          {match.params.tabstate === 'equipments' && (
-            <EquipmentTabRoutes id={id} />
-          )}
+          {tabstate === 'general' && <GeneralTab id={tabId} />}
+          {tabstate === 'inspections' && <InspectionTabRoutes id={tabId} />}
+          {tabstate === 'equipments' && <EquipmentTabRoutes id={tabId} />}
         </div>
       </StyledSiteEdit>
     )
   }
 }
 
-export const SiteEdit = withRouter(SiteEditWithout)
-
-SiteEditWithout.contextTypes = {
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  disableNavBarShadow: PropTypes.func,
-  enableNavBarShadow: PropTypes.func,
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+SiteEdit.contextTypes = contextTypes
