@@ -15,7 +15,6 @@ export const setSelectMode = component => (selectMode, selectedItemsLength) => {
     setSearchOnTop()
     setNavColor('primary')
     removeLefNavComponent()
-
     setNav(component)
     setSelectedItems(component)([])
   }

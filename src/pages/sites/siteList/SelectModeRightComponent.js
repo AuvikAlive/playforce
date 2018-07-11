@@ -3,22 +3,11 @@ import IconButton from '@material-ui/core/IconButton'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import { openMenu, closeMenu } from '../../../functions/'
 
 export class SelectModeRightComponent extends Component {
   state = {
     menuAnchor: null,
-  }
-
-  openMenu = event => {
-    this.setState({ menuAnchor: event.currentTarget })
-  }
-
-  closeMenu = () => {
-    this.setState({ menuAnchor: null })
-  }
-
-  exportCSV = () => {
-    this.closeMenu()
   }
 
   render() {
@@ -31,17 +20,17 @@ export class SelectModeRightComponent extends Component {
           <DeleteIcon />
         </IconButton> */}
 
-        <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
+        <IconButton color="inherit" aria-label="More" onClick={openMenu(this)}>
           <MoreVertIcon aria-label="More" />
         </IconButton>
 
         <Menu
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}
-          onClose={this.closeMenu}
+          onClose={closeMenu(this)}
           MenuListProps={{ disablePadding: true }}
         >
-          <MenuItem onClick={this.exportCSV}>Export</MenuItem>
+          <MenuItem onClick={closeMenu(this)}>Export</MenuItem>
         </Menu>
       </div>
     )
