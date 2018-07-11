@@ -4,17 +4,7 @@ import IconButton from '@material-ui/core/IconButton'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { StyledCarousel } from './StyledCarousel'
-
-const defaultSettings = {
-  dots: false,
-  arrows: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 1500,
-}
+import { defaultSettings } from './defaultSettings'
 
 export class Carousel extends Component {
   render() {
@@ -25,6 +15,7 @@ export class Carousel extends Component {
       SlideComponent,
       slideProps,
     } = this.props
+
     const mergedSettings = { ...defaultSettings, ...settings }
 
     return (
