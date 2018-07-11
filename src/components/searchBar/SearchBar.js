@@ -6,34 +6,10 @@ import SearchIcon from '@material-ui/icons/Search'
 import CloseIcon from '@material-ui/icons/Close'
 import Input from '@material-ui/core/Input'
 import InputAdornment from '@material-ui/core/InputAdornment'
-// import { debounce } from 'lodash'
 import FormControl from '@material-ui/core/FormControl'
+import { onChange, onClose } from './functions/'
 
-export const SearchBar = ({
-  query,
-  closeSearchBar,
-  setSearchQuery,
-  setSearchResults,
-  onSearch,
-  onSearchEnd,
-}) => {
-  const onChange = event => {
-    const searchTerm = event.target.value
-    search(searchTerm)
-  }
-
-  const search = async searchTerm => {
-    const results = await onSearch(searchTerm)
-    setSearchResults(results)
-  }
-
-  const onClose = () => {
-    closeSearchBar()
-    // setSearchQuery('')
-    setSearchResults([])
-    onSearchEnd && onSearchEnd()
-  }
-
+export const SearchBar = props => {
   return (
     <AppBar color="default">
       <Toolbar style={{ minHeight: 56 }}>
@@ -42,7 +18,7 @@ export const SearchBar = ({
             disableUnderline
             id="search"
             type="text"
-            onChange={onChange}
+            onChange={onChange(props)}
             startAdornment={
               <InputAdornment position="start">
                 <IconButton>
@@ -52,7 +28,10 @@ export const SearchBar = ({
             }
             endAdornment={
               <InputAdornment position="end">
-                <IconButton onClick={onClose} onMouseDown={onClose}>
+                <IconButton
+                  onClick={onClose(props)}
+                  onMouseDown={onClose(props)}
+                >
                   <CloseIcon />
                 </IconButton>
               </InputAdornment>
