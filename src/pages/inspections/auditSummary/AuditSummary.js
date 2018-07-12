@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
-import isEmpty from 'lodash/isEmpty'
-import { makeDefaultSummary } from './makeDefaultSummary'
+import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  onEventInputChange,
+  showContentWhenLoaded,
+} from '../../../functions/'
+import {
+  onComponentDidMount,
+  onComponentWillReceiveProps,
+  submit,
+} from './functions/'
 import { StyledAuditSummary } from './StyledAuditSummary'
 
 export class AuditSummary extends Component {
@@ -19,88 +24,19 @@ export class AuditSummary extends Component {
     summary: '',
   }
 
-  async componentDidMount() {
-    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
-    const {
-      inspectionLoaded,
-      fetchInspectionRealTime,
-      auditSummary,
-      cover,
-      userId,
-      inspectionId,
-      history,
-    } = this.props
-
-    setNavTitle('Audit Summary')
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    !inspectionLoaded &&
-      addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
-    !isEmpty(cover) && this.loadInitialData(auditSummary, cover)
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
-  componentWillReceiveProps({ inspectionLoaded, auditSummary, cover }) {
-    inspectionLoaded &&
-      (isEmpty(auditSummary) || auditSummary !== this.props.auditSummary) &&
-      cover !== this.props.cover &&
-      this.loadInitialData(auditSummary, cover)
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
   }
 
-  loadInitialData = (auditSummary, cover) => {
-    const {
-      profile: { standardAuditSummary },
-    } = this.props
-
-    isEmpty(auditSummary)
-      ? this.setState({
-          summary: standardAuditSummary || makeDefaultSummary(cover),
-        })
-      : this.setState({ ...auditSummary })
-  }
-
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  submit = async () => {
-    const {
-      updateAuditSummary,
-      userId,
-      inspectionId,
-      setFeedback,
-      profile: { displayName, title, company, signature },
-    } = this.props
-    const { summary } = this.state
-
-    if (summary) {
-      setFeedback({ error: '', loading: true })
-      await updateAuditSummary(userId, inspectionId, {
-        summary,
-        displayName,
-        title,
-        company,
-        signature,
-      })
-      setFeedback({ success: 'Audit Summary saved!', loading: false })
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
+  onEventInputChange = onEventInputChange
 
   render() {
     const { summary } = this.state
@@ -111,7 +47,8 @@ export class AuditSummary extends Component {
       loading,
     } = this.props
 
-    return inspectionLoaded ? (
+    return showContentWhenLoaded(
+      inspectionLoaded,
       <StyledAuditSummary className="StyledAuditSummary">
         <Card className="card">
           <CardContent>
@@ -122,7 +59,7 @@ export class AuditSummary extends Component {
                 label="Summary"
                 value={summary}
                 margin="normal"
-                onChange={this.onInputChange('summary')}
+                onChange={this.onEventInputChange('summary')}
               />
 
               {signature && (
@@ -184,7 +121,7 @@ export class AuditSummary extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 save
               </Button>
@@ -192,16 +129,8 @@ export class AuditSummary extends Component {
           </CardContent>
         </Card>
       </StyledAuditSummary>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-AuditSummary.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+AuditSummary.contextTypes = contextTypesTitleLeftNavUnsubscriber

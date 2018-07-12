@@ -1,4 +1,4 @@
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 
 export const makeClientRow = (pageFontSize, firstColumnWidth, client) => ({
   fontSize: pageFontSize,

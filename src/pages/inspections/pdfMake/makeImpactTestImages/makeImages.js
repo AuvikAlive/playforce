@@ -3,7 +3,7 @@ import {
   pageWidth,
   pageMarginHorizontal,
   fontSize,
-} from '../globals'
+} from '../constants'
 import chunk from 'lodash/chunk'
 
 const width = (pageWidth - pageMarginHorizontal * 2 - verticalMargin * 4) / 4

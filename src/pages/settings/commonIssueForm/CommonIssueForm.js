@@ -7,13 +7,14 @@ import TextField from '@material-ui/core/TextField'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Grid from '@material-ui/core/Grid'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
 import {
-  probabilities,
-  severities,
-  riskLevels,
-} from '../../../globals/constants'
+  onComponentDidMountLoadData,
+  onComponentWillReceivePropsLoadData,
+  onEventInputChange,
+} from '../../../functions/'
+import { probabilities, severities, riskLevels } from '../../../constants/'
 import { StyledCommonIssueForm } from './StyledCommonIssueForm'
+import { submit } from './submit'
 
 export class CommonIssueForm extends Component {
   state = {
@@ -30,78 +31,14 @@ export class CommonIssueForm extends Component {
   }
 
   componentDidMount() {
-    const { initialData } = this.props
-
-    initialData && this.loadInitialData(initialData)
+    onComponentDidMountLoadData(this)
   }
 
-  componentWillReceiveProps({ initialData }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-  }
-
-  loadInitialData = initialData => {
-    this.setState({
-      ...initialData,
-    })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
-
-  submit = async () => {
-    const { onSubmit, afterSubmit, setFeedback } = this.props
-    const {
-      issue,
-      category,
-      finding,
-      standardsClause,
-      implementationDate,
-      preImplementationText,
-      probability,
-      severity,
-      comments,
-      recommendations,
-    } = this.state
-
-    if (
-      (issue,
-      finding &&
-        standardsClause &&
-        implementationDate &&
-        preImplementationText &&
-        probability &&
-        severity &&
-        comments &&
-        recommendations)
-    ) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({
-          issue,
-          category,
-          finding,
-          standardsClause,
-          implementationDate,
-          preImplementationText,
-          probability,
-          severity,
-          comments,
-          recommendations,
-        })
-
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
 
   render() {
     const {
@@ -258,7 +195,7 @@ export class CommonIssueForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>

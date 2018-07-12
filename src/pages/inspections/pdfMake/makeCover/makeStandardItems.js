@@ -1,4 +1,4 @@
-import { headerFontSize } from '../globals'
+import { headerFontSize } from '../constants'
 
 export const makeStandardItems = appliedStandards => {
   const standardItems = appliedStandards.map(

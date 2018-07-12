@@ -1,64 +1,35 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
-import { StyledConfirmPasswordReset } from './StyledConfirmPasswordReset'
 import { StyledLink } from '../../components/styledLink/StyledLink'
-import { parseQuery } from '../../utilities/parseQuery'
+import { onEventInputChange } from '../../functions/onEventInputChange'
+import { contextTypes } from './contextTypes'
+import {
+  onComponentDidMount,
+  onComponentWillUnmount,
+  updatePassword,
+} from './functions/'
+import { StyledConfirmPasswordReset } from './StyledConfirmPasswordReset'
 
 export class ConfirmPasswordReset extends Component {
   state = {
     code: '',
     success: false,
+    password: '',
   }
 
   componentDidMount() {
-    const { setNavTitle } = this.context
-
-    setNavTitle('Confirm Password Reset')
-
-    const { location, history } = this.props
-    const code = parseQuery(location.search)['oobCode']
-      ? parseQuery(location.search)['oobCode']
-      : history.push('/signIn')
-
-    this.setState({ code })
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
-    removeNavTitle()
+    onComponentWillUnmount(this)
   }
 
-  onPasswordChange = event => {
-    const password = event.target.value
-    this.setState({ password })
-  }
-
-  updatePassword = async () => {
-    const { password, code } = this.state
-    const { setFeedback, confirmPasswordReset } = this.props
-
-    if (password) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        await confirmPasswordReset(code, password)
-        setFeedback({ loading: false })
-        this.setState({ success: true })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please enter your new password!',
-        loading: false,
-      })
-    }
-  }
+  onEventInputChange = onEventInputChange
 
   render() {
     const { success } = this.state
@@ -74,7 +45,7 @@ export class ConfirmPasswordReset extends Component {
               type="password"
               margin="normal"
               fullWidth
-              onChange={this.onPasswordChange}
+              onChange={this.onEventInputChange('password')}
             />
 
             {error && <p className="error">{error}</p>}
@@ -100,7 +71,7 @@ export class ConfirmPasswordReset extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.updatePassword}
+                onClick={updatePassword(this)}
               >
                 Update Password
               </Button>
@@ -112,7 +83,4 @@ export class ConfirmPasswordReset extends Component {
   }
 }
 
-ConfirmPasswordReset.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+ConfirmPasswordReset.contextTypes = contextTypes

@@ -1,5 +1,5 @@
 import chunk from 'lodash/chunk'
-import { verticalMargin, subHeaderFontSize } from '../globals'
+import { verticalMargin, subHeaderFontSize } from '../constants'
 import { makeImage } from './makeImage'
 import { makeEquipmentType } from './makeEquipmentType'
 import { makeManufacturer } from './makeManufacturer'

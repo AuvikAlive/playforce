@@ -4,216 +4,18 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import { format } from 'date-fns/esm'
-import { riskLevels } from '../../../../globals/constants'
-import { exportCSV } from './exportCSV'
+import { openMenu, closeMenu } from '../../../../functions/'
+import {
+  archiveInspections,
+  unarchiveInspections,
+  exportComplianceIssues,
+  exportMaintenanceIssues,
+  deleteInspections,
+} from '../functions/'
 
 export class SelectRightComponent extends Component {
   state = {
     menuAnchor: null,
-  }
-
-  openMenu = event => {
-    this.setState({ menuAnchor: event.currentTarget })
-  }
-
-  closeMenu = () => {
-    this.setState({ menuAnchor: null })
-  }
-
-  archiveInspections = async () => {
-    this.closeMenu()
-
-    const {
-      archiveInspections,
-      userId,
-      getSelectedItems,
-      setSelectMode,
-    } = this.props
-    const selectedItems = getSelectedItems()
-
-    try {
-      await archiveInspections(userId, selectedItems)
-      setSelectMode(false)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  unarchiveInspections = async () => {
-    this.closeMenu()
-
-    const {
-      unarchiveInspections,
-      userId,
-      getSelectedItems,
-      setSelectMode,
-    } = this.props
-    const selectedItems = getSelectedItems()
-
-    try {
-      await unarchiveInspections(userId, selectedItems)
-      setSelectMode(false)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  exportComplianceIssues = async () => {
-    this.closeMenu()
-
-    const {
-      getSelectedItems,
-      setSelectMode,
-      fetchInspectionsByIdWithComplianceIssues,
-      userId,
-    } = this.props
-    const selectedItems = getSelectedItems()
-
-    try {
-      const inspections = await fetchInspectionsByIdWithComplianceIssues(
-        userId,
-        selectedItems
-      )
-
-      let issues = []
-
-      inspections.forEach(
-        ({
-          name,
-          inspectionNumber,
-          complianceIssues,
-          cover: { inspectionDate, displayName },
-        }) => {
-          complianceIssues.forEach(
-            ({
-              id,
-              equipment,
-              finding,
-              standardsClause,
-              probability,
-              severity,
-              recommendations,
-            }) => {
-              issues.push({
-                SITE: name,
-                'REPORT NUMBER': inspectionNumber,
-                DATE: format(inspectionDate, 'dddd, MMMM DD, YYYY'),
-                AUDITOR: displayName,
-                ID: id,
-                EQUIPMENT: equipment,
-                ISSUE: finding,
-                CLAUSE: standardsClause,
-                'RISK RATING': riskLevels[probability - 1][severity - 1],
-                RECOMMENDATIONS: recommendations,
-              })
-            }
-          )
-        }
-      )
-
-      const fields = [
-        'ID',
-        'SITE',
-        'EQUIPMENT',
-        'ISSUE',
-        'CLAUSE',
-        'RISK RATING',
-        'RECOMMENDATIONS',
-        'REPORT NUMBER',
-        'AUDITOR',
-        'DATE',
-      ]
-
-      exportCSV(fields, issues, 'complianceIssues')
-      setSelectMode(false)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  exportMaintenanceIssues = async () => {
-    this.closeMenu()
-
-    const {
-      getSelectedItems,
-      setSelectMode,
-      fetchInspectionsByIdWithMaintenanceIssues,
-      userId,
-    } = this.props
-    const selectedItems = getSelectedItems()
-
-    try {
-      const inspections = await fetchInspectionsByIdWithMaintenanceIssues(
-        userId,
-        selectedItems
-      )
-      let issues = []
-      inspections.forEach(
-        ({
-          name,
-          inspectionNumber,
-          maintenanceIssues,
-          cover: { inspectionDate, displayName },
-        }) => {
-          maintenanceIssues.forEach(
-            ({
-              id,
-              equipment,
-              finding,
-              standardsClause,
-              probability,
-              severity,
-              recommendations,
-            }) => {
-              issues.push({
-                SITE: name,
-                'REPORT NUMBER': inspectionNumber,
-                DATE: format(inspectionDate, 'dddd, MMMM DD, YYYY'),
-                AUDITOR: displayName,
-                ID: id,
-                EQUIPMENT: equipment,
-                ISSUE: finding,
-                RECOMMENDATIONS: recommendations,
-              })
-            }
-          )
-        }
-      )
-      const fields = [
-        'ID',
-        'SITE',
-        'EQUIPMENT',
-        'ISSUE',
-        'RECOMMENDATIONS',
-        'REPORT NUMBER',
-        'AUDITOR',
-        'DATE',
-      ]
-      exportCSV(fields, issues, 'maintenanceIssues')
-      setSelectMode(false)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  deleteInspections = async () => {
-    this.closeMenu()
-
-    const {
-      deleteInspections,
-      userId,
-      getSelectedItems,
-      setSelectMode,
-    } = this.props
-    const selectedItems = getSelectedItems()
-
-    try {
-      await deleteInspections(userId, selectedItems)
-      setSelectMode(false)
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   render() {
@@ -225,32 +27,32 @@ export class SelectRightComponent extends Component {
         <IconButton
           color="inherit"
           aria-label="delete"
-          onClick={this.deleteInspections}
+          onClick={deleteInspections(this)}
         >
           <DeleteIcon />
         </IconButton>
 
-        <IconButton color="inherit" aria-label="More" onClick={this.openMenu}>
+        <IconButton color="inherit" aria-label="More" onClick={openMenu(this)}>
           <MoreVertIcon aria-label="More" />
         </IconButton>
 
         <Menu
           anchorEl={menuAnchor}
           open={Boolean(menuAnchor)}
-          onClose={this.closeMenu}
+          onClose={closeMenu(this)}
           MenuListProps={{ disablePadding: true }}
         >
-          <MenuItem onClick={this.archiveInspections}>Archive</MenuItem>
+          <MenuItem onClick={archiveInspections(this)}>Archive</MenuItem>
 
           {unarchive && (
-            <MenuItem onClick={this.unarchiveInspections}>Unarchive</MenuItem>
+            <MenuItem onClick={unarchiveInspections(this)}>Unarchive</MenuItem>
           )}
 
-          <MenuItem onClick={this.exportComplianceIssues}>
+          <MenuItem onClick={exportComplianceIssues(this)}>
             Export Compliance Issues
           </MenuItem>
 
-          <MenuItem onClick={this.exportMaintenanceIssues}>
+          <MenuItem onClick={exportMaintenanceIssues(this)}>
             Export Maintenance Issues
           </MenuItem>
         </Menu>

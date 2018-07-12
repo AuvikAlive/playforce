@@ -1,4 +1,4 @@
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 import { makeFreeHeight } from './makeFreeHeight'
 import { makeMeasuredHeight } from './makeMeasuredHeight'
 import { makeCriticalHeight } from './makeCriticalHeight'

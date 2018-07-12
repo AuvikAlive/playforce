@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Paper from '@material-ui/core/Paper'
@@ -8,21 +6,21 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { contextTypesTitle } from '../../../constants/'
+import { showContentWhenLoaded } from '../../../functions/'
 import { StyledEquipmentList } from './StyledEquipmentList'
+import { onComponentDidMount } from './onComponentDidMount'
 
 export class EquipmentList extends Component {
   componentDidMount() {
-    const { setNavTitle } = this.context
-    const { equipmentsSite, fetchEquipments, userId, siteId } = this.props
-
-    setNavTitle('Edit Site')
-    equipmentsSite !== siteId && fetchEquipments(userId, siteId)
+    onComponentDidMount(this)
   }
 
   render() {
     const { equipmentsLoaded, equipments, match } = this.props
 
-    return equipmentsLoaded ? (
+    return showContentWhenLoaded(
+      equipmentsLoaded,
       <StyledEquipmentList className="StyledEquipmentList">
         <StyledNavLink to={match.url + '/add'} className="add-icon">
           <Button variant="fab" color="primary" aria-label="add inspection">
@@ -36,7 +34,7 @@ export class EquipmentList extends Component {
               equipments.map(({ equipment }) => (
                 <StyledNavLink
                   key={equipment}
-                  to={`${match.url}/${equipment}/edit`}
+                  to={`${match.url}/edit/${equipment}`}
                 >
                   <ListItem button divider>
                     <ListItemText primary={equipment} />
@@ -51,13 +49,8 @@ export class EquipmentList extends Component {
           </List>
         </Paper>
       </StyledEquipmentList>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-EquipmentList.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+EquipmentList.contextTypes = contextTypesTitle

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import TextField from '@material-ui/core/TextField'
 import Card from '@material-ui/core/Card'
@@ -11,9 +9,21 @@ import BrushIcon from '@material-ui/icons/Brush'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { Carousel } from '../../../components/carousel/Carousel'
 import { Sketch } from '../../../components/sketch/Sketch'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
-import { onValueInputChange } from '../../../utilities/onValueInputChange'
+import { contextTypesUnsubscriber } from '../../../constants/'
+import {
+  onEventInputChange,
+  onValueInputChange,
+  saveEditedImages,
+  getEquipmentSuggestions,
+  getImagesCopy,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
+import {
+  onComponentDidMount,
+  onComponentWillUnmount,
+  onComponentWillReceiveProps,
+} from './functions/'
 
 export class MaintenanceIssueForm extends Component {
   state = {
@@ -23,118 +33,20 @@ export class MaintenanceIssueForm extends Component {
     images: [],
   }
 
-  async componentDidMount() {
-    const {
-      setRightNav,
-      initialData,
-      equipmentsSite,
-      siteId,
-      fetchEquipmentsRealTime,
-      userId,
-    } = this.props
-
-    const { addUnsubscriber } = this.context
-
-    setRightNav && setRightNav()
-    equipmentsSite !== siteId &&
-      addUnsubscriber(await fetchEquipmentsRealTime(userId, siteId))
-    initialData && this.loadInitialData(initialData)
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeRightNav } = this.props
-    removeRightNav && removeRightNav()
+    onComponentWillUnmount(this)
   }
 
-  componentWillReceiveProps({ imageCaptured, initialData, images }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-
-    if (imageCaptured && images !== this.props.images) {
-      const { setFeedback } = this.props
-      const notPortrait = images.some(
-        ({ imageNaturalAspectRatio }) => imageNaturalAspectRatio > 1
-      )
-
-      this.loadImages(images)
-
-      if (images.length > 4 && notPortrait) {
-        setFeedback({
-          error: 'Please upload no more than 4 portrait image(s)!',
-        })
-      } else if (images.length > 4) {
-        setFeedback({
-          error: 'Please upload no more than 4 image(s)!',
-        })
-      } else if (notPortrait) {
-        setFeedback({ error: 'Please upload portrait image(s)!' })
-      } else {
-        setFeedback({ error: '' })
-      }
-    }
-  }
-
-  loadInitialData = data => {
-    this.setState({
-      ...data,
-    })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
-
-  getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
-    const { equipments } = this.props
-
-    return inputLength === 0
-      ? equipments.map(item => item.equipment)
-      : equipments
-          .filter(
-            item =>
-              item.equipment.toLowerCase().slice(0, inputLength) === inputValue
-          )
-          .map(item => item.equipment)
-  }
-
-  loadImages = images => {
-    this.setState({ images })
-  }
-
-  saveImages = images => {
-    const { closeDialog } = this.props
-
-    this.loadImages(images)
-    closeDialog()
-  }
-
-  submit = async () => {
-    const { onSubmit, afterSubmit, setFeedback } = this.props
-    const { images, finding, equipment, recommendations } = this.state
-
-    if (images.length > 0 && finding && equipment && recommendations) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({
-          images: images.slice(0, 4),
-          finding,
-          equipment,
-          recommendations,
-        })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
 
   render() {
     const {
@@ -146,14 +58,13 @@ export class MaintenanceIssueForm extends Component {
       closeDialog,
       equipmentsLoaded,
     } = this.props
-    const { images, finding, equipment, recommendations } = this.state
-    const imagesCopy =
-      images &&
-      images.map(({ image, imageNaturalAspectRatio }) =>
-        Object.assign({}, { image, imageNaturalAspectRatio })
-      )
 
-    return equipmentsLoaded ? (
+    const { images, finding, equipment, recommendations } = this.state
+
+    const imagesCopy = getImagesCopy(images)
+
+    return showContentWhenLoaded(
+      equipmentsLoaded,
       <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
         <Card className="card">
           {images &&
@@ -175,7 +86,7 @@ export class MaintenanceIssueForm extends Component {
                       <Sketch
                         aspectRatio={188 / 253}
                         images={imagesCopy}
-                        onSubmit={this.saveImages}
+                        onSubmit={saveEditedImages(this)}
                         closeDialog={closeDialog}
                       />
                     ))
@@ -208,7 +119,7 @@ export class MaintenanceIssueForm extends Component {
                 label="Equipment"
                 value={equipment}
                 onChange={this.onValueInputChange('equipment')}
-                getSuggestions={this.getSuggestions}
+                getSuggestions={getEquipmentSuggestions(this)}
               />
 
               <TextField
@@ -253,12 +164,8 @@ export class MaintenanceIssueForm extends Component {
           </CardContent>
         </Card>
       </StyledMaintenanceIssueForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-MaintenanceIssueForm.contextTypes = {
-  addUnsubscriber: PropTypes.func,
-}
+MaintenanceIssueForm.contextTypes = contextTypesUnsubscriber

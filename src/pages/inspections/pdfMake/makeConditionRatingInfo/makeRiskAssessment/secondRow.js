@@ -1,4 +1,4 @@
-import { blue, green, yellow, pink, purple } from '../../globals'
+import { blue, green, yellow, pink, purple } from '../../constants'
 
 export const secondRow = [
   'D',

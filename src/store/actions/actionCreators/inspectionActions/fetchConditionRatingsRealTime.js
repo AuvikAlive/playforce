@@ -2,7 +2,7 @@ import {
   FETCH_CONDITION_RATINGS,
   FETCH_CONDITION_RATINGS_COMPLETED,
 } from '../../actionTypes'
-import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
+import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
 
 export const fetchConditionRatingsRealTime = (userId, inspectionId) => async (
   dispatch,

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
@@ -8,141 +6,36 @@ import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import IconButton from '@material-ui/core/IconButton'
 import AddBoxIcon from '@material-ui/icons/AddBox'
+import { contextTypesUnsubscriber } from '../../constants/'
+import {
+  onComponentWillReceivePropsLoadData,
+  showContentWhenLoaded,
+} from '../../functions/'
 import { OperatorsDialogContainer } from '../operatorsDialog/OperatorsDialogContainer'
 import { AutoComplete } from '../autoComplete/AutoComplete'
-import { onEventInputChange } from '../../utilities/onEventInputChange'
-import { onValueInputChange } from '../../utilities/onValueInputChange'
-import { getCurrentPosition } from './getCurrentPosition'
-import { getQueryPredictions } from './getQueryPredictions'
-import { getGeocode } from './getGeocode'
-import { getOperatorSuggestions } from './getOperatorSuggestions'
+import { onEventInputChange, onValueInputChange } from '../../functions/'
 import { StyledSiteForm } from './StyledSiteForm'
+import { state } from './state'
+import {
+  onComponentDidMount,
+  getPlaceSuggestions,
+  getOperatorSuggestions,
+  submit,
+} from './functions/'
 
 export class SiteForm extends Component {
-  state = {
-    name: '',
-    street: '',
-    suburb: '',
-    state: '',
-    postcode: '',
-    country: '',
-    division: '',
-    operator: '',
-    position: undefined,
+  state = state
+
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
-  async componentDidMount() {
-    const { addUnsubscriber } = this.context
-    const {
-      userId,
-      operatorsLoaded,
-      fetchOperatorsRealTime,
-      initialData,
-    } = this.props
-
-    !operatorsLoaded && addUnsubscriber(await fetchOperatorsRealTime(userId))
-    initialData && this.loadInitialData(initialData)
-  }
-
-  componentWillReceiveProps({ initialData }) {
-    initialData &&
-      initialData !== this.props.initialData &&
-      this.loadInitialData(initialData)
-  }
-
-  loadInitialData = initialData => {
-    this.setState({
-      ...initialData,
-    })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
-
-  getPosition = async () => {
-    const { position } = this.state
-
-    if (position) {
-      return position
-    } else {
-      const position = await getCurrentPosition()
-
-      this.setState({ position: { ...position } })
-
-      return position
-    }
-  }
-
-  getPlaceSuggestions = type => async value => {
-    if (value) {
-      try {
-        const position = await this.getPosition()
-        const results = await getQueryPredictions(
-          position,
-          value,
-          type && [type]
-        )
-        return results.map(({ description }) => description)
-      } catch (error) {
-        return error === 'ZERO_RESULTS'
-          ? []
-          : this.props.setFeedback({ error, loading: false })
-      }
-    }
-
-    return []
-  }
-
-  getOperatorSuggestions = value => {
-    const { operators } = this.props
-    return getOperatorSuggestions(value, operators)
-  }
-
-  submit = async () => {
-    const {
-      name,
-      street,
-      suburb,
-      state,
-      postcode,
-      country,
-      division,
-      operator,
-    } = this.state
-    const { onSubmit, afterSubmit, userId, setFeedback } = this.props
-
-    if (name && street && suburb && state && postcode && country && operator) {
-      setFeedback({ error: '', loading: true })
-      const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
-
-      try {
-        const location = await getGeocode(address)
-        const site = {
-          addedUser: userId,
-          name,
-          street,
-          suburb,
-          state,
-          postcode,
-          country,
-          division,
-          operator,
-          latitude: Number(location.lat().toFixed(5)),
-          longitude: Number(location.lng().toFixed(5)),
-        }
-        const result = await onSubmit(site)
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-        loading: false,
-      })
-    }
-  }
 
   render() {
     const {
@@ -155,6 +48,7 @@ export class SiteForm extends Component {
       division,
       operator,
     } = this.state
+
     const {
       operatorsLoaded,
       openDialog,
@@ -163,7 +57,8 @@ export class SiteForm extends Component {
       loading,
     } = this.props
 
-    return operatorsLoaded ? (
+    return showContentWhenLoaded(
+      operatorsLoaded,
       <StyledSiteForm className="StyledSiteForm">
         <Card className="card">
           <CardContent>
@@ -172,42 +67,42 @@ export class SiteForm extends Component {
                 label="Name"
                 value={name}
                 onChange={this.onValueInputChange('name')}
-                getSuggestions={this.getPlaceSuggestions('establishment')}
+                getSuggestions={getPlaceSuggestions(this, 'establishment')}
               />
 
               <AutoComplete
                 label="Street"
                 value={street}
                 onChange={this.onValueInputChange('street')}
-                getSuggestions={this.getPlaceSuggestions('(regions)')}
+                getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="Suburb"
                 value={suburb}
                 onChange={this.onValueInputChange('suburb')}
-                getSuggestions={this.getPlaceSuggestions('(regions)')}
+                getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="State"
                 value={state}
                 onChange={this.onValueInputChange('state')}
-                getSuggestions={this.getPlaceSuggestions('(regions)')}
+                getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="Postcode"
                 value={postcode}
                 onChange={this.onValueInputChange('postcode')}
-                getSuggestions={this.getPlaceSuggestions('(regions)')}
+                getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="Country"
                 value={country}
                 onChange={this.onValueInputChange('country')}
-                getSuggestions={this.getPlaceSuggestions('(regions)')}
+                getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <TextField
@@ -224,7 +119,7 @@ export class SiteForm extends Component {
                   label="Operator"
                   value={operator}
                   onChange={this.onValueInputChange('operator')}
-                  getSuggestions={this.getOperatorSuggestions}
+                  getSuggestions={getOperatorSuggestions(this)}
                 />
                 <IconButton
                   onClick={() => openDialog(OperatorsDialogContainer)}
@@ -249,7 +144,7 @@ export class SiteForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
@@ -257,12 +152,8 @@ export class SiteForm extends Component {
           </CardContent>
         </Card>
       </StyledSiteForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-SiteForm.contextTypes = {
-  addUnsubscriber: PropTypes.func,
-}
+SiteForm.contextTypes = contextTypesUnsubscriber

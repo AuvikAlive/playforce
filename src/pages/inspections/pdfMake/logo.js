@@ -1,4 +1,4 @@
-// import { pageMarginHorizontal } from './globals'
+// import { pageMarginHorizontal } from './constants'
 
 export const logo = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYAAAABUCAYAAACLH+AyAAAABHNCSVQICAgIfAhkiAAAAF96VFh0
 UmF3IHByb2ZpbGUgdHlwZSBBUFAxAAAImeNKT81LLcpMVigoyk/LzEnlUgADYxMuE0sTS6NEAwMD

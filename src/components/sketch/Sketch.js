@@ -14,106 +14,38 @@ import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { Carousel } from '../carousel/Carousel'
 import { SketchPad } from './SketchPad'
-import { getWidth } from './getWidth'
 import { StyledSketch } from './StyledSketch'
-
-const tools = ['Pencil', 'Line', 'Rectangle', 'Circle']
+import { state, tools } from './constants/'
+import {
+  onComponentDidMount,
+  onSlideChange,
+  onPrev,
+  onNext,
+  onToolSelect,
+  onColorChange,
+  undo,
+  redo,
+  onSave,
+  submit,
+} from './functions/'
 
 export class Sketch extends Component {
-  state = {
-    images: [],
-    imagesLength: undefined,
-    currentSlide: 0,
-    tool: tools[0],
-    width: 1024,
-    color: {
-      hex: '#000',
-    },
-  }
+  state = state
 
   componentDidMount() {
-    const { images } = this.props
-
-    if (images && images.length > 0) {
-      const width = getWidth('.StyledSketch')
-      this.setState({ width, images, imagesLength: images.length })
-    }
-  }
-
-  onSlideChange = (current, next) => {
-    if (next !== current) {
-      const { currentSlide, tool, color } = this.state
-
-      this.carouselParent[`sketchParent${currentSlide}`].clear()
-      this.carouselParent[`sketchParent${next}`].setTool(tool)
-      this.carouselParent[`sketchParent${next}`].setLineColor(color.hex)
-      this.setState({ currentSlide: next })
-    }
-  }
-
-  onPrev = () => {
-    const { currentSlide } = this.state
-    currentSlide > 0 && this.carouselParent.carousel.slickPrev()
-  }
-
-  onNext = () => {
-    const { imagesLength, currentSlide } = this.state
-    currentSlide + 1 < imagesLength && this.carouselParent.carousel.slickNext()
-  }
-
-  onToolSelect = event => {
-    const tool = event.target.value
-    const { currentSlide } = this.state
-
-    this.setState({ tool })
-    this.carouselParent[`sketchParent${currentSlide}`].setTool(tool)
-  }
-
-  onColorChange = color => {
-    const { currentSlide } = this.state
-
-    this.carouselParent[`sketchParent${currentSlide}`].setLineColor(color.hex)
-    this.setState({ color })
-  }
-
-  getCurrentImage = currentSlide => {
-    const image = this.carouselParent[
-      `sketchParent${currentSlide}`
-    ]._sketch.toDataURL()
-
-    return image
-  }
-
-  saveCurrentImage = (currentSlide, image) => {
-    const { images } = this.state
-
-    images[currentSlide].image = image
-    this.setState({ images })
-  }
-
-  onSave = () => {
-    const { currentSlide } = this.state
-    const image = this.getCurrentImage(currentSlide)
-
-    this.saveCurrentImage(currentSlide, image)
-  }
-
-  submit = () => {
-    const { onSubmit } = this.props
-    const { images } = this.state
-
-    onSubmit(images)
+    onComponentDidMount(this)
   }
 
   render() {
     const { images, currentSlide, tool, width, color } = this.state
     const { aspectRatio, closeDialog } = this.props
+
     const settings = {
       infinite: false,
       autoplay: false,
       draggable: false,
       swipe: false,
-      beforeChange: this.onSlideChange,
+      beforeChange: onSlideChange(this),
     }
 
     return (
@@ -142,31 +74,23 @@ export class Sketch extends Component {
               />
 
               <div className="sketch-actions">
-                <IconButton onClick={this.onPrev}>
+                <IconButton onClick={onPrev(this)}>
                   <ArrowBackIcon />
                 </IconButton>
 
-                <IconButton onClick={this.onNext}>
+                <IconButton onClick={onNext(this)}>
                   <ArrowForwardIcon />
                 </IconButton>
 
-                <IconButton onClick={this.onSave}>
+                <IconButton onClick={onSave(this)}>
                   <SaveIcon />
                 </IconButton>
 
-                <IconButton
-                  onClick={() =>
-                    this.carouselParent[`sketchParent${currentSlide}`].undo()
-                  }
-                >
+                <IconButton onClick={undo(this, currentSlide)}>
                   <UndoIcon />
                 </IconButton>
 
-                <IconButton
-                  onClick={() =>
-                    this.carouselParent[`sketchParent${currentSlide}`].redo()
-                  }
-                >
+                <IconButton onClick={redo(this, currentSlide)}>
                   <RedoIcon />
                 </IconButton>
               </div>
@@ -176,7 +100,7 @@ export class Sketch extends Component {
                   fullWidth
                   select
                   value={tool}
-                  onChange={this.onToolSelect}
+                  onChange={onToolSelect(this)}
                   margin="none"
                   className="tool-select"
                 >
@@ -191,7 +115,7 @@ export class Sketch extends Component {
               <div className="sketch-actions color-picker">
                 <CompactPicker
                   color={color}
-                  onChangeComplete={color => this.onColorChange(color)}
+                  onChangeComplete={onColorChange(this)}
                 />
               </div>
 
@@ -200,7 +124,7 @@ export class Sketch extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 save changes
               </Button>

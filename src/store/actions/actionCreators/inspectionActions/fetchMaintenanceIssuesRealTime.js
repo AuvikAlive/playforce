@@ -2,7 +2,7 @@ import {
   FETCH_MAINTENANCE_ISSUES,
   FETCH_MAINTENANCE_ISSUES_COMPLETED,
 } from '../../actionTypes'
-import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
+import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
 
 export const fetchMaintenanceIssuesRealTime = (userId, inspectionId) => async (
   dispatch,

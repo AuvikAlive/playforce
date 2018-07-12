@@ -1,4 +1,4 @@
-import { fontSize } from '../globals'
+import { fontSize } from '../constants'
 import { makeAddressHeader } from '../makeAddressHeader/'
 import { makeTitle } from './makeTitle'
 import { makeSubtitle } from './makeSubtitle'

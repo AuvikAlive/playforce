@@ -4,7 +4,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { StyledLoadableCircular } from './StyledLoadableCircular'
 
 export default opts => {
-  console.log(opts)
   return Loadable(
     Object.assign(
       {
@@ -16,7 +15,7 @@ export default opts => {
           )
         },
       },
-      opts,
-    ),
+      opts
+    )
   )
 }

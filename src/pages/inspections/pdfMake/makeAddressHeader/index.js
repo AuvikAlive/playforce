@@ -1,4 +1,4 @@
-import { pageMarginVertical, logoOffset } from '../globals'
+import { pageMarginVertical, logoOffset } from '../constants'
 import { makeLogo } from './makeLogo'
 import { makeAddress } from './makeAddress'
 

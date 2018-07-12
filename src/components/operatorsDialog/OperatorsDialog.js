@@ -1,30 +1,26 @@
 import React, { Component } from 'react'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
+import { contextTypesUnsubscriber } from '../../constants/'
+import { showContentWhenLoaded } from '../../functions/'
 import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { Content } from '../content/Content'
 import { OperatorList } from '../operatorList/OperatorList'
 import { OperatorFormContainer } from '../operatorForm/OperatorFormContainer'
+import { onComponentDidMount, deleteOperator } from './functions/'
 
 export class OperatorsDialog extends Component {
   componentDidMount() {
-    const { userId, operatorsLoaded, fetchOperatorsRealTime } = this.props
-
-    !operatorsLoaded && fetchOperatorsRealTime(userId)
-  }
-
-  delete = async id => {
-    const { openDialog, deleteOperator, userId } = this.props
-    openDialog(() => deleteOperator(userId, id))
+    onComponentDidMount(this)
   }
 
   render() {
     const { operators, operatorsLoaded, closeDialog } = this.props
 
-    return operatorsLoaded ? (
+    return showContentWhenLoaded(
+      operatorsLoaded,
       <div>
         <NavBar
           title="Operators"
@@ -41,14 +37,17 @@ export class OperatorsDialog extends Component {
         <StyledMainContent className="StyledMainContent">
           <Content>
             <Card className="card">
-              <OperatorList operators={operators} deletePrompt={this.delete} />
+              <OperatorList
+                operators={operators}
+                deletePrompt={deleteOperator(this)}
+              />
               <OperatorFormContainer />
             </Card>
           </Content>
         </StyledMainContent>
       </div>
-    ) : (
-      <LinearProgress />
     )
   }
 }
+
+OperatorsDialog.contextTypes = contextTypesUnsubscriber

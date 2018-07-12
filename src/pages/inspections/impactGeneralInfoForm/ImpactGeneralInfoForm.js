@@ -5,55 +5,26 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import {
+  onComponentDidMountLoadData,
+  onComponentWillReceivePropsLoadData,
+  onEventInputChange,
+} from '../../../functions/'
 import { StyledImpactGeneralInfoForm } from './StyledImpactGeneralInfoForm'
+import { submit } from './submit'
 
 export class ImpactGeneralInfoFormWithout extends Component {
   state = { temperature: '', humidity: '', rain: '', apparatus: '' }
 
   componentDidMount() {
-    const { initialData } = this.props
-
-    this.loadInitialData(initialData)
+    onComponentDidMountLoadData(this)
   }
 
-  componentWillReceiveProps({ initialData }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-  }
-
-  loadInitialData = initialData => {
-    this.setState({ ...initialData })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
-
-  submit = async () => {
-    const { temperature, humidity, rain, apparatus } = this.state
-    const { setFeedback, onSubmit, afterSubmit } = this.props
-
-    if (temperature && humidity && rain && apparatus) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        await onSubmit({
-          temperature,
-          humidity,
-          rain,
-          apparatus,
-        })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit()
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
 
   render() {
     const { temperature, humidity, rain, apparatus } = this.state
@@ -112,7 +83,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>

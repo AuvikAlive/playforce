@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -10,213 +8,45 @@ import Button from '@material-ui/core/Button'
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import IconButton from '@material-ui/core/IconButton'
 import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
-import { format } from 'date-fns'
-import { conditions } from '../../../globals/constants'
+import {
+  contextTypesUnsubscriber,
+  conditions,
+  equipmentState,
+  equipmentTypes,
+} from '../../../constants/'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
-import { onValueInputChange } from '../../../utilities/onValueInputChange'
-import { getSuggestionsByName } from '../../../utilities/getSuggestionsByName'
-import { equipmentTypes } from '../../../globals/constants'
-import { getEquipmentSuggestions } from '../getEquipmentSuggestions'
+import {
+  onEventInputChange,
+  onValueInputChange,
+  getEquipmentSuggestions,
+  getSuggestionsByName,
+  showContentWhenLoaded,
+  submitConditionRatingAndEquipment,
+} from '../../../functions/'
+import {
+  onComponentDidMount,
+  onComponentWillReceiveProps,
+  onEquipmentSelect,
+} from './functions'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
-
-const today = new Date()
 
 export class ConditionRatingForm extends Component {
   state = {
-    itemType: equipmentTypes[0],
-    equipment: '',
-    assetId: '',
-    manufacturer: '',
+    ...equipmentState,
     condition: conditions[0],
-    estimatedDateInstalled: format(today, 'YYYY'),
   }
 
-  async componentDidMount() {
-    const {
-      manufacturersLoaded,
-      fetchManufacturersRealTime,
-      userId,
-      equipmentsSite,
-      siteId,
-      fetchEquipments,
-      initialData,
-    } = this.props
-
-    const { addUnsubscriber } = this.context
-
-    !manufacturersLoaded &&
-      addUnsubscriber(await fetchManufacturersRealTime(userId))
-    equipmentsSite !== siteId && fetchEquipments(userId, siteId)
-    initialData && this.loadInitialData(initialData)
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
-  componentWillReceiveProps({
-    initialData,
-    imageCaptured,
-    image,
-    imageNaturalAspectRatio,
-  }) {
-    if (initialData && initialData !== this.props.initialData) {
-      this.loadInitialData(initialData)
-    }
-
-    if (imageCaptured && image !== this.props.image) {
-      const { setFeedback } = this.props
-
-      imageNaturalAspectRatio <= 1
-        ? setFeedback({ error: 'Please upload a landscape image!' })
-        : setFeedback({ error: '' })
-    }
-  }
-
-  loadInitialData = conditionRating => {
-    const { setCapturedImage } = this.props
-    const { image, estimatedDateInstalled } = conditionRating
-
-    setCapturedImage(image)
-    this.setState({
-      ...conditionRating,
-      id: conditionRating.equipmentId,
-      estimatedDateInstalled: format(estimatedDateInstalled, 'YYYY'),
-    })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
   onValueInputChange = onValueInputChange
-
-  getEquipmentSuggestions = value => {
-    const { equipments } = this.props
-
-    return getEquipmentSuggestions(value, equipments)
-  }
-
-  getManufacturerSuggestions = value => {
-    const { manufacturers } = this.props
-
-    return getSuggestionsByName(value, manufacturers)
-  }
-
-  onEquipmentSelect = value => {
-    const { equipments, setCapturedImage } = this.props
-    const equipment = equipments.find(({ equipment }) => equipment === value)
-
-    if (equipment) {
-      setCapturedImage(equipment.image)
-      this.setState({
-        ...equipment,
-      })
-    } else {
-      this.setState({ equipment: value })
-    }
-  }
-
-  submitItem = async () => {
-    const {
-      onSubmit,
-      afterSubmit,
-      setFeedback,
-      image,
-      equipmentsSite,
-      siteId,
-      equipments,
-      addEquipment,
-      userId,
-    } = this.props
-    const {
-      itemType,
-      equipment,
-      assetId,
-      manufacturer,
-      condition,
-      estimatedDateInstalled,
-    } = this.state
-
-    if (
-      image &&
-      equipment &&
-      assetId &&
-      manufacturer &&
-      condition &&
-      estimatedDateInstalled
-    ) {
-      setFeedback({ error: '', loading: true })
-      equipmentsSite === siteId &&
-        !equipments.find(item => item.equipment === equipment) &&
-        addEquipment(userId, siteId, {
-          image,
-          itemType,
-          equipment,
-          assetId,
-          manufacturer,
-          estimatedDateInstalled,
-        })
-      const result = await onSubmit({
-        image,
-        itemType,
-        equipment,
-        assetId,
-        manufacturer,
-        estimatedDateInstalled,
-        condition,
-      })
-      setFeedback({ loading: false })
-      afterSubmit && afterSubmit(result)
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
-
-  submitAncillaryItem = async () => {
-    const {
-      onSubmit,
-      afterSubmit,
-      setFeedback,
-      image,
-      equipmentsSite,
-      siteId,
-      equipments,
-      addEquipment,
-      userId,
-    } = this.props
-    const { itemType, equipment, condition } = this.state
-
-    if (image && equipment && condition) {
-      setFeedback({ error: '', loading: true })
-      equipmentsSite === siteId &&
-        !equipments.find(item => item.equipment === equipment) &&
-        addEquipment(userId, siteId, {
-          image,
-          itemType,
-          equipment,
-        })
-      const result = await onSubmit({
-        image,
-        itemType,
-        equipment,
-        condition,
-      })
-      setFeedback({ loading: false })
-      afterSubmit && afterSubmit(result)
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
-
-  submit = () => {
-    const { itemType } = this.state
-
-    if (itemType !== equipmentTypes[2]) {
-      this.submitItem()
-    } else {
-      this.submitAncillaryItem()
-    }
-  }
 
   render() {
     const {
@@ -224,6 +54,7 @@ export class ConditionRatingForm extends Component {
       captureImage,
       manufacturersLoaded,
       equipmentsLoaded,
+      manufacturers,
       openDialog,
       buttonText,
       error,
@@ -237,8 +68,11 @@ export class ConditionRatingForm extends Component {
       condition,
       estimatedDateInstalled,
     } = this.state
+    const isLoaded = manufacturersLoaded && equipmentsLoaded
+    const isNotAncillary = itemType !== equipmentTypes[2]
 
-    return manufacturersLoaded && equipmentsLoaded ? (
+    return showContentWhenLoaded(
+      isLoaded,
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card className="card">
           {image && <img src={image} alt="equipment type" />}
@@ -250,7 +84,6 @@ export class ConditionRatingForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() => {
-                // captureImage({ width: 300, height: 172 })
                 captureImage({ width: 1024, height: (1024 * 432) / 764 })
               }}
             >
@@ -263,8 +96,8 @@ export class ConditionRatingForm extends Component {
                 label="Equipment"
                 value={equipment}
                 onChange={this.onValueInputChange('equipment')}
-                onSuggestionSelect={this.onEquipmentSelect}
-                getSuggestions={this.getEquipmentSuggestions}
+                onSuggestionSelect={onEquipmentSelect(this)}
+                getSuggestions={getEquipmentSuggestions(this)}
               />
 
               <TextField
@@ -284,7 +117,7 @@ export class ConditionRatingForm extends Component {
                 })}
               </TextField>
 
-              {itemType !== equipmentTypes[2] && (
+              {isNotAncillary && (
                 <TextField
                   fullWidth
                   label="Asset Id"
@@ -294,13 +127,13 @@ export class ConditionRatingForm extends Component {
                 />
               )}
 
-              {itemType !== equipmentTypes[2] && (
+              {isNotAncillary && (
                 <div className="with-button">
                   <AutoComplete
                     label="Manufacturer"
                     value={manufacturer}
                     onChange={this.onValueInputChange('manufacturer')}
-                    getSuggestions={this.getManufacturerSuggestions}
+                    getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
                     onClick={() => openDialog(ManufacturersDialogContainer)}
@@ -310,7 +143,7 @@ export class ConditionRatingForm extends Component {
                 </div>
               )}
 
-              {itemType !== equipmentTypes[2] && (
+              {isNotAncillary && (
                 <TextField
                   fullWidth
                   label="Estimated Date Installed"
@@ -351,7 +184,7 @@ export class ConditionRatingForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submitConditionRatingAndEquipment(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
@@ -359,12 +192,8 @@ export class ConditionRatingForm extends Component {
           </CardContent>
         </Card>
       </StyledConditionRatingForm>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-ConditionRatingForm.contextTypes = {
-  addUnsubscriber: PropTypes.func,
-}
+ConditionRatingForm.contextTypes = contextTypesUnsubscriber

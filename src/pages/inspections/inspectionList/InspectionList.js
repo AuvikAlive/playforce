@@ -1,19 +1,24 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { isEmpty } from 'react-redux-firebase'
-import { StyledInspectionList } from './StyledInspectionList'
-import SearchBar from '../../../components/searchBar'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
+import {
+  onComponentWillUnmountTitleSearchRightNav,
+  setSelectedItems,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import { ListView } from './ListView'
 import { GridView } from './GridView'
-import { DefaultModeRightComponent } from './DefaultModeRightComponent'
-import { SelectRightComponentContainer } from './selectRightComponent/SelectRightComponentContainer'
+import { StyledInspectionList } from './StyledInspectionList'
+import { contextTypes } from './contextTypes'
+import {
+  onComponentDidMount,
+  onComponentWillReceiveProps,
+  handleSelectClick,
+  setSelectMode,
+} from './functions/'
 
 export class InspectionList extends Component {
   state = {
@@ -21,126 +26,16 @@ export class InspectionList extends Component {
     selectMode: false,
   }
 
-  async componentDidMount() {
-    const {
-      standardsLoaded,
-      fetchStandards,
-      userId,
-      inspectionsLoaded,
-      fetchInspectionsRealTime,
-    } = this.props
-    const { setSearchComponent, addUnsubscriber } = this.context
-
-    this.setNav()
-
-    setSearchComponent(<SearchBar onSearch={this.onSearch} />)
-
-    !standardsLoaded && fetchStandards(userId)
-    !inspectionsLoaded &&
-      addUnsubscriber(await fetchInspectionsRealTime(userId))
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { searchBarOpen, closeSearchBar } = this.props
-    const {
-      removeNavTitle,
-      removeRightNavComponent,
-      removeSearchComponent,
-    } = this.context
-
-    removeNavTitle()
-    removeRightNavComponent()
-    searchBarOpen && closeSearchBar()
-    removeSearchComponent()
+    onComponentWillUnmountTitleSearchRightNav(this)
   }
 
-  componentWillReceiveProps({ view }) {
-    view !== this.props.view && this.setRightNav(view)
-  }
-
-  onSearch = async query => {
-    const { searchInspections, userId } = this.props
-
-    return searchInspections(userId, query)
-  }
-
-  setNav = () => {
-    const { setNavTitle } = this.context
-    const { view } = this.props
-
-    setNavTitle('Inspections')
-    this.setRightNav(view)
-  }
-
-  setRightNav = view => {
-    const { openSearchBar, toggleView } = this.props
-    const { setRightNavComponent } = this.context
-
-    setRightNavComponent(
-      <DefaultModeRightComponent
-        view={view}
-        openSearchBar={openSearchBar}
-        toggleView={toggleView}
-      />
-    )
-  }
-
-  handleSelectClick = id => {
-    const { history, match } = this.props
-    history.push(`${match.url}/edit/${id}`)
-  }
-
-  setSelectedItems = selectedItems => this.setState({ selectedItems })
-  getSelectedItems = () => this.state.selectedItems
-
-  setSelectMode = (selectMode, selectedItemsLength) => {
-    const {
-      setNavColor,
-      setNavTitle,
-      setLeftNavComponent,
-      removeLefNavComponent,
-      setRightNavComponent,
-      setSearchOnBottom,
-      setSearchOnTop,
-    } = this.context
-
-    if (selectMode) {
-      const { searchBarOpen, searchResults } = this.props
-      const searchMode =
-        searchBarOpen && searchResults && searchResults.length > 0
-
-      setNavColor('default')
-      setNavTitle(selectedItemsLength)
-
-      setLeftNavComponent(
-        <IconButton
-          color="inherit"
-          aria-label="back"
-          onClick={() => this.setSelectMode(false)}
-        >
-          <ArrowBackIcon />
-        </IconButton>
-      )
-
-      setRightNavComponent(
-        <SelectRightComponentContainer
-          unarchive={searchMode}
-          getSelectedItems={this.getSelectedItems}
-          setSelectMode={this.setSelectMode}
-        />
-      )
-
-      searchMode && setSearchOnBottom()
-    } else {
-      setSearchOnTop()
-      setNavColor('primary')
-      removeLefNavComponent()
-
-      this.setNav()
-      this.setSelectedItems([])
-    }
-
-    this.setState({ selectMode })
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
   }
 
   render() {
@@ -154,14 +49,20 @@ export class InspectionList extends Component {
       searchBarOpen,
       searchResults,
     } = this.props
+
     const { selectedItems, selectMode } = this.state
 
-    const inspectionsToShow =
+    const isSearchMode =
       searchBarOpen && searchResults && searchResults.length > 0
-        ? searchResults
-        : inspections
 
-    return inspectionsLoaded && (view === 'list' || standardsLoaded) ? (
+    const inspectionsToShow = isSearchMode ? searchResults : inspections
+
+    const isListView = view === 'list'
+
+    const isLoaded = inspectionsLoaded && (isListView || standardsLoaded)
+
+    return showContentWhenLoaded(
+      isLoaded,
       <StyledInspectionList
         className={`StyledInspectionList ${view === 'grid' && 'grid'}`}
       >
@@ -176,14 +77,14 @@ export class InspectionList extends Component {
           </Button>
         </StyledNavLink>
 
-        {view === 'list' ? (
+        {isListView ? (
           <SelectableList
             inspections={inspectionsToShow}
             selectedItems={selectedItems}
             selectMode={selectMode}
-            setSelectedItems={this.setSelectedItems}
-            setSelectMode={this.setSelectMode}
-            handleClick={this.handleSelectClick}
+            setSelectedItems={setSelectedItems(this)}
+            setSelectMode={setSelectMode(this)}
+            handleClick={handleSelectClick(this)}
             ListView={ListView}
           />
         ) : (
@@ -194,23 +95,8 @@ export class InspectionList extends Component {
           />
         )}
       </StyledInspectionList>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-InspectionList.contextTypes = {
-  setNavColor: PropTypes.func,
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  setRightNavComponent: PropTypes.func,
-  removeRightNavComponent: PropTypes.func,
-  setSearchComponent: PropTypes.func,
-  removeSearchComponent: PropTypes.func,
-  setSearchOnTop: PropTypes.func,
-  setSearchOnBottom: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+InspectionList.contextTypes = contextTypes

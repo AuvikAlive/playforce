@@ -1,5 +1,5 @@
-import { verticalMargin, headerFontSize } from './globals'
-import { trimImage } from '../../../utilities/trimImage'
+import { verticalMargin, headerFontSize } from './constants'
+import { trimImage } from '../../../functions/trimImage'
 
 export const makeAuditSummary = async ({ auditSummary, cover }) => {
   const { summary, signature, displayName, title, company } = auditSummary

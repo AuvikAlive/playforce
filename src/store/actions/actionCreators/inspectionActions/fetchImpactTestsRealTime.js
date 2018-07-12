@@ -3,7 +3,7 @@ import {
   FETCH_IMPACT_TESTS,
   FETCH_IMPACT_TESTS_COMPLETED,
 } from '../../actionTypes'
-import { getDataUrlFromBlob } from '../../../../utilities/getDataUrlFromBlob'
+import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
 
 export const fetchImpactTestsRealTime = (userId, inspectionId) => async (
   dispatch,

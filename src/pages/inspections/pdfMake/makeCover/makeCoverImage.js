@@ -1,4 +1,4 @@
-import { pageWidth, pageMarginHorizontal } from '../globals'
+import { pageWidth, pageMarginHorizontal } from '../constants'
 
 export const makeCoverImage = image =>
   image

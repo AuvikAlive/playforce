@@ -1,65 +1,40 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
 import { OperatorList } from '../../../components/operatorList/OperatorList'
 import { OperatorFormContainer } from '../../../components/operatorForm/OperatorFormContainer'
+import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import { StyledOperators } from './StyledOperators'
+import { onComponentDidMount, deleteOperator } from './functions/'
 
 export class Operators extends Component {
-  async componentDidMount() {
-    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
-    const {
-      history,
-      userId,
-      operatorsLoaded,
-      fetchOperatorsRealTime,
-    } = this.props
-
-    setNavTitle('Operators')
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="Search" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    !operatorsLoaded && addUnsubscriber(await fetchOperatorsRealTime(userId))
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  delete = async id => {
-    const { openDialog, deleteOperator, userId } = this.props
-    openDialog(() => deleteOperator(userId, id))
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     const { operatorsLoaded, operators } = this.props
 
-    return operatorsLoaded ? (
+    return showContentWhenLoaded(
+      operatorsLoaded,
       <StyledOperators className="StyledOperators">
         <Card className="card">
-          <OperatorList operators={operators} deletePrompt={this.delete} />
+          <OperatorList
+            operators={operators}
+            deletePrompt={deleteOperator(this)}
+          />
           <OperatorFormContainer />
         </Card>
       </StyledOperators>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-Operators.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+Operators.contextTypes = contextTypesTitleLeftNavUnsubscriber

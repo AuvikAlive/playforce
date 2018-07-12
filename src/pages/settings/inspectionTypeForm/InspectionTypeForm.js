@@ -3,7 +3,8 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
-import { onEventInputChange } from '../../../utilities/onEventInputChange'
+import { onEventInputChange } from '../../../functions/'
+import { submit } from './submit'
 
 export class InspectionTypeForm extends Component {
   state = {
@@ -11,29 +12,6 @@ export class InspectionTypeForm extends Component {
   }
 
   onEventInputChange = onEventInputChange
-
-  submit = async () => {
-    const { inspectionType } = this.state
-    const { setFeedback, userId } = this.props
-
-    if (inspectionType) {
-      setFeedback({ error: '', loading: true })
-
-      const { saveInspectionType } = this.props
-
-      try {
-        await saveInspectionType(userId, { name: inspectionType })
-        this.setState({ inspectionType: '' })
-        setFeedback({ success: 'Inspection type added!', loading: false })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
 
   render() {
     const { inspectionType } = this.state
@@ -64,7 +42,7 @@ export class InspectionTypeForm extends Component {
             variant="raised"
             color="primary"
             className="submit-button"
-            onClick={this.submit}
+            onClick={submit(this)}
           >
             Add
           </Button>

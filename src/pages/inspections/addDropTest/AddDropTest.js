@@ -1,68 +1,37 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  showActionGo,
+} from '../../../functions/'
 import { DropTestForm } from '../dropTestForm/DropTestForm'
+import { contextTypes } from './contextTypes'
+import { submit } from './submit'
+
+const message = 'Drop added!'
 
 export class AddDropTest extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Add drop test'
 
-    setNavTitle('Add drop test')
-
-    setLeftNavComponent(
-      <IconButton
-        color="inherit"
-        aria-label="navigate back"
-        onClick={() => history.goBack()}
-      >
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  showActionGoBack = dropNumber => {
-    const { setFeedback, history, inspectionId, impactTestId } = this.props
-
-    setFeedback({ success: 'Drop added!' })
-    history.replace(
-      `/inspections/edit/${inspectionId}/impactTest/edit/${impactTestId}/editDrop/${dropNumber}`
-    )
-  }
-
-  submit = async data => {
-    const { addDropTest, userId, inspectionId, impactTestId } = this.props
-    const dropNumber = await addDropTest(
-      userId,
-      inspectionId,
-      impactTestId,
-      data
-    )
-
-    return dropNumber
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
+    const { inspectionId, impactTestId } = this.props
+    const pathHead = `/inspections/edit/${inspectionId}/impactTest/edit/${impactTestId}/editDrop/`
+
     return (
       <DropTestForm
-        onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
+        onSubmit={submit(this)}
+        afterSubmit={showActionGo(this, message, pathHead)}
       />
     )
   }
 }
 
-AddDropTest.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+AddDropTest.contextTypes = contextTypes

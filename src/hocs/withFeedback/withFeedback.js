@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { getDisplayName } from '../../utilities/getDisplayName'
+import { getDisplayName } from '../../functions/getDisplayName'
 import { StyledFeedback } from './StyledFeedback'
 
 const snackbarAutoHideDuration = 2000

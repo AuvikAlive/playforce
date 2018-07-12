@@ -2,7 +2,7 @@ import React from 'react'
 import { isEmpty } from 'lodash'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import { makeReportTitle } from '../makeReportTitle'
+import { makeReportTitle } from '../../../functions/'
 
 export const MoreMenu = ({
   closeMenu,

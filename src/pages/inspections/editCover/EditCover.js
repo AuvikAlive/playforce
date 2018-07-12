@@ -1,66 +1,33 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  showContentWhenLoaded,
+} from '../../../functions/'
 import { CoverFormContainer } from '../coverForm/CoverFormContainer'
+import { onComponentDidMount, submit } from './functions/'
 
 export class EditCover extends Component {
-  async componentDidMount() {
-    const { setNavTitle, setLeftNavComponent, addUnsubscriber } = this.context
-    const {
-      history,
-      inspectionLoaded,
-      fetchInspectionRealTime,
-      userId,
-      inspectionId,
-    } = this.props
-
-    setNavTitle('Cover')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
-
-    !inspectionLoaded &&
-      addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  submit = async cover => {
-    const { updateCover, userId, inspectionId, setFeedback } = this.props
-
-    await updateCover(userId, inspectionId, cover)
-    setFeedback({ success: 'Cover saved!' })
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     const { inspectionLoaded, cover } = this.props
 
-    return inspectionLoaded ? (
+    return showContentWhenLoaded(
+      inspectionLoaded,
       <CoverFormContainer
         buttonText="save"
-        onSubmit={this.submit}
+        onSubmit={submit(this)}
         initialData={cover}
       />
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-EditCover.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+EditCover.contextTypes = contextTypesTitleLeftNavUnsubscriber

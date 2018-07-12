@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
+import { onEventInputChange } from '../../functions/'
 import { StyledResetPassword } from './StyledResetPassword'
+import { contextTypes } from './contextTypes'
+import {
+  onComponentDidMount,
+  onComponentWillUnmount,
+  submit,
+} from './functions/'
 
 export class ResetPassword extends Component {
   state = {
@@ -15,45 +21,14 @@ export class ResetPassword extends Component {
   }
 
   componentDidMount() {
-    const { setNavTitle } = this.context
-    setNavTitle('Reset Password')
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
-    removeNavTitle()
+    onComponentWillUnmount(this)
   }
 
-  onEmailChange = event => {
-    const email = event.target.value
-    this.setState({ email })
-  }
-
-  sendLink = async () => {
-    const { email } = this.state
-    const { sendPasswordResetEmail, setFeedback } = this.props
-
-    if (email) {
-      setFeedback({ error: '', loading: true })
-      this.setState({ success: '' })
-
-      try {
-        await sendPasswordResetEmail(email)
-        setFeedback({ loading: false })
-        this.setState({
-          success:
-            "Email sent. If you haven't received it, please wait a couple of minutes then try again!",
-        })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please enter your email address!',
-        loading: false,
-      })
-    }
-  }
+  onEventInputChange = onEventInputChange
 
   render() {
     const { success } = this.state
@@ -73,7 +48,7 @@ export class ResetPassword extends Component {
               type="email"
               margin="normal"
               fullWidth
-              onChange={this.onEmailChange}
+              onChange={this.onEventInputChange('email')}
             />
 
             {error && <p className="error">{error}</p>}
@@ -93,7 +68,7 @@ export class ResetPassword extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.sendLink}
+                onClick={submit(this)}
               >
                 Send Link
               </Button>
@@ -105,7 +80,4 @@ export class ResetPassword extends Component {
   }
 }
 
-ResetPassword.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+ResetPassword.contextTypes = contextTypes

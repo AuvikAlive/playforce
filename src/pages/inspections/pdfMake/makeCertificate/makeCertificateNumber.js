@@ -1,4 +1,4 @@
-import { verticalMargin } from '../globals'
+import { verticalMargin } from '../constants'
 
 export const makeCertificateNumber = (inspectionNumber, pageFontSize) => ({
   text: `Certificate No.: ${inspectionNumber}`,

@@ -1,4 +1,4 @@
-import { fontSize } from '../../globals'
+import { fontSize } from '../../constants'
 
 export const sixthRow = [
   {

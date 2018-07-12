@@ -3,39 +3,15 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
+import { onEventInputChange } from '../../functions/'
+import { submit } from './submit'
 
 export class ManufacturerForm extends Component {
   state = {
     manufacturer: '',
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  submit = async () => {
-    const { manufacturer } = this.state
-    const { saveManufacturer, userId, setFeedback } = this.props
-
-    if (manufacturer) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        await saveManufacturer(userId, { name: manufacturer })
-        setFeedback({ loading: false })
-        this.setState({ manufacturer: '' })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-        loading: false,
-      })
-    }
-  }
+  onEventInputChange = onEventInputChange
 
   render() {
     const { manufacturer } = this.state
@@ -47,7 +23,7 @@ export class ManufacturerForm extends Component {
           fullWidth
           label="Manufacturer"
           value={manufacturer}
-          onChange={this.onInputChange('manufacturer')}
+          onChange={this.onEventInputChange('manufacturer')}
           margin="normal"
         />
 
@@ -66,7 +42,7 @@ export class ManufacturerForm extends Component {
             variant="raised"
             color="primary"
             className="submit-button"
-            onClick={this.submit}
+            onClick={submit(this)}
           >
             Add manufacturer
           </Button>

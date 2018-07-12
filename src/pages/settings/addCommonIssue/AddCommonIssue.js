@@ -1,57 +1,35 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  showActionGo,
+} from '../../../functions/'
 import CommonIssueForm from '../commonIssueForm/'
+import { submit } from './submit'
+
+const message = 'Common issue added!'
+const pathHead = 'edit/'
 
 export class AddCommonIssue extends Component {
   componentDidMount() {
-    const { setNavTitle, setLeftNavComponent } = this.context
-    const { history } = this.props
+    const title = 'Add a Common Issue'
 
-    setNavTitle('Add a Common Issue')
-
-    setLeftNavComponent(
-      <IconButton color="inherit" aria-label="go back" onClick={history.goBack}>
-        <ArrowBackIcon />
-      </IconButton>
-    )
+    onComponentDidMountWithTitleLeftNav(this, title)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle, removeLefNavComponent } = this.context
-
-    removeNavTitle()
-    removeLefNavComponent()
-  }
-
-  showActionGoBack = commonIssueId => {
-    const { setFeedback, history } = this.props
-
-    setFeedback({ success: 'Common issue added!' })
-    history.replace(`edit/${commonIssueId}`)
-  }
-
-  submit = async commonIssue => {
-    const { addCommonIssue, userId } = this.props
-    const commonIssueId = await addCommonIssue(userId, commonIssue)
-
-    return commonIssueId
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
     return (
       <CommonIssueForm
-        onSubmit={this.submit}
-        afterSubmit={this.showActionGoBack}
+        onSubmit={submit(this)}
+        afterSubmit={showActionGo(this, message, pathHead)}
       />
     )
   }
 }
 
-AddCommonIssue.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-}
+AddCommonIssue.contextTypes = contextTypesTitleLeftNav

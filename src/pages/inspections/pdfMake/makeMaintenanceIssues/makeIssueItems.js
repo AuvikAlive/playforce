@@ -1,5 +1,5 @@
 import { makeColumn } from './makeColumn'
-import { verticalMargin, pageWidth, pageMarginHorizontal } from '../globals'
+import { verticalMargin, pageWidth, pageMarginHorizontal } from '../constants'
 
 const columnGap = verticalMargin
 const imageWidth = (pageWidth - pageMarginHorizontal * 2 - columnGap * 3) / 3

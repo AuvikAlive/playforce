@@ -1,4 +1,4 @@
-import { subHeaderFontSize, verticalMargin } from '../globals'
+import { subHeaderFontSize, verticalMargin } from '../constants'
 
 export const makeEntrapment = () => [
   {

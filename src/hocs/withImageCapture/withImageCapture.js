@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getDisplayName } from '../../utilities/getDisplayName'
+import { getDisplayName } from '../../functions/getDisplayName'
 import downscale from 'downscale'
 
 export const withImageCapture = WrappedComponent => {

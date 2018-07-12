@@ -7,14 +7,6 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { StyledNavBar } from './StyledNavBar'
 
 class NavBar extends Component {
-  signOut = () => {
-    this.closeMenu()
-    const { firebase, history } = this.props
-
-    firebase.logout()
-    history.push('/signIn')
-  }
-
   render() {
     const {
       title,

@@ -1,4 +1,4 @@
-import { lightGray } from '../globals'
+import { lightGray } from '../constants'
 
 import { makeIssue } from './makeIssue'
 import { makeFinding } from './makeFinding'

@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import SearchBar from '../../../components/searchBar'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import AddIcon from '@material-ui/icons/Add'
-import { differenceWith } from 'lodash'
+import { showContentWhenLoaded } from '../../../functions/showContentWhenLoaded'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
-import { setInspectionNav } from '../utilities/setInspectionNav'
-import { onInspectionSearch } from '../utilities/onInspectionSearch'
+import { setSelectedItems } from '../../../functions/setSelectedItems'
+import {
+  onInspectionComponentDidMount,
+  onInspectionComponentWillUnmount,
+} from '../functions/'
+import { setSelectMode } from './functions/setSelectMode'
+import { getInspectionsToShow } from './functions/getInspectionsToShow'
+import { inspectionContextTypes } from '../constants/inspectionContextTypes'
 import { StyledAddInspections } from './StyledAddInspections'
+
+const title = 'Add Inspections'
 
 export class AddInspections extends Component {
   state = {
@@ -18,158 +20,34 @@ export class AddInspections extends Component {
     selectMode: false,
   }
 
-  async componentDidMount() {
-    const { addUnsubscriber, setSearchComponent } = this.context
-    const {
-      inspectionsLoaded,
-      fetchInspectionsRealTime,
-      fetchProjectMembersRealTime,
-      userId,
-      id,
-    } = this.props
-
-    setInspectionNav(this, 'Add Inspections')
-
-    setSearchComponent(<SearchBar onSearch={onInspectionSearch(this)} />)
-
-    !inspectionsLoaded &&
-      addUnsubscriber(await fetchInspectionsRealTime(userId))
-    addUnsubscriber(await fetchProjectMembersRealTime(userId, id))
+  componentDidMount() {
+    onInspectionComponentDidMount(this, title)
   }
 
   componentWillUnmount() {
-    const {
-      removeNavTitle,
-      removeLefNavComponent,
-      removeRightNavComponent,
-      removeSearchComponent,
-    } = this.context
-    const { searchBarOpen, closeSearchBar } = this.props
-
-    removeNavTitle()
-    removeLefNavComponent()
-    removeRightNavComponent()
-    searchBarOpen && closeSearchBar()
-    removeSearchComponent()
-  }
-
-  setSelectedItems = selectedItems => this.setState({ selectedItems })
-
-  setSelectMode = (selectMode, selectedItemsLength) => {
-    const {
-      setNavColor,
-      setNavTitle,
-      setLeftNavComponent,
-      setRightNavComponent,
-      setSearchOnBottom,
-      setSearchOnTop,
-    } = this.context
-
-    if (selectMode) {
-      const { searchBarOpen, searchResults } = this.props
-      const searchMode =
-        searchBarOpen && searchResults && searchResults.length > 0
-
-      setNavColor('default')
-      setNavTitle(selectedItemsLength)
-
-      setLeftNavComponent(
-        <IconButton
-          color="inherit"
-          aria-label="back"
-          onClick={() => this.setSelectMode(false)}
-        >
-          <ArrowBackIcon />
-        </IconButton>
-      )
-
-      setRightNavComponent(
-        <IconButton
-          color="inherit"
-          aria-label="add to project"
-          onClick={this.addInspections}
-        >
-          <AddIcon />
-        </IconButton>
-      )
-
-      searchMode && setSearchOnBottom()
-    } else {
-      setSearchOnTop()
-      setNavColor('primary')
-
-      setInspectionNav(this, 'Add Inspections')
-      this.setSelectedItems([])
-    }
-
-    this.setState({ selectMode })
-  }
-
-  addInspections = async () => {
-    const { selectedItems } = this.state
-    const { addInspections, userId, id } = this.props
-
-    try {
-      await addInspections(userId, id, selectedItems)
-      this.setSelectMode(false)
-    } catch (error) {
-      console.log(error)
-    }
+    onInspectionComponentWillUnmount(this)
   }
 
   render() {
     const { selectedItems, selectMode } = this.state
-    const {
-      inspectionsLoaded,
-      projectMembersLoaded,
-      inspections,
-      projectMembers,
-      searchBarOpen,
-      searchResults,
-    } = this.props
+    const { inspectionsLoaded, projectMembersLoaded } = this.props
+    const isLoaded = inspectionsLoaded && projectMembersLoaded
+    const inspectionsToShow = getInspectionsToShow(this)
 
-    const inspectionsToShow =
-      searchBarOpen && searchResults && searchResults.length > 0
-        ? differenceWith(
-            searchResults,
-            projectMembers,
-            (arrVal, othVal) => arrVal.id === othVal.id
-          )
-        : differenceWith(
-            inspections,
-            projectMembers,
-            (arrVal, othVal) => arrVal.id === othVal.id
-          )
-
-    return inspectionsLoaded && projectMembersLoaded ? (
+    return showContentWhenLoaded(
+      isLoaded,
       <StyledAddInspections className="StyledAddInspections">
         <SelectableList
           inspections={inspectionsToShow}
           ListView={InspectionListView}
           selectedItems={selectedItems}
           selectMode={selectMode}
-          setSelectedItems={this.setSelectedItems}
-          setSelectMode={this.setSelectMode}
-          handleClick={this.handleSelectClick}
+          setSelectedItems={setSelectedItems(this)}
+          setSelectMode={setSelectMode(this, title)}
         />
       </StyledAddInspections>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-AddInspections.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  setLeftNavComponent: PropTypes.func,
-  removeLefNavComponent: PropTypes.func,
-  setRightNavComponent: PropTypes.func,
-  removeRightNavComponent: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-  setSearchComponent: PropTypes.func,
-  removeSearchComponent: PropTypes.func,
-  setNavColor: PropTypes.func,
-  setSearchOnTop: PropTypes.func,
-  setSearchOnBottom: PropTypes.func,
-}
+AddInspections.contextTypes = inspectionContextTypes

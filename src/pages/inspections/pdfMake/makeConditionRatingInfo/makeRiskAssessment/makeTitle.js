@@ -1,4 +1,4 @@
-import { subHeaderFontSize, verticalMargin } from '../../globals'
+import { subHeaderFontSize, verticalMargin } from '../../constants'
 
 export const makeTitle = () => ({
   text: 'RISK ASSESSMENT MATRIX',

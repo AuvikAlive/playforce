@@ -3,39 +3,15 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
+import { onEventInputChange } from '../../functions/'
+import { submit } from './submit'
 
 export class OperatorForm extends Component {
   state = {
     operator: '',
   }
 
-  onInputChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    })
-  }
-
-  submit = async () => {
-    const { operator } = this.state
-    const { saveOperator, userId, setFeedback } = this.props
-
-    if (operator) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        await saveOperator(userId, { name: operator })
-        setFeedback({ loading: false })
-        this.setState({ operator: '' })
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-        loading: false,
-      })
-    }
-  }
+  onEventInputChange = onEventInputChange
 
   render() {
     const { operator } = this.state
@@ -47,7 +23,7 @@ export class OperatorForm extends Component {
           fullWidth
           label="operator"
           value={operator}
-          onChange={this.onInputChange('operator')}
+          onChange={this.onEventInputChange('operator')}
           margin="normal"
         />
 
@@ -66,7 +42,7 @@ export class OperatorForm extends Component {
             variant="raised"
             color="primary"
             className="submit-button"
-            onClick={this.submit}
+            onClick={submit(this)}
           >
             Add operator
           </Button>

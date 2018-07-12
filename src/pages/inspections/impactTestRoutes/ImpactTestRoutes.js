@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import { ImpactTestItemsContainer } from '../impactTestItems/ImpactTestItemsContainer'
 import Loadable from '../../../components/loadable/LoadableLinear'
+import { contextTypesUnsubscriber } from '../../../constants/'
+import { showContentWhenLoaded } from '../../../functions/'
+import { ImpactTestItemsContainer } from '../impactTestItems/ImpactTestItemsContainer'
+import { onComponentDidMount } from './onComponentDidMount'
 
 const EditImpactGeneralInfo = Loadable({
   loader: () => import('../editImpactGeneralInfo'),
@@ -27,27 +28,16 @@ ImpactTestDetailRoutes.preload()
 AddImpactSurface.preload()
 
 export class ImpactTestRoutes extends Component {
-  async componentDidMount() {
-    const {
-      inspectionId,
-      userId,
-      inspectionLoaded,
-      fetchInspectionRealTime,
-      impactTestsLoaded,
-      fetchImpactTests,
-    } = this.props
-
-    const { addUnsubscriber } = this.context
-
-    !inspectionLoaded &&
-      inspectionId &&
-      addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
-    !impactTestsLoaded && inspectionId && fetchImpactTests(userId, inspectionId)
+  componentDidMount() {
+    onComponentDidMount(this)
   }
+
   render() {
     const { inspectionLoaded, impactTestsLoaded, match } = this.props
+    const isLoaded = inspectionLoaded && impactTestsLoaded
 
-    return inspectionLoaded && impactTestsLoaded ? (
+    return showContentWhenLoaded(
+      isLoaded,
       <Switch>
         <Route
           path={`${match.url}/general`}
@@ -64,12 +54,8 @@ export class ImpactTestRoutes extends Component {
         <Route path={`${match.url}/add`} component={AddImpactSurface} />
         <Route path={match.url} component={ImpactTestItemsContainer} />
       </Switch>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-ImpactTestRoutes.contextTypes = {
-  addUnsubscriber: PropTypes.func,
-}
+ImpactTestRoutes.contextTypes = contextTypesUnsubscriber

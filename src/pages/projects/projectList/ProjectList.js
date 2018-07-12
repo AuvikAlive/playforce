@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -9,29 +7,26 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { showContentWhenLoaded } from '../../../functions/'
+import { contextTypes } from './contextTypes'
+import { onComponentDidMount, onComponentWillUnmount } from './functions/'
 import { StyledProjectList } from './StyledProjectList'
 
 export class ProjectList extends Component {
-  async componentDidMount() {
-    const { setNavTitle, addUnsubscriber } = this.context
-    const { projectsLoaded, fetchProjectsRealTime, userId } = this.props
-
-    setNavTitle('Projects')
-
-    !projectsLoaded && addUnsubscriber(await fetchProjectsRealTime(userId))
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    const { removeNavTitle } = this.context
-
-    removeNavTitle()
+    onComponentWillUnmount(this)
   }
 
   render() {
     const { projectsLoaded, projects, match } = this.props
     const projectsAdded = projects.length > 0
 
-    return projectsLoaded ? (
+    return showContentWhenLoaded(
+      projectsLoaded,
       <StyledProjectList className="StyledProjectList">
         <StyledNavLink to={match.url + '/addProject'} className="add-icon">
           <Button
@@ -62,14 +57,8 @@ export class ProjectList extends Component {
           </Typography>
         )}
       </StyledProjectList>
-    ) : (
-      <LinearProgress />
     )
   }
 }
 
-ProjectList.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-  addUnsubscriber: PropTypes.func,
-}
+ProjectList.contextTypes = contextTypes

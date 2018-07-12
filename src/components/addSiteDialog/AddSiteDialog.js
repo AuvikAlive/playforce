@@ -4,19 +4,10 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { SiteFormContainer } from '../siteForm/SiteFormContainer'
+import { submit } from './submit'
 
-export const AddSiteDialog = ({
-  addSite,
-  userId,
-  closeDialog,
-  setFeedback,
-}) => {
-  const submit = async site => {
-    await addSite(userId, site)
-
-    closeDialog()
-    setFeedback({ success: 'Site published!' })
-  }
+export const AddSiteDialog = props => {
+  const { closeDialog } = props
 
   return (
     <div>
@@ -29,7 +20,7 @@ export const AddSiteDialog = ({
         }
       />
       <StyledMainContent className="StyledMainContent">
-        <SiteFormContainer onSubmit={submit} />
+        <SiteFormContainer onSubmit={submit(props)} />
       </StyledMainContent>
     </div>
   )
