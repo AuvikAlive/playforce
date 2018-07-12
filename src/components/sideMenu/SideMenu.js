@@ -6,37 +6,23 @@ import { isEmpty } from 'react-redux-firebase'
 import { PublicLinks } from './PublicLinks'
 import UserView from './userView'
 import { PrivateLinks } from './PrivateLinks'
+import { closeSideMenuIfOpen, signOut } from './functions/'
 
 class SideMenu extends Component {
-  closeSideMenuIfOpen = () => {
-    const { open, closeSideMenu } = this.props
-    open && closeSideMenu()
-  }
-
-  signOut = () => {
-    const { firebase, history } = this.props
-    const { clearSubscriptions } = this.context
-
-    clearSubscriptions()
-
-    firebase.logout()
-    history.push('/signIn')
-  }
-
   render() {
     const { open, auth, role } = this.props
 
     return (
-      <Drawer open={open} anchor={'left'} onClick={this.closeSideMenuIfOpen}>
+      <Drawer open={open} anchor={'left'} onClick={closeSideMenuIfOpen(this)}>
         {isEmpty(auth) ? (
-          <List onClick={this.closeSideMenuIfOpen} style={{ width: 300 }}>
+          <List onClick={closeSideMenuIfOpen(this)} style={{ width: 300 }}>
             <PublicLinks />
           </List>
         ) : (
           <div>
             <UserView />
-            <List onClick={this.closeSideMenuIfOpen} style={{ width: 300 }}>
-              <PrivateLinks role={role} signOut={this.signOut} />
+            <List onClick={closeSideMenuIfOpen(this)} style={{ width: 300 }}>
+              <PrivateLinks role={role} signOut={signOut(this)} />
             </List>
           </div>
         )}
