@@ -1,4 +1,5 @@
-export const getOperatorSuggestions = (value, operators) => {
+export const getOperatorSuggestions = component => value => {
+  const { operators } = component.props
   const inputValue = value.trim().toLowerCase()
   const inputLength = inputValue.length
 

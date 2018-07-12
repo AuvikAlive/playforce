@@ -30,6 +30,8 @@ import { exportCSV } from './exportCSV'
 import { makeReportTitle } from './makeReportTitle'
 import { groupCommonIssues } from './groupCommonIssues'
 import { submitConditionRatingAndEquipment } from './submitConditionRatingAndEquipment'
+import { getCurrentPosition } from './getCurrentPosition'
+import { getGeocode } from './getGeocode'
 
 export {
   openMenu,
@@ -64,4 +66,6 @@ export {
   makeReportTitle,
   groupCommonIssues,
   submitConditionRatingAndEquipment,
+  getCurrentPosition,
+  getGeocode,
 }
