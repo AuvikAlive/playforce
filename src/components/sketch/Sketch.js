@@ -28,6 +28,7 @@ import {
   undo,
   redo,
   onSave,
+  onCrop,
   submit,
 } from './functions/'
 
@@ -40,7 +41,7 @@ class SketchWithout extends Component {
 
   render() {
     const { images, currentSlide, tool, width, color } = this.state
-    const { aspectRatio, closeDialog } = this.props
+    const { aspectRatio, closeSketchDialog } = this.props
 
     const settings = {
       infinite: false,
@@ -58,7 +59,7 @@ class SketchWithout extends Component {
             <IconButton
               color="inherit"
               aria-label="close"
-              onClick={closeDialog}
+              onClick={closeSketchDialog}
             >
               <ArrowBackIcon />
             </IconButton>
@@ -89,7 +90,7 @@ class SketchWithout extends Component {
                   <SaveIcon />
                 </IconButton>
 
-                <IconButton>
+                <IconButton onClick={onCrop(this)}>
                   <CropIcon />
                 </IconButton>
 

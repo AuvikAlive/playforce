@@ -3,19 +3,24 @@ import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Card from '@material-ui/core/Card'
 import Button from '@material-ui/core/Button'
+import 'cropperjs/dist/cropper.css'
 import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { StyledCrop } from './StyledCrop'
+import { onComponentDidMount, submit } from './functions/'
 
 export class Crop extends Component {
-  state = {}
+  componentDidMount() {
+    onComponentDidMount(this)
+  }
+
   render() {
-    const { closeDialog } = this.props
+    const { closeDialog, image } = this.props
 
     return (
       <div>
         <NavBar
-          title="Edit Images"
+          title="Crop Image"
           leftComponent={
             <IconButton
               color="inherit"
@@ -30,13 +35,16 @@ export class Crop extends Component {
         <StyledMainContent className="StyledMainContent">
           <StyledCrop className="StyledCrop">
             <Card className="card">
+              <div>{image && <img src={image} id="image" alt="to crop" />}</div>
+
               <Button
                 fullWidth
                 variant="raised"
                 color="primary"
                 className="submit-button"
+                onClick={submit(this)}
               >
-                save changes
+                save crop
               </Button>
             </Card>
           </StyledCrop>

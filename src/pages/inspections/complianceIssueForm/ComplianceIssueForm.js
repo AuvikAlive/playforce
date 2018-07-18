@@ -117,7 +117,7 @@ export class ComplianceIssueForm extends Component {
                         aspectRatio={188 / 253}
                         images={imagesCopy}
                         onSubmit={saveEditedImages(this)}
-                        closeDialog={closeDialog}
+                        closeSketchDialog={closeDialog}
                       />
                     )
                   }

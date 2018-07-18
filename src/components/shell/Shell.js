@@ -94,7 +94,7 @@ export class Shell extends Component {
           }}
           open={snackbarOpen}
           autoHideDuration={snackbarAutoHideDuration}
-          onClose={this.closeSnackbar}
+          onClose={closeSnackbar(this)}
           message={<span id="message-id">{snackbarMessage}</span>}
         />
       </div>

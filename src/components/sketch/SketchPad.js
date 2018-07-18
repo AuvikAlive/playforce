@@ -11,6 +11,15 @@ export class SketchPad extends Component {
     this.setHeight()
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { image } = nextProps
+
+    if (image !== this.props.image) {
+      this.setBackground(image)
+      this.setHeight()
+    }
+  }
+
   clear = () => {
     const { image } = this.props
 

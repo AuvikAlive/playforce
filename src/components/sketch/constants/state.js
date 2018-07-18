@@ -1,6 +1,6 @@
 import { tools } from './tools'
 
-export const state = {
+export let state = {
   images: [],
   imagesLength: undefined,
   currentSlide: 0,
