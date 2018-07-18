@@ -12,6 +12,7 @@ import {
   onComponentDidMount,
   onComponentWillReceiveProps,
   getResult,
+  submit,
 } from './functions/'
 import { StyledDropTestForm } from './StyledDropTestForm'
 
@@ -33,35 +34,6 @@ class DropTestFormWithout extends Component {
   }
 
   onEventInputChange = onEventInputChange
-
-  submit = async () => {
-    const { dropHeight, location, hic, hicDuration, gmax } = this.state
-    const { setFeedback, onSubmit, afterSubmit, image } = this.props
-
-    if (image && location && dropHeight && hic && hicDuration && gmax) {
-      setFeedback({ error: '', loading: true })
-
-      try {
-        const result = await onSubmit({
-          image,
-          location,
-          dropHeight,
-          hic,
-          hicDuration,
-          gmax,
-          result: getResult(hic, hicDuration, gmax),
-        })
-        setFeedback({ loading: false })
-        afterSubmit && afterSubmit(result)
-      } catch (error) {
-        setFeedback({ error: error.message, loading: false })
-      }
-    } else {
-      setFeedback({
-        error: 'Please fill up the form correctly!',
-      })
-    }
-  }
 
   render() {
     const { location, dropHeight, hic, hicDuration, gmax } = this.state
@@ -155,7 +127,7 @@ class DropTestFormWithout extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
