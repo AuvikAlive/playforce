@@ -23,6 +23,7 @@ import {
   onComponentDidMount,
   onComponentWillUnmount,
   onComponentWillReceiveProps,
+  submit,
 } from './functions/'
 
 export class MaintenanceIssueForm extends Component {
@@ -82,14 +83,14 @@ export class MaintenanceIssueForm extends Component {
                   aria-label="edit compliance issue"
                   className="edit-icon"
                   onClick={() =>
-                    openDialog(() => (
+                    openDialog(
                       <Sketch
                         aspectRatio={188 / 253}
                         images={imagesCopy}
                         onSubmit={saveEditedImages(this)}
                         closeDialog={closeDialog}
                       />
-                    ))
+                    )
                   }
                 >
                   <BrushIcon />
@@ -156,7 +157,7 @@ export class MaintenanceIssueForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={this.submit}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>

@@ -7,9 +7,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SaveIcon from '@material-ui/icons/Save'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
+import CropIcon from '@material-ui/icons/Crop'
 import { CompactPicker } from 'react-color'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
+import { withFullscreenDialog } from '../../hocs/withFullscreenDialog/withFullscreenDialog'
 import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
 import { Carousel } from '../carousel/Carousel'
@@ -29,7 +31,7 @@ import {
   submit,
 } from './functions/'
 
-export class Sketch extends Component {
+class SketchWithout extends Component {
   state = state
 
   componentDidMount() {
@@ -62,6 +64,7 @@ export class Sketch extends Component {
             </IconButton>
           }
         />
+
         <StyledMainContent className="StyledMainContent">
           <StyledSketch className="StyledSketch">
             <Card className="card">
@@ -84,6 +87,10 @@ export class Sketch extends Component {
 
                 <IconButton onClick={onSave(this)}>
                   <SaveIcon />
+                </IconButton>
+
+                <IconButton>
+                  <CropIcon />
                 </IconButton>
 
                 <IconButton onClick={undo(this, currentSlide)}>
@@ -135,3 +142,5 @@ export class Sketch extends Component {
     )
   }
 }
+
+export const Sketch = withFullscreenDialog(SketchWithout)

@@ -112,14 +112,14 @@ export class ComplianceIssueForm extends Component {
                   aria-label="edit compliance issue"
                   className="edit-icon"
                   onClick={() =>
-                    openDialog(() => (
+                    openDialog(
                       <Sketch
                         aspectRatio={188 / 253}
                         images={imagesCopy}
                         onSubmit={saveEditedImages(this)}
                         closeDialog={closeDialog}
                       />
-                    ))
+                    )
                   }
                 >
                   <BrushIcon />

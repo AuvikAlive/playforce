@@ -33,12 +33,9 @@ export const withFullscreenDialog = WrappedComponent => {
             open={dialogOpen}
             onClose={this.closeDialog}
           >
-            <div>
-              {DialogContent && (
-                <DialogContent closeDialog={this.closeDialog} />
-              )}
-            </div>
+            <div>{DialogContent && DialogContent}</div>
           </Dialog>
+
           <WrappedComponent
             closeDialog={this.closeDialog}
             openDialog={this.openDialog}
