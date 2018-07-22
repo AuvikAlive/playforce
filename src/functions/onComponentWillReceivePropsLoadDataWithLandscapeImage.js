@@ -1,3 +1,5 @@
+import { loadInitialData } from './loadInitialData'
+
 export const onComponentWillReceivePropsLoadDataWithLandscapeImage = (
   component,
   nextProps
@@ -10,7 +12,7 @@ export const onComponentWillReceivePropsLoadDataWithLandscapeImage = (
   } = nextProps
 
   if (initialData && initialData !== component.props.initialData) {
-    component.loadInitialData(initialData)
+    loadInitialData(component, initialData)
   }
 
   if (imageCaptured && image !== component.props.image) {
