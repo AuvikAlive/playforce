@@ -1,4 +1,7 @@
-export const onComponentWillReceiveProps = (component, nextProps) => {
+export const onComponentWillReceivePropsWithLandscapeImage = (
+  component,
+  nextProps
+) => {
   const {
     initialData,
     imageCaptured,
@@ -11,10 +14,12 @@ export const onComponentWillReceiveProps = (component, nextProps) => {
   }
 
   if (imageCaptured && image !== component.props.image) {
-    const { setFeedback } = component.props
+    const { setFeedback, setCapturedImage } = component.props
 
     imageNaturalAspectRatio <= 1
       ? setFeedback({ error: 'Please upload a landscape image!' })
       : setFeedback({ error: '' })
+
+    setCapturedImage(image)
   }
 }

@@ -17,6 +17,7 @@ import {
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import {
+  onComponentWillReceivePropsWithLandscapeImage,
   onEventInputChange,
   onValueInputChange,
   getEquipmentSuggestions,
@@ -24,11 +25,7 @@ import {
   showContentWhenLoaded,
   submitConditionRatingAndEquipment,
 } from '../../../functions/'
-import {
-  onComponentDidMount,
-  onComponentWillReceiveProps,
-  onEquipmentSelect,
-} from './functions'
+import { onComponentDidMount, onEquipmentSelect } from './functions'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 export class ConditionRatingForm extends Component {
@@ -42,7 +39,7 @@ export class ConditionRatingForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    onComponentWillReceiveProps(this, nextProps)
+    onComponentWillReceivePropsWithLandscapeImage(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
