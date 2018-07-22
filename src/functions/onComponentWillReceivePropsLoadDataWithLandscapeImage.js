@@ -1,4 +1,4 @@
-export const onComponentWillReceivePropsWithLandscapeImage = (
+export const onComponentWillReceivePropsLoadDataWithLandscapeImage = (
   component,
   nextProps
 ) => {

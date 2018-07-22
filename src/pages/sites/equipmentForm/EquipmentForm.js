@@ -13,7 +13,7 @@ import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { equipmentState, contextTypesUnsubscriber } from '../../../constants/'
 import {
-  onComponentWillReceivePropsWithLandscapeImage,
+  onComponentWillReceivePropsLoadDataWithLandscapeImage,
   onEventInputChange,
   onValueInputChange,
   getSuggestionsByName,
@@ -31,7 +31,7 @@ export class EquipmentForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    onComponentWillReceivePropsWithLandscapeImage(this, nextProps)
+    onComponentWillReceivePropsLoadDataWithLandscapeImage(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange

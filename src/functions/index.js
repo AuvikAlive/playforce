@@ -7,7 +7,7 @@ import { showActionGoBack } from './showActionGoBack'
 import { showActionGo } from './showActionGo'
 import { onComponentDidMountLoadData } from './onComponentDidMountLoadData'
 import { onComponentWillReceivePropsLoadData } from './onComponentWillReceivePropsLoadData'
-import { onComponentWillReceivePropsWithLandscapeImage } from './onComponentWillReceivePropsWithLandscapeImage'
+import { onComponentWillReceivePropsLoadDataWithLandscapeImage } from './onComponentWillReceivePropsLoadDataWithLandscapeImage'
 import { onComponentDidMountWithTitle } from './onComponentDidMountWithTitle'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitle } from './onComponentWillUnmountWithTitle'
@@ -44,7 +44,7 @@ export {
   showActionGo,
   onComponentDidMountLoadData,
   onComponentWillReceivePropsLoadData,
-  onComponentWillReceivePropsWithLandscapeImage,
+  onComponentWillReceivePropsLoadDataWithLandscapeImage,
   onComponentDidMountWithTitle,
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitle,

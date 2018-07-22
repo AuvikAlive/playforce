@@ -17,7 +17,7 @@ import {
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import {
-  onComponentWillReceivePropsWithLandscapeImage,
+  onComponentWillReceivePropsLoadDataWithLandscapeImage,
   onEventInputChange,
   onValueInputChange,
   getEquipmentSuggestions,
@@ -39,7 +39,7 @@ export class ConditionRatingForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    onComponentWillReceivePropsWithLandscapeImage(this, nextProps)
+    onComponentWillReceivePropsLoadDataWithLandscapeImage(this, nextProps)
   }
 
   onEventInputChange = onEventInputChange
