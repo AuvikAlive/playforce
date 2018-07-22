@@ -1,13 +1,14 @@
 import { equipmentTypes } from '../../../../constants/'
-import { submitItem } from './submitItem'
-import { submitAncillaryItem } from './submitAncillaryItem'
+import { submitEquipment } from './submitEquipment'
+import { submitAncillaryEquipment } from './submitAncillaryEquipment'
 
-export const submit = component => () => {
+export const submitConditionRatingAndEquipment = component => () => {
   const { itemType } = component.state
+  const isNotAncillary = itemType !== equipmentTypes[2]
 
-  if (itemType !== equipmentTypes[2]) {
-    submitItem(component)
+  if (isNotAncillary) {
+    submitEquipment(component)
   } else {
-    submitAncillaryItem(component)
+    submitAncillaryEquipment(component)
   }
 }

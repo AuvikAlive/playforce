@@ -1,4 +1,4 @@
-export const submitEquipment = async component => {
+export const submitAncillaryEquipment = async component => {
   const {
     onSubmit,
     afterSubmit,
@@ -11,23 +11,9 @@ export const submitEquipment = async component => {
     userId,
   } = component.props
 
-  const {
-    itemType,
-    equipment,
-    assetId,
-    manufacturer,
-    estimatedDateInstalled,
-    condition,
-  } = component.state
+  const { itemType, equipment, condition } = component.state
 
-  if (
-    image &&
-    equipment &&
-    assetId &&
-    manufacturer &&
-    estimatedDateInstalled &&
-    condition
-  ) {
+  if (image && equipment && condition) {
     setFeedback({ error: '', loading: true })
 
     addEquipment &&
@@ -37,20 +23,15 @@ export const submitEquipment = async component => {
         image,
         itemType,
         equipment,
-        assetId,
-        manufacturer,
-        estimatedDateInstalled,
       })
 
     const result = await onSubmit({
       image,
       itemType,
       equipment,
-      assetId,
-      manufacturer,
-      estimatedDateInstalled,
       condition,
     })
+
     setFeedback({ loading: false })
     afterSubmit && afterSubmit(result)
   } else {

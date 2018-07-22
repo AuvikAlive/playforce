@@ -23,9 +23,8 @@ import {
   getEquipmentSuggestions,
   getSuggestionsByName,
   showContentWhenLoaded,
-  submitConditionRatingAndEquipment,
 } from '../../../functions/'
-import { onComponentDidMount, onEquipmentSelect } from './functions'
+import { onComponentDidMount, onEquipmentSelect, submit } from './functions'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 
 export class ConditionRatingForm extends Component {
@@ -181,7 +180,7 @@ export class ConditionRatingForm extends Component {
                 variant="raised"
                 color="primary"
                 className="submit-button"
-                onClick={submitConditionRatingAndEquipment(this)}
+                onClick={submit(this)}
               >
                 {buttonText ? buttonText : 'Publish'}
               </Button>
