@@ -9,19 +9,27 @@ export const addEquipment = (userId, siteId, data) => async (
 ) => {
   const { equipment, image } = data
   const ref = getEquipmentRef({ getFirebase, userId, siteId, data })
+  const doc = await ref.get()
 
-  const downloadURL = await dispatch(
-    saveImage(`${userId}/images/sites/${siteId}/equipments/${equipment}`, image)
-  )
+  if (doc.exists) {
+    throw new Error('This equipment already exists!')
+  } else {
+    const downloadURL = await dispatch(
+      saveImage(
+        `${userId}/images/sites/${siteId}/equipments/${equipment}`,
+        image
+      )
+    )
 
-  data.image = downloadURL
+    data.image = downloadURL
 
-  await ref.set(data)
+    await ref.set(data)
 
-  dispatch({
-    type: ADD_EQUIPMENT,
-    payload: { ...data, id: ref.id, image },
-  })
+    dispatch({
+      type: ADD_EQUIPMENT,
+      payload: { ...data, id: ref.id, image },
+    })
 
-  return ref.id
+    return ref.id
+  }
 }

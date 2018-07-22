@@ -12,17 +12,24 @@ export const submitEquipment = async component => {
   if (image && equipment && assetId && manufacturer && estimatedDateInstalled) {
     setFeedback({ error: '', loading: true })
 
-    const result = await onSubmit({
-      image,
-      itemType,
-      equipment,
-      assetId,
-      manufacturer,
-      estimatedDateInstalled,
-    })
+    try {
+      const result = await onSubmit({
+        image,
+        itemType,
+        equipment,
+        assetId,
+        manufacturer,
+        estimatedDateInstalled,
+      })
 
-    setFeedback({ loading: false })
-    afterSubmit && afterSubmit(result)
+      setFeedback({ loading: false })
+      afterSubmit && afterSubmit(result)
+    } catch (error) {
+      setFeedback({
+        error: error.message,
+        loading: false,
+      })
+    }
   } else {
     setFeedback({
       error: 'Please fill up the form correctly!',
