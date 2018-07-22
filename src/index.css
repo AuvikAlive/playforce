@@ -10,3 +10,4 @@ body {
 }
 
 @import '~slick-carousel/slick/slick.css';
+@import '~cropperjs/dist/cropper.css';
