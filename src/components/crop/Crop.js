@@ -34,7 +34,9 @@ export class Crop extends Component {
         <StyledMainContent className="StyledMainContent">
           <StyledCrop className="StyledCrop">
             <Card className="card">
-              <div>{image && <img src={image} id="image" alt="to crop" />}</div>
+              <div className="container">
+                {image && <img src={image} id="image" alt="to crop" />}
+              </div>
 
               <Button
                 fullWidth
