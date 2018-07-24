@@ -10,8 +10,4 @@ export const StyledComplianceIssueForm = Styled(Content)`
   ${cardMediaPortrait};
   ${riskAssessment};
   ${floatingCardIcon};
-
-  .submit-button {
-    margin-top: 32px;
-  }
 `

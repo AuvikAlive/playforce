@@ -112,6 +112,7 @@ export class ComplianceIssueForm extends Component {
                   <BrushIcon />
                 </Button>
               )}
+
             <Button
               fullWidth
               variant="raised"

@@ -13,7 +13,7 @@ export const getFile = component => async event => {
 
     component.setState({ images, imageCaptured: true })
   } else if (fileList[0]) {
-    const image = await component.getImage(fileList[0])
+    const image = await getImage(component, fileList[0])
 
     component.setState({ ...image, imageCaptured: true })
   }

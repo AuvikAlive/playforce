@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
+import CropIcon from '@material-ui/icons/Crop'
 import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
 import AddBoxIcon from '@material-ui/icons/AddBox'
 import DateRangeIcon from '@material-ui/icons/DateRange'
@@ -29,6 +30,7 @@ import {
   onComponentWillReceiveProps,
   getLocationSuggestions,
   getClientSuggestions,
+  onCrop,
   submit,
 } from './functions/'
 import { StyledCoverForm } from './StyledCoverForm'
@@ -58,6 +60,7 @@ export class CoverForm extends Component {
       appliedStandards,
       inspectionType,
     } = this.state
+
     const {
       image,
       captureImage,
@@ -83,7 +86,19 @@ export class CoverForm extends Component {
         <Card className="card">
           {image && <img src={image} alt="cover" />}
 
-          <CardContent>
+          <CardContent className="card-content">
+            {image && (
+              <Button
+                variant="fab"
+                color="primary"
+                aria-label="edit compliance issue"
+                className="floating-icon"
+                onClick={onCrop(this)}
+              >
+                <CropIcon />
+              </Button>
+            )}
+
             <Button
               fullWidth
               variant="raised"

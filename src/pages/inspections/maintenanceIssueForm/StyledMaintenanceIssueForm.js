@@ -5,8 +5,4 @@ import { cardMediaPortrait, floatingCardIcon } from '../../../styledMixins/'
 export const StyledMaintenanceIssueForm = Styled(Content)`
   ${cardMediaPortrait};
   ${floatingCardIcon};
-
-  .submit-button {
-    margin-top: 32px;
-  }
 `

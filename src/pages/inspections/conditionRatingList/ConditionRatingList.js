@@ -64,10 +64,11 @@ export class ConditionRatingList extends Component {
                 return (
                   <Grid item key={index} xs={12}>
                     {image && <img src={image} alt="equipment type" />}
+
                     <CardContent className="card-content">
                       <StyledNavLink
                         to={`${match.url}/edit/${id}`}
-                        className="edit-icon"
+                        className="floating-icon"
                       >
                         <Button
                           variant="fab"
