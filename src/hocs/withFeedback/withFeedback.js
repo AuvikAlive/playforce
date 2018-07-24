@@ -1,32 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { getDisplayName } from '../../functions/getDisplayName'
 import { StyledFeedback } from './StyledFeedback'
-
-const snackbarAutoHideDuration = 2000
+import { state, contextTypes } from './constants/'
+import { setFeedback } from './setFeedback'
 
 export const withFeedback = WrappedComponent => {
   class WithFeedback extends Component {
-    state = {
-      error: '',
-      success: '',
-      loading: false,
-    }
-
-    setFeedback = ({ error, success, loading }) => {
-      this.setState({
-        error: error ? error : '',
-        success: success ? success : '',
-        loading: loading ? loading : false,
-      })
-
-      if (success) {
-        this.context.openSnackbar(snackbarAutoHideDuration, success)
-        return new Promise(resolve => {
-          setTimeout(() => resolve(), snackbarAutoHideDuration)
-        })
-      }
-    }
+    state = state
 
     render() {
       const { error, loading } = this.state
@@ -34,7 +14,7 @@ export const withFeedback = WrappedComponent => {
       return (
         <StyledFeedback className="StyledFeedback">
           <WrappedComponent
-            setFeedback={this.setFeedback}
+            setFeedback={setFeedback(this)}
             error={error}
             loading={loading}
             {...this.props}
@@ -44,11 +24,7 @@ export const withFeedback = WrappedComponent => {
     }
   }
 
-  WithFeedback.contextTypes = {
-    openSnackbar: PropTypes.func,
-    closeSnackbar: PropTypes.func,
-  }
-
+  WithFeedback.contextTypes = contextTypes
   WithFeedback.displayName = `WithFeedback(${getDisplayName(WrappedComponent)})`
 
   return WithFeedback
