@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import AddBoxIcon from '@material-ui/icons/AddBox'
+import CropIcon from '@material-ui/icons/Crop'
 import IconButton from '@material-ui/core/IconButton'
 import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
 import {
@@ -23,6 +24,7 @@ import {
   getEquipmentSuggestions,
   getSuggestionsByName,
   showContentWhenLoaded,
+  onSingleCrop,
 } from '../../../functions/'
 import { onComponentDidMount, onEquipmentSelect, submit } from './functions'
 import { StyledConditionRatingForm } from './StyledConditionRatingForm'
@@ -70,7 +72,19 @@ export class ConditionRatingForm extends Component {
         <Card className="card">
           {image && <img src={image} alt="equipment type" />}
 
-          <CardContent>
+          <CardContent className="card-content">
+            {image && (
+              <Button
+                variant="fab"
+                color="primary"
+                aria-label="crop image"
+                className="floating-icon"
+                onClick={onSingleCrop(this)}
+              >
+                <CropIcon />
+              </Button>
+            )}
+
             <Button
               fullWidth
               variant="raised"

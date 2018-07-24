@@ -33,6 +33,7 @@ import { groupCommonIssues } from './groupCommonIssues'
 import { submitConditionRatingAndEquipment } from './submitConditionRatingAndEquipment'
 import { getCurrentPosition } from './getCurrentPosition'
 import { getGeocode } from './getGeocode'
+import { onSingleCrop } from './onSingleCrop'
 
 export {
   openMenu,
@@ -70,4 +71,5 @@ export {
   submitConditionRatingAndEquipment,
   getCurrentPosition,
   getGeocode,
+  onSingleCrop,
 }

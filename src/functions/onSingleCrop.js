@@ -1,7 +1,7 @@
 import React from 'react'
-import { Crop } from '../../../../components/crop/Crop'
+import { Crop } from '../components/crop/Crop'
 
-export const onCrop = component => () => {
+export const onSingleCrop = component => () => {
   const {
     openDialog,
     closeDialog,

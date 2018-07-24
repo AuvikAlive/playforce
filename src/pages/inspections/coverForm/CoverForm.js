@@ -20,29 +20,24 @@ import {
   showContentWhenLoaded,
   onEventInputChange,
   onValueInputChange,
+  onSingleCrop,
 } from '../../../functions/'
 import {
   contextTypesUnsubscriber,
   defaultInspectionTypes,
 } from '../../../constants/'
+import { StyledCoverForm } from './StyledCoverForm'
+import { state } from './state'
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
   getLocationSuggestions,
   getClientSuggestions,
-  onCrop,
   submit,
 } from './functions/'
-import { StyledCoverForm } from './StyledCoverForm'
 
 export class CoverForm extends Component {
-  state = {
-    location: '',
-    client: '',
-    inspectionDate: new Date(),
-    appliedStandards: [],
-    inspectionType: '',
-  }
+  state = state
 
   componentDidMount() {
     onComponentDidMount(this)
@@ -91,9 +86,9 @@ export class CoverForm extends Component {
               <Button
                 variant="fab"
                 color="primary"
-                aria-label="edit compliance issue"
+                aria-label="crop image"
                 className="floating-icon"
-                onClick={onCrop(this)}
+                onClick={onSingleCrop(this)}
               >
                 <CropIcon />
               </Button>
