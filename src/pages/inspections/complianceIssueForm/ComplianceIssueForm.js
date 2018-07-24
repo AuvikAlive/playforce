@@ -25,6 +25,8 @@ import {
   getImagesCopy,
   showContentWhenLoaded,
 } from '../../../functions/'
+import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
+import { CommonIssueAutoComplete } from '../commonIssueAutoComplete/CommonIssueAutoComplete'
 import {
   onComponentDidMount,
   onComponentWillUnmount,
@@ -34,22 +36,10 @@ import {
   getEquipmentSuggestions,
   submit,
 } from './functions/'
-import { CommonIssueAutoComplete } from './CommonIssueAutoComplete'
-import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
+import { state } from './state'
 
 export class ComplianceIssueForm extends Component {
-  state = {
-    commonIssues: [],
-    commonIssueIndex: '',
-    finding: '',
-    equipment: '',
-    standardsClause: '',
-    probability: '',
-    severity: '',
-    comments: '',
-    recommendations: '',
-    imageEditMode: false,
-  }
+  state = state
 
   componentDidMount() {
     onComponentDidMount(this)
