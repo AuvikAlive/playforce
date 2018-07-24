@@ -19,8 +19,6 @@ import {
 import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 
 export class ComplianceIssuesList extends Component {
-  state = {}
-
   componentDidMount() {
     const title = 'Compliance Issues'
 
@@ -33,6 +31,7 @@ export class ComplianceIssuesList extends Component {
 
   render() {
     const { match, complianceIssues } = this.props
+
     const complianceIssuesAdded =
       !!complianceIssues && complianceIssues.length > 0
 
@@ -75,7 +74,7 @@ export class ComplianceIssuesList extends Component {
                     <CardContent className="card-content">
                       <StyledNavLink
                         to={`${match.url}/edit/${id}`}
-                        className="edit-icon"
+                        className="floating-icon"
                       >
                         <Button
                           variant="fab"
@@ -85,21 +84,27 @@ export class ComplianceIssuesList extends Component {
                           <ModeEditIcon />
                         </Button>
                       </StyledNavLink>
+
                       <Typography variant="title">
                         Issue #: {index + 1}
                       </Typography>
+
                       <Typography variant="subheading">
                         Finding: {finding}
                       </Typography>
+
                       <Typography variant="subheading">
                         Equipment: {equipment}
                       </Typography>
+
                       <Typography variant="subheading">
                         Standards Clause: {standardsClause}
                       </Typography>
+
                       <Typography variant="headline">
                         Risk Assessment
                       </Typography>
+
                       <Grid container>
                         <Grid item xs={4}>
                           <Typography variant="subheading">
@@ -107,21 +112,25 @@ export class ComplianceIssuesList extends Component {
                             {probabilities[probability - 1].probability}
                           </Typography>
                         </Grid>
+
                         <Grid item xs={4}>
                           <Typography variant="subheading">
                             Injury Severity:{' '}
                             {severities[severity - 1].serverity}
                           </Typography>
                         </Grid>
+
                         <Grid item xs={4}>
                           <Typography variant="subheading">
                             Risk Level: {getRiskLevel(probability, severity)}
                           </Typography>
                         </Grid>
                       </Grid>
+
                       <Typography variant="subheading">
                         Comments: {comments}
                       </Typography>
+
                       <Typography variant="subheading">
                         Recommendations: {recommendations}
                       </Typography>

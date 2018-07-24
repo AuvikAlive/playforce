@@ -14,8 +14,6 @@ import {
 import { StyledMaintenanceIssuesList } from './StyledMaintenanceIssuesList'
 
 export class MaintenanceIssuesList extends Component {
-  state = {}
-
   componentDidMount() {
     const title = 'Maintenance Issues'
 
@@ -28,6 +26,7 @@ export class MaintenanceIssuesList extends Component {
 
   render() {
     const { match, maintenanceIssues } = this.props
+
     const maintenanceIssuesAdded =
       !!maintenanceIssues && maintenanceIssues.length > 0
 
@@ -57,7 +56,7 @@ export class MaintenanceIssuesList extends Component {
                     <CardContent className="card-content">
                       <StyledNavLink
                         to={`${match.url}/edit/${id}`}
-                        className="edit-icon"
+                        className="floating-icon"
                       >
                         <Button
                           variant="fab"

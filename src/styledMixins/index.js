@@ -1,4 +1,5 @@
 import { addIcon } from './addIcon'
+import { floatingCardIcon } from './floatingCardIcon'
 import { cardMedia } from './cardMedia'
 import { cardMediaPortrait } from './cardMediaPortrait'
 import { centerContentVertically } from './centerContentVertically'
@@ -13,6 +14,7 @@ import { listItemSelected } from './listItemSelected'
 
 export {
   addIcon,
+  floatingCardIcon,
   cardMedia,
   cardMediaPortrait,
   centerContentVertically,

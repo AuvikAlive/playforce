@@ -97,7 +97,7 @@ export class ComplianceIssueForm extends Component {
                   variant="fab"
                   color="primary"
                   aria-label="edit compliance issue"
-                  className="edit-icon"
+                  className="floating-icon"
                   onClick={() =>
                     openDialog(
                       <Sketch
