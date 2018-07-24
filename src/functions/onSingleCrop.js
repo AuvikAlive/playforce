@@ -1,14 +1,8 @@
 import React from 'react'
 import { Crop } from '../components/crop/Crop'
 
-export const onSingleCrop = component => () => {
-  const {
-    openDialog,
-    closeDialog,
-    aspectRatio,
-    image,
-    setCapturedImage,
-  } = component.props
+export const onSingleCrop = (component, aspectRatio) => () => {
+  const { openDialog, closeDialog, image, setCapturedImage } = component.props
 
   return openDialog(
     <Crop
