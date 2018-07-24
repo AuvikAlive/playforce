@@ -28,7 +28,7 @@ export class ResetPassword extends Component {
     onComponentWillUnmount(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { success } = this.state
@@ -48,7 +48,7 @@ export class ResetPassword extends Component {
               type="email"
               margin="normal"
               fullWidth
-              onChange={this.onEventInputChange('email')}
+              onChange={onEventInputChange(this,'email')}
             />
 
             {error && <p className="error">{error}</p>}

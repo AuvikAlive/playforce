@@ -1,6 +1,4 @@
-export function onValueInputChange(name) {
-  return value =>
-    this.setState({
-      [name]: value,
-    })
-}
+export const onValueInputChange = (component, name) => value =>
+  component.setState({
+    [name]: value,
+  })

@@ -1,6 +1,4 @@
-export function onEventInputChange(name) {
-  return event =>
-    this.setState({
-      [name]: event.target.value,
-    })
-}
+export const onEventInputChange = (component, name) => event =>
+  component.setState({
+    [name]: event.target.value,
+  })

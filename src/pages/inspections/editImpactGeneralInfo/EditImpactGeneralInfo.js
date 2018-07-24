@@ -3,7 +3,6 @@ import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-  onEventInputChange,
 } from '../../../functions/'
 import { ImpactGeneralInfoForm } from '../impactGeneralInfoForm/ImpactGeneralInfoForm'
 import { submit } from './submit'
@@ -18,8 +17,6 @@ export class EditImpactGeneralInfo extends Component {
   componentWillUnmount() {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
-
-  onEventInputChange = onEventInputChange
 
   render() {
     const { impactGeneralInfo } = this.props

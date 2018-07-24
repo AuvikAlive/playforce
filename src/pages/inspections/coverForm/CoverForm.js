@@ -50,9 +50,6 @@ export class CoverForm extends Component {
     onComponentWillReceiveProps(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
-  onValueInputChange = onValueInputChange
-
   render() {
     const {
       location,
@@ -104,7 +101,7 @@ export class CoverForm extends Component {
                 <AutoComplete
                   label="Location"
                   value={location}
-                  onChange={this.onValueInputChange('location')}
+                  onChange={onValueInputChange(this, 'location')}
                   getSuggestions={getLocationSuggestions(this)}
                 />
                 <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
@@ -116,7 +113,7 @@ export class CoverForm extends Component {
                 <AutoComplete
                   label="Client"
                   value={client}
-                  onChange={this.onValueInputChange('client')}
+                  onChange={onValueInputChange(this, 'client')}
                   getSuggestions={getClientSuggestions(this)}
                 />
                 <IconButton onClick={() => openDialog(ClientsDialogContainer)}>
@@ -135,7 +132,7 @@ export class CoverForm extends Component {
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}
                 rightArrowIcon={<ArrowForwardIcon />}
-                onChange={this.onValueInputChange('inspectionDate')}
+                onChange={onValueInputChange(this, 'inspectionDate')}
                 animateYearScrolling={false}
               />
 
@@ -154,7 +151,7 @@ export class CoverForm extends Component {
                 }}
                 label="Applied Standard"
                 value={appliedStandards}
-                onChange={this.onEventInputChange('appliedStandards')}
+                onChange={onEventInputChange(this, 'appliedStandards')}
                 margin="normal"
               >
                 {standards.length > 0 ? (
@@ -175,7 +172,7 @@ export class CoverForm extends Component {
                 select
                 label="Inspection Type"
                 value={inspectionType}
-                onChange={this.onEventInputChange('inspectionType')}
+                onChange={onEventInputChange(this, 'inspectionType')}
                 margin="normal"
               >
                 {inspectionTypes.length > 0

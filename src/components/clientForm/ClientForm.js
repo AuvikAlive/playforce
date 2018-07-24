@@ -11,7 +11,7 @@ export class ClientForm extends Component {
     client: '',
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { client } = this.state
@@ -23,7 +23,7 @@ export class ClientForm extends Component {
           fullWidth
           label="Client"
           value={client}
-          onChange={this.onEventInputChange('client')}
+          onChange={onEventInputChange(this,'client')}
           margin="normal"
         />
 

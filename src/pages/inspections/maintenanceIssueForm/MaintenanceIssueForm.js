@@ -46,9 +46,6 @@ export class MaintenanceIssueForm extends Component {
     onComponentWillReceiveProps(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
-  onValueInputChange = onValueInputChange
-
   render() {
     const {
       captureImage,
@@ -119,7 +116,7 @@ export class MaintenanceIssueForm extends Component {
               <AutoComplete
                 label="Equipment"
                 value={equipment}
-                onChange={this.onValueInputChange('equipment')}
+                onChange={onValueInputChange(this, 'equipment')}
                 getSuggestions={getEquipmentSuggestions(this)}
               />
 
@@ -129,7 +126,7 @@ export class MaintenanceIssueForm extends Component {
                 label="Finding"
                 value={finding}
                 margin="normal"
-                onChange={this.onEventInputChange('finding')}
+                onChange={onEventInputChange(this, 'finding')}
               />
 
               <TextField
@@ -138,7 +135,7 @@ export class MaintenanceIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={this.onEventInputChange('recommendations')}
+                onChange={onEventInputChange(this, 'recommendations')}
               />
             </form>
 

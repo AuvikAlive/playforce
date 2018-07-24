@@ -25,7 +25,7 @@ export class Profile extends Component {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { displayName, title, company, mobile } = this.state
@@ -53,7 +53,7 @@ export class Profile extends Component {
               fullWidth
               label="Name"
               value={displayName}
-              onChange={this.onEventInputChange('displayName')}
+              onChange={onEventInputChange(this,'displayName')}
               margin="normal"
             />
 
@@ -61,7 +61,7 @@ export class Profile extends Component {
               fullWidth
               label="Title"
               value={title}
-              onChange={this.onEventInputChange('title')}
+              onChange={onEventInputChange(this,'title')}
               margin="normal"
             />
 
@@ -69,7 +69,7 @@ export class Profile extends Component {
               fullWidth
               label="Company"
               value={company}
-              onChange={this.onEventInputChange('company')}
+              onChange={onEventInputChange(this,'company')}
               margin="normal"
             />
 
@@ -77,7 +77,7 @@ export class Profile extends Component {
               fullWidth
               label="Mobile"
               value={mobile}
-              onChange={this.onEventInputChange('mobile')}
+              onChange={onEventInputChange(this,'mobile')}
               margin="normal"
             />
 

@@ -3,7 +3,6 @@ import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-  onEventInputChange,
 } from '../../../functions/'
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
 import { submit } from './submit'
@@ -20,8 +19,6 @@ export class EditImpactSurface extends Component {
   componentWillUnmount() {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
-
-  onEventInputChange = onEventInputChange
 
   render() {
     const {

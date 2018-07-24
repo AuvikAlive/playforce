@@ -11,7 +11,7 @@ export class OperatorForm extends Component {
     operator: '',
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { operator } = this.state
@@ -23,7 +23,7 @@ export class OperatorForm extends Component {
           fullWidth
           label="operator"
           value={operator}
-          onChange={this.onEventInputChange('operator')}
+          onChange={onEventInputChange(this,'operator')}
           margin="normal"
         />
 

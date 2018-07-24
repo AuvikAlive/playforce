@@ -53,9 +53,6 @@ export class ComplianceIssueForm extends Component {
     onComponentWillReceiveProps(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
-  onValueInputChange = onValueInputChange
-
   render() {
     const {
       commonIssuesLoaded,
@@ -136,7 +133,7 @@ export class ComplianceIssueForm extends Component {
               <AutoComplete
                 label="Equipment"
                 value={equipment}
-                onChange={this.onValueInputChange('equipment')}
+                onChange={onValueInputChange(this, 'equipment')}
                 onSuggestionSelect={onEquipmentSelect(this)}
                 getSuggestions={getEquipmentSuggestions(this)}
               />
@@ -152,14 +149,14 @@ export class ComplianceIssueForm extends Component {
                 label="Finding"
                 value={finding}
                 margin="normal"
-                onChange={this.onEventInputChange('finding')}
+                onChange={onEventInputChange(this, 'finding')}
               />
 
               <TextField
                 fullWidth
                 label="Standards Clause"
                 value={standardsClause}
-                onChange={this.onEventInputChange('standardsClause')}
+                onChange={onEventInputChange(this, 'standardsClause')}
                 margin="normal"
               />
 
@@ -176,7 +173,7 @@ export class ComplianceIssueForm extends Component {
                     select
                     label="Probability"
                     value={probability}
-                    onChange={this.onEventInputChange('probability')}
+                    onChange={onEventInputChange(this, 'probability')}
                     margin="normal"
                   >
                     {probabilities.map(({ probability, value }, index) => (
@@ -193,7 +190,7 @@ export class ComplianceIssueForm extends Component {
                     select
                     label="Injury Severity"
                     value={severity}
-                    onChange={this.onEventInputChange('severity')}
+                    onChange={onEventInputChange(this, 'severity')}
                     margin="normal"
                   >
                     {severities.map(({ serverity, value }, index) => (
@@ -221,7 +218,7 @@ export class ComplianceIssueForm extends Component {
                 label="Comments"
                 value={comments}
                 margin="normal"
-                onChange={this.onEventInputChange('comments')}
+                onChange={onEventInputChange(this, 'comments')}
               />
 
               <TextField
@@ -230,7 +227,7 @@ export class ComplianceIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={this.onEventInputChange('recommendations')}
+                onChange={onEventInputChange(this, 'recommendations')}
               />
             </form>
 

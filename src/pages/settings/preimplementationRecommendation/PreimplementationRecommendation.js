@@ -23,7 +23,7 @@ export class PreimplementationRecommendation extends Component {
     onComponentDidMountWithTitleLeftNav(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { preimplementationRecommendation } = this.state
@@ -40,7 +40,7 @@ export class PreimplementationRecommendation extends Component {
                 label="Recommendation"
                 value={preimplementationRecommendation}
                 margin="normal"
-                onChange={this.onEventInputChange(
+                onChange={onEventInputChange(this,
                   'preimplementationRecommendation'
                 )}
               />

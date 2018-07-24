@@ -33,7 +33,7 @@ class DropTestFormWithout extends Component {
     onComponentWillReceiveProps(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { location, dropHeight, hic, hicDuration, gmax } = this.state
@@ -63,7 +63,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Location"
                 value={location}
-                onChange={this.onEventInputChange('location')}
+                onChange={onEventInputChange(this,'location')}
               />
 
               <TextField
@@ -72,7 +72,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Drop Height (cm)"
                 value={dropHeight}
-                onChange={this.onEventInputChange('dropHeight')}
+                onChange={onEventInputChange(this,'dropHeight')}
               />
 
               <TextField
@@ -81,7 +81,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="HIC"
                 value={hic}
-                onChange={this.onEventInputChange('hic')}
+                onChange={onEventInputChange(this,'hic')}
               />
 
               <TextField
@@ -90,7 +90,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="HIC Duration (ms)"
                 value={hicDuration}
-                onChange={this.onEventInputChange('hicDuration')}
+                onChange={onEventInputChange(this,'hicDuration')}
               />
 
               <TextField
@@ -99,7 +99,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Gmax (g)"
                 value={gmax}
-                onChange={this.onEventInputChange('gmax')}
+                onChange={onEventInputChange(this,'gmax')}
               />
 
               <TextField
@@ -108,7 +108,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Result"
                 value={result}
-                onChange={this.onEventInputChange('result')}
+                onChange={onEventInputChange(this,'result')}
               />
             </form>
 

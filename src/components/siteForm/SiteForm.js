@@ -34,9 +34,6 @@ export class SiteForm extends Component {
     onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
-  onValueInputChange = onValueInputChange
-
   render() {
     const {
       name,
@@ -66,42 +63,42 @@ export class SiteForm extends Component {
               <AutoComplete
                 label="Name"
                 value={name}
-                onChange={this.onValueInputChange('name')}
+                onChange={onValueInputChange(this, 'name')}
                 getSuggestions={getPlaceSuggestions(this, 'establishment')}
               />
 
               <AutoComplete
                 label="Street"
                 value={street}
-                onChange={this.onValueInputChange('street')}
+                onChange={onValueInputChange(this, 'street')}
                 getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="Suburb"
                 value={suburb}
-                onChange={this.onValueInputChange('suburb')}
+                onChange={onValueInputChange(this, 'suburb')}
                 getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="State"
                 value={state}
-                onChange={this.onValueInputChange('state')}
+                onChange={onValueInputChange(this, 'state')}
                 getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="Postcode"
                 value={postcode}
-                onChange={this.onValueInputChange('postcode')}
+                onChange={onValueInputChange(this, 'postcode')}
                 getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
               <AutoComplete
                 label="Country"
                 value={country}
-                onChange={this.onValueInputChange('country')}
+                onChange={onValueInputChange(this, 'country')}
                 getSuggestions={getPlaceSuggestions(this, '(regions)')}
               />
 
@@ -110,7 +107,7 @@ export class SiteForm extends Component {
                 type="number"
                 label="Division"
                 value={division}
-                onChange={this.onEventInputChange('division')}
+                onChange={onEventInputChange(this, 'division')}
                 margin="normal"
               />
 
@@ -118,7 +115,7 @@ export class SiteForm extends Component {
                 <AutoComplete
                   label="Operator"
                   value={operator}
-                  onChange={this.onValueInputChange('operator')}
+                  onChange={onValueInputChange(this, 'operator')}
                   getSuggestions={getOperatorSuggestions(this)}
                 />
                 <IconButton

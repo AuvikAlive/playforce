@@ -41,9 +41,6 @@ export class ConditionRatingForm extends Component {
     onComponentWillReceivePropsLoadDataWithLandscapeImage(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
-  onValueInputChange = onValueInputChange
-
   render() {
     const {
       image,
@@ -91,7 +88,7 @@ export class ConditionRatingForm extends Component {
               <AutoComplete
                 label="Equipment"
                 value={equipment}
-                onChange={this.onValueInputChange('equipment')}
+                onChange={onValueInputChange(this, 'equipment')}
                 onSuggestionSelect={onEquipmentSelect(this)}
                 getSuggestions={getEquipmentSuggestions(this)}
               />
@@ -101,7 +98,7 @@ export class ConditionRatingForm extends Component {
                 select
                 label="Item Type"
                 value={itemType}
-                onChange={this.onEventInputChange('itemType')}
+                onChange={onEventInputChange(this, 'itemType')}
                 margin="normal"
               >
                 {equipmentTypes.map((type, index) => {
@@ -119,7 +116,7 @@ export class ConditionRatingForm extends Component {
                   label="Asset Id"
                   value={assetId}
                   margin="normal"
-                  onChange={this.onEventInputChange('assetId')}
+                  onChange={onEventInputChange(this, 'assetId')}
                 />
               )}
 
@@ -128,7 +125,7 @@ export class ConditionRatingForm extends Component {
                   <AutoComplete
                     label="Manufacturer"
                     value={manufacturer}
-                    onChange={this.onValueInputChange('manufacturer')}
+                    onChange={onValueInputChange(this, 'manufacturer')}
                     getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
@@ -144,7 +141,7 @@ export class ConditionRatingForm extends Component {
                   fullWidth
                   label="Estimated Date Installed"
                   value={estimatedDateInstalled}
-                  onChange={this.onEventInputChange('estimatedDateInstalled')}
+                  onChange={onEventInputChange(this, 'estimatedDateInstalled')}
                   margin="normal"
                 />
               )}
@@ -154,7 +151,7 @@ export class ConditionRatingForm extends Component {
                 select
                 label="Condition"
                 value={condition}
-                onChange={this.onEventInputChange('condition')}
+                onChange={onEventInputChange(this, 'condition')}
                 margin="normal"
               >
                 {conditions.map(item => (

@@ -28,7 +28,7 @@ export class Company extends Component {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { postalAddress, abn, phoneNumber, website } = this.state
@@ -43,7 +43,7 @@ export class Company extends Component {
                 fullWidth
                 label="Postal Address"
                 value={postalAddress}
-                onChange={this.onEventInputChange('postalAddress')}
+                onChange={onEventInputChange(this,'postalAddress')}
                 margin="normal"
               />
 
@@ -51,7 +51,7 @@ export class Company extends Component {
                 fullWidth
                 label="ABN"
                 value={abn}
-                onChange={this.onEventInputChange('abn')}
+                onChange={onEventInputChange(this,'abn')}
                 margin="normal"
               />
 
@@ -60,7 +60,7 @@ export class Company extends Component {
                 type="tel"
                 label="Phone Number"
                 value={phoneNumber}
-                onChange={this.onEventInputChange('phoneNumber')}
+                onChange={onEventInputChange(this,'phoneNumber')}
                 margin="normal"
               />
 
@@ -68,7 +68,7 @@ export class Company extends Component {
                 fullWidth
                 label="Website"
                 value={website}
-                onChange={this.onEventInputChange('website')}
+                onChange={onEventInputChange(this,'website')}
                 margin="normal"
               />
             </form>

@@ -32,9 +32,6 @@ export class StandardForm extends Component {
     onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
-  onValueInputChange = onValueInputChange
-
   render() {
     const { code, title, publishDate } = this.state
     const { error, loading, buttonText } = this.props
@@ -48,7 +45,7 @@ export class StandardForm extends Component {
                 fullWidth
                 label="Code"
                 value={code}
-                onChange={this.onEventInputChange('code')}
+                onChange={onEventInputChange(this, 'code')}
                 margin="normal"
               />
 
@@ -56,7 +53,7 @@ export class StandardForm extends Component {
                 fullWidth
                 label="Title"
                 value={title}
-                onChange={this.onEventInputChange('title')}
+                onChange={onEventInputChange(this, 'title')}
                 margin="normal"
               />
 
@@ -71,7 +68,7 @@ export class StandardForm extends Component {
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}
                 rightArrowIcon={<ArrowForwardIcon />}
-                onChange={this.onValueInputChange('publishDate')}
+                onChange={onValueInputChange(this, 'publishDate')}
                 animateYearScrolling={false}
               />
             </form>

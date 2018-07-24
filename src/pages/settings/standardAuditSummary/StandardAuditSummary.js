@@ -24,7 +24,7 @@ export class StandardAuditSummary extends Component {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { standardAuditSummary } = this.state
@@ -41,7 +41,7 @@ export class StandardAuditSummary extends Component {
                 label="Summary"
                 value={standardAuditSummary}
                 margin="normal"
-                onChange={this.onEventInputChange('standardAuditSummary')}
+                onChange={onEventInputChange(this,'standardAuditSummary')}
               />
             </form>
 

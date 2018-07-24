@@ -18,8 +18,6 @@ export class CommonIssueAutoComplete extends Component {
     loadCommonIssues(this)
   }
 
-  onValueInputChange = onValueInputChange
-
   render() {
     const { commonIssue } = this.state
     const { onCommonIssueSelect } = this.props
@@ -29,7 +27,7 @@ export class CommonIssueAutoComplete extends Component {
         label="Select a common issue"
         multiSection={true}
         value={commonIssue}
-        onChange={this.onValueInputChange('commonIssue')}
+        onChange={onValueInputChange(this, 'commonIssue')}
         onSuggestionSelect={onCommonIssueSelect}
         getSuggestionValue={getSuggestionValue}
         getSuggestions={getCommonIssueSuggestions(this)}

@@ -11,7 +11,7 @@ export class ManufacturerForm extends Component {
     manufacturer: '',
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { manufacturer } = this.state
@@ -23,7 +23,7 @@ export class ManufacturerForm extends Component {
           fullWidth
           label="Manufacturer"
           value={manufacturer}
-          onChange={this.onEventInputChange('manufacturer')}
+          onChange={onEventInputChange(this,'manufacturer')}
           margin="normal"
         />
 

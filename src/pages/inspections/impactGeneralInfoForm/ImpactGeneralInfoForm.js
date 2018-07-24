@@ -24,7 +24,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
     onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { temperature, humidity, rain, apparatus } = this.state
@@ -40,7 +40,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Temperature (°C)"
                 value={temperature}
-                onChange={this.onEventInputChange('temperature')}
+                onChange={onEventInputChange(this,'temperature')}
               />
 
               <TextField
@@ -48,7 +48,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Humidity (%)"
                 value={humidity}
-                onChange={this.onEventInputChange('humidity')}
+                onChange={onEventInputChange(this,'humidity')}
               />
 
               <TextField
@@ -56,7 +56,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Comment on rain"
                 value={rain}
-                onChange={this.onEventInputChange('rain')}
+                onChange={onEventInputChange(this,'rain')}
               />
 
               <TextField
@@ -64,7 +64,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Test apparatus"
                 value={apparatus}
-                onChange={this.onEventInputChange('apparatus')}
+                onChange={onEventInputChange(this,'apparatus')}
               />
             </form>
 

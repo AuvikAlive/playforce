@@ -27,7 +27,7 @@ export class SignUp extends Component {
     onComponentWillUnmountWithTitle(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { error, loading } = this.props
@@ -43,7 +43,7 @@ export class SignUp extends Component {
             label="Full Name"
             margin="normal"
             fullWidth
-            onChange={this.onEventInputChange('username')}
+            onChange={onEventInputChange(this,'username')}
           />
 
           <TextField
@@ -52,7 +52,7 @@ export class SignUp extends Component {
             type="email"
             margin="normal"
             fullWidth
-            onChange={this.onEventInputChange('email')}
+            onChange={onEventInputChange(this,'email')}
           />
 
           <TextField
@@ -61,7 +61,7 @@ export class SignUp extends Component {
             type="password"
             margin="normal"
             fullWidth
-            onChange={this.onEventInputChange('password')}
+            onChange={onEventInputChange(this,'password')}
           />
 
           {error && <p className="error">{error}</p>}

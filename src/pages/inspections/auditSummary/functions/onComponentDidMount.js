@@ -1,9 +1,10 @@
 import isEmpty from 'lodash/isEmpty'
 import { onComponentDidMountWithTitleLeftNav } from '../../../../functions/'
+import { loadInitialData } from './loadInitialData'
 
 export const onComponentDidMount = async component => {
-  const { addUnsubscriber } = this.context
-  const title = 'Audit Summary'
+  const { addUnsubscriber } = component.context
+
   const {
     inspectionLoaded,
     fetchInspectionRealTime,
@@ -11,11 +12,14 @@ export const onComponentDidMount = async component => {
     cover,
     userId,
     inspectionId,
-  } = this.props
+  } = component.props
+
+  const title = 'Audit Summary'
 
   onComponentDidMountWithTitleLeftNav(component, title)
 
   !inspectionLoaded &&
     addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
-  !isEmpty(cover) && this.loadInitialData(auditSummary, cover)
+
+  !isEmpty(cover) && loadInitialData(component, auditSummary, cover)
 }

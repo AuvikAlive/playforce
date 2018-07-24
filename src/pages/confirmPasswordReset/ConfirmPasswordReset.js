@@ -29,7 +29,7 @@ export class ConfirmPasswordReset extends Component {
     onComponentWillUnmount(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { success } = this.state
@@ -45,7 +45,7 @@ export class ConfirmPasswordReset extends Component {
               type="password"
               margin="normal"
               fullWidth
-              onChange={this.onEventInputChange('password')}
+              onChange={onEventInputChange(this,'password')}
             />
 
             {error && <p className="error">{error}</p>}

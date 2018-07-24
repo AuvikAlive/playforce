@@ -33,9 +33,6 @@ export class EquipmentForm extends Component {
     onComponentWillReceivePropsLoadDataWithLandscapeImage(this, nextProps)
   }
 
-  onEventInputChange = onEventInputChange
-  onValueInputChange = onValueInputChange
-
   render() {
     const {
       image,
@@ -83,7 +80,7 @@ export class EquipmentForm extends Component {
                 select
                 label="Item Type"
                 value={itemType}
-                onChange={this.onEventInputChange('itemType')}
+                onChange={onEventInputChange(this, 'itemType')}
                 margin="normal"
               >
                 {equipmentTypes.map((type, index) => {
@@ -100,7 +97,7 @@ export class EquipmentForm extends Component {
                 label="Equipment"
                 value={equipment}
                 margin="normal"
-                onChange={this.onEventInputChange('equipment')}
+                onChange={onEventInputChange(this, 'equipment')}
               />
 
               {isNotAncillary && (
@@ -109,7 +106,7 @@ export class EquipmentForm extends Component {
                   label="Asset Id"
                   value={assetId}
                   margin="normal"
-                  onChange={this.onEventInputChange('assetId')}
+                  onChange={onEventInputChange(this, 'assetId')}
                 />
               )}
 
@@ -118,7 +115,7 @@ export class EquipmentForm extends Component {
                   <AutoComplete
                     label="Manufacturer"
                     value={manufacturer}
-                    onChange={this.onValueInputChange('manufacturer')}
+                    onChange={onValueInputChange(this, 'manufacturer')}
                     getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
@@ -134,7 +131,7 @@ export class EquipmentForm extends Component {
                   fullWidth
                   label="Estimated Date Installed"
                   value={estimatedDateInstalled}
-                  onChange={this.onEventInputChange('estimatedDateInstalled')}
+                  onChange={onEventInputChange(this, 'estimatedDateInstalled')}
                   margin="normal"
                 />
               )}

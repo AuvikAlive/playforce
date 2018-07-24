@@ -11,7 +11,7 @@ export class InspectionTypeForm extends Component {
     inspectionType: '',
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { inspectionType } = this.state
@@ -23,7 +23,7 @@ export class InspectionTypeForm extends Component {
           fullWidth
           label="Inspection Type"
           value={inspectionType}
-          onChange={this.onEventInputChange('inspectionType')}
+          onChange={onEventInputChange(this,'inspectionType')}
           margin="normal"
         />
 

@@ -24,7 +24,7 @@ export class AddProject extends Component {
     onComponentWillUnmount(this)
   }
 
-  onEventInputChange = onEventInputChange
+   
 
   render() {
     const { name } = this.state
@@ -40,7 +40,7 @@ export class AddProject extends Component {
                 label="Project Name"
                 value={name}
                 margin="normal"
-                onChange={this.onEventInputChange('name')}
+                onChange={onEventInputChange(this,'name')}
               />
             </form>
 
