@@ -1,5 +1,5 @@
 export const setCapturedImage = component => image => {
   Array.isArray(image)
-    ? this.setState({ images: image })
-    : this.setState({ image })
+    ? component.setState({ images: image })
+    : component.setState({ image })
 }
