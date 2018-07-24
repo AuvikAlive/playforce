@@ -179,6 +179,7 @@ export class ComplianceIssueForm extends Component {
                     Risk Assessment
                   </InputLabel>
                 </Grid>
+
                 <Grid item xs={4}>
                   <TextField
                     fullWidth
@@ -195,6 +196,7 @@ export class ComplianceIssueForm extends Component {
                     ))}
                   </TextField>
                 </Grid>
+
                 <Grid item xs={4}>
                   <TextField
                     fullWidth
@@ -211,9 +213,11 @@ export class ComplianceIssueForm extends Component {
                     ))}
                   </TextField>
                 </Grid>
+
                 <Grid item xs={4}>
                   <TextField
                     disabled
+                    fullWidth
                     label="Risk Level"
                     value={riskLevel}
                     margin="normal"
