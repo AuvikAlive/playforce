@@ -3,8 +3,9 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
-import AddBoxIcon from '@material-ui/icons/AddBox'
 import IconButton from '@material-ui/core/IconButton'
+import AddBoxIcon from '@material-ui/icons/AddBox'
+import CropIcon from '@material-ui/icons/Crop'
 import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -18,6 +19,7 @@ import {
   onValueInputChange,
   getSuggestionsByName,
   showContentWhenLoaded,
+  onSingleCrop
 } from '../../../functions/'
 import { StyledEquipmentForm } from './StyledEquipmentForm'
 import { onComponentDidMount, submit } from './functions/'
@@ -60,7 +62,20 @@ export class EquipmentForm extends Component {
       <StyledEquipmentForm className="StyledEquipmentForm">
         <Card className="card">
           {image && <img src={image} alt="equipment type" />}
-          <CardContent>
+
+          <CardContent className="card-content">
+          {image && (
+              <Button
+                variant="fab"
+                color="primary"
+                aria-label="crop image"
+                className="floating-icon"
+                onClick={onSingleCrop(this)}
+              >
+                <CropIcon />
+              </Button>
+            )}
+
             <Button
               fullWidth
               variant="raised"
