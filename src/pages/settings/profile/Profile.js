@@ -3,12 +3,14 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import CropIcon from '@material-ui/icons/Crop'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Signature } from '../../../components/signature/Signature'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
+  onSingleCrop,
 } from '../../../functions/'
 import { StyledProfile } from './StyledProfile'
 import { state } from './state'
@@ -25,8 +27,6 @@ export class Profile extends Component {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
 
-   
-
   render() {
     const { displayName, title, company, mobile } = this.state
     const { image, captureImage, error, loading } = this.props
@@ -36,7 +36,19 @@ export class Profile extends Component {
         <Card className="card">
           {image && <img src={image} alt="user" />}
 
-          <CardContent>
+          <CardContent className="card-content">
+            {image && (
+              <Button
+                variant="fab"
+                color="primary"
+                aria-label="crop image"
+                className="floating-icon"
+                onClick={onSingleCrop(this, 1)}
+              >
+                <CropIcon />
+              </Button>
+            )}
+
             {!loading && (
               <Button
                 fullWidth
@@ -53,7 +65,7 @@ export class Profile extends Component {
               fullWidth
               label="Name"
               value={displayName}
-              onChange={onEventInputChange(this,'displayName')}
+              onChange={onEventInputChange(this, 'displayName')}
               margin="normal"
             />
 
@@ -61,7 +73,7 @@ export class Profile extends Component {
               fullWidth
               label="Title"
               value={title}
-              onChange={onEventInputChange(this,'title')}
+              onChange={onEventInputChange(this, 'title')}
               margin="normal"
             />
 
@@ -69,7 +81,7 @@ export class Profile extends Component {
               fullWidth
               label="Company"
               value={company}
-              onChange={onEventInputChange(this,'company')}
+              onChange={onEventInputChange(this, 'company')}
               margin="normal"
             />
 
@@ -77,7 +89,7 @@ export class Profile extends Component {
               fullWidth
               label="Mobile"
               value={mobile}
-              onChange={onEventInputChange(this,'mobile')}
+              onChange={onEventInputChange(this, 'mobile')}
               margin="normal"
             />
 
