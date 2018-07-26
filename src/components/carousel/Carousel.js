@@ -7,15 +7,10 @@ import SlideshowIcon from '@material-ui/icons/Slideshow'
 import { ImageLightbox } from '../imageLightbox/ImageLightbox'
 import { StyledCarousel } from './StyledCarousel'
 import { defaultSettings } from './defaultSettings'
+import { toggleLightbox, goNext, goPrev } from './functions/'
 
 export class Carousel extends Component {
   state = { lightboxOpen: false }
-
-  toggleLightbox = () => {
-    const { lightboxOpen } = this.state
-
-    this.setState({ lightboxOpen: !lightboxOpen })
-  }
 
   render() {
     const {
@@ -32,7 +27,7 @@ export class Carousel extends Component {
     const mergedSettings = { ...defaultSettings, ...settings }
 
     return (
-      <StyledCarousel className="StyledCarousel" onClick={this.toggleLightbox}>
+      <StyledCarousel className="StyledCarousel" onClick={toggleLightbox(this)}>
         <Slider {...mergedSettings} ref={node => (this.carousel = node)}>
           {images.map(({ image }, index) => (
             <div key={index}>
@@ -64,11 +59,11 @@ export class Carousel extends Component {
 
         {showNavs && (
           <div className="navs">
-            <IconButton onClick={() => this.carousel.slickPrev()}>
+            <IconButton onClick={goPrev(this)}>
               <ArrowBackIcon />
             </IconButton>
 
-            <IconButton onClick={() => this.carousel.slickNext()}>
+            <IconButton onClick={goNext(this)}>
               <ArrowForwardIcon />
             </IconButton>
           </div>
