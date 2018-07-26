@@ -80,14 +80,14 @@ export class ComplianceIssueForm extends Component {
     const riskLevel = getRiskLevel(probability, severity)
     const imagesCopy = getImagesCopy(images)
     const isLoaded = commonIssuesLoaded && equipmentsLoaded
-    const imageLoaded = images && images.length === 1
-    const imagesLoaded = images && images.length > 1
+    // const imageLoaded = images && images.length === 1
+    const imagesLoaded = images && images.length > 0
 
     return showContentWhenLoaded(
       isLoaded,
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card className="card">
-          {imageLoaded && <img src={images[0].image} alt="equipment type" />}
+          {/* {imageLoaded && <img src={images[0].image} alt="equipment type" />} */}
           {imagesLoaded && <Carousel images={images} showLightbox />}
 
           <CardContent className="card-content">

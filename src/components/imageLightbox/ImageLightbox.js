@@ -24,7 +24,8 @@ export class ImageLightbox extends Component {
   render() {
     const { photoIndex, isOpen } = this.state
     const { images } = this.props
-    const showLightbox = isOpen && images && images.length > 0
+    const imageArrayLength = images.length
+    const showLightbox = isOpen && images && imageArrayLength > 0
 
     return (
       <StyledImageLightbox className="StyledImageLightbox">
@@ -32,8 +33,16 @@ export class ImageLightbox extends Component {
           <Lightbox
             imagePadding={50}
             mainSrc={images[photoIndex]}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            nextSrc={
+              imageArrayLength === 1
+                ? null
+                : images[(photoIndex + 1) % imageArrayLength]
+            }
+            prevSrc={
+              imageArrayLength === 1
+                ? null
+                : images[(photoIndex + imageArrayLength - 1) % imageArrayLength]
+            }
             reactModalStyle={reactModalStyle}
             onCloseRequest={closeLightbox(this)}
             onMovePrevRequest={goPrev(this, photoIndex, images)}

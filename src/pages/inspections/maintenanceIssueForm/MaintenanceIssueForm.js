@@ -61,39 +61,39 @@ export class MaintenanceIssueForm extends Component {
 
     const imagesCopy = getImagesCopy(images)
 
+    const imagesLoaded = images && images.length > 0
+
     return showContentWhenLoaded(
       equipmentsLoaded,
       <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
         <Card className="card">
-          {images &&
+          {/* {images &&
             images.length === 1 && (
               <img src={images[0].image} alt="equipment type" />
-            )}
-          {images &&
-            images.length > 1 && <Carousel images={images} showLightbox />}
+            )} */}
+          {imagesLoaded && <Carousel images={images} showLightbox />}
 
           <CardContent className="card-content">
-            {imagesCopy &&
-              imagesCopy.length > 0 && (
-                <Button
-                  variant="fab"
-                  color="primary"
-                  aria-label="edit compliance issue"
-                  className="floating-icon"
-                  onClick={() =>
-                    openDialog(
-                      <Sketch
-                        aspectRatio={188 / 253}
-                        images={imagesCopy}
-                        onSubmit={saveEditedImages(this)}
-                        closeSketchDialog={closeDialog}
-                      />
-                    )
-                  }
-                >
-                  <BrushIcon />
-                </Button>
-              )}
+            {imagesLoaded && (
+              <Button
+                variant="fab"
+                color="primary"
+                aria-label="edit compliance issue"
+                className="floating-icon"
+                onClick={() =>
+                  openDialog(
+                    <Sketch
+                      aspectRatio={188 / 253}
+                      images={imagesCopy}
+                      onSubmit={saveEditedImages(this)}
+                      closeSketchDialog={closeDialog}
+                    />
+                  )
+                }
+              >
+                <BrushIcon />
+              </Button>
+            )}
 
             <Button
               fullWidth

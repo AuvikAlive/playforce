@@ -18,6 +18,7 @@ export class Carousel extends Component {
       settings,
       showNavs,
       showLightbox,
+      loopLightbox,
       SlideComponent,
       slideProps,
     } = this.props
@@ -52,6 +53,7 @@ export class Carousel extends Component {
 
         {showLightbox && (
           <ImageLightbox
+            loop={loopLightbox}
             isOpen={lightboxOpen}
             images={images.map(({ image }) => image)}
           />
