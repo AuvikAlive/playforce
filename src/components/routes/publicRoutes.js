@@ -1,4 +1,5 @@
 import Loadable from '../loadable/LoadableLinear'
+import TestComponent from '../testComponent/TestComponent'
 import Home from '../../pages/home/Home'
 
 const SignIn = Loadable({
@@ -28,6 +29,12 @@ ConfirmPasswordReset.preload()
 Terms.preload()
 
 export const publicRoutes = [
+  {
+    Component: TestComponent,
+    pathname: '/testComponent',
+    name: 'Test Component',
+    exact: true,
+  },
   {
     Component: Home,
     pathname: '/',

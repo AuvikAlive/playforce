@@ -69,7 +69,8 @@ export class MaintenanceIssueForm extends Component {
             images.length === 1 && (
               <img src={images[0].image} alt="equipment type" />
             )}
-          {images && images.length > 1 && <Carousel images={images} />}
+          {images &&
+            images.length > 1 && <Carousel images={images} showLightbox />}
 
           <CardContent className="card-content">
             {imagesCopy &&

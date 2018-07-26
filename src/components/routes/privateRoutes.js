@@ -1,4 +1,5 @@
 import Loadable from '../loadable/LoadableLinear'
+import TestComponent from '../testComponent/TestComponent'
 import Home from '../../pages/home/Home'
 
 const Dashboard = Loadable({
@@ -33,6 +34,12 @@ SettingRoutes.preload()
 ProjectRoutes.preload()
 
 export const privateRoutes = [
+  {
+    Component: TestComponent,
+    pathname: '/testComponent',
+    name: 'Test Component',
+    exact: true,
+  },
   {
     Component: Home,
     pathname: '/',

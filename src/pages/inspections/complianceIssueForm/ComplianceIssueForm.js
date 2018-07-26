@@ -88,7 +88,7 @@ export class ComplianceIssueForm extends Component {
       <StyledComplianceIssueForm className="StyledComplianceIssueForm">
         <Card className="card">
           {imageLoaded && <img src={images[0].image} alt="equipment type" />}
-          {imagesLoaded && <Carousel images={images} />}
+          {imagesLoaded && <Carousel images={images} showLightbox />}
 
           <CardContent className="card-content">
             {images &&
