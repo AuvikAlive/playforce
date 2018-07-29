@@ -20,3 +20,7 @@ body {
 .lightbox-download-icon:hover {
   color: white;
 }
+
+.ril-outer button {
+  outline: none;
+}
