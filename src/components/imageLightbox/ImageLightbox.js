@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Lightbox from 'react-image-lightbox'
+import SlideshowIcon from '@material-ui/icons/Slideshow'
+import { StyledImageLightbox } from './StyledImageLightbox'
 import { state, reactModalStyle } from './constants/'
 import {
-  onComponentDidMount,
-  onComponentWillReceiveProps,
+  openLightbox,
   closeLightbox,
   getPrevSrc,
   getNextSrc,
@@ -15,14 +16,6 @@ import {
 export class ImageLightbox extends Component {
   state = state
 
-  componentDidMount() {
-    onComponentDidMount(this)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    onComponentWillReceiveProps(this, nextProps)
-  }
-
   render() {
     const { photoIndex, isOpen } = this.state
     const { images } = this.props
@@ -31,19 +24,28 @@ export class ImageLightbox extends Component {
     const currentImage = images[photoIndex]
 
     return (
-      showLightbox && (
-        <Lightbox
-          toolbarButtons={setToolbarButtons(currentImage, photoIndex)}
-          imagePadding={60}
-          reactModalStyle={reactModalStyle}
-          mainSrc={currentImage}
-          prevSrc={getPrevSrc(imageArrayLength, images, photoIndex)}
-          nextSrc={getNextSrc(imageArrayLength, images, photoIndex)}
-          onMovePrevRequest={goPrev(this, photoIndex, images)}
-          onMoveNextRequest={goNext(this, photoIndex, images)}
-          onCloseRequest={closeLightbox(this)}
-        />
-      )
+      <StyledImageLightbox
+        className="StyledImageLightbox"
+        onClick={openLightbox(this)}
+      >
+        <div className="hoverEffect">
+          <SlideshowIcon color="primary" className="icon" />
+        </div>
+
+        {showLightbox && (
+          <Lightbox
+            toolbarButtons={setToolbarButtons(currentImage, photoIndex)}
+            imagePadding={60}
+            reactModalStyle={reactModalStyle}
+            mainSrc={currentImage}
+            prevSrc={getPrevSrc(imageArrayLength, images, photoIndex)}
+            nextSrc={getNextSrc(imageArrayLength, images, photoIndex)}
+            onMovePrevRequest={goPrev(this, photoIndex, images)}
+            onMoveNextRequest={goNext(this, photoIndex, images)}
+            onCloseRequest={closeLightbox(this)}
+          />
+        )}
+      </StyledImageLightbox>
     )
   }
 }

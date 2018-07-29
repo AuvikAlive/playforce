@@ -3,11 +3,10 @@ import Slider from 'react-slick'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import SlideshowIcon from '@material-ui/icons/Slideshow'
 import { ImageLightbox } from '../imageLightbox/ImageLightbox'
 import { StyledCarousel } from './StyledCarousel'
 import { defaultSettings } from './defaultSettings'
-import { toggleLightbox, goNext, goPrev } from './functions/'
+import { goNext, goPrev } from './functions/'
 
 export class Carousel extends Component {
   state = { lightboxOpen: false }
@@ -28,7 +27,7 @@ export class Carousel extends Component {
     const mergedSettings = { ...defaultSettings, ...settings }
 
     return (
-      <StyledCarousel className="StyledCarousel" onClick={toggleLightbox(this)}>
+      <StyledCarousel className="StyledCarousel">
         <Slider {...mergedSettings} ref={node => (this.carousel = node)}>
           {images.map(({ image }, index) => (
             <div key={index}>
@@ -44,12 +43,6 @@ export class Carousel extends Component {
             </div>
           ))}
         </Slider>
-
-        {showLightbox && (
-          <div className="hoverEffect">
-            <SlideshowIcon color="primary" className="icon" />
-          </div>
-        )}
 
         {showLightbox && (
           <ImageLightbox

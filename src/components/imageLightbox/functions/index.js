@@ -1,5 +1,4 @@
-import { onComponentDidMount } from './onComponentDidMount'
-import { onComponentWillReceiveProps } from './onComponentWillReceiveProps'
+import { openLightbox } from './openLightbox'
 import { closeLightbox } from './closeLightbox'
 import { getPrevSrc } from './getPrevSrc'
 import { getNextSrc } from './getNextSrc'
@@ -8,8 +7,7 @@ import { goNext } from './goNext'
 import { setToolbarButtons } from './setToolbarButtons'
 
 export {
-  onComponentDidMount,
-  onComponentWillReceiveProps,
+  openLightbox,
   closeLightbox,
   getPrevSrc,
   getNextSrc,
