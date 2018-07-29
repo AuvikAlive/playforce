@@ -5,6 +5,7 @@ import { getPrevSrc } from './getPrevSrc'
 import { getNextSrc } from './getNextSrc'
 import { goPrev } from './goPrev'
 import { goNext } from './goNext'
+import { setToolbarButtons } from './setToolbarButtons'
 
 export {
   onComponentDidMount,
@@ -14,4 +15,5 @@ export {
   getNextSrc,
   goPrev,
   goNext,
+  setToolbarButtons,
 }

@@ -34,6 +34,7 @@ import { submitConditionRatingAndEquipment } from './submitConditionRatingAndEqu
 import { getCurrentPosition } from './getCurrentPosition'
 import { getGeocode } from './getGeocode'
 import { onSingleCrop } from './onSingleCrop'
+import { getBase64MimeType } from './getBase64MimeType'
 
 export {
   openMenu,
@@ -72,4 +73,5 @@ export {
   getCurrentPosition,
   getGeocode,
   onSingleCrop,
+  getBase64MimeType,
 }

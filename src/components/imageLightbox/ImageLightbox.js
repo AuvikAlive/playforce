@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Lightbox from 'react-image-lightbox'
-import { StyledImageLightbox } from './StyledImageLightbox'
 import { state, reactModalStyle } from './constants/'
 import {
   onComponentDidMount,
@@ -10,6 +9,7 @@ import {
   getNextSrc,
   goPrev,
   goNext,
+  setToolbarButtons,
 } from './functions/'
 
 export class ImageLightbox extends Component {
@@ -28,22 +28,22 @@ export class ImageLightbox extends Component {
     const { images } = this.props
     const imageArrayLength = images.length
     const showLightbox = isOpen && images && imageArrayLength > 0
+    const currentImage = images[photoIndex]
 
     return (
-      <StyledImageLightbox className="StyledImageLightbox">
-        {showLightbox && (
-          <Lightbox
-            imagePadding={50}
-            reactModalStyle={reactModalStyle}
-            mainSrc={images[photoIndex]}
-            prevSrc={getPrevSrc(imageArrayLength, images, photoIndex)}
-            nextSrc={getNextSrc(imageArrayLength, images, photoIndex)}
-            onMovePrevRequest={goPrev(this, photoIndex, images)}
-            onMoveNextRequest={goNext(this, photoIndex, images)}
-            onCloseRequest={closeLightbox(this)}
-          />
-        )}
-      </StyledImageLightbox>
+      showLightbox && (
+        <Lightbox
+          toolbarButtons={setToolbarButtons(currentImage, photoIndex)}
+          imagePadding={60}
+          reactModalStyle={reactModalStyle}
+          mainSrc={currentImage}
+          prevSrc={getPrevSrc(imageArrayLength, images, photoIndex)}
+          nextSrc={getNextSrc(imageArrayLength, images, photoIndex)}
+          onMovePrevRequest={goPrev(this, photoIndex, images)}
+          onMoveNextRequest={goNext(this, photoIndex, images)}
+          onCloseRequest={closeLightbox(this)}
+        />
+      )
     )
   }
 }

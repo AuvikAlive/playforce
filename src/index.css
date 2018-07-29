@@ -12,3 +12,11 @@ body {
 @import '~slick-carousel/slick/slick.css';
 @import '~cropperjs/dist/cropper.css';
 @import '~react-image-lightbox/style.css';
+
+.lightbox-download-icon {
+  color: darkgray;
+}
+
+.lightbox-download-icon:hover {
+  color: white;
+}

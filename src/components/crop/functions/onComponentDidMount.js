@@ -1,10 +1,11 @@
 import Cropper from 'cropperjs'
+import { getBase64MimeType } from '../../../functions/'
 
 export const onComponentDidMount = component => {
   const image = document.getElementById('image')
   const { aspectRatio } = component.props
   const src = image.src
-  const mimeType = src.substring('data:'.length, src.indexOf(';base64'))
+  const mimeType = getBase64MimeType(src)
 
   component.setState({ mimeType })
 
