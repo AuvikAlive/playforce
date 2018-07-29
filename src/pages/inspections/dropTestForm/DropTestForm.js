@@ -9,6 +9,7 @@ import { withImageCapture } from '../../../hocs/withImageCapture/withImageCaptur
 import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
 import CropIcon from '@material-ui/icons/Crop'
 import StayCurrentPortraitIcon from '@material-ui/icons/StayCurrentPortrait'
+import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
 import { onEventInputChange, onSingleCrop } from '../../../functions/'
 import { StyledDropTestForm } from './StyledDropTestForm'
 import { state } from './state'
@@ -38,7 +39,10 @@ class DropTestFormWithout extends Component {
     return (
       <StyledDropTestForm className="StyledDropTestForm">
         <Card className="card">
-          {image && <img src={image} alt="cover" />}
+          <div className="card-media">
+            {image && <img src={image} alt="drop test" />}
+            {image && <ImageLightbox images={[image]} />}
+          </div>
 
           <CardContent className="card-content">
             {image && (

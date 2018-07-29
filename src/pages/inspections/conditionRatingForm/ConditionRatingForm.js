@@ -9,13 +9,14 @@ import AddBoxIcon from '@material-ui/icons/AddBox'
 import CropIcon from '@material-ui/icons/Crop'
 import IconButton from '@material-ui/core/IconButton'
 import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
+import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
 import {
   contextTypesUnsubscriber,
   conditions,
   equipmentState,
   equipmentTypes,
 } from '../../../constants/'
-import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import {
   onComponentWillReceivePropsLoadDataWithLandscapeImage,
@@ -70,7 +71,10 @@ export class ConditionRatingForm extends Component {
       isLoaded,
       <StyledConditionRatingForm className="StyledConditionRatingForm">
         <Card className="card">
-          {image && <img src={image} alt="equipment type" />}
+          <div className="card-media">
+            {image && <img src={image} alt="equipment type" />}
+            {image && <ImageLightbox images={[image]} />}
+          </div>
 
           <CardContent className="card-content">
             {image && (

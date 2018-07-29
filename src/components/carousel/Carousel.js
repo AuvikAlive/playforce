@@ -9,8 +9,6 @@ import { defaultSettings } from './defaultSettings'
 import { goNext, goPrev } from './functions/'
 
 export class Carousel extends Component {
-  state = { lightboxOpen: false }
-
   render() {
     const {
       images,
@@ -21,8 +19,6 @@ export class Carousel extends Component {
       SlideComponent,
       slideProps,
     } = this.props
-
-    const { lightboxOpen } = this.state
 
     const mergedSettings = { ...defaultSettings, ...settings }
 
@@ -47,7 +43,6 @@ export class Carousel extends Component {
         {showLightbox && (
           <ImageLightbox
             loop={loopLightbox}
-            isOpen={lightboxOpen}
             images={images.map(({ image }) => image)}
           />
         )}

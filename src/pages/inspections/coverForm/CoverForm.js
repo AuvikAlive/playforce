@@ -16,6 +16,7 @@ import { DatePicker } from 'material-ui-pickers'
 import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
 import { ClientsDialogContainer } from '../../../components/clientsDialog/ClientsDialogContainer'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
 import {
   showContentWhenLoaded,
   onEventInputChange,
@@ -79,7 +80,10 @@ export class CoverForm extends Component {
       isLoaded,
       <StyledCoverForm className="StyledCoverForm">
         <Card className="card">
-          {image && <img src={image} alt="cover" />}
+          <div className="card-media">
+            {image && <img src={image} alt="cover" />}
+            {image && <ImageLightbox images={[image]} />}
+          </div>
 
           <CardContent className="card-content">
             {image && (

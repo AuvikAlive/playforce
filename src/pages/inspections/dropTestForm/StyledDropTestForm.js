@@ -1,8 +1,8 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
-import { cardMedia, floatingCardIcon } from '../../../styledMixins/'
+import { cardMediaPortrait, floatingCardIcon } from '../../../styledMixins/'
 
 export const StyledDropTestForm = Styled(Content)`
-  ${cardMedia};
+  ${cardMediaPortrait};
   ${floatingCardIcon};
 `

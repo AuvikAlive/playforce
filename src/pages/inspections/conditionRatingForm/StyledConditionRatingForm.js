@@ -12,4 +12,6 @@ export const StyledConditionRatingForm = Styled(Content)`
   ${datePicker};
   ${floatingCardIcon};
   ${withButton};
+
+  position: relative;
 `

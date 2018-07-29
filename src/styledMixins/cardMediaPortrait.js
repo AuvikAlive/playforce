@@ -1,5 +1,6 @@
 export const cardMediaPortrait = `
-  img {
+  img,
+  .card-media {
     height: 50vw;
     width: auto;
     position: relative;
