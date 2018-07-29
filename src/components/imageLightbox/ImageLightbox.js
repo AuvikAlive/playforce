@@ -6,6 +6,8 @@ import {
   onComponentDidMount,
   onComponentWillReceiveProps,
   closeLightbox,
+  getPrevSrc,
+  getNextSrc,
   goPrev,
   goNext,
 } from './functions/'
@@ -32,21 +34,13 @@ export class ImageLightbox extends Component {
         {showLightbox && (
           <Lightbox
             imagePadding={50}
-            mainSrc={images[photoIndex]}
-            nextSrc={
-              imageArrayLength === 1
-                ? null
-                : images[(photoIndex + 1) % imageArrayLength]
-            }
-            prevSrc={
-              imageArrayLength === 1
-                ? null
-                : images[(photoIndex + imageArrayLength - 1) % imageArrayLength]
-            }
             reactModalStyle={reactModalStyle}
-            onCloseRequest={closeLightbox(this)}
+            mainSrc={images[photoIndex]}
+            prevSrc={getPrevSrc(imageArrayLength, images, photoIndex)}
+            nextSrc={getNextSrc(imageArrayLength, images, photoIndex)}
             onMovePrevRequest={goPrev(this, photoIndex, images)}
             onMoveNextRequest={goNext(this, photoIndex, images)}
+            onCloseRequest={closeLightbox(this)}
           />
         )}
       </StyledImageLightbox>
