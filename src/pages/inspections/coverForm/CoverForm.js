@@ -68,6 +68,7 @@ export class CoverForm extends Component {
       inspectionTypesLoaded,
       inspectionTypes,
       openDialog,
+      closeDialog,
       error,
       loading,
       buttonText,
@@ -118,7 +119,13 @@ export class CoverForm extends Component {
                   onChange={onValueInputChange(this, 'location')}
                   getSuggestions={getLocationSuggestions(this)}
                 />
-                <IconButton onClick={() => openDialog(AddSiteDialogContainer)}>
+                <IconButton
+                  onClick={() =>
+                    openDialog(
+                      <AddSiteDialogContainer closeDialog={closeDialog} />
+                    )
+                  }
+                >
                   <AddBoxIcon />
                 </IconButton>
               </div>
@@ -130,7 +137,13 @@ export class CoverForm extends Component {
                   onChange={onValueInputChange(this, 'client')}
                   getSuggestions={getClientSuggestions(this)}
                 />
-                <IconButton onClick={() => openDialog(ClientsDialogContainer)}>
+                <IconButton
+                  onClick={() =>
+                    openDialog(
+                      <ClientsDialogContainer closeDialog={closeDialog} />
+                    )
+                  }
+                >
                   <AddBoxIcon />
                 </IconButton>
               </div>

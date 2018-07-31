@@ -52,10 +52,12 @@ export class ConditionRatingForm extends Component {
       equipmentsLoaded,
       manufacturers,
       openDialog,
+      closeDialog,
       buttonText,
       error,
       loading,
     } = this.props
+
     const {
       itemType,
       equipment,
@@ -64,6 +66,7 @@ export class ConditionRatingForm extends Component {
       condition,
       estimatedDateInstalled,
     } = this.state
+
     const isLoaded = manufacturersLoaded && equipmentsLoaded
     const isNotAncillary = itemType !== equipmentTypes[2]
 
@@ -147,7 +150,13 @@ export class ConditionRatingForm extends Component {
                     getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
-                    onClick={() => openDialog(ManufacturersDialogContainer)}
+                    onClick={() =>
+                      openDialog(
+                        <ManufacturersDialogContainer
+                          closeDialog={closeDialog}
+                        />
+                      )
+                    }
                   >
                     <AddBoxIcon />
                   </IconButton>

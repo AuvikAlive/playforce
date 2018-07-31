@@ -44,6 +44,7 @@ export class EquipmentForm extends Component {
       manufacturers,
       buttonText,
       openDialog,
+      closeDialog,
       error,
       loading,
     } = this.props
@@ -138,7 +139,13 @@ export class EquipmentForm extends Component {
                     getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
-                    onClick={() => openDialog(ManufacturersDialogContainer)}
+                    onClick={() =>
+                      openDialog(
+                        <ManufacturersDialogContainer
+                          closeDialog={closeDialog}
+                        />
+                      )
+                    }
                   >
                     <AddBoxIcon />
                   </IconButton>

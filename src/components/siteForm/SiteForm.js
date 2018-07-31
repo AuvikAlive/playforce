@@ -49,6 +49,7 @@ export class SiteForm extends Component {
     const {
       operatorsLoaded,
       openDialog,
+      closeDialog,
       buttonText,
       error,
       loading,
@@ -119,7 +120,11 @@ export class SiteForm extends Component {
                   getSuggestions={getOperatorSuggestions(this)}
                 />
                 <IconButton
-                  onClick={() => openDialog(OperatorsDialogContainer)}
+                  onClick={() =>
+                    openDialog(
+                      <OperatorsDialogContainer closeDialog={closeDialog} />
+                    )
+                  }
                 >
                   <AddBoxIcon />
                 </IconButton>
