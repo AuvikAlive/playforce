@@ -5,6 +5,7 @@ import {
   onComponentWillUnmount,
   handleButtonPress,
   handleButtonRelease,
+  handleScroll,
 } from './functions/'
 
 export class SelectableList extends Component {
@@ -19,6 +20,8 @@ export class SelectableList extends Component {
   componentWillUnmount() {
     onComponentWillUnmount(this)
   }
+
+  handleScroll = handleScroll(this)
 
   render() {
     const { ListView, ...props } = this.props
