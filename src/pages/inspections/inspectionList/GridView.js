@@ -33,12 +33,9 @@ export const GridView = ({ inspections, match, standards }) => {
           index
         ) => {
           const { location, client, image, inspectionDate } = cover
+
           const { name, suburb } = location
-          // const reportTypes = [
-          //   'Comprehensive',
-          //   'Operational',
-          //   'Routine',
-          // ]
+
           const completed =
             coverAdded && auditSummaryAdded && conditionRatingsAdded
 
@@ -58,21 +55,15 @@ export const GridView = ({ inspections, match, standards }) => {
                 <Card className="card">
                   <ListItem divider button className="list-item">
                     <Avatar className="avatar">{inspectionNumber}</Avatar>
+
                     <ListItemText
                       primary={
                         <div className="title">{`${name}, ${suburb}`}</div>
                       }
                       secondary={client}
                     />
+
                     <ListItemSecondaryAction className="secondary-actions">
-                      {/* <Chip
-                        label={
-                          reportTypes[index % 3].substring(0, 4) + '...'
-                        }
-                        className={`chip ${reportTypes[
-                          index % 3
-                        ].toLowerCase()}`}
-                      /> */}
                       <CheckCircleIcon
                         style={{
                           visibility: completed ? '' : 'hidden',
@@ -82,7 +73,13 @@ export const GridView = ({ inspections, match, standards }) => {
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
-                  <img src={image} alt="cover" />
+
+                  {image ? (
+                    <img src={image} alt="cover" />
+                  ) : (
+                    <div className="placeholder" />
+                  )}
+
                   <CardContent className="card-content">
                     <StyledNavLink
                       to={{
