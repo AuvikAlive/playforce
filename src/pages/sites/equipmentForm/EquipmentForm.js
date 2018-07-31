@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import { equipmentTypes } from '../../../constants/'
 import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
+import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
 import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
 import { equipmentState, contextTypesUnsubscriber } from '../../../constants/'
 import {
@@ -19,7 +20,7 @@ import {
   onValueInputChange,
   getSuggestionsByName,
   showContentWhenLoaded,
-  onSingleCrop
+  onSingleCrop,
 } from '../../../functions/'
 import { StyledEquipmentForm } from './StyledEquipmentForm'
 import { onComponentDidMount, submit } from './functions/'
@@ -61,10 +62,13 @@ export class EquipmentForm extends Component {
       manufacturersLoaded,
       <StyledEquipmentForm className="StyledEquipmentForm">
         <Card className="card">
-          {image && <img src={image} alt="equipment type" />}
+          <div className="card-media">
+            {image && <img src={image} alt="equipment type" />}
+            {image && <ImageLightbox images={[image]} />}
+          </div>
 
           <CardContent className="card-content">
-          {image && (
+            {image && (
               <Button
                 variant="fab"
                 color="primary"
