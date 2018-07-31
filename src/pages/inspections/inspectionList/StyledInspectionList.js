@@ -71,6 +71,6 @@ export const StyledInspectionList = Styled(Content)`
   .placeholder {
     width: 100%;
     padding-top: 56.25%;
-    background: gray;
+    background: #bdbdbd;
   }
 `
