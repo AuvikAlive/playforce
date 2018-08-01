@@ -30,12 +30,22 @@ export const makeImages = impactTests => {
 
   const quadruples = chunk(dropTestsItems, 4)
 
-  const grid = quadruples.map(quadruple => ({
-    unbreakable: true,
-    marginBottom: verticalMargin,
-    columnGap: verticalMargin,
-    columns: quadruple,
-  }))
+  const grid = quadruples.map(quadruple => {
+    if (quadruple.length < 4) {
+      const count = 4 - quadruple.length
+
+      for (let i = 0; i < count; i++) {
+        quadruple.push([])
+      }
+    }
+
+    return {
+      unbreakable: true,
+      marginBottom: verticalMargin,
+      columnGap: verticalMargin,
+      columns: quadruple,
+    }
+  })
 
   return grid
 }
