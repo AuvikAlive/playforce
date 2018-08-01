@@ -13,21 +13,21 @@ export const deleteDropTest = (
   let storageImages = []
 
   return db.runTransaction(async transaction => {
-    const userRef = db.collection('users').doc(userId)
-    const userDoc = await transaction.get(userRef)
-    const dropCount = userDoc.data().dropCount
-
-    transaction.update(userRef, { dropCount: dropCount - 1 })
-
-    const ref = db
+    const impactTestRef = db
       .collection('users')
       .doc(userId)
       .collection('inspections')
       .doc(inspectionId)
       .collection('impactTests')
       .doc(impactTestId)
-      .collection('dropTests')
-      .doc(id)
+
+    // const impactTestDoc = await transaction.get(impactTestRef)
+
+    // const dropCount = impactTestDoc.data().dropCount
+
+    // transaction.update(impactTestRef, { dropCount: dropCount - 1 })
+
+    const ref = impactTestRef.collection('dropTests').doc(id)
 
     storageImages.push(
       `${userId}/images/${inspectionId}/impactTests/${impactTestId}/${id}`

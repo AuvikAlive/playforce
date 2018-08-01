@@ -10,23 +10,24 @@ export const addDropTest = (userId, inspectionId, impactTestId, data) => async (
   const db = firebase.firestore()
 
   return db.runTransaction(async transaction => {
-    const userRef = db.collection('users').doc(userId)
-    const userDoc = await transaction.get(userRef)
-    const dropCount = userDoc.data().dropCount || 0
-
-    transaction.update(userRef, { dropCount: dropCount + 1 })
-
-    const ref = db
+    const impactTestRef = db
       .collection('users')
       .doc(userId)
       .collection('inspections')
       .doc(inspectionId)
       .collection('impactTests')
       .doc(impactTestId)
-      .collection('dropTests')
-      .doc(`${dropCount + 1}`)
+
+    const impactTestDoc = await transaction.get(impactTestRef)
+
+    const dropCount = impactTestDoc.data().dropCount || 0
+
+    transaction.update(impactTestRef, { dropCount: dropCount + 1 })
+
+    const ref = impactTestRef.collection('dropTests').doc(`${dropCount + 1}`)
 
     const { image } = data
+
     const downloadURL = await dispatch(
       saveImage(
         `${userId}/images/${inspectionId}/impactTests/${impactTestId}/${

@@ -1,9 +1,9 @@
 import { headerFontSize, verticalMargin } from '../constants'
-import { makeReportTitle } from '../../../../functions/'
+// import { makeReportTitle } from '../../../../functions/'
 
 export const makeTitle = inspectionType => {
   return {
-    text: makeReportTitle(inspectionType).toUpperCase(),
+    text: "Comprehensive Playground Inspection Report".toUpperCase(),
     font: 'Oswald',
     fontSize: headerFontSize * 1.5,
     marginTop: verticalMargin * 4,
