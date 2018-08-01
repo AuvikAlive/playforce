@@ -1,7 +1,12 @@
 import { showActionGoBack } from '../../../../functions/'
 
 export const deleteImpactTest = component => async () => {
-  const { inspectionId, userId, impactTests, deleteImpactTest } = this.props
+  const {
+    inspectionId,
+    userId,
+    impactTests,
+    deleteImpactTest,
+  } = component.props
 
   await deleteImpactTest(userId, inspectionId, impactTests)
 
