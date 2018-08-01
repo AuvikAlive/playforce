@@ -4,7 +4,7 @@ import Switch from '@material-ui/core/Switch'
 import { Content } from '../../../components/content/Content'
 import { contextTypesTitleLeftRightNavUnsubscriber } from '../../../constants/'
 import {
-  onComponentWillUnmountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleRightNav,
   closeMenu,
   showContentWhenLoaded,
 } from '../../../functions/'
@@ -29,7 +29,7 @@ export class EditInspection extends Component {
   }
 
   componentWillUnmount() {
-    onComponentWillUnmountWithTitleLeftNav(this)
+    onComponentWillUnmountWithTitleRightNav(this)
   }
 
   componentWillReceiveProps(nextProps) {
