@@ -23,7 +23,7 @@ export class AddImpactAttenuationTest extends Component {
 
   render() {
     const { inspectionId } = this.props
-    const pathHead = `/inspections/edit/${inspectionId}/impactTest/`
+    const pathHead = `/inspections/edit/${inspectionId}/impactTest`
 
     return (
       <ImpactGeneralInfoForm
