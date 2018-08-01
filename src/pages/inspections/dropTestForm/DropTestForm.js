@@ -53,7 +53,7 @@ class DropTestFormWithout extends Component {
                 color="primary"
                 aria-label="crop image"
                 className="floating-icon"
-                onClick={onSingleCrop(this, 9 / 16)}
+                onClick={onSingleCrop(this)}
               >
                 <CropIcon />
               </Button>
