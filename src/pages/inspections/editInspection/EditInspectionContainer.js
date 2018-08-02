@@ -21,7 +21,7 @@ const mapStateToProps = (
   {
     firebase: {
       auth: { uid },
-      profile: { displayName, email },
+      profile: { displayName, email, defaultCertificateText },
     },
     firestore: {
       data: { users },
@@ -40,6 +40,7 @@ const mapStateToProps = (
   inspection,
   displayName,
   email,
+  defaultCertificateText,
   standardsLoaded,
   standards,
 })
@@ -61,5 +62,8 @@ const mapDispatchToProps = {
 export const EditInspectionContainer = compose(
   withDeleteDialog,
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(EditInspection)

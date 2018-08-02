@@ -9,11 +9,11 @@ import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
 } from '../../../functions/'
-import { StyledPreimplementationRecommendation } from './StyledPreimplementationRecommendation'
+import { StyledDefaultCertificateText } from './StyledDefaultCertificateText'
 import { onComponentDidMount, submit } from './functions/'
 
-export class PreimplementationRecommendation extends Component {
-  state = { preimplementationRecommendation: '' }
+export class DefaultCertificateText extends Component {
+  state = { defaultCertificateText: '' }
 
   componentDidMount() {
     onComponentDidMount(this)
@@ -24,11 +24,11 @@ export class PreimplementationRecommendation extends Component {
   }
 
   render() {
-    const { preimplementationRecommendation } = this.state
+    const { defaultCertificateText } = this.state
     const { error, loading } = this.props
 
     return (
-      <StyledPreimplementationRecommendation className="StyledPreimplementationRecommendation">
+      <StyledDefaultCertificateText className="StyledDefaultCertificateText">
         <Card className="card">
           <CardContent>
             <form noValidate>
@@ -36,12 +36,9 @@ export class PreimplementationRecommendation extends Component {
                 fullWidth
                 multiline
                 label="Recommendation"
-                value={preimplementationRecommendation}
+                value={defaultCertificateText}
                 margin="normal"
-                onChange={onEventInputChange(
-                  this,
-                  'preimplementationRecommendation'
-                )}
+                onChange={onEventInputChange(this, 'defaultCertificateText')}
               />
             </form>
 
@@ -67,9 +64,9 @@ export class PreimplementationRecommendation extends Component {
             )}
           </CardContent>
         </Card>
-      </StyledPreimplementationRecommendation>
+      </StyledDefaultCertificateText>
     )
   }
 }
 
-PreimplementationRecommendation.contextTypes = contextTypesTitleLeftNav
+DefaultCertificateText.contextTypes = contextTypesTitleLeftNav

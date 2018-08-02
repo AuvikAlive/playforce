@@ -20,11 +20,11 @@ pdfMake.fonts = {
   },
 }
 
-export const generatePdf = async (inspection, certificate) => {
+export const generatePdf = async (...args) => {
   // const vfsFonts = await import('./vfs_fonts')
   // const pdfMake = await import('pdfmake/build/pdfmake.min')
 
-  const docDefinition = await makeDocDefinition(inspection, certificate)
+  const docDefinition = await makeDocDefinition(...args)
 
   return pdfMake.createPdf(docDefinition)
 }

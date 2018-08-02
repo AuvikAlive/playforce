@@ -47,6 +47,10 @@ const InspectionTypes = Loadable({
   loader: () => import('../inspectionTypes'),
 })
 
+const DefaultCertificateText = Loadable({
+  loader: () => import('../defaultCertificateText'),
+})
+
 Profile.preload()
 StandardRoutes.preload()
 Clients.preload()
@@ -58,6 +62,7 @@ SidenavBackground.preload()
 StandardAuditSummary.preload()
 PreimplementationRecommendation.preload()
 InspectionTypes.preload()
+DefaultCertificateText.preload()
 
 export const SettingRoutes = ({ match }) => {
   return (
@@ -84,6 +89,10 @@ export const SettingRoutes = ({ match }) => {
       <Route
         path={`${match.url}/inspectionTypes`}
         component={InspectionTypes}
+      />
+      <Route
+        path={`${match.url}/defaultCertificateText`}
+        component={DefaultCertificateText}
       />
       <Route path={match.url} component={SettingsList} />
     </Switch>

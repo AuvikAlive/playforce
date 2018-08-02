@@ -28,7 +28,8 @@ export const makeDocDefinition = async (
     impactGeneralInfo,
     impactTests,
   },
-  certificate
+  certificate,
+  defaultCertificateText
 ) => {
   const skipCommonHeaderFooter = certificate ? 2 : 1
 
@@ -40,6 +41,7 @@ export const makeDocDefinition = async (
     content: [
       await makeCertificate({
         certificate,
+        defaultCertificateText,
         inspectionNumber,
         cover,
         auditSummary,

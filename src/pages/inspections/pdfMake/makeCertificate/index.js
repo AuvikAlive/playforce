@@ -9,6 +9,7 @@ import { makeSignature } from './makeSignature'
 
 export const makeCertificate = async ({
   certificate,
+  defaultCertificateText,
   inspectionNumber,
   cover,
   auditSummary,
@@ -41,7 +42,7 @@ export const makeCertificate = async ({
       appliedStandards,
       inspectionNumber,
     }),
-    makeDescription(pageFontSize, inspectionDate),
+    makeDescription(pageFontSize, inspectionDate, defaultCertificateText),
     await makeSignature(pageFontSize, auditSummary, displayName),
   ]
 }

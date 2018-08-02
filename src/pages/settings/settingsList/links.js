@@ -43,4 +43,8 @@ export const links = [
     route: 'inspectionTypes',
     name: 'Inspection Types',
   },
+  {
+    route: 'defaultCertificateText',
+    name: 'Default Certificate Text',
+  },
 ]
