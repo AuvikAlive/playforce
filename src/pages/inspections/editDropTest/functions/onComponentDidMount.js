@@ -2,6 +2,7 @@ import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { onComponentDidMountWithTitleLeftNav } from '../../../../functions/'
+import { deleteDropTest } from './deleteDropTest';
 
 export const onComponentDidMount = component => {
   const { setRightNavComponent } = component.context
@@ -15,7 +16,7 @@ export const onComponentDidMount = component => {
     <IconButton
       color="inherit"
       aria-label="delete surface test"
-      onClick={() => openDialog(component.delete)}
+      onClick={() => openDialog(deleteDropTest(component))}
     >
       <DeleteIcon />
     </IconButton>
