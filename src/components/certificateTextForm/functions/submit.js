@@ -1,12 +1,12 @@
 export const submit = component => async () => {
-  const { updateProfile, setFeedback } = component.props
-  const { defaultCertificateText } = component.state
+  const { onSubmit, setFeedback } = component.props
+  const { text } = component.state
 
   setFeedback({ error: '', loading: true })
 
-  if (defaultCertificateText) {
+  if (text) {
     try {
-      await updateProfile({ defaultCertificateText })
+      await onSubmit(text)
       setFeedback({ success: 'Certifcate text updated!', loading: false })
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
