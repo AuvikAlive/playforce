@@ -4,11 +4,13 @@ import { verticalMargin } from '../constants'
 export const makeDescription = (
   pageFontSize,
   inspectionDate,
-  defaultCertificateText
+  defaultCertificateText,
+  customCertificateText
 ) => ({
   fontSize: pageFontSize,
   marginBottom: verticalMargin * 3,
   text:
+    customCertificateText ||
     defaultCertificateText ||
     `Based on our on-site assessment conducted on the ${format(
       inspectionDate,

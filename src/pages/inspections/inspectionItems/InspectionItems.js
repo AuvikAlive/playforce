@@ -16,6 +16,8 @@ export const InspectionItems = ({
   submit,
   buttonText,
   inspection,
+  certificate,
+  customCertificateText,
 }) => {
   const {
     auditSummary,
@@ -25,8 +27,11 @@ export const InspectionItems = ({
     impactGeneralInfo,
     impactTests,
   } = inspection
+
   const auditSummaryAdded = !isEmpty(auditSummary)
+
   const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
+
   const impactTestsAdded =
     !!impactTests &&
     impactTests.some(({ dropTests }) => !!dropTests && dropTests.length > 0)
@@ -75,6 +80,15 @@ export const InspectionItems = ({
               <ListItem button>
                 <ListItemText primary="Impact Attenuation Test" />
                 {impactTestsAdded && <CheckCircleIcon color="primary" />}
+              </ListItem>
+            </StyledNavLink>
+          )}
+
+          {certificate && (
+            <StyledNavLink to={`${match.url}/certificateText`}>
+              <ListItem button>
+                <ListItemText primary="Custom Certificate Text" />
+                {customCertificateText && <CheckCircleIcon color="primary" />}
               </ListItem>
             </StyledNavLink>
           )}

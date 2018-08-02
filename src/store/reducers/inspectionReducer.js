@@ -25,6 +25,7 @@ import {
   ADD_DROP_TEST,
   UPDATE_DROP_TEST,
   DELETE_DROP_TEST,
+  TOGGLE_INSPECTION_CERTIFICATE,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -46,6 +47,7 @@ export const initialState = {
   impactTestsLoaded: false,
   impactTests: [],
   impactTestsAdded: false,
+  certificate: false,
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
@@ -278,6 +280,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         ...state,
         impactTests,
       }
+    }
+
+    case TOGGLE_INSPECTION_CERTIFICATE: {
+      const { certificate } = state
+
+      return { ...state, certificate: !certificate }
     }
 
     default:

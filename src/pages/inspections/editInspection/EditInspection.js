@@ -13,7 +13,6 @@ import { MoreMenu } from './MoreMenu'
 import {
   onComponentDidMount,
   // onComponentWillReceiveProps,
-  onSwitchChange,
   createPdf,
 } from './functions/'
 
@@ -21,7 +20,6 @@ export class EditInspection extends Component {
   state = {
     src: undefined,
     menuAnchor: null,
-    certificate: false,
   }
 
   componentDidMount() {
@@ -46,7 +44,9 @@ export class EditInspection extends Component {
       error,
       loading,
       setFeedback,
+      toggleInspectionCertificate,
     } = this.props
+
     const {
       inspectionLoaded,
       conditionRatingsLoaded,
@@ -54,6 +54,8 @@ export class EditInspection extends Component {
       complianceIssuesLoaded,
       impactTestsLoaded,
       impactGeneralInfo,
+      certificate,
+      customCertificateText,
     } = inspection
 
     const isLoaded =
@@ -69,6 +71,8 @@ export class EditInspection extends Component {
       <div>
         <InspectionItems
           inspection={inspection}
+          certificate={certificate}
+          customCertificateText={customCertificateText}
           match={match}
           error={error}
           loading={loading}
@@ -78,8 +82,8 @@ export class EditInspection extends Component {
           <FormControlLabel
             control={
               <Switch
-                checked={this.state.certificate}
-                onChange={onSwitchChange(this)}
+                checked={certificate}
+                onChange={toggleInspectionCertificate}
                 value="certificate"
                 color="primary"
               />

@@ -29,7 +29,11 @@ import { fetchImpactTests } from './fetchImpactTests'
 import { addDropTest } from './addDropTest'
 import { updateDropTest } from './updateDropTest'
 import { deleteDropTest } from './deleteDropTest'
-import { DISCARD_INSPECTION } from '../../actionTypes'
+import { saveCustomCertificateText } from './saveCustomCertificateText'
+import {
+  DISCARD_INSPECTION,
+  TOGGLE_INSPECTION_CERTIFICATE,
+} from '../../actionTypes'
 
 export {
   addInspection,
@@ -63,8 +67,13 @@ export {
   addDropTest,
   updateDropTest,
   deleteDropTest,
+  saveCustomCertificateText,
 }
 
 export const discardInspection = () => ({
   type: DISCARD_INSPECTION,
+})
+
+export const toggleInspectionCertificate = () => ({
+  type: TOGGLE_INSPECTION_CERTIFICATE,
 })

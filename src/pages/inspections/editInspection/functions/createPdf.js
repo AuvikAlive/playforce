@@ -3,7 +3,6 @@ import { generatePdf } from '../../pdfMake/generatePdf'
 
 export const createPdf = component => async inspection => {
   const { displayName, standards, defaultCertificateText } = component.props
-  const { certificate } = component.state
 
   inspection.displayName = displayName
 
@@ -20,7 +19,6 @@ export const createPdf = component => async inspection => {
 
   const pdfDocGenerator = await generatePdf(
     inspectionWithAppliedStandards,
-    certificate,
     defaultCertificateText
   )
 

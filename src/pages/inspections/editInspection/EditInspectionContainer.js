@@ -12,6 +12,7 @@ import {
   fetchMaintenanceIssuesRealTime,
   fetchMaintenanceIssues,
   fetchImpactTestsRealTime,
+  toggleInspectionCertificate,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
@@ -57,6 +58,7 @@ const mapDispatchToProps = {
   fetchStandards,
   deleteInspection,
   discardInspection,
+  toggleInspectionCertificate,
 }
 
 export const EditInspectionContainer = compose(

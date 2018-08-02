@@ -36,8 +36,6 @@ export class AuditSummary extends Component {
     onComponentWillReceiveProps(this, nextProps)
   }
 
-   
-
   render() {
     const { summary } = this.state
     const {
@@ -59,7 +57,7 @@ export class AuditSummary extends Component {
                 label="Summary"
                 value={summary}
                 margin="normal"
-                onChange={onEventInputChange(this,'summary')}
+                onChange={onEventInputChange(this, 'summary')}
               />
 
               {signature && (
