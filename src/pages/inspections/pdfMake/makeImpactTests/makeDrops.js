@@ -11,7 +11,7 @@ export const makeDrops = (marginLeft, dropTests) => ({
     fillColor: function(i, node) {
       if (i === 0) {
         return lightGray
-      } else if (i === 2 || (i + 1) % 3 === 0) {
+      } else if (i !== 1 && i % 2 === 0) {
         return lighterGray
       } else {
         return null
