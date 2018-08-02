@@ -1,6 +1,6 @@
 import Loadable from '../loadable/LoadableLinear'
 import TestComponent from '../testComponent/TestComponent'
-import Home from '../../pages/home/Home'
+// import Home from '../../pages/home/Home'
 
 const SignIn = Loadable({
   loader: () => import('../../pages/signIn'),
@@ -35,12 +35,12 @@ export const publicRoutes = [
     name: 'Test Component',
     exact: true,
   },
-  {
-    Component: Home,
-    pathname: '/',
-    name: 'Home',
-    exact: true,
-  },
+  // {
+  //   Component: Home,
+  //   pathname: '/',
+  //   name: 'Home',
+  //   exact: true,
+  // },
   {
     Component: SignIn,
     pathname: '/SignIn',

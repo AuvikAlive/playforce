@@ -7,16 +7,18 @@ import { StyledLinks } from './StyledLinks'
 
 export const PublicLinks = () => (
   <StyledLinks>
-    <StyledNavLink to={{ pathname: '/', state: { name: 'Home' } }}>
+    {/* <StyledNavLink to={{ pathname: '/', state: { name: 'Home' } }}>
       <ListItem button className="list-item">
         <ListItemText primary="Home" />
       </ListItem>
-    </StyledNavLink>
+    </StyledNavLink> */}
+
     <StyledNavLink to={{ pathname: '/signIn', state: { name: 'Sign In' } }}>
       <ListItem button className="list-item">
         <ListItemText primary="Sign In" />
       </ListItem>
     </StyledNavLink>
+
     <StyledNavLink to={{ pathname: '/signUp', state: { name: 'Sign Up' } }}>
       <ListItem button className="list-item">
         <Button variant="raised" color="primary" fullWidth>

@@ -10,13 +10,13 @@ export const Routes = ({ auth, profile }) =>
       {publicRoutes.map(({ Component, pathname, name, exact }) => (
         <Route key={name} exact={exact} path={pathname} component={Component} />
       ))}
-      <Redirect to="/" />
+      <Redirect to="/signIn" />
     </Switch>
   ) : (
     <Switch>
       {privateRoutes.map(({ Component, pathname, name, exact }) => (
         <Route key={name} exact={exact} path={pathname} component={Component} />
       ))}
-      <Redirect to="/" />
+      <Redirect to="/dashboard" />
     </Switch>
   )
