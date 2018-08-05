@@ -21,7 +21,9 @@ export const deleteInspection = (inspection, userId) => async (
     .collection('inspections')
     .doc(inspectionId)
 
-  let storageImages = [`${userId}/images/${inspectionId}/cover`]
+  let storageImages = inspection.cover.image
+    ? [`${userId}/images/${inspectionId}/cover`]
+    : []
 
   if (conditionRatingsAdded) {
     const { conditionRatings } = inspection
