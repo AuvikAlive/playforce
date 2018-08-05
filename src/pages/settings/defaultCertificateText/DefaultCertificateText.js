@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import Typography from '@material-ui/core/Typography'
 import { CertificateTextForm } from '../../../components/certificateTextForm/CertificateTextForm'
+import { Content } from '../../../components/content/Content'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
@@ -21,10 +23,32 @@ export class DefaultCertificateText extends Component {
     const { defaultCertificateText, updateProfile } = this.props
 
     return (
-      <CertificateTextForm
-        initialData={defaultCertificateText}
-        onSubmit={value => updateProfile({ defaultCertificateText: value })}
-      />
+      <div>
+        <CertificateTextForm
+          initialData={defaultCertificateText}
+          onSubmit={value => updateProfile({ defaultCertificateText: value })}
+        />
+
+        <Content>
+          <div style={{ padding: 24 }}>
+            <Typography variant="title" gutterBottom>
+              Available placeholders
+            </Typography>
+
+            <Typography variant="subheading">
+              - Long date = {`<<long date>>`}
+            </Typography>
+
+            <Typography variant="subheading">
+              - Site name = {`<<site name>>`}
+            </Typography>
+
+            <Typography variant="subheading">
+              - Client name = {`<<client name>>`}
+            </Typography>
+          </div>
+        </Content>
+      </div>
     )
   }
 }

@@ -29,6 +29,7 @@ export const makeDocDefinition = async (
     impactTests,
     certificate,
     customCertificateText,
+    name,
   },
   defaultCertificateText
 ) => {
@@ -48,6 +49,7 @@ export const makeDocDefinition = async (
         cover,
         auditSummary,
         conditionRatings,
+        name,
       }),
       makeCover(cover),
       await makeAuditSummary({ auditSummary, cover }),

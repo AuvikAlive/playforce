@@ -38,6 +38,7 @@ import { getBase64MimeType } from './getBase64MimeType'
 import { replaceLongDate } from './replaceLongDate'
 import { replaceSiteName } from './replaceSiteName'
 import { replaceClientName } from './replaceClientName'
+import { replaceCertificateTextPlaceholders } from './replaceCertificateTextPlaceholders'
 
 export {
   openMenu,
@@ -80,4 +81,5 @@ export {
   replaceLongDate,
   replaceSiteName,
   replaceClientName,
+  replaceCertificateTextPlaceholders,
 }

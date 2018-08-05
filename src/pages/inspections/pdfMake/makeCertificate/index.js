@@ -15,6 +15,7 @@ export const makeCertificate = async ({
   cover,
   auditSummary,
   conditionRatings,
+  name,
 }) => {
   if (!certificate) {
     return null
@@ -43,12 +44,14 @@ export const makeCertificate = async ({
       appliedStandards,
       inspectionNumber,
     }),
-    makeDescription(
+    makeDescription({
       pageFontSize,
       inspectionDate,
       defaultCertificateText,
-      customCertificateText
-    ),
+      customCertificateText,
+      name,
+      client,
+    }),
     await makeSignature(pageFontSize, auditSummary, displayName),
   ]
 }

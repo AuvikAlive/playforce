@@ -12,7 +12,12 @@ const mapStateToProps = (
       profile: { defaultCertificateText },
       auth: { uid },
     },
-    inspection: { inspectionLoaded, customCertificateText },
+    inspection: {
+      inspectionLoaded,
+      customCertificateText,
+      name,
+      cover: { client },
+    },
   },
   {
     match: {
@@ -25,6 +30,8 @@ const mapStateToProps = (
   inspectionId: id,
   inspectionLoaded,
   customCertificateText,
+  name,
+  client,
 })
 
 const mapDispatchToProps = {

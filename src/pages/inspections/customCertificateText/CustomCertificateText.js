@@ -6,7 +6,7 @@ import { contextTypesTitleLeftRightNavUnsubscriber } from '../../../constants/'
 import {
   showContentWhenLoaded,
   onComponentWillUnmountWithTitleLeftRightNav,
-  replaceLongDate,
+  replaceCertificateTextPlaceholders,
   closeMenu,
 } from '../../../functions/'
 import { state } from './state'
@@ -28,13 +28,19 @@ export class CustomCertificateText extends Component {
       inspectionLoaded,
       customCertificateText,
       defaultCertificateText,
+      client,
+      name,
       saveCustomCertificateText,
       userId,
       inspectionId,
     } = this.props
 
     const { menuAnchor, revertText } = this.state
-    const defaultText = replaceLongDate(defaultCertificateText)
+    const defaultText = replaceCertificateTextPlaceholders(
+      defaultCertificateText,
+      client,
+      name
+    )
 
     return showContentWhenLoaded(
       inspectionLoaded,

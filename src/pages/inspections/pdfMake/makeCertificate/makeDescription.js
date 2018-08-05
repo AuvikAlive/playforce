@@ -1,18 +1,20 @@
 import { format } from 'date-fns/esm'
 import { verticalMargin } from '../constants'
-import { replaceLongDate } from '../../../../functions/'
+import { replaceCertificateTextPlaceholders } from '../../../../functions/'
 
-export const makeDescription = (
+export const makeDescription = ({
   pageFontSize,
   inspectionDate,
   defaultCertificateText,
-  customCertificateText
-) => ({
+  customCertificateText,
+  name,
+  client,
+}) => ({
   fontSize: pageFontSize,
   marginBottom: verticalMargin * 3,
   text:
     customCertificateText ||
-    replaceLongDate(defaultCertificateText) ||
+    replaceCertificateTextPlaceholders(defaultCertificateText, client, name) ||
     `Based on our on-site assessment conducted on the ${format(
       inspectionDate,
       'DD MMMM YYYY'
