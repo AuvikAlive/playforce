@@ -36,7 +36,7 @@ export class CertificateTextFormWithout extends Component {
               <TextField
                 fullWidth
                 multiline
-                label="Recommendation"
+                label="Certificate text"
                 value={text}
                 margin="normal"
                 onChange={onEventInputChange(this, 'text')}
