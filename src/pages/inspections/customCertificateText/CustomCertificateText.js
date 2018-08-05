@@ -4,7 +4,7 @@ import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import { onComponentWillUnmountWithTitleLeftNav } from '../../../functions/'
 import { onComponentDidMount } from './onComponentDidMount'
 
-export class CertificateText extends Component {
+export class CustomCertificateText extends Component {
   componentDidMount() {
     onComponentDidMount(this)
   }
@@ -33,4 +33,4 @@ export class CertificateText extends Component {
   }
 }
 
-CertificateText.contextTypes = contextTypesTitleLeftNavUnsubscriber
+CustomCertificateText.contextTypes = contextTypesTitleLeftNavUnsubscriber

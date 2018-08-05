@@ -4,7 +4,7 @@ import {
   fetchInspectionRealTime,
   saveCustomCertificateText,
 } from '../../../store/actions/actionCreators/inspectionActions'
-import { CertificateText } from './CertificateText'
+import { CustomCertificateText } from './CustomCertificateText'
 
 const mapStateToProps = (
   {
@@ -32,9 +32,9 @@ const mapDispatchToProps = {
   saveCustomCertificateText,
 }
 
-export const CertificateTextContainer = compose(
+export const CustomCertificateTextContainer = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(CertificateText)
+)(CustomCertificateText)

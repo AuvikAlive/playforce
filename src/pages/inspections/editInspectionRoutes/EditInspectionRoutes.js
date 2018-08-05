@@ -21,8 +21,8 @@ const MaintenanceIssueRoutes = Loadable({
 const ImpactTestRoutes = Loadable({
   loader: () => import('../impactTestRoutes'),
 })
-const CertificateText = Loadable({
-  loader: () => import('../certificateText'),
+const CustomCertificateText = Loadable({
+  loader: () => import('../customCertificateText'),
 })
 
 EditCover.preload()
@@ -31,7 +31,7 @@ ConditionRatingRoutes.preload()
 ComplianceIssueRoutes.preload()
 MaintenanceIssueRoutes.preload()
 ImpactTestRoutes.preload()
-CertificateText.preload()
+CustomCertificateText.preload()
 
 export const EditInspectionRoutes = ({ match }) => {
   return (
@@ -56,7 +56,7 @@ export const EditInspectionRoutes = ({ match }) => {
       />
       <Route
         path={`${match.url}/:id/certificateText`}
-        component={CertificateText}
+        component={CustomCertificateText}
       />
       <Route path={`${match.url}/:id`} component={EditInspection} />
     </Switch>
