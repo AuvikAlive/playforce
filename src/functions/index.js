@@ -35,6 +35,9 @@ import { getCurrentPosition } from './getCurrentPosition'
 import { getGeocode } from './getGeocode'
 import { onSingleCrop } from './onSingleCrop'
 import { getBase64MimeType } from './getBase64MimeType'
+import { replaceLongDate } from './replaceLongDate'
+import { replaceSiteName } from './replaceSiteName'
+import { replaceClientName } from './replaceClientName'
 
 export {
   openMenu,
@@ -74,4 +77,7 @@ export {
   getGeocode,
   onSingleCrop,
   getBase64MimeType,
+  replaceLongDate,
+  replaceSiteName,
+  replaceClientName,
 }

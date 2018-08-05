@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { CertificateTextForm } from '../../../components/certificateTextForm/CertificateTextForm'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
-import { onComponentWillUnmountWithTitleLeftNav } from '../../../functions/'
+import {
+  onComponentWillUnmountWithTitleLeftNav,
+  replaceLongDate,
+} from '../../../functions/'
 import { onComponentDidMount } from './onComponentDidMount'
 
 export class CustomCertificateText extends Component {
@@ -24,7 +27,9 @@ export class CustomCertificateText extends Component {
 
     return (
       <CertificateTextForm
-        initialData={customCertificateText || defaultCertificateText}
+        initialData={
+          customCertificateText || replaceLongDate(defaultCertificateText)
+        }
         onSubmit={value =>
           saveCustomCertificateText(userId, inspectionId, value)
         }

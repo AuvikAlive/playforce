@@ -1,5 +1,6 @@
 import { format } from 'date-fns/esm'
 import { verticalMargin } from '../constants'
+import { replaceLongDate } from '../../../../functions/'
 
 export const makeDescription = (
   pageFontSize,
@@ -11,7 +12,7 @@ export const makeDescription = (
   marginBottom: verticalMargin * 3,
   text:
     customCertificateText ||
-    defaultCertificateText ||
+    replaceLongDate(defaultCertificateText) ||
     `Based on our on-site assessment conducted on the ${format(
       inspectionDate,
       'DD MMMM YYYY'
