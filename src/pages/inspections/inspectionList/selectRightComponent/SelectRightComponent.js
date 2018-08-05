@@ -19,7 +19,7 @@ export class SelectRightComponent extends Component {
   }
 
   render() {
-    const { unarchive } = this.props
+    const { unarchive, openDialog } = this.props
     const { menuAnchor } = this.state
 
     return (
@@ -27,7 +27,9 @@ export class SelectRightComponent extends Component {
         <IconButton
           color="inherit"
           aria-label="delete"
-          onClick={deleteInspections(this)}
+          onClick={() =>
+            openDialog(deleteInspections(this), 'Delete these items?')
+          }
         >
           <DeleteIcon />
         </IconButton>

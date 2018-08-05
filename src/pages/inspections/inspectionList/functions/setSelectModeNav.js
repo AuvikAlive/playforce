@@ -13,7 +13,7 @@ export const setSelectModeNav = (component, selectedItemsLength) => {
     setRightNavComponent,
     setSearchOnBottom,
   } = component.context
-  const { searchBarOpen, searchResults } = component.props
+  const { searchBarOpen, searchResults, openDialog } = component.props
   const searchMode = searchBarOpen && searchResults && searchResults.length > 0
 
   setNavColor('default')
@@ -34,6 +34,7 @@ export const setSelectModeNav = (component, selectedItemsLength) => {
       unarchive={searchMode}
       getSelectedItems={getSelectedItems(component)}
       setSelectMode={setSelectMode(component)}
+      openDialog={openDialog}
     />
   )
 

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteDialog } from '../../../../hocs/withDeleteDialog/withDeleteDialog'
 import {
   fetchInspectionsByIdWithComplianceIssues,
   fetchInspectionsByIdWithMaintenanceIssues,
@@ -27,7 +26,6 @@ const mapDispatchToProps = {
 }
 
 export const SelectRightComponentContainer = compose(
-  withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

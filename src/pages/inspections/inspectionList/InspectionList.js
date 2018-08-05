@@ -38,6 +38,8 @@ export class InspectionList extends Component {
     onComponentWillReceiveProps(this, nextProps)
   }
 
+  setSelectMode = setSelectMode(this)
+
   render() {
     const {
       match,

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFirestore } from 'react-redux-firebase'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import {
   openSearchBar,
   closeSearchBar,
@@ -55,6 +56,10 @@ const mapDispatchToProps = {
 }
 
 export const InspectionListContainer = compose(
+  withDeleteDialog,
   withFirestore,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(InspectionList)
