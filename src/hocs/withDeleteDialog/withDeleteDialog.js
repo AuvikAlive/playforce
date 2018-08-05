@@ -10,7 +10,7 @@ export const withDeleteDialog = WrappedComponent => {
     state = state
 
     render() {
-      const { dialogOpen, handleConfirmation } = this.state
+      const { dialogOpen, handleConfirmation, message } = this.state
 
       return (
         <div>
@@ -18,6 +18,7 @@ export const withDeleteDialog = WrappedComponent => {
             <DialogContent
               handleConfirmation={handleConfirmation}
               closeDialog={closeDialog(this)}
+              message={message}
             />
           </Dialog>
           <WrappedComponent openDialog={openDialog(this)} {...this.props} />

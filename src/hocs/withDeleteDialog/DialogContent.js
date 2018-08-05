@@ -9,6 +9,7 @@ import { withFeedback } from '../withFeedback/withFeedback'
 const DialogContentWithout = ({
   closeDialog,
   handleConfirmation,
+  message,
   setFeedback,
   error,
   loading,
@@ -27,7 +28,7 @@ const DialogContentWithout = ({
 
   return (
     <StyledDialogContent className="StyledDialogContent">
-      <DialogTitle>Delete this item?</DialogTitle>
+      <DialogTitle>{message || 'Delete this item?'}</DialogTitle>
 
       {!error &&
         loading && (

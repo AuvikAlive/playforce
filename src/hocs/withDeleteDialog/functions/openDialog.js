@@ -1,3 +1,3 @@
-export const openDialog = component => handleConfirmation => {
-  component.setState({ dialogOpen: true, handleConfirmation })
+export const openDialog = component => (handleConfirmation, message) => {
+  component.setState({ dialogOpen: true, handleConfirmation, message })
 }

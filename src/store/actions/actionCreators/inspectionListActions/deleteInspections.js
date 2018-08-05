@@ -17,8 +17,11 @@ export const deleteInspections = (userId, list) => async (
 
   const Promises = list.map(async inspectionId => {
     const inspectionRef = ref.doc(inspectionId)
+    const inspectionDoc = await inspectionRef.get()
+    const { cover } = inspectionDoc.data()
+    const { image } = cover
 
-    storageImages.push(`${userId}/images/${inspectionId}/cover`)
+    image && storageImages.push(`${userId}/images/${inspectionId}/cover`)
 
     const conditionRatingsSnapshot = await inspectionRef
       .collection('conditionRatings')
