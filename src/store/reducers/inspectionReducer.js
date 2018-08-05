@@ -118,10 +118,9 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
     case UPDATE_CONDITION_RATING:
       return {
         ...state,
-        conditionRatings: [
-          ...state.conditionRatings.filter(({ id }) => id !== payload.id),
-          payload,
-        ],
+        conditionRatings: state.conditionRatings.map(
+          item => (item.id === payload.id ? payload : item)
+        ),
       }
 
     case DELETE_CONDITION_RATING: {
@@ -140,8 +139,9 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         complianceIssues: [
-          ...state.complianceIssues.filter(({ id }) => id !== payload.id),
-          payload,
+          ...state.complianceIssues.map(
+            item => (item.id === payload.id ? payload : item)
+          ),
         ],
       }
 
@@ -161,8 +161,9 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         maintenanceIssues: [
-          ...state.maintenanceIssues.filter(({ id }) => id !== payload.id),
-          payload,
+          ...state.maintenanceIssues.map(
+            item => (item.id === payload.id ? payload : item)
+          ),
         ],
       }
 

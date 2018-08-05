@@ -98,7 +98,7 @@ export class ConditionRatingForm extends Component {
               color="primary"
               className="submit-button"
               onClick={() => {
-                captureImage({ width: 1024, height: (1024 * 432) / 764 })
+                captureImage({ width: 512, height: (512 * 432) / 764 })
               }}
             >
               Capture Image

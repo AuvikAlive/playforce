@@ -103,8 +103,8 @@ export class MaintenanceIssueForm extends Component {
               onClick={() =>
                 // captureImage({ width: 188, height: 253, multiple: true })
                 captureImage({
-                  width: 1024,
-                  height: (1024 * 253) / 188,
+                  width: 512,
+                  height: (512 * 253) / 188,
                   multiple: true,
                 })
               }

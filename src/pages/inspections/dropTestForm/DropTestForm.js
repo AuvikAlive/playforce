@@ -64,7 +64,12 @@ class DropTestFormWithout extends Component {
               variant="raised"
               color="primary"
               className="submit-button"
-              onClick={() => captureImage()}
+              onClick={() =>
+                captureImage({
+                  width: 512,
+                  height: (512 * 253) / 188,
+                })
+              }
             >
               Capture Image
               <StayCurrentPortraitIcon className="button-icon" />

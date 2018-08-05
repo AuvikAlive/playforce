@@ -120,8 +120,8 @@ export class ComplianceIssueForm extends Component {
               className="submit-button"
               onClick={() =>
                 captureImage({
-                  width: 1024,
-                  height: (1024 * 253) / 188,
+                  width: 512,
+                  height: (512 * 253) / 188,
                   multiple: true,
                 })
               }
