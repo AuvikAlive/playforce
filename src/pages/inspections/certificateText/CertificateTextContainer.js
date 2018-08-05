@@ -9,7 +9,7 @@ import { CertificateText } from './CertificateText'
 const mapStateToProps = (
   {
     firebase: {
-      profile,
+      profile: { defaultCertificateText },
       auth: { uid },
     },
     inspection: { inspectionLoaded, customCertificateText },
@@ -20,6 +20,7 @@ const mapStateToProps = (
     },
   }
 ) => ({
+  defaultCertificateText,
   userId: uid,
   inspectionId: id,
   inspectionLoaded,

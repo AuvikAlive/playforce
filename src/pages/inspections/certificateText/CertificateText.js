@@ -16,6 +16,7 @@ export class CertificateText extends Component {
   render() {
     const {
       customCertificateText,
+      defaultCertificateText,
       saveCustomCertificateText,
       userId,
       inspectionId,
@@ -23,7 +24,7 @@ export class CertificateText extends Component {
 
     return (
       <CertificateTextForm
-        initialData={customCertificateText}
+        initialData={customCertificateText || defaultCertificateText}
         onSubmit={value =>
           saveCustomCertificateText(userId, inspectionId, value)
         }
