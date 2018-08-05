@@ -13,6 +13,7 @@ import { MoreMenu } from './MoreMenu'
 import {
   onComponentDidMount,
   // onComponentWillReceiveProps,
+  toggleInspectionCertificate,
   createPdf,
 } from './functions/'
 
@@ -44,7 +45,6 @@ export class EditInspection extends Component {
       error,
       loading,
       setFeedback,
-      toggleInspectionCertificate,
     } = this.props
 
     const {
@@ -83,7 +83,7 @@ export class EditInspection extends Component {
             control={
               <Switch
                 checked={certificate}
-                onChange={toggleInspectionCertificate}
+                onChange={toggleInspectionCertificate(this)}
                 value="certificate"
                 color="primary"
               />
