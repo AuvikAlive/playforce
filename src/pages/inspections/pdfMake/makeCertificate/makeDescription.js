@@ -12,6 +12,7 @@ export const makeDescription = ({
 }) => ({
   fontSize: pageFontSize,
   marginBottom: verticalMargin * 3,
+  alignment: 'justify',
   text:
     customCertificateText ||
     replaceCertificateTextPlaceholders(defaultCertificateText, client, name) ||
