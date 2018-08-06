@@ -14,6 +14,7 @@ import { findings } from './findings'
 import { probabilities } from './probabilities'
 import { riskLevels } from './riskLevels'
 import { severities } from './severities'
+import { siteNamePlaceholder } from './siteNamePlaceholder'
 import { theme } from './theme'
 
 export {
@@ -33,5 +34,6 @@ export {
   probabilities,
   riskLevels,
   severities,
+  siteNamePlaceholder,
   theme,
 }

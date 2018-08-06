@@ -1,9 +1,7 @@
-export const replacePlaceholders = (
-  str,
-  name = '<<site>>',
-  address = '<<address>>'
-) => {
-  str = str.replace('<<site>>', name)
+import { replaceSiteName } from '../../../../functions/'
+
+export const replacePlaceholders = (str, name, address = '<<address>>') => {
+  str = replaceSiteName(str, name)
   str = str.replace('<<address>>', address)
 
   return str

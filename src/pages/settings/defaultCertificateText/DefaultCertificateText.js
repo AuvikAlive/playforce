@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import Typography from '@material-ui/core/Typography'
 import { CertificateTextForm } from '../../../components/certificateTextForm/CertificateTextForm'
 import { Content } from '../../../components/content/Content'
+import { AvailablePlaceholders } from '../../../components/availablePlaceholders/AvailablePlaceholders'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
 } from '../../../functions/'
+import { placeholders } from './placeholders'
 
 export class DefaultCertificateText extends Component {
   componentDidMount() {
@@ -30,23 +31,7 @@ export class DefaultCertificateText extends Component {
         />
 
         <Content>
-          <div style={{ padding: 24 }}>
-            <Typography variant="title" gutterBottom>
-              Available placeholders
-            </Typography>
-
-            <Typography variant="subheading">
-              - Long date = {`<<long date>>`}
-            </Typography>
-
-            <Typography variant="subheading">
-              - Site name = {`<<site name>>`}
-            </Typography>
-
-            <Typography variant="subheading">
-              - Client name = {`<<client name>>`}
-            </Typography>
-          </div>
+          <AvailablePlaceholders placeholders={placeholders} />
         </Content>
       </div>
     )
