@@ -1,11 +1,10 @@
-import { verticalMargin } from '../constants'
-
-export const makeStandardsRow = (
+export const makeStandardsRow = ({
   pageFontSize,
   lineHeight,
   firstColumnWidth,
-  appliedStandards
-) => {
+  marginBottom,
+  appliedStandards,
+}) => {
   const standardItems = appliedStandards.map(
     ({ code, title }, index, array) => {
       const item = {
@@ -20,7 +19,7 @@ export const makeStandardsRow = (
 
   return {
     fontSize: pageFontSize,
-    marginBottom: verticalMargin * 3,
+    marginBottom,
     columns: [
       {
         text: 'Standard(s) applied',

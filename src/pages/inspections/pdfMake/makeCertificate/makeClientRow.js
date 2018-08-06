@@ -1,8 +1,11 @@
-import { verticalMargin } from '../constants'
-
-export const makeClientRow = (pageFontSize, firstColumnWidth, client) => ({
+export const makeClientRow = ({
+  pageFontSize,
+  firstColumnWidth,
+  marginBottom,
+  client,
+}) => ({
   fontSize: pageFontSize,
-  marginBottom: verticalMargin * 3,
+  marginBottom,
   columns: [
     {
       text: 'Client',

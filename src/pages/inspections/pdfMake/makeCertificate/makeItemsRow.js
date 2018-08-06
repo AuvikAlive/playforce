@@ -1,11 +1,10 @@
-import { verticalMargin } from '../constants'
-
-export const makeItemsRow = (
+export const makeItemsRow = ({
   pageFontSize,
   lineHeight,
   firstColumnWidth,
-  conditionRatings
-) => {
+  marginBottom,
+  conditionRatings,
+}) => {
   const conditionRatingItems = conditionRatings.map(
     ({ equipment, manufacturer }) => ({
       text: `${equipment} - ${manufacturer}`,
@@ -16,7 +15,7 @@ export const makeItemsRow = (
 
   return {
     fontSize: pageFontSize,
-    marginBottom: verticalMargin * 3,
+    marginBottom,
     columns: [
       {
         text: 'Items(s)',

@@ -1,20 +1,22 @@
-export const makeInspectionRow = ({
+import { format } from 'date-fns'
+
+const date = new Date()
+
+export const makeRevDateRow = (
   pageFontSize,
   firstColumnWidth,
-  marginBottom,
-  inspectionNumber,
-  customInspectionNumber,
-}) => ({
+  marginBottom
+) => ({
   fontSize: pageFontSize,
   marginBottom,
   columns: [
     {
-      text: 'Inspection Report',
+      text: 'Rev. Date',
       bold: true,
       italics: true,
       width: firstColumnWidth,
     },
     { text: ':', width: firstColumnWidth / 2 },
-    { text: customInspectionNumber || inspectionNumber, width: '*' },
+    { text: format(date, 'DD MMMM YYYY'), width: '*' },
   ],
 })

@@ -1,17 +1,16 @@
-import { verticalMargin } from '../constants'
-
-export const makeSiteLocationRow = (
+export const makeSiteLocationRow = ({
   pageFontSize,
   lineHeight,
   firstColumnWidth,
-  location
-) => {
+  marginBottom,
+  location,
+}) => {
   const { name, street, suburb, state, postcode, country } = location
   const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
 
   return {
     fontSize: pageFontSize,
-    marginBottom: verticalMargin * 3,
+    marginBottom,
     columns: [
       {
         text: 'Site Location',

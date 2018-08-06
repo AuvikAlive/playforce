@@ -1,8 +1,10 @@
+import { verticalMargin } from '../constants'
 import { makeSiteLocationRow } from './makeSiteLocationRow'
 import { makeClientRow } from './makeClientRow'
 import { makeItemsRow } from './makeItemsRow'
 import { makeStandardsRow } from './makeStandardsRow'
 import { makeInspectionRow } from './makeInspectionRow'
+import { makeRevDateRow } from './makeRevDateRow'
 
 export const makeMiddleSection = ({
   pageFontSize,
@@ -15,22 +17,38 @@ export const makeMiddleSection = ({
   customInspectionNumber,
 }) => {
   const firstColumnWidth = 150
+  const marginBottom = verticalMargin * 2
 
   return [
-    makeSiteLocationRow(pageFontSize, lineHeight, firstColumnWidth, location),
-    makeClientRow(pageFontSize, firstColumnWidth, client),
-    makeItemsRow(pageFontSize, lineHeight, firstColumnWidth, conditionRatings),
-    makeStandardsRow(
+    makeSiteLocationRow({
       pageFontSize,
       lineHeight,
       firstColumnWidth,
-      appliedStandards
-    ),
-    makeInspectionRow(
+      marginBottom,
+      location,
+    }),
+    makeClientRow({ pageFontSize, firstColumnWidth, marginBottom, client }),
+    makeItemsRow({
+      pageFontSize,
+      lineHeight,
+      firstColumnWidth,
+      marginBottom,
+      conditionRatings,
+    }),
+    makeStandardsRow({
+      pageFontSize,
+      lineHeight,
+      firstColumnWidth,
+      marginBottom,
+      appliedStandards,
+    }),
+    makeInspectionRow({
       pageFontSize,
       firstColumnWidth,
+      marginBottom,
       inspectionNumber,
-      customInspectionNumber
-    ),
+      customInspectionNumber,
+    }),
+    makeRevDateRow(pageFontSize, firstColumnWidth, marginBottom),
   ]
 }
