@@ -11,5 +11,7 @@ export const saveCustomCertificateText = (userId, inspectionId, data) => async (
     .collection('inspections')
     .doc(inspectionId)
 
-  return ref.update({ customCertificateText: data })
+  const { text, customInspectionNumber } = data
+
+  return ref.update({ customCertificateText: text, customInspectionNumber })
 }

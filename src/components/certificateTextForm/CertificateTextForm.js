@@ -5,34 +5,49 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../hocs/withFeedback/withFeedback'
-import { onEventInputChange } from '../../functions/'
+import {
+  onEventInputChange,
+  onComponentDidMountLoadData,
+  onComponentWillReceivePropsLoadData,
+} from '../../functions/'
 import { StyledCertificateTextForm } from './StyledCertificateTextForm'
 import {
-  onComponentDidMount,
-  onComponentWillReceiveProps,
+  // onComponentDidMount,
+  // onComponentWillReceiveProps,
   submit,
 } from './functions/'
 
 export class CertificateTextFormWithout extends Component {
-  state = { text: '' }
+  state = { text: '', customInspectionNumber: '' }
 
   componentDidMount() {
-    onComponentDidMount(this)
+    onComponentDidMountLoadData(this)
   }
 
   componentWillReceiveProps(nextProps) {
-    onComponentWillReceiveProps(this, nextProps)
+    onComponentWillReceivePropsLoadData(this, nextProps)
   }
 
   render() {
-    const { text } = this.state
-    const { error, loading } = this.props
+    const { text, customInspectionNumber } = this.state
+    const { showInspectionNumber, error, loading } = this.props
 
     return (
       <StyledCertificateTextForm className="StyledCertificateTextForm">
         <Card className="card">
           <CardContent>
             <form noValidate>
+              {showInspectionNumber && (
+                <TextField
+                  fullWidth
+                  type="number"
+                  margin="normal"
+                  label="Inspection number"
+                  value={customInspectionNumber}
+                  onChange={onEventInputChange(this, 'customInspectionNumber')}
+                />
+              )}
+
               <TextField
                 fullWidth
                 multiline

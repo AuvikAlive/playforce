@@ -3,7 +3,8 @@ import { verticalMargin } from '../constants'
 export const makeInspectionRow = (
   pageFontSize,
   firstColumnWidth,
-  inspectionNumber
+  inspectionNumber,
+  customInspectionNumber
 ) => ({
   fontSize: pageFontSize,
   marginBottom: verticalMargin * 3,
@@ -15,6 +16,6 @@ export const makeInspectionRow = (
       width: firstColumnWidth,
     },
     { text: ':', width: firstColumnWidth / 2 },
-    { text: inspectionNumber, width: '*' },
+    { text: customInspectionNumber || inspectionNumber, width: '*' },
   ],
 })

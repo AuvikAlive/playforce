@@ -15,6 +15,7 @@ const mapStateToProps = (
     inspection: {
       inspectionLoaded,
       customCertificateText,
+      customInspectionNumber,
       name,
       cover: { client },
     },
@@ -30,6 +31,7 @@ const mapStateToProps = (
   inspectionId: id,
   inspectionLoaded,
   customCertificateText,
+  customInspectionNumber,
   name,
   client,
 })

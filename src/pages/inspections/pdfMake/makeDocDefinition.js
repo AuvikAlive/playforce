@@ -29,6 +29,7 @@ export const makeDocDefinition = async (
     impactTests,
     certificate,
     customCertificateText,
+    customInspectionNumber,
     name,
   },
   defaultCertificateText
@@ -46,6 +47,7 @@ export const makeDocDefinition = async (
         defaultCertificateText,
         customCertificateText,
         inspectionNumber,
+        customInspectionNumber,
         cover,
         auditSummary,
         conditionRatings,

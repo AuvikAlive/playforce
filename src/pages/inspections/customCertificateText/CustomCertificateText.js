@@ -10,7 +10,7 @@ import {
   closeMenu,
 } from '../../../functions/'
 import { state } from './state'
-import { onComponentDidMount, revertToDefaultText } from './functions/'
+import { onComponentDidMount, revertToDefaultText, submit } from './functions/'
 
 export class CustomCertificateText extends Component {
   state = state
@@ -27,12 +27,10 @@ export class CustomCertificateText extends Component {
     const {
       inspectionLoaded,
       customCertificateText,
+      customInspectionNumber,
       defaultCertificateText,
       client,
       name,
-      saveCustomCertificateText,
-      userId,
-      inspectionId,
     } = this.props
 
     const { menuAnchor, revertText } = this.state
@@ -46,12 +44,14 @@ export class CustomCertificateText extends Component {
       inspectionLoaded,
       <div>
         <CertificateTextForm
-          initialData={
-            revertText ? defaultText : customCertificateText || defaultText
-          }
-          onSubmit={value =>
-            saveCustomCertificateText(userId, inspectionId, value)
-          }
+          showInspectionNumber
+          initialData={{
+            text: revertText
+              ? defaultText
+              : customCertificateText || defaultText,
+            customInspectionNumber,
+          }}
+          onSubmit={submit(this)}
         />
 
         <Menu

@@ -11,6 +11,7 @@ export const makeMiddleSection = ({
   conditionRatings,
   appliedStandards,
   inspectionNumber,
+  customInspectionNumber,
 }) => {
   const firstColumnWidth = 150
 
@@ -19,6 +20,11 @@ export const makeMiddleSection = ({
     makeClientRow(pageFontSize, firstColumnWidth, client),
     makeItemsRow(pageFontSize, firstColumnWidth, conditionRatings),
     makeStandardsRow(pageFontSize, firstColumnWidth, appliedStandards),
-    makeInspectionRow(pageFontSize, firstColumnWidth, inspectionNumber),
+    makeInspectionRow(
+      pageFontSize,
+      firstColumnWidth,
+      inspectionNumber,
+      customInspectionNumber
+    ),
   ]
 }

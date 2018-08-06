@@ -12,6 +12,7 @@ export const makeCertificate = async ({
   defaultCertificateText,
   customCertificateText,
   inspectionNumber,
+  customInspectionNumber,
   cover,
   auditSummary,
   conditionRatings,
@@ -35,7 +36,11 @@ export const makeCertificate = async ({
     makeAddressHeader(),
     makeTitle(),
     makeSubtitle(pageFontSize),
-    makeCertificateNumber(inspectionNumber, pageFontSize),
+    makeCertificateNumber(
+      inspectionNumber,
+      customInspectionNumber,
+      pageFontSize
+    ),
     makeMiddleSection({
       pageFontSize,
       location,
@@ -43,6 +48,7 @@ export const makeCertificate = async ({
       conditionRatings,
       appliedStandards,
       inspectionNumber,
+      customInspectionNumber,
     }),
     makeDescription({
       pageFontSize,

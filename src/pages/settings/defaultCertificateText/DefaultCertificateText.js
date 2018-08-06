@@ -26,8 +26,10 @@ export class DefaultCertificateText extends Component {
     return (
       <div>
         <CertificateTextForm
-          initialData={defaultCertificateText}
-          onSubmit={value => updateProfile({ defaultCertificateText: value })}
+          initialData={{ text: defaultCertificateText }}
+          onSubmit={({ text }) =>
+            updateProfile({ defaultCertificateText: text })
+          }
         />
 
         <Content>
