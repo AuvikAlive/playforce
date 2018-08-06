@@ -40,7 +40,7 @@ export const makeDocDefinition = async (
     pageMargins,
     pageSize,
     header: makeHeader(skipCommonHeaderFooter),
-    footer: makeFooter(skipCommonHeaderFooter),
+    footer: makeFooter(0),
     content: [
       await makeCertificate({
         certificate,
