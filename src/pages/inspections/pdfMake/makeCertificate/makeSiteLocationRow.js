@@ -2,6 +2,7 @@ import { verticalMargin } from '../constants'
 
 export const makeSiteLocationRow = (
   pageFontSize,
+  lineHeight,
   firstColumnWidth,
   location
 ) => {
@@ -19,7 +20,7 @@ export const makeSiteLocationRow = (
         width: firstColumnWidth,
       },
       { text: ':', width: firstColumnWidth / 2 },
-      [{ text: name, width: '*' }, { text: address }],
+      [{ text: name, width: '*', lineHeight }, { text: address }],
     ],
   }
 }

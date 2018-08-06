@@ -2,6 +2,7 @@ import { verticalMargin } from '../constants'
 
 export const makeStandardsRow = (
   pageFontSize,
+  lineHeight,
   firstColumnWidth,
   appliedStandards
 ) => {
@@ -10,6 +11,7 @@ export const makeStandardsRow = (
       const item = {
         text: `${code}`,
         width: '*',
+        lineHeight,
       }
 
       return item

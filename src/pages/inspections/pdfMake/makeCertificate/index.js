@@ -31,6 +31,7 @@ export const makeCertificate = async ({
   } = cover
 
   const pageFontSize = fontSize + 2
+  const lineHeight = 1.3
 
   return [
     makeAddressHeader(),
@@ -43,6 +44,7 @@ export const makeCertificate = async ({
     ),
     makeMiddleSection({
       pageFontSize,
+      lineHeight,
       location,
       client,
       conditionRatings,
@@ -52,12 +54,13 @@ export const makeCertificate = async ({
     }),
     makeDescription({
       pageFontSize,
+      lineHeight,
       inspectionDate,
       defaultCertificateText,
       customCertificateText,
       name,
       client,
     }),
-    await makeSignature(pageFontSize, auditSummary, displayName),
+    await makeSignature(pageFontSize, lineHeight, auditSummary, displayName),
   ]
 }

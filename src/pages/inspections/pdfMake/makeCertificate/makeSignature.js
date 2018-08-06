@@ -3,6 +3,7 @@ import { verticalMargin } from '../constants'
 
 export const makeSignature = async (
   pageFontSize,
+  lineHeight,
   auditSummary,
   displayName
 ) => {
@@ -19,15 +20,18 @@ export const makeSignature = async (
       fontSize: pageFontSize,
       text: displayName,
       bold: true,
+      lineHeight,
     },
     {
       fontSize: pageFontSize,
       text: title,
+      lineHeight,
     },
     {
       fontSize: pageFontSize,
       text: company,
       pageBreak: 'after',
+      lineHeight,
     },
   ]
 }

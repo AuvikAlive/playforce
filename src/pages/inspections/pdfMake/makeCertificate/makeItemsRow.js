@@ -2,6 +2,7 @@ import { verticalMargin } from '../constants'
 
 export const makeItemsRow = (
   pageFontSize,
+  lineHeight,
   firstColumnWidth,
   conditionRatings
 ) => {
@@ -9,6 +10,7 @@ export const makeItemsRow = (
     ({ equipment, manufacturer }) => ({
       text: `${equipment} - ${manufacturer}`,
       width: '*',
+      lineHeight,
     })
   )
 

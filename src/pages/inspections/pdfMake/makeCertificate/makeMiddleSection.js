@@ -6,6 +6,7 @@ import { makeInspectionRow } from './makeInspectionRow'
 
 export const makeMiddleSection = ({
   pageFontSize,
+  lineHeight,
   location,
   client,
   conditionRatings,
@@ -16,10 +17,15 @@ export const makeMiddleSection = ({
   const firstColumnWidth = 150
 
   return [
-    makeSiteLocationRow(pageFontSize, firstColumnWidth, location),
+    makeSiteLocationRow(pageFontSize, lineHeight, firstColumnWidth, location),
     makeClientRow(pageFontSize, firstColumnWidth, client),
-    makeItemsRow(pageFontSize, firstColumnWidth, conditionRatings),
-    makeStandardsRow(pageFontSize, firstColumnWidth, appliedStandards),
+    makeItemsRow(pageFontSize, lineHeight, firstColumnWidth, conditionRatings),
+    makeStandardsRow(
+      pageFontSize,
+      lineHeight,
+      firstColumnWidth,
+      appliedStandards
+    ),
     makeInspectionRow(
       pageFontSize,
       firstColumnWidth,

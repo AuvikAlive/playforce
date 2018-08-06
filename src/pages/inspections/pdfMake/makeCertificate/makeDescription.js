@@ -4,6 +4,7 @@ import { replaceCertificateTextPlaceholders } from '../../../../functions/'
 
 export const makeDescription = ({
   pageFontSize,
+  lineHeight,
   inspectionDate,
   defaultCertificateText,
   customCertificateText,
@@ -13,6 +14,7 @@ export const makeDescription = ({
   fontSize: pageFontSize,
   marginBottom: verticalMargin * 3,
   alignment: 'justify',
+  lineHeight,
   text:
     customCertificateText ||
     replaceCertificateTextPlaceholders(defaultCertificateText, client, name) ||
