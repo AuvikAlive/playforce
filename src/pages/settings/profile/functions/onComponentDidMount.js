@@ -9,14 +9,15 @@ export const onComponentDidMount = component => {
       title = '',
       company = '',
       mobile = '',
-      signature,
+      // signature,
     },
   } = component.props
+
   const navTitle = 'Profile'
 
   onComponentDidMountWithTitleLeftNav(component, navTitle)
 
   component.setState({ displayName, image, title, company, mobile })
   setCapturedImage(image)
-  signature && component.signature.setSignature(signature)
+  // signature && component.signature.setSignature(signature)
 }

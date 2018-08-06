@@ -6,22 +6,34 @@ import ClearIcon from '@material-ui/icons/Clear'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { withImageCapture } from '../../hocs/withImageCapture/withImageCapture'
 import { StyledSignature } from './StyledSignature'
+import {
+  onComponentDidMount,
+  onComponentWillReceiveProps,
+  onComponentWillUnmount,
+  getSignature,
+  isEmpty,
+  clear,
+  handleResize,
+} from './functions/'
 
 class SignatureWithout extends Component {
-  componentWillReceiveProps({ imageCaptured, image }) {
-    if (imageCaptured && image !== this.props.image) {
-      this.clear()
-      this.setSignature(image)
-    }
+  componentDidMount() {
+    onComponentDidMount(this)
   }
 
-  setSignature = signature => this.mySignature.fromDataURL(signature)
+  componentWillReceiveProps(nextProps) {
+    onComponentWillReceiveProps(this, nextProps)
+  }
 
-  getSignature = () => this.mySignature.toDataURL()
+  componentWillUnmount() {
+    onComponentWillUnmount(this)
+  }
 
-  isEmpty = () => this.mySignature.isEmpty()
+  handleResize = handleResize(this)
 
-  clear = () => this.mySignature.clear()
+  getSignature = getSignature(this)
+
+  isEmpty = isEmpty(this)
 
   render() {
     const { captureImage } = this.props
@@ -38,7 +50,7 @@ class SignatureWithout extends Component {
               <CloudUploadIcon />
             </IconButton>
 
-            <IconButton onClick={this.clear}>
+            <IconButton onClick={clear(this)}>
               <ClearIcon />
             </IconButton>
           </div>

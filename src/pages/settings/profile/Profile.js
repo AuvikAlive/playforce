@@ -29,7 +29,13 @@ export class Profile extends Component {
 
   render() {
     const { displayName, title, company, mobile } = this.state
-    const { image, captureImage, error, loading } = this.props
+    const {
+      image,
+      profile: { signature },
+      captureImage,
+      error,
+      loading,
+    } = this.props
 
     return (
       <StyledProfile className="StyledProfile">
@@ -94,6 +100,7 @@ export class Profile extends Component {
             />
 
             <Signature
+              signature={signature}
               ref={node => {
                 this.signature = node
               }}
