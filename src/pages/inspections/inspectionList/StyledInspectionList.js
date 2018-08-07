@@ -14,10 +14,6 @@ export const StyledInspectionList = Styled(Content)`
     }
   }
 
-  .avatar {
-    color: ${({ theme }) => theme.palette.primary.main};
-  }
-
   .secondary-actions {
     height: 100%;
     padding: 12px 0;

@@ -1,14 +1,13 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import CheckIcon from '@material-ui/icons/Check'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
+import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
 
 export const ListView = ({
   inspections,
@@ -52,9 +51,10 @@ export const ListView = ({
                 onMouseDown={() => handleButtonPress(id)}
                 onMouseUp={() => handleButtonRelease(id)}
               >
-                <Avatar className="avatar">
-                  {itemSelected ? <CheckIcon /> : inspectionNumber}
-                </Avatar>
+                <ListAvatar
+                  itemSelected={itemSelected}
+                  text={inspectionNumber}
+                />
 
                 <ListItemText
                   primary={`${name}, ${suburb}`}
