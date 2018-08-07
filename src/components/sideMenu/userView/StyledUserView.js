@@ -17,6 +17,11 @@ export const StyledUserView = Styled.div`
     margin-bottom: 18px;
   }
 
+  .avatar-letters {
+    color: black;
+    background: ${props => props.theme.palette.secondary.main};
+  }
+
   .background {
     width: 300px;
   }

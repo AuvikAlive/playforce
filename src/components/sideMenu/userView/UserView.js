@@ -11,9 +11,15 @@ export const UserView = ({ profile }) => {
     <StyledUserView>
       <div className="content">
         {image || photoURL ? (
-          <Avatar alt="User Name" src={image || photoURL} className="avatar" />
+          <Avatar
+            alt="Display Picture"
+            src={image || photoURL}
+            className="avatar"
+          />
         ) : (
-          <Avatar className="avatar">{getInitials(displayName)}</Avatar>
+          <Avatar alt="User Name" className="avatar avatar-letters">
+            {getInitials(displayName)}
+          </Avatar>
         )}
         <Typography variant="title" color="inherit">
           {displayName}
