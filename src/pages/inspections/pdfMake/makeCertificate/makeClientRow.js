@@ -1,8 +1,10 @@
 export const makeClientRow = ({
   pageFontSize,
+  lineHeight,
   firstColumnWidth,
   marginBottom,
   client,
+  clientAddress,
 }) => ({
   fontSize: pageFontSize,
   marginBottom,
@@ -14,6 +16,6 @@ export const makeClientRow = ({
       width: firstColumnWidth,
     },
     { text: ':', width: firstColumnWidth / 2 },
-    { text: client, width: '*' },
+    [{ text: client, width: '*', lineHeight }, { text: clientAddress }],
   ],
 })

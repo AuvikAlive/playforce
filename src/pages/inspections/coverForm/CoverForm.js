@@ -34,6 +34,7 @@ import {
   onComponentWillReceiveProps,
   getLocationSuggestions,
   getClientSuggestions,
+  onClientSelect,
   submit,
 } from './functions/'
 
@@ -135,6 +136,7 @@ export class CoverForm extends Component {
                   label="Client"
                   value={client}
                   onChange={onValueInputChange(this, 'client')}
+                  onSuggestionSelect={onClientSelect(this)}
                   getSuggestions={getClientSuggestions(this)}
                 />
                 <IconButton

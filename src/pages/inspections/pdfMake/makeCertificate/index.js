@@ -25,6 +25,7 @@ export const makeCertificate = async ({
   const {
     location,
     client,
+    clientAddress,
     inspectionDate,
     displayName,
     appliedStandards,
@@ -47,6 +48,7 @@ export const makeCertificate = async ({
       lineHeight,
       location,
       client,
+      clientAddress,
       conditionRatings,
       appliedStandards,
       inspectionNumber,

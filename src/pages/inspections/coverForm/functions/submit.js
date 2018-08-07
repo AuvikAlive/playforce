@@ -7,9 +7,11 @@ export const submit = component => async () => {
     displayName,
     sites,
   } = component.props
+
   const {
     location,
     client,
+    clientAddress,
     inspectionDate,
     appliedStandards,
     inspectionType,
@@ -30,6 +32,7 @@ export const submit = component => async () => {
         displayName,
         location: sites.find(({ name }) => name === location),
         client,
+        clientAddress,
         inspectionDate,
         appliedStandards,
         inspectionType,

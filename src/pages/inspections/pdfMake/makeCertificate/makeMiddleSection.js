@@ -11,6 +11,7 @@ export const makeMiddleSection = ({
   lineHeight,
   location,
   client,
+  clientAddress,
   conditionRatings,
   appliedStandards,
   inspectionNumber,
@@ -27,7 +28,14 @@ export const makeMiddleSection = ({
       marginBottom,
       location,
     }),
-    makeClientRow({ pageFontSize, firstColumnWidth, marginBottom, client }),
+    makeClientRow({
+      pageFontSize,
+      lineHeight,
+      firstColumnWidth,
+      marginBottom,
+      client,
+      clientAddress,
+    }),
     makeItemsRow({
       pageFontSize,
       lineHeight,
