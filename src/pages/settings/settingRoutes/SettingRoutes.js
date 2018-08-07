@@ -11,8 +11,8 @@ const StandardRoutes = Loadable({
   loader: () => import('../standardRoutes'),
 })
 
-const Clients = Loadable({
-  loader: () => import('../clients'),
+const ClientRoutes = Loadable({
+  loader: () => import('../clientRoutes'),
 })
 
 const Manufacturers = Loadable({
@@ -53,7 +53,7 @@ const DefaultCertificateText = Loadable({
 
 Profile.preload()
 StandardRoutes.preload()
-Clients.preload()
+ClientRoutes.preload()
 Manufacturers.preload()
 Operators.preload()
 CommonIssueRoutes.preload()
@@ -69,7 +69,7 @@ export const SettingRoutes = ({ match }) => {
     <Switch>
       <Route path={`${match.url}/profile`} component={Profile} />
       <Route path={`${match.url}/standards`} component={StandardRoutes} />
-      <Route path={`${match.url}/clients`} component={Clients} />
+      <Route path={`${match.url}/clients`} component={ClientRoutes} />
       <Route path={`${match.url}/manufacturers`} component={Manufacturers} />
       <Route path={`${match.url}/operators`} component={Operators} />
       <Route path={`${match.url}/commonIssues`} component={CommonIssueRoutes} />

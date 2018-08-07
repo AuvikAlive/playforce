@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import Card from '@material-ui/core/Card'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
 import { ClientList } from '../../../components/clientList/ClientList'
-import { ClientFormContainer } from '../../../components/clientForm/ClientFormContainer'
+import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftNav,
   showContentWhenLoaded,
 } from '../../../functions/'
 import { StyledClients } from './StyledClients'
-import { onComponentDidMount, deleteClient } from './functions/'
+import { onComponentDidMount } from './onComponentDidMount'
 
 export class Clients extends Component {
   componentDidMount() {
@@ -20,15 +21,24 @@ export class Clients extends Component {
   }
 
   render() {
-    const { clients, clientsLoaded } = this.props
+    const { clients, clientsLoaded, match } = this.props
+    const clientsAdded = clients.length > 0
 
     return showContentWhenLoaded(
       clientsLoaded,
       <StyledClients className="StyledClients">
-        <Card className="card">
-          <ClientList clients={clients} deletePrompt={deleteClient(this)} />
-          <ClientFormContainer />
-        </Card>
+        <StyledNavLink to={`${match.url}/add`} className="add-icon">
+          <Button
+            variant="fab"
+            color="primary"
+            aria-label="add a standard"
+            className={clientsAdded ? '' : 'pulse'}
+          >
+            <AddIcon />
+          </Button>
+        </StyledNavLink>
+
+        <ClientList clients={clients} match={match} />
       </StyledClients>
     )
   }

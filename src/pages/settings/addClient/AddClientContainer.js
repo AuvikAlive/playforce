@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { addClient } from '../../store/actions/actionCreators/clientActions/'
-import { withFeedback } from '../../hocs/withFeedback/withFeedback'
-import { ClientsDialog } from './ClientsDialog'
+import { addClient } from '../../../store/actions/actionCreators/clientActions/'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
+import { AddClient } from './AddClient'
 
 const mapStateToProps = ({
   firebase: {
@@ -14,10 +14,10 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = { addClient }
 
-export const ClientsDialogContainer = compose(
+export const AddClientContainer = compose(
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(ClientsDialog)
+)(AddClient)

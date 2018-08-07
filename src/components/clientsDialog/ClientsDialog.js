@@ -1,29 +1,20 @@
 import React, { Component } from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import Card from '@material-ui/core/Card'
 import { contextTypesUnsubscriber } from '../../constants/'
-import { showContentWhenLoaded } from '../../functions/'
 import NavBar from '../navBar/'
 import { StyledMainContent } from '../styledMainContent/StyledMainContent'
-import { Content } from '../content/Content'
-import { ClientList } from '../clientList/ClientList'
-import { ClientFormContainer } from '../clientForm/ClientFormContainer'
-import { onComponentDidMount, deleteClient } from './functions/'
+import { ClientForm } from '../clientForm/ClientForm'
+import { submit, afterSubmit } from './functions/'
 
 export class ClientsDialog extends Component {
-  componentDidMount() {
-    onComponentDidMount(this)
-  }
-
   render() {
-    const { clients, clientsLoaded, closeDialog } = this.props
+    const { closeDialog } = this.props
 
-    return showContentWhenLoaded(
-      clientsLoaded,
+    return (
       <div>
         <NavBar
-          title="Clients"
+          title="Add a client"
           leftComponent={
             <IconButton
               color="inherit"
@@ -35,12 +26,7 @@ export class ClientsDialog extends Component {
           }
         />
         <StyledMainContent className="StyledMainContent">
-          <Content>
-            <Card className="card">
-              <ClientList clients={clients} deletePrompt={deleteClient(this)} />
-              <ClientFormContainer />
-            </Card>
-          </Content>
+          <ClientForm onSubmit={submit(this)} afterSubmit={afterSubmit(this)} />
         </StyledMainContent>
       </div>
     )

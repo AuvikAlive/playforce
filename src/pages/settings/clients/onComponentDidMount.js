@@ -1,4 +1,4 @@
-import { onComponentDidMountWithTitleLeftNav } from '../../../../functions/'
+import { onComponentDidMountWithTitleLeftNav } from '../../../functions/'
 
 export const onComponentDidMount = async component => {
   const { addUnsubscriber } = component.context

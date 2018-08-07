@@ -1,15 +1,14 @@
 export const submit = component => async () => {
-  const { client } = component.state
-  const { setFeedback, userId } = component.props
+  const { name, address } = component.state
+  const { setFeedback, onSubmit, afterSubmit } = component.props
 
-  if (client) {
+  if (name && address) {
     setFeedback({ error: '', loading: true })
-    const { saveClient } = component.props
 
     try {
-      await saveClient(userId, { name: client })
-      component.setState({ client: '' })
-      setFeedback({ success: 'Client added!', loading: false })
+      const result = await onSubmit({ name, address })
+      setFeedback({ loading: false })
+      afterSubmit && afterSubmit(result)
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
     }

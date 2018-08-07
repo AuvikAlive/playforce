@@ -1,12 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { Clients } from './Clients'
-import {
-  saveClient,
-  deleteClient,
-  fetchClientsRealTime,
-} from '../../../store/actions/actionCreators/clientActions/'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions/'
 
 const mapStateToProps = ({
   firebase: {
@@ -19,10 +14,9 @@ const mapStateToProps = ({
   clients,
 })
 
-const mapDispatchToProps = { saveClient, deleteClient, fetchClientsRealTime }
+const mapDispatchToProps = { fetchClientsRealTime }
 
 export const ClientsContainer = compose(
-  withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

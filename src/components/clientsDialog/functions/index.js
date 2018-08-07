@@ -1,4 +1,4 @@
-import { onComponentDidMount } from './onComponentDidMount'
-import { deleteClient } from './deleteClient'
+import { submit } from './submit'
+import { afterSubmit } from './afterSubmit'
 
-export { onComponentDidMount, deleteClient }
+export { submit, afterSubmit }
