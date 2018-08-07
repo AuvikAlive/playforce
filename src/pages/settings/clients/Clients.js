@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import { ClientList } from '../../../components/clientList/ClientList'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftNav,
@@ -27,17 +25,7 @@ export class Clients extends Component {
     return showContentWhenLoaded(
       clientsLoaded,
       <StyledClients className="StyledClients">
-        <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add a standard"
-            className={clientsAdded ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
-
+        <AddButton to={`${match.url}/add`} pulse={!clientsAdded} />
         <ClientList clients={clients} match={match} />
       </StyledClients>
     )

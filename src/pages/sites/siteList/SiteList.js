@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import AddIcon from '@material-ui/icons/Add'
-import Button from '@material-ui/core/Button'
 import { isEmpty } from 'react-redux-firebase'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import {
   onComponentWillUnmountTitleSearchRightNav,
@@ -58,21 +56,14 @@ export class SiteList extends Component {
     const sitesToShow =
       searchBarOpen && searchResults.length > 0 ? searchResults : sites
 
+    const pulse = !searchBarOpen && isEmpty(sites)
+
     return showContentWhenLoaded(
       sitesLoaded,
       <StyledSiteList
         className={`StyledSiteList ${view !== 'list' && 'full-width'}`}
       >
-        <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add a site"
-            className={!searchBarOpen && isEmpty(sites) ? 'pulse' : ''}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={`${match.url}/add`} pulse={pulse} />
 
         {(() => {
           switch (view) {

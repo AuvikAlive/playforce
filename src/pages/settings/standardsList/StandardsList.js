@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
@@ -9,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Typography from '@material-ui/core/Typography'
 import { StyledStandardList } from './StyledStandardList'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
@@ -32,16 +31,7 @@ export class StandardsList extends Component {
     return showContentWhenLoaded(
       standardsLoaded,
       <StyledStandardList className="StyledStandardList">
-        <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add a standard"
-            className={standardsAdded ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={`${match.url}/add`} pulse={!standardsAdded} />
 
         {standardsAdded ? (
           <Paper className="paper">

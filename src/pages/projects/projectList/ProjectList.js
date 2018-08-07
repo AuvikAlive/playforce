@@ -4,8 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { showContentWhenLoaded } from '../../../functions/'
 import { contextTypes } from './contextTypes'
@@ -28,16 +27,7 @@ export class ProjectList extends Component {
     return showContentWhenLoaded(
       projectsLoaded,
       <StyledProjectList className="StyledProjectList">
-        <StyledNavLink to={match.url + '/addProject'} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add inspection"
-            className={projectsAdded ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={match.url + '/addProject'} pulse={!projectsAdded} />
 
         {projectsAdded ? (
           <Paper className="paper">

@@ -3,7 +3,7 @@ export const onComponentWillUnmount = component => {
     removeNavTitle,
     removeLefNavComponent,
     removeRightNavComponent,
-  } = this.context
+  } = component.context
 
   removeNavTitle()
   removeLefNavComponent()

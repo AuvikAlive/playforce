@@ -55,10 +55,12 @@ export const ListView = ({
                 <Avatar className="avatar">
                   {itemSelected ? <CheckIcon /> : inspectionNumber}
                 </Avatar>
+
                 <ListItemText
                   primary={`${name}, ${suburb}`}
                   secondary={client}
                 />
+
                 <ListItemSecondaryAction className="secondary-actions">
                   {inspectionType && (
                     <Chip

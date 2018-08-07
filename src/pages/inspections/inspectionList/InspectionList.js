@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import { isEmpty } from 'react-redux-firebase'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import {
   onComponentWillUnmountTitleSearchRightNav,
@@ -68,16 +66,7 @@ export class InspectionList extends Component {
       <StyledInspectionList
         className={`StyledInspectionList ${view === 'grid' && 'grid'}`}
       >
-        <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add inspection"
-            className={isEmpty(inspections) ? 'pulse' : ''}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={`${match.url}/add`} pulse={isEmpty(inspections)} />
 
         {isListView ? (
           <SelectableList

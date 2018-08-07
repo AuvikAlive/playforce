@@ -4,8 +4,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
@@ -28,16 +27,8 @@ export class ImpactTestDetailItems extends Component {
 
     return (
       <StyledImpactTestDetailItems className="StyledImpactTestDetailItems">
-        <StyledNavLink to={`${match.url}/addDrop`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add drop test"
-            className={dropTestAdded ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={`${match.url}/addDrop`} pulse={!dropTestAdded} />
+
         <Paper>
           <List component="nav" disablePadding>
             <StyledNavLink to={`${match.url}/surface`}>

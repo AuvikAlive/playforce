@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
@@ -32,16 +32,7 @@ export class MaintenanceIssuesList extends Component {
 
     return (
       <StyledMaintenanceIssuesList className="StyledMaintenanceIssuesList">
-        <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add compliance issue"
-            className={maintenanceIssuesAdded ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={`${match.url}/add`} pulse={!maintenanceIssuesAdded} />
 
         {maintenanceIssuesAdded ? (
           <Grid container>

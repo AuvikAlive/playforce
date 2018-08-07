@@ -1,16 +1,8 @@
 import Styled from 'styled-components'
 import { Content } from '../../../components/content/Content'
-import {
-  addIcon,
-  editIcon,
-  pulseEffect,
-  cardMedia,
-  listItemSelected,
-} from '../../../styledMixins/'
+import { editIcon, cardMedia, listItemSelected } from '../../../styledMixins/'
 
 export const StyledInspectionList = Styled(Content)`
-  ${addIcon};
-  ${pulseEffect};
   ${cardMedia};
   ${listItemSelected};
 

@@ -4,17 +4,15 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { isEmpty } from 'react-redux-firebase'
-import { StyledInspectionList } from './StyledInspectionList'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { AddButton } from '../../../components/addButton/AddButton'
 import {
   contextTypesTitle,
   contextTypesUnsubscriber,
 } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
+import { StyledInspectionList } from './StyledInspectionList'
 import { onComponentDidMount, deleteInspection } from './functions/'
 
 export class InspectionList extends Component {
@@ -30,17 +28,16 @@ export class InspectionList extends Component {
       match,
     } = this.props
 
+    const inspectionsAdded = !isEmpty(inspectionsBySite)
+
     return showContentWhenLoaded(
       inspectionsBySiteLoaded,
       <StyledInspectionList className="StyledInspectionList">
-        <StyledNavLink to={match.url + '/addInspection'} className="add-icon">
-          <Button variant="fab" color="primary" aria-label="add inspection">
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={match.url + '/addInspection'} pulse={inspectionsAdded} />
+
         <Paper className="paper">
           <List component="nav" disablePadding>
-            {isEmpty(inspectionsBySite) ? (
+            {inspectionsAdded ? (
               <ListItem>
                 <ListItemText primary="No inspection added" />
               </ListItem>

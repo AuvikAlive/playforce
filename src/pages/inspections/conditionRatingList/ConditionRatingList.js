@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
 import { format } from 'date-fns'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
@@ -16,8 +16,6 @@ import {
 import { StyledConditionRatingList } from './StyledConditionRatingList'
 
 export class ConditionRatingList extends Component {
-  state = {}
-
   componentDidMount() {
     const title = 'Condition Ratings'
 
@@ -35,16 +33,8 @@ export class ConditionRatingList extends Component {
 
     return (
       <StyledConditionRatingList className="StyledConditionRatingList">
-        <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add condition rating"
-            className={conditionRatingsAdded ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={`${match.url}/add`} pulse={!conditionRatingsAdded} />
+
         {conditionRatingsAdded ? (
           <Grid container>
             {conditionRatings.map(

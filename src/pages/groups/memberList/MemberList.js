@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { showContentWhenLoaded, setSelectedItems } from '../../../functions/'
 import { UserListView } from '../UserListView'
@@ -30,20 +28,12 @@ export class MemberList extends Component {
   render() {
     const { membersLoaded, members, match } = this.props
     const { selectedItems, selectMode } = this.state
+    const membersAdded = members.length > 0
 
     return showContentWhenLoaded(
       membersLoaded,
       <StyledMemberList className="StyledMemberList">
-        <StyledNavLink to={match.url + '/addMember'} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add inspection"
-            className={members.length > 0 ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={match.url + '/addMember'} pulse={!membersAdded} />
 
         <SelectableList
           ListView={UserListView}

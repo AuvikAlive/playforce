@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
@@ -11,6 +9,7 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import Typography from '@material-ui/core/Typography'
 import { map } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftNav,
@@ -37,16 +36,7 @@ export class CommonIssuesList extends Component {
     return showContentWhenLoaded(
       commonIssuesLoaded,
       <StyledCommonIssuesList className="StyledCommonIssuesList">
-        <StyledNavLink to={`${match.url}/add`} className="add-icon">
-          <Button
-            variant="fab"
-            color="primary"
-            aria-label="add a standard"
-            className={commonIssuesAdded ? '' : 'pulse'}
-          >
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={`${match.url}/add`} pulse={!commonIssuesAdded} />
 
         {commonIssuesAdded ? (
           <Paper className="paper">

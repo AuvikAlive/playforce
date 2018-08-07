@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitle } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
@@ -18,19 +17,16 @@ export class EquipmentList extends Component {
 
   render() {
     const { equipmentsLoaded, equipments, match } = this.props
+    const equipmentsAdded = equipments.length > 0
 
     return showContentWhenLoaded(
       equipmentsLoaded,
       <StyledEquipmentList className="StyledEquipmentList">
-        <StyledNavLink to={match.url + '/add'} className="add-icon">
-          <Button variant="fab" color="primary" aria-label="add inspection">
-            <AddIcon />
-          </Button>
-        </StyledNavLink>
+        <AddButton to={match.url + '/add'} pulse={!equipmentsAdded} />
 
         <Paper className="paper">
           <List component="nav" disablePadding>
-            {equipments.length > 0 ? (
+            {equipmentsAdded ? (
               equipments.map(({ equipment }) => (
                 <StyledNavLink
                   key={equipment}
