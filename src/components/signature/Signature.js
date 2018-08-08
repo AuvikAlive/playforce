@@ -4,7 +4,10 @@ import SignaturePad from 'react-signature-pad'
 import IconButton from '@material-ui/core/IconButton'
 import ClearIcon from '@material-ui/icons/Clear'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import CropIcon from '@material-ui/icons/Crop'
 import { withImageCapture } from '../../hocs/withImageCapture/withImageCapture'
+import { withFullscreenDialog } from '../../hocs/withFullscreenDialog/withFullscreenDialog'
+import { onSingleCrop } from '../../functions/'
 import { StyledSignature } from './StyledSignature'
 import {
   onComponentDidMount,
@@ -36,7 +39,7 @@ class SignatureWithout extends Component {
   isEmpty = isEmpty(this)
 
   render() {
-    const { captureImage } = this.props
+    const { captureImage, imageCaptured } = this.props
 
     return (
       <StyledSignature className="StyledSignature">
@@ -46,6 +49,12 @@ class SignatureWithout extends Component {
           </InputLabel>
 
           <div className="action-buttons">
+            {imageCaptured && (
+              <IconButton onClick={onSingleCrop(this, 16 / 9)}>
+                <CropIcon />
+              </IconButton>
+            )}
+
             <IconButton onClick={captureImage}>
               <CloudUploadIcon />
             </IconButton>
@@ -65,4 +74,6 @@ class SignatureWithout extends Component {
   }
 }
 
-export const Signature = withImageCapture(SignatureWithout)
+export const Signature = withFullscreenDialog(
+  withImageCapture(SignatureWithout)
+)

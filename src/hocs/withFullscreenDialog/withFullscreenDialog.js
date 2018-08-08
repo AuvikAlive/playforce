@@ -11,6 +11,7 @@ export const withFullscreenDialog = WrappedComponent => {
 
     render() {
       const { dialogOpen, DialogContent } = this.state
+      const { forwardedRef, ...rest } = this.props
 
       return (
         <div>
@@ -26,7 +27,8 @@ export const withFullscreenDialog = WrappedComponent => {
           <WrappedComponent
             closeDialog={closeDialog(this)}
             openDialog={openDialog(this)}
-            {...this.props}
+            ref={forwardedRef}
+            {...rest}
           />
         </div>
       )
@@ -37,5 +39,7 @@ export const withFullscreenDialog = WrappedComponent => {
     WrappedComponent
   )})`
 
-  return WithFullscreenDialog
+  return React.forwardRef((props, ref) => {
+    return <WithFullscreenDialog {...props} forwardedRef={ref} />
+  })
 }
