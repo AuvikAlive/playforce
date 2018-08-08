@@ -31,6 +31,7 @@ import { updateDropTest } from './updateDropTest'
 import { deleteDropTest } from './deleteDropTest'
 import { saveCustomCertificateText } from './saveCustomCertificateText'
 import { toggleInspectionCertificate } from './toggleInspectionCertificate'
+import { saveNotes } from './saveNotes'
 import {
   DISCARD_INSPECTION,
   // TOGGLE_INSPECTION_CERTIFICATE,
@@ -70,6 +71,7 @@ export {
   deleteDropTest,
   saveCustomCertificateText,
   toggleInspectionCertificate,
+  saveNotes,
 }
 
 export const discardInspection = () => ({
