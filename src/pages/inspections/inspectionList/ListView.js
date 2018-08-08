@@ -1,5 +1,4 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
@@ -8,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Chip from '@material-ui/core/Chip'
 import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
+import { EmptyInspectionListPlaceholder } from './EmptyInspectionListPlaceholder'
 
 export const ListView = ({
   inspections,
@@ -83,8 +83,6 @@ export const ListView = ({
       </List>
     </Paper>
   ) : (
-    <Typography variant="title" align="center">
-      Try adding an inspection to get started!
-    </Typography>
+    <EmptyInspectionListPlaceholder />
   )
 }

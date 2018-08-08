@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { format } from 'date-fns/esm'
 import { flatten, map, filter } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { EmptyInspectionListPlaceholder } from './EmptyInspectionListPlaceholder'
 
 export const GridView = ({ inspections, match, standards }) => {
   return inspections.length > 0 ? (
@@ -119,8 +120,6 @@ export const GridView = ({ inspections, match, standards }) => {
       )}
     </Grid>
   ) : (
-    <Typography variant="title" align="center">
-      Try adding an inspection to get started!
-    </Typography>
+    <EmptyInspectionListPlaceholder />
   )
 }

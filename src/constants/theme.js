@@ -8,6 +8,7 @@ export const theme = createMuiTheme({
     primary: { light: '#4A6572', main: '#344955', dark: '#232F34' },
     secondary: { main: '#F9AA33' },
     success: green[500],
+    grayBackground: '#e4e5e5',
   },
   lanscapeWidth: '33.33vw',
 })

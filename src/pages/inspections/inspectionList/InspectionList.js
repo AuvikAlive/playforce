@@ -60,6 +60,7 @@ export class InspectionList extends Component {
     const isListView = view === 'list'
 
     const isLoaded = inspectionsLoaded && (isListView || standardsLoaded)
+    // const isLoaded = isListView || standardsLoaded
 
     return showContentWhenLoaded(
       isLoaded,
