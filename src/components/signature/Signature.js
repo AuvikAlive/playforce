@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
 import InputLabel from '@material-ui/core/InputLabel'
 import SignaturePad from 'react-signature-pad'
 import IconButton from '@material-ui/core/IconButton'
@@ -19,7 +20,7 @@ import {
   handleResize,
 } from './functions/'
 
-class SignatureWithout extends Component {
+class SignatureBase extends Component {
   componentDidMount() {
     onComponentDidMount(this)
   }
@@ -74,6 +75,9 @@ class SignatureWithout extends Component {
   }
 }
 
-export const Signature = withFullscreenDialog(
-  withImageCapture(SignatureWithout)
+const enhance = compose(
+  withFullscreenDialog,
+  withImageCapture
 )
+
+export const Signature = enhance(SignatureBase)
