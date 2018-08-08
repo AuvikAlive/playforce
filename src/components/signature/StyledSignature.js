@@ -13,12 +13,21 @@ export const StyledSignature = Styled.div`
 
   .m-signature-pad {
     width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+
+    .m-signature-pad--body {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
 
     canvas {
       margin-top: 8px;
       width: 100%;
-      height: 40vw;
-      max-height: 250px;
+      height: 100%;
 
       /* @media screen and (orientation: landscape) {
         height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
