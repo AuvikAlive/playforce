@@ -22,7 +22,11 @@ export const withDeleteDialog = WrappedComponent => {
               message={message}
             />
           </Dialog>
-          <WrappedComponent openDialog={openDialog(this)} {...rest} />
+          <WrappedComponent
+            openDialog={openDialog(this)}
+            ref={forwardedRef}
+            {...rest}
+          />
         </div>
       )
     }
