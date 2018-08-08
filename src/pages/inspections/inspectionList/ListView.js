@@ -6,8 +6,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Chip from '@material-ui/core/Chip'
-import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
 import { EmptyInspectionListPlaceholder } from './EmptyInspectionListPlaceholder'
+import { InspectionListAvatar } from './InspectionListAvatar'
 
 export const ListView = ({
   inspections,
@@ -51,7 +51,7 @@ export const ListView = ({
                 onMouseDown={() => handleButtonPress(id)}
                 onMouseUp={() => handleButtonRelease(id)}
               >
-                <ListAvatar
+                <InspectionListAvatar
                   itemSelected={itemSelected}
                   text={inspectionNumber}
                 />

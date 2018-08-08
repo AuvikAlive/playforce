@@ -10,11 +10,11 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import Avatar from '@material-ui/core/Avatar'
 import { format } from 'date-fns/esm'
 import { flatten, map, filter } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { EmptyInspectionListPlaceholder } from './EmptyInspectionListPlaceholder'
+import { InspectionListAvatar } from './InspectionListAvatar'
 
 export const GridView = ({ inspections, match, standards }) => {
   return inspections.length > 0 ? (
@@ -55,7 +55,7 @@ export const GridView = ({ inspections, match, standards }) => {
               <List>
                 <Card className="card">
                   <ListItem divider button className="list-item">
-                    <Avatar className="avatar">{inspectionNumber}</Avatar>
+                    <InspectionListAvatar text={inspectionNumber} />
 
                     <ListItemText
                       primary={
@@ -78,12 +78,6 @@ export const GridView = ({ inspections, match, standards }) => {
                   <div className="placeholder">
                     {image && <img src={image} alt="cover" />}
                   </div>
-
-                  {/* {image ? (
-                    <img src={image} alt="cover" />
-                  ) : (
-                    <div className="placeholder" />
-                  )} */}
 
                   <CardContent className="card-content">
                     <StyledNavLink
