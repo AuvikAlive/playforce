@@ -11,7 +11,6 @@ export const withDeleteDialog = WrappedComponent => {
 
     render() {
       const { dialogOpen, handleConfirmation, message } = this.state
-      const { forwardedRef, ...rest } = this.props
 
       return (
         <div>
@@ -22,11 +21,7 @@ export const withDeleteDialog = WrappedComponent => {
               message={message}
             />
           </Dialog>
-          <WrappedComponent
-            openDialog={openDialog(this)}
-            ref={forwardedRef}
-            {...rest}
-          />
+          <WrappedComponent openDialog={openDialog(this)} {...this.props} />
         </div>
       )
     }
@@ -36,7 +31,5 @@ export const withDeleteDialog = WrappedComponent => {
     WrappedComponent
   )})`
 
-  return React.forwardRef((props, ref) => {
-    return <WithDeleteDialog {...props} forwardedRef={ref} />
-  })
+  return WithDeleteDialog
 }

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { compose } from 'redux'
+import { compose } from 'recompose'
 import { withFirestore } from 'react-redux-firebase'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import {
