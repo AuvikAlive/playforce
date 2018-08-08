@@ -60,5 +60,12 @@ export const StyledInspectionList = Styled(Content)`
     width: 100%;
     padding-top: 56.25%;
     background: #bdbdbd;
+    position: relative;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 `

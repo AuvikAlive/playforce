@@ -74,11 +74,15 @@ export const GridView = ({ inspections, match, standards }) => {
                     </ListItemSecondaryAction>
                   </ListItem>
 
-                  {image ? (
+                  <div className="placeholder">
+                    {image && <img src={image} alt="cover" />}
+                  </div>
+
+                  {/* {image ? (
                     <img src={image} alt="cover" />
                   ) : (
                     <div className="placeholder" />
-                  )}
+                  )} */}
 
                   <CardContent className="card-content">
                     <StyledNavLink
