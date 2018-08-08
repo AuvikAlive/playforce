@@ -26,8 +26,8 @@ export const StyledUserView = Styled.div`
     width: 300px;
   }
 
-  /* div.background {
+  div.background {
     background: ${props => props.theme.palette.grayBackground};
     padding-top: 56.25%;
-  } */
+  }
 `
