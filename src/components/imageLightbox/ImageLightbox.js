@@ -29,7 +29,7 @@ export class ImageLightbox extends Component {
         onClick={openLightbox(this)}
       >
         <div className="hoverEffect">
-          <SlideshowIcon color="primary" className="icon" />
+          <SlideshowIcon color="secondary" className="icon" />
         </div>
 
         {showLightbox && (

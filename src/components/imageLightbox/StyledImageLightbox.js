@@ -29,7 +29,8 @@ export const StyledImageLightbox = Styled.div`
 
   &:hover {
     .hoverEffect {
-      background: rgba(0, 0, 0, 0.9);
+      background: ${({ theme }) => theme.palette.primary.dark};
+      opacity: 0.9;
     }
 
     .icon {
