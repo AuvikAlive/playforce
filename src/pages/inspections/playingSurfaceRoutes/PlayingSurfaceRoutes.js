@@ -10,7 +10,12 @@ const AddPlayingSurface = Loadable({
   loader: () => import('../addPlayingSurface'),
 })
 
+const EditPlayingSurface = Loadable({
+  loader: () => import('../editPlayingSurface'),
+})
+
 AddPlayingSurface.preload()
+EditPlayingSurface.preload()
 
 export class PlayingSurfaceRoutes extends Component {
   componentDidMount() {
@@ -25,6 +30,9 @@ export class PlayingSurfaceRoutes extends Component {
       isLoaded,
       <Switch>
         <Route path={`${match.url}/add`} component={AddPlayingSurface} />
+
+        <Route path={`${match.url}/edit/:id`} component={EditPlayingSurface} />
+
         <Route path={match.url} component={PlayingSurfaceList} />
       </Switch>
     )

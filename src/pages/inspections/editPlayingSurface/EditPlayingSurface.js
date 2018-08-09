@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
-import { contextTypesTitleLeftNav } from '../../../constants/'
-import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
+import { contextTypesTitleLeftRightNav } from '../../../constants/'
+import {
+  onComponentDidMountWithTitleLeftRightNavDelete,
+  onComponentWillUnmountWithTitleLeftRightNav,
+} from '../../../functions/'
 import { PlayingSurfaceForm } from '../playingSurfaceForm/PlayingSurfaceForm'
-import { submit } from './submit'
+import { deletePlayingSurface, submit } from './functions/'
 
 export class EditPlayingSurface extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    onComponentDidMountWithTitleLeftRightNavDelete(
+      this,
+      'Edit playing surface',
+      deletePlayingSurface
+    )
+  }
 
   componentWillUnmount() {
     onComponentWillUnmountWithTitleLeftRightNav(this)
@@ -24,4 +33,4 @@ export class EditPlayingSurface extends Component {
   }
 }
 
-EditPlayingSurface.contextTypes = contextTypesTitleLeftNav
+EditPlayingSurface.contextTypes = contextTypesTitleLeftRightNav

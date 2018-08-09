@@ -30,10 +30,12 @@ export class MaintenanceIssueRoutes extends Component {
       isLoaded,
       <Switch>
         <Route path={`${match.url}/add`} component={AddMaintenanceIssue} />
+
         <Route
           path={`${match.url}/edit/:id`}
           component={EditMaintenanceIssue}
         />
+
         <Route path={match.url} component={MaintenanceIssuesList} />
       </Switch>
     )
