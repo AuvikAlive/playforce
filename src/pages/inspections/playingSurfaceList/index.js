@@ -1,3 +1,3 @@
-import { PlayingSurfaceList } from './PlayingSurfaceList'
+import { PlayingSurfaceListContainer } from './PlayingSurfaceListContainer'
 
-export default PlayingSurfaceList
+export default PlayingSurfaceListContainer

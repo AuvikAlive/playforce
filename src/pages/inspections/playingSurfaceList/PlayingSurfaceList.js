@@ -3,6 +3,7 @@ import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import { Content } from '../../../components/content/Content'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
@@ -11,7 +12,6 @@ import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
 } from '../../../functions/'
-import { StyledPlayingSurfaceList } from './StyledPlayingSurfaceList'
 
 export class PlayingSurfaceList extends Component {
   componentDidMount() {
@@ -23,20 +23,19 @@ export class PlayingSurfaceList extends Component {
   }
 
   render() {
-    const { match, playingSurfaces } = this.props
-    const playingSurfacesAdded = playingSurfaces && playingSurfaces.length > 0
+    const { match, playingSurfacesAdded, playingSurfaces } = this.props
 
     return (
-      <StyledPlayingSurfaceList className="StyledPlayingSurfaceList">
+      <Content>
         <AddButton to={`${match.url}/add`} pulse={!playingSurfacesAdded} />
 
         {playingSurfacesAdded ? (
           <Paper>
             <List component="nav" disablePadding>
-              {playingSurfaces.map(({ id, surface: { location } }) => (
+              {playingSurfaces.map(({ id, surfaceType, material }) => (
                 <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                   <ListItem button>
-                    <ListItemText primary={location} />
+                    <ListItemText primary={`${surfaceType} - ${material}`} />
                   </ListItem>
                 </StyledNavLink>
               ))}
@@ -45,7 +44,7 @@ export class PlayingSurfaceList extends Component {
         ) : (
           <EmptyListPlaceholder text="Try adding a playing surface to get started!" />
         )}
-      </StyledPlayingSurfaceList>
+      </Content>
     )
   }
 }

@@ -5,12 +5,12 @@ import {
   onComponentWillUnmountWithTitleLeftNav,
   showActionGo,
 } from '../../../functions/'
-import ConditionRatingForm from '../conditionRatingForm/'
+import { PlayingSurfaceForm } from '../playingSurfaceForm/PlayingSurfaceForm'
 import { submit } from './submit'
 
-export class AddConditionRating extends Component {
+export class AddPlayingSurface extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add condition rating')
+    onComponentDidMountWithTitleLeftNav(this, 'Add playing surface')
   }
 
   componentWillUnmount() {
@@ -19,12 +19,12 @@ export class AddConditionRating extends Component {
 
   render() {
     return (
-      <ConditionRatingForm
-        afterSubmit={showActionGo(this, 'Rating saved!', 'edit/')}
+      <PlayingSurfaceForm
+        afterSubmit={showActionGo(this, 'Surface saved!', 'edit/')}
         onSubmit={submit(this)}
       />
     )
   }
 }
 
-AddConditionRating.contextTypes = contextTypesTitleLeftNav
+AddPlayingSurface.contextTypes = contextTypesTitleLeftNav

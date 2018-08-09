@@ -32,6 +32,7 @@ import { deleteDropTest } from './deleteDropTest'
 import { saveCustomCertificateText } from './saveCustomCertificateText'
 import { toggleInspectionCertificate } from './toggleInspectionCertificate'
 import { saveNotes } from './saveNotes'
+import { addPlayingSurface } from './addPlayingSurface'
 import { fetchPlayingSufacesRealTime } from './fetchPlayingSufacesRealTime'
 import {
   DISCARD_INSPECTION,
@@ -73,6 +74,7 @@ export {
   saveCustomCertificateText,
   toggleInspectionCertificate,
   saveNotes,
+  addPlayingSurface,
   fetchPlayingSufacesRealTime,
 }
 
