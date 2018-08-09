@@ -25,6 +25,7 @@ export const InspectionItems = ({
     conditionRatingsAdded,
     maintenanceIssuesAdded,
     notes,
+    playingSurfacesAdded,
     impactGeneralInfo,
     impactTests,
   } = inspection
@@ -80,6 +81,13 @@ export const InspectionItems = ({
             <ListItem button>
               <ListItemText primary="Notes" />
               {notes && <CheckCircleIcon color="primary" />}
+            </ListItem>
+          </StyledNavLink>
+
+          <StyledNavLink to={`${match.url}/playingSurfaces`}>
+            <ListItem button>
+              <ListItemText primary="Playing Surfaces" />
+              {playingSurfacesAdded && <CheckCircleIcon color="primary" />}
             </ListItem>
           </StyledNavLink>
 

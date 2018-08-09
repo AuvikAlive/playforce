@@ -28,6 +28,7 @@ export const onComponentDidMount = async component => {
     fetchComplianceIssues,
     fetchMaintenanceIssues,
     fetchImpactTestsRealTime,
+    fetchPlayingSufacesRealTime,
   } = component.props
 
   const {
@@ -36,16 +37,25 @@ export const onComponentDidMount = async component => {
     complianceIssuesLoaded,
     maintenanceIssuesLoaded,
     impactTestsLoaded,
+    playingSurfacesLoaded,
   } = inspection
 
   !standardsLoaded && fetchStandards(userId)
+
   !inspectionLoaded &&
     addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
+
   !conditionRatingsLoaded && fetchConditionRatings(userId, inspectionId)
+
   !complianceIssuesLoaded && fetchComplianceIssues(userId, inspectionId)
+
   !maintenanceIssuesLoaded && fetchMaintenanceIssues(userId, inspectionId)
+
   !impactTestsLoaded &&
     addUnsubscriber(await fetchImpactTestsRealTime(userId, inspectionId))
+
+  !playingSurfacesLoaded &&
+    addUnsubscriber(await fetchPlayingSufacesRealTime(userId, inspectionId))
 
   // inspectionLoaded &&
   //   impactTestsLoaded &&

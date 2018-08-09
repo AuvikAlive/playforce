@@ -32,6 +32,7 @@ import { deleteDropTest } from './deleteDropTest'
 import { saveCustomCertificateText } from './saveCustomCertificateText'
 import { toggleInspectionCertificate } from './toggleInspectionCertificate'
 import { saveNotes } from './saveNotes'
+import { fetchPlayingSufacesRealTime } from './fetchPlayingSufacesRealTime'
 import {
   DISCARD_INSPECTION,
   // TOGGLE_INSPECTION_CERTIFICATE,
@@ -72,6 +73,7 @@ export {
   saveCustomCertificateText,
   toggleInspectionCertificate,
   saveNotes,
+  fetchPlayingSufacesRealTime,
 }
 
 export const discardInspection = () => ({

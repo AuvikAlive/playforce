@@ -3,9 +3,9 @@ export const onComponentDidMount = async component => {
     inspectionId,
     userId,
     inspectionLoaded,
+    playingSurfacesLoaded,
     fetchInspectionRealTime,
-    conditionRatingsLoaded,
-    fetchConditionRatings,
+    fetchPlayingSufacesRealTime,
   } = component.props
 
   const { addUnsubscriber } = component.context
@@ -14,5 +14,6 @@ export const onComponentDidMount = async component => {
     inspectionId &&
     addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
 
-  !conditionRatingsLoaded && fetchConditionRatings(userId, inspectionId)
+  !playingSurfacesLoaded &&
+    addUnsubscriber(await fetchPlayingSufacesRealTime(userId, inspectionId))
 }
