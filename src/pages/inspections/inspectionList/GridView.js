@@ -13,8 +13,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import { format } from 'date-fns/esm'
 import { flatten, map, filter } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { EmptyInspectionListPlaceholder } from './EmptyInspectionListPlaceholder'
-import { InspectionListAvatar } from './InspectionListAvatar'
+import { EmptyInspectionListPlaceholder } from '../../../components/emptyInspectionListPlaceholder/EmptyInspectionListPlaceholder'
+import { InspectionListAvatar } from '../../../components/inspectionListAvatar/InspectionListAvatar'
 
 export const GridView = ({ inspections, match, standards }) => {
   return inspections.length > 0 ? (

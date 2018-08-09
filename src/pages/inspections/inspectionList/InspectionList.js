@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { isEmpty } from 'react-redux-firebase'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
+import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
 import {
   onComponentWillUnmountTitleSearchRightNav,
   setSelectedItems,
   showContentWhenLoaded,
 } from '../../../functions/'
-import { ListView } from './ListView'
 import { GridView } from './GridView'
 import { StyledInspectionList } from './StyledInspectionList'
 import { contextTypes } from './contextTypes'
@@ -77,7 +77,7 @@ export class InspectionList extends Component {
             setSelectedItems={setSelectedItems(this)}
             setSelectMode={setSelectMode(this)}
             handleClick={handleSelectClick(this)}
-            ListView={ListView}
+            ListView={InspectionListView}
           />
         ) : (
           <GridView

@@ -1,5 +1,5 @@
 import React from 'react'
-import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
+import { EmptyListPlaceholder } from '../emptyListPlacehoder/EmptyListPlaceholder'
 
 export const EmptyInspectionListPlaceholder = () => {
   return (

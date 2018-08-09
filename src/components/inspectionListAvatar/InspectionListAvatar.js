@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
+import { ListAvatar } from '../listAvatar/ListAvatar'
 
 export const InspectionListAvatar = props => {
   return <ListAvatar {...props} />

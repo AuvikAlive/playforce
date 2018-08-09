@@ -5,17 +5,13 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../hocs/withFeedback/withFeedback'
+import { Content } from '../content/Content'
 import {
   onEventInputChange,
   onComponentDidMountLoadData,
   onComponentWillReceivePropsLoadData,
 } from '../../functions/'
-import { StyledCertificateTextForm } from './StyledCertificateTextForm'
-import {
-  // onComponentDidMount,
-  // onComponentWillReceiveProps,
-  submit,
-} from './functions/'
+import { submit } from './submit'
 
 export class CertificateTextFormWithout extends Component {
   state = { text: '', customInspectionNumber: '' }
@@ -33,7 +29,7 @@ export class CertificateTextFormWithout extends Component {
     const { showInspectionNumber, error, loading } = this.props
 
     return (
-      <StyledCertificateTextForm className="StyledCertificateTextForm">
+      <Content>
         <Card className="card">
           <CardContent>
             <form noValidate>
@@ -80,7 +76,7 @@ export class CertificateTextFormWithout extends Component {
             )}
           </CardContent>
         </Card>
-      </StyledCertificateTextForm>
+      </Content>
     )
   }
 }
