@@ -13,7 +13,7 @@ import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
 import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
 import {
   contextTypesUnsubscriber,
-  conditions,
+  equipmentConditions,
   equipmentState,
   equipmentTypes,
 } from '../../../constants/'
@@ -33,7 +33,7 @@ import { StyledConditionRatingForm } from './StyledConditionRatingForm'
 export class ConditionRatingForm extends Component {
   state = {
     ...equipmentState,
-    condition: conditions[0],
+    condition: equipmentConditions[0],
   }
 
   componentDidMount() {
@@ -181,7 +181,7 @@ export class ConditionRatingForm extends Component {
                 onChange={onEventInputChange(this, 'condition')}
                 margin="normal"
               >
-                {conditions.map(item => (
+                {equipmentConditions.map(item => (
                   <MenuItem key={item} value={item}>
                     {item}
                   </MenuItem>
