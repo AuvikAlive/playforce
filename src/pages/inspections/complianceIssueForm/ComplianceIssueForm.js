@@ -29,7 +29,6 @@ import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 import { CommonIssueAutoComplete } from '../commonIssueAutoComplete/CommonIssueAutoComplete'
 import {
   onComponentDidMount,
-  onComponentWillUnmount,
   onComponentWillReceiveProps,
   onCommonIssueSelect,
   onEquipmentSelect,
@@ -43,10 +42,6 @@ export class ComplianceIssueForm extends Component {
 
   componentDidMount() {
     onComponentDidMount(this)
-  }
-
-  componentWillUnmount() {
-    onComponentWillUnmount(this)
   }
 
   componentWillReceiveProps(nextProps) {

@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import {
-  onComponentDidMountWithTitleLeftNav,
+  onComponentDidMountWithTitleLeftRightNavDelete,
   onComponentWillUnmountWithTitleLeftRightNav,
 } from '../../../functions/'
 import ComplianceIssueForm from '../complianceIssueForm/'
-import { setRightNav, submit } from './functions/'
+import { deleteIssue, submit } from './functions/'
 
 export class EditComplianceIssue extends Component {
   componentDidMount() {
-    const title = 'Edit Issue'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftRightNavDelete(
+      this,
+      'Edit Issue',
+      deleteIssue
+    )
   }
 
   componentWillUnmount() {
@@ -26,8 +28,6 @@ export class EditComplianceIssue extends Component {
         buttonText="save"
         initialData={complianceIssue}
         onSubmit={submit(this)}
-        setRightNav={setRightNav(this)}
-        removeRightNav={this.context.removeRightNavComponent}
       />
     )
   }

@@ -1,4 +1,4 @@
-import { setRightNav } from './setRightNav'
+import { deleteMaintenanceIssue } from './deleteMaintenanceIssue'
 import { submit } from './submit'
 
-export { setRightNav, submit }
+export { deleteMaintenanceIssue, submit }

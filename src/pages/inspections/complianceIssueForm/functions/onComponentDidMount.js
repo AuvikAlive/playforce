@@ -2,7 +2,6 @@ import { loadInitialData } from '../../../../functions/'
 
 export const onComponentDidMount = async component => {
   const {
-    setRightNav,
     commonIssuesLoaded,
     fetchCommonIssuesRealTime,
     userId,
@@ -13,8 +12,6 @@ export const onComponentDidMount = async component => {
   } = component.props
 
   const { addUnsubscriber } = component.context
-
-  setRightNav && setRightNav()
 
   !commonIssuesLoaded &&
     addUnsubscriber(await fetchCommonIssuesRealTime(userId))

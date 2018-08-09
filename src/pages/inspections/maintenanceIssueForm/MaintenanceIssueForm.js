@@ -22,7 +22,6 @@ import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
 import { state } from './state'
 import {
   onComponentDidMount,
-  onComponentWillUnmount,
   onComponentWillReceiveProps,
   submit,
 } from './functions/'
@@ -32,10 +31,6 @@ export class MaintenanceIssueForm extends Component {
 
   componentDidMount() {
     onComponentDidMount(this)
-  }
-
-  componentWillUnmount() {
-    onComponentWillUnmount(this)
   }
 
   componentWillReceiveProps(nextProps) {
