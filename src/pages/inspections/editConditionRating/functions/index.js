@@ -1,4 +1,4 @@
-import { onComponentDidMount } from './onComponentDidMount'
+import { deleteConditionRating } from './deleteConditionRating'
 import { submit } from './submit'
 
-export { onComponentDidMount, submit }
+export { deleteConditionRating, submit }

@@ -10,6 +10,7 @@ import { onComponentWillReceivePropsLoadData } from './onComponentWillReceivePro
 import { onComponentWillReceivePropsLoadDataWithLandscapeImage } from './onComponentWillReceivePropsLoadDataWithLandscapeImage'
 import { onComponentDidMountWithTitle } from './onComponentDidMountWithTitle'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
+import { onComponentDidMountWithTitleLeftRightNavDelete } from './onComponentDidMountWithTitleLeftRightNavDelete'
 import { onComponentWillUnmountWithTitle } from './onComponentWillUnmountWithTitle'
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
 import { onComponentWillUnmountWithTitleRightNav } from './onComponentWillUnmountWithTitleRightNav'
@@ -53,6 +54,7 @@ export {
   onComponentWillReceivePropsLoadDataWithLandscapeImage,
   onComponentDidMountWithTitle,
   onComponentDidMountWithTitleLeftNav,
+  onComponentDidMountWithTitleLeftRightNavDelete,
   onComponentWillUnmountWithTitle,
   onComponentWillUnmountWithTitleLeftNav,
   onComponentWillUnmountWithTitleRightNav,

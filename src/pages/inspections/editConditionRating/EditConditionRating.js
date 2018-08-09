@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
-import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
+import {
+  onComponentDidMountWithTitleLeftRightNavDelete,
+  onComponentWillUnmountWithTitleLeftRightNav,
+} from '../../../functions/'
 import ConditionRatingForm from '../conditionRatingForm/'
-import { onComponentDidMount, submit } from './functions/'
+import { deleteConditionRating, submit } from './functions/'
 
 export class EditConditionRating extends Component {
   componentDidMount() {
-    onComponentDidMount(this)
+    onComponentDidMountWithTitleLeftRightNavDelete(
+      this,
+      'Edit Rating',
+      deleteConditionRating
+    )
   }
 
   componentWillUnmount() {
