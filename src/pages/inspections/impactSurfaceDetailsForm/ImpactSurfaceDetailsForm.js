@@ -6,20 +6,18 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
+import { surfaceTypes, materials, surfaceConditions } from '../../../constants/'
 import {
   onComponentDidMountLoadData,
   onComponentWillReceivePropsLoadData,
   onEventInputChange,
 } from '../../../functions/'
 import { StyledImpactSurfaceDetailsForm } from './StyledImpactSurfaceDetailsForm'
+import { state } from './state'
 import { submit } from './submit'
 
-const conditions = ['Excellent', 'Good', 'Average', 'Poor', 'Failed']
-const surfaceTypes = ['Unitary', 'Loose-fill']
-const materials = ['Sand', 'Bark', 'Rubber', 'Synthetic']
-
 class ImpactSurfaceDetailsFormWithout extends Component {
-  state = { location: '', surfaceType: '', material: '', condition: '' }
+  state = state
 
   componentDidMount() {
     onComponentDidMountLoadData(this)
@@ -28,8 +26,6 @@ class ImpactSurfaceDetailsFormWithout extends Component {
   componentWillReceiveProps(nextProps) {
     onComponentWillReceivePropsLoadData(this, nextProps)
   }
-
-   
 
   render() {
     const { location, surfaceType, material, condition } = this.state
@@ -45,7 +41,7 @@ class ImpactSurfaceDetailsFormWithout extends Component {
                 margin="normal"
                 label="Location"
                 value={location}
-                onChange={onEventInputChange(this,'location')}
+                onChange={onEventInputChange(this, 'location')}
               />
 
               <TextField
@@ -54,7 +50,7 @@ class ImpactSurfaceDetailsFormWithout extends Component {
                 margin="normal"
                 label="Surface Type"
                 value={surfaceType}
-                onChange={onEventInputChange(this,'surfaceType')}
+                onChange={onEventInputChange(this, 'surfaceType')}
               >
                 {surfaceTypes.map(item => (
                   <MenuItem key={item} value={item}>
@@ -69,7 +65,7 @@ class ImpactSurfaceDetailsFormWithout extends Component {
                 margin="normal"
                 label="Material"
                 value={material}
-                onChange={onEventInputChange(this,'material')}
+                onChange={onEventInputChange(this, 'material')}
               >
                 {materials.map(item => (
                   <MenuItem key={item} value={item}>
@@ -84,9 +80,9 @@ class ImpactSurfaceDetailsFormWithout extends Component {
                 margin="normal"
                 label="Condition"
                 value={condition}
-                onChange={onEventInputChange(this,'condition')}
+                onChange={onEventInputChange(this, 'condition')}
               >
-                {conditions.map(item => (
+                {surfaceConditions.map(item => (
                   <MenuItem key={item} value={item}>
                     {item}
                   </MenuItem>

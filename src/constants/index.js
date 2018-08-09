@@ -11,10 +11,13 @@ import { defaultInspectionTypes } from './defaultInspectionTypes'
 import { equipmentTypes } from './equipmentTypes'
 import { equipmentState } from './equipmentState'
 import { findings } from './findings'
+import { materials } from './materials'
 import { probabilities } from './probabilities'
 import { riskLevels } from './riskLevels'
 import { severities } from './severities'
 import { siteNamePlaceholder } from './siteNamePlaceholder'
+import { surfaceConditions } from './surfaceConditions'
+import { surfaceTypes } from './surfaceTypes'
 import { theme } from './theme'
 
 export {
@@ -31,9 +34,12 @@ export {
   equipmentTypes,
   equipmentState,
   findings,
+  materials,
   probabilities,
   riskLevels,
   severities,
   siteNamePlaceholder,
+  surfaceConditions,
+  surfaceTypes,
   theme,
 }

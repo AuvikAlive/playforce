@@ -19,6 +19,7 @@ import {
   showContentWhenLoaded,
 } from '../../../functions/'
 import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
+import { state } from './state'
 import {
   onComponentDidMount,
   onComponentWillUnmount,
@@ -27,12 +28,7 @@ import {
 } from './functions/'
 
 export class MaintenanceIssueForm extends Component {
-  state = {
-    finding: '',
-    equipment: '',
-    recommendations: '',
-    images: [],
-  }
+  state = state
 
   componentDidMount() {
     onComponentDidMount(this)
