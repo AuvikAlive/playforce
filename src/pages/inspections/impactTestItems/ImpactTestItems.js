@@ -7,13 +7,20 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
-import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
+import {
+  onComponentDidMountWithTitleLeftRightNavDelete,
+  onComponentWillUnmountWithTitleLeftRightNav,
+} from '../../../functions/'
 import { StyledImpactTestItems } from './StyledImpactTestItems'
-import { onComponentDidMount } from './functions/'
+import { deleteImpactTest } from './deleteImpactTest'
 
 export class ImpactTestItems extends Component {
   componentDidMount() {
-    onComponentDidMount(this)
+    onComponentDidMountWithTitleLeftRightNavDelete(
+      this,
+      'Impact Testing',
+      deleteImpactTest
+    )
   }
 
   componentWillUnmount() {

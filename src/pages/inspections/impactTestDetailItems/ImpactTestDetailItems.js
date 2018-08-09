@@ -9,7 +9,7 @@ import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
 import { StyledImpactTestDetailItems } from './StyledImpactTestDetailItems'
-import { onComponentDidMount } from './functions/'
+import { onComponentDidMount } from './functions/onComponentDidMount'
 
 export class ImpactTestDetailItems extends Component {
   componentDidMount() {

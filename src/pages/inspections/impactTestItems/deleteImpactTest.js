@@ -1,4 +1,4 @@
-import { showActionGoBack } from '../../../../functions/'
+import { showActionGoBack } from '../../../functions/'
 
 export const deleteImpactTest = component => async () => {
   const {
