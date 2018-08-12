@@ -13,6 +13,7 @@ import { StyledInspectionListView } from './StyledInspectionListView'
 
 export const InspectionListView = ({
   inspections,
+  emptyListText,
   selectedItems,
   handleButtonPress,
   handleButtonRelease,
@@ -152,7 +153,7 @@ export const InspectionListView = ({
           </List>
         </Paper>
       ) : (
-        <EmptyInspectionListPlaceholder />
+        <EmptyInspectionListPlaceholder text={emptyListText} />
       )}
     </StyledInspectionListView>
   )

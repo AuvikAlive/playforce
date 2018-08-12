@@ -44,6 +44,7 @@ export class DeleteInspections extends Component {
           selectMode={selectMode}
           setSelectedItems={setSelectedItems(this)}
           setSelectMode={setSelectMode(this, title)}
+          emptyListText="No inspections added!"
         />
       </StyledDeleteInspections>
     )
