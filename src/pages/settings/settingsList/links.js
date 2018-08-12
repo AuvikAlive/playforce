@@ -47,4 +47,8 @@ export const links = [
     route: 'defaultCertificateText',
     name: 'Default Certificate Text',
   },
+  {
+    route: 'reportNotes',
+    name: 'Report Notes',
+  },
 ]
