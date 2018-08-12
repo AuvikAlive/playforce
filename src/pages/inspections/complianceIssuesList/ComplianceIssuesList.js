@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import {
   contextTypesTitleLeftNav,
   probabilities,
@@ -20,9 +21,7 @@ import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
 
 export class ComplianceIssuesList extends Component {
   componentDidMount() {
-    const title = 'Compliance Issues'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Compliance Issues')
   }
 
   componentWillUnmount() {
@@ -60,7 +59,11 @@ export class ComplianceIssuesList extends Component {
                   <Grid item key={index} xs={12}>
                     {images &&
                       images.length > 0 && (
-                        <img src={images[0].image} alt="equipment type" />
+                        <img
+                          src={images[0].image}
+                          className="card-media"
+                          alt="compliance issue"
+                        />
                       )}
                     <CardContent className="card-content">
                       <StyledNavLink
@@ -132,9 +135,7 @@ export class ComplianceIssuesList extends Component {
             )}
           </Grid>
         ) : (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
+          <EmptyListPlaceholder text="Try adding a compliance issue to get started!" />
         )}
       </StyledComplianceIssuesList>
     )

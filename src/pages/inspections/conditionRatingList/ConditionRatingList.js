@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent'
 import { format } from 'date-fns'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
@@ -17,9 +18,7 @@ import { StyledConditionRatingList } from './StyledConditionRatingList'
 
 export class ConditionRatingList extends Component {
   componentDidMount() {
-    const title = 'Condition Ratings'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Condition Ratings')
   }
 
   componentWillUnmount() {
@@ -108,9 +107,7 @@ export class ConditionRatingList extends Component {
             )}
           </Grid>
         ) : (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
+          <EmptyListPlaceholder text="Try adding a condition rating to get started!" />
         )}
       </StyledConditionRatingList>
     )

@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
@@ -15,9 +16,7 @@ import { StyledMaintenanceIssuesList } from './StyledMaintenanceIssuesList'
 
 export class MaintenanceIssuesList extends Component {
   componentDidMount() {
-    const title = 'Maintenance Issues'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Maintenance Issues')
   }
 
   componentWillUnmount() {
@@ -42,7 +41,11 @@ export class MaintenanceIssuesList extends Component {
                   <Grid item key={id} xs={12}>
                     {images &&
                       images.length > 0 && (
-                        <img src={images[0].image} alt="equipment type" />
+                        <img
+                          src={images[0].image}
+                          className="card-media"
+                          alt="maintenance issue"
+                        />
                       )}
                     <CardContent className="card-content">
                       <StyledNavLink
@@ -73,9 +76,7 @@ export class MaintenanceIssuesList extends Component {
             )}
           </Grid>
         ) : (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
+          <EmptyListPlaceholder text="Try adding a maintenance issue to get started!" />
         )}
       </StyledMaintenanceIssuesList>
     )

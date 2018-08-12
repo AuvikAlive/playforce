@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import { showContentWhenLoaded } from '../../../functions/'
 import { contextTypes } from './contextTypes'
 import { onComponentDidMount, onComponentWillUnmount } from './functions/'
@@ -42,9 +42,7 @@ export class GroupList extends Component {
             </List>
           </Paper>
         ) : (
-          <Typography variant="title" align="center">
-            Try adding a group to get started!
-          </Typography>
+          <EmptyListPlaceholder text="Try adding a group to get started!" />
         )}
       </StyledGroupList>
     )

@@ -34,7 +34,7 @@ export class Carousel extends Component {
                   {...slideProps}
                 />
               ) : (
-                <img src={image} alt="carousel" />
+                <img src={image} className="card-media" alt="carousel" />
               )}
             </div>
           ))}
