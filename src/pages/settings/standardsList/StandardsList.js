@@ -5,10 +5,10 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import Typography from '@material-ui/core/Typography'
 import { StyledStandardList } from './StyledStandardList'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftNav,
@@ -51,9 +51,7 @@ export class StandardsList extends Component {
             </List>
           </Paper>
         ) : (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
+          <EmptyListPlaceholder text="Try adding a standard to get started!" />
         )}
       </StyledStandardList>
     )

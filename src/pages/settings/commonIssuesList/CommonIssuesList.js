@@ -6,10 +6,10 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListSubheader from '@material-ui/core/ListSubheader'
-import Typography from '@material-ui/core/Typography'
 import { map } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { AddButton } from '../../../components/addButton/AddButton'
+import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftNav,
@@ -69,9 +69,7 @@ export class CommonIssuesList extends Component {
             })}
           </Paper>
         ) : (
-          <Typography variant="title" align="center">
-            Try adding an item to get started!
-          </Typography>
+          <EmptyListPlaceholder text="Try adding a common issue to get started!" />
         )}
       </StyledCommonIssuesList>
     )

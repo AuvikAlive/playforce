@@ -4,9 +4,9 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import Typography from '@material-ui/core/Typography'
 import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
+import { EmptyListPlaceholder } from '../emptyListPlacehoder/EmptyListPlaceholder'
 
 export const ClientList = ({ clients, match }) => {
   return clients.length > 0 ? (
@@ -27,8 +27,6 @@ export const ClientList = ({ clients, match }) => {
       </List>
     </Paper>
   ) : (
-    <Typography variant="title" align="center">
-      Try adding an item to get started!
-    </Typography>
+    <EmptyListPlaceholder text="Try adding a client to get started!" />
   )
 }
