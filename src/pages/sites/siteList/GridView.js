@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
 import { SiteCard } from '../siteCard/SiteCard'
+import { EmptySiteListPlaceholder } from './EmptySiteListPlaceholder'
 
 export const GridView = ({ sites }) => {
   return sites.length > 0 ? (
@@ -15,8 +15,6 @@ export const GridView = ({ sites }) => {
       })}
     </Grid>
   ) : (
-    <Typography variant="title" align="center">
-      Try adding a site to get started!
-    </Typography>
+    <EmptySiteListPlaceholder />
   )
 }

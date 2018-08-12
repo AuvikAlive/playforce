@@ -8,14 +8,9 @@ import {
 import { CoverFormContainer } from '../coverForm/CoverFormContainer'
 import { submit } from './submit'
 
-const message = 'Inspection added!'
-const pathHead = 'edit/'
-
 export class AddInspection extends Component {
   componentDidMount() {
-    const title = 'Add Inspection'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Add Inspection')
   }
 
   componentWillUnmount() {
@@ -26,7 +21,7 @@ export class AddInspection extends Component {
     return (
       <CoverFormContainer
         onSubmit={submit(this)}
-        afterSubmit={showActionGo(this, message, pathHead)}
+        afterSubmit={showActionGo(this, 'Inspection added!', 'edit/')}
       />
     )
   }

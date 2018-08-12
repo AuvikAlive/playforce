@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import { contextTypesTitle } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
 import { StyledEquipmentList } from './StyledEquipmentList'
@@ -24,10 +25,10 @@ export class EquipmentList extends Component {
       <StyledEquipmentList className="StyledEquipmentList">
         <AddButton to={match.url + '/add'} pulse={!equipmentsAdded} />
 
-        <Paper className="paper">
-          <List component="nav" disablePadding>
-            {equipmentsAdded ? (
-              equipments.map(({ equipment }) => (
+        {equipmentsAdded ? (
+          <Paper className="paper">
+            <List component="nav" disablePadding>
+              {equipments.map(({ equipment }) => (
                 <StyledNavLink
                   key={equipment}
                   to={`${match.url}/edit/${equipment}`}
@@ -36,14 +37,12 @@ export class EquipmentList extends Component {
                     <ListItemText primary={equipment} />
                   </ListItem>
                 </StyledNavLink>
-              ))
-            ) : (
-              <ListItem>
-                <ListItemText primary="No equipments added" />
-              </ListItem>
-            )}
-          </List>
-        </Paper>
+              ))}
+            </List>
+          </Paper>
+        ) : (
+          <EmptyListPlaceholder text="Try adding an equipment to get started!" />
+        )}
       </StyledEquipmentList>
     )
   }

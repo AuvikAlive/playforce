@@ -12,6 +12,7 @@ export const initialState = {
   inspections: [],
   inspectionsBySiteLoaded: false,
   inspectionsBySite: [],
+  site: undefined,
 }
 
 export const inspectionListReducer = (
@@ -34,12 +35,15 @@ export const inspectionListReducer = (
     case FETCH_INSPECTIONS_BY_SITE:
       return { ...state, inspectionsBySiteLoaded: false }
 
-    case FETCH_INSPECTIONS_BY_SITE_COMPLETED:
+    case FETCH_INSPECTIONS_BY_SITE_COMPLETED: {
+      const { items, siteId } = payload
       return {
         ...state,
         inspectionsBySiteLoaded: true,
-        inspectionsBySite: payload,
+        inspectionsBySite: items,
+        site: siteId,
       }
+    }
 
     default:
       return state

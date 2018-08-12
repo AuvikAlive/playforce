@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import CheckIcon from '@material-ui/icons/Check'
-import Typography from '@material-ui/core/Typography'
+import { EmptySiteListPlaceholder } from './EmptySiteListPlaceholder'
 
 export const ListView = ({
   sites,
@@ -49,8 +49,6 @@ export const ListView = ({
       </List>
     </Paper>
   ) : (
-    <Typography variant="title" align="center">
-      Try adding a site to get started!
-    </Typography>
+    <EmptySiteListPlaceholder />
   )
 }

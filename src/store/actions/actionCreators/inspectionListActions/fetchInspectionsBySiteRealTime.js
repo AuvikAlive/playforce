@@ -28,6 +28,9 @@ export const fetchInspectionsBySiteRealTime = (userId, siteId) => async (
         ...doc.data(),
       })
     )
-    dispatch({ type: FETCH_INSPECTIONS_BY_SITE_COMPLETED, payload: items })
+    dispatch({
+      type: FETCH_INSPECTIONS_BY_SITE_COMPLETED,
+      payload: { items, siteId },
+    })
   })
 }

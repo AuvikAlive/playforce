@@ -11,7 +11,7 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    inspectionList: { inspectionsBySiteLoaded, inspectionsBySite },
+    inspectionList: { inspectionsBySiteLoaded, inspectionsBySite, site },
   },
   {
     match: {
@@ -23,6 +23,7 @@ const mapStateToProps = (
   siteId: id,
   inspectionsBySiteLoaded,
   inspectionsBySite,
+  site,
 })
 
 const mapDispatchToProps = { fetchInspectionsBySiteRealTime, deleteInspection }
@@ -30,5 +31,8 @@ const mapDispatchToProps = { fetchInspectionsBySiteRealTime, deleteInspection }
 export const InspectionListContainer = compose(
   withFeedback,
   withDeleteDialog,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(InspectionList)

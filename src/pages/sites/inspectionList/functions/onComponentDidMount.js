@@ -2,14 +2,14 @@ export const onComponentDidMount = async component => {
   const { setNavTitle, addUnsubscriber } = component.context
 
   const {
-    inspectionsBySiteLoaded,
     fetchInspectionsBySiteRealTime,
     userId,
     siteId,
+    site,
   } = component.props
 
   setNavTitle('Edit Site')
 
-  !inspectionsBySiteLoaded &&
+  site !== siteId &&
     addUnsubscriber(await fetchInspectionsBySiteRealTime(userId, siteId))
 }
