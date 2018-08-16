@@ -20,6 +20,7 @@ export const fetchImpactTests = (userId, inspectionId) => async (
     .collection('inspections')
     .doc(inspectionId)
     .collection('impactTests')
+    .orderBy('surface.location')
     .get()
 
   let items = querySnapshot.docs.map(async doc => {
