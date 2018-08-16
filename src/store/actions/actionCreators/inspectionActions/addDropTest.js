@@ -10,19 +10,34 @@ export const addDropTest = (userId, inspectionId, impactTestId, data) => async (
   const db = firebase.firestore()
 
   return db.runTransaction(async transaction => {
-    const impactTestRef = db
+    // const impactTestRef = db
+    //   .collection('users')
+    //   .doc(userId)
+    //   .collection('inspections')
+    //   .doc(inspectionId)
+    //   .collection('impactTests')
+    //   .doc(impactTestId)
+
+    // const impactTestDoc = await transaction.get(impactTestRef)
+
+    // const dropCount = impactTestDoc.data().dropCount || 0
+
+    // transaction.update(impactTestRef, { dropCount: dropCount + 1 })
+    const inspectionRef = db
       .collection('users')
       .doc(userId)
       .collection('inspections')
       .doc(inspectionId)
+
+    const impactTestRef = inspectionRef
       .collection('impactTests')
       .doc(impactTestId)
 
-    const impactTestDoc = await transaction.get(impactTestRef)
+    const inspectionDoc = await transaction.get(inspectionRef)
 
-    const dropCount = impactTestDoc.data().dropCount || 0
+    const dropCount = inspectionDoc.data().dropCount || 0
 
-    transaction.update(impactTestRef, { dropCount: dropCount + 1 })
+    transaction.update(inspectionRef, { dropCount: dropCount + 1 })
 
     const ref = impactTestRef.collection('dropTests').doc(`${dropCount + 1}`)
 

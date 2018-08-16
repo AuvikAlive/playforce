@@ -16,7 +16,7 @@ export const deleteImpactTest = (userId, inspectionId, impactTests) => async (
 
   let storageImages = []
 
-  batch.update(inspectionRef, { impactGeneralInfo: {} })
+  batch.update(inspectionRef, { impactGeneralInfo: {}, dropCount: 0 })
 
   impactTests.forEach(({ id, dropTests }) => {
     const impactRef = inspectionRef.collection('impactTests').doc(id)
