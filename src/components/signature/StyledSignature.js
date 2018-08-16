@@ -13,7 +13,8 @@ export const StyledSignature = Styled.div`
 
   .m-signature-pad {
     width: 100%;
-    padding-top: 56.25%;
+    padding-top: ${({ aspectRatio }) =>
+      aspectRatio ? (1 / aspectRatio) * 100 + '%' : '56.25%'};
     position: relative;
 
     .m-signature-pad--body {

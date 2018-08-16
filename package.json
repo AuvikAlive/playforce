@@ -40,6 +40,7 @@
     "redux-firestore": "^0.3.2",
     "redux-persist": "^5.9.1",
     "redux-thunk": "^2.2.0",
+    "signature_pad": "^3.0.0-beta.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^3.1.6",
     "typeface-roboto": "^0.0.54"

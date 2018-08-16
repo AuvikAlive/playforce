@@ -15,6 +15,7 @@ export const makeCertificate = async ({
   customInspectionNumber,
   cover,
   auditSummary,
+  signature,
   conditionRatings,
   name,
 }) => {
@@ -63,6 +64,12 @@ export const makeCertificate = async ({
       name,
       client,
     }),
-    await makeSignature(pageFontSize, lineHeight, auditSummary, displayName),
+    await makeSignature({
+      pageFontSize,
+      lineHeight,
+      auditSummary,
+      signature,
+      displayName,
+    }),
   ]
 }

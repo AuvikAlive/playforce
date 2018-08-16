@@ -1,13 +1,14 @@
 import { trimImage } from '../../../../functions/trimImage'
 import { verticalMargin } from '../constants'
 
-export const makeSignature = async (
+export const makeSignature = async ({
   pageFontSize,
   lineHeight,
   auditSummary,
-  displayName
-) => {
-  const { signature, title, company } = auditSummary
+  signature,
+  displayName,
+}) => {
+  const { title, company } = auditSummary
   const trimmedSignature = await trimImage(signature)
 
   return [

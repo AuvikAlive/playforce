@@ -31,6 +31,7 @@ export const makeDocDefinition = async (
     customCertificateText,
     customInspectionNumber,
     name,
+    signature,
   },
   defaultCertificateText
 ) => {
@@ -50,11 +51,12 @@ export const makeDocDefinition = async (
         customInspectionNumber,
         cover,
         auditSummary,
+        signature,
         conditionRatings,
         name,
       }),
       makeCover(cover),
-      await makeAuditSummary({ auditSummary, cover }),
+      await makeAuditSummary({ auditSummary, cover, signature }),
       makeConditionRatingInfo(),
       makeConditionRatings(conditionRatings),
       makeImpactTests(impactGeneralInfo, impactTests, cover.appliedStandards),

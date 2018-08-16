@@ -40,10 +40,13 @@ class SignatureBase extends Component {
   isEmpty = isEmpty(this)
 
   render() {
-    const { captureImage, imageCaptured } = this.props
+    const { captureImage, imageCaptured, imageNaturalAspectRatio } = this.props
 
     return (
-      <StyledSignature className="StyledSignature">
+      <StyledSignature
+        className="StyledSignature"
+        // aspectRatio={imageNaturalAspectRatio}
+      >
         <div className="signature-label">
           <InputLabel shrink={false} focused={false}>
             Signature
@@ -51,7 +54,7 @@ class SignatureBase extends Component {
 
           <div className="action-buttons">
             {imageCaptured && (
-              <IconButton onClick={onSingleCrop(this, 16 / 9)}>
+              <IconButton onClick={onSingleCrop(this, imageNaturalAspectRatio)}>
                 <CropIcon />
               </IconButton>
             )}

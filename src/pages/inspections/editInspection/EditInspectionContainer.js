@@ -23,7 +23,7 @@ const mapStateToProps = (
   {
     firebase: {
       auth: { uid },
-      profile: { displayName, email, defaultCertificateText },
+      profile: { displayName, email, defaultCertificateText, signature },
     },
     firestore: {
       data: { users },
@@ -43,6 +43,7 @@ const mapStateToProps = (
   displayName,
   email,
   defaultCertificateText,
+  signature,
   standardsLoaded,
   standards,
 })

@@ -2,9 +2,15 @@ import { flatten, map, filter } from 'lodash'
 import { generatePdf } from '../../pdfMake/generatePdf'
 
 export const createPdf = component => async inspection => {
-  const { displayName, standards, defaultCertificateText } = component.props
+  const {
+    displayName,
+    standards,
+    defaultCertificateText,
+    signature,
+  } = component.props
 
   inspection.displayName = displayName
+  inspection.signature = signature
 
   const appliedStandards = flatten(
     map(inspection.cover.appliedStandards, standardId => {

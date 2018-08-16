@@ -12,15 +12,6 @@ export const StyledAuditSummary = Styled(Content)`
 
   .signature {
     width: 100%;
-    padding-top: 32px;
-    /* @media (max-width: 600px) {
-      padding-top: 32px;
-    }
-    max-width: 100%;
-    min-height: 50vw;
-
-    @media screen and (orientation: landscape) {
-      min-height: calc(${({ theme }) => theme.lanscapeWidth} / 2);
-    } */
+    padding-top: 48px;
   }
 `
