@@ -7,6 +7,7 @@ export const StyledInspectionListView = Styled.div`
     display: flex;
     align-items: flex-end;
     align-self: flex-end;
+    pointer-events: none;
 
     .chip {
       color: white;
