@@ -44,6 +44,14 @@ export const MoreMenu = ({
         Email Report
       </MenuItem>
 
+      {!inspection.playgroundsAdded && (
+        <MenuItem
+          onClick={() => history.push(`${inspection.id}/playgrounds/add`)}
+        >
+          Add Playground
+        </MenuItem>
+      )}
+
       {isEmpty(impactGeneralInfo) && (
         <MenuItem
           onClick={() =>

@@ -36,6 +36,8 @@ import { addPlayingSurface } from './addPlayingSurface'
 import { updatePlayingSurface } from './updatePlayingSurface'
 import { deletePlayingSurface } from './deletePlayingSurface'
 import { fetchPlayingSufacesRealTime } from './fetchPlayingSufacesRealTime'
+import { addPlayground } from './addPlayground'
+import { fetchPlaygroundsRealTime } from './fetchPlaygroundsRealTime'
 import {
   DISCARD_INSPECTION,
   // TOGGLE_INSPECTION_CERTIFICATE,
@@ -80,6 +82,8 @@ export {
   updatePlayingSurface,
   deletePlayingSurface,
   fetchPlayingSufacesRealTime,
+  addPlayground,
+  fetchPlaygroundsRealTime,
 }
 
 export const discardInspection = () => ({

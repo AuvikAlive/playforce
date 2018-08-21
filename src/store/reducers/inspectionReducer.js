@@ -27,6 +27,8 @@ import {
   DELETE_DROP_TEST,
   FETCH_PLAYING_SURFACES,
   FETCH_PLAYING_SURFACES_COMPLETED,
+  FETCH_PLAYGROUNDS,
+  FETCH_PLAYGROUNDS_COMPLETED,
   TOGGLE_INSPECTION_CERTIFICATE,
 } from '../actions/actionTypes'
 
@@ -52,6 +54,9 @@ export const initialState = {
   playingSurfacesLoaded: false,
   playingSurfaces: [],
   playingSurfacesAdded: false,
+  playgroundsLoaded: false,
+  playgrounds: [],
+  playgroundsAdded: false,
   certificate: false,
 }
 
@@ -297,6 +302,17 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         playingSurfacesLoaded: true,
         playingSurfaces: payload,
         playingSurfacesAdded: payload.length > 0,
+      }
+
+    case FETCH_PLAYGROUNDS:
+      return { ...state, playgroundsLoaded: false }
+
+    case FETCH_PLAYGROUNDS_COMPLETED:
+      return {
+        ...state,
+        playgroundsLoaded: true,
+        playgrounds: payload,
+        playgroundsAdded: payload.length > 0,
       }
 
     case TOGGLE_INSPECTION_CERTIFICATE: {
