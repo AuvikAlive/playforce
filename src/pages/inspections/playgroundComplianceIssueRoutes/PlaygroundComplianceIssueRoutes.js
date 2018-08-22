@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
 import { contextTypesUnsubscriber } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
-import ComplianceIssuesList from '../complianceIssuesList'
-import { onComponentDidMount } from './onComponentDidMount'
+import ComplianceIssuesList from '../complianceIssuesList/'
 
 const AddComplianceIssue = Loadable({
   loader: () => import('../addComplianceIssue'),
@@ -17,34 +15,34 @@ const EditComplianceIssue = Loadable({
 AddComplianceIssue.preload()
 EditComplianceIssue.preload()
 
-export class ComplianceIssueRoutes extends Component {
-  componentDidMount() {
-    onComponentDidMount(this)
-  }
+export class PlaygroundComplianceIssueRoutes extends Component {
+  componentDidMount() {}
 
   render() {
     const {
-      inspectionLoaded,
-      complianceIssuesLoaded,
-      complianceIssues,
-      addComplianceIssue,
-      updateComplianceIssue,
-      deleteComplianceIssue,
+      playground: { complianceIssues },
+      addPlaygroundComplianceIssue,
+      updatePlaygroundComplianceIssue,
+      deletePlaygroundComplianceIssue,
       userId,
       inspectionId,
+      playgroundId,
       match,
     } = this.props
-    const isLoaded = inspectionLoaded && complianceIssuesLoaded
 
-    return showContentWhenLoaded(
-      isLoaded,
+    return (
       <Switch>
         <Route
           path={`${match.url}/add`}
           render={props => (
             <AddComplianceIssue
               addComplianceIssue={data =>
-                addComplianceIssue(userId, inspectionId, data)
+                addPlaygroundComplianceIssue(
+                  userId,
+                  inspectionId,
+                  playgroundId,
+                  data
+                )
               }
               {...props}
             />
@@ -56,20 +54,22 @@ export class ComplianceIssueRoutes extends Component {
           render={props => (
             <EditComplianceIssue
               updateComplianceIssue={data =>
-                updateComplianceIssue(
+                updatePlaygroundComplianceIssue({
                   userId,
                   inspectionId,
-                  props.match.params.id,
-                  data
-                )
+                  playgroundId,
+                  id: props.match.params.id,
+                  data,
+                })
               }
               deleteComplianceIssue={images =>
-                deleteComplianceIssue(
+                deletePlaygroundComplianceIssue({
                   userId,
                   inspectionId,
-                  props.match.params.id,
-                  images
-                )
+                  playgroundId,
+                  id: props.match.params.id,
+                  images,
+                })
               }
               {...{ complianceIssues }}
               {...props}
@@ -88,4 +88,4 @@ export class ComplianceIssueRoutes extends Component {
   }
 }
 
-ComplianceIssueRoutes.contextTypes = contextTypesUnsubscriber
+PlaygroundComplianceIssueRoutes.contextTypes = contextTypesUnsubscriber

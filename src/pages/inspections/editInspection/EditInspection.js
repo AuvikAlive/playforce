@@ -49,9 +49,9 @@ export class EditInspection extends Component {
 
     const {
       inspectionLoaded,
-      // conditionRatingsLoaded,
-      // maintenanceIssuesLoaded,
-      // complianceIssuesLoaded,
+      conditionRatingsLoaded,
+      maintenanceIssuesLoaded,
+      complianceIssuesLoaded,
       impactTestsLoaded,
       playgroundsLoaded,
       impactGeneralInfo,
@@ -61,9 +61,9 @@ export class EditInspection extends Component {
 
     const isLoaded =
       inspectionLoaded &&
-      // conditionRatingsLoaded &&
-      // complianceIssuesLoaded &&
-      // maintenanceIssuesLoaded &&
+      conditionRatingsLoaded &&
+      complianceIssuesLoaded &&
+      maintenanceIssuesLoaded &&
       impactTestsLoaded &&
       playgroundsLoaded &&
       standardsLoaded

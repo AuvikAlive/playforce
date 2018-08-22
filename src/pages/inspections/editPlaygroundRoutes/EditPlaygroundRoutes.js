@@ -7,8 +7,8 @@ const PlaygroundConditionRatingRoutes = Loadable({
   loader: () => import('../playgroundConditionRatingRoutes'),
 })
 
-const ComplianceIssueRoutes = Loadable({
-  loader: () => import('../complianceIssueRoutes'),
+const PlaygroundComplianceIssueRoutes = Loadable({
+  loader: () => import('../playgroundComplianceIssueRoutes'),
 })
 
 const MaintenanceIssueRoutes = Loadable({
@@ -16,7 +16,7 @@ const MaintenanceIssueRoutes = Loadable({
 })
 
 PlaygroundConditionRatingRoutes.preload()
-ComplianceIssueRoutes.preload()
+PlaygroundComplianceIssueRoutes.preload()
 MaintenanceIssueRoutes.preload()
 
 export const EditPlaygroundRoutes = ({ match, playgroundId, inspectionId }) => {
@@ -25,17 +25,15 @@ export const EditPlaygroundRoutes = ({ match, playgroundId, inspectionId }) => {
       <Route
         path={`${match.url}/conditionRating`}
         render={props => (
-          <PlaygroundConditionRatingRoutes
-            playgroundId={playgroundId}
-            inspectionId={inspectionId}
-            {...props}
-          />
+          <PlaygroundConditionRatingRoutes {...{ playgroundId }} {...props} />
         )}
       />
 
       <Route
         path={`${match.url}/complianceIssues`}
-        component={ComplianceIssueRoutes}
+        render={props => (
+          <PlaygroundComplianceIssueRoutes {...{ playgroundId }} {...props} />
+        )}
       />
 
       <Route
@@ -45,9 +43,7 @@ export const EditPlaygroundRoutes = ({ match, playgroundId, inspectionId }) => {
 
       <Route
         path={match.url}
-        render={props => (
-          <PlaygroundItems playgroundId={playgroundId} {...props} />
-        )}
+        render={props => <PlaygroundItems {...{ playgroundId }} {...props} />}
       />
     </Switch>
   )

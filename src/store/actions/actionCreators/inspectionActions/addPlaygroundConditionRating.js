@@ -36,7 +36,7 @@ export const addPlaygroundConditionRating = (
 
   dispatch({
     type: ADD_PLAYGROUND_CONDITION_RATING,
-    payload: { ...data, id: ref.id, image, playgroundId },
+    payload: { ...data, id: ref.id, playgroundId, image },
   })
 
   return ref.id

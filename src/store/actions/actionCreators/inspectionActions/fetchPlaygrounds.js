@@ -42,10 +42,72 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
 
     conditionRatings = await Promise.all(conditionRatings)
 
+    const complianceIssuesQuerySnapshot = await doc.ref
+      .collection('complianceIssues')
+      .get()
+
+    let complianceIssues = complianceIssuesQuerySnapshot.docs.map(async doc => {
+      let { images } = doc.data()
+
+      images = images.map(async item => {
+        const response = await fetch(item.image)
+        const blob = await response.blob()
+        const dataUrl = await getDataUrlFromBlob(blob)
+
+        return {
+          ...item,
+          image: dataUrl,
+        }
+      })
+
+      images = await Promise.all(images)
+
+      return {
+        id: doc.id,
+        ...doc.data(),
+        images,
+      }
+    })
+
+    complianceIssues = await Promise.all(complianceIssues)
+
+    const maintenanceIssuesQuerySnapshot = await doc.ref
+      .collection('maintenanceIssues')
+      .get()
+
+    let maintenanceIssues = maintenanceIssuesQuerySnapshot.docs.map(
+      async doc => {
+        let { images } = doc.data()
+
+        images = images.map(async item => {
+          const response = await fetch(item.image)
+          const blob = await response.blob()
+          const dataUrl = await getDataUrlFromBlob(blob)
+
+          return {
+            ...item,
+            image: dataUrl,
+          }
+        })
+
+        images = await Promise.all(images)
+
+        return {
+          id: doc.id,
+          ...doc.data(),
+          images,
+        }
+      }
+    )
+
+    maintenanceIssues = await Promise.all(maintenanceIssues)
+
     return {
       id: doc.id,
       ...doc.data(),
       conditionRatings,
+      complianceIssues,
+      maintenanceIssues,
     }
   })
 

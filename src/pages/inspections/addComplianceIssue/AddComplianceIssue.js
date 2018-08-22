@@ -8,8 +8,6 @@ import {
   submit,
 } from './functions/'
 
-const message = 'Issue published!'
-
 export class AddComplianceIssue extends Component {
   componentDidMount() {
     onComponentDidMount(this)
@@ -22,7 +20,7 @@ export class AddComplianceIssue extends Component {
   render() {
     return (
       <ComplianceIssueForm
-        afterSubmit={showActionGoBack(this, message)}
+        afterSubmit={showActionGoBack(this, 'Issue published!')}
         onSubmit={submit(this)}
       />
     )
