@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import {
   fetchInspectionRealTime,
   fetchPlaygroundsRealTime,
+  fetchPlaygrounds,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { PlaygroundRoutes } from './PlaygroundRoutes'
 
@@ -28,6 +29,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchPlaygroundsRealTime,
+  fetchPlaygrounds,
 }
 
 export const PlaygroundRoutesContainer = compose(

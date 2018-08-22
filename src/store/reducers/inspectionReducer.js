@@ -29,6 +29,9 @@ import {
   FETCH_PLAYING_SURFACES_COMPLETED,
   FETCH_PLAYGROUNDS,
   FETCH_PLAYGROUNDS_COMPLETED,
+  ADD_PLAYGROUND_CONDITION_RATING,
+  UPDATE_PLAYGROUND_CONDITION_RATING,
+  DELETE_PLAYGROUND_CONDITION_RATING,
   TOGGLE_INSPECTION_CERTIFICATE,
 } from '../actions/actionTypes'
 
@@ -314,6 +317,71 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         playgrounds: payload,
         playgroundsAdded: payload.length > 0,
       }
+
+    case ADD_PLAYGROUND_CONDITION_RATING: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.conditionRatings.push(payload)
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case UPDATE_PLAYGROUND_CONDITION_RATING: {
+      const { playgroundId, id } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.conditionRatings = item.conditionRatings.map(item => {
+            if (item.id === id) {
+              return payload
+            }
+
+            return item
+          })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case DELETE_PLAYGROUND_CONDITION_RATING: {
+      const { playgroundId, id } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.conditionRatings = item.conditionRatings.filter(
+            item => item.id !== id
+          )
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
 
     case TOGGLE_INSPECTION_CERTIFICATE: {
       const { certificate } = state

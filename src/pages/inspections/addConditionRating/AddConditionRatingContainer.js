@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { addConditionRating } from '../../../store/actions/actionCreators/inspectionActions/'
 import { AddConditionRating } from './AddConditionRating'
 
 const mapStateToProps = ({
@@ -15,9 +14,7 @@ const mapStateToProps = ({
   equipments,
 })
 
-const mapDispatchToProps = { addConditionRating }
-
 export const AddConditionRatingContainer = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps)
 )(AddConditionRating)

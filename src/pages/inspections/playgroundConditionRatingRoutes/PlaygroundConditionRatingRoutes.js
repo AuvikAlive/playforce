@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
 import { contextTypesUnsubscriber } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
 import ConditionRatingList from '../conditionRatingList'
-import { onComponentDidMount } from './onComponentDidMount'
 
 const AddConditionRating = Loadable({
   loader: () => import('../addConditionRating'),
@@ -17,35 +15,34 @@ const EditConditionRating = Loadable({
 AddConditionRating.preload()
 EditConditionRating.preload()
 
-export class ConditionRatingRoutes extends Component {
-  componentDidMount() {
-    onComponentDidMount(this)
-  }
+export class PlaygroundConditionRatingRoutes extends Component {
+  componentDidMount() {}
 
   render() {
     const {
-      inspectionLoaded,
-      conditionRatingsLoaded,
-      conditionRatings,
-      addConditionRating,
-      updateConditionRating,
-      deleteConditionRating,
+      playground: { conditionRatings },
+      addPlaygroundConditionRating,
+      updatePlaygroundConditionRating,
+      deletePlaygroundConditionRating,
       userId,
       inspectionId,
+      playgroundId,
       match,
     } = this.props
 
-    const isLoaded = inspectionLoaded && conditionRatingsLoaded
-
-    return showContentWhenLoaded(
-      isLoaded,
+    return (
       <Switch>
         <Route
           path={`${match.url}/add`}
           render={props => (
             <AddConditionRating
               addConditionRating={data =>
-                addConditionRating(userId, inspectionId, data)
+                addPlaygroundConditionRating(
+                  userId,
+                  inspectionId,
+                  playgroundId,
+                  data
+                )
               }
               {...props}
             />
@@ -57,23 +54,23 @@ export class ConditionRatingRoutes extends Component {
           render={props => (
             <EditConditionRating
               updateConditionRating={data =>
-                updateConditionRating(
+                updatePlaygroundConditionRating({
                   userId,
                   inspectionId,
-                  props.match.params.id,
-                  data
-                )
+                  playgroundId,
+                  id: props.match.params.id,
+                  data,
+                })
               }
               deleteConditionRating={() =>
-                deleteConditionRating(
+                deletePlaygroundConditionRating(
                   userId,
                   inspectionId,
+                  playgroundId,
                   props.match.params.id
                 )
               }
-              {...{
-                conditionRatings,
-              }}
+              {...{ conditionRatings }}
               {...props}
             />
           )}
@@ -90,4 +87,4 @@ export class ConditionRatingRoutes extends Component {
   }
 }
 
-ConditionRatingRoutes.contextTypes = contextTypesUnsubscriber
+PlaygroundConditionRatingRoutes.contextTypes = contextTypesUnsubscriber

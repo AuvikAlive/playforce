@@ -14,6 +14,7 @@ import {
   fetchImpactTests,
   fetchPlayingSufacesRealTime,
   fetchPlaygroundsRealTime,
+  fetchPlaygrounds,
   toggleInspectionCertificate,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
@@ -60,6 +61,7 @@ const mapDispatchToProps = {
   fetchImpactTests,
   fetchPlayingSufacesRealTime,
   fetchPlaygroundsRealTime,
+  fetchPlaygrounds,
   fetchStandards,
   deleteInspection,
   discardInspection,

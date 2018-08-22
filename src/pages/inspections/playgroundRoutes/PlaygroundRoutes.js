@@ -10,6 +10,13 @@ const AddPlayground = Loadable({
   loader: () => import('../addPlayground'),
 })
 
+const EditPlaygroundRoutes = Loadable({
+  loader: () => import('../editPlaygroundRoutes'),
+})
+
+AddPlayground.preload()
+EditPlaygroundRoutes.preload()
+
 export class PlaygroundRoutes extends Component {
   componentDidMount() {
     onComponentDidMount(this)
@@ -22,6 +29,10 @@ export class PlaygroundRoutes extends Component {
     return showContentWhenLoaded(
       isLoaded,
       <Switch>
+        <Route
+          path={`${match.url}/edit/:id`}
+          component={EditPlaygroundRoutes}
+        />
         <Route path={`${match.url}/add`} component={AddPlayground} />
         <Route path={match.url} component={PlaygroundList} />
       </Switch>
