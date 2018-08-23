@@ -1,30 +1,31 @@
 import React, { Component } from 'react'
-import { showActionGoBack } from '../../../functions/'
-import ComplianceIssueForm from '../complianceIssueForm/'
-import { contextTypes } from './contextTypes'
+import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
-  onComponentDidMount,
-  onComponentWillUnmount,
-  submit,
-} from './functions/'
+  onComponentDidMountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftNav,
+  showActionGoBack,
+} from '../../../functions/'
+import ComplianceIssueForm from '../complianceIssueForm/'
 
 export class AddComplianceIssue extends Component {
   componentDidMount() {
-    onComponentDidMount(this)
+    onComponentDidMountWithTitleLeftNav(this, 'Add Compliance Issue')
   }
 
   componentWillUnmount() {
-    onComponentWillUnmount(this)
+    onComponentWillUnmountWithTitleLeftNav(this)
   }
 
   render() {
+    const { addComplianceIssue } = this.props
+
     return (
       <ComplianceIssueForm
         afterSubmit={showActionGoBack(this, 'Issue published!')}
-        onSubmit={submit(this)}
+        onSubmit={data => addComplianceIssue(data)}
       />
     )
   }
 }
 
-AddComplianceIssue.contextTypes = contextTypes
+AddComplianceIssue.contextTypes = contextTypesTitleLeftNav
