@@ -4,7 +4,11 @@ import { makeAncillaryItems } from './makeAncillaryItems'
 import { equipmentTypes } from '../../../../constants/'
 import { capitalize } from '../../../../functions/capitalize'
 
-export const makeConditionRatings = conditionRatings => {
+export const makeConditionRatings = (
+  conditionRatings,
+  playgroundsCompleted,
+  playgrounds
+) => {
   const playItems = conditionRatings.filter(
     ({ itemType }) => capitalize(itemType) === equipmentTypes[0]
   )

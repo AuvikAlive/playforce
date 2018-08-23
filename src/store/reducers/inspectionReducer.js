@@ -355,6 +355,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         playgrounds,
+        playgroundsCompleted:
+          playgrounds.length > 0
+            ? playgrounds.every(
+                ({ conditionRatings }) => conditionRatings.length > 0
+              )
+            : false,
       }
     }
 
@@ -401,6 +407,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         playgrounds,
+        playgroundsCompleted:
+          playgrounds.length > 0
+            ? playgrounds.every(
+                ({ conditionRatings }) => conditionRatings.length > 0
+              )
+            : false,
       }
     }
 

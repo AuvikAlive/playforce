@@ -23,11 +23,7 @@ export class PlaygroundItems extends Component {
 
   render() {
     const { match, playground } = this.props
-    const {
-      complianceIssuesAdded,
-      conditionRatingsAdded,
-      maintenanceIssuesAdded,
-    } = playground
+    const { conditionRatings, complianceIssues, maintenanceIssues } = playground
 
     return (
       <Content>
@@ -36,21 +32,27 @@ export class PlaygroundItems extends Component {
             <StyledNavLink to={`${match.url}/conditionRating`}>
               <ListItem button>
                 <ListItemText primary="Condition Rating" />
-                {conditionRatingsAdded && <CheckCircleIcon color="primary" />}
+                {conditionRatings.length > 0 && (
+                  <CheckCircleIcon color="primary" />
+                )}
               </ListItem>
             </StyledNavLink>
 
             <StyledNavLink to={`${match.url}/complianceIssues`}>
               <ListItem button>
                 <ListItemText primary="Identified Compliance Issues" />
-                {complianceIssuesAdded && <CheckCircleIcon color="primary" />}
+                {complianceIssues.length > 0 && (
+                  <CheckCircleIcon color="primary" />
+                )}
               </ListItem>
             </StyledNavLink>
 
             <StyledNavLink to={`${match.url}/maintenanceIssues`}>
               <ListItem button>
                 <ListItemText primary="Identified Maintenance Issues" />
-                {maintenanceIssuesAdded && <CheckCircleIcon color="primary" />}
+                {maintenanceIssues.length > 0 && (
+                  <CheckCircleIcon color="primary" />
+                )}
               </ListItem>
             </StyledNavLink>
           </List>
