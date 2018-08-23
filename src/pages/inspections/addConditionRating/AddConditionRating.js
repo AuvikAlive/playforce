@@ -6,11 +6,10 @@ import {
   showActionGo,
 } from '../../../functions/'
 import ConditionRatingForm from '../conditionRatingForm/'
-import { submit } from './submit'
 
 export class AddConditionRating extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add condition rating')
+    onComponentDidMountWithTitleLeftNav(this, 'Add Condition Rating')
   }
 
   componentWillUnmount() {
@@ -18,10 +17,12 @@ export class AddConditionRating extends Component {
   }
 
   render() {
+    const { addConditionRating } = this.props
+
     return (
       <ConditionRatingForm
         afterSubmit={showActionGo(this, 'Rating saved!', 'edit/')}
-        onSubmit={submit(this)}
+        onSubmit={data => addConditionRating(data)}
       />
     )
   }
