@@ -10,12 +10,17 @@ export const generateReport = ({
   const {
     cover: { location, inspectionType },
     auditSummary,
+    playgroundsAdded,
+    playgroundsCompleted,
     conditionRatingsAdded,
   } = inspection
 
   closeMenu()
 
-  if (!isEmpty(auditSummary) && conditionRatingsAdded) {
+  if (
+    !isEmpty(auditSummary) &&
+    (playgroundsCompleted || conditionRatingsAdded)
+  ) {
     setFeedback({ error: '', loading: true })
 
     const pdfDocGenerator = await createPdf(inspection)
@@ -26,7 +31,11 @@ export const generateReport = ({
     )
   } else {
     setFeedback({
-      error: 'Please add audit summary & condition rating to generate report!',
+      error: `Please add audit summary & ${
+        playgroundsAdded && !playgroundsCompleted
+          ? 'complete each playground inspection'
+          : 'condition rating'
+      } to generate report!`,
       loading: false,
     })
   }

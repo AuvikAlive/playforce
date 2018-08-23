@@ -19,11 +19,14 @@ export const fetchInspection = (userId, inspectionId) => async (
 
   const { cover } = doc.data()
   const { image } = cover
-  const response = await fetch(image)
-  const blob = await response.blob()
-  const dataUrl = await getDataUrlFromBlob(blob)
 
-  cover.image = dataUrl
+  if (image) {
+    const response = await fetch(image)
+    const blob = await response.blob()
+    const dataUrl = await getDataUrlFromBlob(blob)
+
+    cover.image = dataUrl
+  }
 
   const item = { id: doc.id, ...doc.data() }
 

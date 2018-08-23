@@ -27,6 +27,7 @@ import {
   DELETE_DROP_TEST,
   FETCH_PLAYING_SURFACES,
   FETCH_PLAYING_SURFACES_COMPLETED,
+  ADD_PLAYGROUND,
   FETCH_PLAYGROUNDS,
   FETCH_PLAYGROUNDS_COMPLETED,
   ADD_PLAYGROUND_CONDITION_RATING,
@@ -66,6 +67,7 @@ export const initialState = {
   playgroundsLoaded: false,
   playgrounds: [],
   playgroundsAdded: false,
+  playgroundsCompleted: false,
   certificate: false,
 }
 
@@ -313,6 +315,13 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         playingSurfacesAdded: payload.length > 0,
       }
 
+    case ADD_PLAYGROUND:
+      return {
+        ...state,
+        playgrounds: [...state.playgrounds, payload],
+        playgroundsAdded: true,
+      }
+
     case FETCH_PLAYGROUNDS:
       return { ...state, playgroundsLoaded: false }
 
@@ -322,6 +331,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         playgroundsLoaded: true,
         playgrounds: payload,
         playgroundsAdded: payload.length > 0,
+        playgroundsCompleted:
+          payload.length > 0
+            ? payload.every(
+                ({ conditionRatings }) => conditionRatings.length > 0
+              )
+            : false,
       }
 
     case ADD_PLAYGROUND_CONDITION_RATING: {

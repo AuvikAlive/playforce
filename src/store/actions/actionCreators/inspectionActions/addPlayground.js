@@ -1,3 +1,5 @@
+import { ADD_PLAYGROUND } from '../../actionTypes'
+
 export const addPlayground = (userId, inspectionId, data) => async (
   dispatch,
   getState,
@@ -14,6 +16,11 @@ export const addPlayground = (userId, inspectionId, data) => async (
     .doc()
 
   await ref.set(data)
+
+  dispatch({
+    type: ADD_PLAYGROUND,
+    payload: { ...data, id: ref.id },
+  })
 
   return ref.id
 }
