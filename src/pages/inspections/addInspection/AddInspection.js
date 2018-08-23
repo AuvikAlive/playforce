@@ -6,7 +6,6 @@ import {
   showActionGo,
 } from '../../../functions/'
 import { CoverFormContainer } from '../coverForm/CoverFormContainer'
-import { submit } from './submit'
 
 export class AddInspection extends Component {
   componentDidMount() {
@@ -18,9 +17,11 @@ export class AddInspection extends Component {
   }
 
   render() {
+    const { addInspection, userId } = this.props
+
     return (
       <CoverFormContainer
-        onSubmit={submit(this)}
+        onSubmit={data => addInspection(userId, data)}
         afterSubmit={showActionGo(this, 'Inspection added!', 'edit/')}
       />
     )
