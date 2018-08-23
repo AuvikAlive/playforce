@@ -17,7 +17,7 @@ export class AddPlayground extends Component {
   state = { name: '' }
 
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add playground')
+    onComponentDidMountWithTitleLeftNav(this, 'Add Playground')
   }
 
   componentWillUnmount() {

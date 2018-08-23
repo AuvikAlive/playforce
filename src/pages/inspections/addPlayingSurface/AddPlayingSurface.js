@@ -6,11 +6,10 @@ import {
   showActionGo,
 } from '../../../functions/'
 import { PlayingSurfaceForm } from '../playingSurfaceForm/PlayingSurfaceForm'
-import { submit } from './submit'
 
 export class AddPlayingSurface extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add playing surface')
+    onComponentDidMountWithTitleLeftNav(this, 'Add Playing Surface')
   }
 
   componentWillUnmount() {
@@ -18,10 +17,12 @@ export class AddPlayingSurface extends Component {
   }
 
   render() {
+    const { addPlayingSurface, userId, inspectionId } = this.props
+
     return (
       <PlayingSurfaceForm
-        afterSubmit={showActionGo(this, 'Surface saved!', 'edit/')}
-        onSubmit={submit(this)}
+        onSubmit={data => addPlayingSurface(userId, inspectionId, data)}
+        afterSubmit={showActionGo(this, 'Surface added!', 'edit/')}
       />
     )
   }
