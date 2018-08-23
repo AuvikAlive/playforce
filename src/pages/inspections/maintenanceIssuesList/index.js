@@ -1,3 +1,3 @@
-import { MaintenanceIssuesListContainer } from './MaintenanceIssuesListContainer'
+import { MaintenanceIssuesList } from './MaintenanceIssuesList'
 
-export default MaintenanceIssuesListContainer
+export default MaintenanceIssuesList

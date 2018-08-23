@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { addMaintenanceIssue } from '../../../store/actions/actionCreators/inspectionActions/'
 import { AddMaintenanceIssue } from './AddMaintenanceIssue'
 
 const mapStateToProps = ({
@@ -14,9 +13,7 @@ const mapStateToProps = ({
   inspectionId: id,
 })
 
-const mapDispatchToProps = { addMaintenanceIssue }
-
 export const AddMaintenanceIssueContainer = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps)
 )(AddMaintenanceIssue)

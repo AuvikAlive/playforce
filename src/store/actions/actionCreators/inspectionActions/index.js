@@ -45,6 +45,9 @@ import { deletePlaygroundConditionRating } from './deletePlaygroundConditionRati
 import { addPlaygroundComplianceIssue } from './addPlaygroundComplianceIssue'
 import { updatePlaygroundComplianceIssue } from './updatePlaygroundComplianceIssue'
 import { deletePlaygroundComplianceIssue } from './deletePlaygroundComplianceIssue'
+import { addPlaygroundMaintenanceIssue } from './addPlaygroundMaintenanceIssue'
+import { updatePlaygroundMaintenanceIssue } from './updatePlaygroundMaintenanceIssue'
+import { deletePlaygroundMaintenanceIssue } from './deletePlaygroundMaintenanceIssue'
 import {
   DISCARD_INSPECTION,
   // TOGGLE_INSPECTION_CERTIFICATE,
@@ -98,6 +101,9 @@ export {
   addPlaygroundComplianceIssue,
   updatePlaygroundComplianceIssue,
   deletePlaygroundComplianceIssue,
+  addPlaygroundMaintenanceIssue,
+  updatePlaygroundMaintenanceIssue,
+  deletePlaygroundMaintenanceIssue,
 }
 
 export const discardInspection = () => ({

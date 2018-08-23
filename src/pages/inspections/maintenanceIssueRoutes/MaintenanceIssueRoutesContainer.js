@@ -4,6 +4,9 @@ import {
   fetchInspectionRealTime,
   fetchMaintenanceIssuesRealTime,
   fetchMaintenanceIssues,
+  addMaintenanceIssue,
+  updateMaintenanceIssue,
+  deleteMaintenanceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { MaintenanceIssueRoutes } from './MaintenanceIssueRoutes'
 
@@ -12,7 +15,11 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    inspection: { inspectionLoaded, maintenanceIssuesLoaded },
+    inspection: {
+      inspectionLoaded,
+      maintenanceIssuesLoaded,
+      maintenanceIssues,
+    },
   },
   {
     match: {
@@ -24,14 +31,21 @@ const mapStateToProps = (
   inspectionId: id,
   inspectionLoaded,
   maintenanceIssuesLoaded,
+  maintenanceIssues,
 })
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchMaintenanceIssuesRealTime,
   fetchMaintenanceIssues,
+  addMaintenanceIssue,
+  updateMaintenanceIssue,
+  deleteMaintenanceIssue,
 }
 
 export const MaintenanceIssueRoutesContainer = compose(
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(MaintenanceIssueRoutes)

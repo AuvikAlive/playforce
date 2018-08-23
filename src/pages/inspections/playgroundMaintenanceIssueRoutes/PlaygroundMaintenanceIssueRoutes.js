@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
 import { contextTypesUnsubscriber } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
 import MaintenanceIssuesList from '../maintenanceIssuesList'
-import { onComponentDidMount } from './onComponentDidMount'
 
 const AddMaintenanceIssue = Loadable({
   loader: () => import('../addMaintenanceIssue'),
@@ -17,34 +15,32 @@ const EditMaintenanceIssue = Loadable({
 AddMaintenanceIssue.preload()
 EditMaintenanceIssue.preload()
 
-export class MaintenanceIssueRoutes extends Component {
-  componentDidMount() {
-    onComponentDidMount(this)
-  }
-
+export class PlaygroundMaintenanceIssueRoutes extends Component {
   render() {
     const {
-      inspectionLoaded,
-      maintenanceIssuesLoaded,
-      maintenanceIssues,
-      addMaintenanceIssue,
-      updateMaintenanceIssue,
-      deleteMaintenanceIssue,
+      playground: { maintenanceIssues },
+      addPlaygroundMaintenanceIssue,
+      updatePlaygroundMaintenanceIssue,
+      deletePlaygroundMaintenanceIssue,
       userId,
       inspectionId,
+      playgroundId,
       match,
     } = this.props
-    const isLoaded = inspectionLoaded && maintenanceIssuesLoaded
 
-    return showContentWhenLoaded(
-      isLoaded,
+    return (
       <Switch>
         <Route
           path={`${match.url}/add`}
           render={props => (
             <AddMaintenanceIssue
               addMaintenanceIssue={data =>
-                addMaintenanceIssue(userId, inspectionId, data)
+                addPlaygroundMaintenanceIssue(
+                  userId,
+                  inspectionId,
+                  playgroundId,
+                  data
+                )
               }
               {...props}
             />
@@ -56,20 +52,22 @@ export class MaintenanceIssueRoutes extends Component {
           render={props => (
             <EditMaintenanceIssue
               updateMaintenanceIssue={data =>
-                updateMaintenanceIssue(
+                updatePlaygroundMaintenanceIssue({
                   userId,
                   inspectionId,
-                  props.match.params.id,
-                  data
-                )
+                  playgroundId,
+                  id: props.match.params.id,
+                  data,
+                })
               }
               deleteMaintenanceIssue={images =>
-                deleteMaintenanceIssue(
+                deletePlaygroundMaintenanceIssue({
                   userId,
                   inspectionId,
-                  props.match.params.id,
-                  images
-                )
+                  playgroundId,
+                  id: props.match.params.id,
+                  images,
+                })
               }
               {...{ maintenanceIssues }}
               {...props}
@@ -88,4 +86,4 @@ export class MaintenanceIssueRoutes extends Component {
   }
 }
 
-MaintenanceIssueRoutes.contextTypes = contextTypesUnsubscriber
+PlaygroundMaintenanceIssueRoutes.contextTypes = contextTypesUnsubscriber

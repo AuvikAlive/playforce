@@ -35,6 +35,9 @@ import {
   ADD_PLAYGROUND_COMPLIANCE_ISSUE,
   UPDATE_PLAYGROUND_COMPLIANCE_ISSUE,
   DELETE_PLAYGROUND_COMPLIANCE_ISSUE,
+  ADD_PLAYGROUND_MAINTENANCE_ISSUE,
+  UPDATE_PLAYGROUND_MAINTENANCE_ISSUE,
+  DELETE_PLAYGROUND_MAINTENANCE_ISSUE,
   TOGGLE_INSPECTION_CERTIFICATE,
 } from '../actions/actionTypes'
 
@@ -438,6 +441,71 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const playgrounds = state.playgrounds.map(item => {
         if (item.id === playgroundId) {
           item.complianceIssues = item.complianceIssues.filter(
+            item => item.id !== id
+          )
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case ADD_PLAYGROUND_MAINTENANCE_ISSUE: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.maintenanceIssues.push(payload)
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case UPDATE_PLAYGROUND_MAINTENANCE_ISSUE: {
+      const { playgroundId, id } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.maintenanceIssues = item.maintenanceIssues.map(item => {
+            if (item.id === id) {
+              return payload
+            }
+
+            return item
+          })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case DELETE_PLAYGROUND_MAINTENANCE_ISSUE: {
+      const { playgroundId, id } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.maintenanceIssues = item.maintenanceIssues.filter(
             item => item.id !== id
           )
         }

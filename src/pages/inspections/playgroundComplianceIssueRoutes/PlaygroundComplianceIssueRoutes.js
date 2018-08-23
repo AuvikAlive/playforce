@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
-import { contextTypesUnsubscriber } from '../../../constants/'
 import ComplianceIssuesList from '../complianceIssuesList/'
 
 const AddComplianceIssue = Loadable({
@@ -16,8 +15,6 @@ AddComplianceIssue.preload()
 EditComplianceIssue.preload()
 
 export class PlaygroundComplianceIssueRoutes extends Component {
-  componentDidMount() {}
-
   render() {
     const {
       playground: { complianceIssues },
@@ -87,5 +84,3 @@ export class PlaygroundComplianceIssueRoutes extends Component {
     )
   }
 }
-
-PlaygroundComplianceIssueRoutes.contextTypes = contextTypesUnsubscriber
