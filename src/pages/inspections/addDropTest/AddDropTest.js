@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
+import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
   showActionGo,
 } from '../../../functions/'
 import { DropTestForm } from '../dropTestForm/DropTestForm'
-import { contextTypes } from './contextTypes'
-import { submit } from './submit'
-
-const message = 'Drop added!'
 
 export class AddDropTest extends Component {
   componentDidMount() {
-    const title = 'Add drop test'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Add Drop Test')
   }
 
   componentWillUnmount() {
@@ -22,16 +17,16 @@ export class AddDropTest extends Component {
   }
 
   render() {
-    const { inspectionId, impactTestId } = this.props
+    const { userId, inspectionId, impactTestId, addDropTest } = this.props
     const pathHead = `/inspections/edit/${inspectionId}/impactTest/edit/${impactTestId}/editDrop/`
 
     return (
       <DropTestForm
-        onSubmit={submit(this)}
-        afterSubmit={showActionGo(this, message, pathHead)}
+        onSubmit={data => addDropTest(userId, inspectionId, impactTestId, data)}
+        afterSubmit={showActionGo(this, 'Drop added!', pathHead)}
       />
     )
   }
 }
 
-AddDropTest.contextTypes = contextTypes
+AddDropTest.contextTypes = contextTypesTitleLeftNav
