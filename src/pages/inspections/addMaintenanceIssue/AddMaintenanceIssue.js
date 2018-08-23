@@ -6,7 +6,6 @@ import {
   showActionGoBack,
 } from '../../../functions/'
 import MaintenanceIssueForm from '../maintenanceIssueForm/'
-import { submit } from './submit'
 
 export class AddMaintenanceIssue extends Component {
   componentDidMount() {
@@ -18,9 +17,11 @@ export class AddMaintenanceIssue extends Component {
   }
 
   render() {
+    const { addMaintenanceIssue } = this.props
+
     return (
       <MaintenanceIssueForm
-        onSubmit={submit(this)}
+        onSubmit={data => addMaintenanceIssue(data)}
         afterSubmit={showActionGoBack(this, 'Issue published!')}
       />
     )
