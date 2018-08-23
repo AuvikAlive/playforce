@@ -7,5 +7,6 @@ export const submit = component => async data => {
   } = component.props
 
   await saveImpactGeneralInfo(userId, inspectionId, data)
+
   setFeedback({ success: 'Info updated!' })
 }

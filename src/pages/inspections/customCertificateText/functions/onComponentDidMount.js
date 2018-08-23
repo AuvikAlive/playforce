@@ -16,9 +16,7 @@ export const onComponentDidMount = async component => {
     inspectionId,
   } = component.props
 
-  const title = 'Custom Certificate Text'
-
-  onComponentDidMountWithTitleLeftNav(component, title)
+  onComponentDidMountWithTitleLeftNav(component, 'Custom Certificate Text')
 
   setRightNavComponent(
     <IconButton color="inherit" aria-label="More" onClick={openMenu(component)}>

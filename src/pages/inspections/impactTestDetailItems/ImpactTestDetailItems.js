@@ -22,6 +22,7 @@ export class ImpactTestDetailItems extends Component {
 
   render() {
     const { match, impactTest } = this.props
+
     const dropTestAdded =
       impactTest && impactTest.dropTests && impactTest.dropTests.length > 0
 

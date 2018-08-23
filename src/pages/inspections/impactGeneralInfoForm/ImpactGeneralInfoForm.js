@@ -11,10 +11,11 @@ import {
   onEventInputChange,
 } from '../../../functions/'
 import { StyledImpactGeneralInfoForm } from './StyledImpactGeneralInfoForm'
+import { state } from './state'
 import { submit } from './submit'
 
 export class ImpactGeneralInfoFormWithout extends Component {
-  state = { temperature: '', humidity: '', rain: '', apparatus: '' }
+  state = state
 
   componentDidMount() {
     onComponentDidMountLoadData(this)
@@ -23,8 +24,6 @@ export class ImpactGeneralInfoFormWithout extends Component {
   componentWillReceiveProps(nextProps) {
     onComponentWillReceivePropsLoadData(this, nextProps)
   }
-
-   
 
   render() {
     const { temperature, humidity, rain, apparatus } = this.state
@@ -40,7 +39,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Temperature (°C)"
                 value={temperature}
-                onChange={onEventInputChange(this,'temperature')}
+                onChange={onEventInputChange(this, 'temperature')}
               />
 
               <TextField
@@ -48,7 +47,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Humidity (%)"
                 value={humidity}
-                onChange={onEventInputChange(this,'humidity')}
+                onChange={onEventInputChange(this, 'humidity')}
               />
 
               <TextField
@@ -56,7 +55,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Comment on rain"
                 value={rain}
-                onChange={onEventInputChange(this,'rain')}
+                onChange={onEventInputChange(this, 'rain')}
               />
 
               <TextField
@@ -64,7 +63,7 @@ export class ImpactGeneralInfoFormWithout extends Component {
                 margin="normal"
                 label="Test apparatus"
                 value={apparatus}
-                onChange={onEventInputChange(this,'apparatus')}
+                onChange={onEventInputChange(this, 'apparatus')}
               />
             </form>
 

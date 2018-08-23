@@ -5,15 +5,14 @@ import {
   onComponentWillUnmountWithTitleLeftNav,
 } from '../../../functions/'
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
+import { state } from './state'
 import { submit } from './submit'
 
 export class EditImpactSurface extends Component {
-  state = { location: '', description: '', material: '', condition: '' }
+  state = state
 
   componentDidMount() {
-    const title = 'Surface details'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Surface details')
   }
 
   componentWillUnmount() {

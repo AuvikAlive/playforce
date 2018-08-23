@@ -9,9 +9,7 @@ import { submit } from './submit'
 
 export class EditImpactGeneralInfo extends Component {
   componentDidMount() {
-    const title = 'General Info'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'General Info')
   }
 
   componentWillUnmount() {
