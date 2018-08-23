@@ -6,11 +6,10 @@ import {
   showActionGo,
 } from '../../../functions/'
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
-import { submit } from './submit'
 
 export class AddImpactSurface extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add test')
+    onComponentDidMountWithTitleLeftNav(this, 'Add Test')
   }
 
   componentWillUnmount() {
@@ -18,12 +17,12 @@ export class AddImpactSurface extends Component {
   }
 
   render() {
-    const { inspectionId } = this.props
+    const { userId, inspectionId, addSurfaceTest } = this.props
     const pathHead = `/inspections/edit/${inspectionId}/impactTest/edit/`
 
     return (
       <ImpactSurfaceDetailsForm
-        onSubmit={submit(this)}
+        onSubmit={data => addSurfaceTest(userId, inspectionId, data)}
         afterSubmit={showActionGo(this, 'Test added!', pathHead)}
       />
     )
