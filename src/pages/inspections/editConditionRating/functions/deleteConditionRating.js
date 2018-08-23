@@ -3,14 +3,9 @@ import { showActionGoBack } from '../../../../functions/'
 const message = 'Rating deleted!'
 
 export const deleteConditionRating = component => async () => {
-  const {
-    deleteConditionRating,
-    userId,
-    inspectionId,
-    conditionRatingId,
-  } = component.props
+  const { deleteConditionRating } = component.props
 
-  await deleteConditionRating(userId, inspectionId, conditionRatingId)
+  await deleteConditionRating()
 
   showActionGoBack(component, message)()
 }

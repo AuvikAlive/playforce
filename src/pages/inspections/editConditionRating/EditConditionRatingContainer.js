@@ -2,10 +2,6 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import {
-  updateConditionRating,
-  deleteConditionRating,
-} from '../../../store/actions/actionCreators/inspectionActions/'
 import { EditConditionRating } from './EditConditionRating'
 
 const mapStateToProps = (
@@ -13,9 +9,9 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    inspection: { id, conditionRatings },
+    inspection: { id },
   },
-  { match }
+  { match, conditionRatings }
 ) => ({
   userId: uid,
   inspectionId: id,
@@ -23,10 +19,8 @@ const mapStateToProps = (
   conditionRating: conditionRatings.find(item => item.id === match.params.id),
 })
 
-const mapDispatchToProps = { updateConditionRating, deleteConditionRating }
-
 export const EditConditionRatingContainer = compose(
   withFeedback,
   withDeleteDialog,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps)
 )(EditConditionRating)

@@ -1,17 +1,7 @@
 export const submit = component => async updatedValue => {
-  const {
-    updateMaintenanceIssue,
-    userId,
-    inspectionId,
-    maintenanceIssueId,
-    setFeedback,
-  } = component.props
+  const { updateMaintenanceIssue, setFeedback } = component.props
 
-  await updateMaintenanceIssue(
-    userId,
-    inspectionId,
-    maintenanceIssueId,
-    updatedValue
-  )
+  await updateMaintenanceIssue(updatedValue)
+
   setFeedback({ success: 'Issue updated!' })
 }

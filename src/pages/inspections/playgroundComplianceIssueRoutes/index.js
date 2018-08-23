@@ -1,0 +1,3 @@
+import { PlaygroundComplianceIssueRoutesContainer } from './PlaygroundComplianceIssueRoutesContainer'
+
+export default PlaygroundComplianceIssueRoutesContainer

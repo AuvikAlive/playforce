@@ -8,13 +8,9 @@ import {
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
 import { submit } from './submit'
 
-const message = 'Test added!'
-
 export class AddImpactSurface extends Component {
   componentDidMount() {
-    const title = 'Add test'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Add test')
   }
 
   componentWillUnmount() {
@@ -28,7 +24,7 @@ export class AddImpactSurface extends Component {
     return (
       <ImpactSurfaceDetailsForm
         onSubmit={submit(this)}
-        afterSubmit={showActionGo(this, message, pathHead)}
+        afterSubmit={showActionGo(this, 'Test added!', pathHead)}
       />
     )
   }

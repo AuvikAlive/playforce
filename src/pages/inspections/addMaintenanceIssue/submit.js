@@ -1,11 +1,7 @@
 export const submit = component => async maintenanceIssue => {
-  const { addMaintenanceIssue, userId, inspectionId } = component.props
+  const { addMaintenanceIssue } = component.props
 
-  const maintenanceIssueId = await addMaintenanceIssue(
-    userId,
-    inspectionId,
-    maintenanceIssue
-  )
+  const maintenanceIssueId = await addMaintenanceIssue(maintenanceIssue)
 
   return maintenanceIssueId
 }

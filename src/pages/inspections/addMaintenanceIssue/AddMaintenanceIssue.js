@@ -8,13 +8,9 @@ import {
 import MaintenanceIssueForm from '../maintenanceIssueForm/'
 import { submit } from './submit'
 
-const message = 'Issue published!'
-
 export class AddMaintenanceIssue extends Component {
   componentDidMount() {
-    const title = 'Add Maintenance Issue'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Add Maintenance Issue')
   }
 
   componentWillUnmount() {
@@ -25,7 +21,7 @@ export class AddMaintenanceIssue extends Component {
     return (
       <MaintenanceIssueForm
         onSubmit={submit(this)}
-        afterSubmit={showActionGoBack(this, message)}
+        afterSubmit={showActionGoBack(this, 'Issue published!')}
       />
     )
   }

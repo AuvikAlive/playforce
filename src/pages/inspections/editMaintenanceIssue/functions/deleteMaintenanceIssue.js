@@ -1,22 +1,9 @@
 import { showActionGoBack } from '../../../../functions/'
 
 export const deleteMaintenanceIssue = component => async () => {
-  const {
-    deleteMaintenanceIssue,
-    userId,
-    inspectionId,
-    maintenanceIssueId,
-    maintenanceIssue,
-  } = component.props
+  const { deleteMaintenanceIssue, maintenanceIssue } = component.props
 
-  await deleteMaintenanceIssue(
-    userId,
-    inspectionId,
-    maintenanceIssueId,
-    maintenanceIssue.images
-  )
+  await deleteMaintenanceIssue(maintenanceIssue.images)
 
-  const message = 'Issue deleted!'
-
-  showActionGoBack(component, message)()
+  showActionGoBack(component, 'Issue deleted!')()
 }

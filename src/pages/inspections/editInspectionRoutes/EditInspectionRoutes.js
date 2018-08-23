@@ -39,6 +39,10 @@ const PlayingSurfaceRoutes = Loadable({
   loader: () => import('../playingSurfaceRoutes'),
 })
 
+const PlaygroundRoutes = Loadable({
+  loader: () => import('../playgroundRoutes'),
+})
+
 EditCover.preload()
 AuditSummary.preload()
 ConditionRatingRoutes.preload()
@@ -48,6 +52,7 @@ ImpactTestRoutes.preload()
 CustomCertificateText.preload()
 Notes.preload()
 PlayingSurfaceRoutes.preload()
+PlaygroundRoutes.preload()
 
 export const EditInspectionRoutes = ({ match }) => {
   return (
@@ -86,6 +91,11 @@ export const EditInspectionRoutes = ({ match }) => {
       <Route
         path={`${match.url}/:id/playingSurfaces`}
         component={PlayingSurfaceRoutes}
+      />
+
+      <Route
+        path={`${match.url}/:id/playgrounds`}
+        component={PlaygroundRoutes}
       />
 
       <Route path={`${match.url}/:id`} component={EditInspection} />

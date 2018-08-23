@@ -26,6 +26,7 @@ export const InspectionItems = ({
     maintenanceIssuesAdded,
     notes,
     playingSurfacesAdded,
+    playgroundsAdded,
     impactGeneralInfo,
     impactTests,
   } = inspection
@@ -56,26 +57,40 @@ export const InspectionItems = ({
             </ListItem>
           </StyledNavLink>
 
-          <StyledNavLink to={`${match.url}/conditionRating`}>
-            <ListItem button>
-              <ListItemText primary="Condition Rating" />
-              {conditionRatingsAdded && <CheckCircleIcon color="primary" />}
-            </ListItem>
-          </StyledNavLink>
+          {playgroundsAdded && (
+            <StyledNavLink to={`${match.url}/playgrounds`}>
+              <ListItem button>
+                <ListItemText primary="Playgrounds" />
+              </ListItem>
+            </StyledNavLink>
+          )}
 
-          <StyledNavLink to={`${match.url}/complianceIssues`}>
-            <ListItem button>
-              <ListItemText primary="Identified Compliance Issues" />
-              {complianceIssuesAdded && <CheckCircleIcon color="primary" />}
-            </ListItem>
-          </StyledNavLink>
+          {!playgroundsAdded && (
+            <div>
+              <StyledNavLink to={`${match.url}/conditionRating`}>
+                <ListItem button>
+                  <ListItemText primary="Condition Rating" />
+                  {conditionRatingsAdded && <CheckCircleIcon color="primary" />}
+                </ListItem>
+              </StyledNavLink>
 
-          <StyledNavLink to={`${match.url}/maintenanceIssues`}>
-            <ListItem button>
-              <ListItemText primary="Identified Maintenance Issues" />
-              {maintenanceIssuesAdded && <CheckCircleIcon color="primary" />}
-            </ListItem>
-          </StyledNavLink>
+              <StyledNavLink to={`${match.url}/complianceIssues`}>
+                <ListItem button>
+                  <ListItemText primary="Identified Compliance Issues" />
+                  {complianceIssuesAdded && <CheckCircleIcon color="primary" />}
+                </ListItem>
+              </StyledNavLink>
+
+              <StyledNavLink to={`${match.url}/maintenanceIssues`}>
+                <ListItem button>
+                  <ListItemText primary="Identified Maintenance Issues" />
+                  {maintenanceIssuesAdded && (
+                    <CheckCircleIcon color="primary" />
+                  )}
+                </ListItem>
+              </StyledNavLink>
+            </div>
+          )}
 
           <StyledNavLink to={`${match.url}/notes`}>
             <ListItem button>

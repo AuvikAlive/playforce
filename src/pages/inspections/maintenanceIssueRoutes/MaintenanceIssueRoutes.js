@@ -23,20 +23,66 @@ export class MaintenanceIssueRoutes extends Component {
   }
 
   render() {
-    const { inspectionLoaded, maintenanceIssuesLoaded, match } = this.props
+    const {
+      inspectionLoaded,
+      maintenanceIssuesLoaded,
+      maintenanceIssues,
+      addMaintenanceIssue,
+      updateMaintenanceIssue,
+      deleteMaintenanceIssue,
+      userId,
+      inspectionId,
+      match,
+    } = this.props
     const isLoaded = inspectionLoaded && maintenanceIssuesLoaded
 
     return showContentWhenLoaded(
       isLoaded,
       <Switch>
-        <Route path={`${match.url}/add`} component={AddMaintenanceIssue} />
+        <Route
+          path={`${match.url}/add`}
+          render={props => (
+            <AddMaintenanceIssue
+              addMaintenanceIssue={data =>
+                addMaintenanceIssue(userId, inspectionId, data)
+              }
+              {...props}
+            />
+          )}
+        />
 
         <Route
           path={`${match.url}/edit/:id`}
-          component={EditMaintenanceIssue}
+          render={props => (
+            <EditMaintenanceIssue
+              updateMaintenanceIssue={data =>
+                updateMaintenanceIssue(
+                  userId,
+                  inspectionId,
+                  props.match.params.id,
+                  data
+                )
+              }
+              deleteMaintenanceIssue={images =>
+                deleteMaintenanceIssue(
+                  userId,
+                  inspectionId,
+                  props.match.params.id,
+                  images
+                )
+              }
+              {...{ maintenanceIssues }}
+              {...props}
+            />
+          )}
         />
 
-        <Route path={match.url} component={MaintenanceIssuesList} />
+        <Route
+          path={match.url}
+          render={props => (
+            <MaintenanceIssuesList {...{ maintenanceIssues }} {...props} />
+          )}
+        />
       </Switch>
     )
   }

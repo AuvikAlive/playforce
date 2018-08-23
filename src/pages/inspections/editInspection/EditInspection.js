@@ -53,6 +53,7 @@ export class EditInspection extends Component {
       maintenanceIssuesLoaded,
       complianceIssuesLoaded,
       impactTestsLoaded,
+      playgroundsLoaded,
       impactGeneralInfo,
       certificate,
       customCertificateText,
@@ -64,6 +65,7 @@ export class EditInspection extends Component {
       complianceIssuesLoaded &&
       maintenanceIssuesLoaded &&
       impactTestsLoaded &&
+      playgroundsLoaded &&
       standardsLoaded
 
     return showContentWhenLoaded(

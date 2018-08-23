@@ -23,15 +23,66 @@ export class ComplianceIssueRoutes extends Component {
   }
 
   render() {
-    const { inspectionLoaded, complianceIssuesLoaded, match } = this.props
+    const {
+      inspectionLoaded,
+      complianceIssuesLoaded,
+      complianceIssues,
+      addComplianceIssue,
+      updateComplianceIssue,
+      deleteComplianceIssue,
+      userId,
+      inspectionId,
+      match,
+    } = this.props
     const isLoaded = inspectionLoaded && complianceIssuesLoaded
 
     return showContentWhenLoaded(
       isLoaded,
       <Switch>
-        <Route path={`${match.url}/add`} component={AddComplianceIssue} />
-        <Route path={`${match.url}/edit/:id`} component={EditComplianceIssue} />
-        <Route path={match.url} component={ComplianceIssuesList} />
+        <Route
+          path={`${match.url}/add`}
+          render={props => (
+            <AddComplianceIssue
+              addComplianceIssue={data =>
+                addComplianceIssue(userId, inspectionId, data)
+              }
+              {...props}
+            />
+          )}
+        />
+
+        <Route
+          path={`${match.url}/edit/:id`}
+          render={props => (
+            <EditComplianceIssue
+              updateComplianceIssue={data =>
+                updateComplianceIssue(
+                  userId,
+                  inspectionId,
+                  props.match.params.id,
+                  data
+                )
+              }
+              deleteComplianceIssue={images =>
+                deleteComplianceIssue(
+                  userId,
+                  inspectionId,
+                  props.match.params.id,
+                  images
+                )
+              }
+              {...{ complianceIssues }}
+              {...props}
+            />
+          )}
+        />
+
+        <Route
+          path={match.url}
+          render={props => (
+            <ComplianceIssuesList {...{ complianceIssues }} {...props} />
+          )}
+        />
       </Switch>
     )
   }
