@@ -315,12 +315,17 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
         playingSurfacesAdded: payload.length > 0,
       }
 
-    case ADD_PLAYGROUND:
+    case ADD_PLAYGROUND: {
+      payload.conditionRatings = []
+      payload.complianceIssues = []
+      payload.maintenanceIssues = []
+
       return {
         ...state,
         playgrounds: [...state.playgrounds, payload],
         playgroundsAdded: true,
       }
+    }
 
     case FETCH_PLAYGROUNDS:
       return { ...state, playgroundsLoaded: false }
