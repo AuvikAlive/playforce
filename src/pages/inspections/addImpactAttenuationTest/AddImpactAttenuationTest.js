@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
+import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
   showActionGo,
 } from '../../../functions/'
 import { ImpactGeneralInfoForm } from '../impactGeneralInfoForm/ImpactGeneralInfoForm'
-import { contextTypes } from './contextTypes'
-import { submit } from './submit'
-
-const message = 'General info added!'
 
 export class AddImpactAttenuationTest extends Component {
   componentDidMount() {
-    const title = 'Impact Attenuation Test'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Impact Attenuation Test')
   }
 
   componentWillUnmount() {
@@ -22,16 +17,16 @@ export class AddImpactAttenuationTest extends Component {
   }
 
   render() {
-    const { inspectionId } = this.props
+    const { userId, inspectionId, saveImpactGeneralInfo } = this.props
     const pathHead = `/inspections/edit/${inspectionId}/impactTest`
 
     return (
       <ImpactGeneralInfoForm
-        onSubmit={submit(this)}
-        afterSubmit={showActionGo(this, message, pathHead)}
+        onSubmit={data => saveImpactGeneralInfo(userId, inspectionId, data)}
+        afterSubmit={showActionGo(this, 'Impact test added!', pathHead)}
       />
     )
   }
 }
 
-AddImpactAttenuationTest.contextTypes = contextTypes
+AddImpactAttenuationTest.contextTypes = contextTypesTitleLeftNav
