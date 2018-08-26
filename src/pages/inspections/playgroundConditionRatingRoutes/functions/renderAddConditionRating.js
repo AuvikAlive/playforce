@@ -7,13 +7,18 @@ const AddConditionRating = Loadable({
 
 AddConditionRating.preload()
 
-export const renderAddConditionRating = ({ props }) => routerProps => {
-  const { userId, inspectionId, addConditionRating } = props
+export const renderAddConditionRating = props => routerProps => {
+  const {
+    addPlaygroundConditionRating,
+    userId,
+    inspectionId,
+    playgroundId,
+  } = props
 
   return (
     <AddConditionRating
       addConditionRating={data =>
-        addConditionRating(userId, inspectionId, data)
+        addPlaygroundConditionRating(userId, inspectionId, playgroundId, data)
       }
       {...routerProps}
     />
