@@ -1,21 +1,13 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../components/loadable/LoadableLinear'
 import { contextTypesUnsubscriber } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
 import ComplianceIssuesList from '../complianceIssuesList'
-import { onComponentDidMount } from './onComponentDidMount'
-
-const AddComplianceIssue = Loadable({
-  loader: () => import('../addComplianceIssue'),
-})
-
-const EditComplianceIssue = Loadable({
-  loader: () => import('../editComplianceIssue'),
-})
-
-AddComplianceIssue.preload()
-EditComplianceIssue.preload()
+import {
+  onComponentDidMount,
+  renderAddComplianceIssue,
+  renderEditComplianceIssue,
+} from './functions/'
 
 export class ComplianceIssueRoutes extends Component {
   componentDidMount() {
@@ -27,13 +19,9 @@ export class ComplianceIssueRoutes extends Component {
       inspectionLoaded,
       complianceIssuesLoaded,
       complianceIssues,
-      addComplianceIssue,
-      updateComplianceIssue,
-      deleteComplianceIssue,
-      userId,
-      inspectionId,
       match,
     } = this.props
+
     const isLoaded = inspectionLoaded && complianceIssuesLoaded
 
     return showContentWhenLoaded(
@@ -41,40 +29,12 @@ export class ComplianceIssueRoutes extends Component {
       <Switch>
         <Route
           path={`${match.url}/add`}
-          render={props => (
-            <AddComplianceIssue
-              addComplianceIssue={data =>
-                addComplianceIssue(userId, inspectionId, data)
-              }
-              {...props}
-            />
-          )}
+          render={renderAddComplianceIssue(this)}
         />
 
         <Route
           path={`${match.url}/edit/:id`}
-          render={props => (
-            <EditComplianceIssue
-              updateComplianceIssue={data =>
-                updateComplianceIssue(
-                  userId,
-                  inspectionId,
-                  props.match.params.id,
-                  data
-                )
-              }
-              deleteComplianceIssue={images =>
-                deleteComplianceIssue(
-                  userId,
-                  inspectionId,
-                  props.match.params.id,
-                  images
-                )
-              }
-              {...{ complianceIssues }}
-              {...props}
-            />
-          )}
+          render={renderEditComplianceIssue(this)}
         />
 
         <Route
