@@ -4,6 +4,6 @@ export const makeSubtitle = subtitle => ({
   text: subtitle,
   font: 'Oswald',
   fontSize: headerFontSize,
-  marginBottom: verticalMargin,
+  marginBottom: verticalMargin / 2,
   color: gray,
 })

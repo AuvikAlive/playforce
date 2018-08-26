@@ -27,13 +27,13 @@ export const makeIssueItems = maintenanceIssues => {
         })
       }
 
-      if (index + 1 === array.length) {
-        if (images.length > 1) {
-          item[1].pageBreak = 'after'
-        } else {
-          item[0].pageBreak = 'after'
-        }
-      }
+      // if (index + 1 === array.length) {
+      //   if (images.length > 1) {
+      //     item[1].pageBreak = 'after'
+      //   } else {
+      //     item[0].pageBreak = 'after'
+      //   }
+      // }
 
       return item
     }

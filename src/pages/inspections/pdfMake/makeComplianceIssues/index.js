@@ -7,15 +7,13 @@ export const makeComplianceIssues = ({
   complianceIssues,
   playgroundsCompleted,
   playgrounds,
-}) => {
-  return [
-    makeTitle('IDENTIFIED COMPLIANCE ISSUES'),
-    playgroundsCompleted
-      ? makePlaygroundItems(playgrounds)
-      : makeIndividualItems(complianceIssues),
-    {
-      text: '',
-      pageBreak: 'after',
-    },
-  ]
-}
+}) => [
+  makeTitle('IDENTIFIED COMPLIANCE ISSUES'),
+  playgroundsCompleted
+    ? makePlaygroundItems(playgrounds)
+    : makeIndividualItems(complianceIssues),
+  {
+    text: '',
+    pageBreak: 'after',
+  },
+]

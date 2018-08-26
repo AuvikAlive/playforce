@@ -68,12 +68,12 @@ export const makeDocDefinition = async (
         playgroundsCompleted,
         playgrounds,
       }),
-      makeMaintenanceIssues(
+      makeMaintenanceIssues({
         maintenanceIssuesAdded,
         maintenanceIssues,
         playgroundsCompleted,
-        playgrounds
-      ),
+        playgrounds,
+      }),
       makeAreasAssessed(),
       makeImpactTestImages(impactTests),
       makeReportNotes(cover),

@@ -6,16 +6,14 @@ export const makeConditionRatings = (
   conditionRatings,
   playgroundsCompleted,
   playgrounds
-) => {
-  return [
-    makeTitle(),
-    playgroundsCompleted
-      ? makePlaygroundItems(playgrounds)
-      : makeIndividualItems(conditionRatings),
+) => [
+  makeTitle(),
+  playgroundsCompleted
+    ? makePlaygroundItems(playgrounds)
+    : makeIndividualItems(conditionRatings),
 
-    {
-      text: '',
-      pageBreak: 'after',
-    },
-  ]
-}
+  {
+    text: '',
+    pageBreak: 'after',
+  },
+]
