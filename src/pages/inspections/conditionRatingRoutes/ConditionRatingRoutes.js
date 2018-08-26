@@ -1,21 +1,13 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../components/loadable/LoadableLinear'
 import { contextTypesUnsubscriber } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
 import ConditionRatingList from '../conditionRatingList'
-import { onComponentDidMount } from './onComponentDidMount'
-
-const AddConditionRating = Loadable({
-  loader: () => import('../addConditionRating'),
-})
-
-const EditConditionRating = Loadable({
-  loader: () => import('../editConditionRating'),
-})
-
-AddConditionRating.preload()
-EditConditionRating.preload()
+import {
+  onComponentDidMount,
+  renderAddConditionRating,
+  renderEditConditionRating,
+} from './functions/'
 
 export class ConditionRatingRoutes extends Component {
   componentDidMount() {
@@ -27,11 +19,6 @@ export class ConditionRatingRoutes extends Component {
       inspectionLoaded,
       conditionRatingsLoaded,
       conditionRatings,
-      addConditionRating,
-      updateConditionRating,
-      deleteConditionRating,
-      userId,
-      inspectionId,
       match,
     } = this.props
 
@@ -42,41 +29,12 @@ export class ConditionRatingRoutes extends Component {
       <Switch>
         <Route
           path={`${match.url}/add`}
-          render={props => (
-            <AddConditionRating
-              addConditionRating={data =>
-                addConditionRating(userId, inspectionId, data)
-              }
-              {...props}
-            />
-          )}
+          render={renderAddConditionRating(this)}
         />
 
         <Route
           path={`${match.url}/edit/:id`}
-          render={props => (
-            <EditConditionRating
-              updateConditionRating={data =>
-                updateConditionRating(
-                  userId,
-                  inspectionId,
-                  props.match.params.id,
-                  data
-                )
-              }
-              deleteConditionRating={() =>
-                deleteConditionRating(
-                  userId,
-                  inspectionId,
-                  props.match.params.id
-                )
-              }
-              {...{
-                conditionRatings,
-              }}
-              {...props}
-            />
-          )}
+          render={renderEditConditionRating(this)}
         />
 
         <Route
