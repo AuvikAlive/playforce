@@ -2,7 +2,9 @@ import {
   FETCH_PLAYGROUNDS,
   FETCH_PLAYGROUNDS_COMPLETED,
 } from '../../actionTypes'
-import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
+import { fetchPlaygroundConditionRatings } from './fetchPlaygroundConditionRatings'
+import { fetchPlaygroundComplianceIssues } from './fetchPlaygroundComplianceIssues'
+import { fetchPlaygroundMaintenanceIssues } from './fetchPlaygroundMaintenanceIssues'
 
 export const fetchPlaygrounds = (userId, inspectionId) => async (
   dispatch,
@@ -23,84 +25,11 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
     .get()
 
   let items = querySnapshot.docs.map(async doc => {
-    const conditionRatingsQuerySnapshot = await doc.ref
-      .collection('conditionRatings')
-      .get()
+    const conditionRatings = await fetchPlaygroundConditionRatings(doc.ref)
 
-    let conditionRatings = conditionRatingsQuerySnapshot.docs.map(async doc => {
-      const { image } = doc.data()
-      const response = await fetch(image)
-      const blob = await response.blob()
-      const dataUrl = await getDataUrlFromBlob(blob)
+    const complianceIssues = await fetchPlaygroundComplianceIssues(doc.ref)
 
-      return {
-        id: doc.id,
-        ...doc.data(),
-        image: dataUrl,
-      }
-    })
-
-    conditionRatings = await Promise.all(conditionRatings)
-
-    const complianceIssuesQuerySnapshot = await doc.ref
-      .collection('complianceIssues')
-      .get()
-
-    let complianceIssues = complianceIssuesQuerySnapshot.docs.map(async doc => {
-      let { images } = doc.data()
-
-      images = images.map(async item => {
-        const response = await fetch(item.image)
-        const blob = await response.blob()
-        const dataUrl = await getDataUrlFromBlob(blob)
-
-        return {
-          ...item,
-          image: dataUrl,
-        }
-      })
-
-      images = await Promise.all(images)
-
-      return {
-        id: doc.id,
-        ...doc.data(),
-        images,
-      }
-    })
-
-    complianceIssues = await Promise.all(complianceIssues)
-
-    const maintenanceIssuesQuerySnapshot = await doc.ref
-      .collection('maintenanceIssues')
-      .get()
-
-    let maintenanceIssues = maintenanceIssuesQuerySnapshot.docs.map(
-      async doc => {
-        let { images } = doc.data()
-
-        images = images.map(async item => {
-          const response = await fetch(item.image)
-          const blob = await response.blob()
-          const dataUrl = await getDataUrlFromBlob(blob)
-
-          return {
-            ...item,
-            image: dataUrl,
-          }
-        })
-
-        images = await Promise.all(images)
-
-        return {
-          id: doc.id,
-          ...doc.data(),
-          images,
-        }
-      }
-    )
-
-    maintenanceIssues = await Promise.all(maintenanceIssues)
+    const maintenanceIssues = await fetchPlaygroundMaintenanceIssues(doc.ref)
 
     return {
       id: doc.id,

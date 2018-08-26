@@ -23,7 +23,12 @@ export class PlaygroundItems extends Component {
 
   render() {
     const { match, playground } = this.props
-    const { conditionRatings, complianceIssues, maintenanceIssues } = playground
+    const {
+      conditionRatings,
+      complianceIssues,
+      maintenanceIssues,
+      // playingSurfaces,
+    } = playground
 
     return (
       <Content>
@@ -55,6 +60,15 @@ export class PlaygroundItems extends Component {
                 )}
               </ListItem>
             </StyledNavLink>
+
+            {/* <StyledNavLink to={`${match.url}/playingSurfaces`}>
+              <ListItem button>
+                <ListItemText primary="Playing Surfaces" />
+                {playingSurfaces.length > 0 && (
+                  <CheckCircleIcon color="primary" />
+                )}
+              </ListItem>
+            </StyledNavLink> */}
           </List>
         </Paper>
       </Content>

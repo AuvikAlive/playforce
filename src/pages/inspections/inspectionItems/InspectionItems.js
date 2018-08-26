@@ -91,6 +91,22 @@ export const InspectionItems = ({
                   )}
                 </ListItem>
               </StyledNavLink>
+
+              <StyledNavLink to={`${match.url}/playingSurfaces`}>
+                <ListItem button>
+                  <ListItemText primary="Playing Surfaces" />
+                  {playingSurfacesAdded && <CheckCircleIcon color="primary" />}
+                </ListItem>
+              </StyledNavLink>
+
+              {impactGeneralInfoAdded && (
+                <StyledNavLink to={`${match.url}/impactTest`}>
+                  <ListItem button>
+                    <ListItemText primary="Impact Attenuation Test" />
+                    {impactTestsAdded && <CheckCircleIcon color="primary" />}
+                  </ListItem>
+                </StyledNavLink>
+              )}
             </div>
           )}
 
@@ -100,22 +116,6 @@ export const InspectionItems = ({
               {notes && <CheckCircleIcon color="primary" />}
             </ListItem>
           </StyledNavLink>
-
-          <StyledNavLink to={`${match.url}/playingSurfaces`}>
-            <ListItem button>
-              <ListItemText primary="Playing Surfaces" />
-              {playingSurfacesAdded && <CheckCircleIcon color="primary" />}
-            </ListItem>
-          </StyledNavLink>
-
-          {impactGeneralInfoAdded && (
-            <StyledNavLink to={`${match.url}/impactTest`}>
-              <ListItem button>
-                <ListItemText primary="Impact Attenuation Test" />
-                {impactTestsAdded && <CheckCircleIcon color="primary" />}
-              </ListItem>
-            </StyledNavLink>
-          )}
 
           {certificate && (
             <StyledNavLink to={`${match.url}/certificateText`}>
