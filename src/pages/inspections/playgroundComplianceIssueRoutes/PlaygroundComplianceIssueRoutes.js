@@ -1,80 +1,33 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../components/loadable/LoadableLinear'
 import ComplianceIssuesList from '../complianceIssuesList/'
+import {
+  renderAddComplianceIssue,
+  renderEditComplianceIssue,
+} from './functions/'
 
-const AddComplianceIssue = Loadable({
-  loader: () => import('../addComplianceIssue'),
-})
+export const PlaygroundComplianceIssueRoutes = props => {
+  const {
+    playground: { complianceIssues },
+    match,
+  } = props
 
-const EditComplianceIssue = Loadable({
-  loader: () => import('../editComplianceIssue'),
-})
-
-AddComplianceIssue.preload()
-EditComplianceIssue.preload()
-
-export const PlaygroundComplianceIssueRoutes = ({
-  playground: { complianceIssues },
-  addPlaygroundComplianceIssue,
-  updatePlaygroundComplianceIssue,
-  deletePlaygroundComplianceIssue,
-  userId,
-  inspectionId,
-  playgroundId,
-  match,
-}) => {
   return (
     <Switch>
       <Route
         path={`${match.url}/add`}
-        render={props => (
-          <AddComplianceIssue
-            addComplianceIssue={data =>
-              addPlaygroundComplianceIssue(
-                userId,
-                inspectionId,
-                playgroundId,
-                data
-              )
-            }
-            {...props}
-          />
-        )}
+        render={renderAddComplianceIssue(props)}
       />
 
       <Route
         path={`${match.url}/edit/:id`}
-        render={props => (
-          <EditComplianceIssue
-            updateComplianceIssue={data =>
-              updatePlaygroundComplianceIssue({
-                userId,
-                inspectionId,
-                playgroundId,
-                id: props.match.params.id,
-                data,
-              })
-            }
-            deleteComplianceIssue={images =>
-              deletePlaygroundComplianceIssue({
-                userId,
-                inspectionId,
-                playgroundId,
-                id: props.match.params.id,
-                images,
-              })
-            }
-            {...{ complianceIssues }}
-            {...props}
-          />
-        )}
+        render={renderEditComplianceIssue(props)}
       />
 
       <Route
         path={match.url}
-        render={props => (
-          <ComplianceIssuesList {...{ complianceIssues }} {...props} />
+        render={routerProps => (
+          <ComplianceIssuesList {...{ complianceIssues }} {...routerProps} />
         )}
       />
     </Switch>

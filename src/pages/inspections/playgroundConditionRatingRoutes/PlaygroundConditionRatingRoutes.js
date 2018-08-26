@@ -26,8 +26,8 @@ export const PlaygroundConditionRatingRoutes = props => {
 
       <Route
         path={match.url}
-        render={props => (
-          <ConditionRatingList {...{ conditionRatings }} {...props} />
+        render={routerProps => (
+          <ConditionRatingList {...{ conditionRatings }} {...routerProps} />
         )}
       />
     </Switch>
