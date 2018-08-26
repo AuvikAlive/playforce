@@ -1,4 +1,4 @@
-import { verticalMargin } from '../constants'
+import { verticalMargin, gray } from '../constants'
 
 export const makeConditionRating = () => [
   {
@@ -17,7 +17,7 @@ export const makeConditionRating = () => [
             text:
               ' (Individual items of equipment detailed on the following page)',
             colSpan: 2,
-            fillColor: '#999999',
+            fillColor: gray,
             color: 'white',
           },
           {},

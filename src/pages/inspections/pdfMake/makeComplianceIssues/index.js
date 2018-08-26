@@ -1,19 +1,21 @@
-import { makeTitle } from './makeTitle'
-import { makeIssueItems } from './makeIssueItems'
+import { makeTitle } from '../makeTitle'
+import { makePlaygroundItems } from './makePlaygroundItems'
+import { makeIndividualItems } from './makeIndividualItems'
 
-export const makeComplianceIssues = (
+export const makeComplianceIssues = ({
   complianceIssuesAdded,
-  complianceIssues
-) => {
-  if (!complianceIssuesAdded) {
-    return [
-      makeTitle(),
-      {
-        text: 'No compliance issues identified',
-        pageBreak: 'after',
-      },
-    ]
-  }
-
-  return [makeTitle(), makeIssueItems(complianceIssues)]
+  complianceIssues,
+  playgroundsCompleted,
+  playgrounds,
+}) => {
+  return [
+    makeTitle('IDENTIFIED COMPLIANCE ISSUES'),
+    playgroundsCompleted
+      ? makePlaygroundItems(playgrounds)
+      : makeIndividualItems(complianceIssues),
+    {
+      text: '',
+      pageBreak: 'after',
+    },
+  ]
 }

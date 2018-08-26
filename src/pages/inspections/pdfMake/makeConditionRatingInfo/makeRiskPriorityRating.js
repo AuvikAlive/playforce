@@ -1,4 +1,4 @@
-import { verticalMargin } from '../constants'
+import { verticalMargin, gray } from '../constants'
 
 export const makeRiskPriorityRating = () => [
   {
@@ -25,7 +25,7 @@ export const makeRiskPriorityRating = () => [
             text:
               ' (See the following pages for ratings for each issue or non-compliance identified, if any)',
             colSpan: 4,
-            fillColor: '#999999',
+            fillColor: gray,
             color: 'white',
           },
           {},
