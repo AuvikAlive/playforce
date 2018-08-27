@@ -83,14 +83,14 @@ export const InspectionItems = ({
                 </ListItem>
               </StyledNavLink>
 
-              <StyledNavLink to={`${match.url}/maintenanceIssues`}>
-                <ListItem button>
-                  <ListItemText primary="Identified Maintenance Issues" />
-                  {maintenanceIssuesAdded && (
+              {maintenanceIssuesAdded && (
+                <StyledNavLink to={`${match.url}/maintenanceIssues`}>
+                  <ListItem button>
+                    <ListItemText primary="Identified Maintenance Issues" />
                     <CheckCircleIcon color="primary" />
-                  )}
-                </ListItem>
-              </StyledNavLink>
+                  </ListItem>
+                </StyledNavLink>
+              )}
 
               <StyledNavLink to={`${match.url}/playingSurfaces`}>
                 <ListItem button>

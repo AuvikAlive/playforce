@@ -14,6 +14,8 @@ export const MoreMenu = ({
   impactGeneralInfo,
   history,
 }) => {
+  const { id, maintenanceIssuesAdded, playgroundsAdded } = inspection
+
   return (
     <Menu
       anchorEl={menuAnchor}
@@ -44,10 +46,14 @@ export const MoreMenu = ({
         Email Report
       </MenuItem>
 
-      {!inspection.playgroundsAdded && (
-        <MenuItem
-          onClick={() => history.push(`${inspection.id}/playgrounds/add`)}
-        >
+      {!maintenanceIssuesAdded && (
+        <MenuItem onClick={() => history.push(`${id}/maintenanceIssues/add`)}>
+          Add Maintenance Issue
+        </MenuItem>
+      )}
+
+      {!playgroundsAdded && (
+        <MenuItem onClick={() => history.push(`${id}/playgrounds/add`)}>
           Add Playground
         </MenuItem>
       )}

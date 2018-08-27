@@ -1,6 +1,6 @@
 import React from 'react'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
 import IconButton from '@material-ui/core/IconButton'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { beforeBack } from './beforeBack'
 import { deleteInspection } from './deleteInspection'

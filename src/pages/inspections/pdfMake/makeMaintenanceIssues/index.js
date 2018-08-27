@@ -7,13 +7,25 @@ export const makeMaintenanceIssues = ({
   maintenanceIssues,
   playgroundsCompleted,
   playgrounds,
-}) => [
-  makeTitle('IDENTIFIED MAINTENANCE ISSUES'),
-  playgroundsCompleted
-    ? makePlaygroundItems(playgrounds)
-    : makeIndividualItems(maintenanceIssues),
-  {
-    text: '',
-    pageBreak: 'after',
-  },
-]
+}) => {
+  if (
+    (!playgroundsCompleted && !maintenanceIssuesAdded) ||
+    (playgroundsCompleted &&
+      playgrounds.every(
+        ({ maintenanceIssues }) => maintenanceIssues.length === 0
+      ))
+  ) {
+    return null
+  }
+
+  return [
+    makeTitle('IDENTIFIED MAINTENANCE ISSUES'),
+    playgroundsCompleted
+      ? makePlaygroundItems(playgrounds)
+      : makeIndividualItems(maintenanceIssues),
+    {
+      text: '',
+      pageBreak: 'after',
+    },
+  ]
+}

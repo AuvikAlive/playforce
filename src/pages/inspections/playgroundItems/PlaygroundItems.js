@@ -4,31 +4,43 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { Content } from '../../../components/content/Content'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import {
-  onComponentDidMountWithTitleLeftNav,
-  onComponentWillUnmountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftRightNav,
+  closeMenu,
 } from '../../../functions/'
+import { onComponentDidMount } from './onComponentDidMount'
 
 export class PlaygroundItems extends Component {
+  state = {
+    menuAnchor: null,
+  }
+
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, this.props.playground.name)
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    onComponentWillUnmountWithTitleLeftNav(this)
+    onComponentWillUnmountWithTitleLeftRightNav(this)
   }
 
   render() {
-    const { match, playground } = this.props
+    const { menuAnchor } = this.state
+
+    const { match, history, playground } = this.props
+
     const {
       conditionRatings,
       complianceIssues,
       maintenanceIssues,
       // playingSurfaces,
     } = playground
+
+    const maintenanceIssuesAdded = maintenanceIssues.length > 0
 
     return (
       <Content>
@@ -52,14 +64,14 @@ export class PlaygroundItems extends Component {
               </ListItem>
             </StyledNavLink>
 
-            <StyledNavLink to={`${match.url}/maintenanceIssues`}>
-              <ListItem button>
-                <ListItemText primary="Identified Maintenance Issues" />
-                {maintenanceIssues.length > 0 && (
+            {maintenanceIssuesAdded && (
+              <StyledNavLink to={`${match.url}/maintenanceIssues`}>
+                <ListItem button>
+                  <ListItemText primary="Identified Maintenance Issues" />
                   <CheckCircleIcon color="primary" />
-                )}
-              </ListItem>
-            </StyledNavLink>
+                </ListItem>
+              </StyledNavLink>
+            )}
 
             {/* <StyledNavLink to={`${match.url}/playingSurfaces`}>
               <ListItem button>
@@ -71,9 +83,28 @@ export class PlaygroundItems extends Component {
             </StyledNavLink> */}
           </List>
         </Paper>
+
+        {!maintenanceIssuesAdded && (
+          <Menu
+            anchorEl={menuAnchor}
+            open={Boolean(menuAnchor)}
+            onClose={closeMenu(this)}
+            MenuListProps={{ disablePadding: true }}
+          >
+            {!maintenanceIssuesAdded && (
+              <MenuItem
+                onClick={() =>
+                  history.push(`${match.url}/maintenanceIssues/add`)
+                }
+              >
+                Add Maintenance Issue
+              </MenuItem>
+            )}
+          </Menu>
+        )}
       </Content>
     )
   }
 }
 
-PlaygroundItems.contextTypes = contextTypesTitleLeftNav
+PlaygroundItems.contextTypes = contextTypesTitleLeftRightNav
