@@ -30,14 +30,13 @@ export class PlaygroundItems extends Component {
 
   render() {
     const { menuAnchor } = this.state
-
     const { match, history, playground } = this.props
 
     const {
       conditionRatings,
       complianceIssues,
       maintenanceIssues,
-      // playingSurfaces,
+      playingSurfaces,
     } = playground
 
     const maintenanceIssuesAdded = maintenanceIssues.length > 0
@@ -73,14 +72,14 @@ export class PlaygroundItems extends Component {
               </StyledNavLink>
             )}
 
-            {/* <StyledNavLink to={`${match.url}/playingSurfaces`}>
+            <StyledNavLink to={`${match.url}/playingSurfaces`}>
               <ListItem button>
                 <ListItemText primary="Playing Surfaces" />
                 {playingSurfaces.length > 0 && (
                   <CheckCircleIcon color="primary" />
                 )}
               </ListItem>
-            </StyledNavLink> */}
+            </StyledNavLink>
           </List>
         </Paper>
 

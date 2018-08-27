@@ -5,6 +5,7 @@ import {
 import { fetchPlaygroundConditionRatings } from './fetchPlaygroundConditionRatings'
 import { fetchPlaygroundComplianceIssues } from './fetchPlaygroundComplianceIssues'
 import { fetchPlaygroundMaintenanceIssues } from './fetchPlaygroundMaintenanceIssues'
+import { fetchPlaygroundPlayingSufaces } from './fetchPlaygroundPlayingSufaces'
 
 export const fetchPlaygrounds = (userId, inspectionId) => async (
   dispatch,
@@ -31,12 +32,15 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
 
     const maintenanceIssues = await fetchPlaygroundMaintenanceIssues(doc.ref)
 
+    const playingSurfaces = await fetchPlaygroundPlayingSufaces(doc.ref)
+
     return {
       id: doc.id,
       ...doc.data(),
       conditionRatings,
       complianceIssues,
       maintenanceIssues,
+      playingSurfaces,
     }
   })
 

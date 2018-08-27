@@ -39,6 +39,9 @@ import {
   ADD_PLAYGROUND_MAINTENANCE_ISSUE,
   UPDATE_PLAYGROUND_MAINTENANCE_ISSUE,
   DELETE_PLAYGROUND_MAINTENANCE_ISSUE,
+  ADD_PLAYGROUND_PLAYING_SURFACE,
+  UPDATE_PLAYGROUND_PLAYING_SURFACE,
+  DELETE_PLAYGROUND_PLAYING_SURFACE,
   TOGGLE_INSPECTION_CERTIFICATE,
 } from '../actions/actionTypes'
 
@@ -538,6 +541,71 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const playgrounds = state.playgrounds.map(item => {
         if (item.id === playgroundId) {
           item.maintenanceIssues = item.maintenanceIssues.filter(
+            item => item.id !== id
+          )
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case ADD_PLAYGROUND_PLAYING_SURFACE: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.playingSurfaces.push(payload)
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case UPDATE_PLAYGROUND_PLAYING_SURFACE: {
+      const { playgroundId, id } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.playingSurfaces = item.playingSurfaces.map(item => {
+            if (item.id === id) {
+              return payload
+            }
+
+            return item
+          })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case DELETE_PLAYGROUND_PLAYING_SURFACE: {
+      const { playgroundId, id } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.playingSurfaces = item.playingSurfaces.filter(
             item => item.id !== id
           )
         }

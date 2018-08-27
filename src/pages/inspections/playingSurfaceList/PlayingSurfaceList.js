@@ -23,7 +23,8 @@ export class PlayingSurfaceList extends Component {
   }
 
   render() {
-    const { match, playingSurfacesAdded, playingSurfaces } = this.props
+    const { match, playingSurfaces } = this.props
+    const playingSurfacesAdded = playingSurfaces.length > 0
 
     return (
       <Content>

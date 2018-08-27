@@ -15,9 +15,14 @@ const PlaygroundMaintenanceIssueRoutes = Loadable({
   loader: () => import('../playgroundMaintenanceIssueRoutes'),
 })
 
+const PlaygroundPlayingSurfaceRoutes = Loadable({
+  loader: () => import('../playgroundPlayingSurfaceRoutes'),
+})
+
 PlaygroundConditionRatingRoutes.preload()
 PlaygroundComplianceIssueRoutes.preload()
 PlaygroundMaintenanceIssueRoutes.preload()
+PlaygroundPlayingSurfaceRoutes.preload()
 
 export const EditPlaygroundRoutes = ({ match, playgroundId, inspectionId }) => {
   return (
@@ -40,6 +45,13 @@ export const EditPlaygroundRoutes = ({ match, playgroundId, inspectionId }) => {
         path={`${match.url}/maintenanceIssues`}
         render={props => (
           <PlaygroundMaintenanceIssueRoutes {...{ playgroundId }} {...props} />
+        )}
+      />
+
+      <Route
+        path={`${match.url}/playingSurfaces`}
+        render={props => (
+          <PlaygroundPlayingSurfaceRoutes {...{ playgroundId }} {...props} />
         )}
       />
 

@@ -1,10 +1,7 @@
-export const submit = component => data => {
-  const {
-    updatePlayingSurface,
-    userId,
-    playingSurfaceId,
-    inspectionId,
-  } = component.props
+export const submit = component => async data => {
+  const { updatePlayingSurface, setFeedback } = component.props
 
-  return updatePlayingSurface(userId, inspectionId, playingSurfaceId, data)
+  await updatePlayingSurface(data)
+
+  setFeedback({ success: 'Surface updated!' })
 }

@@ -17,11 +17,11 @@ export class AddPlayingSurface extends Component {
   }
 
   render() {
-    const { addPlayingSurface, userId, inspectionId } = this.props
+    const { addPlayingSurface } = this.props
 
     return (
       <PlayingSurfaceForm
-        onSubmit={data => addPlayingSurface(userId, inspectionId, data)}
+        onSubmit={addPlayingSurface}
         afterSubmit={showActionGo(this, 'Surface added!', 'edit/')}
       />
     )

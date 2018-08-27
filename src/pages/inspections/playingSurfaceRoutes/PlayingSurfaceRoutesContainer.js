@@ -3,6 +3,9 @@ import { compose } from 'redux'
 import {
   fetchInspectionRealTime,
   fetchPlayingSufacesRealTime,
+  addPlayingSurface,
+  updatePlayingSurface,
+  deletePlayingSurface,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { PlayingSurfaceRoutes } from './PlayingSurfaceRoutes'
 
@@ -11,7 +14,7 @@ const mapStateToProps = (
     firebase: {
       auth: { uid },
     },
-    inspection: { inspectionLoaded, playingSurfacesLoaded },
+    inspection: { inspectionLoaded, playingSurfacesLoaded, playingSurfaces },
   },
   {
     match: {
@@ -23,11 +26,15 @@ const mapStateToProps = (
   inspectionId: id,
   inspectionLoaded,
   playingSurfacesLoaded,
+  playingSurfaces,
 })
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchPlayingSufacesRealTime,
+  addPlayingSurface,
+  updatePlayingSurface,
+  deletePlayingSurface,
 }
 
 export const PlayingSurfaceRoutesContainer = compose(

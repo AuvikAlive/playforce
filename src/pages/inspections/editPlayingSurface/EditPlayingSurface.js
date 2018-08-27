@@ -11,7 +11,7 @@ export class EditPlayingSurface extends Component {
   componentDidMount() {
     onComponentDidMountWithTitleLeftRightNavDelete(
       this,
-      'Edit playing surface',
+      'Edit Playing Surface',
       deletePlayingSurface
     )
   }
