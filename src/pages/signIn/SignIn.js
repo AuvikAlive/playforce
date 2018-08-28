@@ -13,18 +13,16 @@ import {
 } from '../../functions/'
 import { StyledLink } from '../../components/styledLink/StyledLink'
 import { StyledSignIn } from './StyledSignIn'
+import { GoogleIcon } from './GoogleIcon'
+// import { FacebookIcon } from './FacebookIcon'
 import { onCheckboxChange, signIn, signInWithProvider } from './functions/'
 import { state } from './state'
-import google from './google.svg'
-// import facebook from './facebook.svg'
 
 export class SignIn extends Component {
   state = state
 
   componentDidMount() {
-    const title = 'Sign In'
-
-    onComponentDidMountWithTitle(this, title)
+    onComponentDidMountWithTitle(this, 'Sign In')
   }
 
   componentWillUnmount() {
@@ -90,12 +88,12 @@ export class SignIn extends Component {
                 className="social-button"
                 onClick={signInWithProvider(this, 'google')}
               >
-                <img src={google} alt="google sign-in" />
+                <GoogleIcon />
                 With Google
               </Button>
 
               {/* <Button variant="raised" className="social-button">
-                <img src={facebook} alt="facebook sign-in" />
+                <FacebookIcon />
                 With Facebook
               </Button> */}
             </div>

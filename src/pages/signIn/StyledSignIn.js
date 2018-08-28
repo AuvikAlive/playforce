@@ -6,7 +6,7 @@ export const StyledSignIn = Styled(StyledForm)`
     margin-top: 8px;
     position: relative;
     
-    img {
+    img, svg {
       height: 24px;
       position: absolute;
       left: 16px;
