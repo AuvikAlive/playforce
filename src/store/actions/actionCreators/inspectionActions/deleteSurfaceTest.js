@@ -18,12 +18,16 @@ export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
   let storageImages = []
 
   const { id, dropTests } = impactTest
+  const inspectionDoc = await inspectionRef.get()
+  const dropCount = inspectionDoc.data().dropCount
+
+  batch.update(inspectionRef, { dropCount: dropCount - dropTests.length })
 
   const impactRef = inspectionRef.collection('impactTests').doc(id)
 
   batch.delete(impactRef)
 
-  dropTests.forEach((dropTest) => {
+  dropTests.forEach(dropTest => {
     const dropRef = impactRef.collection('dropTests').doc(dropTest.id)
 
     storageImages.push(
