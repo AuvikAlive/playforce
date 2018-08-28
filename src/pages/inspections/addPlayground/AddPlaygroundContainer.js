@@ -4,22 +4,19 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { addPlayground } from '../../../store/actions/actionCreators/inspectionActions/'
 import { AddPlayground } from './AddPlayground'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  inspection: { id },
-}) => ({
-  userId: uid,
-  inspectionId: id,
+const mapStateToProps = ({ firebase, inspection }) => ({
+  userId: firebase.auth.uid,
+  inspectionId: inspection.id,
 })
 
 const mapDispatchToProps = { addPlayground }
 
-export const AddPlaygroundContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(AddPlayground)
+)
+
+export const AddPlaygroundContainer = enhance(AddPlayground)

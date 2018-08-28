@@ -9,25 +9,21 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { PlayingSurfaceRoutes } from './PlayingSurfaceRoutes'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, playingSurfacesLoaded, playingSurfaces },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const {
+    inspectionLoaded,
+    playingSurfacesLoaded,
+    playingSurfaces,
+  } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    playingSurfacesLoaded,
+    playingSurfaces,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  playingSurfacesLoaded,
-  playingSurfaces,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
@@ -37,9 +33,11 @@ const mapDispatchToProps = {
   deletePlayingSurface,
 }
 
-export const PlayingSurfaceRoutesContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(PlayingSurfaceRoutes)
+)
+
+export const PlayingSurfaceRoutesContainer = enhance(PlayingSurfaceRoutes)

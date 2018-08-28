@@ -7,20 +7,16 @@ import {
   deletePlaygroundComplianceIssue,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { id, playgrounds },
-  },
-  { playgroundId }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  playgrounds,
-  playground: playgrounds.find(({ id }) => id === playgroundId),
-})
+const mapStateToProps = ({ firebase, inspection }, { playgroundId }) => {
+  const { id, playgrounds } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: id,
+    playgrounds,
+    playground: playgrounds.find(({ id }) => id === playgroundId),
+  }
+}
 
 const mapDispatchToProps = {
   addPlaygroundComplianceIssue,
@@ -28,9 +24,13 @@ const mapDispatchToProps = {
   deletePlaygroundComplianceIssue,
 }
 
-export const PlaygroundComplianceIssueRoutesContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(PlaygroundComplianceIssueRoutes)
+)
+
+export const PlaygroundComplianceIssueRoutesContainer = enhance(
+  PlaygroundComplianceIssueRoutes
+)

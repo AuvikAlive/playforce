@@ -7,24 +7,16 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { PlaygroundRoutes } from './PlaygroundRoutes'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, playgroundsLoaded },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const { inspectionLoaded, playgroundsLoaded } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    playgroundsLoaded,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  playgroundsLoaded,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
@@ -32,9 +24,11 @@ const mapDispatchToProps = {
   fetchPlaygrounds,
 }
 
-export const PlaygroundRoutesContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(PlaygroundRoutes)
+)
+
+export const PlaygroundRoutesContainer = enhance(PlaygroundRoutes)

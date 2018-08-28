@@ -3,17 +3,14 @@ import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AddComplianceIssue } from './AddComplianceIssue'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  inspection: { id },
-}) => ({
-  userId: uid,
-  inspectionId: id,
+const mapStateToProps = ({ firebase, inspection }) => ({
+  userId: firebase.auth.uid,
+  inspectionId: inspection.id,
 })
 
-export const AddComplianceIssueContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(mapStateToProps)
-)(AddComplianceIssue)
+)
+
+export const AddComplianceIssueContainer = enhance(AddComplianceIssue)

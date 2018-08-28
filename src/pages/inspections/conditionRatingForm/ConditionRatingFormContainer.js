@@ -10,22 +10,20 @@ import { withImageCapture } from '../../../hocs/withImageCapture/withImageCaptur
 import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
 import { ConditionRatingForm } from './ConditionRatingForm'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  manufacturer: { manufacturersLoaded, manufacturers },
-  inspection: { cover },
-  equipment: { equipmentsSite, equipmentsLoaded, equipments },
-}) => ({
-  userId: uid,
-  siteId: cover.location.id,
-  manufacturersLoaded,
-  manufacturers,
-  equipmentsSite,
-  equipmentsLoaded,
-  equipments,
-})
+const mapStateToProps = ({ firebase, manufacturer, inspection, equipment }) => {
+  const { manufacturersLoaded, manufacturers } = manufacturer
+  const { equipmentsSite, equipmentsLoaded, equipments } = equipment
+
+  return {
+    userId: firebase.auth.uid,
+    siteId: inspection.cover.location.id,
+    manufacturersLoaded,
+    manufacturers,
+    equipmentsSite,
+    equipmentsLoaded,
+    equipments,
+  }
+}
 
 const mapDispatchToProps = {
   addEquipment,
@@ -33,7 +31,7 @@ const mapDispatchToProps = {
   fetchManufacturersRealTime,
 }
 
-export const ConditionRatingFormContainer = compose(
+const enhance = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
@@ -41,4 +39,6 @@ export const ConditionRatingFormContainer = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(ConditionRatingForm)
+)
+
+export const ConditionRatingFormContainer = enhance(ConditionRatingForm)

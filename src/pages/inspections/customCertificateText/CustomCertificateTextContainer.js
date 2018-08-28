@@ -6,44 +6,39 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions'
 import { CustomCertificateText } from './CustomCertificateText'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      profile: { defaultCertificateText },
-      auth: { uid },
-    },
-    inspection: {
-      inspectionLoaded,
-      customCertificateText,
-      customInspectionNumber,
-      name,
-      cover: { client },
-    },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const { auth, profile } = firebase
+
+  const {
+    inspectionLoaded,
+    customCertificateText,
+    customInspectionNumber,
+    name,
+    cover,
+  } = inspection
+
+  return {
+    userId: auth.uid,
+    inspectionId: match.params.id,
+    defaultCertificateText: profile.defaultCertificateText,
+    inspectionLoaded,
+    customCertificateText,
+    customInspectionNumber,
+    name,
+    client: cover.client,
   }
-) => ({
-  defaultCertificateText,
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  customCertificateText,
-  customInspectionNumber,
-  name,
-  client,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   saveCustomCertificateText,
 }
 
-export const CustomCertificateTextContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(CustomCertificateText)
+)
+
+export const CustomCertificateTextContainer = enhance(CustomCertificateText)

@@ -13,18 +13,17 @@ import {
 } from '../../../store/actions/actionCreators/searchBarActions'
 import { AddMembers } from './AddMembers'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  group: { usersLoaded, users, membersLoaded, members },
-}) => ({
-  userId: uid,
-  usersLoaded,
-  users,
-  membersLoaded,
-  members,
-})
+const mapStateToProps = ({ firebase, group }) => {
+  const { usersLoaded, users, membersLoaded, members } = group
+
+  return {
+    userId: firebase.auth.uid,
+    usersLoaded,
+    users,
+    membersLoaded,
+    members,
+  }
+}
 
 const mapDispatchToProps = {
   fetchUsersRealTime,
@@ -34,11 +33,13 @@ const mapDispatchToProps = {
   closeSearchBar,
 }
 
-export const AddMembersContainer = compose(
+const enhance = compose(
   withFeedback,
   withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(AddMembers)
+)
+
+export const AddMembersContainer = enhance(AddMembers)

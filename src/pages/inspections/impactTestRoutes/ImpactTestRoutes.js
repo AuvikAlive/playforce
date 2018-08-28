@@ -43,15 +43,19 @@ export class ImpactTestRoutes extends Component {
           path={`${match.url}/general`}
           component={EditImpactGeneralInfo}
         />
+
         <Route
           path={`${match.url}/addAttenuationTest`}
           component={AddImpactAttenuationTest}
         />
+
         <Route
           path={`${match.url}/edit/:id`}
           component={ImpactTestDetailRoutes}
         />
+
         <Route path={`${match.url}/add`} component={AddImpactSurface} />
+
         <Route path={match.url} component={ImpactTestItemsContainer} />
       </Switch>
     )

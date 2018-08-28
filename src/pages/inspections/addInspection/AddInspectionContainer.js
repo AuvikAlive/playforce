@@ -4,19 +4,20 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { addInspection } from '../../../store/actions/actionCreators/inspectionActions/'
 import { AddInspection } from './AddInspection'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-}) => ({
-  userId: uid,
+const mapStateToProps = ({ firebase }) => ({
+  userId: firebase.auth.uid,
 })
 
 const mapDispatchToProps = {
   addInspection,
 }
 
-export const AddInspectionContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
-)(AddInspection)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const AddInspectionContainer = enhance(AddInspection)

@@ -7,23 +7,27 @@ import {
 } from '../../../store/actions/actionCreators/manufacturerActions/'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  manufacturer: { manufacturersLoaded, manufacturers },
-}) => ({
-  userId: uid,
-  manufacturersLoaded,
-  manufacturers,
-})
+const mapStateToProps = ({ firebase, manufacturer }) => {
+  const { manufacturersLoaded, manufacturers } = manufacturer
+
+  return {
+    userId: firebase.auth.uid,
+    manufacturersLoaded,
+    manufacturers,
+  }
+}
 
 const mapDispatchToProps = {
   deleteManufacturer,
   fetchManufacturersRealTime,
 }
 
-export const ManufacturersContainer = compose(
+const enhance = compose(
   withDeleteDialog,
-  connect(mapStateToProps, mapDispatchToProps)
-)(Manufacturers)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const ManufacturersContainer = enhance(Manufacturers)

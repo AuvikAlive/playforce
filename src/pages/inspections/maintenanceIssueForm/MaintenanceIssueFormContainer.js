@@ -6,25 +6,23 @@ import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFul
 import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions/'
 import { MaintenanceIssueForm } from './MaintenanceIssueForm'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  inspection: { cover },
-  equipment: { equipmentsSite, equipmentsLoaded, equipments },
-}) => ({
-  userId: uid,
-  siteId: cover.location.id,
-  equipmentsSite,
-  equipmentsLoaded,
-  equipments,
-})
+const mapStateToProps = ({ firebase, inspection, equipment }) => {
+  const { equipmentsSite, equipmentsLoaded, equipments } = equipment
+
+  return {
+    userId: firebase.auth.uid,
+    siteId: inspection.cover.location.id,
+    equipmentsSite,
+    equipmentsLoaded,
+    equipments,
+  }
+}
 
 const mapDispatchToProps = {
   fetchEquipmentsRealTime,
 }
 
-export const MaintenanceIssueFormContainer = compose(
+const enhance = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
@@ -32,4 +30,6 @@ export const MaintenanceIssueFormContainer = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(MaintenanceIssueForm)
+)
+
+export const MaintenanceIssueFormContainer = enhance(MaintenanceIssueForm)

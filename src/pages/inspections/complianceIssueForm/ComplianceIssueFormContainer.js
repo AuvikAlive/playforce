@@ -7,31 +7,30 @@ import { fetchCommonIssuesRealTime } from '../../../store/actions/actionCreators
 import { fetchEquipmentsRealTime } from '../../../store/actions/actionCreators/equipmentActions/'
 import { ComplianceIssueForm } from './ComplianceIssueForm'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-    profile: { preimplementationRecommendation },
-  },
-  inspection: { cover },
-  equipment: { equipmentsSite, equipmentsLoaded, equipments },
-  commonIssue: { commonIssuesLoaded, commonIssues },
-}) => ({
-  userId: uid,
-  siteId: cover.location.id,
-  commonIssuesLoaded,
-  commonIssues,
-  equipmentsSite,
-  equipmentsLoaded,
-  equipments,
-  preimplementationRecommendation,
-})
+const mapStateToProps = ({ firebase, inspection, equipment, commonIssue }) => {
+  const { auth, profile } = firebase
+  const { preimplementationRecommendation } = profile
+  const { equipmentsSite, equipmentsLoaded, equipments } = equipment
+  const { commonIssuesLoaded, commonIssues } = commonIssue
+
+  return {
+    userId: auth.uid,
+    siteId: inspection.cover.location.id,
+    commonIssuesLoaded,
+    commonIssues,
+    equipmentsSite,
+    equipmentsLoaded,
+    equipments,
+    preimplementationRecommendation,
+  }
+}
 
 const mapDispatchToProps = {
   fetchCommonIssuesRealTime,
   fetchEquipmentsRealTime,
 }
 
-export const ComplianceIssueFormContainer = compose(
+const enhance = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
@@ -39,4 +38,6 @@ export const ComplianceIssueFormContainer = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(ComplianceIssueForm)
+)
+
+export const ComplianceIssueFormContainer = enhance(ComplianceIssueForm)

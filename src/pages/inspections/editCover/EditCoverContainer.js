@@ -7,31 +7,28 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { EditCover } from './EditCover'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, cover },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const { inspectionLoaded, cover } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    cover,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  cover,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   updateCover,
 }
 
-export const EditCoverContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
-)(EditCover)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const EditCoverContainer = enhance(EditCover)

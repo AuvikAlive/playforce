@@ -5,24 +5,25 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { fetchGroupsRealTime } from '../../../store/actions/actionCreators/groupActions/'
 import { GroupList } from './GroupList'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  group: { groupsLoaded, groups },
-}) => ({
-  userId: uid,
-  groupsLoaded,
-  groups,
-})
+const mapStateToProps = ({ firebase, group }) => {
+  const { groupsLoaded, groups } = group
+
+  return {
+    userId: firebase.auth.uid,
+    groupsLoaded,
+    groups,
+  }
+}
 
 const mapDispatchToProps = { fetchGroupsRealTime }
 
-export const GroupListContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(GroupList)
+)
+
+export const GroupListContainer = enhance(GroupList)

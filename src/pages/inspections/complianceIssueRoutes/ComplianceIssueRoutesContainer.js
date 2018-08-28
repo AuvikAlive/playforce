@@ -10,25 +10,21 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ComplianceIssueRoutes } from './ComplianceIssueRoutes'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, complianceIssuesLoaded, complianceIssues },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const {
+    inspectionLoaded,
+    complianceIssuesLoaded,
+    complianceIssues,
+  } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    complianceIssuesLoaded,
+    complianceIssues,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  complianceIssuesLoaded,
-  complianceIssues,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
@@ -39,9 +35,11 @@ const mapDispatchToProps = {
   deleteComplianceIssue,
 }
 
-export const ComplianceIssueRoutesContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(ComplianceIssueRoutes)
+)
+
+export const ComplianceIssueRoutesContainer = enhance(ComplianceIssueRoutes)

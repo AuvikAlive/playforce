@@ -7,34 +7,31 @@ import {
   updateAuditSummary,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      profile,
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, cover, auditSummary },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const { profile, auth } = firebase
+  const { inspectionLoaded, cover, auditSummary } = inspection
+
+  return {
+    userId: auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    profile,
+    cover,
+    auditSummary,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  profile,
-  cover,
-  auditSummary,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   updateAuditSummary,
 }
 
-export const AuditSummaryContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
-)(AuditSummary)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const AuditSummaryContainer = enhance(AuditSummary)

@@ -7,34 +7,28 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions'
 import { Notes } from './Notes'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, notes },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const { inspectionLoaded, notes } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    notes,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  notes,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
   saveNotes,
 }
 
-export const NotesContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Notes)
+)
+
+export const NotesContainer = enhance(Notes)

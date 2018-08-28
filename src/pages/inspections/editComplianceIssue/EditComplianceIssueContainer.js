@@ -5,22 +5,25 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { EditComplianceIssue } from './EditComplianceIssue'
 
 const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { id },
-  },
+  { firebase, inspection },
   { match, complianceIssues }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  complianceIssueId: match.params.id,
-  complianceIssue: complianceIssues.find(item => item.id === match.params.id),
-})
+) => {
+  const complianceIssueId = match.params.id
 
-export const EditComplianceIssueContainer = compose(
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: inspection.id,
+    complianceIssueId,
+    complianceIssue: complianceIssues.find(
+      item => item.id === complianceIssueId
+    ),
+  }
+}
+
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(mapStateToProps)
-)(EditComplianceIssue)
+)
+
+export const EditComplianceIssueContainer = enhance(EditComplianceIssue)

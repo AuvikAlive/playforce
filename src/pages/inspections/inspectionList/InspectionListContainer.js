@@ -20,25 +20,24 @@ import {
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { InspectionList } from './InspectionList'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  searchBar: { open, query, results },
-  inspectionList: { view, inspectionsLoaded, inspections },
-  standard: { standardsLoaded, standards },
-}) => ({
-  userId: uid,
-  open,
-  searchBarOpen: open,
-  searchResults: results,
-  query,
-  view,
-  inspectionsLoaded,
-  inspections,
-  standardsLoaded,
-  standards,
-})
+const mapStateToProps = ({ firebase, searchBar, inspectionList, standard }) => {
+  const { open, query, results } = searchBar
+  const { view, inspectionsLoaded, inspections } = inspectionList
+  const { standardsLoaded, standards } = standard
+
+  return {
+    userId: firebase.auth.uid,
+    open,
+    searchBarOpen: open,
+    searchResults: results,
+    query,
+    view,
+    inspectionsLoaded,
+    inspections,
+    standardsLoaded,
+    standards,
+  }
+}
 
 const mapDispatchToProps = {
   openSearchBar,
@@ -55,11 +54,13 @@ const mapDispatchToProps = {
   toggleView,
 }
 
-export const InspectionListContainer = compose(
+const enhance = compose(
   withDeleteDialog,
   withFirestore,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(InspectionList)
+)
+
+export const InspectionListContainer = enhance(InspectionList)

@@ -6,10 +6,12 @@ import { AddGroup } from './AddGroup'
 
 const mapDispatchToProps = { addGroup }
 
-export const AddGroupContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(
     null,
     mapDispatchToProps
   )
-)(AddGroup)
+)
+
+export const AddGroupContainer = enhance(AddGroup)

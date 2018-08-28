@@ -5,22 +5,23 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { EditPlayingSurface } from './EditPlayingSurface'
 
 const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { id },
-  },
+  { firebase, inspection },
   { match, playingSurfaces }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  playingSurfaceId: match.params.id,
-  playingSurface: playingSurfaces.find(item => item.id === match.params.id),
-})
+) => {
+  const playingSurfaceId = match.params.id
 
-export const EditPlayingSurfaceContainer = compose(
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: inspection.id,
+    playingSurfaceId,
+    playingSurface: playingSurfaces.find(item => item.id === playingSurfaceId),
+  }
+}
+
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(mapStateToProps)
-)(EditPlayingSurface)
+)
+
+export const EditPlayingSurfaceContainer = enhance(EditPlayingSurface)

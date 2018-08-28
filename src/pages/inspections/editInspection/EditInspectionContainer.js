@@ -21,34 +21,23 @@ import { fetchStandards } from '../../../store/actions/actionCreators/standardAc
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-      profile: { displayName, email, defaultCertificateText, signature },
-    },
-    firestore: {
-      data: { users },
-    },
+const mapStateToProps = ({ firebase, inspection, standard }, { match }) => {
+  const { auth, profile } = firebase
+  const { displayName, email, defaultCertificateText, signature } = profile
+  const { standardsLoaded, standards } = standard
+
+  return {
+    userId: auth.uid,
+    inspectionId: match.params.id,
     inspection,
-    standard: { standardsLoaded, standards },
-  },
-  {
-    match: {
-      params: { id },
-    },
+    displayName,
+    email,
+    defaultCertificateText,
+    signature,
+    standardsLoaded,
+    standards,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspection,
-  displayName,
-  email,
-  defaultCertificateText,
-  signature,
-  standardsLoaded,
-  standards,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
@@ -68,11 +57,13 @@ const mapDispatchToProps = {
   toggleInspectionCertificate,
 }
 
-export const EditInspectionContainer = compose(
+const enhance = compose(
   withDeleteDialog,
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(EditInspection)
+)
+
+export const EditInspectionContainer = enhance(EditInspection)

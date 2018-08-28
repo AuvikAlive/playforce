@@ -7,24 +7,17 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ImpactTestRoutes } from './ImpactTestRoutes'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, impactTestsLoaded },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const { inspectionLoaded, impactTestsLoaded, impactTests } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    impactTestsLoaded,
+    impactTests,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  impactTestsLoaded,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
@@ -32,9 +25,11 @@ const mapDispatchToProps = {
   fetchImpactTests,
 }
 
-export const ImpactTestRoutesContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(ImpactTestRoutes)
+)
+
+export const ImpactTestRoutesContainer = enhance(ImpactTestRoutes)

@@ -10,25 +10,21 @@ import {
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { ConditionRatingRoutes } from './ConditionRatingRoutes'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspection: { inspectionLoaded, conditionRatingsLoaded, conditionRatings },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspection }, { match }) => {
+  const {
+    inspectionLoaded,
+    conditionRatingsLoaded,
+    conditionRatings,
+  } = inspection
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionId: match.params.id,
+    inspectionLoaded,
+    conditionRatingsLoaded,
+    conditionRatings,
   }
-) => ({
-  userId: uid,
-  inspectionId: id,
-  inspectionLoaded,
-  conditionRatingsLoaded,
-  conditionRatings,
-})
+}
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
@@ -39,9 +35,11 @@ const mapDispatchToProps = {
   deleteConditionRating,
 }
 
-export const ConditionRatingRoutesContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(ConditionRatingRoutes)
+)
+
+export const ConditionRatingRoutesContainer = enhance(ConditionRatingRoutes)

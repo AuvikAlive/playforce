@@ -3,17 +3,14 @@ import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AddPlayingSurface } from './AddPlayingSurface'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  inspection: { id },
-}) => ({
-  userId: uid,
-  inspectionId: id,
+const mapStateToProps = ({ firebase, inspection }) => ({
+  userId: firebase.auth.uid,
+  inspectionId: inspection.id,
 })
 
-export const AddPlayingSurfaceContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(mapStateToProps)
-)(AddPlayingSurface)
+)
+
+export const AddPlayingSurfaceContainer = enhance(AddPlayingSurface)
