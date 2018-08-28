@@ -24,9 +24,13 @@ export const deleteDropTest = (
       .doc(impactTestId)
 
     const inspectionDoc = await transaction.get(inspectionRef)
-    const dropCount = inspectionDoc.data().dropCount
+    const { deletedDrops = [] } = inspectionDoc.data()
 
-    transaction.update(inspectionRef, { dropCount: dropCount - 1 })
+    deletedDrops.push(id)
+
+    transaction.update(inspectionRef, {
+      deletedDrops,
+    })
 
     const ref = impactTestRef.collection('dropTests').doc(id)
 
