@@ -6,6 +6,7 @@ import { fetchPlaygroundConditionRatings } from './fetchPlaygroundConditionRatin
 import { fetchPlaygroundComplianceIssues } from './fetchPlaygroundComplianceIssues'
 import { fetchPlaygroundMaintenanceIssues } from './fetchPlaygroundMaintenanceIssues'
 import { fetchPlaygroundPlayingSufaces } from './fetchPlaygroundPlayingSufaces'
+import { fetchPlaygroundImpactTests } from './fetchPlaygroundImpactTests'
 
 export const fetchPlaygrounds = (userId, inspectionId) => async (
   dispatch,
@@ -34,6 +35,8 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
 
     const playingSurfaces = await fetchPlaygroundPlayingSufaces(doc.ref)
 
+    const impactTests = await fetchPlaygroundImpactTests(doc.ref)
+
     return {
       id: doc.id,
       ...doc.data(),
@@ -41,6 +44,7 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
       complianceIssues,
       maintenanceIssues,
       playingSurfaces,
+      impactTests,
     }
   })
 

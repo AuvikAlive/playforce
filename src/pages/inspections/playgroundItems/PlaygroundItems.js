@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import { isEmpty } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { Content } from '../../../components/content/Content'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
@@ -37,6 +38,7 @@ export class PlaygroundItems extends Component {
       complianceIssues,
       maintenanceIssues,
       playingSurfaces,
+      impactGeneralInfo,
     } = playground
 
     const maintenanceIssuesAdded = maintenanceIssues.length > 0
@@ -80,6 +82,14 @@ export class PlaygroundItems extends Component {
                 )}
               </ListItem>
             </StyledNavLink>
+
+            {!isEmpty(impactGeneralInfo) && (
+              <StyledNavLink to={`${match.url}/impactTest`}>
+                <ListItem button>
+                  <ListItemText primary="Impact Attenuation Test" />
+                </ListItem>
+              </StyledNavLink>
+            )}
           </List>
         </Paper>
 
@@ -97,6 +107,16 @@ export class PlaygroundItems extends Component {
                 }
               >
                 Add Maintenance Issue
+              </MenuItem>
+            )}
+
+            {isEmpty(impactGeneralInfo) && (
+              <MenuItem
+                onClick={() =>
+                  history.push(`${match.url}/impactTest/addAttenuationTest`)
+                }
+              >
+                Add Impact Test
               </MenuItem>
             )}
           </Menu>
