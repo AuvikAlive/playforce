@@ -27,7 +27,7 @@ export const makeDrops = dropTests => {
 
   const quadruples = chunk(dropTestsItems, 4)
 
-  const grid = quadruples.map(quadruple => {
+  const grid = quadruples.map((quadruple, index) => {
     if (quadruple.length < 4) {
       const count = 4 - quadruple.length
 
@@ -41,6 +41,7 @@ export const makeDrops = dropTests => {
       marginBottom: verticalMargin,
       columnGap: verticalMargin,
       columns: quadruple,
+      ...((index + 1) % 3 === 0 && { pageBreak: 'after' }),
     }
   })
 
