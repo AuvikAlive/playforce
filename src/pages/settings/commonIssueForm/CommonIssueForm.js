@@ -14,21 +14,11 @@ import {
 } from '../../../functions/'
 import { probabilities, severities, riskLevels } from '../../../constants/'
 import { StyledCommonIssueForm } from './StyledCommonIssueForm'
+import { state } from './state'
 import { submit } from './submit'
 
 export class CommonIssueForm extends Component {
-  state = {
-    issue: '',
-    category: '',
-    finding: '',
-    standardsClause: '',
-    implementationDate: '',
-    preImplementationText: '',
-    probability: '',
-    severity: '',
-    comments: '',
-    recommendations: '',
-  }
+  state = state
 
   componentDidMount() {
     onComponentDidMountLoadData(this)
@@ -37,8 +27,6 @@ export class CommonIssueForm extends Component {
   componentWillReceiveProps(nextProps) {
     onComponentWillReceivePropsLoadData(this, nextProps)
   }
-
-   
 
   render() {
     const {
@@ -68,7 +56,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Issue"
                 value={issue}
-                onChange={onEventInputChange(this,'issue')}
+                onChange={onEventInputChange(this, 'issue')}
                 margin="normal"
               />
 
@@ -76,7 +64,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Category"
                 value={category}
-                onChange={onEventInputChange(this,'category')}
+                onChange={onEventInputChange(this, 'category')}
                 margin="normal"
               />
 
@@ -84,7 +72,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Finding"
                 value={finding}
-                onChange={onEventInputChange(this,'finding')}
+                onChange={onEventInputChange(this, 'finding')}
                 margin="normal"
               />
 
@@ -92,7 +80,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Standards Clause"
                 value={standardsClause}
-                onChange={onEventInputChange(this,'standardsClause')}
+                onChange={onEventInputChange(this, 'standardsClause')}
                 margin="normal"
               />
 
@@ -100,7 +88,7 @@ export class CommonIssueForm extends Component {
                 fullWidth
                 label="Implementation Date"
                 value={implementationDate}
-                onChange={onEventInputChange(this,'implementationDate')}
+                onChange={onEventInputChange(this, 'implementationDate')}
                 margin="normal"
               />
 
@@ -110,7 +98,7 @@ export class CommonIssueForm extends Component {
                 label="Pre-implementation Text"
                 value={preImplementationText}
                 margin="normal"
-                onChange={onEventInputChange(this,'preImplementationText')}
+                onChange={onEventInputChange(this, 'preImplementationText')}
               />
 
               <Grid container>
@@ -125,7 +113,7 @@ export class CommonIssueForm extends Component {
                     select
                     label="Probability"
                     value={probability}
-                    onChange={onEventInputChange(this,'probability')}
+                    onChange={onEventInputChange(this, 'probability')}
                     margin="normal"
                   >
                     {probabilities.map(({ probability, value }, index) => (
@@ -141,7 +129,7 @@ export class CommonIssueForm extends Component {
                     select
                     label="Injury Severity"
                     value={severity}
-                    onChange={onEventInputChange(this,'severity')}
+                    onChange={onEventInputChange(this, 'severity')}
                     margin="normal"
                   >
                     {severities.map(({ serverity, value }, index) => (
@@ -167,7 +155,7 @@ export class CommonIssueForm extends Component {
                 label="Comments"
                 value={comments}
                 margin="normal"
-                onChange={onEventInputChange(this,'comments')}
+                onChange={onEventInputChange(this, 'comments')}
               />
 
               <TextField
@@ -176,7 +164,7 @@ export class CommonIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={onEventInputChange(this,'recommendations')}
+                onChange={onEventInputChange(this, 'recommendations')}
               />
             </form>
 

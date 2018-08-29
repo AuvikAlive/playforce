@@ -4,22 +4,26 @@ import { saveOperator } from '../../store/actions/actionCreators/operatorActions
 import { withFeedback } from '../../hocs/withFeedback/withFeedback'
 import { OperatorForm } from './OperatorForm'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  operator: { operatorsLoaded, operators },
-}) => ({
-  userId: uid,
-  operatorsLoaded,
-  operators,
-})
+const mapStateToProps = ({ firebase, operator }) => {
+  const { operatorsLoaded, operators } = operator
+
+  return {
+    userId: firebase.auth.uid,
+    operatorsLoaded,
+    operators,
+  }
+}
 
 const mapDispatchToProps = {
   saveOperator,
 }
 
-export const OperatorFormContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
-)(OperatorForm)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const OperatorFormContainer = enhance(OperatorForm)

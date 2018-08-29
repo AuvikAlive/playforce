@@ -3,22 +3,23 @@ import { compose } from 'redux'
 import { Clients } from './Clients'
 import { fetchClientsRealTime } from '../../../store/actions/actionCreators/clientActions/'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  client: { clientsLoaded, clients },
-}) => ({
-  userId: uid,
-  clientsLoaded,
-  clients,
-})
+const mapStateToProps = ({ firebase, client }) => {
+  const { clientsLoaded, clients } = client
+
+  return {
+    userId: firebase.auth.uid,
+    clientsLoaded,
+    clients,
+  }
+}
 
 const mapDispatchToProps = { fetchClientsRealTime }
 
-export const ClientsContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Clients)
+)
+
+export const ClientsContainer = enhance(Clients)

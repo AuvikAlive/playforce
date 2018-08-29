@@ -9,26 +9,20 @@ import {
 } from '../../../store/actions/actionCreators/commonIssueActions/'
 import { EditCommonIssue } from './EditCommonIssue'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    commonIssue: { commonIssuesLoaded, commonIssues, commonIssue },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, commonIssue }, { match }) => {
+  const { commonIssuesLoaded, commonIssues } = commonIssue
+  const commonIssueId = match.params.id
+
+  return {
+    userId: firebase.auth.uid,
+    commonIssueId,
+    commonIssues,
+    commonIssue:
+      (commonIssuesLoaded &&
+        commonIssues.find(item => item.id === commonIssueId)) ||
+      commonIssue.commonIssue,
   }
-) => ({
-  userId: uid,
-  commonIssueId: id,
-  commonIssues,
-  commonIssue:
-    (commonIssuesLoaded && commonIssues.find(item => item.id === id)) ||
-    commonIssue,
-})
+}
 
 const mapDispatchToProps = {
   fetchCommonIssue,
@@ -36,8 +30,13 @@ const mapDispatchToProps = {
   deleteCommonIssue,
 }
 
-export const EditCommonIssueContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
-  connect(mapStateToProps, mapDispatchToProps)
-)(EditCommonIssue)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const EditCommonIssueContainer = enhance(EditCommonIssue)

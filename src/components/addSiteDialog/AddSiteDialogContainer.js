@@ -5,20 +5,24 @@ import { fetchOperatorsRealTime } from '../../store/actions/actionCreators/opera
 import { addSite } from '../../store/actions/actionCreators/siteActions/'
 import { AddSiteDialog } from './AddSiteDialog'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  operator: { operatorsLoaded, operators },
-}) => ({
-  userId: uid,
-  operatorsLoaded,
-  operators,
-})
+const mapStateToProps = ({ firebase, operator }) => {
+  const { operatorsLoaded, operators } = operator
+
+  return {
+    userId: firebase.auth.uid,
+    operatorsLoaded,
+    operators,
+  }
+}
 
 const mapDispatchToProps = { fetchOperatorsRealTime, addSite }
 
-export const AddSiteDialogContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
-)(AddSiteDialog)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const AddSiteDialogContainer = enhance(AddSiteDialog)

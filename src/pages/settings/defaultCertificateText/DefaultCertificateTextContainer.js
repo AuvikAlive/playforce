@@ -3,19 +3,17 @@ import { compose } from 'redux'
 import { updateProfile } from '../../../store/actions/actionCreators/profileActions'
 import { DefaultCertificateText } from './DefaultCertificateText'
 
-const mapStateToProps = ({
-  firebase: {
-    profile: { defaultCertificateText },
-  },
-}) => ({
-  defaultCertificateText,
+const mapStateToProps = ({ firebase }) => ({
+  defaultCertificateText: firebase.profile.defaultCertificateText,
 })
 
 const mapDispatchToProps = { updateProfile }
 
-export const DefaultCertificateTextContainer = compose(
+const enhance = compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(DefaultCertificateText)
+)
+
+export const DefaultCertificateTextContainer = enhance(DefaultCertificateText)

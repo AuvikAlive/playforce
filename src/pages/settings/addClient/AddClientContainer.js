@@ -4,20 +4,18 @@ import { addClient } from '../../../store/actions/actionCreators/clientActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AddClient } from './AddClient'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-}) => ({
-  userId: uid,
+const mapStateToProps = ({ firebase }) => ({
+  userId: firebase.auth.uid,
 })
 
 const mapDispatchToProps = { addClient }
 
-export const AddClientContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(AddClient)
+)
+
+export const AddClientContainer = enhance(AddClient)

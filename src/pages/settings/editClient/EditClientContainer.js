@@ -9,31 +9,28 @@ import {
 } from '../../../store/actions/actionCreators/clientActions/'
 import { EditClient } from './EditClient'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    client: { clientsLoaded, clients, client },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, client }, { match }) => {
+  const { clientsLoaded, clients } = client
+  const clientId = match.params.id
+
+  return {
+    userId: firebase.auth.uid,
+    clientId,
+    client:
+      (clientsLoaded && clients.find(item => item.id === clientId)) ||
+      client.client,
   }
-) => ({
-  userId: uid,
-  clientId: id,
-  client: (clientsLoaded && clients.find(item => item.id === id)) || client,
-})
+}
 
 const mapDispatchToProps = { fetchClient, updateClient, deleteClient }
 
-export const EditClientContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(EditClient)
+)
+
+export const EditClientContainer = enhance(EditClient)

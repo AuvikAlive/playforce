@@ -9,29 +9,28 @@ import {
 } from '../../../store/actions/actionCreators/standardActions/'
 import { EditStandard } from './EditStandard'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    standard: { standardsLoaded, standards, standard },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, standard }, { match }) => {
+  const { standardsLoaded, standards } = standard
+  const standardId = match.params.id
+
+  return {
+    userId: firebase.auth.uid,
+    standardId,
+    standard:
+      (standardsLoaded && standards.find(item => item.id === standardId)) ||
+      standard.standard,
   }
-) => ({
-  userId: uid,
-  standardId: id,
-  standard:
-    (standardsLoaded && standards.find(item => item.id === id)) || standard,
-})
+}
 
 const mapDispatchToProps = { updateStandard, fetchStandard, deleteStandard }
 
-export const EditStandardContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
-  connect(mapStateToProps, mapDispatchToProps)
-)(EditStandard)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const EditStandardContainer = enhance(EditStandard)

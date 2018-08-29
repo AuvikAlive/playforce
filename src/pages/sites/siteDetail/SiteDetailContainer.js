@@ -8,31 +8,26 @@ import {
 } from '../../../store/actions/actionCreators/siteActions/'
 import { SiteDetail } from './SiteDetail'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    site: { sitesLoaded, sites, site },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, site }, { match }) => {
+  const { sitesLoaded, sites } = site
+  const siteId = match.params.id
+
+  return {
+    userId: firebase.auth.uid,
+    siteId,
+    site: (sitesLoaded && sites.find(item => item.id === siteId)) || site.site,
   }
-) => ({
-  userId: uid,
-  siteId: id,
-  site: (sitesLoaded && sites.find(item => item.id === id)) || site,
-})
+}
 
 const mapDispatchToProps = { fetchSite, deleteSite }
 
-export const SiteDetailContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(SiteDetail)
+)
+
+export const SiteDetailContainer = enhance(SiteDetail)

@@ -4,27 +4,15 @@ import { withFirestore } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AddInspection } from './AddInspection'
 
-const mapStateToProps = (
-  {
-    firestore: {
-      data: { users },
-    },
-    firebase: {
-      auth: { uid },
-    },
-  },
-  {
-    match: {
-      params: { id },
-    },
-  }
-) => ({
-  userId: uid,
-  siteId: id,
+const mapStateToProps = ({ firebase }, { match }) => ({
+  userId: firebase.auth.uid,
+  siteId: match.params.id,
 })
 
-export const AddInspectionContainer = compose(
+const enhance = compose(
   withFeedback,
   withFirestore,
   connect(mapStateToProps)
-)(AddInspection)
+)
+
+export const AddInspectionContainer = enhance(AddInspection)

@@ -14,7 +14,12 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = { saveManufacturer }
 
-export const ManufacturerFormContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
-)(ManufacturerForm)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const ManufacturerFormContainer = enhance(ManufacturerForm)

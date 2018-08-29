@@ -7,26 +7,27 @@ import {
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { InspectionTypes } from './InspectionTypes'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  inspectionType: { inspectionTypesLoaded, inspectionTypes },
-}) => ({
-  userId: uid,
-  inspectionTypesLoaded,
-  inspectionTypes,
-})
+const mapStateToProps = ({ firebase, inspectionType }) => {
+  const { inspectionTypesLoaded, inspectionTypes } = inspectionType
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionTypesLoaded,
+    inspectionTypes,
+  }
+}
 
 const mapDispatchToProps = {
   deleteInspectionType,
   fetchInspectionTypesRealTime,
 }
 
-export const InspectionTypesContainer = compose(
+const enhance = compose(
   withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(InspectionTypes)
+)
+
+export const InspectionTypesContainer = enhance(InspectionTypes)

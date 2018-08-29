@@ -4,16 +4,14 @@ import { withFirebase } from 'react-redux-firebase'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { Company } from './Company'
 
-const mapStateToProps = ({
-  firebase: {
-    profile: { companyInfo },
-  },
-}) => ({
-  companyInfo,
+const mapStateToProps = ({ firebase }) => ({
+  companyInfo: firebase.profile.companyInfo,
 })
 
-export const CompanyContainer = compose(
-  withFeedback,
+const enhance = compose(
   withFirebase,
+  withFeedback,
   connect(mapStateToProps)
-)(Company)
+)
+
+export const CompanyContainer = enhance(Company)

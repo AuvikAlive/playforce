@@ -8,14 +8,9 @@ import {
 } from '../../../functions/'
 import { submit } from './submit'
 
-const message = 'Equipment published!'
-const pathHead = 'edit/'
-
 export class AddEquipment extends Component {
   componentDidMount() {
-    const title = 'Add an Equipment'
-
-    onComponentDidMountWithTitle(this, title)
+    onComponentDidMountWithTitle(this, 'Add Equipment')
   }
 
   componentWillMount() {
@@ -26,7 +21,7 @@ export class AddEquipment extends Component {
     return (
       <EquipmentForm
         onSubmit={submit(this)}
-        afterSubmit={showActionGo(this, message, pathHead)}
+        afterSubmit={showActionGo(this, 'Equipment published!', 'edit/')}
       />
     )
   }

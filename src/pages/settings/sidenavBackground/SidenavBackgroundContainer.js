@@ -6,7 +6,12 @@ import { SidenavBackground } from './SidenavBackground'
 
 const mapDispatchToProps = { updateProfile }
 
-export const SidenavBackgroundContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(null, mapDispatchToProps)
-)(SidenavBackground)
+  connect(
+    null,
+    mapDispatchToProps
+  )
+)
+
+export const SidenavBackgroundContainer = enhance(SidenavBackground)

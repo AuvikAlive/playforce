@@ -1,3 +1,3 @@
-import { SiteEditRoutesContainer } from './SiteEditRoutesContainer'
+import { SiteEditRoutes } from './SiteEditRoutes'
 
-export default SiteEditRoutesContainer
+export default SiteEditRoutes

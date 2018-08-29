@@ -7,8 +7,13 @@ import { ResetPassword } from './ResetPassword'
 
 const mapDispatchToProps = { sendPasswordResetEmail }
 
-export const ResetPasswordContainer = compose(
+const enhance = compose(
   withFeedback,
   withFirebase,
-  connect(null, mapDispatchToProps)
-)(ResetPassword)
+  connect(
+    null,
+    mapDispatchToProps
+  )
+)
+
+export const ResetPasswordContainer = enhance(ResetPassword)

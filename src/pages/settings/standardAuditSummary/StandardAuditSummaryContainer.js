@@ -4,17 +4,18 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { updateProfile } from '../../../store/actions/actionCreators/profileActions'
 import { StandardAuditSummary } from './StandardAuditSummary'
 
-const mapStateToProps = ({
-  firebase: {
-    profile: { standardAuditSummary },
-  },
-}) => ({
-  standardAuditSummary,
+const mapStateToProps = ({ firebase }) => ({
+  standardAuditSummary: firebase.profile.standardAuditSummary,
 })
 
 const mapDispatchToProps = { updateProfile }
 
-export const StandardAuditSummaryContainer = compose(
+const enhance = compose(
   withFeedback,
-  connect(mapStateToProps, mapDispatchToProps)
-)(StandardAuditSummary)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const StandardAuditSummaryContainer = enhance(StandardAuditSummary)

@@ -6,33 +6,27 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { fetchInspectionsBySiteRealTime } from '../../../store/actions/actionCreators/inspectionListActions/'
 import { deleteInspection } from '../../../store/actions/actionCreators/inspectionActions/deleteInspection'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    inspectionList: { inspectionsBySiteLoaded, inspectionsBySite, site },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, inspectionList }, { match }) => {
+  const { inspectionsBySiteLoaded, inspectionsBySite, site } = inspectionList
+
+  return {
+    userId: firebase.auth.uid,
+    siteId: match.params.id,
+    inspectionsBySiteLoaded,
+    inspectionsBySite,
+    site,
   }
-) => ({
-  userId: uid,
-  siteId: id,
-  inspectionsBySiteLoaded,
-  inspectionsBySite,
-  site,
-})
+}
 
 const mapDispatchToProps = { fetchInspectionsBySiteRealTime, deleteInspection }
 
-export const InspectionListContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(InspectionList)
+)
+
+export const InspectionListContainer = enhance(InspectionList)

@@ -8,13 +8,18 @@ import {
 } from '../../store/actions/actionCreators/searchBarActions'
 import { SearchBar } from './SearchBar'
 
-const mapStateToProps = ({ searchBar: { query } }) => ({
-  query,
+const mapStateToProps = ({ searchBar }) => ({
+  query: searchBar.query,
 })
 
 const mapDispatchToProps = { closeSearchBar, setSearchQuery, setSearchResults }
 
-export const SearchBarContainer = compose(
+const enhance = compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(SearchBar)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const SearchBarContainer = enhance(SearchBar)

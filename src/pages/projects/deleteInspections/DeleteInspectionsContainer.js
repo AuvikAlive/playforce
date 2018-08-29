@@ -15,23 +15,22 @@ import {
 } from '../../../store/actions/actionCreators/searchBarActions'
 import { DeleteInspections } from './DeleteInspections'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  inspectionList: { inspectionsLoaded, inspections },
-  project: { projectMembersLoaded, projectMembers },
-  searchBar: { open, query, results },
-}) => ({
-  userId: uid,
-  inspectionsLoaded,
-  inspections,
-  projectMembersLoaded,
-  projectMembers,
-  searchBarOpen: open,
-  searchResults: results,
-  query,
-})
+const mapStateToProps = ({ firebase, inspectionList, project, searchBar }) => {
+  const { inspectionsLoaded, inspections } = inspectionList
+  const { projectMembersLoaded, projectMembers } = project
+  const { open, query, results } = searchBar
+
+  return {
+    userId: firebase.auth.uid,
+    inspectionsLoaded,
+    inspections,
+    projectMembersLoaded,
+    projectMembers,
+    searchBarOpen: open,
+    searchResults: results,
+    query,
+  }
+}
 
 const mapDispatchToProps = {
   fetchInspectionsRealTime,
@@ -42,10 +41,12 @@ const mapDispatchToProps = {
   closeSearchBar,
 }
 
-export const DeleteInspectionsContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(DeleteInspections)
+)
+
+export const DeleteInspectionsContainer = enhance(DeleteInspections)

@@ -4,20 +4,21 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { updateProfile } from '../../../store/actions/actionCreators/profileActions'
 import { PreimplementationRecommendation } from './PreimplementationRecommendation'
 
-const mapStateToProps = ({
-  firebase: {
-    profile: { preimplementationRecommendation },
-  },
-}) => ({
-  preimplementationRecommendation,
+const mapStateToProps = ({ firebase }) => ({
+  preimplementationRecommendation:
+    firebase.profile.preimplementationRecommendation,
 })
 
 const mapDispatchToProps = { updateProfile }
 
-export const PreimplementationRecommendationContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(PreimplementationRecommendation)
+)
+
+export const PreimplementationRecommendationContainer = enhance(
+  PreimplementationRecommendation
+)

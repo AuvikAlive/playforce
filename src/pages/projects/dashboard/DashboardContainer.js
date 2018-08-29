@@ -4,20 +4,18 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { addProject } from '../../../store/actions/actionCreators/projectActions/'
 import { Dashboard } from './Dashboard'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-}) => ({
-  userId: uid,
+const mapStateToProps = ({ firebase }) => ({
+  userId: firebase.auth.uid,
 })
 
 const mapDispatchToProps = { addProject }
 
-export const DashboardContainer = compose(
+const enhance = compose(
   withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Dashboard)
+)
+
+export const DashboardContainer = enhance(Dashboard)

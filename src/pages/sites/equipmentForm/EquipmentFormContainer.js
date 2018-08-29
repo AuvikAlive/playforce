@@ -7,20 +7,19 @@ import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFul
 import { fetchManufacturersRealTime } from '../../../store/actions/actionCreators/manufacturerActions/'
 import { EquipmentForm } from './EquipmentForm'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  manufacturer: { manufacturersLoaded, manufacturers },
-}) => ({
-  userId: uid,
-  manufacturersLoaded,
-  manufacturers,
-})
+const mapStateToProps = ({ firebase, manufacturer }) => {
+  const { manufacturersLoaded, manufacturers } = manufacturer
+
+  return {
+    userId: firebase.auth.uid,
+    manufacturersLoaded,
+    manufacturers,
+  }
+}
 
 const mapDispatchToProps = { fetchManufacturersRealTime }
 
-export const EquipmentFormContainer = compose(
+const enhance = compose(
   withRouter,
   withFullscreenDialog,
   withImageCapture,
@@ -29,4 +28,6 @@ export const EquipmentFormContainer = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(EquipmentForm)
+)
+
+export const EquipmentFormContainer = enhance(EquipmentForm)

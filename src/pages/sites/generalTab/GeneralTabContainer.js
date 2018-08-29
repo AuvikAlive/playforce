@@ -8,28 +8,26 @@ import {
 } from '../../../store/actions/actionCreators/siteActions/'
 import { GeneralTab } from './GeneralTab'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    site: { sitesLoaded, sites, site },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, site }, { match }) => {
+  const { sitesLoaded, sites } = site
+  const siteId = match.params.id
+
+  return {
+    userId: firebase.auth.uid,
+    siteId,
+    site: (sitesLoaded && sites.find(item => item.id === siteId)) || site.site,
   }
-) => ({
-  userId: uid,
-  siteId: id,
-  site: (sitesLoaded && sites.find(item => item.id === id)) || site,
-})
+}
 
 const mapDispatchToProps = { fetchSite, updateSite }
 
-export const GeneralTabContainer = compose(
+const enhance = compose(
   withFeedback,
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(GeneralTab)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const GeneralTabContainer = enhance(GeneralTab)

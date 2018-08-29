@@ -9,35 +9,30 @@ import {
 } from '../../../store/actions/actionCreators/equipmentActions/'
 import { EditEquipment } from './EditEquipment'
 
-const mapStateToProps = (
-  {
-    firebase: {
-      auth: { uid },
-    },
-    equipment: { equipmentsLoaded, equipments, equipment },
-  },
-  {
-    match: {
-      params: { id },
-    },
+const mapStateToProps = ({ firebase, equipment }, { match }) => {
+  const { equipmentsLoaded, equipments } = equipment
+  const id = match.params.id
+
+  return {
+    userId: firebase.auth.uid,
+    id,
+    equipmentsLoaded,
+    equipments,
+    equipment:
+      (equipmentsLoaded && equipments.find(item => item.equipment === id)) ||
+      equipment.equipment,
   }
-) => ({
-  userId: uid,
-  equipmentsLoaded,
-  equipments,
-  equipment:
-    (equipmentsLoaded && equipments.find(item => item.equipment === id)) ||
-    equipment,
-  id,
-})
+}
 
 const mapDispatchToProps = { updateEquipment, fetchEquipment, deleteEquipment }
 
-export const EditEquipmentContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(EditEquipment)
+)
+
+export const EditEquipmentContainer = enhance(EditEquipment)

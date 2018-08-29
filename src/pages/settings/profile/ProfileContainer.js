@@ -6,15 +6,15 @@ import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFul
 import { updateProfile } from '../../../store/actions/actionCreators/profileActions'
 import { Profile } from './Profile'
 
-const mapStateToProps = ({ firebase: { profile } }) => ({
-  profile,
+const mapStateToProps = ({ firebase }) => ({
+  profile: firebase.profile,
 })
 
 const mapDispatchToProps = {
   updateProfile,
 }
 
-export const ProfileContainer = compose(
+const enhance = compose(
   withFullscreenDialog,
   withImageCapture,
   withFeedback,
@@ -22,4 +22,6 @@ export const ProfileContainer = compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(Profile)
+)
+
+export const ProfileContainer = enhance(Profile)

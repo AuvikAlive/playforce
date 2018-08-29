@@ -4,8 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { CommonIssueForm } from './CommonIssueForm'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 
-export const CommonIssueFormContainer = compose(
+const enhance = compose(
   withFeedback,
   withRouter,
   connect(null)
-)(CommonIssueForm)
+)
+
+export const CommonIssueFormContainer = enhance(CommonIssueForm)

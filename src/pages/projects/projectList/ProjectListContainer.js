@@ -5,24 +5,25 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { fetchProjectsRealTime } from '../../../store/actions/actionCreators/projectActions/'
 import { ProjectList } from './ProjectList'
 
-const mapStateToProps = ({
-  firebase: {
-    auth: { uid },
-  },
-  project: { projectsLoaded, projects },
-}) => ({
-  userId: uid,
-  projectsLoaded,
-  projects,
-})
+const mapStateToProps = ({ firebase, project }) => {
+  const { projectsLoaded, projects } = project
+
+  return {
+    userId: firebase.auth.uid,
+    projectsLoaded,
+    projects,
+  }
+}
 
 const mapDispatchToProps = { fetchProjectsRealTime }
 
-export const ProjectListContainer = compose(
+const enhance = compose(
   withFeedback,
   withDeleteDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps
   )
-)(ProjectList)
+)
+
+export const ProjectListContainer = enhance(ProjectList)
