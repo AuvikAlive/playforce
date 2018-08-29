@@ -37,11 +37,10 @@ export const makeDrops = dropTests => {
     }
 
     return {
-      unbreakable: true,
       marginBottom: verticalMargin,
       columnGap: verticalMargin,
       columns: quadruple,
-      ...((index + 1) % 3 === 0 && { pageBreak: 'after' }),
+      // ...((index + 1) % 3 === 0 && { pageBreak: 'after' }),
     }
   })
 
