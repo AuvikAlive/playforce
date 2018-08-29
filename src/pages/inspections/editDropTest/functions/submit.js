@@ -16,5 +16,5 @@ export const submit = component => async data => {
     data,
   })
 
-  setFeedback({ success: 'Test updated!' })
+  setFeedback({ success: 'Drop test updated!' })
 }

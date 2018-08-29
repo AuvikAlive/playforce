@@ -1,5 +1,5 @@
 import { makeTitle } from '../makeTitle'
-import { makeImages } from './makeImages'
+import { makeTests } from './makeTests'
 
 export const makeImpactTestImages = impactTests => {
   if (
@@ -9,7 +9,7 @@ export const makeImpactTestImages = impactTests => {
   ) {
     return [
       makeTitle('IMPACT TEST IMAGES'),
-      makeImages(impactTests),
+      makeTests(impactTests),
       { text: '', pageBreak: 'after' },
     ]
   } else {

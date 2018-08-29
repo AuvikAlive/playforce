@@ -45,10 +45,16 @@ export class ImpactTestDetailItems extends Component {
             subheader={<ListSubheader component="div">Drops</ListSubheader>}
           >
             {dropTestAdded &&
-              impactTest.dropTests.sort((a, b) => a.id > b.id).map(({ id }) => (
-                <StyledNavLink key={id} to={`${match.url}/editDrop/${id}`}>
+              impactTest.dropTests.map(({ id }, index) => (
+                <StyledNavLink
+                  key={id}
+                  to={{
+                    pathname: `${match.url}/editDrop/${id}`,
+                    state: { index },
+                  }}
+                >
                   <ListItem button>
-                    <ListItemText primary={`Drop ${id}`} />
+                    <ListItemText primary={`Drop ${index + 1}`} />
                   </ListItem>
                 </StyledNavLink>
               ))}

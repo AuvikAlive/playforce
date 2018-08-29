@@ -2,12 +2,9 @@ import { onComponentDidMountWithTitleLeftRightNavDelete } from '../../../../func
 import { deleteDropTest } from './deleteDropTest'
 
 export const onComponentDidMount = component => {
-  const { id } = component.props
-  const title = `Edit drop ${id}`
-
   onComponentDidMountWithTitleLeftRightNavDelete(
     component,
-    title,
+    'Edit Drop Test',
     deleteDropTest
   )
 }

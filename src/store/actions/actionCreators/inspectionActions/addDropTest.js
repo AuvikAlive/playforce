@@ -33,18 +33,18 @@ export const addDropTest = (userId, inspectionId, impactTestId, data) => async (
       .collection('impactTests')
       .doc(impactTestId)
 
-    const inspectionDoc = await inspectionRef.get()
-    const { dropCount = 0, deletedDrops } = inspectionDoc.data()
-    const dropNumber =
-      deletedDrops && deletedDrops.length > 0
-        ? `${deletedDrops.shift()}`
-        : `${dropCount + 1}`
+    // const inspectionDoc = await inspectionRef.get()
+    // const { dropCount = 0, deletedDrops } = inspectionDoc.data()
+    // const dropNumber =
+    //   deletedDrops && deletedDrops.length > 0
+    //     ? `${deletedDrops.shift()}`
+    //     : `${dropCount + 1}`
 
-    deletedDrops
-      ? transaction.update(inspectionRef, { deletedDrops })
-      : transaction.update(inspectionRef, { dropCount: dropCount + 1 })
+    // deletedDrops
+    //   ? transaction.update(inspectionRef, { deletedDrops })
+    //   : transaction.update(inspectionRef, { dropCount: dropCount + 1 })
 
-    const ref = impactTestRef.collection('dropTests').doc(dropNumber)
+    const ref = impactTestRef.collection('dropTests').doc()
     const { image } = data
 
     const downloadURL = await dispatch(

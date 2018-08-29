@@ -3,8 +3,8 @@ const green = '#008000'
 
 export const makeDropRows = dropTests => {
   const rows = dropTests.map(
-    ({ id, location, dropHeight, hic, hicDuration, gmax, result }) => [
-      `00${id}`,
+    ({ id, location, dropHeight, hic, hicDuration, gmax, result }, index) => [
+      `${index + 1}`.padStart(3, '0'),
       location,
       dropHeight,
       {

@@ -23,7 +23,7 @@ export class AddDropTest extends Component {
     return (
       <DropTestForm
         onSubmit={data => addDropTest(userId, inspectionId, impactTestId, data)}
-        afterSubmit={showActionGo(this, 'Drop added!', pathHead)}
+        afterSubmit={showActionGo(this, 'Drop test added!', pathHead)}
       />
     )
   }

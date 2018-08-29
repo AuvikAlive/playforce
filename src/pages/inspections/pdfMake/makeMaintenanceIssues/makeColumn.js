@@ -22,7 +22,7 @@ export const makeColumn = ({
               text: 'Issue #: ',
               bold: true,
             },
-            `00${index + 1}`,
+            `${index + 1}`.padStart(3, '0'),
           ],
         },
         {
