@@ -1,5 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { compose } from 'recompose'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   renderImpactTestDetailItems,
   renderEditImpactSurface,
@@ -7,7 +9,7 @@ import {
   renderEditDropTest,
 } from './functions/'
 
-export const ImpactTestDetailRoutes = props => {
+const BaseImpactTestDetailRoutes = props => {
   const { match } = props
 
   return (
@@ -28,3 +30,7 @@ export const ImpactTestDetailRoutes = props => {
     </Switch>
   )
 }
+
+const enhance = compose(withFeedback)
+
+export const ImpactTestDetailRoutes = enhance(BaseImpactTestDetailRoutes)

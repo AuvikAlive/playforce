@@ -8,20 +8,11 @@ const EditImpactSurface = Loadable({
 EditImpactSurface.preload()
 
 export const renderEditImpactSurface = props => routerProps => {
-  const {
-    impactTest,
-    updateImpactSurface,
-    userId,
-    inspectionId,
-    impactTestId,
-  } = props
+  const { impactTest, updateImpactSurface } = props
 
   return (
     <EditImpactSurface
-      updateImpactSurface={data =>
-        updateImpactSurface(userId, inspectionId, impactTestId, data)
-      }
-      {...{ impactTest }}
+      {...{ impactTest, updateImpactSurface }}
       {...routerProps}
     />
   )

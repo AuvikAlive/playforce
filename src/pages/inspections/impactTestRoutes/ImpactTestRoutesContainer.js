@@ -7,6 +7,11 @@ import {
   saveImpactGeneralInfo,
   deleteImpactTest,
   addSurfaceTest,
+  deleteSurfaceTest,
+  updateImpactSurface,
+  addDropTest,
+  updateDropTest,
+  deleteDropTest,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { ImpactTestRoutes } from './ImpactTestRoutes'
@@ -36,6 +41,11 @@ const mapDispatchToProps = {
   saveImpactGeneralInfo,
   deleteImpactTest,
   addSurfaceTest,
+  deleteSurfaceTest,
+  updateImpactSurface,
+  addDropTest,
+  updateDropTest,
+  deleteDropTest,
 }
 
 const enhance = compose(

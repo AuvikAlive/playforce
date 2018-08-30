@@ -9,15 +9,13 @@ const AddDropTest = Loadable({
 AddDropTest.preload()
 
 export const renderAddDropTest = props => routerProps => {
-  const { match, addDropTest, userId, inspectionId, impactTestId } = props
+  const { match, addDropTest } = props
   const pathHead = `${match.url}/editDrop/`
 
   return (
     <AddDropTest
-      addDropTest={data =>
-        addDropTest(userId, inspectionId, impactTestId, data)
-      }
       afterSubmit={showActionGo({ props }, 'Drop test added!', pathHead)}
+      {...{ addDropTest }}
       {...routerProps}
     />
   )

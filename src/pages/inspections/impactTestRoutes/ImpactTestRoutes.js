@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../components/loadable/LoadableLinear'
 import { contextTypesUnsubscriber } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
 import {
@@ -9,13 +8,8 @@ import {
   renderAddImpactAttenuationTest,
   renderEditImpactGeneralInfo,
   renderAddImpactSurface,
+  renderImpactTestDetailRoutes,
 } from './functions/'
-
-const ImpactTestDetailRoutes = Loadable({
-  loader: () => import('../impactTestDetailRoutes'),
-})
-
-ImpactTestDetailRoutes.preload()
 
 export class ImpactTestRoutes extends Component {
   componentDidMount() {
@@ -31,7 +25,7 @@ export class ImpactTestRoutes extends Component {
       <Switch>
         <Route
           path={`${match.url}/edit/:id`}
-          component={ImpactTestDetailRoutes}
+          render={renderImpactTestDetailRoutes(this)}
         />
 
         <Route
