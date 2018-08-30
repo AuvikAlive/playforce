@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
-  onComponentWillUnmountWithTitleLeftNav,
+  onComponentWillUnmountWithTitleLeftRightNav,
   showActionGoBack,
 } from '../../../functions/'
 import ComplianceIssueForm from '../complianceIssueForm/'
@@ -13,19 +13,20 @@ export class AddComplianceIssue extends Component {
   }
 
   componentWillUnmount() {
-    onComponentWillUnmountWithTitleLeftNav(this)
+    onComponentWillUnmountWithTitleLeftRightNav(this)
   }
 
   render() {
-    const { addComplianceIssue } = this.props
+    const { props, context } = this
 
     return (
       <ComplianceIssueForm
         afterSubmit={showActionGoBack(this, 'Issue published!')}
-        onSubmit={data => addComplianceIssue(data)}
+        onSubmit={data => props.addComplianceIssue(data)}
+        setNav={context.setRightNavComponent}
       />
     )
   }
 }
 
-AddComplianceIssue.contextTypes = contextTypesTitleLeftNav
+AddComplianceIssue.contextTypes = contextTypesTitleLeftRightNav

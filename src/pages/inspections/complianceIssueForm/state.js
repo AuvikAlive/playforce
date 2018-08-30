@@ -3,9 +3,12 @@ export const state = {
   commonIssueIndex: '',
   finding: '',
   equipment: '',
+  playingSurface: '',
   standardsClause: '',
   probability: '',
   severity: '',
   comments: '',
   recommendations: '',
+  menuAnchor: null,
+  playingSurfaceMode: false,
 }

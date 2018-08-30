@@ -2,9 +2,11 @@ export const onComponentDidMount = async component => {
   const {
     inspectionLoaded,
     complianceIssuesLoaded,
+    playingSurfacesLoaded,
     userId,
     inspectionId,
     fetchInspectionRealTime,
+    fetchPlayingSufacesRealTime,
     fetchComplianceIssues,
   } = component.props
 
@@ -12,5 +14,9 @@ export const onComponentDidMount = async component => {
 
   !inspectionLoaded &&
     addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
+
+  !playingSurfacesLoaded &&
+    addUnsubscriber(await fetchPlayingSufacesRealTime(userId, inspectionId))
+
   !complianceIssuesLoaded && fetchComplianceIssues(userId, inspectionId)
 }

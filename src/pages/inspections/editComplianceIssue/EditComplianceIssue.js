@@ -1,21 +1,10 @@
 import React, { Component } from 'react'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
-import {
-  onComponentDidMountWithTitleLeftRightNavDelete,
-  onComponentWillUnmountWithTitleLeftRightNav,
-} from '../../../functions/'
+import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
 import ComplianceIssueForm from '../complianceIssueForm/'
-import { deleteIssue, submit } from './functions/'
+import { submit, setNav } from './functions/'
 
 export class EditComplianceIssue extends Component {
-  componentDidMount() {
-    onComponentDidMountWithTitleLeftRightNavDelete(
-      this,
-      'Edit Issue',
-      deleteIssue
-    )
-  }
-
   componentWillUnmount() {
     onComponentWillUnmountWithTitleLeftRightNav(this)
   }
@@ -28,6 +17,7 @@ export class EditComplianceIssue extends Component {
         buttonText="save"
         initialData={complianceIssue}
         onSubmit={submit(this)}
+        setNav={setNav(this)}
       />
     )
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import TextField from '@material-ui/core/TextField'
+import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Grid from '@material-ui/core/Grid'
@@ -24,6 +25,7 @@ import {
   getRiskLevel,
   getImagesCopy,
   showContentWhenLoaded,
+  closeMenu,
 } from '../../../functions/'
 import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
 import { CommonIssueAutoComplete } from '../commonIssueAutoComplete/CommonIssueAutoComplete'
@@ -33,6 +35,8 @@ import {
   onCommonIssueSelect,
   onEquipmentSelect,
   getEquipmentSuggestions,
+  getPlayingSurfaceSuggestions,
+  toggleMode,
   submit,
 } from './functions/'
 import { state } from './state'
@@ -65,11 +69,14 @@ export class ComplianceIssueForm extends Component {
       images,
       finding,
       equipment,
+      playingSurface,
       standardsClause,
       probability,
       severity,
       comments,
       recommendations,
+      menuAnchor,
+      playingSurfaceMode,
     } = this.state
 
     const riskLevel = getRiskLevel(probability, severity)
@@ -126,13 +133,22 @@ export class ComplianceIssueForm extends Component {
             </Button>
 
             <form noValidate>
-              <AutoComplete
-                label="Equipment"
-                value={equipment}
-                onChange={onValueInputChange(this, 'equipment')}
-                onSuggestionSelect={onEquipmentSelect(this)}
-                getSuggestions={getEquipmentSuggestions(this)}
-              />
+              {playingSurfaceMode ? (
+                <AutoComplete
+                  label="Playing Surface"
+                  value={playingSurface}
+                  onChange={onValueInputChange(this, 'playingSurface')}
+                  getSuggestions={getPlayingSurfaceSuggestions(this)}
+                />
+              ) : (
+                <AutoComplete
+                  label="Equipment"
+                  value={equipment}
+                  onChange={onValueInputChange(this, 'equipment')}
+                  onSuggestionSelect={onEquipmentSelect(this)}
+                  getSuggestions={getEquipmentSuggestions(this)}
+                />
+              )}
 
               <CommonIssueAutoComplete
                 commonIssues={commonIssues}
@@ -249,6 +265,21 @@ export class ComplianceIssueForm extends Component {
             )}
           </CardContent>
         </Card>
+
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={closeMenu(this)}
+          MenuListProps={{ disablePadding: true }}
+        >
+          {playingSurfaceMode ? (
+            <MenuItem onClick={toggleMode(this)}>Add Equipment Issue</MenuItem>
+          ) : (
+            <MenuItem onClick={toggleMode(this)}>
+              Add Playing Surface Issue
+            </MenuItem>
+          )}
+        </Menu>
       </StyledComplianceIssueForm>
     )
   }

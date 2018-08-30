@@ -18,11 +18,13 @@ export class ComplianceIssueRoutes extends Component {
     const {
       inspectionLoaded,
       complianceIssuesLoaded,
+      playingSurfacesLoaded,
       complianceIssues,
       match,
     } = this.props
 
-    const isLoaded = inspectionLoaded && complianceIssuesLoaded
+    const isLoaded =
+      inspectionLoaded && complianceIssuesLoaded && playingSurfacesLoaded
 
     return showContentWhenLoaded(
       isLoaded,

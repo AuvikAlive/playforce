@@ -1,4 +1,7 @@
-import { loadInitialData } from '../../../../functions/'
+import React from 'react'
+import IconButton from '@material-ui/core/IconButton'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { loadInitialData, openMenu } from '../../../../functions/'
 
 export const onComponentDidMount = async component => {
   const {
@@ -9,6 +12,7 @@ export const onComponentDidMount = async component => {
     siteId,
     fetchEquipmentsRealTime,
     initialData,
+    setNav,
   } = component.props
 
   const { addUnsubscriber } = component.context
@@ -20,4 +24,15 @@ export const onComponentDidMount = async component => {
     addUnsubscriber(await fetchEquipmentsRealTime(userId, siteId))
 
   initialData && loadInitialData(component, initialData)
+
+  setNav &&
+    setNav(
+      <IconButton
+        color="inherit"
+        aria-label="More"
+        onClick={openMenu(component)}
+      >
+        <MoreVertIcon aria-label="More" />
+      </IconButton>
+    )
 }

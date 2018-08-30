@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
   fetchInspectionRealTime,
+  fetchPlayingSufacesRealTime,
   fetchComplianceIssues,
   fetchComplianceIssuesRealTime,
   addComplianceIssue,
@@ -13,6 +14,8 @@ import { ComplianceIssueRoutes } from './ComplianceIssueRoutes'
 const mapStateToProps = ({ firebase, inspection }, { match }) => {
   const {
     inspectionLoaded,
+    playingSurfacesLoaded,
+    playingSurfaces,
     complianceIssuesLoaded,
     complianceIssues,
   } = inspection
@@ -21,6 +24,8 @@ const mapStateToProps = ({ firebase, inspection }, { match }) => {
     userId: firebase.auth.uid,
     inspectionId: match.params.id,
     inspectionLoaded,
+    playingSurfacesLoaded,
+    playingSurfaces,
     complianceIssuesLoaded,
     complianceIssues,
   }
@@ -28,6 +33,7 @@ const mapStateToProps = ({ firebase, inspection }, { match }) => {
 
 const mapDispatchToProps = {
   fetchInspectionRealTime,
+  fetchPlayingSufacesRealTime,
   fetchComplianceIssues,
   fetchComplianceIssuesRealTime,
   addComplianceIssue,
