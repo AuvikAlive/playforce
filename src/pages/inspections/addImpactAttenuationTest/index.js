@@ -1,3 +1,3 @@
-import { AddImpactAttenuationTestContainer } from './AddImpactAttenuationTestContainer'
+import { AddImpactAttenuationTest } from './AddImpactAttenuationTest'
 
-export default AddImpactAttenuationTestContainer
+export default AddImpactAttenuationTest

@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
@@ -7,7 +9,7 @@ import {
 import { ImpactGeneralInfoForm } from '../impactGeneralInfoForm/ImpactGeneralInfoForm'
 import { submit } from './submit'
 
-export class EditImpactGeneralInfo extends Component {
+class BaseEditImpactGeneralInfo extends Component {
   componentDidMount() {
     onComponentDidMountWithTitleLeftNav(this, 'General Info')
   }
@@ -29,4 +31,8 @@ export class EditImpactGeneralInfo extends Component {
   }
 }
 
-EditImpactGeneralInfo.contextTypes = contextTypesTitleLeftNav
+BaseEditImpactGeneralInfo.contextTypes = contextTypesTitleLeftNav
+
+export const enhance = compose(withFeedback)
+
+export const EditImpactGeneralInfo = enhance(BaseEditImpactGeneralInfo)

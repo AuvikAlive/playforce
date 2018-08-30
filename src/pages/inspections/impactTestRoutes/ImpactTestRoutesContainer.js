@@ -4,11 +4,20 @@ import {
   fetchInspectionRealTime,
   fetchImpactTestsRealTime,
   fetchImpactTests,
+  saveImpactGeneralInfo,
+  deleteImpactTest,
+  addSurfaceTest,
 } from '../../../store/actions/actionCreators/inspectionActions/'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { ImpactTestRoutes } from './ImpactTestRoutes'
 
 const mapStateToProps = ({ firebase, inspection }, { match }) => {
-  const { inspectionLoaded, impactTestsLoaded, impactTests } = inspection
+  const {
+    inspectionLoaded,
+    impactTestsLoaded,
+    impactTests,
+    impactGeneralInfo,
+  } = inspection
 
   return {
     userId: firebase.auth.uid,
@@ -16,6 +25,7 @@ const mapStateToProps = ({ firebase, inspection }, { match }) => {
     inspectionLoaded,
     impactTestsLoaded,
     impactTests,
+    impactGeneralInfo,
   }
 }
 
@@ -23,9 +33,13 @@ const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchImpactTestsRealTime,
   fetchImpactTests,
+  saveImpactGeneralInfo,
+  deleteImpactTest,
+  addSurfaceTest,
 }
 
 const enhance = compose(
+  withFeedback,
   connect(
     mapStateToProps,
     mapDispatchToProps

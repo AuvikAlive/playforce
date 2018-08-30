@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
 import { DropTestForm } from '../dropTestForm/DropTestForm'
 import { onComponentDidMount, submit } from './functions/'
 
-export class EditDropTest extends Component {
+class BaseEditDropTest extends Component {
   componentDidMount() {
     onComponentDidMount(this)
   }
@@ -26,4 +29,11 @@ export class EditDropTest extends Component {
   }
 }
 
-EditDropTest.contextTypes = contextTypesTitleLeftRightNav
+BaseEditDropTest.contextTypes = contextTypesTitleLeftRightNav
+
+const enhance = compose(
+  withDeleteDialog,
+  withFeedback
+)
+
+export const EditDropTest = enhance(BaseEditDropTest)

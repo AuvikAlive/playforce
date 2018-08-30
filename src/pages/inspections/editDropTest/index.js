@@ -1,3 +1,3 @@
-import { EditDropTestContainer } from './EditDropTestContainer'
+import { EditDropTest } from './EditDropTest'
 
-export default EditDropTestContainer
+export default EditDropTest

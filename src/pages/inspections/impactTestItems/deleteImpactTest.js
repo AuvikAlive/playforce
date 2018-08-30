@@ -1,16 +1,9 @@
 import { showActionGoBack } from '../../../functions/'
 
 export const deleteImpactTest = component => async () => {
-  const {
-    inspectionId,
-    userId,
-    impactTests,
-    deleteImpactTest,
-  } = component.props
+  const { deleteImpactTest } = component.props
 
-  await deleteImpactTest(userId, inspectionId, impactTests)
+  await deleteImpactTest()
 
-  const message = 'Impact test deleted!'
-
-  showActionGoBack(component, message)()
+  showActionGoBack(component, 'Impact test deleted!')()
 }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-  showActionGo,
 } from '../../../functions/'
 import { DropTestForm } from '../dropTestForm/DropTestForm'
 
-export class AddDropTest extends Component {
+class BaseAddDropTest extends Component {
   componentDidMount() {
     onComponentDidMountWithTitleLeftNav(this, 'Add Drop Test')
   }
@@ -17,16 +18,14 @@ export class AddDropTest extends Component {
   }
 
   render() {
-    const { userId, inspectionId, impactTestId, addDropTest } = this.props
-    const pathHead = `/inspections/edit/${inspectionId}/impactTest/edit/${impactTestId}/editDrop/`
+    const { addDropTest, afterSubmit } = this.props
 
-    return (
-      <DropTestForm
-        onSubmit={data => addDropTest(userId, inspectionId, impactTestId, data)}
-        afterSubmit={showActionGo(this, 'Drop test added!', pathHead)}
-      />
-    )
+    return <DropTestForm onSubmit={addDropTest} afterSubmit={afterSubmit} />
   }
 }
 
-AddDropTest.contextTypes = contextTypesTitleLeftNav
+BaseAddDropTest.contextTypes = contextTypesTitleLeftNav
+
+const enhance = compose(withFeedback)
+
+export const AddDropTest = enhance(BaseAddDropTest)

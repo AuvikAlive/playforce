@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
@@ -8,7 +10,7 @@ import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurf
 import { state } from './state'
 import { submit } from './submit'
 
-export class EditImpactSurface extends Component {
+class BaseEditImpactSurface extends Component {
   state = state
 
   componentDidMount() {
@@ -20,18 +22,20 @@ export class EditImpactSurface extends Component {
   }
 
   render() {
-    const {
-      impactTest: { surface },
-    } = this.props
+    const { impactTest } = this.props
 
     return (
       <ImpactSurfaceDetailsForm
         buttonText="update"
-        initialData={surface}
+        initialData={impactTest.surface}
         onSubmit={submit(this)}
       />
     )
   }
 }
 
-EditImpactSurface.contextTypes = contextTypesTitleLeftNav
+BaseEditImpactSurface.contextTypes = contextTypesTitleLeftNav
+
+const enhance = compose(withFeedback)
+
+export const EditImpactSurface = enhance(BaseEditImpactSurface)

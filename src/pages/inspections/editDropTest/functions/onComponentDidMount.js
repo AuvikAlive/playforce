@@ -4,7 +4,7 @@ import { deleteDropTest } from './deleteDropTest'
 export const onComponentDidMount = component => {
   onComponentDidMountWithTitleLeftRightNavDelete(
     component,
-    'Edit Drop Test',
+    `Edit Drop ${component.props.dropTest.dropNumber}`,
     deleteDropTest
   )
 }

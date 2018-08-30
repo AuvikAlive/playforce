@@ -1,3 +1,3 @@
-import { AddImpactSurfaceContainer } from './AddImpactSurfaceContainer'
+import { AddImpactSurface } from './AddImpactSurface'
 
-export default AddImpactSurfaceContainer
+export default AddImpactSurface

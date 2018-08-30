@@ -1,13 +1,7 @@
 export const submit = component => async data => {
-  const {
-    updateImpactSurface,
-    userId,
-    id,
-    inspectionId,
-    setFeedback,
-  } = component.props
+  const { updateImpactSurface, setFeedback } = component.props
 
-  await updateImpactSurface(userId, inspectionId, id, data)
+  await updateImpactSurface(data)
 
   setFeedback({ success: 'Details updated!' })
 }

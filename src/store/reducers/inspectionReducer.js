@@ -251,6 +251,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
       const impactTests = state.impactTests.map(item => {
         if (item.id === impactTestId) {
+          payload.dropNumber = item.dropTests.length + 1
           item.dropTests.push(payload)
         }
 
@@ -295,7 +296,13 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
       const impactTests = state.impactTests.map(item => {
         if (item.id === impactTestId) {
-          item.dropTests = item.dropTests.filter(item => item.id !== id)
+          item.dropTests = item.dropTests
+            .filter(item => item.id !== id)
+            .map((item, index) => {
+              item.dropNumber = index + 1
+
+              return item
+            })
         }
 
         return item

@@ -1,14 +1,9 @@
 import { showActionGoBack } from '../../../../functions/'
 
 export const deleteSurfaceTest = component => async () => {
-  const {
-    inspectionId,
-    userId,
-    impactTest,
-    deleteSurfaceTest,
-  } = component.props
+  const { impactTest, deleteSurfaceTest } = component.props
 
-  await deleteSurfaceTest(userId, inspectionId, impactTest)
+  await deleteSurfaceTest()
 
   const message = `${impactTest.surface.location} deleted!`
 

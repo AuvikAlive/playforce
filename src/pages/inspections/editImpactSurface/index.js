@@ -1,3 +1,3 @@
-import { EditImpactSurfaceContainer } from './EditImpactSurfaceContainer'
+import { EditImpactSurface } from './EditImpactSurface'
 
-export default EditImpactSurfaceContainer
+export default EditImpactSurface

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { contextTypesTitleLeftNav } from '../../../constants/contextTypesTitleLeftNav'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-  showActionGo,
 } from '../../../functions/'
 import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
 
-export class AddImpactSurface extends Component {
+class BaseAddImpactSurface extends Component {
   componentDidMount() {
     onComponentDidMountWithTitleLeftNav(this, 'Add Test')
   }
@@ -17,16 +18,19 @@ export class AddImpactSurface extends Component {
   }
 
   render() {
-    const { userId, inspectionId, addSurfaceTest } = this.props
-    const pathHead = `/inspections/edit/${inspectionId}/impactTest/edit/`
+    const { addSurfaceTest, afterSubmit } = this.props
 
     return (
       <ImpactSurfaceDetailsForm
-        onSubmit={data => addSurfaceTest(userId, inspectionId, data)}
-        afterSubmit={showActionGo(this, 'Test added!', pathHead)}
+        onSubmit={addSurfaceTest}
+        afterSubmit={afterSubmit}
       />
     )
   }
 }
 
-AddImpactSurface.contextTypes = contextTypesTitleLeftNav
+BaseAddImpactSurface.contextTypes = contextTypesTitleLeftNav
+
+const enhance = compose(withFeedback)
+
+export const AddImpactSurface = enhance(BaseAddImpactSurface)

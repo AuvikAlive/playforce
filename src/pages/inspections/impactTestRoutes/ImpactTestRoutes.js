@@ -3,29 +3,19 @@ import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
 import { contextTypesUnsubscriber } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
-import { ImpactTestItemsContainer } from '../impactTestItems/ImpactTestItemsContainer'
-import { onComponentDidMount } from './onComponentDidMount'
-
-const EditImpactGeneralInfo = Loadable({
-  loader: () => import('../editImpactGeneralInfo'),
-})
-
-const AddImpactAttenuationTest = Loadable({
-  loader: () => import('../addImpactAttenuationTest'),
-})
+import {
+  onComponentDidMount,
+  renderImpactTestItems,
+  renderAddImpactAttenuationTest,
+  renderEditImpactGeneralInfo,
+  renderAddImpactSurface,
+} from './functions/'
 
 const ImpactTestDetailRoutes = Loadable({
   loader: () => import('../impactTestDetailRoutes'),
 })
 
-const AddImpactSurface = Loadable({
-  loader: () => import('../addImpactSurface'),
-})
-
-EditImpactGeneralInfo.preload()
-AddImpactAttenuationTest.preload()
 ImpactTestDetailRoutes.preload()
-AddImpactSurface.preload()
 
 export class ImpactTestRoutes extends Component {
   componentDidMount() {
@@ -40,23 +30,26 @@ export class ImpactTestRoutes extends Component {
       isLoaded,
       <Switch>
         <Route
-          path={`${match.url}/general`}
-          component={EditImpactGeneralInfo}
-        />
-
-        <Route
-          path={`${match.url}/addAttenuationTest`}
-          component={AddImpactAttenuationTest}
-        />
-
-        <Route
           path={`${match.url}/edit/:id`}
           component={ImpactTestDetailRoutes}
         />
 
-        <Route path={`${match.url}/add`} component={AddImpactSurface} />
+        <Route
+          path={`${match.url}/add`}
+          render={renderAddImpactSurface(this)}
+        />
 
-        <Route path={match.url} component={ImpactTestItemsContainer} />
+        <Route
+          path={`${match.url}/general`}
+          render={renderEditImpactGeneralInfo(this)}
+        />
+
+        <Route
+          path={`${match.url}/addAttenuationTest`}
+          render={renderAddImpactAttenuationTest(this)}
+        />
+
+        <Route path={match.url} render={renderImpactTestItems(this)} />
       </Switch>
     )
   }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-  showActionGo,
 } from '../../../functions/'
 import { ImpactGeneralInfoForm } from '../impactGeneralInfoForm/ImpactGeneralInfoForm'
 
-export class AddImpactAttenuationTest extends Component {
+class BaseAddImpactAttenuationTest extends Component {
   componentDidMount() {
     onComponentDidMountWithTitleLeftNav(this, 'Impact Attenuation Test')
   }
@@ -17,16 +18,19 @@ export class AddImpactAttenuationTest extends Component {
   }
 
   render() {
-    const { userId, inspectionId, saveImpactGeneralInfo } = this.props
-    const pathHead = `/inspections/edit/${inspectionId}/impactTest`
+    const { saveImpactGeneralInfo, afterSubmit } = this.props
 
     return (
       <ImpactGeneralInfoForm
-        onSubmit={data => saveImpactGeneralInfo(userId, inspectionId, data)}
-        afterSubmit={showActionGo(this, 'Impact test added!', pathHead)}
+        onSubmit={saveImpactGeneralInfo}
+        afterSubmit={afterSubmit}
       />
     )
   }
 }
 
-AddImpactAttenuationTest.contextTypes = contextTypesTitleLeftNav
+BaseAddImpactAttenuationTest.contextTypes = contextTypesTitleLeftNav
+
+const enhance = compose(withFeedback)
+
+export const AddImpactAttenuationTest = enhance(BaseAddImpactAttenuationTest)

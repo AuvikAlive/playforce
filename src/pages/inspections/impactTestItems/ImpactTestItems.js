@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
@@ -14,7 +17,7 @@ import {
 import { StyledImpactTestItems } from './StyledImpactTestItems'
 import { deleteImpactTest } from './deleteImpactTest'
 
-export class ImpactTestItems extends Component {
+class BaseImpactTestItems extends Component {
   componentDidMount() {
     onComponentDidMountWithTitleLeftRightNavDelete(
       this,
@@ -63,4 +66,11 @@ export class ImpactTestItems extends Component {
   }
 }
 
-ImpactTestItems.contextTypes = contextTypesTitleLeftRightNav
+BaseImpactTestItems.contextTypes = contextTypesTitleLeftRightNav
+
+const enhance = compose(
+  withDeleteDialog,
+  withFeedback
+)
+
+export const ImpactTestItems = enhance(BaseImpactTestItems)

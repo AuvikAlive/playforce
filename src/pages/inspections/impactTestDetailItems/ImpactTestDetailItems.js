@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import { compose } from 'recompose'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
+import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
@@ -11,7 +14,7 @@ import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/
 import { StyledImpactTestDetailItems } from './StyledImpactTestDetailItems'
 import { onComponentDidMount } from './functions/onComponentDidMount'
 
-export class ImpactTestDetailItems extends Component {
+class BaseImpactTestDetailItems extends Component {
   componentDidMount() {
     onComponentDidMount(this)
   }
@@ -45,16 +48,10 @@ export class ImpactTestDetailItems extends Component {
             subheader={<ListSubheader component="div">Drops</ListSubheader>}
           >
             {dropTestAdded &&
-              impactTest.dropTests.map(({ id }, index) => (
-                <StyledNavLink
-                  key={id}
-                  to={{
-                    pathname: `${match.url}/editDrop/${id}`,
-                    state: { index },
-                  }}
-                >
+              impactTest.dropTests.map(({ id, dropNumber }) => (
+                <StyledNavLink key={id} to={`${match.url}/editDrop/${id}`}>
                   <ListItem button>
-                    <ListItemText primary={`Drop ${index + 1}`} />
+                    <ListItemText primary={`Drop ${dropNumber}`} />
                   </ListItem>
                 </StyledNavLink>
               ))}
@@ -65,4 +62,11 @@ export class ImpactTestDetailItems extends Component {
   }
 }
 
-ImpactTestDetailItems.contextTypes = contextTypesTitleLeftRightNav
+BaseImpactTestDetailItems.contextTypes = contextTypesTitleLeftRightNav
+
+const enhance = compose(
+  withFeedback,
+  withDeleteDialog
+)
+
+export const ImpactTestDetailItems = enhance(BaseImpactTestDetailItems)

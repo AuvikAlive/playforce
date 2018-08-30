@@ -1,3 +1,3 @@
-import { ImpactTestDetailRoutes } from './ImpactTestDetailRoutes'
+import { ImpactTestDetailRoutesContainer } from './ImpactTestDetailRoutesContainer'
 
-export default ImpactTestDetailRoutes
+export default ImpactTestDetailRoutesContainer

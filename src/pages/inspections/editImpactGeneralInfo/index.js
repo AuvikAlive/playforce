@@ -1,3 +1,3 @@
-import { EditImpactGeneralInfoContainer } from './EditImpactGeneralInfoContainer'
+import { EditImpactGeneralInfo } from './EditImpactGeneralInfo'
 
-export default EditImpactGeneralInfoContainer
+export default EditImpactGeneralInfo
