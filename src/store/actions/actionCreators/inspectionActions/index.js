@@ -51,6 +51,13 @@ import { deletePlaygroundMaintenanceIssue } from './deletePlaygroundMaintenanceI
 import { addPlaygroundPlayingSurface } from './addPlaygroundPlayingSurface'
 import { updatePlaygroundPlayingSurface } from './updatePlaygroundPlayingSurface'
 import { deletePlaygroundPlayingSurface } from './deletePlaygroundPlayingSurface'
+import { savePlaygroundImpactGeneralInfo } from './savePlaygroundImpactGeneralInfo'
+import { addPlaygroundSurfaceTest } from './addPlaygroundSurfaceTest'
+import { updatePlaygroundSurfaceTest } from './updatePlaygroundSurfaceTest'
+import { deletePlaygroundSurfaceTest } from './deletePlaygroundSurfaceTest'
+import { addPlaygroundDropTest } from './addPlaygroundDropTest'
+import { updatePlaygroundDropTest } from './updatePlaygroundDropTest'
+import { deletePlaygroundDropTest } from './deletePlaygroundDropTest'
 import {
   DISCARD_INSPECTION,
   // TOGGLE_INSPECTION_CERTIFICATE,
@@ -110,6 +117,13 @@ export {
   addPlaygroundPlayingSurface,
   updatePlaygroundPlayingSurface,
   deletePlaygroundPlayingSurface,
+  savePlaygroundImpactGeneralInfo,
+  addPlaygroundSurfaceTest,
+  updatePlaygroundSurfaceTest,
+  deletePlaygroundSurfaceTest,
+  addPlaygroundDropTest,
+  updatePlaygroundDropTest,
+  deletePlaygroundDropTest,
 }
 
 export const discardInspection = () => ({

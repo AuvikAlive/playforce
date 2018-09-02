@@ -19,45 +19,71 @@ const PlaygroundPlayingSurfaceRoutes = Loadable({
   loader: () => import('../playgroundPlayingSurfaceRoutes'),
 })
 
+const PlaygroundImpactTestRoutes = Loadable({
+  loader: () => import('../playgroundImpactTestRoutes'),
+})
+
 PlaygroundConditionRatingRoutes.preload()
 PlaygroundComplianceIssueRoutes.preload()
 PlaygroundMaintenanceIssueRoutes.preload()
 PlaygroundPlayingSurfaceRoutes.preload()
+PlaygroundImpactTestRoutes.preload()
 
 export const EditPlaygroundRoutes = ({ match, playgroundId, inspectionId }) => {
   return (
     <Switch>
       <Route
         path={`${match.url}/conditionRating`}
-        render={props => (
-          <PlaygroundConditionRatingRoutes {...{ playgroundId }} {...props} />
+        render={routerProps => (
+          <PlaygroundConditionRatingRoutes
+            {...{ playgroundId }}
+            {...routerProps}
+          />
         )}
       />
 
       <Route
         path={`${match.url}/complianceIssues`}
-        render={props => (
-          <PlaygroundComplianceIssueRoutes {...{ playgroundId }} {...props} />
+        render={routerProps => (
+          <PlaygroundComplianceIssueRoutes
+            {...{ playgroundId }}
+            {...routerProps}
+          />
         )}
       />
 
       <Route
         path={`${match.url}/maintenanceIssues`}
-        render={props => (
-          <PlaygroundMaintenanceIssueRoutes {...{ playgroundId }} {...props} />
+        render={routerProps => (
+          <PlaygroundMaintenanceIssueRoutes
+            {...{ playgroundId }}
+            {...routerProps}
+          />
         )}
       />
 
       <Route
         path={`${match.url}/playingSurfaces`}
-        render={props => (
-          <PlaygroundPlayingSurfaceRoutes {...{ playgroundId }} {...props} />
+        render={routerProps => (
+          <PlaygroundPlayingSurfaceRoutes
+            {...{ playgroundId }}
+            {...routerProps}
+          />
+        )}
+      />
+
+      <Route
+        path={`${match.url}/impactTest`}
+        render={routerProps => (
+          <PlaygroundImpactTestRoutes {...{ playgroundId }} {...routerProps} />
         )}
       />
 
       <Route
         path={match.url}
-        render={props => <PlaygroundItems {...{ playgroundId }} {...props} />}
+        render={routerProps => (
+          <PlaygroundItems {...{ playgroundId }} {...routerProps} />
+        )}
       />
     </Switch>
   )

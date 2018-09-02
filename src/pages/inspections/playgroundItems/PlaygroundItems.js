@@ -39,9 +39,16 @@ export class PlaygroundItems extends Component {
       maintenanceIssues,
       playingSurfaces,
       impactGeneralInfo,
+      impactTests,
     } = playground
 
+    const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
+
     const maintenanceIssuesAdded = maintenanceIssues.length > 0
+
+    const impactTestsAdded =
+      !!impactTests &&
+      impactTests.some(({ dropTests }) => !!dropTests && dropTests.length > 0)
 
     return (
       <Content>
@@ -83,17 +90,18 @@ export class PlaygroundItems extends Component {
               </ListItem>
             </StyledNavLink>
 
-            {!isEmpty(impactGeneralInfo) && (
+            {impactGeneralInfoAdded && (
               <StyledNavLink to={`${match.url}/impactTest`}>
                 <ListItem button>
                   <ListItemText primary="Impact Attenuation Test" />
+                  {impactTestsAdded && <CheckCircleIcon color="primary" />}
                 </ListItem>
               </StyledNavLink>
             )}
           </List>
         </Paper>
 
-        {!maintenanceIssuesAdded && (
+        {
           <Menu
             anchorEl={menuAnchor}
             open={Boolean(menuAnchor)}
@@ -110,7 +118,7 @@ export class PlaygroundItems extends Component {
               </MenuItem>
             )}
 
-            {isEmpty(impactGeneralInfo) && (
+            {!impactGeneralInfoAdded && (
               <MenuItem
                 onClick={() =>
                   history.push(`${match.url}/impactTest/addAttenuationTest`)
@@ -120,7 +128,7 @@ export class PlaygroundItems extends Component {
               </MenuItem>
             )}
           </Menu>
-        )}
+        }
       </Content>
     )
   }

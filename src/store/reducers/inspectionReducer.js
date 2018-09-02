@@ -42,6 +42,13 @@ import {
   ADD_PLAYGROUND_PLAYING_SURFACE,
   UPDATE_PLAYGROUND_PLAYING_SURFACE,
   DELETE_PLAYGROUND_PLAYING_SURFACE,
+  SAVE_PLAYGROUND_IMPACT_GENERAL_INFO,
+  ADD_PLAYGROUND_SURFACE_TEST,
+  UPDATE_PLAYGROUND_SURFACE_TEST,
+  DELETE_PLAYGROUND_SURFACE_TEST,
+  ADD_PLAYGROUND_DROP_TEST,
+  UPDATE_PLAYGROUND_DROP_TEST,
+  DELETE_PLAYGROUND_DROP_TEST,
   TOGGLE_INSPECTION_CERTIFICATE,
 } from '../actions/actionTypes'
 
@@ -203,6 +210,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       }
     }
 
+    case FETCH_IMPACT_TESTS:
+      return { ...state, impactTestsLoaded: false }
+
+    case FETCH_IMPACT_TESTS_COMPLETED:
+      return { ...state, impactTestsLoaded: true, impactTests: payload }
+
     case ADD_SURFACE_TEST: {
       payload.dropTests = []
 
@@ -238,12 +251,6 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       }
     }
 
-    case FETCH_IMPACT_TESTS:
-      return { ...state, impactTestsLoaded: false }
-
-    case FETCH_IMPACT_TESTS_COMPLETED:
-      return { ...state, impactTestsLoaded: true, impactTests: payload }
-
     case ADD_DROP_TEST: {
       const { impactTestId } = payload
 
@@ -271,8 +278,9 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
       const impactTests = state.impactTests.map(item => {
         if (item.id === impactTestId) {
-          item.dropTests = item.dropTests.map(item => {
+          item.dropTests = item.dropTests.map((item, index) => {
             if (item.id === id) {
+              payload.dropNumber = index + 1
               return payload
             }
 
@@ -615,6 +623,184 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           item.playingSurfaces = item.playingSurfaces.filter(
             item => item.id !== id
           )
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case SAVE_PLAYGROUND_IMPACT_GENERAL_INFO: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.impactGeneralInfo = payload
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case ADD_PLAYGROUND_SURFACE_TEST: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      payload.dropTests = []
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.impactTests.push(payload)
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case UPDATE_PLAYGROUND_SURFACE_TEST: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.impactTests = item.impactTests.map(item => {
+            if (item.id === payload.id) {
+              item.surface = payload.surface
+            }
+
+            return item
+          })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case DELETE_PLAYGROUND_SURFACE_TEST: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.impactTests = item.impactTests.filter(
+            ({ id }) => id !== payload.id
+          )
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case ADD_PLAYGROUND_DROP_TEST: {
+      const { playgroundId, impactTestId } = payload
+
+      delete payload.playgroundId
+      delete payload.impactTestId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.impactTests = item.impactTests.map(item => {
+            if (item.id === impactTestId) {
+              payload.dropNumber = item.dropTests.length + 1
+              item.dropTests.push(payload)
+            }
+
+            return item
+          })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case UPDATE_PLAYGROUND_DROP_TEST: {
+      const { playgroundId, impactTestId, id } = payload
+
+      delete payload.playgroundId
+      delete payload.impactTestId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.impactTests = item.impactTests.map(item => {
+            if (item.id === impactTestId) {
+              item.dropTests = item.dropTests.map((item, index) => {
+                if (item.id === id) {
+                  payload.dropNumber = index + 1
+                  return payload
+                }
+
+                return item
+              })
+            }
+
+            return item
+          })
+        }
+
+        return item
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case DELETE_PLAYGROUND_DROP_TEST: {
+      const { playgroundId, impactTestId, id } = payload
+
+      delete payload.playgroundId
+      delete payload.impactTestId
+
+      const playgrounds = state.playgrounds.map(item => {
+        if (item.id === playgroundId) {
+          item.impactTests = item.impactTests.map(item => {
+            if (item.id === impactTestId) {
+              item.dropTests = item.dropTests
+                .filter(item => item.id !== id)
+                .map((item, index) => {
+                  item.dropNumber = index + 1
+
+                  return item
+                })
+            }
+
+            return item
+          })
         }
 
         return item
