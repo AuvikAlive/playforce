@@ -2,7 +2,7 @@ import React from 'react'
 import { isEmpty } from 'lodash'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import { generateReport, emailReport } from './functions/'
+import { generateReport } from './functions/'
 
 export const MoreMenu = ({
   closeMenu,
@@ -34,7 +34,7 @@ export const MoreMenu = ({
         Generate Report
       </MenuItem>
 
-      <MenuItem
+      {/* <MenuItem
         onClick={emailReport({
           inspection,
           closeMenu,
@@ -44,7 +44,7 @@ export const MoreMenu = ({
         })}
       >
         Email Report
-      </MenuItem>
+      </MenuItem> */}
 
       {!maintenanceIssuesAdded && (
         <MenuItem onClick={() => history.push(`${id}/maintenanceIssues/add`)}>

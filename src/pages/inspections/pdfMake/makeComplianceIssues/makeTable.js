@@ -1,5 +1,4 @@
-import { lightGray } from '../constants'
-
+import { lightGray, fontSize } from '../constants'
 import { makeIssue } from './makeIssue'
 import { makeFinding } from './makeFinding'
 import { makeStandardsClause } from './makeStandardsClause'
@@ -17,6 +16,7 @@ export const makeTable = ({
     images,
     finding,
     equipment,
+    playingSurface,
     standardsClause,
     probability,
     severity,
@@ -24,9 +24,12 @@ export const makeTable = ({
     recommendations,
   } = complianceIssue
 
+  const tableFontSize = fontSize - 1
+
   return {
     unbreakable: true,
     marginBottom: images.length > 1 ? columnGap : columnGap * 2,
+    fontSize: tableFontSize,
     layout: {
       hLineWidth: (i, node) => {
         return i === 0 || i === node.table.body.length ? 0 : 1
@@ -54,13 +57,14 @@ export const makeTable = ({
       },
     },
     table: {
-      widths: ['auto', '*', '*', '*'],
+      widths: ['auto', 100, '*', '*'],
       body: [
         makeIssue({
           image: images[0].image,
           imageWidth,
           index,
           equipment,
+          playingSurface,
         }),
         makeFinding(finding),
         makeStandardsClause(standardsClause),

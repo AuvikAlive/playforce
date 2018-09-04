@@ -16,7 +16,7 @@ export const makeIssueItems = complianceIssues => {
         const extraImages = images.slice(1)
         const imageItems = extraImages.map(({ image }, index, array) => ({
           image,
-          width: imageWidth,
+          width: imageWidth / 1.25,
         }))
 
         item.push({

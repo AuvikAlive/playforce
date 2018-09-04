@@ -1,4 +1,10 @@
-export const makeIssue = ({ image, imageWidth, index, equipment }) => [
+export const makeIssue = ({
+  image,
+  imageWidth,
+  index,
+  equipment,
+  playingSurface,
+}) => [
   {
     image,
     width: imageWidth,
@@ -10,5 +16,5 @@ export const makeIssue = ({ image, imageWidth, index, equipment }) => [
     bold: true,
   },
   `${index + 1}`.padStart(3, '0'),
-  equipment,
+  equipment || playingSurface,
 ]

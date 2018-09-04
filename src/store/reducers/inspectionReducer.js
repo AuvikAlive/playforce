@@ -337,6 +337,8 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       payload.conditionRatings = []
       payload.complianceIssues = []
       payload.maintenanceIssues = []
+      payload.playingSurfaces = []
+      payload.impactTests = []
 
       return {
         ...state,
