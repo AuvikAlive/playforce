@@ -3,11 +3,8 @@ import { loadImage } from './loadImage'
 
 export const getImage = async (component, file) => {
   const { returnBlob } = component.state
-
   const image = await loadImage(file)
-
   const { naturalHeight, naturalWidth } = image
-
   const imageNaturalAspectRatio = naturalWidth / naturalHeight
 
   const {

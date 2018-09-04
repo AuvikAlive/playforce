@@ -14,6 +14,7 @@ export const renderEditComplianceIssue = ({ props }) => routerProps => {
     deleteComplianceIssue,
     userId,
     inspectionId,
+    playingSurfaces,
   } = props
 
   return (
@@ -34,7 +35,7 @@ export const renderEditComplianceIssue = ({ props }) => routerProps => {
           images
         )
       }
-      {...{ complianceIssues }}
+      {...{ complianceIssues, playingSurfaces }}
       {...routerProps}
     />
   )

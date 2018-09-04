@@ -9,13 +9,15 @@ EditComplianceIssue.preload()
 
 export const renderEditComplianceIssue = props => routerProps => {
   const {
-    playground: { complianceIssues },
+    playground,
     updatePlaygroundComplianceIssue,
     deletePlaygroundComplianceIssue,
     userId,
     inspectionId,
     playgroundId,
   } = props
+
+  const { complianceIssues, playingSurfaces } = playground
 
   return (
     <EditComplianceIssue
@@ -37,7 +39,7 @@ export const renderEditComplianceIssue = props => routerProps => {
           images,
         })
       }
-      {...{ complianceIssues }}
+      {...{ complianceIssues, playingSurfaces }}
       {...routerProps}
     />
   )

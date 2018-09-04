@@ -1,7 +1,8 @@
 import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import { loadInitialData, openMenu } from '../../../../functions/'
+import { openMenu } from '../../../../functions/'
+import { loadInitialDataWithMode } from './loadInitialDataWithMode'
 
 export const onComponentDidMount = async component => {
   const {
@@ -23,7 +24,7 @@ export const onComponentDidMount = async component => {
   equipmentsSite !== siteId &&
     addUnsubscriber(await fetchEquipmentsRealTime(userId, siteId))
 
-  initialData && loadInitialData(component, initialData)
+  initialData && loadInitialDataWithMode(component, initialData)
 
   setNav &&
     setNav(

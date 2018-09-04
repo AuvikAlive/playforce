@@ -1,8 +1,10 @@
 export const submit = component => async () => {
   const {
+    playingSurfaceMode,
     images,
     finding,
     equipment,
+    playingSurface,
     standardsClause,
     probability,
     severity,
@@ -13,19 +15,21 @@ export const submit = component => async () => {
   const { onSubmit, afterSubmit, setFeedback } = component.props
 
   if (
-    images.length > 0 &&
-    finding &&
-    equipment &&
-    standardsClause &&
-    probability &&
-    severity &&
-    comments &&
-    recommendations
+    playingSurfaceMode
+      ? playingSurface
+      : equipment &&
+        images.length > 0 &&
+        finding &&
+        standardsClause &&
+        probability &&
+        severity &&
+        comments &&
+        recommendations
   ) {
     setFeedback({ error: '', loading: true })
     const dataToSave = {
       finding,
-      equipment,
+      ...(playingSurfaceMode ? { playingSurface } : { equipment }),
       standardsClause,
       probability,
       severity,

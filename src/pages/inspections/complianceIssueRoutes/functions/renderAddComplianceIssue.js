@@ -8,13 +8,14 @@ const AddComplianceIssue = Loadable({
 AddComplianceIssue.preload()
 
 export const renderAddComplianceIssue = ({ props }) => routerProps => {
-  const { addComplianceIssue, userId, inspectionId } = props
+  const { addComplianceIssue, userId, inspectionId, playingSurfaces } = props
 
   return (
     <AddComplianceIssue
       addComplianceIssue={data =>
         addComplianceIssue(userId, inspectionId, data)
       }
+      {...{ playingSurfaces }}
       {...routerProps}
     />
   )

@@ -13,6 +13,7 @@ export const renderAddComplianceIssue = props => routerProps => {
     userId,
     inspectionId,
     playgroundId,
+    playground,
   } = props
 
   return (
@@ -20,6 +21,7 @@ export const renderAddComplianceIssue = props => routerProps => {
       addComplianceIssue={data =>
         addPlaygroundComplianceIssue(userId, inspectionId, playgroundId, data)
       }
+      playingSurfaces={playground.playingSurfaces}
       {...routerProps}
     />
   )

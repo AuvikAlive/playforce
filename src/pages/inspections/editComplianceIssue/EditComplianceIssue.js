@@ -10,7 +10,7 @@ export class EditComplianceIssue extends Component {
   }
 
   render() {
-    const { complianceIssue } = this.props
+    const { complianceIssue, playingSurfaces } = this.props
 
     return (
       <ComplianceIssueForm
@@ -18,6 +18,7 @@ export class EditComplianceIssue extends Component {
         initialData={complianceIssue}
         onSubmit={submit(this)}
         setNav={setNav(this)}
+        {...{ playingSurfaces }}
       />
     )
   }

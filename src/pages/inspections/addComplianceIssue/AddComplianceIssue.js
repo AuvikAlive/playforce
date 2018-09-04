@@ -18,12 +18,14 @@ export class AddComplianceIssue extends Component {
 
   render() {
     const { props, context } = this
+    const { addComplianceIssue, playingSurfaces } = props
 
     return (
       <ComplianceIssueForm
         afterSubmit={showActionGoBack(this, 'Issue published!')}
-        onSubmit={data => props.addComplianceIssue(data)}
+        onSubmit={data => addComplianceIssue(data)}
         setNav={context.setRightNavComponent}
+        {...{ playingSurfaces }}
       />
     )
   }

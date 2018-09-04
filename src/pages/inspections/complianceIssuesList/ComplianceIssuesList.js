@@ -47,6 +47,7 @@ export class ComplianceIssuesList extends Component {
                   images,
                   finding,
                   equipment,
+                  playingSurface,
                   standardsClause,
                   probability,
                   severity,
@@ -87,9 +88,17 @@ export class ComplianceIssuesList extends Component {
                         Finding: {finding}
                       </Typography>
 
-                      <Typography variant="subheading">
-                        Equipment: {equipment}
-                      </Typography>
+                      {equipment && (
+                        <Typography variant="subheading">
+                          Equipment: {equipment}
+                        </Typography>
+                      )}
+
+                      {playingSurface && (
+                        <Typography variant="subheading">
+                          Playing Surface: {playingSurface}
+                        </Typography>
+                      )}
 
                       <Typography variant="subheading">
                         Standards Clause: {standardsClause}

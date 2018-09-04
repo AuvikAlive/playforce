@@ -10,14 +10,13 @@ import { ComplianceIssueForm } from './ComplianceIssueForm'
 const mapStateToProps = ({ firebase, inspection, equipment, commonIssue }) => {
   const { auth, profile } = firebase
   const { preimplementationRecommendation } = profile
-  const { cover, playingSurfaces } = inspection
+  const { cover } = inspection
   const { equipmentsSite, equipmentsLoaded, equipments } = equipment
   const { commonIssuesLoaded, commonIssues } = commonIssue
 
   return {
     userId: auth.uid,
     siteId: cover.location.id,
-    playingSurfaces,
     commonIssuesLoaded,
     commonIssues,
     equipmentsSite,
