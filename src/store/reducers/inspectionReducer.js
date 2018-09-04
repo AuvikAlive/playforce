@@ -660,12 +660,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
       payload.dropTests = []
 
-      const playgrounds = state.playgrounds.map(item => {
-        if (item.id === playgroundId) {
-          item.impactTests.push(payload)
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactTests.push(payload)
         }
 
-        return item
+        return playground
       })
 
       return {
@@ -679,18 +679,18 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
       delete payload.playgroundId
 
-      const playgrounds = state.playgrounds.map(item => {
-        if (item.id === playgroundId) {
-          item.impactTests = item.impactTests.map(item => {
-            if (item.id === payload.id) {
-              item.surface = payload.surface
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactTests = playground.impactTests.map(impactTest => {
+            if (impactTest.id === payload.id) {
+              impactTest.surface = payload.surface
             }
 
-            return item
+            return impactTest
           })
         }
 
-        return item
+        return playground
       })
 
       return {
@@ -704,14 +704,14 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
       delete payload.playgroundId
 
-      const playgrounds = state.playgrounds.map(item => {
-        if (item.id === playgroundId) {
-          item.impactTests = item.impactTests.filter(
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactTests = playground.impactTests.filter(
             ({ id }) => id !== payload.id
           )
         }
 
-        return item
+        return playground
       })
 
       return {
@@ -726,19 +726,19 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       delete payload.playgroundId
       delete payload.impactTestId
 
-      const playgrounds = state.playgrounds.map(item => {
-        if (item.id === playgroundId) {
-          item.impactTests = item.impactTests.map(item => {
-            if (item.id === impactTestId) {
-              payload.dropNumber = item.dropTests.length + 1
-              item.dropTests.push(payload)
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactTests = playground.impactTests.map(impactTest => {
+            if (impactTest.id === impactTestId) {
+              payload.dropNumber = impactTest.dropTests.length + 1
+              impactTest.dropTests.push(payload)
             }
 
-            return item
+            return impactTest
           })
         }
 
-        return item
+        return playground
       })
 
       return {
@@ -753,25 +753,27 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       delete payload.playgroundId
       delete payload.impactTestId
 
-      const playgrounds = state.playgrounds.map(item => {
-        if (item.id === playgroundId) {
-          item.impactTests = item.impactTests.map(item => {
-            if (item.id === impactTestId) {
-              item.dropTests = item.dropTests.map((item, index) => {
-                if (item.id === id) {
-                  payload.dropNumber = index + 1
-                  return payload
-                }
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactTests = playground.impactTests.map(impactTest => {
+            if (impactTest.id === impactTestId) {
+              impactTest.dropTests = impactTest.dropTests.map(
+                (dropTest, index) => {
+                  if (dropTest.id === id) {
+                    payload.dropNumber = index + 1
+                    return payload
+                  }
 
-                return item
-              })
+                  return dropTest
+                }
+              )
             }
 
-            return item
+            return impactTest
           })
         }
 
-        return item
+        return playground
       })
 
       return {
@@ -786,24 +788,24 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       delete payload.playgroundId
       delete payload.impactTestId
 
-      const playgrounds = state.playgrounds.map(item => {
-        if (item.id === playgroundId) {
-          item.impactTests = item.impactTests.map(item => {
-            if (item.id === impactTestId) {
-              item.dropTests = item.dropTests
-                .filter(item => item.id !== id)
-                .map((item, index) => {
-                  item.dropNumber = index + 1
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactTests = playground.impactTests.map(impactTest => {
+            if (impactTest.id === impactTestId) {
+              impactTest.dropTests = impactTest.dropTests
+                .filter(dropTest => dropTest.id !== id)
+                .map((dropTest, index) => {
+                  dropTest.dropNumber = index + 1
 
-                  return item
+                  return dropTest
                 })
             }
 
-            return item
+            return impactTest
           })
         }
 
-        return item
+        return playground
       })
 
       return {

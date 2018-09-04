@@ -43,7 +43,6 @@ export class PlaygroundItems extends Component {
     } = playground
 
     const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
-
     const maintenanceIssuesAdded = maintenanceIssues.length > 0
 
     const impactTestsAdded =
