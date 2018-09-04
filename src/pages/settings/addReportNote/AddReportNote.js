@@ -5,12 +5,11 @@ import {
   onComponentWillUnmountWithTitleLeftNav,
   showActionGo,
 } from '../../../functions/'
-import StandardForm from '../standardForm/'
-import { submit } from './submit'
+import { ReportNoteForm } from '../reportNoteForm/ReportNoteForm'
 
-export class AddStandard extends Component {
+export class AddReportNote extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add Standard')
+    onComponentDidMountWithTitleLeftNav(this, 'Add Report Note')
   }
 
   componentWillUnmount() {
@@ -18,13 +17,15 @@ export class AddStandard extends Component {
   }
 
   render() {
+    const { addReportNote, userId } = this.props
+
     return (
-      <StandardForm
-        onSubmit={submit(this)}
+      <ReportNoteForm
+        onSubmit={data => addReportNote(userId, data)}
         afterSubmit={showActionGo(this, 'Standard added!', 'edit/')}
       />
     )
   }
 }
 
-AddStandard.contextTypes = contextTypesTitleLeftNav
+AddReportNote.contextTypes = contextTypesTitleLeftNav

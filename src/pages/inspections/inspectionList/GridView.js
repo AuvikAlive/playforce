@@ -14,7 +14,7 @@ import { format } from 'date-fns/esm'
 import { flatten, map, filter } from 'lodash'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { EmptyInspectionListPlaceholder } from '../../../components/emptyInspectionListPlaceholder/EmptyInspectionListPlaceholder'
-import { InspectionListAvatar } from '../../../components/inspectionListAvatar/InspectionListAvatar'
+import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
 
 export const GridView = ({ inspections, match, standards }) => {
   return inspections.length > 0 ? (
@@ -55,7 +55,7 @@ export const GridView = ({ inspections, match, standards }) => {
               <List>
                 <Card className="card">
                   <ListItem divider button className="list-item">
-                    <InspectionListAvatar text={inspectionNumber} />
+                    <ListAvatar text={inspectionNumber} />
 
                     <ListItemText
                       primary={

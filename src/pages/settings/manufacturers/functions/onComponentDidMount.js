@@ -9,9 +9,7 @@ export const onComponentDidMount = async component => {
     userId,
   } = component.props
 
-  const title = 'Manufacturers'
-
-  onComponentDidMountWithTitleLeftNav(component, title)
+  onComponentDidMountWithTitleLeftNav(component, 'Manufacturers')
 
   !manufacturersLoaded &&
     addUnsubscriber(await fetchManufacturersRealTime(userId))

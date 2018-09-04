@@ -51,6 +51,10 @@ const DefaultCertificateText = Loadable({
   loader: () => import('../defaultCertificateText'),
 })
 
+const ReportNoteRoutes = Loadable({
+  loader: () => import('../reportNoteRoutes'),
+})
+
 Profile.preload()
 StandardRoutes.preload()
 ClientRoutes.preload()
@@ -63,6 +67,7 @@ StandardAuditSummary.preload()
 PreimplementationRecommendation.preload()
 InspectionTypes.preload()
 DefaultCertificateText.preload()
+ReportNoteRoutes.preload()
 
 export const SettingRoutes = ({ match }) => {
   return (
@@ -74,26 +79,34 @@ export const SettingRoutes = ({ match }) => {
       <Route path={`${match.url}/operators`} component={Operators} />
       <Route path={`${match.url}/commonIssues`} component={CommonIssueRoutes} />
       <Route path={`${match.url}/companyInformation`} component={Company} />
+
       <Route
         path={`${match.url}/sidenavBackground`}
         component={SidenavBackground}
       />
+
       <Route
         path={`${match.url}/auditSummary`}
         component={StandardAuditSummary}
       />
+
       <Route
         path={`${match.url}/preimplementationRecommendation`}
         component={PreimplementationRecommendation}
       />
+
       <Route
         path={`${match.url}/inspectionTypes`}
         component={InspectionTypes}
       />
+
       <Route
         path={`${match.url}/defaultCertificateText`}
         component={DefaultCertificateText}
       />
+
+      <Route path={`${match.url}/reportNotes`} component={ReportNoteRoutes} />
+
       <Route path={match.url} component={SettingsList} />
     </Switch>
   )

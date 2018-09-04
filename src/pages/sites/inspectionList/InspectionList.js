@@ -9,7 +9,7 @@ import { isEmpty } from 'react-redux-firebase'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { EmptyInspectionListPlaceholder } from '../../../components/emptyInspectionListPlaceholder/EmptyInspectionListPlaceholder'
-import { InspectionListAvatar } from '../../../components/inspectionListAvatar/InspectionListAvatar'
+import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
 import {
   contextTypesTitle,
   contextTypesUnsubscriber,
@@ -48,7 +48,7 @@ export class InspectionList extends Component {
                   return (
                     <StyledNavLink to={`/inspections/edit/${id}`} key={id}>
                       <ListItem divider button>
-                        <InspectionListAvatar text={inspectionNumber} />
+                        <ListAvatar text={inspectionNumber} />
                         <ListItemText
                           primary={`${name}, ${suburb}`}
                           secondary={client}

@@ -8,7 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Chip from '@material-ui/core/Chip'
 // import { List as VirtulalList } from 'react-virtualized'
 import { EmptyInspectionListPlaceholder } from '../emptyInspectionListPlaceholder/EmptyInspectionListPlaceholder'
-import { InspectionListAvatar } from '../inspectionListAvatar/InspectionListAvatar'
+import { ListAvatar } from '../listAvatar/ListAvatar'
 import { StyledInspectionListView } from './StyledInspectionListView'
 
 export const InspectionListView = ({
@@ -56,7 +56,7 @@ export const InspectionListView = ({
                     onMouseDown={() => handleButtonPress(id)}
                     onMouseUp={() => handleButtonRelease(id)}
                   >
-                    <InspectionListAvatar
+                    <ListAvatar
                       itemSelected={itemSelected}
                       text={inspectionNumber}
                     />

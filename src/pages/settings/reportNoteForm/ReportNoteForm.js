@@ -1,24 +1,21 @@
 import React, { Component } from 'react'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
-import DateRangeIcon from '@material-ui/icons/DateRange'
+import { compose } from 'recompose'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import TextField from '@material-ui/core/TextField'
-import { DatePicker } from 'material-ui-pickers'
+import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
+import { Content } from '../../../components/content/Content'
 import {
   onComponentDidMountLoadData,
   onComponentWillReceivePropsLoadData,
   onEventInputChange,
-  onValueInputChange,
 } from '../../../functions/'
-import { StyledStandardForm } from './StyledStandardForm'
 import { state } from './state'
 import { submit } from './submit'
 
-export class StandardForm extends Component {
+class BaseReportNoteForm extends Component {
   state = state
 
   componentDidMount() {
@@ -30,19 +27,20 @@ export class StandardForm extends Component {
   }
 
   render() {
-    const { code, title, publishDate } = this.state
+    const { number, title, description } = this.state
     const { error, loading, buttonText } = this.props
 
     return (
-      <StyledStandardForm className="StyledStandardForm">
+      <Content>
         <Card className="card">
           <CardContent>
             <form noValidate>
               <TextField
                 fullWidth
-                label="Code"
-                value={code}
-                onChange={onEventInputChange(this, 'code')}
+                label="Number"
+                type="number"
+                value={number}
+                onChange={onEventInputChange(this, 'number')}
                 margin="normal"
               />
 
@@ -54,19 +52,13 @@ export class StandardForm extends Component {
                 margin="normal"
               />
 
-              <DatePicker
+              <TextField
                 fullWidth
-                keyboard
-                clearable
-                className="date-picker"
-                label="Date of Publish"
-                format="DD MMMM YYYY"
-                value={publishDate}
-                keyboardIcon={<DateRangeIcon />}
-                leftArrowIcon={<ArrowBackIcon />}
-                rightArrowIcon={<ArrowForwardIcon />}
-                onChange={onValueInputChange(this, 'publishDate')}
-                animateYearScrolling={false}
+                multiline
+                label="Description"
+                value={description}
+                onChange={onEventInputChange(this, 'description')}
+                margin="normal"
               />
             </form>
 
@@ -92,7 +84,11 @@ export class StandardForm extends Component {
             )}
           </CardContent>
         </Card>
-      </StyledStandardForm>
+      </Content>
     )
   }
 }
+
+const enhance = compose(withFeedback)
+
+export const ReportNoteForm = enhance(BaseReportNoteForm)

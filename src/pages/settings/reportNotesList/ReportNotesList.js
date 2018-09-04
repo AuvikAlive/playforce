@@ -9,38 +9,39 @@ import { Content } from '../../../components/content/Content'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
+import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
+  onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-  showContentWhenLoaded,
 } from '../../../functions/'
-import { onComponentDidMount } from './onComponentDidMount'
 
-export class StandardsList extends Component {
+export class ReportNotesList extends Component {
   componentDidMount() {
-    onComponentDidMount(this)
+    onComponentDidMountWithTitleLeftNav(this, 'Report Notes')
   }
 
   componentWillUnmount() {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
+
   render() {
-    const { match, standardsLoaded, standards } = this.props
-    const standardsAdded = standards.length > 0
+    const { match, reportNotes } = this.props
+    const reportNotesAdded = reportNotes.length > 0
 
-    return showContentWhenLoaded(
-      standardsLoaded,
+    return (
       <Content>
-        <AddButton to={`${match.url}/add`} pulse={!standardsAdded} />
+        <AddButton to={`${match.url}/add`} pulse={!reportNotesAdded} />
 
-        {standardsAdded ? (
+        {reportNotesAdded ? (
           <Paper className="paper">
             <List component="nav" disablePadding>
-              {standards.map(({ id, code, title, date }) => {
+              {reportNotes.map(({ id, number, title }) => {
                 return (
                   <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                     <ListItem button>
-                      <ListItemText primary={`${title} ${code}`} />
+                      <ListAvatar text={number} />
+                      <ListItemText primary={title} />
                       <ListItemIcon>
                         <ModeEditIcon />
                       </ListItemIcon>
@@ -51,11 +52,11 @@ export class StandardsList extends Component {
             </List>
           </Paper>
         ) : (
-          <EmptyListPlaceholder text="Try adding a standard to get started!" />
+          <EmptyListPlaceholder text="Try adding a report note to get started!" />
         )}
       </Content>
     )
   }
 }
 
-StandardsList.contextTypes = contextTypesTitleLeftNavUnsubscriber
+ReportNotesList.contextTypes = contextTypesTitleLeftNavUnsubscriber
