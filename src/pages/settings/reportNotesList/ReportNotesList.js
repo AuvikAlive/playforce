@@ -3,11 +3,12 @@ import ModeEditIcon from '@material-ui/icons/ModeEdit'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+// import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import { Content } from '../../../components/content/Content'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { TruncatedListItemText } from '../../../components/truncatedListItemText/TruncatedListItemText'
 import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import { ListAvatar } from '../../../components/listAvatar/ListAvatar'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
@@ -41,7 +42,7 @@ export class ReportNotesList extends Component {
                   <StyledNavLink key={id} to={`${match.url}/edit/${id}`}>
                     <ListItem button>
                       <ListAvatar text={number} />
-                      <ListItemText primary={title} />
+                      <TruncatedListItemText primary={title} />
                       <ListItemIcon>
                         <ModeEditIcon />
                       </ListItemIcon>

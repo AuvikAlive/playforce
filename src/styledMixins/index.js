@@ -11,6 +11,7 @@ import { riskAssessment } from './riskAssessment'
 import { setContentAreaHeight } from './setContentAreaHeight'
 import { withButton } from './withButton'
 import { listItemSelected } from './listItemSelected'
+import { truncate } from './truncate'
 
 export {
   addIcon,
@@ -26,4 +27,5 @@ export {
   setContentAreaHeight,
   withButton,
   listItemSelected,
+  truncate,
 }

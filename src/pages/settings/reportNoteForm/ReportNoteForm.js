@@ -46,6 +46,7 @@ class BaseReportNoteForm extends Component {
 
               <TextField
                 fullWidth
+                multiline
                 label="Title"
                 value={title}
                 onChange={onEventInputChange(this, 'title')}
