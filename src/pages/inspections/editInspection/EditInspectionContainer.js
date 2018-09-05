@@ -18,13 +18,18 @@ import {
   toggleInspectionCertificate,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
+import { fetchReportNotesRealTime } from '../../../store/actions/actionCreators/reportNoteActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 
-const mapStateToProps = ({ firebase, inspection, standard }, { match }) => {
+const mapStateToProps = (
+  { firebase, inspection, standard, reportNote },
+  { match }
+) => {
   const { auth, profile } = firebase
   const { displayName, email, defaultCertificateText, signature } = profile
   const { standardsLoaded, standards } = standard
+  const { reportNotesLoaded, reportNotes } = reportNote
 
   return {
     userId: auth.uid,
@@ -38,6 +43,8 @@ const mapStateToProps = ({ firebase, inspection, standard }, { match }) => {
     signature,
     standardsLoaded,
     standards,
+    reportNotesLoaded,
+    reportNotes,
   }
 }
 
@@ -54,6 +61,7 @@ const mapDispatchToProps = {
   fetchPlaygroundsRealTime,
   fetchPlaygrounds,
   fetchStandards,
+  fetchReportNotesRealTime,
   deleteInspection,
   discardInspection,
   toggleInspectionCertificate,

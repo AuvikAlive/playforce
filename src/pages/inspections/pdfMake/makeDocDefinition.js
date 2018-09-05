@@ -35,7 +35,8 @@ export const makeDocDefinition = async (
     playgroundsCompleted,
     playgrounds,
   },
-  defaultCertificateText
+  defaultCertificateText,
+  reportNotes
 ) => {
   const skipCommonHeaderFooter = certificate ? 2 : 1
 
@@ -76,7 +77,7 @@ export const makeDocDefinition = async (
       }),
       makeAreasAssessed(),
       makeImpactTestImages(impactTests),
-      makeReportNotes(cover),
+      makeReportNotes(cover, reportNotes),
     ],
     images: {
       logo,

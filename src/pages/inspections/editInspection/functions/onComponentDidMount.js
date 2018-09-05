@@ -18,6 +18,8 @@ export const onComponentDidMount = async component => {
     inspection,
     standardsLoaded,
     fetchStandards,
+    reportNotesLoaded,
+    fetchReportNotesRealTime,
     userId,
     inspectionId,
     fetchInspectionRealTime,
@@ -40,6 +42,8 @@ export const onComponentDidMount = async component => {
   } = inspection
 
   !standardsLoaded && fetchStandards(userId)
+
+  !reportNotesLoaded && addUnsubscriber(await fetchReportNotesRealTime(userId))
 
   !inspectionLoaded &&
     addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))

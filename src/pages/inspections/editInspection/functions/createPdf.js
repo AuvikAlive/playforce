@@ -7,6 +7,7 @@ export const createPdf = component => async inspection => {
     standards,
     defaultCertificateText,
     signature,
+    reportNotes,
   } = component.props
 
   inspection.displayName = displayName
@@ -25,7 +26,8 @@ export const createPdf = component => async inspection => {
 
   const pdfDocGenerator = await generatePdf(
     inspectionWithAppliedStandards,
-    defaultCertificateText
+    defaultCertificateText,
+    reportNotes
   )
 
   return pdfDocGenerator
