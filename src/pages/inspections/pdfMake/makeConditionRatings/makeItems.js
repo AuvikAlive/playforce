@@ -34,16 +34,13 @@ export const makeItems = (items, itemName) => {
     return row
   })
 
-  return {
-    unbreakable: true,
-    stack: [
-      {
-        text: `${itemName} Items`,
-        fontSize: subHeaderFontSize,
-        font: 'Oswald',
-        marginBottom: verticalMargin,
-      },
-      grid,
-    ],
-  }
+  return [
+    {
+      text: `${itemName} Items`,
+      fontSize: subHeaderFontSize,
+      font: 'Oswald',
+      marginBottom: verticalMargin,
+    },
+    grid,
+  ]
 }

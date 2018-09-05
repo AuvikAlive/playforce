@@ -39,16 +39,13 @@ export const makeAncillaryItems = ancillaryItems => {
     return row
   })
 
-  return {
-    unbreakable: true,
-    stack: [
-      {
-        text: 'Ancillary Items',
-        fontSize: subHeaderFontSize,
-        font: 'Oswald',
-        marginBottom: verticalMargin,
-      },
-      grid,
-    ],
-  }
+  return [
+    {
+      text: 'Ancillary Items',
+      fontSize: subHeaderFontSize,
+      font: 'Oswald',
+      marginBottom: verticalMargin,
+    },
+    grid,
+  ]
 }
