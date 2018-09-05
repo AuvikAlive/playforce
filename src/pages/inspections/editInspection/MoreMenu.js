@@ -46,11 +46,12 @@ export const MoreMenu = ({
         Email Report
       </MenuItem> */}
 
-      {!maintenanceIssuesAdded && (
-        <MenuItem onClick={() => history.push(`${id}/maintenanceIssues/add`)}>
-          Add Maintenance Issue
-        </MenuItem>
-      )}
+      {!playgroundsAdded &&
+        !maintenanceIssuesAdded && (
+          <MenuItem onClick={() => history.push(`${id}/maintenanceIssues/add`)}>
+            Add Maintenance Issue
+          </MenuItem>
+        )}
 
       {!playgroundsAdded && (
         <MenuItem onClick={() => history.push(`${id}/playgrounds/add`)}>
@@ -58,15 +59,16 @@ export const MoreMenu = ({
         </MenuItem>
       )}
 
-      {isEmpty(impactGeneralInfo) && (
-        <MenuItem
-          onClick={() =>
-            history.push(`${inspection.id}/impactTest/addAttenuationTest`)
-          }
-        >
-          Add Impact Test
-        </MenuItem>
-      )}
+      {!playgroundsAdded &&
+        isEmpty(impactGeneralInfo) && (
+          <MenuItem
+            onClick={() =>
+              history.push(`${inspection.id}/impactTest/addAttenuationTest`)
+            }
+          >
+            Add Impact Test
+          </MenuItem>
+        )}
     </Menu>
   )
 }

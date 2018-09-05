@@ -100,7 +100,7 @@ export class PlaygroundItems extends Component {
           </List>
         </Paper>
 
-        {
+        {(!maintenanceIssuesAdded || !impactGeneralInfoAdded) && (
           <Menu
             anchorEl={menuAnchor}
             open={Boolean(menuAnchor)}
@@ -127,7 +127,7 @@ export class PlaygroundItems extends Component {
               </MenuItem>
             )}
           </Menu>
-        }
+        )}
       </Content>
     )
   }
