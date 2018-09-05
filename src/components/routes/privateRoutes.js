@@ -26,12 +26,17 @@ const ProjectRoutes = Loadable({
   loader: () => import('../../pages/projects/projectRoutes'),
 })
 
+const ToolRoutes = Loadable({
+  loader: () => import('../../pages/tools/toolRoutes'),
+})
+
 Dashboard.preload()
 InspectionRoutes.preload()
 SiteRoutes.preload()
 GroupRoutes.preload()
 SettingRoutes.preload()
 ProjectRoutes.preload()
+ToolRoutes.preload()
 
 export const privateRoutes = [
   {
@@ -80,6 +85,12 @@ export const privateRoutes = [
     Component: ProjectRoutes,
     pathname: '/projects',
     name: 'Projects',
+    exact: false,
+  },
+  {
+    Component: ToolRoutes,
+    pathname: '/tools',
+    name: 'Tools',
     exact: false,
   },
 ]

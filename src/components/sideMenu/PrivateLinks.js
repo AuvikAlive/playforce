@@ -7,6 +7,7 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import GroupIcon from '@material-ui/icons/Group'
 import FolderIcon from '@material-ui/icons/Folder'
+import BuildIcon from '@material-ui/icons/Build'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SettingsIcon from '@material-ui/icons/Settings'
 import HelpIcon from '@material-ui/icons/Help'
@@ -16,9 +17,7 @@ import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 
 export const PrivateLinks = ({ role, signOut }) => (
   <StyledLinks>
-    <StyledNavLink
-      to={{ pathname: '/dashboard', state: { name: 'Dashboard' } }}
-    >
+    <StyledNavLink to="/dashboard">
       <ListItem button className="list-item">
         <ListItemIcon>
           <DashboardIcon />
@@ -27,9 +26,7 @@ export const PrivateLinks = ({ role, signOut }) => (
       </ListItem>
     </StyledNavLink>
 
-    <StyledNavLink
-      to={{ pathname: '/inspections', state: { name: 'Inspections' } }}
-    >
+    <StyledNavLink to="/inspections">
       <ListItem button className="list-item">
         <ListItemIcon>
           <AssignmentTurnedInIcon />
@@ -38,7 +35,7 @@ export const PrivateLinks = ({ role, signOut }) => (
       </ListItem>
     </StyledNavLink>
 
-    <StyledNavLink to={{ pathname: '/sites', state: { name: 'Sites' } }}>
+    <StyledNavLink to="/sites">
       <ListItem button className="list-item">
         <ListItemIcon>
           <LocationOnIcon />
@@ -67,6 +64,15 @@ export const PrivateLinks = ({ role, signOut }) => (
       </ListItem>
     </StyledNavLink>
 
+    <StyledNavLink to="/tools">
+      <ListItem button className="list-item">
+        <ListItemIcon>
+          <BuildIcon />
+        </ListItemIcon>
+        <ListItemText primary="Tools" />
+      </ListItem>
+    </StyledNavLink>
+
     <ListItem button className="list-item" onClick={signOut}>
       <ListItemIcon>
         <ArrowBackIcon />
@@ -76,7 +82,7 @@ export const PrivateLinks = ({ role, signOut }) => (
 
     <Divider />
 
-    <StyledNavLink to={{ pathname: '/settings', state: { name: 'Settings' } }}>
+    <StyledNavLink to="/settings">
       <ListItem button className="list-item">
         <ListItemIcon>
           <SettingsIcon />
@@ -85,7 +91,7 @@ export const PrivateLinks = ({ role, signOut }) => (
       </ListItem>
     </StyledNavLink>
 
-    <StyledNavLink to={{ pathname: '/help', state: { name: 'Help' } }}>
+    <StyledNavLink to="/help">
       <ListItem button className="list-item">
         <ListItemIcon>
           <HelpIcon />
