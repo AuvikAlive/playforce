@@ -27,10 +27,10 @@ const mapStateToProps = ({ firebase, inspection, standard }, { match }) => {
   const { standardsLoaded, standards } = standard
 
   return {
-    // userId: auth.uid,
-    // inspectionId: match.params.id,
-    userId: 'xf58ubuagCNyMqWJD3yXCADxoSJ3',
-    inspectionId: 'No2dLTIyGG5QNu6hnzN7',
+    userId: auth.uid,
+    inspectionId: match.params.id,
+    // userId: 'xf58ubuagCNyMqWJD3yXCADxoSJ3',
+    // inspectionId: 'No2dLTIyGG5QNu6hnzN7',
     inspection,
     displayName,
     email,
