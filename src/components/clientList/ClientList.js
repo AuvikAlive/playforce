@@ -4,7 +4,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ModeEditIcon from '@material-ui/icons/ModeEdit'
+import EditIcon from '@material-ui/icons/Edit'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import { EmptyListPlaceholder } from '../emptyListPlacehoder/EmptyListPlaceholder'
 
@@ -18,7 +18,7 @@ export const ClientList = ({ clients, match }) => {
               <ListItem button>
                 <ListItemText primary={name} />
                 <ListItemIcon>
-                  <ModeEditIcon />
+                  <EditIcon />
                 </ListItemIcon>
               </ListItem>
             </StyledNavLink>

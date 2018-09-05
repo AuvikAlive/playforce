@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ModeEditIcon from '@material-ui/icons/ModeEdit'
+import ModeEditIcon from '@material-ui/icons/Edit'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'

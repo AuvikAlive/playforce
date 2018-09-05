@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
-import ModeEditIcon from '@material-ui/icons/ModeEdit'
+import ModeEditIcon from '@material-ui/icons/Edit'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import CardContent from '@material-ui/core/CardContent'
