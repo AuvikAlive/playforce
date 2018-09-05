@@ -11,9 +11,7 @@ import { placeholders } from './placeholders'
 
 export class DefaultCertificateText extends Component {
   componentDidMount() {
-    const title = 'Default Certificate Text'
-
-    onComponentDidMountWithTitleLeftNav(this, title)
+    onComponentDidMountWithTitleLeftNav(this, 'Default Certificate Text')
   }
 
   componentWillUnmount() {
