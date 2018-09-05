@@ -8,5 +8,5 @@ export const submit = component => async data => {
 
   await updateReportNote(userId, reportNoteId, data)
 
-  setFeedback({ success: 'Report note updated!' })
+  setFeedback({ success: 'Note updated!' })
 }

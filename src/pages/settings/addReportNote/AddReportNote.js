@@ -22,7 +22,7 @@ export class AddReportNote extends Component {
     return (
       <ReportNoteForm
         onSubmit={data => addReportNote(userId, data)}
-        afterSubmit={showActionGo(this, 'Standard added!', 'edit/')}
+        afterSubmit={showActionGo(this, 'Note added!', 'edit/')}
       />
     )
   }

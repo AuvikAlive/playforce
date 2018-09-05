@@ -5,5 +5,5 @@ export const deleteItem = component => async () => {
 
   await deleteReportNote(userId, reportNoteId)
 
-  showActionGoBack(component, 'Report note deleted!')()
+  showActionGoBack(component, 'Note deleted!')()
 }
