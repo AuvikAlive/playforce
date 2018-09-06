@@ -1,14 +1,14 @@
+import { getBatch, getRootRef } from '../dbActions/'
+
 export const deleteInspections = (userId, id, list) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const batch = db.batch()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+  const batch = dispatch(getBatch)
+
+  const ref = rootRef
     .collection('projects')
     .doc(id)
     .collection('inspections')

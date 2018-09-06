@@ -1,4 +1,5 @@
 import { FETCH_EQUIPMENTS, FETCH_EQUIPMENTS_COMPLETED } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchEquipmentsRealTime = (userId, siteId) => async (
   dispatch,
@@ -7,11 +8,8 @@ export const fetchEquipmentsRealTime = (userId, siteId) => async (
 ) => {
   dispatch({ type: FETCH_EQUIPMENTS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef
     .collection('sites')
     .doc(siteId)
     .collection('equipments')

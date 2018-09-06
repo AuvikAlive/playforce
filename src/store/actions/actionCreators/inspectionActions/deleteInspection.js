@@ -1,4 +1,5 @@
 import { deleteImage } from '../storageActions/'
+import { getFirestore, getRootRef } from '../dbActions/'
 
 export const deleteInspection = (inspection, userId) => async (
   dispatch,
@@ -15,14 +16,10 @@ export const deleteInspection = (inspection, userId) => async (
     playgrounds,
   } = inspection
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const db = dispatch(getFirestore)
   const batch = db.batch()
-  const inspectionRef = db
-    .collection('users')
-    .doc(userId)
-    .collection('inspections')
-    .doc(inspectionId)
+  const rootRef = dispatch(getRootRef)
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
   let storageImages = inspection.cover.image
     ? [`${userId}/images/${inspectionId}/cover`]

@@ -2,6 +2,7 @@ import {
   FETCH_INSPECTIONS,
   FETCH_INSPECTIONS_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchInspectionsRealTime = userId => async (
   dispatch,
@@ -10,11 +11,9 @@ export const fetchInspectionsRealTime = userId => async (
 ) => {
   dispatch({ type: FETCH_INSPECTIONS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .orderBy('inspectionNumber')
     .where('archived', '==', false)

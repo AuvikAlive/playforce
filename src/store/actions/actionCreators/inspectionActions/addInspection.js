@@ -1,25 +1,21 @@
 import { saveImage } from '../storageActions/'
+import { getFirestore, getRootRef } from '../dbActions/'
 
 export const addInspection = (userId, cover) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const db = dispatch(getFirestore)
+  const rootRef = dispatch(getRootRef)
 
   return db.runTransaction(async transaction => {
-    const userRef = db.collection('users').doc(userId)
-    const userDoc = await transaction.get(userRef)
+    const userDoc = await transaction.get(rootRef)
     const inspectionCount = userDoc.data().inspectionCount || 0
 
-    transaction.update(userRef, { inspectionCount: inspectionCount + 1 })
+    transaction.update(rootRef, { inspectionCount: inspectionCount + 1 })
 
-    const inspectionRef = db
-      .collection('users')
-      .doc(userId)
-      .collection('inspections')
-      .doc()
+    const inspectionRef = rootRef.collection('inspections').doc()
 
     const {
       image,

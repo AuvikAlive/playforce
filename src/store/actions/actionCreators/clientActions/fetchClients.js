@@ -1,4 +1,5 @@
 import { FETCH_CLIENTS, FETCH_CLIENTS_COMPLETED } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchClients = userId => async (
   dispatch,
@@ -7,13 +8,9 @@ export const fetchClients = userId => async (
 ) => {
   dispatch({ type: FETCH_CLIENTS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
-    .collection('clients')
-    .get()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('clients')
+  const querySnapshot = await ref.get()
 
   let items = []
 
@@ -23,5 +20,6 @@ export const fetchClients = userId => async (
       ...doc.data(),
     })
   )
+
   dispatch({ type: FETCH_CLIENTS_COMPLETED, payload: items })
 }

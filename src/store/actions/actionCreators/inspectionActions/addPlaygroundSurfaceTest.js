@@ -1,4 +1,5 @@
 import { ADD_PLAYGROUND_SURFACE_TEST } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const addPlaygroundSurfaceTest = (
   userId,
@@ -6,11 +7,8 @@ export const addPlaygroundSurfaceTest = (
   playgroundId,
   data
 ) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

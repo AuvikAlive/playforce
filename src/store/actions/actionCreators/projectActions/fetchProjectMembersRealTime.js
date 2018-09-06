@@ -2,6 +2,7 @@ import {
   FETCH_PROJECT_MEMBERS,
   FETCH_PROJECT_MEMBERS_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchProjectMembersRealTime = (userId, projectId) => async (
   dispatch,
@@ -10,11 +11,9 @@ export const fetchProjectMembersRealTime = (userId, projectId) => async (
 ) => {
   dispatch({ type: FETCH_PROJECT_MEMBERS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('projects')
     .doc(projectId)
     .collection('inspections')

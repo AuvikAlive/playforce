@@ -1,15 +1,12 @@
+import { getRootRef } from '../dbActions/'
+
 export const deleteOperator = (userId, id) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('operators').doc(id)
 
-  return db
-    .collection('users')
-    .doc(userId)
-    .collection('operators')
-    .doc(id)
-    .delete()
+  return ref.delete()
 }

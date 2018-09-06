@@ -1,5 +1,6 @@
 import { FETCH_INSPECTION, FETCH_INSPECTION_COMPLETED } from '../../actionTypes'
 import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
+import { getRootRef } from '../dbActions/'
 
 export const fetchInspection = (userId, inspectionId) => async (
   dispatch,
@@ -8,15 +9,9 @@ export const fetchInspection = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_INSPECTION })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const doc = await db
-    .collection('users')
-    .doc(userId)
-    .collection('inspections')
-    .doc(inspectionId)
-    .get()
-
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('inspections').doc(inspectionId)
+  const doc = await ref.get()
   const { cover } = doc.data()
   const { image } = cover
 

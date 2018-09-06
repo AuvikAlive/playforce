@@ -1,10 +1,13 @@
-export const getEquipmentRef = ({ getFirebase, userId, siteId, data }) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+import { getRootRef } from '../dbActions/'
+
+export const getEquipmentRef = (userId, siteId, data) => (
+  dispatch,
+  getState,
+  getFirebase
+) => {
+  const rootRef = dispatch(getRootRef)
   const { equipment } = data
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const ref = rootRef
     .collection('sites')
     .doc(siteId)
     .collection('equipments')

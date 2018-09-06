@@ -1,14 +1,12 @@
+import { getRootRef } from '../dbActions/'
+
 export const searchSites = (userId, name) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = db
-    .collection('users')
-    .doc(userId)
-    .collection('sites')
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('sites')
 
   let items = []
   let querySnapshot = await ref.where('name', '==', name).get()

@@ -1,13 +1,14 @@
 import { saveImage } from '../storageActions/'
 import { ADD_DROP_TEST } from '../../actionTypes'
+import { getFirestore, getRootRef } from '../dbActions/'
 
 export const addDropTest = (userId, inspectionId, impactTestId, data) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const db = dispatch(getFirestore)
+  const rootRef = dispatch(getRootRef)
 
   return db.runTransaction(async transaction => {
     // const impactTestRef = db
@@ -23,11 +24,7 @@ export const addDropTest = (userId, inspectionId, impactTestId, data) => async (
     // const dropCount = impactTestDoc.data().dropCount || 0
 
     // transaction.update(impactTestRef, { dropCount: dropCount + 1 })
-    const inspectionRef = db
-      .collection('users')
-      .doc(userId)
-      .collection('inspections')
-      .doc(inspectionId)
+    const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
     const impactTestRef = inspectionRef
       .collection('impactTests')

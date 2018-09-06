@@ -1,15 +1,12 @@
+import { getRootRef } from '../dbActions/'
+
 export const addCommonIssue = (userId, data) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
-    .collection('commonIssues')
-    .doc()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('commonIssues').doc()
 
   await ref.set(data)
 

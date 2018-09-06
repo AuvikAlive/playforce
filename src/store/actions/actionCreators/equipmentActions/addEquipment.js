@@ -8,7 +8,7 @@ export const addEquipment = (userId, siteId, data) => async (
   getFirebase
 ) => {
   const { equipment, image } = data
-  const ref = getEquipmentRef({ getFirebase, userId, siteId, data })
+  const ref = dispatch(getEquipmentRef(userId, siteId, data))
   const doc = await ref.get()
 
   if (doc.exists) {

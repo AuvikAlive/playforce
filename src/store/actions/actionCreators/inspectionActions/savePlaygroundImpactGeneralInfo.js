@@ -1,4 +1,5 @@
 import { SAVE_PLAYGROUND_IMPACT_GENERAL_INFO } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const savePlaygroundImpactGeneralInfo = (
   userId,
@@ -6,11 +7,9 @@ export const savePlaygroundImpactGeneralInfo = (
   playgroundId,
   data
 ) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

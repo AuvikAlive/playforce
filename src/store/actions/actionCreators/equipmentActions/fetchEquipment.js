@@ -1,5 +1,6 @@
 import { FETCH_EQUIPMENT, FETCH_EQUIPMENT_COMPLETED } from '../../actionTypes'
 import { fetchImageAsDataUrl } from '../../../../functions/fetchImageAsDataUrl'
+import { getRootRef } from '../dbActions/'
 
 export const fetchEquipment = (userId, siteId, id) => async (
   dispatch,
@@ -8,16 +9,15 @@ export const fetchEquipment = (userId, siteId, id) => async (
 ) => {
   dispatch({ type: FETCH_EQUIPMENT })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const doc = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('sites')
     .doc(siteId)
     .collection('equipments')
     .doc(id)
-    .get()
+
+  const doc = await ref.get()
 
   let { image } = doc.data()
 

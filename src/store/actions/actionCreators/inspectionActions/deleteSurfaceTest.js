@@ -1,19 +1,16 @@
 import { deleteImage } from '../storageActions/'
 import { DELETE_SURFACE_TEST } from '../../actionTypes'
+import { getBatch, getRootRef } from '../dbActions/'
 
 export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const batch = db.batch()
-  const inspectionRef = db
-    .collection('users')
-    .doc(userId)
-    .collection('inspections')
-    .doc(inspectionId)
+  const batch = dispatch(getBatch)
+  const rootRef = dispatch(getRootRef)
+
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
   let storageImages = []
 
@@ -27,15 +24,16 @@ export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
 
   batch.delete(impactRef)
 
-  dropTests.forEach(dropTest => {
-    const dropRef = impactRef.collection('dropTests').doc(dropTest.id)
+  dropTests &&
+    dropTests.forEach(dropTest => {
+      const dropRef = impactRef.collection('dropTests').doc(dropTest.id)
 
-    storageImages.push(
-      `${userId}/images/${inspectionId}/impactTests/${id}/${dropTest.id}`
-    )
+      storageImages.push(
+        `${userId}/images/${inspectionId}/impactTests/${id}/${dropTest.id}`
+      )
 
-    batch.delete(dropRef)
-  })
+      batch.delete(dropRef)
+    })
 
   await batch.commit()
 

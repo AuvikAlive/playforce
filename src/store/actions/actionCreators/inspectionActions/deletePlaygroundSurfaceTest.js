@@ -1,5 +1,6 @@
 import { deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND_SURFACE_TEST } from '../../actionTypes'
+import { getBatch, getRootRef } from '../dbActions/'
 
 export const deletePlaygroundSurfaceTest = (
   userId,
@@ -7,13 +8,11 @@ export const deletePlaygroundSurfaceTest = (
   playgroundId,
   impactTest
 ) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const batch = db.batch()
+  const batch = dispatch(getBatch)
   const { id, dropTests } = impactTest
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
@@ -25,17 +24,18 @@ export const deletePlaygroundSurfaceTest = (
 
   batch.delete(ref)
 
-  dropTests.forEach(dropTest => {
-    const dropRef = ref.collection('dropTests').doc(dropTest.id)
+  dropTests &&
+    dropTests.forEach(dropTest => {
+      const dropRef = ref.collection('dropTests').doc(dropTest.id)
 
-    storageImages.push(
-      `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/impactTests/${id}/${
-        dropTest.id
-      }`
-    )
+      storageImages.push(
+        `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/impactTests/${id}/${
+          dropTest.id
+        }`
+      )
 
-    batch.delete(dropRef)
-  })
+      batch.delete(dropRef)
+    })
 
   await batch.commit()
 

@@ -1,5 +1,6 @@
 import { saveImage } from '../storageActions/'
 import { UPDATE_DROP_TEST } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const updateDropTest = ({
   userId,
@@ -8,11 +9,9 @@ export const updateDropTest = ({
   id,
   data,
 }) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('impactTests')

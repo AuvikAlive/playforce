@@ -3,6 +3,7 @@ import {
   FETCH_CONDITION_RATINGS_COMPLETED,
 } from '../../actionTypes'
 import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
+import { getRootRef } from '../dbActions/'
 
 export const fetchConditionRatings = (userId, inspectionId) => async (
   dispatch,
@@ -11,15 +12,14 @@ export const fetchConditionRatings = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_CONDITION_RATINGS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('conditionRatings')
-    .get()
+
+  const querySnapshot = await ref.get()
 
   let items = querySnapshot.docs.map(async doc => {
     if (doc.exists) {

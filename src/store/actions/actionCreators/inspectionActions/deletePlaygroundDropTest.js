@@ -1,5 +1,6 @@
 import { deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND_DROP_TEST } from '../../actionTypes'
+import { getFirestore, getRootRef } from '../dbActions/'
 
 export const deletePlaygroundDropTest = ({
   userId,
@@ -8,15 +9,13 @@ export const deletePlaygroundDropTest = ({
   playgroundId,
   id,
 }) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const db = dispatch(getFirestore)
+  const rootRef = dispatch(getRootRef)
 
   let storageImages = []
 
   return db.runTransaction(async transaction => {
-    const ref = db
-      .collection('users')
-      .doc(userId)
+    const ref = rootRef
       .collection('inspections')
       .doc(inspectionId)
       .collection('playgrounds')

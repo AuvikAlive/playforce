@@ -1,18 +1,13 @@
 import { saveImage } from '../storageActions/'
+import { getRootRef } from '../dbActions/'
 
 export const updateCover = (userId, inspectionId, data) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
-    .collection('inspections')
-    .doc(inspectionId)
-
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('inspections').doc(inspectionId)
   const { image } = data
 
   if (image) {

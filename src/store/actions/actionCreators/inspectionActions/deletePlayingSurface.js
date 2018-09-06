@@ -1,14 +1,13 @@
+import { getRootRef } from '../dbActions/'
+
 export const deletePlayingSurface = (userId, inspectionId, id) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
 
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playingSurfaces')

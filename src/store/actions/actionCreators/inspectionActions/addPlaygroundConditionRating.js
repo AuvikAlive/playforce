@@ -1,5 +1,6 @@
 import { saveImage } from '../storageActions/'
 import { ADD_PLAYGROUND_CONDITION_RATING } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const addPlaygroundConditionRating = (
   userId,
@@ -7,12 +8,9 @@ export const addPlaygroundConditionRating = (
   playgroundId,
   data
 ) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
 
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

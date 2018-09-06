@@ -1,4 +1,5 @@
 import { FETCH_STANDARDS, FETCH_STANDARDS_COMPLETED } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchStandards = userId => async (
   dispatch,
@@ -7,13 +8,9 @@ export const fetchStandards = userId => async (
 ) => {
   dispatch({ type: FETCH_STANDARDS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
-    .collection('standards')
-    .get()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('standards')
+  const querySnapshot = await ref.get()
 
   let items = []
 

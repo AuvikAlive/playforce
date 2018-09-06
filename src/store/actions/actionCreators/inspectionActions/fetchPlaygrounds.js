@@ -2,6 +2,7 @@ import {
   FETCH_PLAYGROUNDS,
   FETCH_PLAYGROUNDS_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 import { fetchPlaygroundConditionRatings } from './fetchPlaygroundConditionRatings'
 import { fetchPlaygroundComplianceIssues } from './fetchPlaygroundComplianceIssues'
 import { fetchPlaygroundMaintenanceIssues } from './fetchPlaygroundMaintenanceIssues'
@@ -15,26 +16,21 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_PLAYGROUNDS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
     .orderBy('name')
-    .get()
+
+  const querySnapshot = await ref.get()
 
   let items = querySnapshot.docs.map(async doc => {
     const conditionRatings = await fetchPlaygroundConditionRatings(doc.ref)
-
     const complianceIssues = await fetchPlaygroundComplianceIssues(doc.ref)
-
     const maintenanceIssues = await fetchPlaygroundMaintenanceIssues(doc.ref)
-
     const playingSurfaces = await fetchPlaygroundPlayingSufaces(doc.ref)
-
     const impactTests = await fetchPlaygroundImpactTests(doc.ref)
 
     return {

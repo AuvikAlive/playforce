@@ -1,17 +1,15 @@
 import { saveImage } from '../storageActions/'
 import { ADD_COMPLIANCE_ISSUE } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const addComplianceIssue = (userId, inspectionId, data) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
 
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('complianceIssues')

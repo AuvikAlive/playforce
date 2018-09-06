@@ -1,5 +1,6 @@
 import { deleteImage } from '../storageActions/'
 import { DELETE_IMPACT_TEST } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const deleteImpactTest = (userId, inspectionId, impactTests) => async (
   dispatch,
@@ -9,11 +10,8 @@ export const deleteImpactTest = (userId, inspectionId, impactTests) => async (
   const firebase = getFirebase()
   const db = firebase.firestore()
   const batch = db.batch()
-  const inspectionRef = db
-    .collection('users')
-    .doc(userId)
-    .collection('inspections')
-    .doc(inspectionId)
+  const rootRef = dispatch(getRootRef)
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
   let storageImages = []
 

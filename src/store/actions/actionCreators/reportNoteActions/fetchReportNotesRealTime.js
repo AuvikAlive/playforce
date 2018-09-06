@@ -2,6 +2,7 @@ import {
   FETCH_REPORT_NOTES,
   FETCH_REPORT_NOTES_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchReportNotesRealTime = userId => async (
   dispatch,
@@ -10,13 +11,8 @@ export const fetchReportNotesRealTime = userId => async (
 ) => {
   dispatch({ type: FETCH_REPORT_NOTES })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
-    .collection('reportNotes')
-    .orderBy('number')
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('reportNotes').orderBy('number')
 
   return ref.onSnapshot(querySnapshot => {
     let items = []

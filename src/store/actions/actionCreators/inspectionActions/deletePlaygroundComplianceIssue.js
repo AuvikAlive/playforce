@@ -1,5 +1,6 @@
 import { deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND_COMPLIANCE_ISSUE } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const deletePlaygroundComplianceIssue = ({
   userId,
@@ -8,12 +9,9 @@ export const deletePlaygroundComplianceIssue = ({
   id,
   images,
 }) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
 
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

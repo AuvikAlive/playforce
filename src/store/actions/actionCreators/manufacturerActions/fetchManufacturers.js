@@ -2,6 +2,7 @@ import {
   FETCH_MANUFACTURERS,
   FETCH_MANUFACTURERS_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchManufacturers = userId => async (
   dispatch,
@@ -10,13 +11,9 @@ export const fetchManufacturers = userId => async (
 ) => {
   dispatch({ type: FETCH_MANUFACTURERS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
-    .collection('manufacturers')
-    .get()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('manufacturers')
+  const querySnapshot = await ref.get()
 
   let items = []
 

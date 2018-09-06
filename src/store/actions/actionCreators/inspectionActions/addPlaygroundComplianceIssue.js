@@ -1,5 +1,6 @@
 import { saveImage } from '../storageActions/'
 import { ADD_PLAYGROUND_COMPLIANCE_ISSUE } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const addPlaygroundComplianceIssue = (
   userId,
@@ -7,12 +8,9 @@ export const addPlaygroundComplianceIssue = (
   playgroundId,
   data
 ) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
 
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

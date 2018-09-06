@@ -2,6 +2,7 @@ import {
   FETCH_COMMON_ISSUES,
   FETCH_COMMON_ISSUES_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchCommonIssues = userId => async (
   dispatch,
@@ -10,13 +11,9 @@ export const fetchCommonIssues = userId => async (
 ) => {
   dispatch({ type: FETCH_COMMON_ISSUES })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
-    .collection('commonIssues')
-    .get()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('commonIssues')
+  const querySnapshot = await ref.get()
 
   let items = []
 

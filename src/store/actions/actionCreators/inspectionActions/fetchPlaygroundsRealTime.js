@@ -2,6 +2,7 @@ import {
   FETCH_PLAYGROUNDS,
   FETCH_PLAYGROUNDS_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchPlaygroundsRealTime = (userId, inspectionId) => async (
   dispatch,
@@ -10,11 +11,9 @@ export const fetchPlaygroundsRealTime = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_PLAYGROUNDS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

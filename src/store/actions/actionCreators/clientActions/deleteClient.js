@@ -1,15 +1,12 @@
+import { getRootRef } from '../dbActions/'
+
 export const deleteClient = (userId, id) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('clients').doc(id)
 
-  return db
-    .collection('users')
-    .doc(userId)
-    .collection('clients')
-    .doc(id)
-    .delete()
+  return ref.delete()
 }

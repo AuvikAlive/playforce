@@ -1,4 +1,5 @@
 import { UPDATE_PLAYGROUND_PLAYING_SURFACE } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const updatePlaygroundPlayingSurface = ({
   userId,
@@ -7,11 +8,9 @@ export const updatePlaygroundPlayingSurface = ({
   id,
   data,
 }) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

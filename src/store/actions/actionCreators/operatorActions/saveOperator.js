@@ -1,15 +1,12 @@
+import { getRootRef } from '../dbActions/'
+
 export const saveOperator = (userId, data) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
-    .collection('operators')
-    .doc()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('operators').doc()
 
   return ref.set(data)
 }

@@ -8,7 +8,7 @@ export const updateEquipment = (userId, siteId, data) => async (
   getFirebase
 ) => {
   const { equipment, image } = data
-  const ref = getEquipmentRef({ getFirebase, userId, siteId, data })
+  const ref = dispatch(getEquipmentRef(userId, siteId, data))
 
   const downloadURL = await dispatch(
     saveImage(`${userId}/images/sites/${siteId}/equipments/${equipment}`, image)

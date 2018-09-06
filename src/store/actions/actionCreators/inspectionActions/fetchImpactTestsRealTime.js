@@ -4,6 +4,7 @@ import {
   FETCH_IMPACT_TESTS_COMPLETED,
 } from '../../actionTypes'
 import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
+import { getRootRef } from '../dbActions/'
 
 export const fetchImpactTestsRealTime = (userId, inspectionId) => async (
   dispatch,
@@ -12,11 +13,9 @@ export const fetchImpactTestsRealTime = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_IMPACT_TESTS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('impactTests')

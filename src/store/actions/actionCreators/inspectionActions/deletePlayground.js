@@ -1,13 +1,13 @@
 import { deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND } from '../../actionTypes'
+import { getFirestore, getRootRef } from '../dbActions/'
 
 export const deletePlayground = (userId, inspectionId, playground) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const db = dispatch(getFirestore)
   const batch = db.batch()
 
   const {
@@ -19,9 +19,9 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
     impactTests,
   } = playground
 
-  const playgroundRef = db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const playgroundRef = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

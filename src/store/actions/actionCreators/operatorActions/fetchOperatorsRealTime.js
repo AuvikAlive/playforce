@@ -1,4 +1,5 @@
 import { FETCH_OPERATORS, FETCH_OPERATORS_COMPLETED } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchOperatorsRealTime = userId => async (
   dispatch,
@@ -7,12 +8,8 @@ export const fetchOperatorsRealTime = userId => async (
 ) => {
   dispatch({ type: FETCH_OPERATORS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
-    .collection('operators')
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('operators')
 
   return ref.onSnapshot(querySnapshot => {
     let items = []

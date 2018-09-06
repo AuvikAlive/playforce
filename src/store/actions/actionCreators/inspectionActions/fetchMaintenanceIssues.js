@@ -3,6 +3,7 @@ import {
   FETCH_MAINTENANCE_ISSUES_COMPLETED,
 } from '../../actionTypes'
 import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
+import { getRootRef } from '../dbActions/'
 
 export const fetchMaintenanceIssues = (userId, inspectionId) => async (
   dispatch,
@@ -11,15 +12,14 @@ export const fetchMaintenanceIssues = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_MAINTENANCE_ISSUES })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('maintenanceIssues')
-    .get()
+
+  const querySnapshot = await ref.get()
 
   let items = querySnapshot.docs.map(async doc => {
     if (doc.exists) {

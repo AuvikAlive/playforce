@@ -3,6 +3,7 @@ import {
   FETCH_IMPACT_TESTS_COMPLETED,
 } from '../../actionTypes'
 import { fetchDropTests } from './fetchDropTests'
+import { getRootRef } from '../dbActions/'
 
 export const fetchImpactTests = (userId, inspectionId) => async (
   dispatch,
@@ -11,16 +12,15 @@ export const fetchImpactTests = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_IMPACT_TESTS })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const querySnapshot = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('impactTests')
     .orderBy('surface.location')
-    .get()
+
+  const querySnapshot = await ref.get()
 
   let items = querySnapshot.docs.map(async doc => {
     const dropTests = await fetchDropTests(doc.ref)

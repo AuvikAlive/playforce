@@ -1,4 +1,5 @@
 import { DELETE_PLAYGROUND_PLAYING_SURFACE } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const deletePlaygroundPlayingSurface = (
   userId,
@@ -6,12 +7,9 @@ export const deletePlaygroundPlayingSurface = (
   playgroundId,
   id
 ) => async (dispatch, getState, getFirebase) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
+  const rootRef = dispatch(getRootRef)
 
-  const ref = db
-    .collection('users')
-    .doc(userId)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')

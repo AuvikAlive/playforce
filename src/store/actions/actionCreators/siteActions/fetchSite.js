@@ -1,4 +1,5 @@
 import { FETCH_SITE, FETCH_SITE_COMPLETED } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchSite = (userId, id) => async (
   dispatch,
@@ -7,14 +8,9 @@ export const fetchSite = (userId, id) => async (
 ) => {
   dispatch({ type: FETCH_SITE })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const doc = await db
-    .collection('users')
-    .doc(userId)
-    .collection('sites')
-    .doc(id)
-    .get()
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('sites').doc(id)
+  const doc = await ref.get()
   const item = { id: doc.id, ...doc.data() }
 
   dispatch({ type: FETCH_SITE_COMPLETED, payload: item })

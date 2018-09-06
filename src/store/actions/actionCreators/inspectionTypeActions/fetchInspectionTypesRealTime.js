@@ -2,6 +2,7 @@ import {
   FETCH_INSPECTION_TYPES,
   FETCH_INSPECTION_TYPES_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchInspectionTypesRealTime = userId => async (
   dispatch,
@@ -10,12 +11,8 @@ export const fetchInspectionTypesRealTime = userId => async (
 ) => {
   dispatch({ type: FETCH_INSPECTION_TYPES })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
-    .collection('inspectionTypes')
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('inspectionTypes')
 
   return ref.onSnapshot(querySnapshot => {
     let items = []

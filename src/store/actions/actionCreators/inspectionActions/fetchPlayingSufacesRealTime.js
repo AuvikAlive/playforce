@@ -2,6 +2,7 @@ import {
   FETCH_PLAYING_SURFACES,
   FETCH_PLAYING_SURFACES_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchPlayingSufacesRealTime = (userId, inspectionId) => async (
   dispatch,
@@ -10,11 +11,8 @@ export const fetchPlayingSufacesRealTime = (userId, inspectionId) => async (
 ) => {
   dispatch({ type: FETCH_PLAYING_SURFACES })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+  const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playingSurfaces')
