@@ -1,4 +1,5 @@
 import { deleteImage } from '../storageActions/'
+import { DELETE_IMPACT_TEST } from '../../actionTypes'
 
 export const deleteImpactTest = (userId, inspectionId, impactTests) => async (
   dispatch,
@@ -20,23 +21,29 @@ export const deleteImpactTest = (userId, inspectionId, impactTests) => async (
     impactGeneralInfo: firebase.firestore.FieldValue.delete(),
   })
 
-  impactTests.forEach(({ id, dropTests }) => {
-    const impactRef = inspectionRef.collection('impactTests').doc(id)
+  impactTests &&
+    impactTests.forEach(({ id, dropTests }) => {
+      const impactRef = inspectionRef.collection('impactTests').doc(id)
 
-    batch.delete(impactRef)
+      batch.delete(impactRef)
 
-    dropTests.forEach(dropTest => {
-      const dropRef = impactRef.collection('dropTests').doc(dropTest.id)
+      dropTests &&
+        dropTests.forEach(dropTest => {
+          const dropRef = impactRef.collection('dropTests').doc(dropTest.id)
 
-      storageImages.push(
-        `${userId}/images/${inspectionId}/impactTests/${id}/${dropTest.id}`
-      )
+          storageImages.push(
+            `${userId}/images/${inspectionId}/impactTests/${id}/${dropTest.id}`
+          )
 
-      batch.delete(dropRef)
+          batch.delete(dropRef)
+        })
     })
-  })
 
   await batch.commit()
+
+  dispatch({
+    type: DELETE_IMPACT_TEST,
+  })
 
   storageImages.forEach(item => {
     dispatch(deleteImage(item))

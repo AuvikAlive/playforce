@@ -23,7 +23,7 @@ import { saveImpactGeneralInfo } from './saveImpactGeneralInfo'
 import { deleteImpactTest } from './deleteImpactTest'
 import { addSurfaceTest } from './addSurfaceTest'
 import { deleteSurfaceTest } from './deleteSurfaceTest'
-import { updateImpactSurface } from './updateImpactSurface'
+import { updateSurfaceTest } from './updateSurfaceTest'
 import { fetchImpactTestsRealTime } from './fetchImpactTestsRealTime'
 import { fetchImpactTests } from './fetchImpactTests'
 import { addDropTest } from './addDropTest'
@@ -39,6 +39,7 @@ import { fetchPlayingSufacesRealTime } from './fetchPlayingSufacesRealTime'
 import { addPlayground } from './addPlayground'
 import { fetchPlaygroundsRealTime } from './fetchPlaygroundsRealTime'
 import { fetchPlaygrounds } from './fetchPlaygrounds'
+import { deletePlayground } from './deletePlayground'
 import { addPlaygroundConditionRating } from './addPlaygroundConditionRating'
 import { updatePlaygroundConditionRating } from './updatePlaygroundConditionRating'
 import { deletePlaygroundConditionRating } from './deletePlaygroundConditionRating'
@@ -89,7 +90,7 @@ export {
   deleteImpactTest,
   addSurfaceTest,
   deleteSurfaceTest,
-  updateImpactSurface,
+  updateSurfaceTest,
   fetchImpactTestsRealTime,
   fetchImpactTests,
   addDropTest,
@@ -105,6 +106,7 @@ export {
   addPlayground,
   fetchPlaygroundsRealTime,
   fetchPlaygrounds,
+  deletePlayground,
   addPlaygroundConditionRating,
   updatePlaygroundConditionRating,
   deletePlaygroundConditionRating,

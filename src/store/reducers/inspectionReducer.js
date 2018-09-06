@@ -19,8 +19,9 @@ import {
   DELETE_MAINTENANCE_ISSUE,
   FETCH_IMPACT_TESTS,
   FETCH_IMPACT_TESTS_COMPLETED,
+  DELETE_IMPACT_TEST,
   ADD_SURFACE_TEST,
-  UPDATE_IMPACT_SURFACE,
+  UPDATE__SURFACE_TEST,
   DELETE_SURFACE_TEST,
   ADD_DROP_TEST,
   UPDATE_DROP_TEST,
@@ -30,6 +31,7 @@ import {
   ADD_PLAYGROUND,
   FETCH_PLAYGROUNDS,
   FETCH_PLAYGROUNDS_COMPLETED,
+  DELETE_PLAYGROUND,
   ADD_PLAYGROUND_CONDITION_RATING,
   UPDATE_PLAYGROUND_CONDITION_RATING,
   DELETE_PLAYGROUND_CONDITION_RATING,
@@ -68,6 +70,7 @@ export const initialState = {
   maintenanceIssuesLoaded: false,
   maintenanceIssues: [],
   maintenanceIssuesAdded: false,
+  impactGeneralInfo: undefined,
   impactTestsLoaded: false,
   impactTests: [],
   impactTestsAdded: false,
@@ -216,6 +219,9 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
     case FETCH_IMPACT_TESTS_COMPLETED:
       return { ...state, impactTestsLoaded: true, impactTests: payload }
 
+    case DELETE_IMPACT_TEST:
+      return { ...state, impactTests: [], impactGeneralInfo: undefined }
+
     case ADD_SURFACE_TEST: {
       payload.dropTests = []
 
@@ -225,7 +231,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       }
     }
 
-    case UPDATE_IMPACT_SURFACE: {
+    case UPDATE__SURFACE_TEST: {
       const updatedImpactTests = state.impactTests.map(item => {
         if (item.id === payload.id) {
           item.surface = payload.surface
@@ -363,6 +369,22 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
               )
             : false,
       }
+
+    case DELETE_PLAYGROUND: {
+      const playgrounds = state.playgrounds.filter(item => item.id !== payload)
+
+      return {
+        ...state,
+        playgrounds,
+        playgroundsAdded: playgrounds.length > 0,
+        playgroundsCompleted:
+          playgrounds.length > 0
+            ? playgrounds.every(
+                ({ conditionRatings }) => conditionRatings.length > 0
+              )
+            : false,
+      }
+    }
 
     case ADD_PLAYGROUND_CONDITION_RATING: {
       const { playgroundId } = payload

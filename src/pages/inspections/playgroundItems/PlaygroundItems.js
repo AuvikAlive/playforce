@@ -12,6 +12,7 @@ import { Content } from '../../../components/content/Content'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftRightNav,
+  showContentWhenLoaded,
   closeMenu,
 } from '../../../functions/'
 import { onComponentDidMount } from './onComponentDidMount'
@@ -40,34 +41,38 @@ export class PlaygroundItems extends Component {
       playingSurfaces,
       impactGeneralInfo,
       impactTests,
-    } = playground
+    } = playground || {}
 
     const impactGeneralInfoAdded = !isEmpty(impactGeneralInfo)
-    const maintenanceIssuesAdded = maintenanceIssues.length > 0
+    const maintenanceIssuesAdded =
+      maintenanceIssues && maintenanceIssues.length > 0
 
     const impactTestsAdded =
       !!impactTests &&
       impactTests.some(({ dropTests }) => !!dropTests && dropTests.length > 0)
 
-    return (
+    return showContentWhenLoaded(
+      playground,
       <Content>
         <Paper>
           <List component="nav" disablePadding>
             <StyledNavLink to={`${match.url}/conditionRating`}>
               <ListItem button>
                 <ListItemText primary="Condition Rating" />
-                {conditionRatings.length > 0 && (
-                  <CheckCircleIcon color="primary" />
-                )}
+                {conditionRatings &&
+                  conditionRatings.length > 0 && (
+                    <CheckCircleIcon color="primary" />
+                  )}
               </ListItem>
             </StyledNavLink>
 
             <StyledNavLink to={`${match.url}/complianceIssues`}>
               <ListItem button>
                 <ListItemText primary="Identified Compliance Issues" />
-                {complianceIssues.length > 0 && (
-                  <CheckCircleIcon color="primary" />
-                )}
+                {complianceIssues &&
+                  complianceIssues.length > 0 && (
+                    <CheckCircleIcon color="primary" />
+                  )}
               </ListItem>
             </StyledNavLink>
 
@@ -83,9 +88,10 @@ export class PlaygroundItems extends Component {
             <StyledNavLink to={`${match.url}/playingSurfaces`}>
               <ListItem button>
                 <ListItemText primary="Playing Surfaces" />
-                {playingSurfaces.length > 0 && (
-                  <CheckCircleIcon color="primary" />
-                )}
+                {playingSurfaces &&
+                  playingSurfaces.length > 0 && (
+                    <CheckCircleIcon color="primary" />
+                  )}
               </ListItem>
             </StyledNavLink>
 

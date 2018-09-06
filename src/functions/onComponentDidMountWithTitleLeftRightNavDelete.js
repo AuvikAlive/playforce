@@ -6,7 +6,8 @@ import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTi
 export const onComponentDidMountWithTitleLeftRightNavDelete = (
   component,
   title,
-  deleteItem
+  deleteItem,
+  componentToAppend
 ) => {
   onComponentDidMountWithTitleLeftNav(component, title)
 
@@ -14,12 +15,16 @@ export const onComponentDidMountWithTitleLeftRightNavDelete = (
   const { openDialog } = component.props
 
   setRightNavComponent(
-    <IconButton
-      color="inherit"
-      aria-label="delete condition rating"
-      onClick={() => openDialog(deleteItem(component))}
-    >
-      <DeleteIcon />
-    </IconButton>
+    <div>
+      <IconButton
+        color="inherit"
+        aria-label="delete condition rating"
+        onClick={() => openDialog(deleteItem(component))}
+      >
+        <DeleteIcon />
+      </IconButton>
+
+      {componentToAppend}
+    </div>
   )
 }

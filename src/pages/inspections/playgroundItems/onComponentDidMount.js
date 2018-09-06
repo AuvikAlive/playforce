@@ -3,15 +3,17 @@ import IconButton from '@material-ui/core/IconButton'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import {
   openMenu,
-  onComponentDidMountWithTitleLeftNav,
+  onComponentDidMountWithTitleLeftRightNavDelete,
 } from '../../../functions/'
+import { deleteItem } from './deleteItem'
 
 export const onComponentDidMount = component => {
-  const { props, context } = component
+  const { props } = component
 
-  onComponentDidMountWithTitleLeftNav(component, props.playground.name)
-
-  context.setRightNavComponent(
+  onComponentDidMountWithTitleLeftRightNavDelete(
+    component,
+    props.playground.name,
+    deleteItem,
     <IconButton color="inherit" aria-label="More" onClick={openMenu(component)}>
       <MoreVertIcon aria-label="More" />
     </IconButton>

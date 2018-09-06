@@ -17,7 +17,7 @@ export const updateCover = (userId, inspectionId, data) => async (
 
   if (image) {
     const downloadURL = await dispatch(
-      saveImage(`${userId}/images/${inspectionId}-cover`, image)
+      saveImage(`${userId}/images/${inspectionId}/cover`, image)
     )
 
     data.image = downloadURL

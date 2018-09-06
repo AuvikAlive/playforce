@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { deleteImpactTest } from '../../../store/actions/actionCreators/inspectionActions/'
+import { deletePlayground } from '../../../store/actions/actionCreators/inspectionActions/'
 import { PlaygroundItems } from './PlaygroundItems'
 
 const mapStateToProps = ({ firebase, inspection }, { playgroundId }) => {
@@ -12,11 +12,12 @@ const mapStateToProps = ({ firebase, inspection }, { playgroundId }) => {
     userId: firebase.auth.uid,
     inspectionId: id,
     playgrounds,
+    playgroundId,
     playground: playgrounds.find(({ id }) => id === playgroundId),
   }
 }
 
-const mapDispatchToProps = { deleteImpactTest }
+const mapDispatchToProps = { deletePlayground }
 
 const enhance = compose(
   withFeedback,

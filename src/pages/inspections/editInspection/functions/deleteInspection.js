@@ -5,7 +5,5 @@ export const deleteInspection = component => async () => {
 
   await deleteInspection(inspection, userId, inspectionId)
 
-  const message = 'Inspection deleted!'
-
-  showActionGoBack(component, message)()
+  showActionGoBack(component, 'Inspection deleted!')()
 }

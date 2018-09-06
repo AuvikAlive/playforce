@@ -10,7 +10,7 @@ ImpactTestDetailRoutes.preload()
 export const renderImpactTestDetailRoutes = ({ props }) => routerProps => {
   const {
     deleteSurfaceTest,
-    updateImpactSurface,
+    updateSurfaceTest,
     addDropTest,
     updateDropTest,
     deleteDropTest,
@@ -28,7 +28,7 @@ export const renderImpactTestDetailRoutes = ({ props }) => routerProps => {
         deleteSurfaceTest(userId, inspectionId, impactTest)
       }
       updateImpactSurface={data =>
-        updateImpactSurface(userId, inspectionId, impactTestId, data)
+        updateSurfaceTest(userId, inspectionId, impactTestId, data)
       }
       addDropTest={data =>
         addDropTest(userId, inspectionId, impactTestId, data)
