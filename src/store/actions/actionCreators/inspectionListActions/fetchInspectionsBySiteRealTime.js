@@ -2,6 +2,7 @@ import {
   FETCH_INSPECTIONS_BY_SITE,
   FETCH_INSPECTIONS_BY_SITE_COMPLETED,
 } from '../../actionTypes'
+import { getRootRef } from '../dbActions/'
 
 export const fetchInspectionsBySiteRealTime = (userId, siteId) => async (
   dispatch,
@@ -10,11 +11,9 @@ export const fetchInspectionsBySiteRealTime = (userId, siteId) => async (
 ) => {
   dispatch({ type: FETCH_INSPECTIONS_BY_SITE })
 
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const ref = await db
-    .collection('users')
-    .doc(userId)
+  const rootRef = dispatch(getRootRef)
+
+  const ref = rootRef
     .collection('inspections')
     .orderBy('inspectionNumber')
     .where('site', '==', siteId)
