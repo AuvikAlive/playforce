@@ -1,4 +1,4 @@
-import { saveImage } from '../storageActions/'
+import { getSingleImagePath, saveImage } from '../storageActions/'
 import { ADD_PLAYGROUND_DROP_TEST } from '../../actionTypes'
 import { getFirestore, getRootRef } from '../dbActions/'
 
@@ -24,15 +24,8 @@ export const addPlaygroundDropTest = ({
       .doc()
 
     const { image } = data
-
-    const downloadURL = await dispatch(
-      saveImage(
-        `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/impactTests/${impactTestId}/${
-          ref.id
-        }`,
-        image
-      )
-    )
+    const storagePath = getSingleImagePath(ref)
+    const downloadURL = await dispatch(saveImage(storagePath, image))
 
     data.image = downloadURL
 

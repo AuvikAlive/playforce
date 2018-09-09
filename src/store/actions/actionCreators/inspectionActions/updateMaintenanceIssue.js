@@ -1,4 +1,4 @@
-import { saveImage } from '../storageActions/'
+import { getMultipleImagePath, saveImage } from '../storageActions/'
 import { UPDATE_MAINTENANCE_ISSUE } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -20,12 +20,8 @@ export const updateMaintenanceIssue = (
 
   let downloadURLs = images.map(async (item, index) => {
     const { image } = item
-    const downloadURL = await dispatch(
-      saveImage(
-        `${userId}/images/${inspectionId}/maintenanceIssue-${id}-issue${index}`,
-        image
-      )
-    )
+    const storagePath = getMultipleImagePath(ref, index)
+    const downloadURL = await dispatch(saveImage(storagePath, image))
 
     return {
       ...item,

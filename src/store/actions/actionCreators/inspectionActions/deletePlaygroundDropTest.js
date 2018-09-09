@@ -1,4 +1,4 @@
-import { deleteImage } from '../storageActions/'
+import { getSingleImagePath, deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND_DROP_TEST } from '../../actionTypes'
 import { getFirestore, getRootRef } from '../dbActions/'
 
@@ -25,9 +25,9 @@ export const deletePlaygroundDropTest = ({
       .collection('dropTests')
       .doc(id)
 
-    storageImages.push(
-      `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/impactTests/${impactTestId}/${id}`
-    )
+    const storagePath = getSingleImagePath(ref)
+
+    storageImages.push(storagePath)
 
     await transaction.delete(ref)
 

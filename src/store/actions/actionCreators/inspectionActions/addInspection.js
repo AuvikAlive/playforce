@@ -1,5 +1,5 @@
-import { saveImage } from '../storageActions/'
 import { getFirestore, getRootRef } from '../dbActions/'
+import { getSingleImagePath, saveImage } from '../storageActions/'
 
 export const addInspection = (userId, cover) => async (
   dispatch,
@@ -15,7 +15,7 @@ export const addInspection = (userId, cover) => async (
 
     transaction.update(rootRef, { inspectionCount: inspectionCount + 1 })
 
-    const inspectionRef = rootRef.collection('inspections').doc()
+    const ref = rootRef.collection('inspections').doc()
 
     const {
       image,
@@ -23,16 +23,15 @@ export const addInspection = (userId, cover) => async (
     } = cover
 
     if (image) {
-      const downloadURL = await dispatch(
-        saveImage(`${userId}/images/${inspectionRef.id}/cover`, image)
-      )
+      const storagePath = getSingleImagePath(ref)
+      const downloadURL = await dispatch(saveImage(storagePath, image))
 
       cover.image = downloadURL
     } else {
       delete cover.image
     }
 
-    transaction.set(inspectionRef, {
+    transaction.set(ref, {
       cover,
       site: cover.location.id,
       inspectionNumber: inspectionCount + 1,
@@ -40,6 +39,6 @@ export const addInspection = (userId, cover) => async (
       name,
     })
 
-    return inspectionRef.id
+    return ref.id
   })
 }

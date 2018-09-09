@@ -1,4 +1,4 @@
-import { saveImage } from '../storageActions/'
+import { getSingleImagePath, saveImage } from '../storageActions/'
 import { UPDATE_DROP_TEST } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -20,12 +20,8 @@ export const updateDropTest = ({
     .doc(id)
 
   const { image } = data
-  const downloadURL = await dispatch(
-    saveImage(
-      `${userId}/images/${inspectionId}/impactTests/${impactTestId}/${ref.id}`,
-      image
-    )
-  )
+  const storagePath = getSingleImagePath(ref)
+  const downloadURL = await dispatch(saveImage(storagePath, image))
 
   data.image = downloadURL
 

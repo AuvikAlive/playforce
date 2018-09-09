@@ -1,4 +1,8 @@
-import { deleteImage } from '../storageActions/'
+import {
+  getSingleImagePath,
+  getMultipleImagePath,
+  deleteImage,
+} from '../storageActions/'
 import { getFirestore, getRootRef } from '../dbActions/'
 
 export const deleteInspection = (inspection, userId) => async (
@@ -22,18 +26,17 @@ export const deleteInspection = (inspection, userId) => async (
   const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
   let storageImages = inspection.cover.image
-    ? [`${userId}/images/${inspectionId}/cover`]
+    ? [getSingleImagePath(inspectionRef)]
     : []
 
   if (conditionRatingsAdded) {
     const { conditionRatings } = inspection
 
     conditionRatings.forEach(({ id }) => {
-      batch.delete(inspectionRef.collection('conditionRatings').doc(id))
+      const ref = inspectionRef.collection('conditionRatings').doc(id)
 
-      storageImages.push(
-        `${userId}/images/${inspectionId}/conditionRating-${id}`
-      )
+      batch.delete(ref)
+      storageImages.push(getSingleImagePath(ref))
     })
   }
 
@@ -41,12 +44,12 @@ export const deleteInspection = (inspection, userId) => async (
     const { complianceIssues } = inspection
 
     complianceIssues.forEach(({ id, images }) => {
-      batch.delete(inspectionRef.collection('complianceIssues').doc(id))
+      const ref = inspectionRef.collection('complianceIssues').doc(id)
+
+      batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(
-          `${userId}/images/${inspectionId}/complianceIssue-${id}-issue${index}`
-        )
+        storageImages.push(getMultipleImagePath(ref, index))
       })
     })
   }
@@ -55,12 +58,12 @@ export const deleteInspection = (inspection, userId) => async (
     const { maintenanceIssues } = inspection
 
     maintenanceIssues.forEach(({ id, images }) => {
-      batch.delete(inspectionRef.collection('maintenanceIssues').doc(id))
+      const ref = inspectionRef.collection('maintenanceIssues').doc(id)
+
+      batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(
-          `${userId}/images/${inspectionId}/maintenanceIssue-${id}-issue${index}`
-        )
+        storageImages.push(getMultipleImagePath(ref, index))
       })
     })
   }
@@ -81,11 +84,10 @@ export const deleteInspection = (inspection, userId) => async (
 
       if (dropTests.length > 0) {
         dropTests.forEach(({ id, image }) => {
-          batch.delete(impactTestRef.collection('dropTests').doc(id))
+          const ref = impactTestRef.collection('dropTests').doc(id)
 
-          storageImages.push(
-            `${userId}/images/${inspectionId}/impactTests/${impactTestId}/${id}`
-          )
+          batch.delete(ref)
+          storageImages.push(getSingleImagePath(ref))
         })
       }
     })
@@ -110,34 +112,33 @@ export const deleteInspection = (inspection, userId) => async (
 
       if (conditionRatings.length > 0) {
         conditionRatings.forEach(({ id }) => {
-          batch.delete(playgroundRef.collection('conditionRatings').doc(id))
+          const ref = playgroundRef.collection('conditionRatings').doc(id)
 
-          storageImages.push(
-            `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/conditionRating-${id}`
-          )
+          batch.delete(ref)
+          storageImages.push(getSingleImagePath(ref))
         })
       }
 
       if (complianceIssues.length > 0) {
         complianceIssues.forEach(({ id, images }) => {
-          batch.delete(playgroundRef.collection('complianceIssues').doc(id))
+          const ref = playgroundRef.collection('complianceIssues').doc(id)
+
+          batch.delete(ref)
 
           images.forEach((item, index) => {
-            storageImages.push(
-              `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/complianceIssue-${id}-issue${index}`
-            )
+            storageImages.push(getMultipleImagePath(ref, index))
           })
         })
       }
 
       if (maintenanceIssues.length > 0) {
         maintenanceIssues.forEach(({ id, images }) => {
-          batch.delete(playgroundRef.collection('maintenanceIssues').doc(id))
+          const ref = playgroundRef.collection('maintenanceIssues').doc(id)
+
+          batch.delete(ref)
 
           images.forEach((item, index) => {
-            storageImages.push(
-              `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/maintenanceIssue-${id}-issue${index}`
-            )
+            storageImages.push(getMultipleImagePath(ref, index))
           })
         })
       }
@@ -157,47 +158,16 @@ export const deleteInspection = (inspection, userId) => async (
 
           if (dropTests.length > 0) {
             dropTests.forEach(({ id, image }) => {
-              batch.delete(impactTestRef.collection('dropTests').doc(id))
+              const ref = impactTestRef.collection('dropTests').doc(id)
 
-              storageImages.push(
-                `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/impactTests/${impactTestId}/${id}`
-              )
+              batch.delete(ref)
+              storageImages.push(getSingleImagePath(ref))
             })
           }
         })
       }
     })
   }
-
-  // if (conditionRatingsAdded) {
-  //   const querySnapshot = await inspectionRef
-  //     .collection('conditionRatings')
-  //     .get()
-
-  //   querySnapshot.forEach(doc => {
-  //     batch.delete(doc.ref)
-  //   })
-  // }
-
-  // if (complianceIssuesAdded) {
-  //   const querySnapshot = await inspectionRef
-  //     .collection('complianceIssues')
-  //     .get()
-
-  //   querySnapshot.forEach(doc => {
-  //     batch.delete(doc.ref)
-  //   })
-  // }
-
-  // if (maintenanceIssuesAdded) {
-  //   const querySnapshot = await inspectionRef
-  //     .collection('maintenanceIssues')
-  //     .get()
-
-  //   querySnapshot.forEach(doc => {
-  //     batch.delete(doc.ref)
-  //   })
-  // }
 
   batch.delete(inspectionRef)
 

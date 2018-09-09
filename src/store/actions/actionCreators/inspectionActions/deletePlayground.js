@@ -1,4 +1,8 @@
-import { deleteImage } from '../storageActions/'
+import {
+  getSingleImagePath,
+  getMultipleImagePath,
+  deleteImage,
+} from '../storageActions/'
 import { DELETE_PLAYGROUND } from '../../actionTypes'
 import { getFirestore, getRootRef } from '../dbActions/'
 
@@ -33,34 +37,33 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
 
   if (conditionRatings.length > 0) {
     conditionRatings.forEach(({ id }) => {
-      batch.delete(playgroundRef.collection('conditionRatings').doc(id))
+      const ref = playgroundRef.collection('conditionRatings').doc(id)
 
-      storageImages.push(
-        `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/conditionRating-${id}`
-      )
+      batch.delete(ref)
+      storageImages.push(getSingleImagePath(ref))
     })
   }
 
   if (complianceIssues.length > 0) {
     complianceIssues.forEach(({ id, images }) => {
-      batch.delete(playgroundRef.collection('complianceIssues').doc(id))
+      const ref = playgroundRef.collection('complianceIssues').doc(id)
+
+      batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(
-          `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/complianceIssue-${id}-issue${index}`
-        )
+        storageImages.push(getMultipleImagePath(ref, index))
       })
     })
   }
 
   if (maintenanceIssues.length > 0) {
     maintenanceIssues.forEach(({ id, images }) => {
-      batch.delete(playgroundRef.collection('maintenanceIssues').doc(id))
+      const ref = playgroundRef.collection('maintenanceIssues').doc(id)
+
+      batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(
-          `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/maintenanceIssue-${id}-issue${index}`
-        )
+        storageImages.push(getMultipleImagePath(ref, index))
       })
     })
   }
@@ -80,11 +83,10 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
 
       if (dropTests.length > 0) {
         dropTests.forEach(({ id, image }) => {
-          batch.delete(impactTestRef.collection('dropTests').doc(id))
+          const ref = impactTestRef.collection('dropTests').doc(id)
 
-          storageImages.push(
-            `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/impactTests/${impactTestId}/${id}`
-          )
+          batch.delete(ref)
+          storageImages.push(getSingleImagePath(ref))
         })
       }
     })

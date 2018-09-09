@@ -1,5 +1,5 @@
-import { saveImage } from '../storageActions/'
 import { getRootRef } from '../dbActions/'
+import { getSingleImagePath, saveImage } from '../storageActions/'
 
 export const updateCover = (userId, inspectionId, data) => async (
   dispatch,
@@ -11,9 +11,8 @@ export const updateCover = (userId, inspectionId, data) => async (
   const { image } = data
 
   if (image) {
-    const downloadURL = await dispatch(
-      saveImage(`${userId}/images/${inspectionId}/cover`, image)
-    )
+    const storagePath = getSingleImagePath(ref)
+    const downloadURL = await dispatch(saveImage(storagePath, image))
 
     data.image = downloadURL
   } else {

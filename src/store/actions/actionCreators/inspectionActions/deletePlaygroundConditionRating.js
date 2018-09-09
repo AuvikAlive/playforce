@@ -1,4 +1,4 @@
-import { deleteImage } from '../storageActions/'
+import { getSingleImagePath, deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND_CONDITION_RATING } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -20,11 +20,9 @@ export const deletePlaygroundConditionRating = (
 
   await ref.delete()
 
-  dispatch(
-    deleteImage(
-      `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/conditionRating-${id}`
-    )
-  )
+  const storagePath = getSingleImagePath(ref)
+
+  dispatch(deleteImage(storagePath))
 
   dispatch({
     type: DELETE_PLAYGROUND_CONDITION_RATING,
