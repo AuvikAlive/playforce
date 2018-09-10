@@ -1,4 +1,4 @@
-import { deleteImage } from '../storageActions/'
+import { getSingleImagePath, deleteImage } from '../storageActions/'
 import { DELETE_EQUIPMENT } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -14,11 +14,11 @@ export const deleteEquipment = (userId, siteId, id) => async (
     .collection('equipments')
     .doc(id)
 
-  await dispatch(
-    deleteImage(`${userId}/images/sites/${siteId}/equipments/${id}`)
-  )
-
   await ref.delete()
+
+  const storagePath = getSingleImagePath(ref)
+
+  dispatch(deleteImage(storagePath))
 
   dispatch({
     type: DELETE_EQUIPMENT,

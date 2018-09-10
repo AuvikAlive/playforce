@@ -1,4 +1,4 @@
-import { saveImage } from '../storageActions/'
+import { getSingleImagePath, saveImage } from '../storageActions/'
 import { ADD_EQUIPMENT } from '../../actionTypes'
 import { getEquipmentRef } from './getEquipmentRef'
 
@@ -7,19 +7,15 @@ export const addEquipment = (userId, siteId, data) => async (
   getState,
   getFirebase
 ) => {
-  const { equipment, image } = data
   const ref = dispatch(getEquipmentRef(userId, siteId, data))
   const doc = await ref.get()
 
   if (doc.exists) {
     throw new Error('This equipment already exists!')
   } else {
-    const downloadURL = await dispatch(
-      saveImage(
-        `${userId}/images/sites/${siteId}/equipments/${equipment}`,
-        image
-      )
-    )
+    const { image } = data
+    const storagePath = getSingleImagePath(ref)
+    const downloadURL = await dispatch(saveImage(storagePath, image))
 
     data.image = downloadURL
 
