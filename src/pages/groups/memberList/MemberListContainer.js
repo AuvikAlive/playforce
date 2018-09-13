@@ -6,6 +6,7 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   fetchMembersRealTime,
   deleteMembers,
+  deleteGroup,
 } from '../../../store/actions/actionCreators/groupActions/'
 import {
   openSearchBar,
@@ -26,6 +27,7 @@ const mapStateToProps = ({ firebase, group }) => {
 const mapDispatchToProps = {
   fetchMembersRealTime,
   deleteMembers,
+  deleteGroup,
   openSearchBar,
   closeSearchBar,
 }

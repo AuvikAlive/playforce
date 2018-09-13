@@ -9,7 +9,7 @@ export const fetchGroupsRealTime = () => async (
 
   const firebase = getFirebase()
   const db = firebase.firestore()
-  const ref = await db.collection('groups')
+  const ref = db.collection('groups').orderBy('name')
 
   return ref.onSnapshot(querySnapshot => {
     let items = []

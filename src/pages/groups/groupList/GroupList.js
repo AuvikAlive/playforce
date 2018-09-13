@@ -6,8 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
+import { contextTypesTitleLeftRightNavUnsubscriber } from '../../../constants/'
 import { showContentWhenLoaded } from '../../../functions/'
-import { contextTypes } from './contextTypes'
 import { onComponentDidMount, onComponentWillUnmount } from './functions/'
 import { StyledGroupList } from './StyledGroupList'
 
@@ -49,4 +49,4 @@ export class GroupList extends Component {
   }
 }
 
-GroupList.contextTypes = contextTypes
+GroupList.contextTypes = contextTypesTitleLeftRightNavUnsubscriber
