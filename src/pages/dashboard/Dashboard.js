@@ -1,47 +1,63 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import { StyledDashboard } from './StyledDashboard'
+import TextField from '@material-ui/core/TextField'
+import MenuItem from '@material-ui/core/MenuItem'
+import { Content } from '../../components/content/Content'
+import { contextTypesTitleUnsubscriber, userModes } from '../../constants/'
+import { showContentWhenLoaded, getUserMode } from '../../functions/'
+import { onoComponentDidMount } from './onComponentDidMount'
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
   componentDidMount() {
-    const { setNavTitle } = this.context
-
-    setNavTitle('Dashboard')
+    onoComponentDidMount(this)
   }
 
-  componentWillUnmount() {
-    const { removeNavTitle } = this.context
-
-    removeNavTitle()
-  }
   render() {
-    return (
-      <StyledDashboard className="StyledDashboard">
-        <Typography variant="display1" align="center" className="title">
-          Dashboard
-        </Typography>
-        <Grid container spacing={24}>
-          <Grid item xs={12} sm={6}>
-            <Paper className="paper">Tile</Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className="paper">Tile</Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className="paper">Tile</Paper>
-          </Grid>
-        </Grid>
-      </StyledDashboard>
+    const {
+      userGroupsLoaded,
+      userMode,
+      setUserMode,
+      userGroups,
+      userGroup,
+      setUserGroup,
+    } = this.props
+
+    return showContentWhenLoaded(
+      userGroupsLoaded,
+      <Content>
+        <TextField
+          fullWidth
+          select
+          label="Select app mode"
+          margin="normal"
+          value={getUserMode(userMode)}
+          onChange={event => setUserMode(event.target.value)}
+        >
+          {userModes.map((value, index) => (
+            <MenuItem key={index} value={value}>
+              {value}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        {userMode === userModes[1] && (
+          <TextField
+            fullWidth
+            select
+            label="Select a group"
+            margin="normal"
+            value={userGroup || ''}
+            onChange={event => setUserGroup(event.target.value)}
+          >
+            {userGroups.map(({ id, name }, index) => (
+              <MenuItem key={index} value={id}>
+                {name}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      </Content>
     )
   }
 }
 
-export default Dashboard
-
-Dashboard.contextTypes = {
-  setNavTitle: PropTypes.func,
-  removeNavTitle: PropTypes.func,
-}
+Dashboard.contextTypes = contextTypesTitleUnsubscriber

@@ -3,7 +3,7 @@ import TestComponent from '../testComponent/TestComponent'
 // import Home from '../../pages/home/Home'
 
 const Dashboard = Loadable({
-  loader: () => import('../../pages/dashboard/Dashboard'),
+  loader: () => import('../../pages/dashboard'),
 })
 
 const InspectionRoutes = Loadable({

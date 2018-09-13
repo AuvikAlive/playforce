@@ -1,13 +1,12 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
-import { getInitials } from '../../../functions/getInitials'
+import { userModes } from '../../../constants/'
+import { getInitials, getUserMode } from '../../../functions/'
 import { StyledUserView } from './StyledUserView'
-// import { backgroundLowPng } from './backgroundLowPng'
 
 export const UserView = ({ profile }) => {
-  // const { image, photoURL, displayName, email, background } = profile
-  const { displayName, email } = profile
+  const { displayName, email, userMode, userGroup } = profile
 
   return (
     <StyledUserView>
@@ -15,36 +14,19 @@ export const UserView = ({ profile }) => {
         <Avatar alt="User Name" className="avatar avatar-letters">
           {getInitials(displayName)}
         </Avatar>
-        {/* {image || photoURL ? (
-          <Avatar
-            alt="Display Picture"
-            src={image || photoURL}
-            className="avatar"
-          />
-        ) : (
-          <Avatar alt="User Name" className="avatar avatar-letters">
-            {getInitials(displayName)}
-          </Avatar>
-        )} */}
 
         <Typography variant="title">{displayName}</Typography>
-
         <Typography variant="subheading">{email}</Typography>
 
-        {/* <Typography variant="title" color="inherit">
-          {displayName}
-        </Typography>
+        {(userMode === userModes[0] || !userMode) && (
+          <Typography variant="caption">{getUserMode(userMode)}</Typography>
+        )}
 
-        <Typography variant="subheading" color="inherit">
-          {email}
-        </Typography> */}
+        {userMode === userModes[1] && (
+          <Typography variant="caption">{`${userModes[1]}: ${userGroup ||
+            'No group selected'}`}</Typography>
+        )}
       </div>
-
-      {/* <img
-        src={background || backgroundLowPng}
-        alt="background"
-        className="background"
-      /> */}
 
       <div className="background" />
     </StyledUserView>

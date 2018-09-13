@@ -56,12 +56,12 @@ export class CoverForm extends Component {
       inspectionDate,
       appliedStandards,
       inspectionType,
+      displayName,
     } = this.state
 
     const {
       image,
       captureImage,
-      displayName,
       sitesLoaded,
       standardsLoaded,
       standards,
@@ -168,7 +168,8 @@ export class CoverForm extends Component {
               <TextField
                 fullWidth
                 label="Inspected By"
-                value={displayName}
+                value={displayName || this.props.displayName}
+                onChange={onEventInputChange(this, 'displayName')}
                 margin="normal"
               />
 

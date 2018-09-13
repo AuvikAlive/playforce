@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
-import { withFirestore } from 'react-redux-firebase'
 import { SiteList } from './SiteList'
 import {
   openSearchBar,
@@ -14,24 +13,20 @@ import {
   searchSites,
 } from '../../../store/actions/actionCreators/siteActions/'
 
-const mapStateToProps = ({
-  firestore: {
-    data: { users },
-  },
-  firebase: {
-    auth: { uid },
-  },
-  searchBar: { open, query, results },
-  site: { view, sitesLoaded, sites },
-}) => ({
-  userId: uid,
-  searchBarOpen: open,
-  searchResults: results,
-  query,
-  view,
-  sitesLoaded,
-  sites,
-})
+const mapStateToProps = ({ firebase, searchBar, site }) => {
+  const { open, query, results } = searchBar
+  const { view, sitesLoaded, sites } = site
+
+  return {
+    userId: firebase.auth.uid,
+    searchBarOpen: open,
+    searchResults: results,
+    query,
+    view,
+    sitesLoaded,
+    sites,
+  }
+}
 
 const mapDispatchToProps = {
   openSearchBar,
@@ -42,8 +37,12 @@ const mapDispatchToProps = {
   searchSites,
 }
 
-export const SiteListContainer = compose(
+const enhance = compose(
   withRouter,
-  withFirestore,
-  connect(mapStateToProps, mapDispatchToProps)
-)(SiteList)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const SiteListContainer = enhance(SiteList)

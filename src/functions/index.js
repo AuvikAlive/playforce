@@ -34,6 +34,8 @@ import { groupCommonIssues } from './groupCommonIssues'
 import { submitConditionRatingAndEquipment } from './submitConditionRatingAndEquipment'
 import { getCurrentPosition } from './getCurrentPosition'
 import { getGeocode } from './getGeocode'
+import { getInitials } from './getInitials'
+import { getUserMode } from './getUserMode'
 import { onSingleCrop } from './onSingleCrop'
 import { getBase64MimeType } from './getBase64MimeType'
 import { replaceLongDate } from './replaceLongDate'
@@ -78,6 +80,8 @@ export {
   submitConditionRatingAndEquipment,
   getCurrentPosition,
   getGeocode,
+  getInitials,
+  getUserMode,
   onSingleCrop,
   getBase64MimeType,
   replaceLongDate,
