@@ -1,3 +1,4 @@
+import { SET_USER_MODE } from '../../actionTypes'
 import { updateProfile } from '../profileActions'
 
 export const setUserMode = userMode => async (
@@ -6,4 +7,5 @@ export const setUserMode = userMode => async (
   getFirebase
 ) => {
   dispatch(updateProfile({ userMode }))
+  dispatch({ type: SET_USER_MODE })
 }

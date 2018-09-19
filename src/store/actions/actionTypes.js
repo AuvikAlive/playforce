@@ -1,3 +1,4 @@
+export const SIGN_OUT = 'SIGN_OUT'
 export const SET_USER_MODE = 'SET_USER_MODE'
 export const SET_USER_GROUP = 'SET_USER_GROUP'
 export const FETCH_USER_GROUPS = 'FETCH_USER_GROUPS'

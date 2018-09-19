@@ -4,6 +4,7 @@ import { firebaseReducer } from 'react-redux-firebase'
 import { firestoreReducer } from 'redux-firestore'
 import { persistReducer } from 'redux-persist'
 import localForage from 'localforage'
+import { SET_USER_MODE, SIGN_OUT } from '../actions/actionTypes'
 import { sideMenuReducer } from './sideMenuReducer'
 import { searchBarReducer } from './searchBarReducer'
 import { inspectionReducer } from './inspectionReducer'
@@ -52,6 +53,19 @@ const reducers = {
   project: projectReducer,
 }
 
-export const rootReducer = combineReducers(reducers)
+const appReducer = combineReducers(reducers)
+
+export const rootReducer = (state, action) => {
+  if (action.type === SET_USER_MODE) {
+    const { router, firebase, sideMenu, group } = state
+    state = { router, firebase, sideMenu, group }
+  } else if (action.type === SIGN_OUT) {
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
+
+// export const rootReducer = combineReducers(reducers)
 
 export const persistedReducer = persistReducer(rootPersistConfig, rootReducer)

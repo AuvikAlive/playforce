@@ -1,9 +1,9 @@
 export const signOut = component => () => {
-  const { firebase, history } = component.props
+  const { signOut, history } = component.props
   const { clearSubscriptions } = component.context
 
   clearSubscriptions()
 
-  firebase.logout()
+  signOut()
   history.push('/signIn')
 }

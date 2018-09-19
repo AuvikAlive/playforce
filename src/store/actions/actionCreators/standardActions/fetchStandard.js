@@ -10,7 +10,7 @@ export const fetchStandard = (userId, id) => async (
 
   const rootRef = dispatch(getRootRef)
   const ref = rootRef.collection('standards').doc(id)
-  const doc = ref.get()
+  const doc = await ref.get()
   const item = { id: doc.id, ...doc.data() }
 
   dispatch({ type: FETCH_STANDARD_COMPLETED, payload: item })

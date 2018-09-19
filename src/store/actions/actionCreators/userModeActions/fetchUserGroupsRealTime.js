@@ -2,7 +2,7 @@ import {
   FETCH_USER_GROUPS,
   FETCH_USER_GROUPS_COMPLETED,
 } from '../../actionTypes'
-import { getRootRef } from '../dbActions/'
+import { getUserRef } from '../dbActions/'
 
 export const fetchUserGroupsRealTime = userId => async (
   dispatch,
@@ -11,7 +11,7 @@ export const fetchUserGroupsRealTime = userId => async (
 ) => {
   dispatch({ type: FETCH_USER_GROUPS })
 
-  const rootRef = dispatch(getRootRef)
+  const rootRef = dispatch(getUserRef)
   const ref = rootRef.collection('groups')
 
   return ref.onSnapshot(querySnapshot => {
