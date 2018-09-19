@@ -1,5 +1,5 @@
-import { individualUserMode } from '../../../../constants/'
-import { getFirestore, getBatch, getUserRef } from '../dbActions/'
+import { getFirestore, getBatch } from '../dbActions/'
+import { deleteMembers } from './deleteMembers'
 
 export const deleteGroup = (groupId, members) => async (
   dispatch,
@@ -12,26 +12,7 @@ export const deleteGroup = (groupId, members) => async (
 
   batch.delete(ref)
 
-  const promises = members.map(async ({ id }) => {
-    const memberRef = ref.collection('users').doc(id)
-
-    batch.delete(memberRef)
-
-    const userRef = dispatch(getUserRef)
-    const userGroupRef = userRef.collection('groups').doc(groupId)
-
-    batch.delete(userGroupRef)
-
-    const userDoc = await userRef.get()
-    const { userMode } = userDoc.data()
-
-    userMode === groupId &&
-      batch.update(userRef, { userMode: individualUserMode })
-
-    return batch
-  })
-
-  await Promise.all(promises)
+  await dispatch(deleteMembers(groupId, members, batch))
 
   return batch.commit()
 }

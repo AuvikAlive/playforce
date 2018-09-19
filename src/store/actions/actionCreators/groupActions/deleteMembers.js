@@ -1,15 +1,15 @@
 import { individualUserMode } from '../../../../constants/'
 import { getFirestore, getBatch, getUserRef } from '../dbActions/'
 
-export const deleteMembers = (groupId, list) => async (
+export const deleteMembers = (groupId, members, delegatedBatch) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
   const db = dispatch(getFirestore)
-  const batch = dispatch(getBatch)
+  const batch = delegatedBatch || dispatch(getBatch)
 
-  const promises = list.map(async ({ id }) => {
+  const promises = members.map(async ({ id }) => {
     const memberRef = db
       .collection('groups')
       .doc(groupId)
@@ -34,5 +34,5 @@ export const deleteMembers = (groupId, list) => async (
 
   await Promise.all(promises)
 
-  return batch.commit()
+  return delegatedBatch ? batch : batch.commit()
 }
