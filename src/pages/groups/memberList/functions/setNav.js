@@ -34,7 +34,7 @@ export const setNav = component => {
       <IconButton
         color="inherit"
         aria-label="delete condition rating"
-        onClick={() => openDialog(deleteGroup(component))}
+        onClick={() => openDialog(deleteGroup(component), 'Delete this group?')}
       >
         <DeleteIcon />
       </IconButton>
