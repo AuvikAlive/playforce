@@ -13,6 +13,7 @@ import { equipmentConditions } from './equipmentConditions'
 import { equipmentTypes } from './equipmentTypes'
 import { equipmentState } from './equipmentState'
 import { findings } from './findings'
+import { individualUserMode } from './individualUserMode'
 import { materials } from './materials'
 import { probabilities } from './probabilities'
 import { riskLevels } from './riskLevels'
@@ -38,6 +39,7 @@ export {
   equipmentTypes,
   equipmentState,
   findings,
+  individualUserMode,
   materials,
   probabilities,
   riskLevels,

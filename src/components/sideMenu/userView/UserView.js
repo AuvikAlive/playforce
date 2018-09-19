@@ -1,12 +1,12 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
-import { userModes } from '../../../constants/'
+import { individualUserMode } from '../../../constants/'
 import { getInitials, getUserMode } from '../../../functions/'
 import { StyledUserView } from './StyledUserView'
 
 export const UserView = ({ profile }) => {
-  const { displayName, email, userMode, userGroup } = profile
+  const { displayName, email, userMode } = profile
 
   return (
     <StyledUserView>
@@ -18,13 +18,12 @@ export const UserView = ({ profile }) => {
         <Typography variant="title">{displayName}</Typography>
         <Typography variant="subheading">{email}</Typography>
 
-        {(userMode === userModes[0] || !userMode) && (
+        {(userMode === individualUserMode || !userMode) && (
           <Typography variant="caption">{getUserMode(userMode)}</Typography>
         )}
 
-        {userMode === userModes[1] && (
-          <Typography variant="caption">{`${userModes[1]}: ${userGroup ||
-            'No group selected'}`}</Typography>
+        {userMode !== individualUserMode && (
+          <Typography variant="caption">{`Group member: ${userMode}`}</Typography>
         )}
       </div>
 

@@ -1,29 +1,38 @@
+import { individualUserMode } from '../../../../constants/'
+import { getFirestore, getBatch, getUserRef } from '../dbActions/'
+
 export const deleteMembers = (groupId, list) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const firebase = getFirebase()
-  const db = firebase.firestore()
-  const batch = db.batch()
+  const db = dispatch(getFirestore)
+  const batch = dispatch(getBatch)
 
-  list.forEach(user => {
-    const groupUserRef = db
+  const promises = list.map(async ({ id }) => {
+    const memberRef = db
       .collection('groups')
       .doc(groupId)
       .collection('users')
-      .doc(user.id)
+      .doc(id)
 
-    batch.delete(groupUserRef)
+    batch.delete(memberRef)
 
-    const userGroupsRef = db
-      .collection('users')
-      .doc(user.id)
-      .collection('groups')
-      .doc(groupId)
+    const userRef = dispatch(getUserRef)
+    const userGroupRef = userRef.collection('groups').doc(groupId)
 
-    batch.delete(userGroupsRef)
+    batch.delete(userGroupRef)
+
+    const userDoc = await userRef.get()
+    const { userMode } = userDoc.data()
+
+    userMode === groupId &&
+      batch.update(userRef, { userMode: individualUserMode })
+
+    return batch
   })
+
+  await Promise.all(promises)
 
   return batch.commit()
 }

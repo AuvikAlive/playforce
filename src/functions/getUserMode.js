@@ -1,3 +1,3 @@
-import { userModes } from '../constants/'
+import { individualUserMode } from '../constants/'
 
-export const getUserMode = userMode => userMode || userModes[0]
+export const getUserMode = userMode => userMode || individualUserMode

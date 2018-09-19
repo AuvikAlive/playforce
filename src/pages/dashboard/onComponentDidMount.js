@@ -1,6 +1,6 @@
 import { onComponentDidMountWithTitle } from '../../functions/'
 
-export const onoComponentDidMount = async component => {
+export const onComponentDidMount = async component => {
   const { userId, userGroupsLoaded, fetchUserGroupsRealTime } = component.props
   const { addUnsubscriber } = component.context
 
