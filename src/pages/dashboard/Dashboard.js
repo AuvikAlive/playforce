@@ -48,11 +48,15 @@ export class Dashboard extends Component {
             value={userGroup || ''}
             onChange={event => setUserGroup(event.target.value)}
           >
-            {userGroups.map(({ id, name }, index) => (
-              <MenuItem key={index} value={id}>
-                {name}
-              </MenuItem>
-            ))}
+            {userGroups && userGroups.length > 0 ? (
+              userGroups.map(({ id, name }, index) => (
+                <MenuItem key={index} value={id}>
+                  {name}
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem value="">No groups joined yet</MenuItem>
+            )}
           </TextField>
         )}
       </Content>
