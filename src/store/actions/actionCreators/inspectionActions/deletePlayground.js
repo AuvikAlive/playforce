@@ -1,8 +1,4 @@
-import {
-  getSingleImagePath,
-  getMultipleImagePath,
-  deleteImage,
-} from '../storageActions/'
+import { deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND } from '../../actionTypes'
 import { getFirestore, getRootRef } from '../dbActions/'
 
@@ -40,7 +36,7 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
       const ref = playgroundRef.collection('conditionRatings').doc(id)
 
       batch.delete(ref)
-      storageImages.push(getSingleImagePath(ref))
+      storageImages.push({ ref })
     })
   }
 
@@ -51,7 +47,7 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
       batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(getMultipleImagePath(ref, index))
+        storageImages.push({ ref, index })
       })
     })
   }
@@ -63,7 +59,7 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
       batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(getMultipleImagePath(ref, index))
+        storageImages.push({ ref, index })
       })
     })
   }
@@ -86,7 +82,7 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
           const ref = impactTestRef.collection('dropTests').doc(id)
 
           batch.delete(ref)
-          storageImages.push(getSingleImagePath(ref))
+          storageImages.push({ ref })
         })
       }
     })
@@ -99,7 +95,7 @@ export const deletePlayground = (userId, inspectionId, playground) => async (
     payload: playgroundId,
   })
 
-  storageImages.forEach(item => {
-    dispatch(deleteImage(item))
+  storageImages.forEach(({ ref, index }) => {
+    dispatch(deleteImage(ref, index))
   })
 }

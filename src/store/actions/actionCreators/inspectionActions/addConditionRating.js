@@ -1,4 +1,4 @@
-import { getSingleImagePath, saveImage } from '../storageActions/'
+import { saveImage } from '../storageActions/'
 import { ADD_CONDITION_RATING } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -16,8 +16,7 @@ export const addConditionRating = (userId, inspectionId, data) => async (
     .doc()
 
   const { image } = data
-  const storagePath = getSingleImagePath(ref)
-  const downloadURL = await dispatch(saveImage(storagePath, image))
+  const downloadURL = await dispatch(saveImage(ref, image))
 
   data.image = downloadURL
 

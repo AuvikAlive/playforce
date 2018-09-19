@@ -1,5 +1,5 @@
 import { getFirestore, getRootRef } from '../dbActions/'
-import { getSingleImagePath, saveImage } from '../storageActions/'
+import { saveImage } from '../storageActions/'
 
 export const addInspection = (userId, cover) => async (
   dispatch,
@@ -23,9 +23,7 @@ export const addInspection = (userId, cover) => async (
     } = cover
 
     if (image) {
-      const storagePath = getSingleImagePath(ref)
-      const downloadURL = await dispatch(saveImage(storagePath, image))
-
+      const downloadURL = await dispatch(saveImage(ref, image))
       cover.image = downloadURL
     } else {
       delete cover.image

@@ -1,4 +1,4 @@
-import { getSingleImagePath, saveImage } from '../storageActions/'
+import { saveImage } from '../storageActions/'
 import { ADD_DROP_TEST } from '../../actionTypes'
 import { getFirestore, getRootRef } from '../dbActions/'
 
@@ -19,8 +19,7 @@ export const addDropTest = (userId, inspectionId, impactTestId, data) => async (
 
     const ref = impactTestRef.collection('dropTests').doc()
     const { image } = data
-    const storagePath = getSingleImagePath(ref)
-    const downloadURL = await dispatch(saveImage(storagePath, image))
+    const downloadURL = await dispatch(saveImage(ref, image))
 
     data.image = downloadURL
 

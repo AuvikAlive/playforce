@@ -29,9 +29,7 @@ export const deleteImpactTest = (userId, inspectionId, impactTests) => async (
         dropTests.forEach(dropTest => {
           const dropRef = impactRef.collection('dropTests').doc(dropTest.id)
 
-          storageImages.push(
-            `${userId}/images/${inspectionId}/impactTests/${id}/${dropTest.id}`
-          )
+          storageImages.push(dropRef)
 
           batch.delete(dropRef)
         })
@@ -43,7 +41,7 @@ export const deleteImpactTest = (userId, inspectionId, impactTests) => async (
     type: DELETE_IMPACT_TEST,
   })
 
-  storageImages.forEach(item => {
-    dispatch(deleteImage(item))
+  storageImages.forEach(dropRef => {
+    dispatch(deleteImage(dropRef))
   })
 }

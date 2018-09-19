@@ -1,8 +1,4 @@
-import {
-  getSingleImagePath,
-  getMultipleImagePath,
-  deleteImage,
-} from '../storageActions/'
+import { deleteImage } from '../storageActions/'
 import { getFirestore, getRootRef } from '../dbActions/'
 
 export const deleteInspection = (inspection, userId) => async (
@@ -25,9 +21,7 @@ export const deleteInspection = (inspection, userId) => async (
   const rootRef = dispatch(getRootRef)
   const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  let storageImages = inspection.cover.image
-    ? [getSingleImagePath(inspectionRef)]
-    : []
+  let storageImages = inspection.cover.image ? [{ ref: inspectionRef }] : []
 
   if (conditionRatingsAdded) {
     const { conditionRatings } = inspection
@@ -36,7 +30,7 @@ export const deleteInspection = (inspection, userId) => async (
       const ref = inspectionRef.collection('conditionRatings').doc(id)
 
       batch.delete(ref)
-      storageImages.push(getSingleImagePath(ref))
+      storageImages.push({ ref })
     })
   }
 
@@ -49,7 +43,7 @@ export const deleteInspection = (inspection, userId) => async (
       batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(getMultipleImagePath(ref, index))
+        storageImages.push({ ref, index })
       })
     })
   }
@@ -63,7 +57,7 @@ export const deleteInspection = (inspection, userId) => async (
       batch.delete(ref)
 
       images.forEach((item, index) => {
-        storageImages.push(getMultipleImagePath(ref, index))
+        storageImages.push({ ref, index })
       })
     })
   }
@@ -87,7 +81,7 @@ export const deleteInspection = (inspection, userId) => async (
           const ref = impactTestRef.collection('dropTests').doc(id)
 
           batch.delete(ref)
-          storageImages.push(getSingleImagePath(ref))
+          storageImages.push({ ref })
         })
       }
     })
@@ -115,7 +109,7 @@ export const deleteInspection = (inspection, userId) => async (
           const ref = playgroundRef.collection('conditionRatings').doc(id)
 
           batch.delete(ref)
-          storageImages.push(getSingleImagePath(ref))
+          storageImages.push({ ref })
         })
       }
 
@@ -126,7 +120,7 @@ export const deleteInspection = (inspection, userId) => async (
           batch.delete(ref)
 
           images.forEach((item, index) => {
-            storageImages.push(getMultipleImagePath(ref, index))
+            storageImages.push({ ref, index })
           })
         })
       }
@@ -138,7 +132,7 @@ export const deleteInspection = (inspection, userId) => async (
           batch.delete(ref)
 
           images.forEach((item, index) => {
-            storageImages.push(getMultipleImagePath(ref, index))
+            storageImages.push({ ref, index })
           })
         })
       }
@@ -161,7 +155,7 @@ export const deleteInspection = (inspection, userId) => async (
               const ref = impactTestRef.collection('dropTests').doc(id)
 
               batch.delete(ref)
-              storageImages.push(getSingleImagePath(ref))
+              storageImages.push({ ref })
             })
           }
         })
@@ -173,7 +167,7 @@ export const deleteInspection = (inspection, userId) => async (
 
   await batch.commit()
 
-  storageImages.forEach(item => {
-    dispatch(deleteImage(item))
+  storageImages.forEach(({ ref, index }) => {
+    dispatch(deleteImage(ref, index))
   })
 }

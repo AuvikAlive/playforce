@@ -15,11 +15,6 @@ export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
   let storageImages = []
 
   const { id, dropTests } = impactTest
-  // const inspectionDoc = await inspectionRef.get()
-  // const dropCount = inspectionDoc.data().dropCount
-
-  // batch.update(inspectionRef, { dropCount: dropCount - dropTests.length })
-
   const impactRef = inspectionRef.collection('impactTests').doc(id)
 
   batch.delete(impactRef)
@@ -28,9 +23,7 @@ export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
     dropTests.forEach(dropTest => {
       const dropRef = impactRef.collection('dropTests').doc(dropTest.id)
 
-      storageImages.push(
-        `${userId}/images/${inspectionId}/impactTests/${id}/${dropTest.id}`
-      )
+      storageImages.push(dropRef)
 
       batch.delete(dropRef)
     })
@@ -39,7 +32,7 @@ export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
 
   dispatch({ type: DELETE_SURFACE_TEST, payload: id })
 
-  storageImages.forEach(item => {
-    dispatch(deleteImage(item))
+  storageImages.forEach(dropRef => {
+    dispatch(deleteImage(dropRef))
   })
 }

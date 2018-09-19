@@ -28,11 +28,7 @@ export const deletePlaygroundSurfaceTest = (
     dropTests.forEach(dropTest => {
       const dropRef = ref.collection('dropTests').doc(dropTest.id)
 
-      storageImages.push(
-        `${userId}/images/${inspectionId}/playgrounds/${playgroundId}/impactTests/${id}/${
-          dropTest.id
-        }`
-      )
+      storageImages.push(dropRef)
 
       batch.delete(dropRef)
     })
@@ -44,7 +40,7 @@ export const deletePlaygroundSurfaceTest = (
     payload: { id, playgroundId },
   })
 
-  storageImages.forEach(item => {
-    dispatch(deleteImage(item))
+  storageImages.forEach(dropRef => {
+    dispatch(deleteImage(dropRef))
   })
 }

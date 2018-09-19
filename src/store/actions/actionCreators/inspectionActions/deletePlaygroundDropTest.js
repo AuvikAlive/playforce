@@ -1,4 +1,4 @@
-import { getSingleImagePath, deleteImage } from '../storageActions/'
+import { deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND_DROP_TEST } from '../../actionTypes'
 import { getFirestore, getRootRef } from '../dbActions/'
 
@@ -25,9 +25,7 @@ export const deletePlaygroundDropTest = ({
       .collection('dropTests')
       .doc(id)
 
-    const storagePath = getSingleImagePath(ref)
-
-    storageImages.push(storagePath)
+    storageImages.push(ref)
 
     await transaction.delete(ref)
 
@@ -36,8 +34,8 @@ export const deletePlaygroundDropTest = ({
       payload: { id, impactTestId, playgroundId },
     })
 
-    storageImages.forEach(item => {
-      dispatch(deleteImage(item))
+    storageImages.forEach(ref => {
+      dispatch(deleteImage(ref))
     })
   })
 }

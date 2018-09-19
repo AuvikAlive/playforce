@@ -1,4 +1,4 @@
-import { getMultipleImagePath, deleteImage } from '../storageActions/'
+import { deleteImage } from '../storageActions/'
 import { DELETE_PLAYGROUND_MAINTENANCE_ISSUE } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -22,8 +22,7 @@ export const deletePlaygroundMaintenanceIssue = ({
   await ref.delete()
 
   images.forEach((item, index) => {
-    const storagePath = getMultipleImagePath(ref, index)
-    dispatch(deleteImage(storagePath))
+    dispatch(deleteImage(ref, index))
   })
 
   dispatch({

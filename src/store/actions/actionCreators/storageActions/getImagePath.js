@@ -1,1 +1,1 @@
-export const getImagePath = ref => ref.path
+export const getImagePath = (ref, index = '') => `${ref.path}/image${index}`
