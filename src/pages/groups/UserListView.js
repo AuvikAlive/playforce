@@ -32,7 +32,7 @@ export const UserListView = ({
               onMouseDown={() => handleButtonPress(user)}
               onMouseUp={() => handleButtonRelease(user)}
             >
-              <ListItemText primary={user.displayName} />
+              <ListItemText primary={`${user.displayName} - ${user.email}`} />
               <ListItemSecondaryAction className="secondary-actions">
                 {itemSelected && (
                   <IconButton color="inherit" aria-label="selected">
