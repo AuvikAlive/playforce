@@ -30,7 +30,6 @@ import { addDropTest } from './addDropTest'
 import { updateDropTest } from './updateDropTest'
 import { deleteDropTest } from './deleteDropTest'
 import { saveCustomCertificateText } from './saveCustomCertificateText'
-import { toggleInspectionCertificate } from './toggleInspectionCertificate'
 import { saveNotes } from './saveNotes'
 import { addPlayingSurface } from './addPlayingSurface'
 import { updatePlayingSurface } from './updatePlayingSurface'
@@ -59,6 +58,8 @@ import { deletePlaygroundSurfaceTest } from './deletePlaygroundSurfaceTest'
 import { addPlaygroundDropTest } from './addPlaygroundDropTest'
 import { updatePlaygroundDropTest } from './updatePlaygroundDropTest'
 import { deletePlaygroundDropTest } from './deletePlaygroundDropTest'
+import { toggleInspectionCertificate } from './toggleInspectionCertificate'
+import { toggleInspectionComplete } from './toggleInspectionComplete'
 import {
   DISCARD_INSPECTION,
   // TOGGLE_INSPECTION_CERTIFICATE,
@@ -97,7 +98,6 @@ export {
   updateDropTest,
   deleteDropTest,
   saveCustomCertificateText,
-  toggleInspectionCertificate,
   saveNotes,
   addPlayingSurface,
   updatePlayingSurface,
@@ -126,6 +126,8 @@ export {
   addPlaygroundDropTest,
   updatePlaygroundDropTest,
   deletePlaygroundDropTest,
+  toggleInspectionCertificate,
+  toggleInspectionComplete,
 }
 
 export const discardInspection = () => ({

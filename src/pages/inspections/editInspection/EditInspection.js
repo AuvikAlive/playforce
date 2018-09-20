@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import { Content } from '../../../components/content/Content'
@@ -14,6 +15,7 @@ import {
   onComponentDidMount,
   // onComponentWillReceiveProps,
   toggleInspectionCertificate,
+  toggleInspectionComplete,
   createPdf,
 } from './functions/'
 
@@ -56,6 +58,7 @@ export class EditInspection extends Component {
       playgroundsLoaded,
       impactGeneralInfo,
       certificate,
+      complete,
       customCertificateText,
     } = inspection
 
@@ -81,17 +84,33 @@ export class EditInspection extends Component {
         />
 
         <Content>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={certificate}
-                onChange={toggleInspectionCertificate(this)}
-                value="certificate"
-                color="primary"
-              />
-            }
-            label="Generate a compliance certificate"
-          />
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={certificate}
+                  onChange={toggleInspectionCertificate(this)}
+                  value="certificate"
+                  color="primary"
+                />
+              }
+              label="Generate a compliance certificate"
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={complete}
+                  onChange={toggleInspectionComplete(this)}
+                  value="complete"
+                  color="primary"
+                />
+              }
+              label="Inspection completed"
+            />
+          </FormGroup>
         </Content>
 
         <MoreMenu

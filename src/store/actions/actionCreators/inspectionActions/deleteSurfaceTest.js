@@ -9,7 +9,6 @@ export const deleteSurfaceTest = (userId, inspectionId, impactTest) => async (
 ) => {
   const batch = dispatch(getBatch)
   const rootRef = dispatch(getRootRef)
-
   const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
   let storageImages = []

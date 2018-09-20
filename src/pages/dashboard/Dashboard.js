@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Typography from '@material-ui/core/Typography'
 import { Content } from '../../components/content/Content'
 import {
   contextTypesTitleUnsubscriber,
@@ -15,7 +17,14 @@ export class Dashboard extends Component {
   }
 
   render() {
-    const { userGroupsLoaded, userMode, setUserMode, userGroups } = this.props
+    const {
+      userGroupsLoaded,
+      userMode,
+      setUserMode,
+      userGroups,
+      inspectionCount,
+      inspectionCompleteCount,
+    } = this.props
     const isMember = userGroups && userGroups.length > 0
 
     return showContentWhenLoaded(
@@ -41,26 +50,11 @@ export class Dashboard extends Component {
             ))}
         </TextField>
 
-        {/* {userMode === userModes[1] && (
-          <TextField
-            fullWidth
-            select
-            label="Select a group"
-            margin="normal"
-            value={userGroup || ''}
-            onChange={event => setUserGroup(event.target.value)}
-          >
-            {isMember ? (
-              userGroups.map(({ id, name }, index) => (
-                <MenuItem disabled key={index} value={id}>
-                  {name}
-                </MenuItem>
-              ))
-            ) : (
-              <MenuItem value="">No groups joined yet</MenuItem>
-            )}
-          </TextField>
-        )} */}
+        <FormControl margin="normal">
+          <Typography variant="subheading">
+            Open inspections: {inspectionCount - inspectionCompleteCount}
+          </Typography>
+        </FormControl>
       </Content>
     )
   }

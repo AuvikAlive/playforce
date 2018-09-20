@@ -16,6 +16,7 @@ import {
   fetchPlaygroundsRealTime,
   fetchPlaygrounds,
   toggleInspectionCertificate,
+  toggleInspectionComplete,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandards } from '../../../store/actions/actionCreators/standardActions'
 import { fetchReportNotesRealTime } from '../../../store/actions/actionCreators/reportNoteActions/'
@@ -27,7 +28,14 @@ const mapStateToProps = (
   { match }
 ) => {
   const { auth, profile } = firebase
-  const { displayName, email, defaultCertificateText, signature } = profile
+  const {
+    displayName,
+    email,
+    defaultCertificateText,
+    signature,
+    inspectionCount,
+    inspectionCompleteCount,
+  } = profile
   const { standardsLoaded, standards } = standard
   const { reportNotesLoaded, reportNotes } = reportNote
 
@@ -41,6 +49,8 @@ const mapStateToProps = (
     email,
     defaultCertificateText,
     signature,
+    inspectionCount,
+    inspectionCompleteCount,
     standardsLoaded,
     standards,
     reportNotesLoaded,
@@ -65,6 +75,7 @@ const mapDispatchToProps = {
   deleteInspection,
   discardInspection,
   toggleInspectionCertificate,
+  toggleInspectionComplete,
 }
 
 const enhance = compose(

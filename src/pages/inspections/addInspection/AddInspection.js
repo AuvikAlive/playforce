@@ -17,11 +17,11 @@ export class AddInspection extends Component {
   }
 
   render() {
-    const { addInspection, userId } = this.props
+    const { addInspection, userId, inspectionCount } = this.props
 
     return (
       <CoverFormContainer
-        onSubmit={data => addInspection(userId, data)}
+        onSubmit={data => addInspection(userId, data, inspectionCount)}
         afterSubmit={showActionGo(this, 'Inspection added!', 'edit/')}
       />
     )

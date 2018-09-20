@@ -52,6 +52,7 @@ import {
   UPDATE_PLAYGROUND_DROP_TEST,
   DELETE_PLAYGROUND_DROP_TEST,
   TOGGLE_INSPECTION_CERTIFICATE,
+  TOGGLE_INSPECTION_COMPLETE,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -82,6 +83,7 @@ export const initialState = {
   playgroundsAdded: false,
   playgroundsCompleted: false,
   certificate: false,
+  complete: false,
 }
 
 export const inspectionReducer = (state = initialState, { type, payload }) => {
@@ -842,6 +844,12 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       const { certificate } = state
 
       return { ...state, certificate: !certificate }
+    }
+
+    case TOGGLE_INSPECTION_COMPLETE: {
+      const { complete } = state
+
+      return { ...state, complete: !complete }
     }
 
     default:

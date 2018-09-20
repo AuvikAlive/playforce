@@ -9,11 +9,14 @@ import { Dashboard } from './Dashboard'
 
 const mapStateToProps = ({ firebase, group }) => {
   const { auth, profile } = firebase
+  const { inspectionCount, inspectionCompleteCount, userMode } = profile
   const { userGroupsLoaded, userGroups } = group
 
   return {
     userId: auth.uid,
-    userMode: profile.userMode,
+    userMode,
+    inspectionCount,
+    inspectionCompleteCount,
     userGroupsLoaded,
     userGroups,
   }

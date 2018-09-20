@@ -77,7 +77,9 @@ export const onComponentDidMount = async component => {
       <IconButton
         color="inherit"
         aria-label="delete condition rating"
-        onClick={() => openDialog(deleteInspection(component))}
+        onClick={() =>
+          openDialog(deleteInspection(component), 'Delete this inspection?')
+        }
       >
         <DeleteIcon />
       </IconButton>
