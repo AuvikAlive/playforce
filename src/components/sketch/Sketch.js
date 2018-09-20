@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import SaveIcon from '@material-ui/icons/Save'
 import UndoIcon from '@material-ui/icons/Undo'
 import RedoIcon from '@material-ui/icons/Redo'
-import CropIcon from '@material-ui/icons/Crop'
+import CropRotateIcon from '@material-ui/icons/CropRotate'
 import { CompactPicker } from 'react-color'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -91,7 +91,7 @@ class SketchWithout extends Component {
                 </IconButton>
 
                 <IconButton onClick={onCrop(this)}>
-                  <CropIcon />
+                  <CropRotateIcon />
                 </IconButton>
 
                 <IconButton onClick={undo(this, currentSlide)}>
