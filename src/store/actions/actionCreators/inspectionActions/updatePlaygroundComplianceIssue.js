@@ -1,4 +1,4 @@
-import { getMultipleImagePath, saveImage } from '../storageActions/'
+import { saveImage } from '../storageActions/'
 import { UPDATE_PLAYGROUND_COMPLIANCE_ISSUE } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -23,8 +23,7 @@ export const updatePlaygroundComplianceIssue = ({
 
   let downloadURLs = images.map(async (item, index) => {
     const { image } = item
-    const storagePath = getMultipleImagePath(ref, index)
-    const downloadURL = await dispatch(saveImage(storagePath, image))
+    const downloadURL = await dispatch(saveImage(ref, image, index))
 
     return {
       ...item,

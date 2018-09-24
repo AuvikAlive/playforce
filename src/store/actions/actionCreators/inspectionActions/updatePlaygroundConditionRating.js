@@ -1,4 +1,4 @@
-import { getSingleImagePath, saveImage } from '../storageActions/'
+import { saveImage } from '../storageActions/'
 import { UPDATE_PLAYGROUND_CONDITION_RATING } from '../../actionTypes'
 import { getRootRef } from '../dbActions/'
 
@@ -20,8 +20,7 @@ export const updatePlaygroundConditionRating = ({
     .doc(id)
 
   const { image } = data
-  const storagePath = getSingleImagePath(ref)
-  const downloadURL = await dispatch(saveImage(storagePath, image))
+  const downloadURL = await dispatch(saveImage(ref, image))
 
   data.image = downloadURL
 
