@@ -49,9 +49,7 @@ export class MaintenanceIssueForm extends Component {
     } = this.props
 
     const { images, finding, equipment, recommendations } = this.state
-
     const imagesCopy = getImagesCopy(images)
-
     const imagesLoaded = images && images.length > 0
 
     return showContentWhenLoaded(

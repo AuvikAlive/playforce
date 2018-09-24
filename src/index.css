@@ -14,14 +14,6 @@ body {
 @import '~cropperjs/dist/cropper.css';
 @import '~react-image-lightbox/style.css';
 
-.lightbox-download-icon {
-  color: darkgray;
-}
-
-.lightbox-download-icon:hover {
-  color: white;
-}
-
-.ril-outer button {
+/* .ril-outer button {
   outline: none;
-}
+} */

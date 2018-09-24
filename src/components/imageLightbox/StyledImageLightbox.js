@@ -8,6 +8,14 @@ export const StyledImageLightbox = Styled.div`
   top: 0;
   left: 0;
 
+  .lightbox-download-icon {
+  color: darkgray;
+}
+
+.lightbox-download-icon:hover {
+  color: white;
+}
+
 
   .hoverEffect {
     position: absolute;
