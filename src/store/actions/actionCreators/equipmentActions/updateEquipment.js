@@ -1,4 +1,4 @@
-import { getSingleImagePath, saveImage } from '../storageActions/'
+import { saveImage } from '../storageActions/'
 import { UPDATE_EQUIPMENT } from '../../actionTypes'
 import { getEquipmentRef } from './getEquipmentRef'
 
@@ -9,8 +9,7 @@ export const updateEquipment = (userId, siteId, data) => async (
 ) => {
   const ref = dispatch(getEquipmentRef(userId, siteId, data))
   const { image } = data
-  const storagePath = getSingleImagePath(ref)
-  const downloadURL = await dispatch(saveImage(storagePath, image))
+  const downloadURL = await dispatch(saveImage(ref, image))
 
   data.image = downloadURL
 
