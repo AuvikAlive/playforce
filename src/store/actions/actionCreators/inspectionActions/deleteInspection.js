@@ -23,7 +23,7 @@ export const deleteInspection = (
   const rootRef = dispatch(getRootRef)
   const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  batch.update(rootRef, { inspectionCount: inspectionCount - 1 })
+  // batch.update(rootRef, { inspectionCount: inspectionCount - 1 })
 
   complete &&
     batch.update(rootRef, {
