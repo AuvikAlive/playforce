@@ -15,17 +15,10 @@ export class MaintenanceIssueRoutes extends Component {
   }
 
   render() {
-    const {
-      inspectionLoaded,
-      maintenanceIssuesLoaded,
-      maintenanceIssues,
-      match,
-    } = this.props
-
-    const isLoaded = inspectionLoaded && maintenanceIssuesLoaded
+    const { inspectionLoaded, maintenanceIssues, match } = this.props
 
     return showContentWhenLoaded(
-      isLoaded,
+      inspectionLoaded,
       <Switch>
         <Route
           path={`${match.url}/add`}

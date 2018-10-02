@@ -26,8 +26,6 @@ export class Dashboard extends Component {
       inspectionCompleteCount,
     } = this.props
 
-    console.log(inspectionCount)
-
     const isMember = userGroups && userGroups.length > 0
 
     return showContentWhenLoaded(

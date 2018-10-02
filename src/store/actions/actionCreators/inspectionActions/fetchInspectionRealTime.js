@@ -1,6 +1,12 @@
 import { FETCH_INSPECTION, FETCH_INSPECTION_COMPLETED } from '../../actionTypes'
 import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
 import { getRootRef } from '../dbActions/'
+import { fetchConditionRatings } from './fetchConditionRatings'
+import { fetchComplianceIssues } from './fetchComplianceIssues'
+import { fetchMaintenanceIssues } from './fetchMaintenanceIssues'
+import { fetchImpactTests } from './fetchImpactTests'
+import { fetchPlayingSufacesRealTime } from './fetchPlayingSufacesRealTime'
+import { fetchPlaygrounds } from './fetchPlaygrounds'
 
 export const fetchInspectionRealTime = (userId, inspectionId) => async (
   dispatch,
@@ -11,6 +17,15 @@ export const fetchInspectionRealTime = (userId, inspectionId) => async (
 
   const rootRef = dispatch(getRootRef)
   const ref = rootRef.collection('inspections').doc(inspectionId)
+
+  await Promise.all([
+    dispatch(fetchConditionRatings(userId, inspectionId)),
+    dispatch(fetchComplianceIssues(userId, inspectionId)),
+    dispatch(fetchMaintenanceIssues(userId, inspectionId)),
+    dispatch(fetchImpactTests(userId, inspectionId)),
+    dispatch(fetchPlayingSufacesRealTime(userId, inspectionId)),
+    dispatch(fetchPlaygrounds(userId, inspectionId)),
+  ])
 
   return ref.onSnapshot(async doc => {
     if (doc.exists) {

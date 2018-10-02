@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { isEmpty } from 'react-redux-firebase'
+import { contextTypesUnsubscriber } from '../../constants/'
+import { showContentWhenLoaded } from '../../functions/'
 import { publicRoutes } from './publicRoutes'
 import { privateRoutes } from './privateRoutes'
-import { showContentWhenLoaded } from '../../functions/'
+import { onComponentDidMount } from './onComponentDidMount'
 
 export class Routes extends Component {
   componentDidMount() {
-    const { rootLoaded, fetchDatabaseRootRealTime } = this.props
-
-    !rootLoaded && fetchDatabaseRootRealTime()
+    onComponentDidMount(this)
   }
 
   render() {
@@ -45,3 +45,5 @@ export class Routes extends Component {
     )
   }
 }
+
+Routes.contextTypes = contextTypesUnsubscriber

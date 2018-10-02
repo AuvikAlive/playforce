@@ -17,11 +17,10 @@ export class ImpactTestRoutes extends Component {
   }
 
   render() {
-    const { inspectionLoaded, impactTestsLoaded, match } = this.props
-    const isLoaded = inspectionLoaded && impactTestsLoaded
+    const { inspectionLoaded, match } = this.props
 
     return showContentWhenLoaded(
-      isLoaded,
+      inspectionLoaded,
       <Switch>
         <Route
           path={`${match.url}/edit/:id`}
