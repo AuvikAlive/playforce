@@ -5,6 +5,7 @@ import { firestoreReducer } from 'redux-firestore'
 import { persistReducer } from 'redux-persist'
 import localForage from 'localforage'
 import { SET_USER_MODE, SIGN_OUT } from '../actions/actionTypes'
+import { databaseRootReducer } from './databaseRootReducer'
 import { sideMenuReducer } from './sideMenuReducer'
 import { searchBarReducer } from './searchBarReducer'
 import { inspectionReducer } from './inspectionReducer'
@@ -36,6 +37,7 @@ const reducers = {
   router: routerReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer,
+  databaseRoot: databaseRootReducer,
   sideMenu: sideMenuReducer,
   searchBar: searchBarReducer,
   inspection: inspectionReducer,

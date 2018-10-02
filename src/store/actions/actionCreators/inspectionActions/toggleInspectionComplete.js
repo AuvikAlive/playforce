@@ -4,12 +4,14 @@ import { getBatch, getRootRef } from '../dbActions/'
 export const toggleInspectionComplete = (
   userId,
   inspectionId,
-  complete,
-  inspectionCompleteCount = 0
+  complete
 ) => async (dispatch, getState, getFirebase) => {
   const batch = dispatch(getBatch)
   const rootRef = dispatch(getRootRef)
   const ref = rootRef.collection('inspections').doc(inspectionId)
+  const state = getState()
+  const inspectionCompleteCount =
+    state.databaseRoot.root.inspectionCompleteCount || 0
 
   dispatch({
     type: TOGGLE_INSPECTION_COMPLETE,

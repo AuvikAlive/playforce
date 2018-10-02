@@ -1,9 +1,31 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
+import { fetchDatabaseRootRealTime } from '../../store/actions/actionCreators/dbActions/'
 import { Routes } from './Routes'
 
-export const RoutesContainer = compose(
+const mapStateToProps = ({ firebase, databaseRoot }) => {
+  const { auth, profile } = firebase
+  const { rootLoaded, root } = databaseRoot
+
+  return {
+    userId: auth.uid,
+    profile,
+    rootLoaded,
+    root,
+  }
+}
+
+const mapDispatchToProps = {
+  fetchDatabaseRootRealTime,
+}
+
+const enhance = compose(
   withRouter,
-  connect(({ firebase: { auth, profile } }) => ({ auth, profile })),
-)(Routes)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)
+
+export const RoutesContainer = enhance(Routes)

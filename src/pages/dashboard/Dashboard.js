@@ -26,6 +26,8 @@ export class Dashboard extends Component {
       inspectionCompleteCount,
     } = this.props
 
+    console.log(inspectionCount)
+
     const isMember = userGroups && userGroups.length > 0
 
     return showContentWhenLoaded(
@@ -37,7 +39,9 @@ export class Dashboard extends Component {
           label="Select app mode"
           margin="normal"
           value={getUserMode(userMode)}
-          onChange={event => setUserMode(event.target.value)}
+          onChange={event =>
+            userMode !== event.target.value && setUserMode(event.target.value)
+          }
         >
           <MenuItem value={individualUserMode}>{individualUserMode}</MenuItem>
 

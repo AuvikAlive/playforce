@@ -22,6 +22,7 @@ export const deleteInspection = (
   const batch = db.batch()
   const rootRef = dispatch(getRootRef)
   const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
+  let storageImages = []
 
   // batch.update(rootRef, { inspectionCount: inspectionCount - 1 })
 
@@ -30,7 +31,7 @@ export const deleteInspection = (
       inspectionCompleteCount: inspectionCompleteCount - 1,
     })
 
-  let storageImages = inspection.cover.image ? [{ ref: inspectionRef }] : []
+  inspection.cover.image && storageImages.push({ ref: inspectionRef })
 
   if (conditionRatingsAdded) {
     const { conditionRatings } = inspection

@@ -3,13 +3,13 @@ import { compose } from 'redux'
 import {
   setUserMode,
   fetchUserGroupsRealTime,
-  setUserGroup,
 } from '../../store/actions/actionCreators/userModeActions/'
 import { Dashboard } from './Dashboard'
 
-const mapStateToProps = ({ firebase, group }) => {
+const mapStateToProps = ({ firebase, group, databaseRoot }) => {
   const { auth, profile } = firebase
-  const { inspectionCount, inspectionCompleteCount, userMode } = profile
+  const { userMode } = profile
+  const { inspectionCount = 0, inspectionCompleteCount = 0 } = databaseRoot.root
   const { userGroupsLoaded, userGroups } = group
 
   return {
@@ -25,7 +25,6 @@ const mapStateToProps = ({ firebase, group }) => {
 const mapDispatchToProps = {
   setUserMode,
   fetchUserGroupsRealTime,
-  setUserGroup,
 }
 
 const enhance = compose(

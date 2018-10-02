@@ -7,6 +7,8 @@ import {
   FETCH_USERS_COMPLETED,
   FETCH_USER_GROUPS,
   FETCH_USER_GROUPS_COMPLETED,
+  FETCH_CURRENT_GROUP,
+  FETCH_CURRENT_GROUP_COMPLETED,
 } from '../actions/actionTypes'
 
 export const initialState = {
@@ -18,6 +20,7 @@ export const initialState = {
   users: [],
   userGroupsLoaded: false,
   userGroups: [],
+  currentGroup: null,
 }
 
 export const groupReducer = (state = initialState, { type, payload }) => {
@@ -45,6 +48,12 @@ export const groupReducer = (state = initialState, { type, payload }) => {
 
     case FETCH_USER_GROUPS_COMPLETED:
       return { ...state, userGroupsLoaded: true, userGroups: payload }
+
+    case FETCH_CURRENT_GROUP:
+      return { ...state, currentGroup: null }
+
+    case FETCH_CURRENT_GROUP_COMPLETED:
+      return { ...state, currentGroup: payload }
 
     default:
       return state

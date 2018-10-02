@@ -5,6 +5,7 @@ import { addMembers } from './addMembers'
 import { fetchMembersRealTime } from './fetchMembersRealtime'
 import { deleteMembers } from './deleteMembers'
 import { fetchUsersRealTime } from './fetchUsersRealTime'
+import { fetchCurrentGroupRealTime } from './fetchCurrentGroupRealTime'
 
 export {
   addGroup,
@@ -14,4 +15,5 @@ export {
   fetchMembersRealTime,
   deleteMembers,
   fetchUsersRealTime,
+  fetchCurrentGroupRealTime,
 }
