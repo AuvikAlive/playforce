@@ -7,7 +7,7 @@ export const setUserMode = userMode => async (
   getState,
   getFirebase
 ) => {
-  await dispatch(updateProfile({ userMode }))
+  dispatch(updateProfile({ userMode }))
   dispatch({ type: SET_USER_MODE })
   dispatch(fetchDatabaseRootRealTime())
 }
