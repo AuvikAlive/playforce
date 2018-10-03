@@ -1,12 +1,12 @@
 import { FETCH_INSPECTION, FETCH_INSPECTION_COMPLETED } from '../../actionTypes'
 import { getDataUrlFromBlob } from '../../../../functions/getDataUrlFromBlob'
 import { getRootRef } from '../dbActions/'
-import { fetchConditionRatings } from './fetchConditionRatings'
-import { fetchComplianceIssues } from './fetchComplianceIssues'
-import { fetchMaintenanceIssues } from './fetchMaintenanceIssues'
-import { fetchImpactTests } from './fetchImpactTests'
-import { fetchPlayingSufacesRealTime } from './fetchPlayingSufacesRealTime'
-import { fetchPlaygrounds } from './fetchPlaygrounds'
+import { fetchConditionRatings } from './conditionRatingActions/'
+import { fetchComplianceIssues } from './complianceIssueActions/'
+import { fetchMaintenanceIssues } from './maintenanceIssueActions/'
+import { fetchImpactTests } from './impactTestActions/'
+import { fetchPlayingSufacesRealTime } from './playingSurfaceActions/'
+import { fetchPlaygrounds } from './playgroundActions/'
 
 export const fetchInspectionRealTime = (userId, inspectionId) => async (
   dispatch,
