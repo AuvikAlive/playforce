@@ -15,9 +15,7 @@ export const onComponentDidMount = component => {
     commonIssueId,
   } = component.props
 
-  const title = 'Edit Issue'
-
-  onComponentDidMountWithTitleLeftNav(component, title)
+  onComponentDidMountWithTitleLeftNav(component, 'Edit Issue')
 
   setRightNavComponent(
     <IconButton
