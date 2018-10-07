@@ -6,6 +6,7 @@ import { deleteConditionRating } from './deleteConditionRating'
 import { deleteConditionRatingStateless } from './deleteConditionRatingStateless'
 import { fetchConditionRatings } from './fetchConditionRatings'
 import { fetchConditionRatingsStateless } from './fetchConditionRatingsStateless'
+import { fetchConditionRatingsRealTime } from './fetchConditionRatingsRealTime'
 
 export {
   addConditionRating,
@@ -16,4 +17,5 @@ export {
   deleteConditionRatingStateless,
   fetchConditionRatings,
   fetchConditionRatingsStateless,
+  fetchConditionRatingsRealTime,
 }

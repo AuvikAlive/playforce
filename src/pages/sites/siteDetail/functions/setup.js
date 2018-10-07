@@ -29,6 +29,7 @@ export const setup = (component, site) => {
     <div>
       <a
         target="_blank"
+        rel="noopener noreferrer"
         href={`https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`}
         style={{
           color: 'inherit',

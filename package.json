@@ -29,7 +29,7 @@
     "react-redux-firebase": "^2.1.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.0.3",
     "react-siema": "^1.0.1",
     "react-signature-pad": "^0.0.6",
     "react-sketch": "^0.4.4",
@@ -50,5 +50,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
