@@ -1,6 +1,6 @@
 import { UPDATE_DROP_TEST } from '../../../actionTypes'
 import { getRootRef } from '../../dbActions/'
-import { saveImage } from '../../storageActions/'
+import { updateDropTestStateless } from './updateDropTestStateless'
 
 export const updateDropTest = ({
   userId,
@@ -16,18 +16,11 @@ export const updateDropTest = ({
     .doc(inspectionId)
     .collection('impactTests')
     .doc(impactTestId)
-    .collection('dropTests')
-    .doc(id)
 
-  const { image } = data
-  const downloadURL = await dispatch(saveImage(ref, image))
-
-  data.image = downloadURL
-
-  await ref.update(data)
+  const payload = await dispatch(updateDropTestStateless(ref, id, data))
 
   dispatch({
     type: UPDATE_DROP_TEST,
-    payload: { ...data, id, image, impactTestId },
+    payload: { ...payload, impactTestId },
   })
 }

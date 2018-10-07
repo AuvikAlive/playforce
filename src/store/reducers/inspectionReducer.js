@@ -45,6 +45,7 @@ import {
   UPDATE_PLAYGROUND_PLAYING_SURFACE,
   DELETE_PLAYGROUND_PLAYING_SURFACE,
   SAVE_PLAYGROUND_IMPACT_GENERAL_INFO,
+  DELETE_PLAYGROUND_IMPACT_TEST,
   ADD_PLAYGROUND_SURFACE_TEST,
   UPDATE_PLAYGROUND_SURFACE_TEST,
   DELETE_PLAYGROUND_SURFACE_TEST,
@@ -665,18 +666,33 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
 
       delete payload.playgroundId
 
-      const playgrounds = state.playgrounds.map(item => {
-        if (item.id === playgroundId) {
-          item.impactGeneralInfo = payload
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactGeneralInfo = payload
         }
 
-        return item
+        return playground
       })
 
       return {
         ...state,
         playgrounds,
       }
+    }
+
+    case DELETE_PLAYGROUND_IMPACT_TEST: {
+      const { playgroundId } = payload
+
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactGeneralInfo = undefined
+          playground.impactTests = []
+        }
+
+        return playground
+      })
+
+      return { ...state, playgrounds }
     }
 
     case ADD_PLAYGROUND_SURFACE_TEST: {

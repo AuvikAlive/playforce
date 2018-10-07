@@ -1,5 +1,6 @@
 import { ADD_SURFACE_TEST } from '../../../actionTypes'
 import { getRootRef } from '../../dbActions/'
+import { addSurfaceTestStateless } from './addSurfaceTestStateless'
 
 export const addSurfaceTest = (userId, inspectionId, data) => async (
   dispatch,
@@ -7,16 +8,10 @@ export const addSurfaceTest = (userId, inspectionId, data) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('inspections').doc(inspectionId)
+  const payload = await dispatch(addSurfaceTestStateless(ref, data))
 
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('impactTests')
-    .doc()
+  dispatch({ type: ADD_SURFACE_TEST, payload })
 
-  await ref.set({ surface: data })
-
-  dispatch({ type: ADD_SURFACE_TEST, payload: { surface: data, id: ref.id } })
-
-  return ref.id
+  return payload.id
 }

@@ -1,6 +1,6 @@
 import { DELETE_CONDITION_RATING } from '../../../actionTypes'
-import { deleteImage } from '../../storageActions/'
 import { getRootRef } from '../../dbActions/'
+import { deleteConditionRatingStateless } from './deleteConditionRatingStateless'
 
 export const deleteConditionRating = (userId, inspectionId, id) => async (
   dispatch,
@@ -8,16 +8,9 @@ export const deleteConditionRating = (userId, inspectionId, id) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
+  const ref = rootRef.collection('inspections').doc(inspectionId)
 
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('conditionRatings')
-    .doc(id)
-
-  await ref.delete()
-
-  dispatch(deleteImage(ref))
+  await dispatch(deleteConditionRatingStateless(ref, id))
 
   dispatch({
     type: DELETE_CONDITION_RATING,

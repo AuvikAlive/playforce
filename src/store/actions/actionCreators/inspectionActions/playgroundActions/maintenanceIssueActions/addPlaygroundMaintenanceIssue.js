@@ -1,6 +1,6 @@
 import { ADD_PLAYGROUND_MAINTENANCE_ISSUE } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
-import { saveImage } from '../../../storageActions/'
+import { addMaintenanceIssueStateless } from '../../maintenanceIssueActions/'
 
 export const addPlaygroundMaintenanceIssue = (
   userId,
@@ -10,34 +10,20 @@ export const addPlaygroundMaintenanceIssue = (
 ) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
 
-  const ref = rootRef
+  const playgroundRef = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('maintenanceIssues')
-    .doc()
 
-  const { images } = data
-
-  let downloadURLs = images.map(async (item, index) => {
-    const { image } = item
-    const downloadURL = await dispatch(saveImage(ref, image, index))
-
-    return {
-      ...item,
-      image: downloadURL,
-    }
-  })
-
-  data.images = await Promise.all(downloadURLs)
-
-  await ref.set(data)
+  const payload = await dispatch(
+    addMaintenanceIssueStateless(playgroundRef, data)
+  )
 
   dispatch({
     type: ADD_PLAYGROUND_MAINTENANCE_ISSUE,
-    payload: { ...data, id: ref.id, playgroundId, images },
+    payload: { ...payload, playgroundId },
   })
 
-  return ref.id
+  return payload.id
 }

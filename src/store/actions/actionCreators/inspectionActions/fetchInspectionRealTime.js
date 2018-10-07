@@ -18,6 +18,13 @@ export const fetchInspectionRealTime = (userId, inspectionId) => async (
   const rootRef = dispatch(getRootRef)
   const ref = rootRef.collection('inspections').doc(inspectionId)
 
+  // dispatch(fetchConditionRatings(userId, inspectionId))
+  // dispatch(fetchComplianceIssues(userId, inspectionId))
+  // dispatch(fetchMaintenanceIssues(userId, inspectionId))
+  // dispatch(fetchImpactTests(userId, inspectionId))
+  // dispatch(fetchPlayingSufacesRealTime(userId, inspectionId))
+  // dispatch(fetchPlaygrounds(userId, inspectionId))
+
   await Promise.all([
     dispatch(fetchConditionRatings(userId, inspectionId)),
     dispatch(fetchComplianceIssues(userId, inspectionId)),

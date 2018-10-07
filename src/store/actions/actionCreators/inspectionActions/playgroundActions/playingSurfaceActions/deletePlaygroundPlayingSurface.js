@@ -1,5 +1,6 @@
 import { DELETE_PLAYGROUND_PLAYING_SURFACE } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
+import { deletePlayingSurfaceStateless } from '../../playingSurfaceActions/'
 
 export const deletePlaygroundPlayingSurface = (
   userId,
@@ -9,15 +10,13 @@ export const deletePlaygroundPlayingSurface = (
 ) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
 
-  const ref = rootRef
+  const playgroundRef = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('playingSurfaces')
-    .doc(id)
 
-  await ref.delete()
+  await dispatch(deletePlayingSurfaceStateless(playgroundRef, id))
 
   dispatch({
     type: DELETE_PLAYGROUND_PLAYING_SURFACE,

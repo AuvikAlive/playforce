@@ -1,5 +1,6 @@
 import { UPDATE_PLAYGROUND_SURFACE_TEST } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
+import { updateSurfaceTestStateless } from '../../impactTestActions/'
 
 export const updatePlaygroundSurfaceTest = ({
   userId,
@@ -15,13 +16,11 @@ export const updatePlaygroundSurfaceTest = ({
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('impactTests')
-    .doc(id)
 
-  await ref.update({ surface: data })
+  const payload = await dispatch(updateSurfaceTestStateless(ref, id, data))
 
   dispatch({
     type: UPDATE_PLAYGROUND_SURFACE_TEST,
-    payload: { surface: data, id, playgroundId },
+    payload: { ...payload, playgroundId },
   })
 }

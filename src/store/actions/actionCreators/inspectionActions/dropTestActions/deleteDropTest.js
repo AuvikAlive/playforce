@@ -1,6 +1,6 @@
 import { DELETE_DROP_TEST } from '../../../actionTypes'
 import { getRootRef } from '../../dbActions/'
-import { deleteImage } from '../../storageActions/'
+import { deleteDropTestStateless } from './deleteDropTestStateless'
 
 export const deleteDropTest = (
   userId,
@@ -9,17 +9,14 @@ export const deleteDropTest = (
   id
 ) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
-  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  const impactTestRef = inspectionRef
+  const ref = rootRef
+    .collection('inspections')
+    .doc(inspectionId)
     .collection('impactTests')
     .doc(impactTestId)
 
-  const ref = impactTestRef.collection('dropTests').doc(id)
-
-  await ref.delete()
-
-  dispatch(deleteImage(ref))
+  await dispatch(deleteDropTestStateless(ref, id))
 
   dispatch({
     type: DELETE_DROP_TEST,

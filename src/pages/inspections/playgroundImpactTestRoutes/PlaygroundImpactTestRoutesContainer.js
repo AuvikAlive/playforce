@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   savePlaygroundImpactGeneralInfo,
+  deletePlaygroundImpactTest,
   addPlaygroundSurfaceTest,
   updatePlaygroundSurfaceTest,
   deletePlaygroundSurfaceTest,
@@ -28,6 +29,7 @@ const mapStateToProps = ({ firebase, inspection }, { playgroundId }) => {
 
 const mapDispatchToProps = {
   savePlaygroundImpactGeneralInfo,
+  deletePlaygroundImpactTest,
   addPlaygroundSurfaceTest,
   updatePlaygroundSurfaceTest,
   deletePlaygroundSurfaceTest,

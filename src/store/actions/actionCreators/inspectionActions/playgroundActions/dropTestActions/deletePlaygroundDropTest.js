@@ -1,6 +1,6 @@
 import { DELETE_PLAYGROUND_DROP_TEST } from '../../../../actionTypes'
-import { getFirestore, getRootRef } from '../../../dbActions/'
-import { deleteImage } from '../../../storageActions/'
+import { getRootRef } from '../../../dbActions/'
+import { deleteDropTestStateless } from '../../dropTestActions/'
 
 export const deletePlaygroundDropTest = ({
   userId,
@@ -9,33 +9,20 @@ export const deletePlaygroundDropTest = ({
   playgroundId,
   id,
 }) => async (dispatch, getState, getFirebase) => {
-  const db = dispatch(getFirestore)
   const rootRef = dispatch(getRootRef)
 
-  let storageImages = []
+  const ref = rootRef
+    .collection('inspections')
+    .doc(inspectionId)
+    .collection('playgrounds')
+    .doc(playgroundId)
+    .collection('impactTests')
+    .doc(impactTestId)
 
-  return db.runTransaction(async transaction => {
-    const ref = rootRef
-      .collection('inspections')
-      .doc(inspectionId)
-      .collection('playgrounds')
-      .doc(playgroundId)
-      .collection('impactTests')
-      .doc(impactTestId)
-      .collection('dropTests')
-      .doc(id)
+  await dispatch(deleteDropTestStateless(ref, id))
 
-    storageImages.push(ref)
-
-    await transaction.delete(ref)
-
-    dispatch({
-      type: DELETE_PLAYGROUND_DROP_TEST,
-      payload: { id, impactTestId, playgroundId },
-    })
-
-    storageImages.forEach(ref => {
-      dispatch(deleteImage(ref))
-    })
+  dispatch({
+    type: DELETE_PLAYGROUND_DROP_TEST,
+    payload: { id, impactTestId, playgroundId },
   })
 }

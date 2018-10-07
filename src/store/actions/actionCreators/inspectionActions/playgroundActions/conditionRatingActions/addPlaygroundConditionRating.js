@@ -1,6 +1,6 @@
 import { ADD_PLAYGROUND_CONDITION_RATING } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
-import { saveImage } from '../../../storageActions/'
+import { addConditionRatingStateless } from '../../conditionRatingActions/'
 
 export const addPlaygroundConditionRating = (
   userId,
@@ -15,20 +15,13 @@ export const addPlaygroundConditionRating = (
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('conditionRatings')
-    .doc()
 
-  const { image } = data
-  const downloadURL = await dispatch(saveImage(ref, image))
-
-  data.image = downloadURL
-
-  await ref.set(data)
+  const payload = await dispatch(addConditionRatingStateless(ref, data))
 
   dispatch({
     type: ADD_PLAYGROUND_CONDITION_RATING,
-    payload: { ...data, id: ref.id, playgroundId, image },
+    payload: { ...payload, playgroundId },
   })
 
-  return ref.id
+  return payload.id
 }

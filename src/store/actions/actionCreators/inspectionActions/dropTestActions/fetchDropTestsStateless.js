@@ -1,7 +1,11 @@
 import { getDataUrlFromBlob } from '../../../../../functions/getDataUrlFromBlob'
 
-export const fetchDropTests = async ref => {
-  const querySnapshot = await ref.collection('dropTests').get()
+export const fetchDropTestsStateless = baseRef => async (
+  dispatch,
+  getState,
+  getFirebase
+) => {
+  const querySnapshot = await baseRef.collection('dropTests').get()
 
   let dropTests = querySnapshot.docs.map(async (doc, index) => {
     const { image } = doc.data()

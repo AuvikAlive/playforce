@@ -1,6 +1,6 @@
 import { DELETE_PLAYGROUND_COMPLIANCE_ISSUE } from '../../../../actionTypes'
+import { deleteComplianceIssueStateless } from '../../complianceIssueActions/'
 import { getRootRef } from '../../../dbActions/'
-import { deleteImage } from '../../../storageActions/'
 
 export const deletePlaygroundComplianceIssue = ({
   userId,
@@ -16,14 +16,8 @@ export const deletePlaygroundComplianceIssue = ({
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('complianceIssues')
-    .doc(id)
 
-  await ref.delete()
-
-  images.forEach((item, index) => {
-    dispatch(deleteImage(ref, index))
-  })
+  await dispatch(deleteComplianceIssueStateless(ref, id, images))
 
   dispatch({
     type: DELETE_PLAYGROUND_COMPLIANCE_ISSUE,

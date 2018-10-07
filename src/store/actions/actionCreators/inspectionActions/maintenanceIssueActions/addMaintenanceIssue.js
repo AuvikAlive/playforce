@@ -1,6 +1,6 @@
 import { ADD_MAINTENANCE_ISSUE } from '../../../actionTypes'
 import { getRootRef } from '../../dbActions/'
-import { saveImage } from '../../storageActions/'
+import { addMaintenanceIssueStateless } from './addMaintenanceIssueStateless'
 
 export const addMaintenanceIssue = (userId, inspectionId, data) => async (
   dispatch,
@@ -8,33 +8,16 @@ export const addMaintenanceIssue = (userId, inspectionId, data) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('maintenanceIssues')
-    .doc()
-
-  const { images } = data
-
-  let downloadURLs = images.map(async (item, index) => {
-    const { image } = item
-    const downloadURL = await dispatch(saveImage(ref, image, index))
-
-    return {
-      ...item,
-      image: downloadURL,
-    }
-  })
-
-  data.images = await Promise.all(downloadURLs)
-
-  await ref.set(data)
+  const payload = await dispatch(
+    addMaintenanceIssueStateless(inspectionRef, data)
+  )
 
   dispatch({
     type: ADD_MAINTENANCE_ISSUE,
-    payload: { ...data, id: ref.id, images },
+    payload,
   })
 
-  return ref.id
+  return payload.id
 }

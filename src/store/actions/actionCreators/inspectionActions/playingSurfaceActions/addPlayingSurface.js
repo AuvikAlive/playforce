@@ -1,4 +1,5 @@
 import { getRootRef } from '../../dbActions/'
+import { addPlayingSurfaceStateless } from './addPlayingSurfaceStateless'
 
 export const addPlayingSurface = (userId, inspectionId, data) => async (
   dispatch,
@@ -6,14 +7,11 @@ export const addPlayingSurface = (userId, inspectionId, data) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('playingSurfaces')
-    .doc()
+  const payload = await dispatch(
+    addPlayingSurfaceStateless(inspectionRef, data)
+  )
 
-  await ref.set(data)
-
-  return ref.id
+  return payload.id
 }

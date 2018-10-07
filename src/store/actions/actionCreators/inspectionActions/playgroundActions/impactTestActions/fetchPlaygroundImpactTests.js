@@ -1,22 +1,11 @@
-import { fetchDropTests } from '../../dropTestActions/'
+import { fetchImpactTestsStateless } from '../../impactTestActions/'
 
-export const fetchPlaygroundImpactTests = async ref => {
-  const querySnapshot = await ref
-    .collection('impactTests')
-    .orderBy('surface.location')
-    .get()
-
-  let items = querySnapshot.docs.map(async doc => {
-    const dropTests = await fetchDropTests(doc.ref)
-
-    return {
-      id: doc.id,
-      ...doc.data(),
-      dropTests,
-    }
-  })
-
-  items = await Promise.all(items)
+export const fetchPlaygroundImpactTests = baseRef => async (
+  dispatch,
+  getState,
+  getFirebase
+) => {
+  const items = await dispatch(fetchImpactTestsStateless(baseRef))
 
   return items
 }

@@ -1,5 +1,6 @@
 import { ADD_PLAYGROUND_SURFACE_TEST } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
+import { addSurfaceTestStateless } from '../../impactTestActions/'
 
 export const addPlaygroundSurfaceTest = (
   userId,
@@ -8,20 +9,19 @@ export const addPlaygroundSurfaceTest = (
   data
 ) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
+
   const ref = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('impactTests')
-    .doc()
 
-  await ref.set({ surface: data })
+  const payload = await dispatch(addSurfaceTestStateless(ref, data))
 
   dispatch({
     type: ADD_PLAYGROUND_SURFACE_TEST,
-    payload: { surface: data, id: ref.id, playgroundId },
+    payload: { ...payload, playgroundId },
   })
 
-  return ref.id
+  return payload.id
 }

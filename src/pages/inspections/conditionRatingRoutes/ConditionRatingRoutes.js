@@ -15,7 +15,14 @@ export class ConditionRatingRoutes extends Component {
   }
 
   render() {
-    const { inspectionLoaded, conditionRatings, match } = this.props
+    const {
+      inspectionLoaded,
+      // conditionRatingsLoaded,
+      conditionRatings,
+      match,
+    } = this.props
+
+    // const isLoaded = inspectionLoaded && conditionRatingsLoaded
 
     return showContentWhenLoaded(
       inspectionLoaded,

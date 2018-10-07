@@ -1,6 +1,6 @@
 import { UPDATE_COMPLIANCE_ISSUE } from '../../../actionTypes'
-import { saveImage } from '../../storageActions/'
 import { getRootRef } from '../../dbActions/'
+import { updateComplianceIssueStateless } from './updateComplianceIssueStateless'
 
 export const updateComplianceIssue = (userId, inspectionId, id, data) => async (
   dispatch,
@@ -8,31 +8,14 @@ export const updateComplianceIssue = (userId, inspectionId, id, data) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('complianceIssues')
-    .doc(id)
-
-  const { images } = data
-
-  let downloadURLs = images.map(async (item, index) => {
-    const { image } = item
-    const downloadURL = await dispatch(saveImage(ref, image, index))
-
-    return {
-      ...item,
-      image: downloadURL,
-    }
-  })
-
-  data.images = await Promise.all(downloadURLs)
-
-  await ref.update(data)
+  const payload = await dispatch(
+    updateComplianceIssueStateless(inspectionRef, id, data)
+  )
 
   dispatch({
     type: UPDATE_COMPLIANCE_ISSUE,
-    payload: { ...data, id, images },
+    payload,
   })
 }

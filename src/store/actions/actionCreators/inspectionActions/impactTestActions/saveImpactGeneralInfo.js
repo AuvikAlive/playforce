@@ -1,4 +1,5 @@
 import { getRootRef } from '../../dbActions/'
+import { saveImpactGeneralInfoStateless } from './saveImpactGeneralInfoStateless'
 
 export const saveImpactGeneralInfo = (userId, inspectionId, data) => async (
   dispatch,
@@ -8,5 +9,5 @@ export const saveImpactGeneralInfo = (userId, inspectionId, data) => async (
   const rootRef = dispatch(getRootRef)
   const ref = rootRef.collection('inspections').doc(inspectionId)
 
-  return ref.update({ impactGeneralInfo: data })
+  await dispatch(saveImpactGeneralInfoStateless(ref, data))
 }

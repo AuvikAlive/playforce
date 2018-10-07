@@ -1,5 +1,6 @@
 import { ADD_PLAYGROUND_PLAYING_SURFACE } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
+import { addPlayingSurfaceStateless } from '../../playingSurfaceActions/'
 
 export const addPlaygroundPlayingSurface = (
   userId,
@@ -9,20 +10,20 @@ export const addPlaygroundPlayingSurface = (
 ) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
 
-  const ref = rootRef
+  const playgroundRef = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('playingSurfaces')
-    .doc()
 
-  await ref.set(data)
+  const payload = await dispatch(
+    addPlayingSurfaceStateless(playgroundRef, data)
+  )
 
   dispatch({
     type: ADD_PLAYGROUND_PLAYING_SURFACE,
-    payload: { ...data, id: ref.id, playgroundId },
+    payload: { ...payload, playgroundId },
   })
 
-  return ref.id
+  return payload.id
 }

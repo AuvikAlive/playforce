@@ -1,35 +1,26 @@
 import { ADD_DROP_TEST } from '../../../actionTypes'
-import { getFirestore, getRootRef } from '../../dbActions/'
-import { saveImage } from '../../storageActions/'
+import { getRootRef } from '../../dbActions/'
+import { addDropTestStateless } from './addDropTestStateless'
 
 export const addDropTest = (userId, inspectionId, impactTestId, data) => async (
   dispatch,
   getState,
   getFirebase
 ) => {
-  const db = dispatch(getFirestore)
   const rootRef = dispatch(getRootRef)
 
-  return db.runTransaction(async transaction => {
-    const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
+  const ref = rootRef
+    .collection('inspections')
+    .doc(inspectionId)
+    .collection('impactTests')
+    .doc(impactTestId)
 
-    const impactTestRef = inspectionRef
-      .collection('impactTests')
-      .doc(impactTestId)
+  const payload = await dispatch(addDropTestStateless(ref, data))
 
-    const ref = impactTestRef.collection('dropTests').doc()
-    const { image } = data
-    const downloadURL = await dispatch(saveImage(ref, image))
-
-    data.image = downloadURL
-
-    await transaction.set(ref, data)
-
-    dispatch({
-      type: ADD_DROP_TEST,
-      payload: { ...data, id: ref.id, image, impactTestId },
-    })
-
-    return ref.id
+  dispatch({
+    type: ADD_DROP_TEST,
+    payload: { ...payload, impactTestId },
   })
+
+  return payload.id
 }

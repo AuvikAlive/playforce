@@ -1,6 +1,6 @@
 import { ADD_CONDITION_RATING } from '../../../actionTypes'
-import { saveImage } from '../../storageActions/'
 import { getRootRef } from '../../dbActions/'
+import { addConditionRatingStateless } from './addConditionRatingStateless'
 
 export const addConditionRating = (userId, inspectionId, data) => async (
   dispatch,
@@ -8,24 +8,13 @@ export const addConditionRating = (userId, inspectionId, data) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
-
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('conditionRatings')
-    .doc()
-
-  const { image } = data
-  const downloadURL = await dispatch(saveImage(ref, image))
-
-  data.image = downloadURL
-
-  await ref.set(data)
+  const ref = rootRef.collection('inspections').doc(inspectionId)
+  const payload = await dispatch(addConditionRatingStateless(ref, data))
 
   dispatch({
     type: ADD_CONDITION_RATING,
-    payload: { ...data, id: ref.id, image },
+    payload,
   })
 
-  return ref.id
+  return payload.id
 }

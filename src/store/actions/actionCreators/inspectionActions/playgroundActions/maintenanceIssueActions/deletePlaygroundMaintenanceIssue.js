@@ -1,6 +1,6 @@
 import { DELETE_PLAYGROUND_MAINTENANCE_ISSUE } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
-import { deleteImage } from '../../../storageActions/'
+import { deleteMaintenanceIssueStateless } from '../../maintenanceIssueActions/'
 
 export const deletePlaygroundMaintenanceIssue = ({
   userId,
@@ -11,19 +11,13 @@ export const deletePlaygroundMaintenanceIssue = ({
 }) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
 
-  const ref = rootRef
+  const playgroundRef = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('maintenanceIssues')
-    .doc(id)
 
-  await ref.delete()
-
-  images.forEach((item, index) => {
-    dispatch(deleteImage(ref, index))
-  })
+  await dispatch(deleteMaintenanceIssueStateless(playgroundRef, id, images))
 
   dispatch({
     type: DELETE_PLAYGROUND_MAINTENANCE_ISSUE,

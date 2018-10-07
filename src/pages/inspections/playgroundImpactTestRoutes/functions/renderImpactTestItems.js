@@ -2,12 +2,23 @@ import React from 'react'
 import { ImpactTestItems } from '../../impactTestItems/ImpactTestItems'
 
 export const renderImpactTestItems = props => routerProps => {
-  const { impactTests, deleteImpactTest, userId, inspectionId } = props
+  const {
+    impactTests,
+    deletePlaygroundImpactTest,
+    userId,
+    inspectionId,
+    playgroundId,
+  } = props
 
   return (
     <ImpactTestItems
       deleteImpactTest={() =>
-        deleteImpactTest(userId, inspectionId, impactTests)
+        deletePlaygroundImpactTest(
+          userId,
+          inspectionId,
+          playgroundId,
+          impactTests
+        )
       }
       {...{ impactTests }}
       {...routerProps}

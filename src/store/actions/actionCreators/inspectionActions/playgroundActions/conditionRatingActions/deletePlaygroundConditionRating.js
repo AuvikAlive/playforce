@@ -1,6 +1,6 @@
-import { getRootRef } from '../../../dbActions/'
-import { deleteImage } from '../../../storageActions/'
 import { DELETE_PLAYGROUND_CONDITION_RATING } from '../../../../actionTypes'
+import { getRootRef } from '../../../dbActions/'
+import { deleteConditionRatingStateless } from '../../conditionRatingActions/'
 
 export const deletePlaygroundConditionRating = (
   userId,
@@ -15,12 +15,8 @@ export const deletePlaygroundConditionRating = (
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('conditionRatings')
-    .doc(id)
 
-  await ref.delete()
-
-  dispatch(deleteImage(ref))
+  await dispatch(deleteConditionRatingStateless(ref, id))
 
   dispatch({
     type: DELETE_PLAYGROUND_CONDITION_RATING,

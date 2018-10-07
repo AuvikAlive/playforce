@@ -3,11 +3,11 @@ import {
   FETCH_PLAYGROUNDS_COMPLETED,
 } from '../../../actionTypes'
 import { getRootRef } from '../../dbActions/'
-import { fetchPlaygroundConditionRatings } from './conditionRatingActions/'
-import { fetchPlaygroundComplianceIssues } from './complianceIssueActions/'
-import { fetchPlaygroundMaintenanceIssues } from './maintenanceIssueActions/'
+import { fetchConditionRatingsStateless } from '../conditionRatingActions/'
+import { fetchComplianceIssuesStateless } from '../complianceIssueActions/'
+import { fetchMaintenanceIssuesStateless } from '../maintenanceIssueActions/'
 import { fetchPlaygroundPlayingSufaces } from './playingSurfaceActions/'
-import { fetchPlaygroundImpactTests } from './impactTestActions/'
+import { fetchImpactTestsStateless } from '../impactTestActions/'
 
 export const fetchPlaygrounds = (userId, inspectionId) => async (
   dispatch,
@@ -27,11 +27,20 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
   const querySnapshot = await ref.get()
 
   let items = querySnapshot.docs.map(async doc => {
-    const conditionRatings = await fetchPlaygroundConditionRatings(doc.ref)
-    const complianceIssues = await fetchPlaygroundComplianceIssues(doc.ref)
-    const maintenanceIssues = await fetchPlaygroundMaintenanceIssues(doc.ref)
+    const conditionRatings = await dispatch(
+      fetchConditionRatingsStateless(doc.ref)
+    )
+
+    const complianceIssues = await dispatch(
+      fetchComplianceIssuesStateless(doc.ref)
+    )
+
+    const maintenanceIssues = await dispatch(
+      fetchMaintenanceIssuesStateless(doc.ref)
+    )
+
     const playingSurfaces = await fetchPlaygroundPlayingSufaces(doc.ref)
-    const impactTests = await fetchPlaygroundImpactTests(doc.ref)
+    const impactTests = await dispatch(fetchImpactTestsStateless(doc.ref))
 
     return {
       id: doc.id,

@@ -1,6 +1,6 @@
 import { UPDATE_CONDITION_RATING } from '../../../actionTypes'
-import { saveImage } from '../../storageActions/'
 import { getRootRef } from '../../dbActions/'
+import { updateConditionRatingStateless } from './updateConditionRatingStateless'
 
 export const updateConditionRating = (userId, inspectionId, id, data) => async (
   dispatch,
@@ -8,22 +8,11 @@ export const updateConditionRating = (userId, inspectionId, id, data) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
-
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('conditionRatings')
-    .doc(id)
-
-  const { image } = data
-  const downloadURL = await dispatch(saveImage(ref, image))
-
-  data.image = downloadURL
-
-  await ref.update(data)
+  const ref = rootRef.collection('inspections').doc(inspectionId)
+  const payload = await dispatch(updateConditionRatingStateless(ref, id, data))
 
   dispatch({
     type: UPDATE_CONDITION_RATING,
-    payload: { ...data, id, image },
+    payload,
   })
 }

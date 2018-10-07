@@ -1,6 +1,6 @@
 import { UPDATE_PLAYGROUND_DROP_TEST } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
-import { saveImage } from '../../../storageActions/'
+import { updateDropTestStateless } from '../../dropTestActions/'
 
 export const updatePlaygroundDropTest = ({
   userId,
@@ -19,18 +19,11 @@ export const updatePlaygroundDropTest = ({
     .doc(playgroundId)
     .collection('impactTests')
     .doc(impactTestId)
-    .collection('dropTests')
-    .doc(id)
 
-  const { image } = data
-  const downloadURL = await dispatch(saveImage(ref, image))
-
-  data.image = downloadURL
-
-  await ref.update(data)
+  const payload = await dispatch(updateDropTestStateless(ref, id, data))
 
   dispatch({
     type: UPDATE_PLAYGROUND_DROP_TEST,
-    payload: { ...data, id, image, impactTestId, playgroundId },
+    payload: { ...payload, impactTestId, playgroundId },
   })
 }

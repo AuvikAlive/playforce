@@ -1,6 +1,6 @@
 import { DELETE_COMPLIANCE_ISSUE } from '../../../actionTypes'
-import { deleteImage } from '../../storageActions/'
 import { getRootRef } from '../../dbActions/'
+import { deleteComplianceIssueStateless } from './deleteComplianceIssueStateless'
 
 export const deleteComplianceIssue = (
   userId,
@@ -9,18 +9,9 @@ export const deleteComplianceIssue = (
   images
 ) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('complianceIssues')
-    .doc(id)
-
-  await ref.delete()
-
-  images.forEach((item, index) => {
-    dispatch(deleteImage(ref, index))
-  })
+  await dispatch(deleteComplianceIssueStateless(inspectionRef, id, images))
 
   dispatch({
     type: DELETE_COMPLIANCE_ISSUE,

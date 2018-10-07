@@ -1,6 +1,6 @@
-import { getFirestore, getRootRef } from '../../../dbActions/'
-import { saveImage } from '../../../storageActions/'
 import { ADD_PLAYGROUND_DROP_TEST } from '../../../../actionTypes'
+import { getRootRef } from '../../../dbActions/'
+import { addDropTestStateless } from '../../dropTestActions/'
 
 export const addPlaygroundDropTest = ({
   userId,
@@ -9,32 +9,22 @@ export const addPlaygroundDropTest = ({
   playgroundId,
   data,
 }) => async (dispatch, getState, getFirebase) => {
-  const db = dispatch(getFirestore)
   const rootRef = dispatch(getRootRef)
 
-  return db.runTransaction(async transaction => {
-    const ref = rootRef
-      .collection('inspections')
-      .doc(inspectionId)
-      .collection('playgrounds')
-      .doc(playgroundId)
-      .collection('impactTests')
-      .doc(impactTestId)
-      .collection('dropTests')
-      .doc()
+  const ref = rootRef
+    .collection('inspections')
+    .doc(inspectionId)
+    .collection('playgrounds')
+    .doc(playgroundId)
+    .collection('impactTests')
+    .doc(impactTestId)
 
-    const { image } = data
-    const downloadURL = await dispatch(saveImage(ref, image))
+  const payload = await dispatch(addDropTestStateless(ref, data))
 
-    data.image = downloadURL
-
-    await transaction.set(ref, data)
-
-    dispatch({
-      type: ADD_PLAYGROUND_DROP_TEST,
-      payload: { ...data, id: ref.id, image, impactTestId, playgroundId },
-    })
-
-    return ref.id
+  dispatch({
+    type: ADD_PLAYGROUND_DROP_TEST,
+    payload: { ...payload, impactTestId, playgroundId },
   })
+
+  return payload.id
 }

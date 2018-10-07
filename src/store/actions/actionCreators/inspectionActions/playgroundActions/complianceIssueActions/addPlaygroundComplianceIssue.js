@@ -1,6 +1,6 @@
 import { ADD_PLAYGROUND_COMPLIANCE_ISSUE } from '../../../../actionTypes'
+import { addComplianceIssueStateless } from '../../complianceIssueActions/'
 import { getRootRef } from '../../../dbActions/'
-import { saveImage } from '../../../storageActions/'
 
 export const addPlaygroundComplianceIssue = (
   userId,
@@ -15,29 +15,13 @@ export const addPlaygroundComplianceIssue = (
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
-    .collection('complianceIssues')
-    .doc()
 
-  const { images } = data
-
-  let downloadURLs = images.map(async (item, index) => {
-    const { image } = item
-    const downloadURL = await dispatch(saveImage(ref, image, index))
-
-    return {
-      ...item,
-      image: downloadURL,
-    }
-  })
-
-  data.images = await Promise.all(downloadURLs)
-
-  await ref.set(data)
+  const payload = await dispatch(addComplianceIssueStateless(ref, data))
 
   dispatch({
     type: ADD_PLAYGROUND_COMPLIANCE_ISSUE,
-    payload: { ...data, id: ref.id, playgroundId, images },
+    payload: { ...payload, playgroundId },
   })
 
-  return ref.id
+  return payload.id
 }

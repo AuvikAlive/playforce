@@ -53,6 +53,7 @@ import {
   updatePlaygroundSurfaceTest,
   deletePlaygroundSurfaceTest,
   savePlaygroundImpactGeneralInfo,
+  deletePlaygroundImpactTest,
 } from './playgroundActions/'
 import {
   addPlayingSurface,
@@ -130,6 +131,7 @@ export {
   updatePlaygroundPlayingSurface,
   deletePlaygroundPlayingSurface,
   savePlaygroundImpactGeneralInfo,
+  deletePlaygroundImpactTest,
   addPlaygroundSurfaceTest,
   updatePlaygroundSurfaceTest,
   deletePlaygroundSurfaceTest,

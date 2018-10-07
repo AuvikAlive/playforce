@@ -1,5 +1,6 @@
 import { SAVE_PLAYGROUND_IMPACT_GENERAL_INFO } from '../../../../actionTypes'
 import { getRootRef } from '../../../dbActions/'
+import { saveImpactGeneralInfoStateless } from '../../impactTestActions/'
 
 export const savePlaygroundImpactGeneralInfo = (
   userId,
@@ -9,13 +10,13 @@ export const savePlaygroundImpactGeneralInfo = (
 ) => async (dispatch, getState, getFirebase) => {
   const rootRef = dispatch(getRootRef)
 
-  const ref = rootRef
+  const playgroundRef = rootRef
     .collection('inspections')
     .doc(inspectionId)
     .collection('playgrounds')
     .doc(playgroundId)
 
-  await ref.update({ impactGeneralInfo: data })
+  await dispatch(saveImpactGeneralInfoStateless(playgroundRef, data))
 
   dispatch({
     type: SAVE_PLAYGROUND_IMPACT_GENERAL_INFO,

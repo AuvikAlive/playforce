@@ -1,4 +1,5 @@
 import { getRootRef } from '../../dbActions/'
+import { deletePlayingSurfaceStateless } from './deletePlayingSurfaceStateless'
 
 export const deletePlayingSurface = (userId, inspectionId, id) => async (
   dispatch,
@@ -6,12 +7,7 @@ export const deletePlayingSurface = (userId, inspectionId, id) => async (
   getFirebase
 ) => {
   const rootRef = dispatch(getRootRef)
+  const inspectionRef = rootRef.collection('inspections').doc(inspectionId)
 
-  const ref = rootRef
-    .collection('inspections')
-    .doc(inspectionId)
-    .collection('playingSurfaces')
-    .doc(id)
-
-  return ref.delete()
+  await dispatch(deletePlayingSurfaceStateless(inspectionRef, id))
 }
