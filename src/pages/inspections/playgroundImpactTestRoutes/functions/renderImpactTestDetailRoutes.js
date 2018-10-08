@@ -11,6 +11,7 @@ export const renderImpactTestDetailRoutes = props => routerProps => {
   const {
     updatePlaygroundSurfaceTest,
     deletePlaygroundSurfaceTest,
+    savePlaygroundImpactComment,
     addPlaygroundDropTest,
     updatePlaygroundDropTest,
     deletePlaygroundDropTest,
@@ -41,6 +42,15 @@ export const renderImpactTestDetailRoutes = props => routerProps => {
           playgroundId,
           impactTest
         )
+      }
+      saveImpactComment={data =>
+        savePlaygroundImpactComment({
+          userId,
+          inspectionId,
+          playgroundId,
+          id: impactTestId,
+          data,
+        })
       }
       addDropTest={data =>
         addPlaygroundDropTest({

@@ -40,6 +40,12 @@ class BaseImpactTestDetailItems extends Component {
                 <ListItemText primary="Surface Details" />
               </ListItem>
             </StyledNavLink>
+
+            <StyledNavLink to={`${match.url}/comment`}>
+              <ListItem button>
+                <ListItemText primary="Comment" />
+              </ListItem>
+            </StyledNavLink>
           </List>
 
           <List

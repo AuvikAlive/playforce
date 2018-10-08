@@ -1,4 +1,4 @@
-import { UPDATE__SURFACE_TEST } from '../../../actionTypes'
+import { UPDATE_SURFACE_TEST } from '../../../actionTypes'
 import { getRootRef } from '../../dbActions/'
 import { updateSurfaceTestStateless } from './updateSurfaceTestStateless'
 
@@ -11,5 +11,5 @@ export const updateSurfaceTest = (userId, inspectionId, id, data) => async (
   const ref = rootRef.collection('inspections').doc(inspectionId)
   const payload = await dispatch(updateSurfaceTestStateless(ref, id, data))
 
-  dispatch({ type: UPDATE__SURFACE_TEST, payload })
+  dispatch({ type: UPDATE_SURFACE_TEST, payload })
 }

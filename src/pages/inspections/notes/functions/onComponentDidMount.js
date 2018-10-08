@@ -11,9 +11,7 @@ export const onComponentDidMount = async component => {
     notes,
   } = component.props
 
-  const title = 'Notes'
-
-  onComponentDidMountWithTitleLeftNav(component, title)
+  onComponentDidMountWithTitleLeftNav(component, 'Notes')
 
   notes && component.setState({ notes })
 

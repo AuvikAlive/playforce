@@ -1,14 +1,20 @@
 import { verticalMargin } from '../constants'
 import { makeSurface } from './makeSurface'
 import { makeDrops } from './makeDrops'
+import { makeComment } from './makeComment'
 
 const marginLeft = 85
 const marginBottom = verticalMargin / 2
 
-export const makeTest = ({ surface, dropTests }) =>
+export const makeTest = ({ surface, dropTests, comment }) =>
   dropTests.length > 0
     ? [
-        makeSurface(marginLeft, marginBottom, surface),
-        makeDrops(marginLeft, dropTests),
+        makeSurface(surface, marginLeft, marginBottom),
+        makeDrops(
+          dropTests,
+          marginLeft,
+          comment ? marginBottom : verticalMargin * 2
+        ),
+        makeComment(comment, marginLeft),
       ]
     : null

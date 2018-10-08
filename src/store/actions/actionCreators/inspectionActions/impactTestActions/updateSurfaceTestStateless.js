@@ -3,9 +3,9 @@ export const updateSurfaceTestStateless = (baseRef, id, data) => async (
   getState,
   getFirebase
 ) => {
-  const ref = baseRef.collection('impactTests').doc(id)
+  const impactTestRef = baseRef.collection('impactTests').doc(id)
 
-  await ref.update({ surface: data })
+  await impactTestRef.update({ surface: data })
 
   return { surface: data, id }
 }

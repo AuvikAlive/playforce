@@ -21,8 +21,9 @@ import {
   FETCH_IMPACT_TESTS_COMPLETED,
   DELETE_IMPACT_TEST,
   ADD_SURFACE_TEST,
-  UPDATE__SURFACE_TEST,
+  UPDATE_SURFACE_TEST,
   DELETE_SURFACE_TEST,
+  SAVE_IMPACT_COMMENT,
   ADD_DROP_TEST,
   UPDATE_DROP_TEST,
   DELETE_DROP_TEST,
@@ -49,6 +50,7 @@ import {
   ADD_PLAYGROUND_SURFACE_TEST,
   UPDATE_PLAYGROUND_SURFACE_TEST,
   DELETE_PLAYGROUND_SURFACE_TEST,
+  SAVE_PLAYGROUND_IMPACT_COMMENT,
   ADD_PLAYGROUND_DROP_TEST,
   UPDATE_PLAYGROUND_DROP_TEST,
   DELETE_PLAYGROUND_DROP_TEST,
@@ -234,7 +236,7 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       }
     }
 
-    case UPDATE__SURFACE_TEST: {
+    case UPDATE_SURFACE_TEST: {
       const updatedImpactTests = state.impactTests.map(item => {
         if (item.id === payload.id) {
           item.surface = payload.surface
@@ -257,6 +259,21 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         impactTests: filteredImpactTests,
+      }
+    }
+
+    case SAVE_IMPACT_COMMENT: {
+      const updatedImpactTests = state.impactTests.map(impactTest => {
+        if (impactTest.id === payload.id) {
+          impactTest.comment = payload.comment
+        }
+
+        return impactTest
+      })
+
+      return {
+        ...state,
+        impactTests: updatedImpactTests,
       }
     }
 
@@ -726,6 +743,31 @@ export const inspectionReducer = (state = initialState, { type, payload }) => {
           playground.impactTests = playground.impactTests.map(impactTest => {
             if (impactTest.id === payload.id) {
               impactTest.surface = payload.surface
+            }
+
+            return impactTest
+          })
+        }
+
+        return playground
+      })
+
+      return {
+        ...state,
+        playgrounds,
+      }
+    }
+
+    case SAVE_PLAYGROUND_IMPACT_COMMENT: {
+      const { playgroundId } = payload
+
+      delete payload.playgroundId
+
+      const playgrounds = state.playgrounds.map(playground => {
+        if (playground.id === playgroundId) {
+          playground.impactTests = playground.impactTests.map(impactTest => {
+            if (impactTest.id === payload.id) {
+              impactTest.comment = payload.comment
             }
 
             return impactTest

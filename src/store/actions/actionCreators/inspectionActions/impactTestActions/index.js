@@ -4,6 +4,8 @@ import { updateSurfaceTest } from './updateSurfaceTest'
 import { updateSurfaceTestStateless } from './updateSurfaceTestStateless'
 import { deleteSurfaceTest } from './deleteSurfaceTest'
 import { deleteSurfaceTestStateless } from './deleteSurfaceTestStateless'
+import { saveImpactComment } from './saveImpactComment'
+import { saveImpactCommentStateless } from './saveImpactCommentStateless'
 import { saveImpactGeneralInfo } from './saveImpactGeneralInfo'
 import { saveImpactGeneralInfoStateless } from './saveImpactGeneralInfoStateless'
 import { deleteImpactTest } from './deleteImpactTest'
@@ -19,6 +21,8 @@ export {
   updateSurfaceTestStateless,
   deleteSurfaceTest,
   deleteSurfaceTestStateless,
+  saveImpactComment,
+  saveImpactCommentStateless,
   saveImpactGeneralInfo,
   saveImpactGeneralInfoStateless,
   deleteImpactTest,

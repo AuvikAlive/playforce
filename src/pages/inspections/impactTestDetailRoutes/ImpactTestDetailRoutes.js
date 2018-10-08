@@ -5,6 +5,7 @@ import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   renderImpactTestDetailItems,
   renderEditImpactSurface,
+  renderEditImpactComment,
   renderAddDropTest,
   renderEditDropTest,
 } from './functions/'
@@ -20,6 +21,11 @@ const BaseImpactTestDetailRoutes = props => {
       />
 
       <Route path={`${match.url}/addDrop`} render={renderAddDropTest(props)} />
+
+      <Route
+        path={`${match.url}/comment`}
+        render={renderEditImpactComment(props)}
+      />
 
       <Route
         path={`${match.url}/surface`}

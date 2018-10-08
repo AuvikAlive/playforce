@@ -11,6 +11,7 @@ export const renderImpactTestDetailRoutes = ({ props }) => routerProps => {
   const {
     deleteSurfaceTest,
     updateSurfaceTest,
+    saveImpactComment,
     addDropTest,
     updateDropTest,
     deleteDropTest,
@@ -29,6 +30,9 @@ export const renderImpactTestDetailRoutes = ({ props }) => routerProps => {
       }
       updateImpactSurface={data =>
         updateSurfaceTest(userId, inspectionId, impactTestId, data)
+      }
+      saveImpactComment={data =>
+        saveImpactComment(userId, inspectionId, impactTestId, data)
       }
       addDropTest={data =>
         addDropTest(userId, inspectionId, impactTestId, data)

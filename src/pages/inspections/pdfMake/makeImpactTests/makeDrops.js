@@ -1,10 +1,10 @@
-import { verticalMargin, lightGray } from '../constants'
+import { lightGray } from '../constants'
 import { makeDropHeader } from './makeDropHeader'
 import { makeDropRows } from './makeDropRows'
 
 const lighterGray = '#efefef'
 
-export const makeDrops = (marginLeft, dropTests) => ({
+export const makeDrops = (dropTests, marginLeft, marginBottom) => ({
   layout: {
     hLineWidth: () => 0,
     vLineWidth: () => 0,
@@ -19,7 +19,7 @@ export const makeDrops = (marginLeft, dropTests) => ({
     },
   },
   marginLeft,
-  marginBottom: verticalMargin * 2,
+  marginBottom,
   alignment: 'center',
   unbreakable: true,
   table: {

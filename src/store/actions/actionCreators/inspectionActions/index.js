@@ -26,6 +26,7 @@ import {
   addSurfaceTest,
   updateSurfaceTest,
   deleteSurfaceTest,
+  saveImpactComment,
   fetchImpactTests,
   fetchImpactTestsRealTime,
 } from './impactTestActions/'
@@ -52,6 +53,7 @@ import {
   addPlaygroundSurfaceTest,
   updatePlaygroundSurfaceTest,
   deletePlaygroundSurfaceTest,
+  savePlaygroundImpactComment,
   savePlaygroundImpactGeneralInfo,
   deletePlaygroundImpactTest,
 } from './playgroundActions/'
@@ -103,6 +105,7 @@ export {
   addSurfaceTest,
   deleteSurfaceTest,
   updateSurfaceTest,
+  saveImpactComment,
   fetchImpactTestsRealTime,
   fetchImpactTests,
   addDropTest,
@@ -135,6 +138,7 @@ export {
   addPlaygroundSurfaceTest,
   updatePlaygroundSurfaceTest,
   deletePlaygroundSurfaceTest,
+  savePlaygroundImpactComment,
   addPlaygroundDropTest,
   updatePlaygroundDropTest,
   deletePlaygroundDropTest,

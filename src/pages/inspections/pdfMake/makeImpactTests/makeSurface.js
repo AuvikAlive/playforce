@@ -1,9 +1,9 @@
 import { verticalMargin } from '../constants'
 
 export const makeSurface = (
+  { location, surfaceType, material, condition },
   marginLeft,
-  marginBottom,
-  { location, surfaceType, material, condition }
+  marginBottom
 ) => [
   {
     marginLeft,
