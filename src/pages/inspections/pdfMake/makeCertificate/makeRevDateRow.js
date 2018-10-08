@@ -16,7 +16,7 @@ export const makeRevDateRow = (
       italics: true,
       width: firstColumnWidth,
     },
-    { text: ':', width: firstColumnWidth / 2 },
+    { text: ':', width: pageFontSize },
     { text: format(date, 'DD MMMM YYYY'), width: '*' },
   ],
 })

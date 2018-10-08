@@ -18,7 +18,7 @@ export const makeSiteLocationRow = ({
         italics: true,
         width: firstColumnWidth,
       },
-      { text: ':', width: firstColumnWidth / 2 },
+      { text: ':', width: pageFontSize },
       [{ text: name, width: '*', lineHeight }, { text: address }],
     ],
   }

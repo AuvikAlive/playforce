@@ -27,7 +27,7 @@ export const makeStandardsRow = ({
         italics: true,
         width: firstColumnWidth,
       },
-      { text: ':', width: firstColumnWidth / 2 },
+      { text: ':', width: pageFontSize },
       standardItems,
     ],
   }

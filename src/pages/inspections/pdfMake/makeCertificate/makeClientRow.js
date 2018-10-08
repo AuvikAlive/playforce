@@ -15,7 +15,7 @@ export const makeClientRow = ({
       italics: true,
       width: firstColumnWidth,
     },
-    { text: ':', width: firstColumnWidth / 2 },
+    { text: ':', width: pageFontSize },
     [{ text: client, width: '*', lineHeight }, { text: clientAddress }],
   ],
 })

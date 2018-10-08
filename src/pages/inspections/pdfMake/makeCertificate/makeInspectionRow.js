@@ -14,7 +14,7 @@ export const makeInspectionRow = ({
       italics: true,
       width: firstColumnWidth,
     },
-    { text: ':', width: firstColumnWidth / 2 },
+    { text: ':', width: pageFontSize },
     { text: customInspectionNumber || inspectionNumber, width: '*' },
   ],
 })
