@@ -39,7 +39,7 @@ export class CertificateTextFormWithout extends Component {
                   type="number"
                   margin="normal"
                   label="Inspection number"
-                  value={customInspectionNumber}
+                  value={customInspectionNumber || ''}
                   onChange={onEventInputChange(this, 'customInspectionNumber')}
                 />
               )}
