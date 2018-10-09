@@ -2,6 +2,7 @@ import { contextTypesUnsubscriber } from './contextTypesUnsubscriber'
 import { contextTypesTitle } from './contextTypesTitle'
 import { contextTypesTitleUnsubscriber } from './contextTypesTitleUnsubscriber'
 import { contextTypesTitleLeftNav } from './contextTypesTitleLeftNav'
+import { contextTypesTitleLeftNavBarShadow } from './contextTypesTitleLeftNavBarShadow'
 import { contextTypesTitleRightNav } from './contextTypesTitleRightNav'
 import { contextTypesTitleLeftRightNav } from './contextTypesTitleLeftRightNav'
 import { contextTypesTitleLeftNavUnsubscriber } from './contextTypesTitleLeftNavUnsubscriber'
@@ -28,6 +29,7 @@ export {
   contextTypesTitle,
   contextTypesTitleUnsubscriber,
   contextTypesTitleLeftNav,
+  contextTypesTitleLeftNavBarShadow,
   contextTypesTitleRightNav,
   contextTypesTitleLeftRightNav,
   contextTypesTitleLeftNavUnsubscriber,

@@ -1,117 +1,67 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import ModeEditIcon from '@material-ui/icons/Edit'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import CardContent from '@material-ui/core/CardContent'
-import { format } from 'date-fns'
+import { groupBy } from 'lodash'
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
 import { AddButton } from '../../../components/addButton/AddButton'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
+import { Content } from '../../../components/content/Content'
 import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
-import { contextTypesTitleLeftNav } from '../../../constants/'
 import {
-  onComponentDidMountWithTitleLeftNav,
-  onComponentWillUnmountWithTitleLeftNav,
-  capitalize,
-} from '../../../functions/'
-import { StyledConditionRatingList } from './StyledConditionRatingList'
+  contextTypesTitleLeftNavBarShadow,
+  equipmentTypes,
+} from '../../../constants/'
+
+import { onComponentDidMount, onComponentWillUnmount } from './functions/'
+import { ListView } from './StyledConditionRatingList'
 
 export class ConditionRatingList extends Component {
+  state = {
+    value: equipmentTypes[0],
+  }
+
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Condition Ratings')
+    onComponentDidMount(this)
   }
 
   componentWillUnmount() {
-    onComponentWillUnmountWithTitleLeftNav(this)
+    onComponentWillUnmount(this)
   }
 
   render() {
     const { match, conditionRatings } = this.props
+    const { value } = this.state
+
     const conditionRatingsAdded =
       !!conditionRatings && conditionRatings.length > 0
 
+    const groupedConditionRatings =
+      conditionRatingsAdded && groupBy(conditionRatings, 'itemType')
+
     return (
-      <StyledConditionRatingList className="StyledConditionRatingList">
+      <div>
         <AddButton to={`${match.url}/add`} pulse={!conditionRatingsAdded} />
+        <AppBar position="static">
+          <Tabs
+            fullWidth
+            value={value}
+            onChange={(event, value) => this.setState({ value })}
+          >
+            {equipmentTypes.map(itemType => (
+              <Tab value={itemType} label={itemType} key={itemType} />
+            ))}
+          </Tabs>
+        </AppBar>
 
         {conditionRatingsAdded ? (
-          <Grid container>
-            {conditionRatings.map(
-              (
-                {
-                  id,
-                  image,
-                  itemType,
-                  equipment,
-                  assetId,
-                  manufacturer,
-                  condition,
-                  estimatedDateInstalled,
-                },
-                index
-              ) => {
-                return (
-                  <Grid item key={index} xs={12}>
-                    {image && <img src={image} alt="equipment type" />}
-
-                    <CardContent className="card-content">
-                      <StyledNavLink
-                        to={`${match.url}/edit/${id}`}
-                        className="floating-icon"
-                      >
-                        <Button
-                          variant="fab"
-                          color="primary"
-                          aria-label="edit compliance issue"
-                        >
-                          <ModeEditIcon />
-                        </Button>
-                      </StyledNavLink>
-
-                      <Typography variant="title">
-                        Equipment: {equipment}
-                      </Typography>
-
-                      {itemType && (
-                        <Typography variant="subheading">
-                          Item Type: {capitalize(itemType)}
-                        </Typography>
-                      )}
-
-                      {assetId && (
-                        <Typography variant="subheading">
-                          Asset Id: {assetId}
-                        </Typography>
-                      )}
-
-                      {manufacturer && (
-                        <Typography variant="subheading">
-                          Manufacturer: {manufacturer}
-                        </Typography>
-                      )}
-
-                      <Typography variant="subheading">
-                        Condition: {condition}
-                      </Typography>
-
-                      {estimatedDateInstalled && (
-                        <Typography variant="subheading">
-                          Estimated Date Installed:{' '}
-                          {format(estimatedDateInstalled, 'YYYY')}
-                        </Typography>
-                      )}
-                    </CardContent>
-                  </Grid>
-                )
-              }
-            )}
-          </Grid>
+          <ListView {...{ groupedConditionRatings, match, value }} />
         ) : (
-          <EmptyListPlaceholder text="Try adding a condition rating to get started!" />
+          <Content>
+            <EmptyListPlaceholder text="Try adding a condition rating to get started!" />
+          </Content>
         )}
-      </StyledConditionRatingList>
+      </div>
     )
   }
 }
 
-ConditionRatingList.contextTypes = contextTypesTitleLeftNav
+ConditionRatingList.contextTypes = contextTypesTitleLeftNavBarShadow
