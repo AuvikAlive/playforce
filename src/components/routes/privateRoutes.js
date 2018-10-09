@@ -30,13 +30,13 @@ const ToolRoutes = Loadable({
   loader: () => import('../../pages/tools/toolRoutes'),
 })
 
-Dashboard.preload()
-InspectionRoutes.preload()
-SiteRoutes.preload()
-GroupRoutes.preload()
-SettingRoutes.preload()
-ProjectRoutes.preload()
-ToolRoutes.preload()
+// Dashboard.preload()
+// InspectionRoutes.preload()
+// SiteRoutes.preload()
+// GroupRoutes.preload()
+// SettingRoutes.preload()
+// ProjectRoutes.preload()
+// ToolRoutes.preload()
 
 export const privateRoutes = [
   {
@@ -45,12 +45,6 @@ export const privateRoutes = [
     name: 'Test Component',
     exact: true,
   },
-  // {
-  //   Component: Home,
-  //   pathname: '/',
-  //   name: 'home',
-  //   exact: true,
-  // },
   {
     Component: Dashboard,
     pathname: '/dashboard',

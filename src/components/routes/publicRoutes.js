@@ -18,15 +18,10 @@ const ConfirmPasswordReset = Loadable({
   loader: () => import('../../pages/confirmPasswordReset'),
 })
 
-const Terms = Loadable({
-  loader: () => import('../../pages/terms/Terms'),
-})
-
-SignIn.preload()
-SignUp.preload()
-ResetPassword.preload()
-ConfirmPasswordReset.preload()
-Terms.preload()
+// SignIn.preload()
+// SignUp.preload()
+// ResetPassword.preload()
+// ConfirmPasswordReset.preload()
 
 export const publicRoutes = [
   {
@@ -35,12 +30,6 @@ export const publicRoutes = [
     name: 'Test Component',
     exact: true,
   },
-  // {
-  //   Component: Home,
-  //   pathname: '/',
-  //   name: 'Home',
-  //   exact: true,
-  // },
   {
     Component: SignIn,
     pathname: '/SignIn',
@@ -63,12 +52,6 @@ export const publicRoutes = [
     Component: ConfirmPasswordReset,
     pathname: '/ConfirmPasswordReset',
     name: 'ConfirmPasswordReset',
-    exact: false,
-  },
-  {
-    Component: Terms,
-    pathname: '/Terms',
-    name: 'Terms',
     exact: false,
   },
 ]
