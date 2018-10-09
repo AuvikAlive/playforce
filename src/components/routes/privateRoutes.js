@@ -30,7 +30,7 @@ const ToolRoutes = Loadable({
   loader: () => import('../../pages/tools/toolRoutes'),
 })
 
-// Dashboard.preload()
+Dashboard.preload()
 // InspectionRoutes.preload()
 // SiteRoutes.preload()
 // GroupRoutes.preload()

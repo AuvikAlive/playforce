@@ -18,7 +18,7 @@ const ConfirmPasswordReset = Loadable({
   loader: () => import('../../pages/confirmPasswordReset'),
 })
 
-// SignIn.preload()
+SignIn.preload()
 // SignUp.preload()
 // ResetPassword.preload()
 // ConfirmPasswordReset.preload()
