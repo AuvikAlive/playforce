@@ -10,9 +10,9 @@ body {
   background: #e4e5e5;
 }
 
-@import '~slick-carousel/slick/slick.css';
-@import '~cropperjs/dist/cropper.css';
-@import '~react-image-lightbox/style.css';
+/* @import '~slick-carousel/slick/slick.css'; */
+/* @import '~cropperjs/dist/cropper.css'; */
+/* @import '~react-image-lightbox/style.css'; */
 
 /* .ril-outer button {
   outline: none;

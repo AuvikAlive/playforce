@@ -22,12 +22,8 @@ export class SiteEdit extends Component {
   }
 
   render() {
-    const {
-      match: {
-        params: { tabstate, id },
-      },
-    } = this.props
-
+    const { match } = this.props
+    const { tabstate, id } = match.params
     const tabId = parseInt(id, 10)
 
     return (

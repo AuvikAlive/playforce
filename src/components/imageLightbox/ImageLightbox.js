@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Lightbox from 'react-image-lightbox'
 import SlideshowIcon from '@material-ui/icons/Slideshow'
+import 'react-image-lightbox/style.css'
 import { StyledImageLightbox } from './StyledImageLightbox'
 import { state, reactModalStyle } from './constants/'
 import {
