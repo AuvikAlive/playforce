@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { isLoaded } from 'react-redux-firebase'
 import Snackbar from '@material-ui/core/Snackbar'
+import registerServiceWorker from '../../myServiceWorker'
 import { showContentWhenLoaded } from '../../functions/'
 import NavBar from '../navBar'
 import SideMenu from '../sideMenu'
@@ -26,6 +27,8 @@ import { state, childContextTypes } from './constants/'
 import { StyledShell } from './StyledShell'
 
 export class Shell extends Component {
+  state = state
+
   getChildContext() {
     return {
       enableNavBarShadow: enableNavBarShadow(this),
@@ -50,7 +53,11 @@ export class Shell extends Component {
     }
   }
 
-  state = state
+  componentDidMount() {
+    registerServiceWorker(() =>
+      openSnackbar(this)(3000, 'App update is available; please refresh.')
+    )
+  }
 
   render() {
     const {
