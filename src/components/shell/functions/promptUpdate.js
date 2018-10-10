@@ -9,7 +9,7 @@ export const promptUpdate = component => {
     <Button
       color="secondary"
       size="small"
-      onClick={() => window.location.reload()}
+      onClick={() => window.location.reload(true)}
     >
       click to update
     </Button>

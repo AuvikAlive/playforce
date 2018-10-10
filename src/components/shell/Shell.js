@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { isLoaded } from 'react-redux-firebase'
 import Snackbar from '@material-ui/core/Snackbar'
-import Button from '@material-ui/core/Button'
 import registerServiceWorker from '../../myServiceWorker'
 import { showContentWhenLoaded } from '../../functions/'
 import NavBar from '../navBar'
