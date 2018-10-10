@@ -17,22 +17,26 @@ export const fetchInspectionRealTime = (userId, inspectionId) => async (
 
   const rootRef = dispatch(getRootRef)
   const ref = rootRef.collection('inspections').doc(inspectionId)
+  const playgrounds = await dispatch(fetchPlaygrounds(userId, inspectionId))
 
-  // dispatch(fetchConditionRatings(userId, inspectionId))
-  // dispatch(fetchComplianceIssues(userId, inspectionId))
-  // dispatch(fetchMaintenanceIssues(userId, inspectionId))
-  // dispatch(fetchImpactTests(userId, inspectionId))
-  // dispatch(fetchPlayingSufacesRealTime(userId, inspectionId))
-  // dispatch(fetchPlaygrounds(userId, inspectionId))
+  if (playgrounds.length === 0) {
+    await Promise.all([
+      dispatch(fetchConditionRatings(userId, inspectionId)),
+      dispatch(fetchComplianceIssues(userId, inspectionId)),
+      dispatch(fetchMaintenanceIssues(userId, inspectionId)),
+      dispatch(fetchImpactTests(userId, inspectionId)),
+      dispatch(fetchPlayingSufacesRealTime(userId, inspectionId)),
+    ])
+  }
 
-  await Promise.all([
-    dispatch(fetchConditionRatings(userId, inspectionId)),
-    dispatch(fetchComplianceIssues(userId, inspectionId)),
-    dispatch(fetchMaintenanceIssues(userId, inspectionId)),
-    dispatch(fetchImpactTests(userId, inspectionId)),
-    dispatch(fetchPlayingSufacesRealTime(userId, inspectionId)),
-    dispatch(fetchPlaygrounds(userId, inspectionId)),
-  ])
+  // await Promise.all([
+  //   dispatch(fetchConditionRatings(userId, inspectionId)),
+  //   dispatch(fetchComplianceIssues(userId, inspectionId)),
+  //   dispatch(fetchMaintenanceIssues(userId, inspectionId)),
+  //   dispatch(fetchImpactTests(userId, inspectionId)),
+  //   dispatch(fetchPlayingSufacesRealTime(userId, inspectionId)),
+  //   dispatch(fetchPlaygrounds(userId, inspectionId)),
+  // ])
 
   return ref.onSnapshot(async doc => {
     if (doc.exists) {

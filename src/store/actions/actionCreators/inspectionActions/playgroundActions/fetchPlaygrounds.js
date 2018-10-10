@@ -27,20 +27,34 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
   const querySnapshot = await ref.get()
 
   let items = querySnapshot.docs.map(async doc => {
-    const conditionRatings = await dispatch(
+    const conditionRatingsPromise = dispatch(
       fetchConditionRatingsStateless(doc.ref)
     )
 
-    const complianceIssues = await dispatch(
+    const complianceIssuesPromise = dispatch(
       fetchComplianceIssuesStateless(doc.ref)
     )
 
-    const maintenanceIssues = await dispatch(
+    const maintenanceIssuesPromise = dispatch(
       fetchMaintenanceIssuesStateless(doc.ref)
     )
 
-    const playingSurfaces = await fetchPlaygroundPlayingSufaces(doc.ref)
-    const impactTests = await dispatch(fetchImpactTestsStateless(doc.ref))
+    const playingSurfacesPromise = fetchPlaygroundPlayingSufaces(doc.ref)
+    const impactTestsPromise = dispatch(fetchImpactTestsStateless(doc.ref))
+
+    const [
+      conditionRatings,
+      complianceIssues,
+      maintenanceIssues,
+      playingSurfaces,
+      impactTests,
+    ] = await Promise.all([
+      conditionRatingsPromise,
+      complianceIssuesPromise,
+      maintenanceIssuesPromise,
+      playingSurfacesPromise,
+      impactTestsPromise,
+    ])
 
     return {
       id: doc.id,
@@ -56,4 +70,6 @@ export const fetchPlaygrounds = (userId, inspectionId) => async (
   items = await Promise.all(items)
 
   dispatch({ type: FETCH_PLAYGROUNDS_COMPLETED, payload: items })
+
+  return items
 }

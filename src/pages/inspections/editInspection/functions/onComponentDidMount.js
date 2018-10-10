@@ -25,20 +25,6 @@ export const onComponentDidMount = async component => {
     fetchInspectionRealTime,
   } = component.props
 
-  const { inspectionLoaded } = inspection
-
-  !standardsLoaded && fetchStandards(userId)
-
-  !reportNotesLoaded && addUnsubscriber(await fetchReportNotesRealTime(userId))
-
-  !inspectionLoaded &&
-    addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
-
-  // inspectionLoaded &&
-  //   impactTestsLoaded &&
-  //   standardsLoaded &&
-  //   renderPdf(component, inspection)
-
   onComponentDidMountWithTitleLeftNav(
     component,
     'Edit Inspection',
@@ -65,4 +51,17 @@ export const onComponentDidMount = async component => {
       </IconButton>
     </div>
   )
+
+  const { inspectionLoaded } = inspection
+
+  !standardsLoaded && fetchStandards(userId)
+  !reportNotesLoaded && addUnsubscriber(fetchReportNotesRealTime(userId))
+
+  !inspectionLoaded &&
+    addUnsubscriber(fetchInspectionRealTime(userId, inspectionId))
+
+  // inspectionLoaded &&
+  //   impactTestsLoaded &&
+  //   standardsLoaded &&
+  //   renderPdf(component, inspection)
 }
