@@ -11,6 +11,7 @@ import { openSnackbar } from './openSnackbar'
 import { closeSnackbar } from './closeSnackbar'
 import { addUnsubscriber } from './addUnsubscriber'
 import { clearSubscriptions } from './clearSubscriptions'
+import { promptUpdate } from './promptUpdate'
 
 export {
   enableNavBarShadow,
@@ -26,4 +27,5 @@ export {
   closeSnackbar,
   addUnsubscriber,
   clearSubscriptions,
+  promptUpdate,
 }

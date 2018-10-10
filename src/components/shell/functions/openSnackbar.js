@@ -1,9 +1,11 @@
 export const openSnackbar = component => (
   snackbarAutoHideDuration,
-  snackbarMessage
+  snackbarMessage,
+  snackbarAction
 ) =>
   component.setState({
     snackbarOpen: true,
     snackbarAutoHideDuration,
     snackbarMessage,
+    snackbarAction,
   })

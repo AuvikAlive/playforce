@@ -10,5 +10,6 @@ export const state = {
   snackbarOpen: false,
   snackbarAutoHideDuration: 2000,
   snackbarMessage: '',
+  snackbarAction: null,
   unsubscribers: [],
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { isLoaded } from 'react-redux-firebase'
 import Snackbar from '@material-ui/core/Snackbar'
+import Button from '@material-ui/core/Button'
 import registerServiceWorker from '../../myServiceWorker'
 import { showContentWhenLoaded } from '../../functions/'
 import NavBar from '../navBar'
@@ -22,6 +23,7 @@ import {
   closeSnackbar,
   addUnsubscriber,
   clearSubscriptions,
+  promptUpdate,
 } from './functions/'
 import { state, childContextTypes } from './constants/'
 import { StyledShell } from './StyledShell'
@@ -54,9 +56,9 @@ export class Shell extends Component {
   }
 
   componentDidMount() {
-    registerServiceWorker(() =>
-      openSnackbar(this)(3000, 'App update is available; please refresh.')
-    )
+    registerServiceWorker(() => promptUpdate(this))
+
+    // promptUpdate(this)
   }
 
   render() {
@@ -72,6 +74,7 @@ export class Shell extends Component {
       snackbarOpen,
       snackbarAutoHideDuration,
       snackbarMessage,
+      snackbarAction,
     } = this.state
 
     const { auth, profile } = this.props
@@ -108,6 +111,7 @@ export class Shell extends Component {
           autoHideDuration={snackbarAutoHideDuration}
           onClose={closeSnackbar(this)}
           message={<span id="message-id">{snackbarMessage}</span>}
+          action={snackbarAction}
         />
       </StyledShell>
     )
