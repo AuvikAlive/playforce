@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+import { Content } from '../../../components/content/Content'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftRightNav,
   showContentWhenLoaded,
 } from '../../../functions/'
 import { SiteCard } from '../siteCard/SiteCard'
-import { StyledSiteDetail } from './StyledSiteDetail'
 import { onComponentDidMount, onComponentWillReceiveProps } from './functions/'
 
 export class SiteDetail extends Component {
@@ -26,9 +26,9 @@ export class SiteDetail extends Component {
 
     return showContentWhenLoaded(
       site,
-      <StyledSiteDetail className="StyledSiteDetail">
+      <Content>
         <SiteCard site={site} />
-      </StyledSiteDetail>
+      </Content>
     )
   }
 }

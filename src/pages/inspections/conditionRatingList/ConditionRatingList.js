@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { groupBy } from 'lodash'
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { Content } from '../../../components/content/Content'
 import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
 import {
-  contextTypesTitleLeftNavBarShadow,
+  contextTypesTitleLeftBottomNav,
   equipmentTypes,
 } from '../../../constants/'
 
-import { onComponentDidMount, onComponentWillUnmount } from './functions/'
-import { ListView } from './StyledConditionRatingList'
+import {
+  onComponentDidMount,
+  onComponentWillUnmount,
+  setTabBar,
+} from './functions/'
+import { ListView } from './ListView'
 
 export class ConditionRatingList extends Component {
   state = {
@@ -21,6 +22,10 @@ export class ConditionRatingList extends Component {
 
   componentDidMount() {
     onComponentDidMount(this)
+  }
+
+  componentDidUpdate() {
+    setTabBar(this)
   }
 
   componentWillUnmount() {
@@ -40,17 +45,6 @@ export class ConditionRatingList extends Component {
     return (
       <div>
         <AddButton to={`${match.url}/add`} pulse={!conditionRatingsAdded} />
-        <AppBar position="static">
-          <Tabs
-            fullWidth
-            value={value}
-            onChange={(event, value) => this.setState({ value })}
-          >
-            {equipmentTypes.map(itemType => (
-              <Tab value={itemType} label={itemType} key={itemType} />
-            ))}
-          </Tabs>
-        </AppBar>
 
         {conditionRatingsAdded ? (
           <ListView {...{ groupedConditionRatings, match, value }} />
@@ -64,4 +58,4 @@ export class ConditionRatingList extends Component {
   }
 }
 
-ConditionRatingList.contextTypes = contextTypesTitleLeftNavBarShadow
+ConditionRatingList.contextTypes = contextTypesTitleLeftBottomNav

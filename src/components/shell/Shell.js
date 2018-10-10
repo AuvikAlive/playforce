@@ -23,6 +23,7 @@ import {
   clearSubscriptions,
 } from './functions/'
 import { state, childContextTypes } from './constants/'
+import { StyledShell } from './StyledShell'
 
 export class Shell extends Component {
   getChildContext() {
@@ -36,6 +37,8 @@ export class Shell extends Component {
       removeLefNavComponent: removeComponent(this, 'leftNavComponent'),
       setRightNavComponent: setComponent(this, 'rightNavComponent'),
       removeRightNavComponent: removeComponent(this, 'rightNavComponent'),
+      setBottomNavComponent: setComponent(this, 'bottomNavComponent'),
+      removeBottomNavComponent: removeComponent(this, 'bottomNavComponent'),
       setSearchComponent: setComponent(this, 'searchComponent'),
       removeSearchComponent: removeComponent(this, 'searchComponent'),
       setSearchOnTop: setSearchOnTop(this),
@@ -56,6 +59,7 @@ export class Shell extends Component {
       navTitle,
       leftNavComponent,
       rightNavComponent,
+      bottomNavComponent,
       searchComponent,
       searchOnTop,
       snackbarOpen,
@@ -68,13 +72,14 @@ export class Shell extends Component {
 
     return showContentWhenLoaded(
       dataIsLoaded,
-      <div>
+      <StyledShell>
         <NavBar
           shadow={navBarShadowEnabled}
           color={navColor}
           title={navTitle}
           leftComponent={leftNavComponent}
           rightComponent={rightNavComponent}
+          bottomComponent={bottomNavComponent}
           searchComponent={searchComponent}
           searchOnTop={searchOnTop}
         />
@@ -97,7 +102,7 @@ export class Shell extends Component {
           onClose={closeSnackbar(this)}
           message={<span id="message-id">{snackbarMessage}</span>}
         />
-      </div>
+      </StyledShell>
     )
   }
 }

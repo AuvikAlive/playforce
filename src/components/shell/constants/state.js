@@ -4,6 +4,7 @@ export const state = {
   navTitle: null,
   leftNavComponent: null,
   rightNavComponent: null,
+  bottomNavComponent: null,
   searchComponent: null,
   searchOnTop: true,
   snackbarOpen: false,

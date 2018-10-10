@@ -1,7 +1,9 @@
 import { contextTypesUnsubscriber } from './contextTypesUnsubscriber'
 import { contextTypesTitle } from './contextTypesTitle'
+import { contextTypesBottomNav } from './contextTypesBottomNav'
 import { contextTypesTitleUnsubscriber } from './contextTypesTitleUnsubscriber'
 import { contextTypesTitleLeftNav } from './contextTypesTitleLeftNav'
+import { contextTypesTitleLeftBottomNav } from './contextTypesTitleLeftBottomNav'
 import { contextTypesTitleLeftNavBarShadow } from './contextTypesTitleLeftNavBarShadow'
 import { contextTypesTitleRightNav } from './contextTypesTitleRightNav'
 import { contextTypesTitleLeftRightNav } from './contextTypesTitleLeftRightNav'
@@ -27,8 +29,10 @@ import { theme } from './theme'
 export {
   contextTypesUnsubscriber,
   contextTypesTitle,
+  contextTypesBottomNav,
   contextTypesTitleUnsubscriber,
   contextTypesTitleLeftNav,
+  contextTypesTitleLeftBottomNav,
   contextTypesTitleLeftNavBarShadow,
   contextTypesTitleRightNav,
   contextTypesTitleLeftRightNav,

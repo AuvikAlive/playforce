@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import { StyledSiteEdit } from './StyledSiteEdit'
+import { contextTypesTitleLeftBottomNav } from '../../../constants/'
 import GeneralTab from '../generalTab'
 import { InspectionTabRoutes } from '../inspectionTabRoutes/InspectionTabRoutes'
 import { EquipmentTabRoutes } from '../equipmentTabRoutes/EquipmentTabRoutes'
-import { contextTypes } from './contextTypes'
+import { StyledSiteEdit } from './StyledSiteEdit'
 import {
   onComponentDidMount,
   onComponentWillUnmount,
-  onTabChange,
+  setTabBar,
 } from './functions/'
 
 export class SiteEdit extends Component {
   componentDidMount() {
     onComponentDidMount(this)
+  }
+
+  componentDidUpdate() {
+    setTabBar(this)
   }
 
   componentWillUnmount() {
@@ -28,18 +30,6 @@ export class SiteEdit extends Component {
 
     return (
       <StyledSiteEdit className="StyledSiteEdit">
-        <Tabs
-          fullWidth
-          // centered
-          classes={{ root: 'my-root' }}
-          value={tabstate}
-          onChange={onTabChange(this)}
-        >
-          <Tab className="tab-title" value="general" label="General" />
-          <Tab className="tab-title" value="inspections" label="Inspections" />
-          <Tab className="tab-title" value="equipments" label="Equipments" />
-        </Tabs>
-
         <div className="tab-content">
           {tabstate === 'general' && <GeneralTab id={tabId} />}
           {tabstate === 'inspections' && <InspectionTabRoutes id={tabId} />}
@@ -50,4 +40,4 @@ export class SiteEdit extends Component {
   }
 }
 
-SiteEdit.contextTypes = contextTypes
+SiteEdit.contextTypes = contextTypesTitleLeftBottomNav

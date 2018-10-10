@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { StyledAppInspection } from './StyledAddInspection'
+import { Content } from '../../../components/content/Content'
 
 const inspectionTypes = ['Routine', 'Operational', 'Comprehensive']
 const frequencies = ['Weekly', 'Monthly', 'Annually']
@@ -69,7 +69,7 @@ export class AddInspection extends Component {
     const { error, loading } = this.props
 
     return (
-      <StyledAppInspection className="StyledAppInspection">
+      <Content>
         <Card className="card">
           <CardContent>
             <TextField
@@ -142,7 +142,7 @@ export class AddInspection extends Component {
             )}
           </CardContent>
         </Card>
-      </StyledAppInspection>
+      </Content>
     )
   }
 }

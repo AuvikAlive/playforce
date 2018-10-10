@@ -1,6 +1,6 @@
 export const onComponentWillUnmount = component => {
-  const { removeLefNavComponent, enableNavBarShadow } = component.context
+  const { removeLefNavComponent, removeBottomNavComponent } = component.context
 
   removeLefNavComponent()
-  enableNavBarShadow()
+  removeBottomNavComponent()
 }

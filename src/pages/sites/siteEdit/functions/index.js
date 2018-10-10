@@ -1,5 +1,5 @@
 import { onComponentDidMount } from './onComponentDidMount'
 import { onComponentWillUnmount } from './onComponentWillUnmount'
-import { onTabChange } from './onTabChange'
+import { setTabBar } from './setTabBar'
 
-export { onComponentDidMount, onComponentWillUnmount, onTabChange }
+export { onComponentDidMount, onComponentWillUnmount, setTabBar }

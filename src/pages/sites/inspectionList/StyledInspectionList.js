@@ -1,7 +1,7 @@
 import Styled from 'styled-components'
-import { StyledTabContent } from '../StyledTabContent'
+import { Content } from '../../../components/content/Content'
 import { addIcon } from '../../../styledMixins/addIcon'
 
-export const StyledInspectionList = Styled(StyledTabContent)`
+export const StyledInspectionList = Styled(Content)`
   ${addIcon};
 `

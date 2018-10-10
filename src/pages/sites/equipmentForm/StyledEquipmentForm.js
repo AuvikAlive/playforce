@@ -1,8 +1,8 @@
 import Styled from 'styled-components'
-import { StyledTabContent } from '../StyledTabContent'
+import { Content } from '../../../components/content/Content'
 import { cardMedia, floatingCardIcon, withButton } from '../../../styledMixins/'
 
-export const StyledEquipmentForm = Styled(StyledTabContent)`
+export const StyledEquipmentForm = Styled(Content)`
   ${cardMedia};
   ${floatingCardIcon};
   ${withButton};

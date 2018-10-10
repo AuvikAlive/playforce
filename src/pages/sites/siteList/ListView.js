@@ -34,11 +34,7 @@ export const ListView = ({
               <ListItemText primary={name} />
               <ListItemSecondaryAction className="secondary-actions">
                 {itemSelected && (
-                  <IconButton
-                    color="inherit"
-                    aria-label="More"
-                    onClick={this.openMenu}
-                  >
+                  <IconButton color="inherit" aria-label="selected">
                     <CheckIcon />
                   </IconButton>
                 )}

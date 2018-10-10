@@ -2,7 +2,7 @@ import Styled from 'styled-components'
 import { truncate } from '../../styledMixins/'
 
 export const StyledNavBar = Styled.div`
-  flex-grow: 1;
+  flex: 0 0 auto;
 
   .disable-shadow {
     box-shadow: none;
@@ -11,7 +11,7 @@ export const StyledNavBar = Styled.div`
   .toolbar {
     justify-content: space-between;
     flex-wrap: nowrap;
-    min-height: 56px;
+    /* min-height: 56px; */
   }
 
   .page-title {

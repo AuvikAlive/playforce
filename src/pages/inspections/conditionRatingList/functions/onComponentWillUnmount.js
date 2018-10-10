@@ -1,6 +1,6 @@
 import { onComponentWillUnmountWithTitleLeftNav } from '../../../../functions/'
 
 export const onComponentWillUnmount = component => {
-  component.context.enableNavBarShadow()
+  component.context.removeBottomNavComponent()
   onComponentWillUnmountWithTitleLeftNav(component)
 }

@@ -1,6 +1,7 @@
 import { onComponentDidMountWithTitleLeftNav } from '../../../../functions/'
+import { setTabBar } from './setTabBar'
 
 export const onComponentDidMount = component => {
-  component.context.disableNavBarShadow()
+  setTabBar(component)
   onComponentDidMountWithTitleLeftNav(component, 'Condition Ratings')
 }
