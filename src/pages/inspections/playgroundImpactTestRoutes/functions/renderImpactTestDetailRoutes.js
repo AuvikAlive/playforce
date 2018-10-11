@@ -5,7 +5,7 @@ const ImpactTestDetailRoutes = Loadable({
   loader: () => import('../../impactTestDetailRoutes'),
 })
 
-ImpactTestDetailRoutes.preload()
+// ImpactTestDetailRoutes.preload()
 
 export const renderImpactTestDetailRoutes = props => routerProps => {
   const {

@@ -5,7 +5,7 @@ const AddMaintenanceIssue = Loadable({
   loader: () => import('../../addMaintenanceIssue'),
 })
 
-AddMaintenanceIssue.preload()
+// AddMaintenanceIssue.preload()
 
 export const renderAddMaintenanceIssue = props => routerProps => {
   const {

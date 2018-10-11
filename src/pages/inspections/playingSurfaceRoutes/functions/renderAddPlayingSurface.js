@@ -5,7 +5,7 @@ const AddPlayingSurface = Loadable({
   loader: () => import('../../addPlayingSurface'),
 })
 
-AddPlayingSurface.preload()
+// AddPlayingSurface.preload()
 
 export const renderAddPlayingSurface = ({ props }) => routerProps => {
   const { addPlayingSurface, userId, inspectionId } = props

@@ -11,19 +11,8 @@ import {
 // import { renderPdf } from './renderPdf'
 
 export const onComponentDidMount = async component => {
-  const { setRightNavComponent, addUnsubscriber } = component.context
-
-  const {
-    openDialog,
-    inspection,
-    standardsLoaded,
-    fetchStandards,
-    reportNotesLoaded,
-    fetchReportNotesRealTime,
-    userId,
-    inspectionId,
-    fetchInspectionRealTime,
-  } = component.props
+  const { setRightNavComponent } = component.context
+  const { openDialog } = component.props
 
   onComponentDidMountWithTitleLeftNav(
     component,
@@ -51,14 +40,6 @@ export const onComponentDidMount = async component => {
       </IconButton>
     </div>
   )
-
-  const { inspectionLoaded } = inspection
-
-  !standardsLoaded && fetchStandards(userId)
-  !reportNotesLoaded && addUnsubscriber(fetchReportNotesRealTime(userId))
-
-  !inspectionLoaded &&
-    addUnsubscriber(fetchInspectionRealTime(userId, inspectionId))
 
   // inspectionLoaded &&
   //   impactTestsLoaded &&

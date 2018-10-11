@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
-  fetchInspectionRealTime,
-  fetchMaintenanceIssuesRealTime,
-  fetchMaintenanceIssues,
   addMaintenanceIssue,
   updateMaintenanceIssue,
   deleteMaintenanceIssue,
@@ -11,25 +8,16 @@ import {
 import { MaintenanceIssueRoutes } from './MaintenanceIssueRoutes'
 
 const mapStateToProps = ({ firebase, inspection }, { match }) => {
-  const {
-    inspectionLoaded,
-    maintenanceIssuesLoaded,
-    maintenanceIssues,
-  } = inspection
+  const { id, maintenanceIssues } = inspection
 
   return {
     userId: firebase.auth.uid,
-    inspectionId: match.params.id,
-    inspectionLoaded,
-    maintenanceIssuesLoaded,
+    inspectionId: id,
     maintenanceIssues,
   }
 }
 
 const mapDispatchToProps = {
-  fetchInspectionRealTime,
-  fetchMaintenanceIssuesRealTime,
-  fetchMaintenanceIssues,
   addMaintenanceIssue,
   updateMaintenanceIssue,
   deleteMaintenanceIssue,

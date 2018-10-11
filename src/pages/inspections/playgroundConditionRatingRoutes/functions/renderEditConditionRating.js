@@ -5,7 +5,7 @@ const EditConditionRating = Loadable({
   loader: () => import('../../editConditionRating'),
 })
 
-EditConditionRating.preload()
+// EditConditionRating.preload()
 
 export const renderEditConditionRating = props => routerProps => {
   const {

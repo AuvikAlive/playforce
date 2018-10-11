@@ -6,7 +6,7 @@ const AddImpactAttenuationTest = Loadable({
   loader: () => import('../../addImpactAttenuationTest'),
 })
 
-AddImpactAttenuationTest.preload()
+// AddImpactAttenuationTest.preload()
 
 export const renderAddImpactAttenuationTest = props => routerProps => {
   const {

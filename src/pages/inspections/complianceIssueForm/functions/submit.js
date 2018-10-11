@@ -27,6 +27,7 @@ export const submit = component => async () => {
         recommendations
   ) {
     setFeedback({ error: '', loading: true })
+
     const dataToSave = {
       finding,
       ...(playingSurfaceMode ? { playingSurface } : { equipment }),
@@ -37,6 +38,7 @@ export const submit = component => async () => {
       recommendations,
       images: images.slice(0, 4),
     }
+
     try {
       const result = await onSubmit(dataToSave)
       setFeedback({ loading: false })

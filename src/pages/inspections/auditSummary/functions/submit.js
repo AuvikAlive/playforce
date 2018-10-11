@@ -4,8 +4,12 @@ export const submit = component => async () => {
     userId,
     inspectionId,
     setFeedback,
-    profile: { displayName, title, company, signature },
+    displayName,
+    title,
+    company,
+    signature,
   } = component.props
+
   const { summary } = component.state
 
   if (summary) {

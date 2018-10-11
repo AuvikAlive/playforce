@@ -6,16 +6,16 @@ const AddImpactSurface = Loadable({
   loader: () => import('../../addImpactSurface'),
 })
 
-AddImpactSurface.preload()
+// AddImpactSurface.preload()
 
-export const renderAddImpactSurface = component => routerProps => {
-  const { addSurfaceTest, userId, inspectionId, match } = component.props
+export const renderAddImpactSurface = ({ props }) => routerProps => {
+  const { addSurfaceTest, userId, inspectionId, match } = props
 
   return (
     <AddImpactSurface
       addSurfaceTest={data => addSurfaceTest(userId, inspectionId, data)}
       afterSubmit={showActionGo(
-        component,
+        { props },
         'Impact test added!',
         `${match.url}/edit/`
       )}

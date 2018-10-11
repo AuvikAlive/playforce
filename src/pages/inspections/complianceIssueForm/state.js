@@ -1,6 +1,7 @@
 export const state = {
   commonIssues: [],
   commonIssueIndex: '',
+  images: [],
   finding: '',
   equipment: '',
   playingSurface: '',

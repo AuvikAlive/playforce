@@ -1,25 +1,20 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import {
-  fetchInspectionRealTime,
-  updateCover,
-} from '../../../store/actions/actionCreators/inspectionActions/'
+import { updateCover } from '../../../store/actions/actionCreators/inspectionActions/'
 import { EditCover } from './EditCover'
 
 const mapStateToProps = ({ firebase, inspection }, { match }) => {
-  const { inspectionLoaded, cover } = inspection
+  const { id, cover } = inspection
 
   return {
     userId: firebase.auth.uid,
-    inspectionId: match.params.id,
-    inspectionLoaded,
+    inspectionId: id,
     cover,
   }
 }
 
 const mapDispatchToProps = {
-  fetchInspectionRealTime,
   updateCover,
 }
 

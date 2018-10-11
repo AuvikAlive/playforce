@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Loadable from '../../../components/loadable/LoadableLinear'
+import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import { showContentWhenLoaded } from '../../../functions/'
 import EditInspection from '../editInspection/'
+import { onComponentDidMount } from './onComponentDidMount'
 
 const EditCover = Loadable({
   loader: () => import('../editCover'),
@@ -43,62 +46,74 @@ const PlaygroundRoutes = Loadable({
   loader: () => import('../playgroundRoutes'),
 })
 
-EditCover.preload()
-AuditSummary.preload()
-ConditionRatingRoutes.preload()
-ComplianceIssueRoutes.preload()
-MaintenanceIssueRoutes.preload()
-ImpactTestRoutes.preload()
-CustomCertificateText.preload()
-Notes.preload()
-PlayingSurfaceRoutes.preload()
-PlaygroundRoutes.preload()
+// EditCover.preload()
+// AuditSummary.preload()
+// ConditionRatingRoutes.preload()
+// ComplianceIssueRoutes.preload()
+// MaintenanceIssueRoutes.preload()
+// ImpactTestRoutes.preload()
+// CustomCertificateText.preload()
+// Notes.preload()
+// PlayingSurfaceRoutes.preload()
+// PlaygroundRoutes.preload()
 
-export const EditInspectionRoutes = ({ match }) => {
-  return (
-    <Switch>
-      <Route path={`${match.url}/:id/cover`} component={EditCover} />
+export class EditInspectionRoutes extends Component {
+  componentDidMount() {
+    onComponentDidMount(this)
+  }
 
-      <Route path={`${match.url}/:id/auditSummary`} component={AuditSummary} />
+  render() {
+    const {
+      match,
+      inspectionLoaded,
+      standardsLoaded,
+      reportNotesLoaded,
+    } = this.props
 
-      <Route
-        path={`${match.url}/:id/conditionRating`}
-        component={ConditionRatingRoutes}
-      />
+    const isLoaded = inspectionLoaded && standardsLoaded && reportNotesLoaded
 
-      <Route
-        path={`${match.url}/:id/complianceIssues`}
-        component={ComplianceIssueRoutes}
-      />
+    return showContentWhenLoaded(
+      isLoaded,
+      <Switch>
+        <Route path={`${match.url}/cover`} component={EditCover} />
 
-      <Route
-        path={`${match.url}/:id/maintenanceIssues`}
-        component={MaintenanceIssueRoutes}
-      />
+        <Route path={`${match.url}/auditSummary`} component={AuditSummary} />
 
-      <Route
-        path={`${match.url}/:id/impactTest`}
-        component={ImpactTestRoutes}
-      />
+        <Route
+          path={`${match.url}/conditionRating`}
+          component={ConditionRatingRoutes}
+        />
 
-      <Route
-        path={`${match.url}/:id/certificateText`}
-        component={CustomCertificateText}
-      />
+        <Route
+          path={`${match.url}/complianceIssues`}
+          component={ComplianceIssueRoutes}
+        />
 
-      <Route path={`${match.url}/:id/notes`} component={Notes} />
+        <Route
+          path={`${match.url}/maintenanceIssues`}
+          component={MaintenanceIssueRoutes}
+        />
 
-      <Route
-        path={`${match.url}/:id/playingSurfaces`}
-        component={PlayingSurfaceRoutes}
-      />
+        <Route path={`${match.url}/impactTest`} component={ImpactTestRoutes} />
 
-      <Route
-        path={`${match.url}/:id/playgrounds`}
-        component={PlaygroundRoutes}
-      />
+        <Route
+          path={`${match.url}/certificateText`}
+          component={CustomCertificateText}
+        />
 
-      <Route path={`${match.url}/:id`} component={EditInspection} />
-    </Switch>
-  )
+        <Route path={`${match.url}/notes`} component={Notes} />
+
+        <Route
+          path={`${match.url}/playingSurfaces`}
+          component={PlayingSurfaceRoutes}
+        />
+
+        <Route path={`${match.url}/playgrounds`} component={PlaygroundRoutes} />
+
+        <Route path={`${match.url}`} component={EditInspection} />
+      </Switch>
+    )
+  }
 }
+
+EditInspectionRoutes.contextTypes = contextTypesTitleLeftNavUnsubscriber

@@ -6,7 +6,7 @@ const AddImpactSurface = Loadable({
   loader: () => import('../../addImpactSurface'),
 })
 
-AddImpactSurface.preload()
+// AddImpactSurface.preload()
 
 export const renderAddImpactSurface = props => routerProps => {
   const {

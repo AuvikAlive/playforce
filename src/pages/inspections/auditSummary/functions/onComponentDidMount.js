@@ -3,23 +3,9 @@ import { onComponentDidMountWithTitleLeftNav } from '../../../../functions/'
 import { loadInitialData } from './loadInitialData'
 
 export const onComponentDidMount = async component => {
-  const { addUnsubscriber } = component.context
+  const { auditSummary, cover } = component.props
 
-  const {
-    inspectionLoaded,
-    fetchInspectionRealTime,
-    auditSummary,
-    cover,
-    userId,
-    inspectionId,
-  } = component.props
-
-  const title = 'Audit Summary'
-
-  onComponentDidMountWithTitleLeftNav(component, title)
-
-  !inspectionLoaded &&
-    addUnsubscriber(await fetchInspectionRealTime(userId, inspectionId))
+  onComponentDidMountWithTitleLeftNav(component, 'Audit Summary')
 
   !isEmpty(cover) && loadInitialData(component, auditSummary, cover)
 }

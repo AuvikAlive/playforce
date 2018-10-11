@@ -1,8 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
-  fetchInspectionRealTime,
-  fetchPlayingSufacesRealTime,
   addPlayingSurface,
   updatePlayingSurface,
   deletePlayingSurface,
@@ -10,24 +8,16 @@ import {
 import { PlayingSurfaceRoutes } from './PlayingSurfaceRoutes'
 
 const mapStateToProps = ({ firebase, inspection }, { match }) => {
-  const {
-    inspectionLoaded,
-    playingSurfacesLoaded,
-    playingSurfaces,
-  } = inspection
+  const { id, playingSurfaces } = inspection
 
   return {
     userId: firebase.auth.uid,
-    inspectionId: match.params.id,
-    inspectionLoaded,
-    playingSurfacesLoaded,
+    inspectionId: id,
     playingSurfaces,
   }
 }
 
 const mapDispatchToProps = {
-  fetchInspectionRealTime,
-  fetchPlayingSufacesRealTime,
   addPlayingSurface,
   updatePlayingSurface,
   deletePlayingSurface,

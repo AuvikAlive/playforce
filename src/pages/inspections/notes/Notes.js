@@ -4,9 +4,9 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
-import { onEventInputChange, showContentWhenLoaded } from '../../../functions/'
-import { StyledNotes } from './StyledNotes'
+import { Content } from '../../../components/content/Content'
+import { contextTypesTitleLeftNav } from '../../../constants/'
+import { onEventInputChange } from '../../../functions/'
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
@@ -26,11 +26,10 @@ export class Notes extends Component {
 
   render() {
     const { notes } = this.state
-    const { inspectionLoaded, error, loading } = this.props
+    const { error, loading } = this.props
 
-    return showContentWhenLoaded(
-      inspectionLoaded,
-      <StyledNotes className="StyledNotes">
+    return (
+      <Content>
         <Card className="card">
           <CardContent>
             <form noValidate>
@@ -66,9 +65,9 @@ export class Notes extends Component {
             )}
           </CardContent>
         </Card>
-      </StyledNotes>
+      </Content>
     )
   }
 }
 
-Notes.contextTypes = contextTypesTitleLeftNavUnsubscriber
+Notes.contextTypes = contextTypesTitleLeftNav

@@ -17,7 +17,7 @@ export const InspectionRoutes = ({ match }) => {
   return (
     <Switch>
       <Route path={`${match.url}/add`} component={AddInspection} />
-      <Route path={`${match.url}/edit`} component={EditInspectionRoutes} />
+      <Route path={`${match.url}/edit/:id`} component={EditInspectionRoutes} />
       <Route path={match.url} component={InspectionList} />
     </Switch>
   )

@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
-  fetchInspectionRealTime,
-  fetchConditionRatingsRealTime,
-  fetchConditionRatings,
   addConditionRating,
   updateConditionRating,
   deleteConditionRating,
@@ -11,25 +8,16 @@ import {
 import { ConditionRatingRoutes } from './ConditionRatingRoutes'
 
 const mapStateToProps = ({ firebase, inspection }, { match }) => {
-  const {
-    inspectionLoaded,
-    conditionRatingsLoaded,
-    conditionRatings,
-  } = inspection
+  const { id, conditionRatings } = inspection
 
   return {
     userId: firebase.auth.uid,
-    inspectionId: match.params.id,
-    inspectionLoaded,
-    conditionRatingsLoaded,
+    inspectionId: id,
     conditionRatings,
   }
 }
 
 const mapDispatchToProps = {
-  fetchInspectionRealTime,
-  fetchConditionRatingsRealTime,
-  fetchConditionRatings,
   addConditionRating,
   updateConditionRating,
   deleteConditionRating,

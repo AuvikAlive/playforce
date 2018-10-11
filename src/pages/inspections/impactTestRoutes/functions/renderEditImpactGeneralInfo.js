@@ -5,7 +5,7 @@ const EditImpactGeneralInfo = Loadable({
   loader: () => import('../../editImpactGeneralInfo'),
 })
 
-EditImpactGeneralInfo.preload()
+// EditImpactGeneralInfo.preload()
 
 export const renderEditImpactGeneralInfo = ({ props }) => routerProps => {
   const {

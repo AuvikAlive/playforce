@@ -1,51 +1,29 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { contextTypesUnsubscriber } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
 import PlayingSurfaceList from '../playingSurfaceList/'
-import {
-  onComponentDidMount,
-  renderAddPlayingSurface,
-  renderEditPlayingSurface,
-} from './functions/'
+import { renderAddPlayingSurface, renderEditPlayingSurface } from './functions/'
 
-export class PlayingSurfaceRoutes extends Component {
-  componentDidMount() {
-    onComponentDidMount(this)
-  }
+export const PlayingSurfaceRoutes = props => {
+  const { playingSurfaces, match } = props
 
-  render() {
-    const {
-      inspectionLoaded,
-      playingSurfacesLoaded,
-      playingSurfaces,
-      match,
-    } = this.props
+  return (
+    <Switch>
+      <Route
+        path={`${match.url}/add`}
+        render={renderAddPlayingSurface({ props })}
+      />
 
-    const isLoaded = inspectionLoaded && playingSurfacesLoaded
+      <Route
+        path={`${match.url}/edit/:id`}
+        render={renderEditPlayingSurface({ props })}
+      />
 
-    return showContentWhenLoaded(
-      isLoaded,
-      <Switch>
-        <Route
-          path={`${match.url}/add`}
-          render={renderAddPlayingSurface(this)}
-        />
-
-        <Route
-          path={`${match.url}/edit/:id`}
-          render={renderEditPlayingSurface(this)}
-        />
-
-        <Route
-          path={match.url}
-          render={routerProps => (
-            <PlayingSurfaceList {...{ playingSurfaces }} {...routerProps} />
-          )}
-        />
-      </Switch>
-    )
-  }
+      <Route
+        path={match.url}
+        render={routerProps => (
+          <PlayingSurfaceList {...{ playingSurfaces }} {...routerProps} />
+        )}
+      />
+    </Switch>
+  )
 }
-
-PlayingSurfaceRoutes.contextTypes = contextTypesUnsubscriber

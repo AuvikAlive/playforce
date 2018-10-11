@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
+  onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-  showContentWhenLoaded,
 } from '../../../functions/'
 import { CoverFormContainer } from '../coverForm/CoverFormContainer'
-import { onComponentDidMount, submit } from './functions/'
+import { submit } from './submit'
 
 export class EditCover extends Component {
   componentDidMount() {
-    onComponentDidMount(this)
+    onComponentDidMountWithTitleLeftNav(this, 'Cover')
   }
 
   componentWillUnmount() {
@@ -17,10 +17,9 @@ export class EditCover extends Component {
   }
 
   render() {
-    const { inspectionLoaded, cover } = this.props
+    const { cover } = this.props
 
-    return showContentWhenLoaded(
-      inspectionLoaded,
+    return (
       <CoverFormContainer
         buttonText="save"
         onSubmit={submit(this)}

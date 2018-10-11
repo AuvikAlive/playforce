@@ -5,7 +5,7 @@ const EditPlayingSurface = Loadable({
   loader: () => import('../../editPlayingSurface'),
 })
 
-EditPlayingSurface.preload()
+// EditPlayingSurface.preload()
 
 export const renderEditPlayingSurface = props => routerProps => {
   const {

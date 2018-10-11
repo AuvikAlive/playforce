@@ -5,7 +5,7 @@ const EditComplianceIssue = Loadable({
   loader: () => import('../../editComplianceIssue'),
 })
 
-EditComplianceIssue.preload()
+// EditComplianceIssue.preload()
 
 export const renderEditComplianceIssue = props => routerProps => {
   const {

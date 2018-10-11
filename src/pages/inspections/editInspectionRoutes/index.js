@@ -1,3 +1,3 @@
-import { EditInspectionRoutes } from './EditInspectionRoutes'
+import { EditInspectionRoutesContainer } from './EditInspectionRoutesContainer'
 
-export default EditInspectionRoutes
+export default EditInspectionRoutesContainer

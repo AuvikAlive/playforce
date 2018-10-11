@@ -3,10 +3,7 @@ import { replacePlaceholders } from './replacePlaceholders'
 import { makeDefaultSummary } from './makeDefaultSummary'
 
 export const loadInitialData = (component, auditSummary, cover) => {
-  const {
-    profile: { standardAuditSummary },
-  } = component.props
-
+  const { standardAuditSummary } = component.props
   const { location } = cover
   const { name, street, suburb, state, postcode, country } = location
   const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`

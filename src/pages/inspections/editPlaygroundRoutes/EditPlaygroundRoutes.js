@@ -23,11 +23,11 @@ const PlaygroundImpactTestRoutes = Loadable({
   loader: () => import('../playgroundImpactTestRoutes'),
 })
 
-PlaygroundConditionRatingRoutes.preload()
-PlaygroundComplianceIssueRoutes.preload()
-PlaygroundMaintenanceIssueRoutes.preload()
-PlaygroundPlayingSurfaceRoutes.preload()
-PlaygroundImpactTestRoutes.preload()
+// PlaygroundConditionRatingRoutes.preload()
+// PlaygroundComplianceIssueRoutes.preload()
+// PlaygroundMaintenanceIssueRoutes.preload()
+// PlaygroundPlayingSurfaceRoutes.preload()
+// PlaygroundImpactTestRoutes.preload()
 
 export const EditPlaygroundRoutes = ({ match, playgroundId, inspectionId }) => {
   return (

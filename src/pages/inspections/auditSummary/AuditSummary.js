@@ -10,13 +10,8 @@ import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
-  showContentWhenLoaded,
 } from '../../../functions/'
-import {
-  onComponentDidMount,
-  onComponentWillReceiveProps,
-  submit,
-} from './functions/'
+import { onComponentDidMount, submit } from './functions/'
 import { StyledAuditSummary } from './StyledAuditSummary'
 
 export class AuditSummary extends Component {
@@ -32,21 +27,19 @@ export class AuditSummary extends Component {
     onComponentWillUnmountWithTitleLeftNav(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    onComponentWillReceiveProps(this, nextProps)
-  }
-
   render() {
     const { summary } = this.state
+
     const {
-      inspectionLoaded,
-      profile: { displayName, title, company, signature },
+      displayName,
+      title,
+      company,
+      signature,
       error,
       loading,
     } = this.props
 
-    return showContentWhenLoaded(
-      inspectionLoaded,
+    return (
       <StyledAuditSummary className="StyledAuditSummary">
         <Card className="card">
           <CardContent>

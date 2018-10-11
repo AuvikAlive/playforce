@@ -7,7 +7,6 @@ import { contextTypesTitleLeftRightNavUnsubscriber } from '../../../constants/'
 import {
   onComponentWillUnmountWithTitleLeftRightNav,
   closeMenu,
-  showContentWhenLoaded,
 } from '../../../functions/'
 import { InspectionItems } from '../inspectionItems/InspectionItems'
 import { MoreMenu } from './MoreMenu'
@@ -40,7 +39,6 @@ export class EditInspection extends Component {
   render() {
     const {
       inspection,
-      standardsLoaded,
       match,
       email,
       history,
@@ -50,29 +48,13 @@ export class EditInspection extends Component {
     } = this.props
 
     const {
-      inspectionLoaded,
-      // conditionRatingsLoaded,
-      // maintenanceIssuesLoaded,
-      // complianceIssuesLoaded,
-      // impactTestsLoaded,
-      // playgroundsLoaded,
       impactGeneralInfo,
       certificate,
       complete,
       customCertificateText,
     } = inspection
 
-    const isLoaded =
-      inspectionLoaded &&
-      // conditionRatingsLoaded &&
-      // complianceIssuesLoaded &&
-      // maintenanceIssuesLoaded &&
-      // impactTestsLoaded &&
-      // playgroundsLoaded &&
-      standardsLoaded
-
-    return showContentWhenLoaded(
-      isLoaded,
+    return (
       <div>
         <InspectionItems
           inspection={inspection}

@@ -5,7 +5,7 @@ const EditMaintenanceIssue = Loadable({
   loader: () => import('../../editMaintenanceIssue'),
 })
 
-EditMaintenanceIssue.preload()
+// EditMaintenanceIssue.preload()
 
 export const renderEditMaintenanceIssue = ({ props }) => routerProps => {
   const {

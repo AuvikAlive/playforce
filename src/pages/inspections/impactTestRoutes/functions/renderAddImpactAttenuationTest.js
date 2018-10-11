@@ -6,17 +6,17 @@ const AddImpactAttenuationTest = Loadable({
   loader: () => import('../../addImpactAttenuationTest'),
 })
 
-AddImpactAttenuationTest.preload()
+// AddImpactAttenuationTest.preload()
 
-export const renderAddImpactAttenuationTest = component => routerProps => {
-  const { saveImpactGeneralInfo, userId, inspectionId, match } = component.props
+export const renderAddImpactAttenuationTest = ({ props }) => routerProps => {
+  const { saveImpactGeneralInfo, userId, inspectionId, match } = props
 
   return (
     <AddImpactAttenuationTest
       saveImpactGeneralInfo={data =>
         saveImpactGeneralInfo(userId, inspectionId, data)
       }
-      afterSubmit={showActionGo(component, 'Impact test added!', match.url)}
+      afterSubmit={showActionGo({ props }, 'Impact test added!', match.url)}
       {...routerProps}
     />
   )
