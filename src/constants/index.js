@@ -9,13 +9,13 @@ import { contextTypesTitleRightNav } from './contextTypesTitleRightNav'
 import { contextTypesTitleLeftRightNav } from './contextTypesTitleLeftRightNav'
 import { contextTypesTitleLeftNavUnsubscriber } from './contextTypesTitleLeftNavUnsubscriber'
 import { contextTypesTitleLeftRightNavUnsubscriber } from './contextTypesTitleLeftRightNavUnsubscriber'
-import { userModes } from './userModes'
 import { defaultAuditSummary } from './defaultAuditSummary'
 import { defaultInspectionTypes } from './defaultInspectionTypes'
 import { equipmentConditions } from './equipmentConditions'
 import { equipmentTypes } from './equipmentTypes'
 import { equipmentState } from './equipmentState'
 import { findings } from './findings'
+import { googleMapURL } from './googleMapURL'
 import { individualUserMode } from './individualUserMode'
 import { materials } from './materials'
 import { probabilities } from './probabilities'
@@ -25,6 +25,7 @@ import { siteNamePlaceholder } from './siteNamePlaceholder'
 import { surfaceConditions } from './surfaceConditions'
 import { surfaceTypes } from './surfaceTypes'
 import { theme } from './theme'
+import { userModes } from './userModes'
 
 export {
   contextTypesUnsubscriber,
@@ -45,6 +46,7 @@ export {
   equipmentTypes,
   equipmentState,
   findings,
+  googleMapURL,
   individualUserMode,
   materials,
   probabilities,
