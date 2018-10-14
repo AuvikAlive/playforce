@@ -25,6 +25,7 @@ import { siteNamePlaceholder } from './siteNamePlaceholder'
 import { surfaceConditions } from './surfaceConditions'
 import { surfaceTypes } from './surfaceTypes'
 import { theme } from './theme'
+import { toolBarHeight } from './toolBarHeight'
 import { userModes } from './userModes'
 
 export {
@@ -39,7 +40,6 @@ export {
   contextTypesTitleLeftRightNav,
   contextTypesTitleLeftNavUnsubscriber,
   contextTypesTitleLeftRightNavUnsubscriber,
-  userModes,
   defaultAuditSummary,
   defaultInspectionTypes,
   equipmentConditions,
@@ -56,4 +56,6 @@ export {
   surfaceConditions,
   surfaceTypes,
   theme,
+  toolBarHeight,
+  userModes,
 }

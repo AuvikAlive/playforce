@@ -1,4 +1,5 @@
 import Styled from 'styled-components'
+import { toolBarHeight } from '../../constants/'
 import { truncate } from '../../styledMixins/'
 
 export const StyledNavBar = Styled.div`
@@ -11,7 +12,7 @@ export const StyledNavBar = Styled.div`
   .toolbar {
     justify-content: space-between;
     flex-wrap: nowrap;
-    /* min-height: 56px; */
+    min-height: ${toolBarHeight}px;
   }
 
   .page-title {

@@ -7,7 +7,7 @@ import {
   Marker,
 } from 'react-google-maps'
 import { LoadingIndicator } from '../../../components/loadingIndicator/LoadingIndicator'
-import { googleMapURL } from '../../../constants/'
+import { googleMapURL, toolBarHeight } from '../../../constants/'
 
 const MapViewBase = ({ sites }) => {
   const latSum = sites.reduce((accumulator, currentValue) => {
@@ -33,7 +33,9 @@ const enhance = compose(
   withProps({
     googleMapURL,
     loadingElement: <LoadingIndicator style={{ height: '100%' }} />,
-    containerElement: <div style={{ height: `calc(100vh - 64*2px - 32px)` }} />,
+    containerElement: (
+      <div style={{ height: `calc(100vh - ${toolBarHeight}*2px - 32px)` }} />
+    ),
     mapElement: <div style={{ height: '100%' }} />,
   }),
   withScriptjs,
