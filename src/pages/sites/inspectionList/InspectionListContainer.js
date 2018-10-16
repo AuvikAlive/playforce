@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { InspectionList } from './InspectionList'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { fetchInspectionsBySiteRealTime } from '../../../store/actions/actionCreators/inspectionListActions/'
 import { deleteInspection } from '../../../store/actions/actionCreators/inspectionActions/deleteInspection'
@@ -22,7 +22,7 @@ const mapDispatchToProps = { fetchInspectionsBySiteRealTime, deleteInspection }
 
 const enhance = compose(
   withFeedback,
-  withDeleteDialog,
+  withDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

@@ -8,7 +8,7 @@ import {
   toggleInspectionComplete,
 } from '../../../store/actions/actionCreators/inspectionActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 
 const mapStateToProps = (
   { firebase, inspection, standard, reportNote },
@@ -51,7 +51,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
-  withDeleteDialog,
+  withDialog,
   withFeedback,
   connect(
     mapStateToProps,

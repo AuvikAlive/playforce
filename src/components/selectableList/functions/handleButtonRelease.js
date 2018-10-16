@@ -1,4 +1,4 @@
-export const handleButtonRelease = component => key => {
+export const handleButtonRelease = component => (...args) => {
   const {
     selectedItems,
     selectMode,
@@ -11,7 +11,7 @@ export const handleButtonRelease = component => key => {
   if (selectedItems.length === 0) {
     const { scrolling } = component.state
 
-    !scrolling && !selectMode && handleClick && handleClick(key)
+    !scrolling && !selectMode && handleClick && handleClick(...args)
     setSelectMode(false)
   } else {
     setSelectMode(true, selectedItems.length)

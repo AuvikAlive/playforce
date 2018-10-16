@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
 import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
@@ -32,7 +32,7 @@ class BaseEditDropTest extends Component {
 BaseEditDropTest.contextTypes = contextTypesTitleLeftRightNav
 
 const enhance = compose(
-  withDeleteDialog,
+  withDialog,
   withFeedback
 )
 

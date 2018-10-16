@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import {
   updateEquipment,
@@ -28,7 +28,7 @@ const mapDispatchToProps = { updateEquipment, fetchEquipment, deleteEquipment }
 
 const enhance = compose(
   withFeedback,
-  withDeleteDialog,
+  withDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

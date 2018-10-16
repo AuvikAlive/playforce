@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { EditComplianceIssue } from './EditComplianceIssue'
 
@@ -22,7 +22,7 @@ const mapStateToProps = (
 
 const enhance = compose(
   withFeedback,
-  withDeleteDialog,
+  withDialog,
   connect(mapStateToProps)
 )
 

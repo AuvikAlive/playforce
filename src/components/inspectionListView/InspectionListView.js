@@ -52,9 +52,9 @@ export const InspectionListView = ({
                     selected={itemSelected ? true : false}
                     className={`list-item ${itemSelected && 'selected'}`}
                     onTouchStart={() => handleButtonPress(id)}
-                    onTouchEnd={() => handleButtonRelease(id)}
+                    onTouchEnd={() => handleButtonRelease(id, inspectionType)}
                     onMouseDown={() => handleButtonPress(id)}
-                    onMouseUp={() => handleButtonRelease(id)}
+                    onMouseUp={() => handleButtonRelease(id, inspectionType)}
                   >
                     <ListAvatar
                       itemSelected={itemSelected}

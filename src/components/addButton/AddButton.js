@@ -4,19 +4,33 @@ import AddIcon from '@material-ui/icons/Add'
 import { StyledNavLink } from '../styledNavLink/StyledNavLink'
 import { StyledAddButton } from './StyledAddButton'
 
-export const AddButton = ({ to, pulse }) => {
+export const AddButton = ({ pulse, to, onClick }) => {
   return (
     <StyledAddButton className="StyledAddButton">
-      <StyledNavLink to={to}>
+      {to && (
+        <StyledNavLink to={to}>
+          <Button
+            variant="fab"
+            color="secondary"
+            aria-label="add item"
+            className={pulse ? 'pulse' : ''}
+          >
+            <AddIcon />
+          </Button>
+        </StyledNavLink>
+      )}
+
+      {onClick && (
         <Button
           variant="fab"
           color="secondary"
           aria-label="add item"
           className={pulse ? 'pulse' : ''}
+          {...{ onClick }}
         >
           <AddIcon />
         </Button>
-      </StyledNavLink>
+      )}
     </StyledAddButton>
   )
 }

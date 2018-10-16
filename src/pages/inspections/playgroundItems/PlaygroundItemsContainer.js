@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { deletePlayground } from '../../../store/actions/actionCreators/inspectionActions/'
 import { PlaygroundItems } from './PlaygroundItems'
@@ -21,7 +21,7 @@ const mapDispatchToProps = { deletePlayground }
 
 const enhance = compose(
   withFeedback,
-  withDeleteDialog,
+  withDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { contextTypesTitleLeftRightNav } from '../../../constants/'
@@ -72,7 +72,7 @@ BaseImpactTestDetailItems.contextTypes = contextTypesTitleLeftRightNav
 
 const enhance = compose(
   withFeedback,
-  withDeleteDialog
+  withDialog
 )
 
 export const ImpactTestDetailItems = enhance(BaseImpactTestDetailItems)

@@ -10,14 +10,20 @@ const EditInspectionRoutes = Loadable({
   loader: () => import('../editInspectionRoutes'),
 })
 
-AddInspection.preload()
-EditInspectionRoutes.preload()
+// AddInspection.preload()
+// EditInspectionRoutes.preload()
 
 export const InspectionRoutes = ({ match }) => {
   return (
     <Switch>
-      <Route path={`${match.url}/add`} component={AddInspection} />
-      <Route path={`${match.url}/edit/:id`} component={EditInspectionRoutes} />
+      <Route
+        path={`${match.url}/ComprehensiveInspection/add`}
+        component={AddInspection}
+      />
+      <Route
+        path={`${match.url}/ComprehensiveInspection/edit/:id`}
+        component={EditInspectionRoutes}
+      />
       <Route path={match.url} component={InspectionList} />
     </Switch>
   )

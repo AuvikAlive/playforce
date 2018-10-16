@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import {
   updateDropTest,
   deleteDropTest,
@@ -27,7 +27,7 @@ const mapStateToProps = ({ firebase, inspection }, { match, impactTestId }) => {
 const mapDispatchToProps = { updateDropTest, deleteDropTest }
 
 const enhance = compose(
-  withDeleteDialog,
+  withDialog,
   withFeedback,
   connect(
     mapStateToProps,

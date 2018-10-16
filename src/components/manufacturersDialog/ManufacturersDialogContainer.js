@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteDialog } from '../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../hocs/withDialog/withDialog'
 import {
   deleteManufacturer,
   fetchManufacturersRealTime,
@@ -23,7 +23,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
-  withDeleteDialog,
+  withDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

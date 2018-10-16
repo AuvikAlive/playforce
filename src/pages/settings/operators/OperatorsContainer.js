@@ -6,7 +6,7 @@ import {
   fetchOperatorsRealTime,
 } from '../../../store/actions/actionCreators/operatorActions/'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 
 const mapStateToProps = ({ firebase, operator }) => {
   const { operatorsLoaded, operators } = operator
@@ -24,7 +24,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
-  withDeleteDialog,
+  withDialog,
   withFeedback,
   connect(
     mapStateToProps,

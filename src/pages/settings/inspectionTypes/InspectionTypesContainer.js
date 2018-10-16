@@ -4,7 +4,7 @@ import {
   deleteInspectionType,
   fetchInspectionTypesRealTime,
 } from '../../../store/actions/actionCreators/inspectionTypeActions/'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { InspectionTypes } from './InspectionTypes'
 
 const mapStateToProps = ({ firebase, inspectionType }) => {
@@ -23,7 +23,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
-  withDeleteDialog,
+  withDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

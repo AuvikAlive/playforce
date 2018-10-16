@@ -27,6 +27,7 @@ export const fetchInspectionsRealTime = userId => async (
         ...doc.data(),
       })
     )
+
     dispatch({ type: FETCH_INSPECTIONS_COMPLETED, payload: items })
   })
 }

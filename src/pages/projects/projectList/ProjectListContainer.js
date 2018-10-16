@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { fetchProjectsRealTime } from '../../../store/actions/actionCreators/projectActions/'
 import { ProjectList } from './ProjectList'
@@ -19,7 +19,7 @@ const mapDispatchToProps = { fetchProjectsRealTime }
 
 const enhance = compose(
   withFeedback,
-  withDeleteDialog,
+  withDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

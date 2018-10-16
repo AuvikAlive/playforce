@@ -5,7 +5,7 @@ import {
   deleteManufacturer,
   fetchManufacturersRealTime,
 } from '../../../store/actions/actionCreators/manufacturerActions/'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 
 const mapStateToProps = ({ firebase, manufacturer }) => {
   const { manufacturersLoaded, manufacturers } = manufacturer
@@ -23,7 +23,7 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
-  withDeleteDialog,
+  withDialog,
   connect(
     mapStateToProps,
     mapDispatchToProps

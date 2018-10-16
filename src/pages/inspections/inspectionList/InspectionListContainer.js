@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { withFirestore } from 'react-redux-firebase'
-import { withDeleteDialog } from '../../../hocs/withDeleteDialog/withDeleteDialog'
+// import { withFirestore } from 'react-redux-firebase'
+import { withDialog } from '../../../hocs/withDialog/withDialog'
 import {
   openSearchBar,
   closeSearchBar,
@@ -55,8 +55,8 @@ const mapDispatchToProps = {
 }
 
 const enhance = compose(
-  withDeleteDialog,
-  withFirestore,
+  withDialog,
+  // withFirestore,
   connect(
     mapStateToProps,
     mapDispatchToProps

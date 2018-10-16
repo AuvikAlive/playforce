@@ -4,19 +4,21 @@ import { setNav } from './setNav'
 import { onSearch } from './onSearch'
 
 export const onComponentDidMount = async component => {
+  const { props, context } = component
+
   const {
     standardsLoaded,
     fetchStandards,
     userId,
     inspectionsLoaded,
     fetchInspectionsRealTime,
-  } = component.props
-  const { setSearchComponent, addUnsubscriber } = component.context
+  } = props
+
+  const { setSearchComponent, addUnsubscriber } = context
 
   setNav(component)
-
   setSearchComponent(<SearchBar onSearch={onSearch(component)} />)
 
   !standardsLoaded && fetchStandards(userId)
-  !inspectionsLoaded && addUnsubscriber(await fetchInspectionsRealTime(userId))
+  !inspectionsLoaded && addUnsubscriber(fetchInspectionsRealTime(userId))
 }

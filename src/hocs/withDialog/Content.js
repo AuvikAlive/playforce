@@ -1,15 +1,18 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import { StyledDialogContent } from './StyledDialogContent'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogActions from '@material-ui/core/DialogActions'
+import { StyledContent } from './StyledContent'
 import { withFeedback } from '../withFeedback/withFeedback'
 
-const DialogContentWithout = ({
+const ContentBase = ({
   closeDialog,
+  handleConfirmationAsync,
   handleConfirmation,
   message,
+  contentComponent,
   setFeedback,
   error,
   loading,
@@ -18,7 +21,8 @@ const DialogContentWithout = ({
     setFeedback({ error: '', loading: true })
 
     try {
-      handleConfirmation && (await handleConfirmation())
+      handleConfirmationAsync && (await handleConfirmationAsync())
+      handleConfirmation && handleConfirmation()
       setFeedback({ loading: false })
       closeDialog()
     } catch (error) {
@@ -27,8 +31,10 @@ const DialogContentWithout = ({
   }
 
   return (
-    <StyledDialogContent className="StyledDialogContent">
+    <StyledContent className="StyledContent">
       <DialogTitle>{message || 'Delete this item?'}</DialogTitle>
+
+      {contentComponent && <DialogContent>{contentComponent}</DialogContent>}
 
       {!error &&
         loading && (
@@ -47,8 +53,8 @@ const DialogContentWithout = ({
           </Button>
         </DialogActions>
       )}
-    </StyledDialogContent>
+    </StyledContent>
   )
 }
 
-export const DialogContent = withFeedback(DialogContentWithout)
+export const Content = withFeedback(ContentBase)
