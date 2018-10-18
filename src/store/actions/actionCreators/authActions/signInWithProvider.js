@@ -12,6 +12,6 @@ export const signInWithProvider = (provider, persistence) => async (
 
   return firebase.login({
     provider,
-    type: 'redirect',
+    type: 'popup',
   })
 }
