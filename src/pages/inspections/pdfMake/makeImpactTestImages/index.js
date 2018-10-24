@@ -1,7 +1,7 @@
 import { makeTitle } from '../makeTitle'
 import { makeTests } from './makeTests'
 
-export const makeImpactTestImages = impactTests => {
+export const makeImpactTestImages = (impactTests, noPageBreak) => {
   if (
     impactTests &&
     impactTests.length > 0 &&
@@ -10,7 +10,7 @@ export const makeImpactTestImages = impactTests => {
     return [
       makeTitle('IMPACT TEST IMAGES'),
       makeTests(impactTests),
-      { text: '', pageBreak: 'after' },
+      noPageBreak ? null : { text: '', pageBreak: 'after' },
     ]
   } else {
     return null

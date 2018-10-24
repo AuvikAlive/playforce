@@ -1,10 +1,13 @@
 import { pageMarginHorizontal } from './constants'
 
-export const makeFooter = skipCommonHeaderFooter => (currentPage, pageCount) =>
+export const makeFooter = (skipCommonHeaderFooter, title) => (
+  currentPage,
+  pageCount
+) =>
   currentPage > skipCommonHeaderFooter
     ? [
         {
-          text: 'Comprehensive Playground Inspection Report',
+          text: title,
           marginLeft: pageMarginHorizontal,
         },
         {

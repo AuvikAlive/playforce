@@ -16,7 +16,7 @@ export const StyledInspectionListView = Styled.div`
       width: 68.6821px;
     }
 
-    .chip.comprehensive {
+    .chip.comprehensiveInspection {
       background-color: ${({ theme }) => theme.palette.secondary.main};
     }
 
@@ -24,7 +24,7 @@ export const StyledInspectionListView = Styled.div`
       background-color: ${({ theme }) => theme.palette.error.main};
     }
 
-    .chip.routine {
+    .chip.impactAttenuationTest {
       background-color: ${({ theme }) => theme.palette.success};
     }
 

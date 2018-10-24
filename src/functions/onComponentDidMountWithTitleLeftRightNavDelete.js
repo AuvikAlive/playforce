@@ -7,9 +7,10 @@ export const onComponentDidMountWithTitleLeftRightNavDelete = (
   component,
   title,
   deleteItem,
-  componentToAppend
+  componentToAppend,
+  beforeBack
 ) => {
-  onComponentDidMountWithTitleLeftNav(component, title)
+  onComponentDidMountWithTitleLeftNav(component, title, beforeBack)
 
   const { setRightNavComponent } = component.context
   const { openDialog } = component.props

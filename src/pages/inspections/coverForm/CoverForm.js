@@ -25,7 +25,7 @@ import {
 } from '../../../functions/'
 import {
   contextTypesUnsubscriber,
-  defaultInspectionTypes,
+  // defaultInspectionTypes,
 } from '../../../constants/'
 import { StyledCoverForm } from './StyledCoverForm'
 import { state } from './state'
@@ -55,7 +55,7 @@ export class CoverForm extends Component {
       client,
       inspectionDate,
       appliedStandards,
-      inspectionType,
+      // inspectionType,
       displayName,
     } = this.state
 
@@ -66,8 +66,8 @@ export class CoverForm extends Component {
       standardsLoaded,
       standards,
       clientsLoaded,
-      inspectionTypesLoaded,
-      inspectionTypes,
+      // inspectionTypesLoaded,
+      // inspectionTypes,
       openDialog,
       closeDialog,
       error,
@@ -75,8 +75,7 @@ export class CoverForm extends Component {
       buttonText,
     } = this.props
 
-    const isLoaded =
-      sitesLoaded && standardsLoaded && clientsLoaded && inspectionTypesLoaded
+    const isLoaded = sitesLoaded && standardsLoaded && clientsLoaded
 
     return showContentWhenLoaded(
       isLoaded,
@@ -197,7 +196,7 @@ export class CoverForm extends Component {
                 )}
               </TextField>
 
-              <TextField
+              {/* <TextField
                 fullWidth
                 select
                 label="Inspection Type"
@@ -220,7 +219,7 @@ export class CoverForm extends Component {
                         </MenuItem>
                       )
                     })}
-              </TextField>
+              </TextField> */}
             </form>
 
             {error && <p className="error">{error}</p>}

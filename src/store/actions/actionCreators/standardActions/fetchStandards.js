@@ -21,4 +21,6 @@ export const fetchStandards = userId => async (
     })
   )
   dispatch({ type: FETCH_STANDARDS_COMPLETED, payload: items })
+
+  return items
 }

@@ -1,5 +1,5 @@
 export const openDialog = component => (...args) => {
-  if (args.length === 1) {
+  if (args.length === 1 && typeof args[0] !== 'function') {
     const { handleConfirmation, message, contentComponent } = args[0]
 
     component.setState({

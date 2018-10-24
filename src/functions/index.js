@@ -38,10 +38,12 @@ import { getInitials } from './getInitials'
 import { getUserMode } from './getUserMode'
 import { onSingleCrop } from './onSingleCrop'
 import { getBase64MimeType } from './getBase64MimeType'
+import { getAddressFromLocation } from './getAddressFromLocation'
 import { replaceLongDate } from './replaceLongDate'
 import { replaceSiteName } from './replaceSiteName'
 import { replaceClientName } from './replaceClientName'
 import { replaceCertificateTextPlaceholders } from './replaceCertificateTextPlaceholders'
+import { trimImage } from './trimImage'
 
 export {
   openMenu,
@@ -84,8 +86,10 @@ export {
   getUserMode,
   onSingleCrop,
   getBase64MimeType,
+  getAddressFromLocation,
   replaceLongDate,
   replaceSiteName,
   replaceClientName,
   replaceCertificateTextPlaceholders,
+  trimImage,
 }

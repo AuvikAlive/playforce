@@ -1,3 +1,5 @@
+import { inspectionTypes } from '../../../../constants/'
+
 export const submit = component => async () => {
   const {
     onSubmit,
@@ -14,16 +16,9 @@ export const submit = component => async () => {
     clientAddress,
     inspectionDate,
     appliedStandards,
-    inspectionType,
   } = component.state
 
-  if (
-    location &&
-    client &&
-    inspectionDate &&
-    appliedStandards.length > 0 &&
-    inspectionType
-  ) {
+  if (location && client && inspectionDate && appliedStandards.length > 0) {
     setFeedback({ error: '', loading: true })
 
     try {
@@ -35,7 +30,7 @@ export const submit = component => async () => {
         clientAddress,
         inspectionDate,
         appliedStandards,
-        inspectionType,
+        inspectionType: inspectionTypes[0],
       })
       setFeedback({ loading: false })
       afterSubmit && afterSubmit(result)

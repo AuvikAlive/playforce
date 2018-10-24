@@ -1,5 +1,5 @@
-export const beforeBack = component => () => {
-  const { history, discardInspection } = component.props
+export const beforeBack = ({ props }) => () => {
+  const { history, discardInspection } = props
 
   discardInspection()
   history.goBack()

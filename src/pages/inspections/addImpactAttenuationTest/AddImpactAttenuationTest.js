@@ -32,5 +32,4 @@ class BaseAddImpactAttenuationTest extends Component {
 BaseAddImpactAttenuationTest.contextTypes = contextTypesTitleLeftNav
 
 const enhance = compose(withFeedback)
-
 export const AddImpactAttenuationTest = enhance(BaseAddImpactAttenuationTest)

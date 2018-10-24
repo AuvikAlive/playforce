@@ -4,7 +4,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
-import { StyledContent } from './StyledContent'
 import { withFeedback } from '../withFeedback/withFeedback'
 
 const ContentBase = ({
@@ -31,7 +30,7 @@ const ContentBase = ({
   }
 
   return (
-    <StyledContent className="StyledContent">
+    <div style={{ overflow: 'hidden' }}>
       <DialogTitle>{message || 'Delete this item?'}</DialogTitle>
 
       {contentComponent && <DialogContent>{contentComponent}</DialogContent>}
@@ -53,7 +52,7 @@ const ContentBase = ({
           </Button>
         </DialogActions>
       )}
-    </StyledContent>
+    </div>
   )
 }
 

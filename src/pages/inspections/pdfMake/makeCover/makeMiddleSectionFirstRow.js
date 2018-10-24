@@ -1,3 +1,4 @@
+import { getAddressFromLocation } from '../../../../functions/'
 import { verticalMargin } from '../constants'
 
 export const makeMiddleSectionFirstRow = ({
@@ -6,9 +7,7 @@ export const makeMiddleSectionFirstRow = ({
   name,
   location,
 }) => {
-  const { street, suburb, state, postcode, country } = location
-
-  const address = `${street}, ${suburb} ${state} ${postcode}, ${country}`
+  const address = getAddressFromLocation(location)
 
   return {
     fontSize: sectionFontSize,

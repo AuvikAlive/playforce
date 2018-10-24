@@ -2,14 +2,14 @@ import { getBatch } from '../../dbActions/'
 import { deleteImage } from '../../storageActions/'
 import { deleteSurfaceTestStateless } from './deleteSurfaceTestStateless'
 
-export const deleteImpactTestStateless = (baseRef, impactTests) => async (
-  dispatch,
-  getState,
-  getFirebase
-) => {
+export const deleteImpactTestStateless = (
+  baseRef,
+  impactTests,
+  relayedBatch
+) => async (dispatch, getState, getFirebase) => {
   const firebase = getFirebase()
-  const batch = dispatch(getBatch)
-  let topRefsArray = []
+  const batch = relayedBatch || dispatch(getBatch)
+  let refsArray = []
 
   batch.update(baseRef, {
     impactGeneralInfo: firebase.firestore.FieldValue.delete(),
@@ -17,16 +17,20 @@ export const deleteImpactTestStateless = (baseRef, impactTests) => async (
 
   impactTests &&
     impactTests.forEach(async impactTest => {
-      const refsArray = await dispatch(
+      const surfaceRefsArray = await dispatch(
         deleteSurfaceTestStateless(baseRef, impactTest, batch)
       )
 
-      topRefsArray.push(...refsArray)
+      refsArray.push(...surfaceRefsArray)
     })
+
+  if (relayedBatch) {
+    return refsArray
+  }
 
   await batch.commit()
 
-  topRefsArray.forEach(dropRef => {
+  refsArray.forEach(dropRef => {
     dispatch(deleteImage(dropRef))
   })
 }

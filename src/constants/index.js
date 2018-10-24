@@ -17,6 +17,7 @@ import { equipmentState } from './equipmentState'
 import { findings } from './findings'
 import { googleMapURL } from './googleMapURL'
 import { individualUserMode } from './individualUserMode'
+import { inspectionTypes } from './inspectionTypes'
 import { materials } from './materials'
 import { probabilities } from './probabilities'
 import { riskLevels } from './riskLevels'
@@ -48,6 +49,7 @@ export {
   findings,
   googleMapURL,
   individualUserMode,
+  inspectionTypes,
   materials,
   probabilities,
   riskLevels,

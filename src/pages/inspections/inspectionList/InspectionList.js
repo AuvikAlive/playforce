@@ -7,10 +7,10 @@ import {
   setSelectedItems,
   showContentWhenLoaded,
 } from '../../../functions/'
+import { inspectionTypes } from '../../../constants/'
 import { GridView } from './GridView'
 import { StyledInspectionList } from './StyledInspectionList'
 import { contextTypes } from './contextTypes'
-import { inspectionTypes } from './inspectionTypes'
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,

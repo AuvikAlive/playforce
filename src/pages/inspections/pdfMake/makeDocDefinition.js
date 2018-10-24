@@ -44,7 +44,10 @@ export const makeDocDefinition = async (
     pageMargins,
     pageSize,
     header: makeHeader(skipCommonHeaderFooter),
-    footer: makeFooter(skipCommonHeaderFooter),
+    footer: makeFooter(
+      skipCommonHeaderFooter,
+      'Comprehensive Playground Inspection Report'
+    ),
     content: [
       await makeCertificate({
         certificate,

@@ -10,8 +10,8 @@ export const onComponentDidMount = async component => {
     fetchStandardsRealTime,
     clientsLoaded,
     fetchClientsRealTime,
-    inspectionTypesLoaded,
-    fetchInspectionTypesRealTime,
+    // inspectionTypesLoaded,
+    // fetchInspectionTypesRealTime,
     userId,
   } = component.props
 
@@ -20,11 +20,9 @@ export const onComponentDidMount = async component => {
   !isEmpty(initialData) && loadInitialData(component, initialData)
 
   !sitesLoaded && addUnsubscriber(await fetchSitesRealTime(userId))
-
   !standardsLoaded && addUnsubscriber(await fetchStandardsRealTime(userId))
-
   !clientsLoaded && addUnsubscriber(await fetchClientsRealTime(userId))
 
-  !inspectionTypesLoaded &&
-    addUnsubscriber(await fetchInspectionTypesRealTime(userId))
+  // !inspectionTypesLoaded &&
+  //   addUnsubscriber(await fetchInspectionTypesRealTime(userId))
 }

@@ -74,9 +74,11 @@ import { saveNotes } from './saveNotes'
 import { toggleInspectionCertificate } from './toggleInspectionCertificate'
 import { toggleInspectionComplete } from './toggleInspectionComplete'
 import {
-  DISCARD_INSPECTION,
-  // TOGGLE_INSPECTION_CERTIFICATE,
-} from '../../actionTypes'
+  addStandaloneImpactTest,
+  fetchStandaloneImpactTestRealTime,
+  deleteStandaloneImpactTest,
+} from './standaloneImpactTestActions/'
+import { DISCARD_INSPECTION } from '../../actionTypes'
 
 export {
   addInspection,
@@ -144,12 +146,11 @@ export {
   deletePlaygroundDropTest,
   toggleInspectionCertificate,
   toggleInspectionComplete,
+  addStandaloneImpactTest,
+  fetchStandaloneImpactTestRealTime,
+  deleteStandaloneImpactTest,
 }
 
 export const discardInspection = () => ({
   type: DISCARD_INSPECTION,
 })
-
-// export const toggleInspectionCertificate = () => ({
-//   type: TOGGLE_INSPECTION_CERTIFICATE,
-// })

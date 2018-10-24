@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash'
-import { makeReportTitle } from '../../../../functions/'
+// import { makeReportTitle } from '../../../../functions/'
 
 export const generateReport = ({
   inspection,
@@ -8,7 +8,7 @@ export const generateReport = ({
   createPdf,
 }) => async () => {
   const {
-    cover: { location, inspectionType },
+    cover: { location },
     auditSummary,
     playgroundsAdded,
     playgroundsCompleted,
@@ -26,7 +26,7 @@ export const generateReport = ({
     const pdfDocGenerator = await createPdf(inspection)
 
     pdfDocGenerator.download(
-      `${location.name} - ${makeReportTitle(inspectionType)}.pdf`,
+      `${location.name} - Comprehensive Playground Inspection Report.pdf`,
       () => setFeedback({ loading: false })
     )
   } else {

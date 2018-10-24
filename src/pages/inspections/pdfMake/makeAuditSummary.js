@@ -1,9 +1,8 @@
 import { verticalMargin, headerFontSize } from './constants'
-import { trimImage } from '../../../functions/trimImage'
+import { trimImage } from '../../../functions/'
 
-export const makeAuditSummary = async ( auditSummary, cover, signature ) => {
+export const makeAuditSummary = async (auditSummary, cover, signature) => {
   const { summary, displayName, title, company } = auditSummary
-
   const trimmedSignature = await trimImage(signature)
 
   return [
