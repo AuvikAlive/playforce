@@ -30,6 +30,7 @@ export class EditInspection extends Component {
 
   componentWillUnmount() {
     onComponentWillUnmountWithTitleLeftRightNav(this)
+    this.props.discardInspection()
   }
 
   componentWillReceiveProps(nextProps) {

@@ -78,7 +78,7 @@ import {
   fetchStandaloneImpactTestRealTime,
   deleteStandaloneImpactTest,
 } from './standaloneImpactTestActions/'
-import { DISCARD_INSPECTION } from '../../actionTypes'
+import { discardInspection } from './discardInspection'
 
 export {
   addInspection,
@@ -149,8 +149,5 @@ export {
   addStandaloneImpactTest,
   fetchStandaloneImpactTestRealTime,
   deleteStandaloneImpactTest,
+  discardInspection,
 }
-
-export const discardInspection = () => ({
-  type: DISCARD_INSPECTION,
-})

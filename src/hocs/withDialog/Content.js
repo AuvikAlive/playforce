@@ -20,10 +20,13 @@ const ContentBase = ({
     setFeedback({ error: '', loading: true })
 
     try {
-      handleConfirmationAsync && (await handleConfirmationAsync())
-      handleConfirmation && handleConfirmation()
-      setFeedback({ loading: false })
-      closeDialog()
+      if (handleConfirmationAsync) {
+        handleConfirmationAsync && (await handleConfirmationAsync())
+      } else {
+        handleConfirmation && handleConfirmation()
+        setFeedback({ loading: false })
+        closeDialog()
+      }
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
     }

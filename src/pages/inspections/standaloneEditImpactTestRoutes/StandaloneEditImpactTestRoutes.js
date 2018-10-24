@@ -18,6 +18,10 @@ class BaseStandaloneEditImpactTestRoutes extends Component {
     onComponentDidMount(this)
   }
 
+  componentWillUnmount() {
+    this.props.discardInspection()
+  }
+
   render() {
     const { inspectionLoaded, match } = this.props
 
