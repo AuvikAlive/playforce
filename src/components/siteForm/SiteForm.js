@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { compose, withProps } from 'recompose'
+import { withScriptjs, withGoogleMap } from 'react-google-maps'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
@@ -6,13 +8,14 @@ import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import IconButton from '@material-ui/core/IconButton'
 import AddBoxIcon from '@material-ui/icons/AddBox'
-import { contextTypesUnsubscriber } from '../../constants/'
+import { contextTypesUnsubscriber, googleMapURL } from '../../constants/'
 import {
   onComponentWillReceivePropsLoadData,
   showContentWhenLoaded,
 } from '../../functions/'
 import { OperatorsDialogContainer } from '../operatorsDialog/OperatorsDialogContainer'
 import { AutoComplete } from '../autoComplete/AutoComplete'
+import { LoadingIndicator } from '../loadingIndicator/LoadingIndicator'
 import { onEventInputChange, onValueInputChange } from '../../functions/'
 import { StyledSiteForm } from './StyledSiteForm'
 import { state } from './state'
@@ -23,7 +26,7 @@ import {
   submit,
 } from './functions/'
 
-export class SiteForm extends Component {
+class BaseSiteForm extends Component {
   state = state
 
   componentDidMount() {
@@ -158,4 +161,17 @@ export class SiteForm extends Component {
   }
 }
 
-SiteForm.contextTypes = contextTypesUnsubscriber
+BaseSiteForm.contextTypes = contextTypesUnsubscriber
+
+const enhance = compose(
+  withProps({
+    googleMapURL,
+    loadingElement: <LoadingIndicator />,
+    containerElement: <div />,
+    mapElement: <div />,
+  }),
+  withScriptjs,
+  withGoogleMap
+)
+
+export const SiteForm = enhance(BaseSiteForm)

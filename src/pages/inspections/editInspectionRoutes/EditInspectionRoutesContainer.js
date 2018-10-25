@@ -1,7 +1,10 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { EditInspectionRoutes } from './EditInspectionRoutes'
-import { fetchInspectionRealTime } from '../../../store/actions/actionCreators/inspectionActions/'
+import {
+  fetchInspectionRealTime,
+  discardInspection,
+} from '../../../store/actions/actionCreators/inspectionActions/'
 import { fetchStandardsRealTime } from '../../../store/actions/actionCreators/standardActions'
 import { fetchReportNotesRealTime } from '../../../store/actions/actionCreators/reportNoteActions/'
 
@@ -26,6 +29,7 @@ const mapDispatchToProps = {
   fetchInspectionRealTime,
   fetchStandardsRealTime,
   fetchReportNotesRealTime,
+  discardInspection,
 }
 
 const enhance = compose(

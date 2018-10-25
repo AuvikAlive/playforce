@@ -9,7 +9,7 @@ import {
 import { LoadingIndicator } from '../../components/loadingIndicator/LoadingIndicator'
 import { googleMapURL } from '../../constants/'
 
-const MapBase = ({ lat, lng }) => {
+const BaseMap = ({ lat, lng }) => {
   return navigator.onLine ? (
     <GoogleMap defaultZoom={16} defaultCenter={{ lat, lng }}>
       <Marker position={{ lat, lng }} />
@@ -28,4 +28,4 @@ const enhance = compose(
   withGoogleMap
 )
 
-export const Map = enhance(MapBase)
+export const Map = enhance(BaseMap)

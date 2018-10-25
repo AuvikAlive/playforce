@@ -62,6 +62,10 @@ export class EditInspectionRoutes extends Component {
     onComponentDidMount(this)
   }
 
+  componentWillUnmount() {
+    this.props.discardInspection()
+  }
+
   render() {
     const {
       match,
