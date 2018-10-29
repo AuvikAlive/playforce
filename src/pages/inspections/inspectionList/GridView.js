@@ -24,6 +24,7 @@ export const GridView = ({ inspections, match, standards }) => {
           {
             id,
             cover,
+            impactGeneralInfo,
             inspectionNumber,
             coverAdded,
             auditSummaryAdded,
@@ -33,20 +34,21 @@ export const GridView = ({ inspections, match, standards }) => {
           },
           index
         ) => {
-          const { location, client, image, inspectionDate } = cover
+          const { location, client, image, inspectionDate, appliedStandards } =
+            cover || impactGeneralInfo
 
           const { name, suburb } = location
 
           const completed =
             coverAdded && auditSummaryAdded && conditionRatingsAdded
 
-          const appliedStandards = flatten(
-            map(cover.appliedStandards, standardId => {
+          const filteredAppliedStandards = flatten(
+            map(appliedStandards, standardId => {
               return filter(standards, item => item.id === standardId)
             })
           )
 
-          const standardItems = appliedStandards.map(
+          const standardItems = filteredAppliedStandards.map(
             ({ code, title }, index) => (index === 0 ? `${code}` : `, ${code}`)
           )
 

@@ -15,8 +15,4 @@ export const StyledFooter = Styled.footer`
   span {
     flex-grow: 1;
   }
-
-  @media (orientation: landscape) {
-    display: none;
-  }
 `
