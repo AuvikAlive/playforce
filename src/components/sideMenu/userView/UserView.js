@@ -22,9 +22,10 @@ export const UserView = ({ profile }) => {
           <Typography variant="caption">{getUserMode(userMode)}</Typography>
         )}
 
-        {userMode !== individualUserMode && (
-          <Typography variant="caption">{`Group member: ${userMode}`}</Typography>
-        )}
+        {userMode &&
+          userMode !== individualUserMode && (
+            <Typography variant="caption">{`Group member: ${userMode}`}</Typography>
+          )}
       </div>
 
       <div className="background" />
