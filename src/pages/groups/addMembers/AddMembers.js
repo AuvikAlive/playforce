@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { differenceWith, isEqual } from 'lodash'
+import { differenceWith } from 'lodash'
 import { SelectableList } from '../../../components/selectableList/SelectableList'
 import { showContentWhenLoaded } from '../../../functions/showContentWhenLoaded'
 import { UserListView } from '../UserListView'
@@ -31,7 +31,7 @@ export class AddMembers extends Component {
   render() {
     const { usersLoaded, membersLoaded, users, members } = this.props
     const { selectedItems, selectMode } = this.state
-    const usersToShow = differenceWith(users, members, isEqual)
+    const usersToShow = differenceWith(users, members, (a, b) => a.id === b.id)
     const isLoaded = usersLoaded && membersLoaded
 
     return showContentWhenLoaded(
