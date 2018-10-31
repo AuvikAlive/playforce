@@ -10,6 +10,7 @@ const mapStateToProps = ({ firebase, inspection }, { match }) => {
   const { auth, profile } = firebase
 
   const {
+    id,
     inspectionLoaded,
     customCertificateText,
     customInspectionNumber,
@@ -19,7 +20,7 @@ const mapStateToProps = ({ firebase, inspection }, { match }) => {
 
   return {
     userId: auth.uid,
-    inspectionId: match.params.id,
+    inspectionId: id,
     defaultCertificateText: profile.defaultCertificateText,
     inspectionLoaded,
     customCertificateText,

@@ -9,5 +9,8 @@ export const saveCustomCertificateText = (userId, inspectionId, data) => async (
   const ref = rootRef.collection('inspections').doc(inspectionId)
   const { text, customInspectionNumber } = data
 
-  return ref.update({ customCertificateText: text, customInspectionNumber })
+  return ref.update({
+    customCertificateText: text,
+    ...(customInspectionNumber && { customInspectionNumber }),
+  })
 }

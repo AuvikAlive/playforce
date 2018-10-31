@@ -34,6 +34,7 @@ export class CustomCertificateText extends Component {
     } = this.props
 
     const { menuAnchor, revertText } = this.state
+
     const defaultText = replaceCertificateTextPlaceholders(
       defaultCertificateText,
       client,
