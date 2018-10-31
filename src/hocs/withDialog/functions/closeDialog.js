@@ -1,3 +1,5 @@
+import { state } from '../state'
+
 export const closeDialog = component => () => {
-  component.setState({ dialogOpen: false })
+  component.setState(state)
 }

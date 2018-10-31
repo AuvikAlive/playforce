@@ -11,10 +11,6 @@ export const deleteInspections = component => async () => {
   } = component.props
   const selectedItems = getSelectedItems()
 
-  try {
-    await deleteInspections(userId, selectedItems)
-    setSelectMode(false)
-  } catch (error) {
-    console.log(error)
-  }
+  await deleteInspections(userId, selectedItems)
+  setSelectMode(false)
 }

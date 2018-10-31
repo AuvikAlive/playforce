@@ -22,10 +22,10 @@ const ContentBase = ({
     try {
       if (handleConfirmationAsync) {
         handleConfirmationAsync && (await handleConfirmationAsync())
-      } else {
-        handleConfirmation && handleConfirmation()
         setFeedback({ loading: false })
         closeDialog()
+      } else {
+        handleConfirmation && handleConfirmation()
       }
     } catch (error) {
       setFeedback({ error: error.message, loading: false })
