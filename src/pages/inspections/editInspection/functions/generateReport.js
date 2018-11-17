@@ -8,7 +8,8 @@ export const generateReport = ({
   createPdf,
 }) => async () => {
   const {
-    cover: { location },
+    cover,
+    customInspectionNumber,
     auditSummary,
     playgroundsAdded,
     playgroundsCompleted,
@@ -25,10 +26,11 @@ export const generateReport = ({
 
     const pdfDocGenerator = await createPdf(inspection)
 
-    pdfDocGenerator.download(
-      `${location.name} - Comprehensive Playground Inspection Report.pdf`,
-      () => setFeedback({ loading: false })
-    )
+    const fileName = `${
+      customInspectionNumber ? `${customInspectionNumber} - ` : ''
+    }${cover.location.name} - Comprehensive Playground Inspection Report.pdf`
+
+    pdfDocGenerator.download(fileName, () => setFeedback({ loading: false }))
   } else {
     setFeedback({
       error: `Please add audit summary & ${
