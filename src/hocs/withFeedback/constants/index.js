@@ -1,5 +1,4 @@
-import { state } from './state'
-import { snackbarAutoHideDuration } from './snackbarAutoHideDuration'
-import { contextTypes } from './contextTypes'
+import { state } from "./state"
+import { snackbarAutoHideDuration } from "./snackbarAutoHideDuration"
 
-export { state, snackbarAutoHideDuration, contextTypes }
+export { state, snackbarAutoHideDuration }

@@ -46,7 +46,7 @@ export const ListView = ({
       </List>
     </Paper>
   ) : (
-    <Typography variant="title" align="center">
+    <Typography variant="h6" align="center">
       Try adding a member to get started!
     </Typography>
   )

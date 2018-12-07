@@ -1,19 +1,21 @@
-import React, { Component } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import AddBoxIcon from '@material-ui/icons/AddBox'
-import CropIcon from '@material-ui/icons/Crop'
-import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
-import TextField from '@material-ui/core/TextField'
-import MenuItem from '@material-ui/core/MenuItem'
-import { equipmentTypes } from '../../../constants/'
-import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
-import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
-import { equipmentState, contextTypesUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Fab from "@material-ui/core/Fab"
+import Button from "@material-ui/core/Button"
+import IconButton from "@material-ui/core/IconButton"
+import AddBoxIcon from "@material-ui/icons/AddBox"
+import CropIcon from "@material-ui/icons/Crop"
+import StayCurrentLandscapeIcon from "@material-ui/icons/StayCurrentLandscape"
+import TextField from "@material-ui/core/TextField"
+import MenuItem from "@material-ui/core/MenuItem"
+import { NavContext } from "components/NavContextProvider/"
+import { equipmentTypes } from "../../../constants/"
+import { AutoComplete } from "../../../components/autoComplete/AutoComplete"
+import { ImageLightbox } from "../../../components/imageLightbox/ImageLightbox"
+import { ManufacturersDialogContainer } from "../../../components/manufacturersDialog/ManufacturersDialogContainer"
+import { equipmentState } from "../../../constants/"
 import {
   onComponentWillReceivePropsLoadDataWithLandscapeImage,
   onEventInputChange,
@@ -21,9 +23,9 @@ import {
   getSuggestionsByName,
   showContentWhenLoaded,
   onSingleCrop,
-} from '../../../functions/'
-import { StyledEquipmentForm } from './StyledEquipmentForm'
-import { onComponentDidMount, submit } from './functions/'
+} from "../../../functions/"
+import { StyledEquipmentForm } from "./StyledEquipmentForm"
+import { onComponentDidMount, submit } from "./functions/"
 
 export class EquipmentForm extends Component {
   state = equipmentState
@@ -70,20 +72,19 @@ export class EquipmentForm extends Component {
 
           <CardContent className="card-content">
             {image && (
-              <Button
-                variant="fab"
+              <Fab
                 color="primary"
                 aria-label="crop image"
                 className="floating-icon"
                 onClick={onSingleCrop(this)}
               >
                 <CropIcon />
-              </Button>
+              </Fab>
             )}
 
             <Button
               fullWidth
-              variant="raised"
+              variant="contained"
               color="primary"
               className="submit-button"
               onClick={() =>
@@ -100,7 +101,7 @@ export class EquipmentForm extends Component {
                 select
                 label="Item Type"
                 value={itemType}
-                onChange={onEventInputChange(this, 'itemType')}
+                onChange={onEventInputChange(this, "itemType")}
                 margin="normal"
               >
                 {equipmentTypes.map((type, index) => {
@@ -117,7 +118,7 @@ export class EquipmentForm extends Component {
                 label="Equipment"
                 value={equipment}
                 margin="normal"
-                onChange={onEventInputChange(this, 'equipment')}
+                onChange={onEventInputChange(this, "equipment")}
               />
 
               {isNotAncillary && (
@@ -126,7 +127,7 @@ export class EquipmentForm extends Component {
                   label="Asset Id"
                   value={assetId}
                   margin="normal"
-                  onChange={onEventInputChange(this, 'assetId')}
+                  onChange={onEventInputChange(this, "assetId")}
                 />
               )}
 
@@ -135,7 +136,7 @@ export class EquipmentForm extends Component {
                   <AutoComplete
                     label="Manufacturer"
                     value={manufacturer}
-                    onChange={onValueInputChange(this, 'manufacturer')}
+                    onChange={onValueInputChange(this, "manufacturer")}
                     getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
@@ -157,7 +158,7 @@ export class EquipmentForm extends Component {
                   fullWidth
                   label="Estimated Date Installed"
                   value={estimatedDateInstalled}
-                  onChange={onEventInputChange(this, 'estimatedDateInstalled')}
+                  onChange={onEventInputChange(this, "estimatedDateInstalled")}
                   margin="normal"
                 />
               )}
@@ -165,22 +166,21 @@ export class EquipmentForm extends Component {
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
               >
-                {buttonText ? buttonText : 'Publish'}
+                {buttonText ? buttonText : "Publish"}
               </Button>
             )}
           </CardContent>
@@ -190,4 +190,4 @@ export class EquipmentForm extends Component {
   }
 }
 
-EquipmentForm.contextTypes = contextTypesUnsubscriber
+EquipmentForm.contextType = NavContext

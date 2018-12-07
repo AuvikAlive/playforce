@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ClientForm } from '../../../components/clientForm/ClientForm'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -32,4 +32,4 @@ export class AddClient extends Component {
   }
 }
 
-AddClient.contextTypes = contextTypesTitleLeftNav
+AddClient.contextType = NavContext

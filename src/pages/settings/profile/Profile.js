@@ -1,20 +1,21 @@
-import React, { Component } from 'react'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import CropIcon from '@material-ui/icons/Crop'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { Signature } from '../../../components/signature/Signature'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import React, { Component } from "react"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import TextField from "@material-ui/core/TextField"
+import Fab from "@material-ui/core/Fab"
+import Button from "@material-ui/core/Button"
+import CropIcon from "@material-ui/icons/Crop"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import { Signature } from "../../../components/signature/Signature"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
   onSingleCrop,
-} from '../../../functions/'
-import { StyledProfile } from './StyledProfile'
-import { state } from './state'
-import { onComponentDidMount, submit } from './functions/'
+} from "../../../functions/"
+import { StyledProfile } from "./StyledProfile"
+import { state } from "./state"
+import { onComponentDidMount, submit } from "./functions/"
 
 export class Profile extends Component {
   state = state
@@ -44,21 +45,20 @@ export class Profile extends Component {
 
           <CardContent className="card-content">
             {image && (
-              <Button
-                variant="fab"
+              <Fab
                 color="primary"
                 aria-label="crop image"
                 className="floating-icon"
                 onClick={onSingleCrop(this, 1)}
               >
                 <CropIcon />
-              </Button>
+              </Fab>
             )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={captureImage}
@@ -71,7 +71,7 @@ export class Profile extends Component {
               fullWidth
               label="Name"
               value={displayName}
-              onChange={onEventInputChange(this, 'displayName')}
+              onChange={onEventInputChange(this, "displayName")}
               margin="normal"
             />
 
@@ -79,7 +79,7 @@ export class Profile extends Component {
               fullWidth
               label="Title"
               value={title}
-              onChange={onEventInputChange(this, 'title')}
+              onChange={onEventInputChange(this, "title")}
               margin="normal"
             />
 
@@ -87,7 +87,7 @@ export class Profile extends Component {
               fullWidth
               label="Company"
               value={company}
-              onChange={onEventInputChange(this, 'company')}
+              onChange={onEventInputChange(this, "company")}
               margin="normal"
             />
 
@@ -95,7 +95,7 @@ export class Profile extends Component {
               fullWidth
               label="Mobile"
               value={mobile}
-              onChange={onEventInputChange(this, 'mobile')}
+              onChange={onEventInputChange(this, "mobile")}
               margin="normal"
             />
 
@@ -108,17 +108,16 @@ export class Profile extends Component {
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -133,4 +132,4 @@ export class Profile extends Component {
   }
 }
 
-Profile.contextTypes = contextTypesTitleLeftNav
+Profile.contextType = NavContext

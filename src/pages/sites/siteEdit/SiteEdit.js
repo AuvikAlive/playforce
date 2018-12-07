@@ -1,22 +1,23 @@
-import React, { Component } from 'react'
-import { contextTypesTitleLeftBottomNav } from '../../../constants/'
-import GeneralTab from '../generalTab'
-import { InspectionTabRoutes } from '../inspectionTabRoutes/InspectionTabRoutes'
-import { EquipmentTabRoutes } from '../equipmentTabRoutes/EquipmentTabRoutes'
-import { StyledSiteEdit } from './StyledSiteEdit'
+import React, { Component } from "react"
+import { NavContext } from "components/NavContextProvider/"
+import GeneralTab from "../generalTab"
+import { InspectionTabRoutes } from "../inspectionTabRoutes/InspectionTabRoutes"
+import { EquipmentTabRoutes } from "../equipmentTabRoutes/EquipmentTabRoutes"
+import { StyledSiteEdit } from "./StyledSiteEdit"
 import {
   onComponentDidMount,
   onComponentWillUnmount,
   setTabBar,
-} from './functions/'
+} from "./functions/"
 
 export class SiteEdit extends Component {
   componentDidMount() {
     onComponentDidMount(this)
   }
 
-  componentDidUpdate() {
-    setTabBar(this)
+  componentDidUpdate(prevProps) {
+    prevProps.match.params.tabstate !== this.props.match.params.tabstate &&
+      setTabBar(this)
   }
 
   componentWillUnmount() {
@@ -31,13 +32,13 @@ export class SiteEdit extends Component {
     return (
       <StyledSiteEdit className="StyledSiteEdit">
         <div className="tab-content">
-          {tabstate === 'general' && <GeneralTab id={tabId} />}
-          {tabstate === 'inspections' && <InspectionTabRoutes id={tabId} />}
-          {tabstate === 'equipments' && <EquipmentTabRoutes id={tabId} />}
+          {tabstate === "general" && <GeneralTab id={tabId} />}
+          {tabstate === "inspections" && <InspectionTabRoutes id={tabId} />}
+          {tabstate === "equipments" && <EquipmentTabRoutes id={tabId} />}
         </div>
       </StyledSiteEdit>
     )
   }
 }
 
-SiteEdit.contextTypes = contextTypesTitleLeftBottomNav
+SiteEdit.contextType = NavContext

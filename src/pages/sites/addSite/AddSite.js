@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { SiteFormContainer } from '../../../components/siteForm/SiteFormContainer'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -32,4 +32,4 @@ export class AddSite extends Component {
   }
 }
 
-AddSite.contextTypes = contextTypesTitleLeftNav
+AddSite.contextType = NavContext

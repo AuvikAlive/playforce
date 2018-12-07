@@ -1,10 +1,10 @@
-import React from 'react'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import DeleteIcon from '@material-ui/icons/Delete'
-import Typography from '@material-ui/core/Typography'
+import React from "react"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import DeleteIcon from "@material-ui/icons/Delete"
+import Typography from "@material-ui/core/Typography"
 
 export const OperatorList = ({ operators, deletePrompt }) => {
   return (
@@ -24,7 +24,7 @@ export const OperatorList = ({ operators, deletePrompt }) => {
         <ListItem>
           <ListItemText
             primary={
-              <Typography component="span" variant="title" align="center">
+              <Typography component="span" variant="h6" align="center">
                 Try adding an item to get started!
               </Typography>
             }

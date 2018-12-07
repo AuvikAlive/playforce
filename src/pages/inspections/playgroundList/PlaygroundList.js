@@ -8,7 +8,7 @@ import { Content } from '../../../components/content/Content'
 import { AddButton } from '../../../components/addButton/AddButton'
 import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
 import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -53,4 +53,4 @@ export class PlaygroundList extends Component {
   }
 }
 
-PlaygroundList.contextTypes = contextTypesTitleLeftNav
+PlaygroundList.contextType = NavContext

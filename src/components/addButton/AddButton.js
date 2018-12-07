@@ -1,35 +1,33 @@
-import React from 'react'
-import Button from '@material-ui/core/Button'
-import AddIcon from '@material-ui/icons/Add'
-import { StyledNavLink } from '../styledNavLink/StyledNavLink'
-import { StyledAddButton } from './StyledAddButton'
+import React from "react"
+import Fab from "@material-ui/core/Fab"
+import AddIcon from "@material-ui/icons/Add"
+import { StyledNavLink } from "../styledNavLink/StyledNavLink"
+import { StyledAddButton } from "./StyledAddButton"
 
 export const AddButton = ({ pulse, to, onClick }) => {
   return (
     <StyledAddButton className="StyledAddButton">
       {to && (
         <StyledNavLink to={to}>
-          <Button
-            variant="fab"
+          <Fab
             color="secondary"
             aria-label="add item"
-            className={pulse ? 'pulse' : ''}
+            className={pulse ? "pulse" : ""}
           >
             <AddIcon />
-          </Button>
+          </Fab>
         </StyledNavLink>
       )}
 
       {onClick && (
-        <Button
-          variant="fab"
+        <Fab
           color="secondary"
           aria-label="add item"
-          className={pulse ? 'pulse' : ''}
+          className={pulse ? "pulse" : ""}
           {...{ onClick }}
         >
           <AddIcon />
-        </Button>
+        </Fab>
       )}
     </StyledAddButton>
   )

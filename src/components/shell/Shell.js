@@ -1,120 +1,67 @@
-import React, { Component } from 'react'
-import { isLoaded } from 'react-redux-firebase'
-import Snackbar from '@material-ui/core/Snackbar'
-import registerServiceWorker from '../../myServiceWorker'
-import { showContentWhenLoaded } from '../../functions/'
-import NavBar from '../navBar'
-import SideMenu from '../sideMenu'
-import Routes from '../routes'
-import Footer from '../footer'
-import { StyledMainContent } from '../styledMainContent/StyledMainContent'
-import {
-  enableNavBarShadow,
-  disableNavBarShadow,
-  setNavTitle,
-  removeNavTitle,
-  setNavColor,
-  setComponent,
-  removeComponent,
-  setSearchOnTop,
-  setSearchOnBottom,
-  openSnackbar,
-  closeSnackbar,
-  addUnsubscriber,
-  clearSubscriptions,
-  promptUpdate,
-} from './functions/'
-import { state, childContextTypes } from './constants/'
-import { StyledShell } from './StyledShell'
+import React from "react"
+import { isLoaded } from "react-redux-firebase"
+import Snackbar from "@material-ui/core/Snackbar"
+import { NavContextConsumer } from "../NavContextProvider/"
+import NavBar from "../navBar"
+import SideMenu from "../sideMenu"
+import Routes from "../routes"
+import Footer from "../footer"
+import { StyledMainContent } from "../styledMainContent/StyledMainContent"
+import { StyledShell } from "./StyledShell"
 
-export class Shell extends Component {
-  state = state
+export const Shell = ({ auth, profile }) => {
+  const dataIsLoaded = isLoaded(auth) && isLoaded(profile)
 
-  getChildContext() {
-    return {
-      enableNavBarShadow: enableNavBarShadow(this),
-      disableNavBarShadow: disableNavBarShadow(this),
-      setNavColor: setNavColor(this),
-      setNavTitle: setNavTitle(this),
-      removeNavTitle: removeNavTitle(this),
-      setLeftNavComponent: setComponent(this, 'leftNavComponent'),
-      removeLefNavComponent: removeComponent(this, 'leftNavComponent'),
-      setRightNavComponent: setComponent(this, 'rightNavComponent'),
-      removeRightNavComponent: removeComponent(this, 'rightNavComponent'),
-      setBottomNavComponent: setComponent(this, 'bottomNavComponent'),
-      removeBottomNavComponent: removeComponent(this, 'bottomNavComponent'),
-      setSearchComponent: setComponent(this, 'searchComponent'),
-      removeSearchComponent: removeComponent(this, 'searchComponent'),
-      setSearchOnTop: setSearchOnTop(this),
-      setSearchOnBottom: setSearchOnBottom(this),
-      openSnackbar: openSnackbar(this),
-      closeSnackbar: closeSnackbar(this),
-      addUnsubscriber: addUnsubscriber(this),
-      clearSubscriptions: clearSubscriptions(this),
-    }
-  }
+  return (
+    <NavContextConsumer>
+      {({
+        navBarShadowEnabled,
+        navColor,
+        navTitle,
+        leftNavComponent,
+        rightNavComponent,
+        bottomNavComponent,
+        searchComponent,
+        searchOnTop,
+        snackbarOpen,
+        snackbarAutoHideDuration,
+        snackbarMessage,
+        snackbarAction,
+        closeSnackbar,
+      }) => (
+        <StyledShell className="StyledShell">
+          <NavBar
+            shadow={navBarShadowEnabled}
+            color={navColor}
+            title={navTitle}
+            leftComponent={leftNavComponent}
+            rightComponent={rightNavComponent}
+            bottomComponent={bottomNavComponent}
+            searchComponent={searchComponent}
+            searchOnTop={searchOnTop}
+          />
 
-  componentDidMount() {
-    registerServiceWorker(() => promptUpdate(this))
+          <SideMenu />
 
-    // promptUpdate(this)
-  }
+          <StyledMainContent className="StyledMainContent">
+            {dataIsLoaded && <Routes />}
+          </StyledMainContent>
 
-  render() {
-    const {
-      navBarShadowEnabled,
-      navColor,
-      navTitle,
-      leftNavComponent,
-      rightNavComponent,
-      bottomNavComponent,
-      searchComponent,
-      searchOnTop,
-      snackbarOpen,
-      snackbarAutoHideDuration,
-      snackbarMessage,
-      snackbarAction,
-    } = this.state
+          <Footer />
 
-    const { auth, profile } = this.props
-    const dataIsLoaded = isLoaded(auth) && isLoaded(profile)
-
-    return showContentWhenLoaded(
-      dataIsLoaded,
-      <StyledShell>
-        <NavBar
-          shadow={navBarShadowEnabled}
-          color={navColor}
-          title={navTitle}
-          leftComponent={leftNavComponent}
-          rightComponent={rightNavComponent}
-          bottomComponent={bottomNavComponent}
-          searchComponent={searchComponent}
-          searchOnTop={searchOnTop}
-        />
-
-        <SideMenu />
-
-        <StyledMainContent className="StyledMainContent">
-          <Routes />
-        </StyledMainContent>
-
-        <Footer />
-
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={snackbarOpen}
-          autoHideDuration={snackbarAutoHideDuration}
-          onClose={closeSnackbar(this)}
-          message={<span id="message-id">{snackbarMessage}</span>}
-          action={snackbarAction}
-        />
-      </StyledShell>
-    )
-  }
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            open={snackbarOpen}
+            autoHideDuration={snackbarAutoHideDuration}
+            onClose={closeSnackbar}
+            message={<span id="message-id">{snackbarMessage}</span>}
+            action={snackbarAction}
+          />
+        </StyledShell>
+      )}
+    </NavContextConsumer>
+  )
 }
-
-Shell.childContextTypes = childContextTypes

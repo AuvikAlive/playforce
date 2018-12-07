@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import TextField from '@material-ui/core/TextField'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
-import BrushIcon from '@material-ui/icons/Brush'
-import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { Carousel } from '../../../components/carousel/Carousel'
-import { Sketch } from '../../../components/sketch/Sketch'
-import { contextTypesUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import TextField from "@material-ui/core/TextField"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Fab from "@material-ui/core/Fab"
+import Button from "@material-ui/core/Button"
+import StayCurrentLandscapeIcon from "@material-ui/icons/StayCurrentLandscape"
+import BrushIcon from "@material-ui/icons/Brush"
+import { AutoComplete } from "../../../components/autoComplete/AutoComplete"
+import { Carousel } from "../../../components/carousel/Carousel"
+import { Sketch } from "../../../components/sketch/Sketch"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onEventInputChange,
   onValueInputChange,
@@ -17,14 +18,14 @@ import {
   getEquipmentSuggestions,
   getImagesCopy,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { StyledMaintenanceIssueForm } from './StyledMaintenanceIssueForm'
-import { state } from './state'
+} from "../../../functions/"
+import { StyledMaintenanceIssueForm } from "./StyledMaintenanceIssueForm"
+import { state } from "./state"
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
   submit,
-} from './functions/'
+} from "./functions/"
 
 export class MaintenanceIssueForm extends Component {
   state = state
@@ -56,16 +57,11 @@ export class MaintenanceIssueForm extends Component {
       equipmentsLoaded,
       <StyledMaintenanceIssueForm className="StyledMaintenanceIssueForm">
         <Card className="card">
-          {/* {images &&
-            images.length === 1 && (
-              <img src={images[0].image} alt="equipment type" />
-            )} */}
           {imagesLoaded && <Carousel images={images} showLightbox />}
 
           <CardContent className="card-content">
             {imagesLoaded && (
-              <Button
-                variant="fab"
+              <Fab
                 color="primary"
                 aria-label="edit compliance issue"
                 className="floating-icon"
@@ -81,12 +77,12 @@ export class MaintenanceIssueForm extends Component {
                 }
               >
                 <BrushIcon />
-              </Button>
+              </Fab>
             )}
 
             <Button
               fullWidth
-              variant="raised"
+              variant="contained"
               color="primary"
               className="submit-button"
               onClick={() =>
@@ -106,7 +102,7 @@ export class MaintenanceIssueForm extends Component {
               <AutoComplete
                 label="Equipment"
                 value={equipment}
-                onChange={onValueInputChange(this, 'equipment')}
+                onChange={onValueInputChange(this, "equipment")}
                 getSuggestions={getEquipmentSuggestions(this)}
               />
 
@@ -116,7 +112,7 @@ export class MaintenanceIssueForm extends Component {
                 label="Finding"
                 value={finding}
                 margin="normal"
-                onChange={onEventInputChange(this, 'finding')}
+                onChange={onEventInputChange(this, "finding")}
               />
 
               <TextField
@@ -125,28 +121,27 @@ export class MaintenanceIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={onEventInputChange(this, 'recommendations')}
+                onChange={onEventInputChange(this, "recommendations")}
               />
             </form>
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
               >
-                {buttonText ? buttonText : 'Publish'}
+                {buttonText ? buttonText : "Publish"}
               </Button>
             )}
           </CardContent>
@@ -156,4 +151,4 @@ export class MaintenanceIssueForm extends Component {
   }
 }
 
-MaintenanceIssueForm.contextTypes = contextTypesUnsubscriber
+MaintenanceIssueForm.contextType = NavContext

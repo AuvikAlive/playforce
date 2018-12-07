@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import { Content } from '../../../components/content/Content'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { contextTypesTitle } from '../../../constants/'
-import { onComponentDidMountWithTitle } from '../../../functions/'
+import React, { Component } from "react"
+import Paper from "@material-ui/core/Paper"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import { Content } from "../../../components/content/Content"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { NavContext } from "components/NavContextProvider/"
+import { onComponentDidMountWithTitle } from "../../../functions/"
 
 export class ToolList extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitle(this, 'Tools')
+    onComponentDidMountWithTitle(this, "Tools")
   }
 
   render() {
@@ -32,4 +32,4 @@ export class ToolList extends Component {
   }
 }
 
-ToolList.contextTypes = contextTypesTitle
+ToolList.contextType = NavContext

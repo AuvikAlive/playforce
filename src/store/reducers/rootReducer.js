@@ -1,34 +1,34 @@
-import { combineReducers } from 'redux'
-import { routerReducer } from 'react-router-redux'
-import { firebaseReducer } from 'react-redux-firebase'
-import { firestoreReducer } from 'redux-firestore'
-import { persistReducer } from 'redux-persist'
-import localForage from 'localforage'
-import { SET_USER_MODE, SIGN_OUT } from '../actions/actionTypes'
-import { databaseRootReducer } from './databaseRootReducer'
-import { sideMenuReducer } from './sideMenuReducer'
-import { searchBarReducer } from './searchBarReducer'
-import { inspectionReducer } from './inspectionReducer'
-import { inspectionListReducer } from './inspectionListReducer'
-import { siteReducer } from './siteReducer'
-import { standardReducer } from './standardReducer'
-import { clientReducer } from './clientReducer'
-import { manufacturerReducer } from './manufacturerReducer'
-import { operatorReducer } from './operatorReducer'
-import { commonIssueReducer } from './commonIssueReducer'
-import { reportNoteReducer } from './reportNoteReducer'
-import { equipmentReducer } from './equipmentReducer'
-import { groupReducer } from './groupReducer'
-import { inspectionTypeReducer } from './inspectionTypeReducer'
-import { projectReducer } from './projectReducer'
+import { combineReducers } from "redux"
+import { routerReducer } from "react-router-redux"
+import { firebaseReducer } from "react-redux-firebase"
+import { firestoreReducer } from "redux-firestore"
+import { persistReducer } from "redux-persist"
+import localForage from "localforage"
+import { SET_USER_MODE, SIGN_OUT } from "../actions/actionTypes"
+import { databaseRootReducer } from "./databaseRootReducer"
+import { sideMenuReducer } from "./sideMenuReducer"
+import { searchBarReducer } from "./searchBarReducer"
+import { inspectionReducer } from "./inspectionReducer"
+import { inspectionListReducer } from "./inspectionListReducer"
+import { siteReducer } from "./siteReducer"
+import { standardReducer } from "./standardReducer"
+import { clientReducer } from "./clientReducer"
+import { manufacturerReducer } from "./manufacturerReducer"
+import { operatorReducer } from "./operatorReducer"
+import { commonIssueReducer } from "./commonIssueReducer"
+import { reportNoteReducer } from "./reportNoteReducer"
+import { equipmentReducer } from "./equipmentReducer"
+import { groupReducer } from "./groupReducer"
+import { inspectionTypeReducer } from "./inspectionTypeReducer"
+import { projectReducer } from "./projectReducer"
 
 localForage.config({
-  name: 'Playforce Inspector App',
-  storeName: 'playforce',
+  name: "Playforce Inspector App",
+  storeName: "playforce",
 })
 
 const rootPersistConfig = {
-  key: 'root',
+  key: "root",
   storage: localForage,
   whitelist: [],
 }

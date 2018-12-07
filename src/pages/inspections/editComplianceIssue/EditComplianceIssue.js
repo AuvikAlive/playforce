@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
-import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
-import ComplianceIssueForm from '../complianceIssueForm/'
-import { submit, setNav } from './functions/'
+import React, { Component } from "react"
+import { NavContext } from "components/NavContextProvider/"
+import { onComponentWillUnmountWithTitleLeftRightNav } from "../../../functions/"
+import ComplianceIssueForm from "../complianceIssueForm/"
+import { submit, setNav } from "./functions/"
 
 export class EditComplianceIssue extends Component {
   componentWillUnmount() {
@@ -24,4 +24,4 @@ export class EditComplianceIssue extends Component {
   }
 }
 
-EditComplianceIssue.contextTypes = contextTypesTitleLeftRightNav
+EditComplianceIssue.contextType = NavContext

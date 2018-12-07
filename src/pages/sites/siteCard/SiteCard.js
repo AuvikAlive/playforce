@@ -1,16 +1,16 @@
-import React from 'react'
-import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/CardHeader'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import EditIcon from '@material-ui/icons/Edit'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Chip from '@material-ui/core/Chip'
-import { Map } from '../Map'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { StyledSiteCard } from './StyledSiteCard'
+import React from "react"
+import Card from "@material-ui/core/Card"
+import CardHeader from "@material-ui/core/CardHeader"
+import CardContent from "@material-ui/core/CardContent"
+import Fab from "@material-ui/core/Fab"
+import EditIcon from "@material-ui/icons/Edit"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import Chip from "@material-ui/core/Chip"
+import { Map } from "../Map"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { StyledSiteCard } from "./StyledSiteCard"
 
 export const SiteCard = ({
   site,
@@ -51,9 +51,9 @@ export const SiteCard = ({
         <Map lat={latitude} lng={longitude} />
         <CardContent className="card-content">
           <StyledNavLink to={`/sites/${id}/edit/general`} className="edit-icon">
-            <Button variant="fab" color="primary" aria-label="edit inspection">
+            <Fab color="primary" aria-label="edit inspection">
               <EditIcon />
-            </Button>
+            </Fab>
           </StyledNavLink>
           <List>
             <ListItem divider>
@@ -61,7 +61,7 @@ export const SiteCard = ({
                 primary="Address"
                 secondary={
                   <span
-                    className={`${curtailAddress ? 'curtailed-address' : ''}`}
+                    className={`${curtailAddress ? "curtailed-address" : ""}`}
                   >
                     {address}
                   </span>
@@ -71,12 +71,11 @@ export const SiteCard = ({
             <ListItem divider>
               <ListItemText primary="Operator" secondary={operator} />
             </ListItem>
-            {!!division &&
-              !hideDivision && (
-                <ListItem divider>
-                  <ListItemText primary="Division" secondary={division} />
-                </ListItem>
-              )}
+            {!!division && !hideDivision && (
+              <ListItem divider>
+                <ListItemText primary="Division" secondary={division} />
+              </ListItem>
+            )}
             {chips && (
               <ListItem>
                 <ListItemText primary="Inspection Types" secondary={chips} />

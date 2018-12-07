@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { isEmpty } from 'react-redux-firebase'
-import { contextTypesUnsubscriber } from '../../constants/'
-import { showContentWhenLoaded } from '../../functions/'
-import { publicRoutes } from './publicRoutes'
-import { privateRoutes } from './privateRoutes'
-import { onComponentDidMount } from './onComponentDidMount'
+import React, { Component } from "react"
+import { Route, Switch, Redirect } from "react-router-dom"
+import { isEmpty } from "react-redux-firebase"
+import { NavContext } from "components/NavContextProvider/"
+import { showContentWhenLoaded } from "../../functions/"
+import { publicRoutes } from "./publicRoutes"
+import { privateRoutes } from "./privateRoutes"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 export class Routes extends Component {
   componentDidMount() {
@@ -46,4 +46,4 @@ export class Routes extends Component {
   }
 }
 
-Routes.contextTypes = contextTypesUnsubscriber
+Routes.contextType = NavContext

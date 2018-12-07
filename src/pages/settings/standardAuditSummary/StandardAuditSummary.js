@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { AvailablePlaceholders } from '../../../components/availablePlaceholders/AvailablePlaceholders'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
@@ -56,7 +56,7 @@ export class StandardAuditSummary extends Component {
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -73,4 +73,4 @@ export class StandardAuditSummary extends Component {
   }
 }
 
-StandardAuditSummary.contextTypes = contextTypesTitleLeftNav
+StandardAuditSummary.contextType = NavContext

@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Button from '@material-ui/core/Button'
-import { onEventInputChange } from '../../functions/'
-import { StyledResetPassword } from './StyledResetPassword'
-import { contextTypes } from './contextTypes'
+import React, { Component } from "react"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Typography from "@material-ui/core/Typography"
+import TextField from "@material-ui/core/TextField"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Button from "@material-ui/core/Button"
+import { NavContext } from "components/NavContextProvider/"
+import { onEventInputChange } from "../../functions/"
+import { StyledResetPassword } from "./StyledResetPassword"
 import {
   onComponentDidMount,
   onComponentWillUnmount,
   submit,
-} from './functions/'
+} from "./functions/"
 
 export class ResetPassword extends Component {
   state = {
-    email: '',
-    success: '',
+    email: "",
+    success: "",
   }
 
   componentDidMount() {
@@ -27,8 +27,6 @@ export class ResetPassword extends Component {
   componentWillUnmount() {
     onComponentWillUnmount(this)
   }
-
-   
 
   render() {
     const { success } = this.state
@@ -48,24 +46,23 @@ export class ResetPassword extends Component {
               type="email"
               margin="normal"
               fullWidth
-              onChange={onEventInputChange(this,'email')}
+              onChange={onEventInputChange(this, "email")}
             />
 
             {error && <p className="error">{error}</p>}
 
             {success && <p className="success">{success}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -80,4 +77,4 @@ export class ResetPassword extends Component {
   }
 }
 
-ResetPassword.contextTypes = contextTypes
+ResetPassword.contextType = NavContext

@@ -1,19 +1,17 @@
-import React, { Component } from 'react'
-import { groupBy } from 'lodash'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { Content } from '../../../components/content/Content'
-import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
-import {
-  contextTypesTitleLeftBottomNav,
-  equipmentTypes,
-} from '../../../constants/'
+import React, { Component } from "react"
+import { groupBy } from "lodash"
+import { NavContext } from "components/NavContextProvider/"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { Content } from "../../../components/content/Content"
+import { EmptyListPlaceholder } from "../../../components/emptyListPlacehoder/EmptyListPlaceholder"
+import { equipmentTypes } from "../../../constants/"
 
 import {
   onComponentDidMount,
   onComponentWillUnmount,
   setTabBar,
-} from './functions/'
-import { ListView } from './ListView'
+} from "./functions/"
+import { ListView } from "./ListView"
 
 export class ConditionRatingList extends Component {
   state = {
@@ -24,8 +22,8 @@ export class ConditionRatingList extends Component {
     onComponentDidMount(this)
   }
 
-  componentDidUpdate() {
-    setTabBar(this)
+  componentDidUpdate(prevProps, prevState) {
+    prevState.value !== this.state.value && setTabBar(this)
   }
 
   componentWillUnmount() {
@@ -40,7 +38,7 @@ export class ConditionRatingList extends Component {
       !!conditionRatings && conditionRatings.length > 0
 
     const groupedConditionRatings =
-      conditionRatingsAdded && groupBy(conditionRatings, 'itemType')
+      conditionRatingsAdded && groupBy(conditionRatings, "itemType")
 
     return (
       <div>
@@ -58,4 +56,4 @@ export class ConditionRatingList extends Component {
   }
 }
 
-ConditionRatingList.contextTypes = contextTypesTitleLeftBottomNav
+ConditionRatingList.contextType = NavContext

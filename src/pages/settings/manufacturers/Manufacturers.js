@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import Card from '@material-ui/core/Card'
-import { ManufacturerList } from '../../../components/manufacturerList/ManufacturerList'
-import { ManufacturerFormContainer } from '../../../components/manufacturerForm/ManufacturerFormContainer'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import Card from "@material-ui/core/Card"
+import { ManufacturerList } from "../../../components/manufacturerList/ManufacturerList"
+import { ManufacturerFormContainer } from "../../../components/manufacturerForm/ManufacturerFormContainer"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { StyledManufacturers } from './StyledManufacturers'
-import { onComponentDidMount, deleteManufacturer } from './functions/'
+} from "../../../functions/"
+import { StyledManufacturers } from "./StyledManufacturers"
+import { onComponentDidMount, deleteManufacturer } from "./functions/"
 
 export class Manufacturers extends Component {
   componentDidMount() {
@@ -38,4 +38,4 @@ export class Manufacturers extends Component {
   }
 }
 
-Manufacturers.contextTypes = contextTypesTitleLeftNavUnsubscriber
+Manufacturers.contextType = NavContext

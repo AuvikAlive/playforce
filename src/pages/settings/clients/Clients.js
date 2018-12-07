@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { ClientList } from '../../../components/clientList/ClientList'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import { ClientList } from "../../../components/clientList/ClientList"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { StyledClients } from './StyledClients'
-import { onComponentDidMount } from './onComponentDidMount'
+} from "../../../functions/"
+import { StyledClients } from "./StyledClients"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 export class Clients extends Component {
   componentDidMount() {
@@ -32,4 +32,4 @@ export class Clients extends Component {
   }
 }
 
-Clients.contextTypes = contextTypesTitleLeftNavUnsubscriber
+Clients.contextType = NavContext

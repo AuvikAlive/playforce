@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { getDisplayName } from '../../functions/getDisplayName'
-import { StyledFeedback } from './StyledFeedback'
-import { state, contextTypes } from './constants/'
-import { setFeedback } from './setFeedback'
+import React, { Component } from "react"
+import { NavContext } from "components/NavContextProvider/"
+import { getDisplayName } from "../../functions/"
+import { StyledFeedback } from "./StyledFeedback"
+import { state } from "./constants/"
+import { setFeedback } from "./setFeedback"
 
 export const withFeedback = WrappedComponent => {
   class WithFeedback extends Component {
@@ -24,7 +25,7 @@ export const withFeedback = WrappedComponent => {
     }
   }
 
-  WithFeedback.contextTypes = contextTypes
+  WithFeedback.contextType = NavContext
   WithFeedback.displayName = `WithFeedback(${getDisplayName(WrappedComponent)})`
 
   return WithFeedback

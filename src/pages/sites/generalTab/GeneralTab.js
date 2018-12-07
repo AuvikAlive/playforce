@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { SiteFormContainer } from '../../../components/siteForm/SiteFormContainer'
-import { contextTypesTitle } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
-import { state } from './state'
-import { onComponentDidMount, submit } from './functions/'
+import React, { Component } from "react"
+import { SiteFormContainer } from "../../../components/siteForm/SiteFormContainer"
+import { NavContext } from "components/NavContextProvider/"
+import { showContentWhenLoaded } from "../../../functions/"
+import { state } from "./state"
+import { onComponentDidMount, submit } from "./functions/"
 
 export class GeneralTab extends Component {
   state = state
@@ -26,4 +26,4 @@ export class GeneralTab extends Component {
   }
 }
 
-GeneralTab.contextTypes = contextTypesTitle
+GeneralTab.contextType = NavContext

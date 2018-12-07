@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import Typography from '@material-ui/core/Typography'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import { closeMenu } from '../../../functions/'
-import { contextTypes } from './contextTypes'
+import React, { Component } from "react"
+import Typography from "@material-ui/core/Typography"
+import Menu from "@material-ui/core/Menu"
+import MenuItem from "@material-ui/core/MenuItem"
+import Paper from "@material-ui/core/Paper"
+import Grid from "@material-ui/core/Grid"
+import { closeMenu } from "../../../functions/"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMount,
   onComponentWillUnmount,
   addInspections,
   removeInspections,
-} from './functions/'
-import { StyledDashboard } from './StyledDashboard'
+} from "./functions/"
+import { StyledDashboard } from "./StyledDashboard"
 
 export class Dashboard extends Component {
   state = {
@@ -32,7 +32,7 @@ export class Dashboard extends Component {
 
     return (
       <StyledDashboard className="StyledDashboard">
-        <Typography variant="display1" align="center" className="title">
+        <Typography variant="h4" align="center" className="title">
           Dashboard
         </Typography>
         <Grid container spacing={24}>
@@ -66,4 +66,4 @@ export class Dashboard extends Component {
   }
 }
 
-Dashboard.contextTypes = contextTypes
+Dashboard.contextType = NavContext

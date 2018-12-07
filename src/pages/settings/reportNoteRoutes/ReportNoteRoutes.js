@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../components/loadable/LoadableLinear'
-import { contextTypesUnsubscriber } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
-import { ReportNotesList } from '../reportNotesList/ReportNotesList'
-import { onComponentDidMount } from './onComponentDidMount'
+import React, { Component } from "react"
+import { Route, Switch } from "react-router-dom"
+import Loadable from "../../../components/loadable/LoadableLinear"
+import { NavContext } from "components/NavContextProvider/"
+import { showContentWhenLoaded } from "../../../functions/"
+import { ReportNotesList } from "../reportNotesList/ReportNotesList"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 const AddReportNote = Loadable({
-  loader: () => import('../addReportNote'),
+  loader: () => import("../addReportNote"),
 })
 
 const EditReportNote = Loadable({
-  loader: () => import('../editReportNote'),
+  loader: () => import("../editReportNote"),
 })
 
 AddReportNote.preload()
@@ -43,4 +43,4 @@ export class ReportNoteRoutes extends Component {
   }
 }
 
-ReportNoteRoutes.contextTypes = contextTypesUnsubscriber
+ReportNoteRoutes.contextType = NavContext

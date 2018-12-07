@@ -21,7 +21,7 @@ export const PublicLinks = () => (
 
     <StyledNavLink to={{ pathname: '/signUp', state: { name: 'Sign Up' } }}>
       <ListItem button className="list-item">
-        <Button variant="raised" color="primary" fullWidth>
+        <Button variant="contained" color="primary" fullWidth>
           Try For Free
         </Button>
       </ListItem>

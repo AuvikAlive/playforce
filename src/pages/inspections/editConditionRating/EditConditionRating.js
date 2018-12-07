@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
+import React, { Component } from "react"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftRightNavDelete,
   onComponentWillUnmountWithTitleLeftRightNav,
-} from '../../../functions/'
-import ConditionRatingForm from '../conditionRatingForm/'
-import { deleteConditionRating, submit } from './functions/'
+} from "../../../functions/"
+import ConditionRatingForm from "../conditionRatingForm/"
+import { deleteConditionRating, submit } from "./functions/"
 
 export class EditConditionRating extends Component {
   componentDidMount() {
     onComponentDidMountWithTitleLeftRightNavDelete(
       this,
-      'Edit Rating',
+      "Edit Rating",
       deleteConditionRating
     )
   }
@@ -33,4 +33,4 @@ export class EditConditionRating extends Component {
   }
 }
 
-EditConditionRating.contextTypes = contextTypesTitleLeftRightNav
+EditConditionRating.contextType = NavContext

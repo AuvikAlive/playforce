@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import { contextTypesUnsubscriber } from '../../constants/'
-import NavBar from '../navBar/'
-import { StyledMainContent } from '../styledMainContent/StyledMainContent'
-import { ClientForm } from '../clientForm/ClientForm'
-import { submit, afterSubmit } from './functions/'
+import React, { Component } from "react"
+import IconButton from "@material-ui/core/IconButton"
+import ArrowBackIcon from "@material-ui/icons/ArrowBack"
+import { NavContext } from "components/NavContextProvider/"
+import NavBar from "../navBar/"
+import { StyledMainContent } from "../styledMainContent/StyledMainContent"
+import { ClientForm } from "../clientForm/ClientForm"
+import { submit, afterSubmit } from "./functions/"
 
 export class ClientsDialog extends Component {
   render() {
@@ -33,4 +33,4 @@ export class ClientsDialog extends Component {
   }
 }
 
-ClientsDialog.contextTypes = contextTypesUnsubscriber
+ClientsDialog.contextType = NavContext

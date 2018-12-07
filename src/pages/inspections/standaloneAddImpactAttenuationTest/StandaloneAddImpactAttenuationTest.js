@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -26,4 +26,4 @@ export class StandaloneAddImpactAttenuationTest extends Component {
   }
 }
 
-StandaloneAddImpactAttenuationTest.contextTypes = contextTypesTitleLeftNav
+StandaloneAddImpactAttenuationTest.contextType = NavContext

@@ -39,7 +39,7 @@ export class ManufacturerForm extends Component {
         {!loading && (
           <Button
             fullWidth
-            variant="raised"
+            variant="contained"
             color="primary"
             className="submit-button"
             onClick={submit(this)}

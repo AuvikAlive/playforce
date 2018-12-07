@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import TextField from '@material-ui/core/TextField'
-import MenuItem from '@material-ui/core/MenuItem'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import AddBoxIcon from '@material-ui/icons/AddBox'
-import CropIcon from '@material-ui/icons/Crop'
-import IconButton from '@material-ui/core/IconButton'
-import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
-import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
+import React, { Component } from "react"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import TextField from "@material-ui/core/TextField"
+import MenuItem from "@material-ui/core/MenuItem"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Button from "@material-ui/core/Button"
+import AddBoxIcon from "@material-ui/icons/AddBox"
+import CropIcon from "@material-ui/icons/Crop"
+import IconButton from "@material-ui/core/IconButton"
+import StayCurrentLandscapeIcon from "@material-ui/icons/StayCurrentLandscape"
+import { NavContext } from "components/NavContextProvider/"
+import { AutoComplete } from "../../../components/autoComplete/AutoComplete"
+import { ImageLightbox } from "../../../components/imageLightbox/ImageLightbox"
 import {
-  contextTypesUnsubscriber,
   equipmentConditions,
   equipmentState,
   equipmentTypes,
-} from '../../../constants/'
-import { ManufacturersDialogContainer } from '../../../components/manufacturersDialog/ManufacturersDialogContainer'
+} from "../../../constants/"
+import { ManufacturersDialogContainer } from "../../../components/manufacturersDialog/ManufacturersDialogContainer"
 import {
   onComponentWillReceivePropsLoadDataWithLandscapeImage,
   onEventInputChange,
@@ -26,9 +26,9 @@ import {
   getSuggestionsByName,
   showContentWhenLoaded,
   onSingleCrop,
-} from '../../../functions/'
-import { onComponentDidMount, onEquipmentSelect, submit } from './functions'
-import { StyledConditionRatingForm } from './StyledConditionRatingForm'
+} from "../../../functions/"
+import { onComponentDidMount, onEquipmentSelect, submit } from "./functions"
+import { StyledConditionRatingForm } from "./StyledConditionRatingForm"
 
 export class ConditionRatingForm extends Component {
   state = {
@@ -94,7 +94,7 @@ export class ConditionRatingForm extends Component {
 
             <Button
               fullWidth
-              variant="raised"
+              variant="contained"
               color="primary"
               className="submit-button"
               onClick={() => {
@@ -109,7 +109,7 @@ export class ConditionRatingForm extends Component {
               <AutoComplete
                 label="Equipment"
                 value={equipment}
-                onChange={onValueInputChange(this, 'equipment')}
+                onChange={onValueInputChange(this, "equipment")}
                 onSuggestionSelect={onEquipmentSelect(this)}
                 getSuggestions={getEquipmentSuggestions(this)}
               />
@@ -119,7 +119,7 @@ export class ConditionRatingForm extends Component {
                 select
                 label="Item Type"
                 value={itemType}
-                onChange={onEventInputChange(this, 'itemType')}
+                onChange={onEventInputChange(this, "itemType")}
                 margin="normal"
               >
                 {equipmentTypes.map((type, index) => {
@@ -137,7 +137,7 @@ export class ConditionRatingForm extends Component {
                   label="Asset Id"
                   value={assetId}
                   margin="normal"
-                  onChange={onEventInputChange(this, 'assetId')}
+                  onChange={onEventInputChange(this, "assetId")}
                 />
               )}
 
@@ -146,7 +146,7 @@ export class ConditionRatingForm extends Component {
                   <AutoComplete
                     label="Manufacturer"
                     value={manufacturer}
-                    onChange={onValueInputChange(this, 'manufacturer')}
+                    onChange={onValueInputChange(this, "manufacturer")}
                     getSuggestions={getSuggestionsByName(manufacturers)}
                   />
                   <IconButton
@@ -168,7 +168,7 @@ export class ConditionRatingForm extends Component {
                   fullWidth
                   label="Estimated Date Installed"
                   value={estimatedDateInstalled}
-                  onChange={onEventInputChange(this, 'estimatedDateInstalled')}
+                  onChange={onEventInputChange(this, "estimatedDateInstalled")}
                   margin="normal"
                 />
               )}
@@ -178,7 +178,7 @@ export class ConditionRatingForm extends Component {
                 select
                 label="Condition"
                 value={condition}
-                onChange={onEventInputChange(this, 'condition')}
+                onChange={onEventInputChange(this, "condition")}
                 margin="normal"
               >
                 {equipmentConditions.map(item => (
@@ -191,22 +191,21 @@ export class ConditionRatingForm extends Component {
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
               >
-                {buttonText ? buttonText : 'Publish'}
+                {buttonText ? buttonText : "Publish"}
               </Button>
             )}
           </CardContent>
@@ -216,4 +215,4 @@ export class ConditionRatingForm extends Component {
   }
 }
 
-ConditionRatingForm.contextTypes = contextTypesUnsubscriber
+ConditionRatingForm.contextType = NavContext

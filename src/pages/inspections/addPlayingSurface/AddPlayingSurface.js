@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -28,4 +28,4 @@ export class AddPlayingSurface extends Component {
   }
 }
 
-AddPlayingSurface.contextTypes = contextTypesTitleLeftNav
+AddPlayingSurface.contextType = NavContext

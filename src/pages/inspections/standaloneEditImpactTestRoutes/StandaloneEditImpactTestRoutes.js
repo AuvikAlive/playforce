@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { contextTypesUnsubscriber } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
+import React, { Component } from "react"
+import { Route, Switch } from "react-router-dom"
+import { withFeedback } from "../../../hocs/withFeedback/withFeedback"
+import { NavContext } from "components/NavContextProvider/"
+import { showContentWhenLoaded } from "../../../functions/"
 import {
   renderAddImpactSurface,
   renderImpactTestDetailRoutes,
-} from '../impactTestRoutes/functions/'
+} from "../impactTestRoutes/functions/"
 import {
   onComponentDidMount,
   renderImpactTestItems,
   renderEditImpactGeneralInfo,
-} from './functions/'
+} from "./functions/"
 
 class BaseStandaloneEditImpactTestRoutes extends Component {
   componentDidMount() {
@@ -49,7 +49,7 @@ class BaseStandaloneEditImpactTestRoutes extends Component {
   }
 }
 
-BaseStandaloneEditImpactTestRoutes.contextTypes = contextTypesUnsubscriber
+BaseStandaloneEditImpactTestRoutes.contextType = NavContext
 
 export const StandaloneEditImpactTestRoutes = withFeedback(
   BaseStandaloneEditImpactTestRoutes

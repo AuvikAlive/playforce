@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CertificateTextForm } from '../../../components/certificateTextForm/CertificateTextForm'
 import { Content } from '../../../components/content/Content'
 import { AvailablePlaceholders } from '../../../components/availablePlaceholders/AvailablePlaceholders'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -38,4 +38,4 @@ export class DefaultCertificateText extends Component {
   }
 }
 
-DefaultCertificateText.contextTypes = contextTypesTitleLeftNav
+DefaultCertificateText.contextType = NavContext

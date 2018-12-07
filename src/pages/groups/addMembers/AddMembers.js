@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import { differenceWith } from 'lodash'
-import { SelectableList } from '../../../components/selectableList/SelectableList'
-import { showContentWhenLoaded } from '../../../functions/showContentWhenLoaded'
-import { UserListView } from '../UserListView'
-import { setSelectedItems } from '../../../functions/setSelectedItems'
-import { contextTypes } from './contextTypes'
+import React, { Component } from "react"
+import { differenceWith } from "lodash"
+import { SelectableList } from "../../../components/selectableList/SelectableList"
+import { showContentWhenLoaded } from "../../../functions/showContentWhenLoaded"
+import { UserListView } from "../UserListView"
+import { setSelectedItems } from "../../../functions/setSelectedItems"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMount,
   onComponentWillUnmount,
   setSelectMode,
-} from './functions/'
-import { StyledAddMembers } from './StyledAddMembers'
+} from "./functions/"
+import { StyledAddMembers } from "./StyledAddMembers"
 
-const title = 'Add Members'
+const title = "Add Members"
 
 export class AddMembers extends Component {
   state = {
@@ -50,4 +50,4 @@ export class AddMembers extends Component {
   }
 }
 
-AddMembers.contextTypes = contextTypes
+AddMembers.contextType = NavContext

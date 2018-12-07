@@ -1,34 +1,37 @@
-import React from 'react'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import { individualUserMode } from '../../../constants/'
-import { getInitials, getUserMode } from '../../../functions/'
-import { StyledUserView } from './StyledUserView'
+import React from "react"
+import Avatar from "@material-ui/core/Avatar"
+import Typography from "@material-ui/core/Typography"
+import { individualUserMode } from "../../../constants/"
+import { getInitials, getUserMode } from "../../../functions/"
+import { StyledUserView } from "./StyledUserView"
 
 export const UserView = ({ profile }) => {
-  const { displayName, email, userMode } = profile
+  if (profile) {
+    const { displayName, email, userMode } = profile
 
-  return (
-    <StyledUserView>
-      <div className="content">
-        <Avatar alt="User Name" className="avatar avatar-letters">
-          {getInitials(displayName)}
-        </Avatar>
+    return (
+      <StyledUserView className="StyledUserView">
+        <div className="content">
+          <Avatar alt="User Name" className="avatar avatar-letters">
+            {getInitials(displayName)}
+          </Avatar>
 
-        <Typography variant="title">{displayName}</Typography>
-        <Typography variant="subheading">{email}</Typography>
+          <Typography variant="h6">{displayName}</Typography>
+          <Typography variant="subtitle1">{email}</Typography>
 
-        {(userMode === individualUserMode || !userMode) && (
-          <Typography variant="caption">{getUserMode(userMode)}</Typography>
-        )}
+          {(userMode === individualUserMode || !userMode) && (
+            <Typography variant="caption">{getUserMode(userMode)}</Typography>
+          )}
 
-        {userMode &&
-          userMode !== individualUserMode && (
+          {userMode && userMode !== individualUserMode && (
             <Typography variant="caption">{`Group member: ${userMode}`}</Typography>
           )}
-      </div>
+        </div>
 
-      <div className="background" />
-    </StyledUserView>
-  )
+        <div className="background" />
+      </StyledUserView>
+    )
+  }
+
+  return null
 }

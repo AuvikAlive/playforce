@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
-import ModeEditIcon from '@material-ui/icons/Edit'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListSubheader from '@material-ui/core/ListSubheader'
-import { map } from 'lodash'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import ModeEditIcon from "@material-ui/icons/Edit"
+import Paper from "@material-ui/core/Paper"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import ListSubheader from "@material-ui/core/ListSubheader"
+import { map } from "lodash"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { EmptyListPlaceholder } from "../../../components/emptyListPlacehoder/EmptyListPlaceholder"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   groupCommonIssues,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { StyledCommonIssuesList } from './StyledCommonIssuesList'
-import { onComponentDidMount } from './onComponentDidMount'
+} from "../../../functions/"
+import { StyledCommonIssuesList } from "./StyledCommonIssuesList"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 export class CommonIssuesList extends Component {
   componentDidMount() {
@@ -76,4 +76,4 @@ export class CommonIssuesList extends Component {
   }
 }
 
-CommonIssuesList.contextTypes = contextTypesTitleLeftNavUnsubscriber
+CommonIssuesList.contextType = NavContext

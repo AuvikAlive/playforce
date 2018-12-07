@@ -1,28 +1,28 @@
-import React, { Component } from 'react'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { contextTypesTitle } from '../../constants/'
+import React, { Component } from "react"
+import TextField from "@material-ui/core/TextField"
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
+import Checkbox from "@material-ui/core/Checkbox"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import { NavContext } from "components/NavContextProvider/"
+import { StyledLink } from "../../components/styledLink/StyledLink"
 import {
   onComponentDidMountWithTitle,
   onComponentWillUnmountWithTitle,
   onEventInputChange,
-} from '../../functions/'
-import { StyledLink } from '../../components/styledLink/StyledLink'
-import { StyledSignIn } from './StyledSignIn'
-import { GoogleIcon } from './GoogleIcon'
+} from "../../functions/"
+import { StyledSignIn } from "./StyledSignIn"
+import { GoogleIcon } from "./GoogleIcon"
 // import { FacebookIcon } from './FacebookIcon'
-import { onCheckboxChange, signIn, signInWithProvider } from './functions/'
-import { state } from './state'
+import { onCheckboxChange, signIn, signInWithProvider } from "./functions/"
+import { state } from "./state"
 
 export class SignIn extends Component {
   state = state
 
   componentDidMount() {
-    onComponentDidMountWithTitle(this, 'Sign In')
+    onComponentDidMountWithTitle(this, "Sign In")
   }
 
   componentWillUnmount() {
@@ -36,7 +36,7 @@ export class SignIn extends Component {
     return (
       <StyledSignIn className="StyledSignIn">
         <form noValidate autoComplete="off">
-          <Typography variant="display1" align="center">
+          <Typography variant="h4" align="center">
             Sign In
           </Typography>
           <TextField
@@ -45,7 +45,7 @@ export class SignIn extends Component {
             type="email"
             margin="normal"
             fullWidth
-            onChange={onEventInputChange(this, 'email')}
+            onChange={onEventInputChange(this, "email")}
           />
 
           <TextField
@@ -54,7 +54,7 @@ export class SignIn extends Component {
             type="password"
             margin="normal"
             fullWidth
-            onChange={onEventInputChange(this, 'password')}
+            onChange={onEventInputChange(this, "password")}
           />
 
           <FormControlLabel
@@ -71,28 +71,31 @@ export class SignIn extends Component {
 
           {error && <p className="error">{error}</p>}
 
-          {!error &&
-            loading && (
-              <div className="loading">
-                <CircularProgress />
-              </div>
-            )}
+          {!error && loading && (
+            <div className="loading">
+              <CircularProgress />
+            </div>
+          )}
 
           {!loading && (
             <div>
-              <Button variant="raised" color="primary" onClick={signIn(this)}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={signIn(this)}
+              >
                 Sign In
               </Button>
               <Button
-                variant="raised"
+                variant="contained"
                 className="social-button"
-                onClick={signInWithProvider(this, 'google')}
+                onClick={signInWithProvider(this, "google")}
               >
                 <GoogleIcon />
                 With Google
               </Button>
 
-              {/* <Button variant="raised" className="social-button">
+              {/* <Button variant="contained" className="social-button">
                 <FacebookIcon />
                 With Facebook
               </Button> */}
@@ -104,7 +107,7 @@ export class SignIn extends Component {
           </p>
 
           <p>
-            Don't have an account?{' '}
+            Don't have an account?{" "}
             <StyledLink to="/SignUp">Sign up for free!</StyledLink>
           </p>
         </form>
@@ -113,4 +116,4 @@ export class SignIn extends Component {
   }
 }
 
-SignIn.contextTypes = contextTypesTitle
+SignIn.contextType = NavContext

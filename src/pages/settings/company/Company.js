@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Button from '@material-ui/core/Button'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
@@ -85,7 +85,7 @@ export class Company extends Component {
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -100,4 +100,4 @@ export class Company extends Component {
   }
 }
 
-Company.contextTypes = contextTypesTitleLeftNav
+Company.contextType = NavContext

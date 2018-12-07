@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import ModeEditIcon from '@material-ui/icons/Edit'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import CardContent from '@material-ui/core/CardContent'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import React, { Component } from "react"
+import Fab from "@material-ui/core/Fab"
+import ModeEditIcon from "@material-ui/icons/Edit"
+import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
+import CardContent from "@material-ui/core/CardContent"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { EmptyListPlaceholder } from "../../../components/emptyListPlacehoder/EmptyListPlaceholder"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-} from '../../../functions/'
-import { StyledMaintenanceIssuesList } from './StyledMaintenanceIssuesList'
+} from "../../../functions/"
+import { StyledMaintenanceIssuesList } from "./StyledMaintenanceIssuesList"
 
 export class MaintenanceIssuesList extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Maintenance Issues')
+    onComponentDidMountWithTitleLeftNav(this, "Maintenance Issues")
   }
 
   componentWillUnmount() {
@@ -39,34 +39,27 @@ export class MaintenanceIssuesList extends Component {
               ({ id, images, finding, equipment }, index) => {
                 return (
                   <Grid item key={id} xs={12}>
-                    {images &&
-                      images.length > 0 && (
-                        <img
-                          src={images[0].image}
-                          className="card-media"
-                          alt="maintenance issue"
-                        />
-                      )}
+                    {images && images.length > 0 && (
+                      <img
+                        src={images[0].image}
+                        className="card-media"
+                        alt="maintenance issue"
+                      />
+                    )}
                     <CardContent className="card-content">
                       <StyledNavLink
                         to={`${match.url}/edit/${id}`}
                         className="floating-icon"
                       >
-                        <Button
-                          variant="fab"
-                          color="primary"
-                          aria-label="edit compliance issue"
-                        >
+                        <Fab color="primary" aria-label="edit compliance issue">
                           <ModeEditIcon />
-                        </Button>
+                        </Fab>
                       </StyledNavLink>
-                      <Typography variant="title">
-                        Issue #: {index + 1}
-                      </Typography>
-                      <Typography variant="subheading">
+                      <Typography variant="h6">Issue #: {index + 1}</Typography>
+                      <Typography variant="subtitle1">
                         Finding: {finding}
                       </Typography>
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Equipment: {equipment}
                       </Typography>
                     </CardContent>
@@ -83,4 +76,4 @@ export class MaintenanceIssuesList extends Component {
   }
 }
 
-MaintenanceIssuesList.contextTypes = contextTypesTitleLeftNav
+MaintenanceIssuesList.contextType = NavContext

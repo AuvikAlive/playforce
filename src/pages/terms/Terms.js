@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
-import { Content } from '../../components/content/Content'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import Typography from "@material-ui/core/Typography"
+import { Content } from "../../components/content/Content"
 
 class Terms extends Component {
   componentDidMount() {
     const { setNavTitle } = this.context
 
-    setNavTitle('Terms')
+    setNavTitle("Terms")
   }
 
   componentWillUnmount() {
@@ -18,8 +18,8 @@ class Terms extends Component {
   render() {
     return (
       <Content>
-        <Typography variant="display1">Terms of Service</Typography>
-        <Typography variant="subheading">Subheading</Typography>
+        <Typography variant="h4">Terms of Service</Typography>
+        <Typography variant="subtitle1">Subheading</Typography>
       </Content>
     )
   }

@@ -1,49 +1,49 @@
-import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
-import Loadable from '../../../components/loadable/LoadableLinear'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
-import { showContentWhenLoaded } from '../../../functions/'
-import EditInspection from '../editInspection/'
-import { onComponentDidMount } from './onComponentDidMount'
+import React, { Component } from "react"
+import { Route, Switch } from "react-router-dom"
+import Loadable from "../../../components/loadable/LoadableLinear"
+import { NavContext } from "components/NavContextProvider/"
+import { showContentWhenLoaded } from "../../../functions/"
+import EditInspection from "../editInspection/"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 const EditCover = Loadable({
-  loader: () => import('../editCover'),
+  loader: () => import("../editCover"),
 })
 
 const AuditSummary = Loadable({
-  loader: () => import('../auditSummary'),
+  loader: () => import("../auditSummary"),
 })
 
 const ConditionRatingRoutes = Loadable({
-  loader: () => import('../conditionRatingRoutes'),
+  loader: () => import("../conditionRatingRoutes"),
 })
 
 const ComplianceIssueRoutes = Loadable({
-  loader: () => import('../complianceIssueRoutes'),
+  loader: () => import("../complianceIssueRoutes"),
 })
 
 const MaintenanceIssueRoutes = Loadable({
-  loader: () => import('../maintenanceIssueRoutes'),
+  loader: () => import("../maintenanceIssueRoutes"),
 })
 
 const ImpactTestRoutes = Loadable({
-  loader: () => import('../impactTestRoutes'),
+  loader: () => import("../impactTestRoutes"),
 })
 
 const CustomCertificateText = Loadable({
-  loader: () => import('../customCertificateText'),
+  loader: () => import("../customCertificateText"),
 })
 
 const Notes = Loadable({
-  loader: () => import('../notes'),
+  loader: () => import("../notes"),
 })
 
 const PlayingSurfaceRoutes = Loadable({
-  loader: () => import('../playingSurfaceRoutes'),
+  loader: () => import("../playingSurfaceRoutes"),
 })
 
 const PlaygroundRoutes = Loadable({
-  loader: () => import('../playgroundRoutes'),
+  loader: () => import("../playgroundRoutes"),
 })
 
 // EditCover.preload()
@@ -120,4 +120,4 @@ export class EditInspectionRoutes extends Component {
   }
 }
 
-EditInspectionRoutes.contextTypes = contextTypesTitleLeftNavUnsubscriber
+EditInspectionRoutes.contextType = NavContext

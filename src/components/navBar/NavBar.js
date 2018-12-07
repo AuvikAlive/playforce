@@ -1,10 +1,10 @@
-import React from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import { StyledNavBar } from './StyledNavBar'
+import React from "react"
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import Typography from "@material-ui/core/Typography"
+import IconButton from "@material-ui/core/IconButton"
+import MenuIcon from "@material-ui/icons/Menu"
+import { StyledNavBar } from "./StyledNavBar"
 
 export const NavBar = ({
   title,
@@ -22,7 +22,7 @@ export const NavBar = ({
     <StyledNavBar>
       {!searchOnTop && searchBarOpen && searchComponent}
       <AppBar
-        className={shadow ? '' : 'disable-shadow'}
+        className={shadow ? "" : "disable-shadow"}
         color={color}
         position="static"
       >
@@ -40,7 +40,7 @@ export const NavBar = ({
           )}
 
           {title && (
-            <Typography variant="title" color="inherit" className="page-title">
+            <Typography variant="h6" color="inherit" className="page-title">
               {title}
             </Typography>
           )}

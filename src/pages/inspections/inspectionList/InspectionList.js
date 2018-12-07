@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { SelectableList } from '../../../components/selectableList/SelectableList'
-import { InspectionListView } from '../../../components/inspectionListView/InspectionListView'
+import React, { Component } from "react"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { SelectableList } from "../../../components/selectableList/SelectableList"
+import { InspectionListView } from "../../../components/inspectionListView/InspectionListView"
 import {
   onComponentWillUnmountTitleSearchRightNav,
   setSelectedItems,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { inspectionTypes } from '../../../constants/'
-import { GridView } from './GridView'
-import { StyledInspectionList } from './StyledInspectionList'
-import { contextTypes } from './contextTypes'
+} from "../../../functions/"
+import { inspectionTypes } from "../../../constants/"
+import { GridView } from "./GridView"
+import { StyledInspectionList } from "./StyledInspectionList"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
   handleSelectClick,
   setSelectMode,
   onAddInspection,
-} from './functions/'
+} from "./functions/"
 
 export class InspectionList extends Component {
   state = {
@@ -58,19 +58,14 @@ export class InspectionList extends Component {
       searchBarOpen && searchResults && searchResults.length > 0
 
     const inspectionsToShow = isSearchMode ? searchResults : inspections
-    const isListView = view === 'list'
+    const isListView = view === "list"
     const isLoaded = inspectionsLoaded && (isListView || standardsLoaded)
 
     return showContentWhenLoaded(
       isLoaded,
       <StyledInspectionList
-        className={`StyledInspectionList ${view === 'grid' && 'grid'}`}
+        className={`StyledInspectionList ${view === "grid" && "grid"}`}
       >
-        {/* <AddButton
-          to={`${match.url}/ComprehensiveInspection/add`}
-          pulse={!inspections || inspections.length === 0}
-        /> */}
-
         <AddButton
           onClick={onAddInspection(this)}
           pulse={!inspections || inspections.length === 0}
@@ -98,4 +93,4 @@ export class InspectionList extends Component {
   }
 }
 
-InspectionList.contextTypes = contextTypes
+InspectionList.contextType = NavContext

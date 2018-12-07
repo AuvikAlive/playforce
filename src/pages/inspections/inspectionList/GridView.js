@@ -100,11 +100,11 @@ export const GridView = ({ inspections, match, standards }) => {
                       </Button>
                     </StyledNavLink>
 
-                    <Typography variant="subheading">
+                    <Typography variant="subtitle1">
                       Inspection Date: {format(inspectionDate, 'DD MMMM YYYY')}
                     </Typography>
 
-                    <Typography variant="subheading">
+                    <Typography variant="subtitle1">
                       Applied Standards: {standardItems.join('')}
                     </Typography>
                   </CardContent>

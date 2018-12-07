@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import { compose } from 'recompose'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListSubheader from '@material-ui/core/ListSubheader'
-import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withDialog } from '../../../hocs/withDialog/withDialog'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
-import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
-import { StyledImpactTestDetailItems } from './StyledImpactTestDetailItems'
-import { onComponentDidMount } from './functions/onComponentDidMount'
+import React, { Component } from "react"
+import { compose } from "recompose"
+import Paper from "@material-ui/core/Paper"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import ListSubheader from "@material-ui/core/ListSubheader"
+import { withFeedback } from "../../../hocs/withFeedback/withFeedback"
+import { withDialog } from "../../../hocs/withDialog/withDialog"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { NavContext } from "components/NavContextProvider/"
+import { onComponentWillUnmountWithTitleLeftRightNav } from "../../../functions/"
+import { StyledImpactTestDetailItems } from "./StyledImpactTestDetailItems"
+import { onComponentDidMount } from "./functions/onComponentDidMount"
 
 class BaseImpactTestDetailItems extends Component {
   componentDidMount() {
@@ -68,7 +68,7 @@ class BaseImpactTestDetailItems extends Component {
   }
 }
 
-BaseImpactTestDetailItems.contextTypes = contextTypesTitleLeftRightNav
+BaseImpactTestDetailItems.contextType = NavContext
 
 const enhance = compose(
   withFeedback,

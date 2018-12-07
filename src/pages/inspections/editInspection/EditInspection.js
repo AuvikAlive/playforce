@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import FormGroup from '@material-ui/core/FormGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Switch from '@material-ui/core/Switch'
-import { Content } from '../../../components/content/Content'
-import { contextTypesTitleLeftRightNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import FormGroup from "@material-ui/core/FormGroup"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
+import Switch from "@material-ui/core/Switch"
+import { Content } from "../../../components/content/Content"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftRightNav,
   closeMenu,
-} from '../../../functions/'
-import { InspectionItems } from '../inspectionItems/InspectionItems'
-import { MoreMenu } from './MoreMenu'
+} from "../../../functions/"
+import { InspectionItems } from "../inspectionItems/InspectionItems"
+import { MoreMenu } from "./MoreMenu"
 import {
   onComponentDidMount,
   // onComponentWillReceiveProps,
   toggleInspectionCertificate,
   toggleInspectionComplete,
   createPdf,
-} from './functions/'
+} from "./functions/"
 
 export class EditInspection extends Component {
   state = {
@@ -118,4 +118,4 @@ export class EditInspection extends Component {
   }
 }
 
-EditInspection.contextTypes = contextTypesTitleLeftRightNavUnsubscriber
+EditInspection.contextType = NavContext

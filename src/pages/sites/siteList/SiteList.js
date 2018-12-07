@@ -1,26 +1,26 @@
-import React, { Component } from 'react'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import { isEmpty } from 'react-redux-firebase'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { SelectableList } from '../../../components/selectableList/SelectableList'
+import React, { Component } from "react"
+import Menu from "@material-ui/core/Menu"
+import MenuItem from "@material-ui/core/MenuItem"
+import { isEmpty } from "react-redux-firebase"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { SelectableList } from "../../../components/selectableList/SelectableList"
 import {
   onComponentWillUnmountTitleSearchRightNav,
   setSelectedItems,
   closeMenu,
   showContentWhenLoaded,
-} from '../../../functions'
-import { ListView } from './ListView'
-import { GridView } from './GridView'
-import { MapView } from './MapView'
-import { StyledSiteList } from './StyledSiteList'
-import { contextTypes } from './contextTypes'
+} from "../../../functions"
+import { ListView } from "./ListView"
+import { GridView } from "./GridView"
+import { MapView } from "./MapView"
+import { StyledSiteList } from "./StyledSiteList"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMount,
   changeView,
   onSelectClick,
   setSelectMode,
-} from './functions/'
+} from "./functions/"
 
 export class SiteList extends Component {
   state = {
@@ -61,13 +61,13 @@ export class SiteList extends Component {
     return showContentWhenLoaded(
       sitesLoaded,
       <StyledSiteList
-        className={`StyledSiteList ${view !== 'list' && 'full-width'}`}
+        className={`StyledSiteList ${view !== "list" && "full-width"}`}
       >
         <AddButton to={`${match.url}/add`} pulse={pulse} />
 
         {(() => {
           switch (view) {
-            case 'list':
+            case "list":
               return (
                 <SelectableList
                   sites={sitesToShow}
@@ -80,10 +80,10 @@ export class SiteList extends Component {
                 />
               )
 
-            case 'grid':
+            case "grid":
               return <GridView sites={sitesToShow} />
 
-            case 'map':
+            case "map":
               return <MapView sites={sitesToShow} />
 
             default:
@@ -97,16 +97,16 @@ export class SiteList extends Component {
           onClose={closeMenu(this)}
           MenuListProps={{ disablePadding: true }}
         >
-          {view !== 'grid' && (
-            <MenuItem onClick={changeView(this, 'grid')}>Show as Grid</MenuItem>
+          {view !== "grid" && (
+            <MenuItem onClick={changeView(this, "grid")}>Show as Grid</MenuItem>
           )}
 
-          {view !== 'list' && (
-            <MenuItem onClick={changeView(this, 'list')}>Show as List</MenuItem>
+          {view !== "list" && (
+            <MenuItem onClick={changeView(this, "list")}>Show as List</MenuItem>
           )}
 
-          {view !== 'map' && (
-            <MenuItem onClick={changeView(this, 'map')}>Show as Map</MenuItem>
+          {view !== "map" && (
+            <MenuItem onClick={changeView(this, "map")}>Show as Map</MenuItem>
           )}
         </Menu>
       </StyledSiteList>
@@ -114,4 +114,4 @@ export class SiteList extends Component {
   }
 }
 
-SiteList.contextTypes = contextTypes
+SiteList.contextType = NavContext

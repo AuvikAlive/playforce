@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
+import React, { Component } from "react"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftRightNav,
   showContentWhenLoaded,
-} from '../../../functions/'
-import StandardForm from '../standardForm/'
-import { onComponentDidMount, submit } from './functions/'
+} from "../../../functions/"
+import StandardForm from "../standardForm/"
+import { onComponentDidMount, submit } from "./functions/"
 
 export class EditStandard extends Component {
   componentDidMount() {
@@ -30,4 +30,4 @@ export class EditStandard extends Component {
   }
 }
 
-EditStandard.contextTypes = contextTypesTitleLeftRightNav
+EditStandard.contextType = NavContext

@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
@@ -57,7 +57,7 @@ export class PreimplementationRecommendation extends Component {
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -72,4 +72,4 @@ export class PreimplementationRecommendation extends Component {
   }
 }
 
-PreimplementationRecommendation.contextTypes = contextTypesTitleLeftNav
+PreimplementationRecommendation.contextType = NavContext

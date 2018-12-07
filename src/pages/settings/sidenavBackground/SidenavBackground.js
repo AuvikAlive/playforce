@@ -6,7 +6,7 @@ import CheckIcon from '@material-ui/icons/Check'
 import Card from '@material-ui/core/Card'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { Carousel } from '../../../components/carousel/Carousel'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -75,4 +75,4 @@ export class SidenavBackground extends Component {
   }
 }
 
-SidenavBackground.contextTypes = contextTypesTitleLeftNav
+SidenavBackground.contextType = NavContext

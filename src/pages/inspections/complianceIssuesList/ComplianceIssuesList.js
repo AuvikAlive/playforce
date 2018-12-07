@@ -1,27 +1,24 @@
-import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
-import ModeEditIcon from '@material-ui/icons/Edit'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import CardContent from '@material-ui/core/CardContent'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
-import {
-  contextTypesTitleLeftNav,
-  probabilities,
-  severities,
-} from '../../../constants/'
+import React, { Component } from "react"
+import Fab from "@material-ui/core/Fab"
+import ModeEditIcon from "@material-ui/icons/Edit"
+import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
+import CardContent from "@material-ui/core/CardContent"
+import { NavContext } from "components/NavContextProvider/"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { EmptyListPlaceholder } from "../../../components/emptyListPlacehoder/EmptyListPlaceholder"
+import { probabilities, severities } from "../../../constants/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
   getRiskLevel,
-} from '../../../functions/'
-import { StyledComplianceIssuesList } from './StyledComplianceIssuesList'
+} from "../../../functions/"
+import { StyledComplianceIssuesList } from "./StyledComplianceIssuesList"
 
 export class ComplianceIssuesList extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Compliance Issues')
+    onComponentDidMountWithTitleLeftNav(this, "Compliance Issues")
   }
 
   componentWillUnmount() {
@@ -58,83 +55,74 @@ export class ComplianceIssuesList extends Component {
               ) => {
                 return (
                   <Grid item key={index} xs={12}>
-                    {images &&
-                      images.length > 0 && (
-                        <img
-                          src={images[0].image}
-                          className="card-media"
-                          alt="compliance issue"
-                        />
-                      )}
+                    {images && images.length > 0 && (
+                      <img
+                        src={images[0].image}
+                        className="card-media"
+                        alt="compliance issue"
+                      />
+                    )}
                     <CardContent className="card-content">
                       <StyledNavLink
                         to={`${match.url}/edit/${id}`}
                         className="floating-icon"
                       >
-                        <Button
-                          variant="fab"
-                          color="primary"
-                          aria-label="edit compliance issue"
-                        >
+                        <Fab color="primary" aria-label="edit compliance issue">
                           <ModeEditIcon />
-                        </Button>
+                        </Fab>
                       </StyledNavLink>
 
-                      <Typography variant="title">
-                        Issue #: {index + 1}
-                      </Typography>
+                      <Typography variant="h6">Issue #: {index + 1}</Typography>
 
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Finding: {finding}
                       </Typography>
 
                       {equipment && (
-                        <Typography variant="subheading">
+                        <Typography variant="subtitle1">
                           Equipment: {equipment}
                         </Typography>
                       )}
 
                       {playingSurface && (
-                        <Typography variant="subheading">
+                        <Typography variant="subtitle1">
                           Playing Surface: {playingSurface}
                         </Typography>
                       )}
 
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Standards Clause: {standardsClause}
                       </Typography>
 
-                      <Typography variant="headline">
-                        Risk Assessment
-                      </Typography>
+                      <Typography variant="h5">Risk Assessment</Typography>
 
                       <Grid container>
                         <Grid item xs={4}>
-                          <Typography variant="subheading">
-                            Probability:{' '}
+                          <Typography variant="subtitle1">
+                            Probability:{" "}
                             {probabilities[probability - 1].probability}
                           </Typography>
                         </Grid>
 
                         <Grid item xs={4}>
-                          <Typography variant="subheading">
-                            Injury Severity:{' '}
+                          <Typography variant="subtitle1">
+                            Injury Severity:{" "}
                             {severities[severity - 1].serverity}
                           </Typography>
                         </Grid>
 
                         <Grid item xs={4}>
-                          <Typography variant="subheading">
+                          <Typography variant="subtitle1">
                             Risk Level: {getRiskLevel(probability, severity)}
                           </Typography>
                         </Grid>
                       </Grid>
 
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Comments: {comments}
                       </Typography>
 
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Recommendations: {recommendations}
                       </Typography>
                     </CardContent>
@@ -151,4 +139,4 @@ export class ComplianceIssuesList extends Component {
   }
 }
 
-ComplianceIssuesList.contextTypes = contextTypesTitleLeftNav
+ComplianceIssuesList.contextType = NavContext

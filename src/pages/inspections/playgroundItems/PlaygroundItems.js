@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import { isEmpty } from 'lodash'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { Content } from '../../../components/content/Content'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
+import React, { Component } from "react"
+import Paper from "@material-ui/core/Paper"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import CheckCircleIcon from "@material-ui/icons/CheckCircle"
+import Menu from "@material-ui/core/Menu"
+import MenuItem from "@material-ui/core/MenuItem"
+import { isEmpty } from "lodash"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { Content } from "../../../components/content/Content"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftRightNav,
   showContentWhenLoaded,
   closeMenu,
-} from '../../../functions/'
-import { onComponentDidMount } from './onComponentDidMount'
+} from "../../../functions/"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 export class PlaygroundItems extends Component {
   state = {
@@ -59,20 +59,18 @@ export class PlaygroundItems extends Component {
             <StyledNavLink to={`${match.url}/conditionRating`}>
               <ListItem button>
                 <ListItemText primary="Condition Rating" />
-                {conditionRatings &&
-                  conditionRatings.length > 0 && (
-                    <CheckCircleIcon color="primary" />
-                  )}
+                {conditionRatings && conditionRatings.length > 0 && (
+                  <CheckCircleIcon color="primary" />
+                )}
               </ListItem>
             </StyledNavLink>
 
             <StyledNavLink to={`${match.url}/complianceIssues`}>
               <ListItem button>
                 <ListItemText primary="Identified Compliance Issues" />
-                {complianceIssues &&
-                  complianceIssues.length > 0 && (
-                    <CheckCircleIcon color="primary" />
-                  )}
+                {complianceIssues && complianceIssues.length > 0 && (
+                  <CheckCircleIcon color="primary" />
+                )}
               </ListItem>
             </StyledNavLink>
 
@@ -88,10 +86,9 @@ export class PlaygroundItems extends Component {
             <StyledNavLink to={`${match.url}/playingSurfaces`}>
               <ListItem button>
                 <ListItemText primary="Playing Surfaces" />
-                {playingSurfaces &&
-                  playingSurfaces.length > 0 && (
-                    <CheckCircleIcon color="primary" />
-                  )}
+                {playingSurfaces && playingSurfaces.length > 0 && (
+                  <CheckCircleIcon color="primary" />
+                )}
               </ListItem>
             </StyledNavLink>
 
@@ -139,4 +136,4 @@ export class PlaygroundItems extends Component {
   }
 }
 
-PlaygroundItems.contextTypes = contextTypesTitleLeftRightNav
+PlaygroundItems.contextType = NavContext

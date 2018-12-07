@@ -1,23 +1,21 @@
-import React, { Component } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import TextField from '@material-ui/core/TextField'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import InputLabel from '@material-ui/core/InputLabel'
-import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import BrushIcon from '@material-ui/icons/Brush'
-import StayCurrentPortraitIcon from '@material-ui/icons/StayCurrentPortrait'
-import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { Carousel } from '../../../components/carousel/Carousel'
-import { Sketch } from '../../../components/sketch/Sketch'
-import {
-  probabilities,
-  severities,
-  contextTypesUnsubscriber,
-} from '../../../constants/'
+import React, { Component } from "react"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import TextField from "@material-ui/core/TextField"
+import Menu from "@material-ui/core/Menu"
+import MenuItem from "@material-ui/core/MenuItem"
+import InputLabel from "@material-ui/core/InputLabel"
+import Grid from "@material-ui/core/Grid"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Fab from "@material-ui/core/Fab"
+import Button from "@material-ui/core/Button"
+import BrushIcon from "@material-ui/icons/Brush"
+import { NavContext } from "components/NavContextProvider/"
+import StayCurrentPortraitIcon from "@material-ui/icons/StayCurrentPortrait"
+import { AutoComplete } from "../../../components/autoComplete/AutoComplete"
+import { Carousel } from "../../../components/carousel/Carousel"
+import { Sketch } from "../../../components/sketch/Sketch"
+import { probabilities, severities } from "../../../constants/"
 import {
   onEventInputChange,
   onValueInputChange,
@@ -26,9 +24,9 @@ import {
   getImagesCopy,
   showContentWhenLoaded,
   closeMenu,
-} from '../../../functions/'
-import { StyledComplianceIssueForm } from './StyledComplianceIssueForm'
-import { CommonIssueAutoComplete } from '../commonIssueAutoComplete/CommonIssueAutoComplete'
+} from "../../../functions/"
+import { StyledComplianceIssueForm } from "./StyledComplianceIssueForm"
+import { CommonIssueAutoComplete } from "../commonIssueAutoComplete/CommonIssueAutoComplete"
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
@@ -38,8 +36,8 @@ import {
   getPlayingSurfaceSuggestions,
   toggleMode,
   submit,
-} from './functions/'
-import { state } from './state'
+} from "./functions/"
+import { state } from "./state"
 
 export class ComplianceIssueForm extends Component {
   state = state
@@ -93,31 +91,29 @@ export class ComplianceIssueForm extends Component {
           {imagesLoaded && <Carousel images={images} showLightbox />}
 
           <CardContent className="card-content">
-            {images &&
-              images.length > 0 && (
-                <Button
-                  variant="fab"
-                  color="primary"
-                  aria-label="edit compliance issue"
-                  className="floating-icon"
-                  onClick={() =>
-                    openDialog(
-                      <Sketch
-                        aspectRatio={188 / 253}
-                        images={imagesCopy}
-                        onSubmit={saveEditedImages(this)}
-                        closeSketchDialog={closeDialog}
-                      />
-                    )
-                  }
-                >
-                  <BrushIcon />
-                </Button>
-              )}
+            {images && images.length > 0 && (
+              <Fab
+                color="primary"
+                aria-label="edit compliance issue"
+                className="floating-icon"
+                onClick={() =>
+                  openDialog(
+                    <Sketch
+                      aspectRatio={188 / 253}
+                      images={imagesCopy}
+                      onSubmit={saveEditedImages(this)}
+                      closeSketchDialog={closeDialog}
+                    />
+                  )
+                }
+              >
+                <BrushIcon />
+              </Fab>
+            )}
 
             <Button
               fullWidth
-              variant="raised"
+              variant="contained"
               color="primary"
               className="submit-button"
               onClick={() =>
@@ -137,14 +133,14 @@ export class ComplianceIssueForm extends Component {
                 <AutoComplete
                   label="Playing Surface"
                   value={playingSurface}
-                  onChange={onValueInputChange(this, 'playingSurface')}
+                  onChange={onValueInputChange(this, "playingSurface")}
                   getSuggestions={getPlayingSurfaceSuggestions(this)}
                 />
               ) : (
                 <AutoComplete
                   label="Equipment"
                   value={equipment}
-                  onChange={onValueInputChange(this, 'equipment')}
+                  onChange={onValueInputChange(this, "equipment")}
                   onSuggestionSelect={onEquipmentSelect(this)}
                   getSuggestions={getEquipmentSuggestions(this)}
                 />
@@ -161,14 +157,14 @@ export class ComplianceIssueForm extends Component {
                 label="Finding"
                 value={finding}
                 margin="normal"
-                onChange={onEventInputChange(this, 'finding')}
+                onChange={onEventInputChange(this, "finding")}
               />
 
               <TextField
                 fullWidth
                 label="Standards Clause"
                 value={standardsClause}
-                onChange={onEventInputChange(this, 'standardsClause')}
+                onChange={onEventInputChange(this, "standardsClause")}
                 margin="normal"
               />
 
@@ -185,7 +181,7 @@ export class ComplianceIssueForm extends Component {
                     select
                     label="Probability"
                     value={probability}
-                    onChange={onEventInputChange(this, 'probability')}
+                    onChange={onEventInputChange(this, "probability")}
                     margin="normal"
                   >
                     {probabilities.map(({ probability, value }, index) => (
@@ -202,7 +198,7 @@ export class ComplianceIssueForm extends Component {
                     select
                     label="Injury Severity"
                     value={severity}
-                    onChange={onEventInputChange(this, 'severity')}
+                    onChange={onEventInputChange(this, "severity")}
                     margin="normal"
                   >
                     {severities.map(({ serverity, value }, index) => (
@@ -230,7 +226,7 @@ export class ComplianceIssueForm extends Component {
                 label="Comments"
                 value={comments}
                 margin="normal"
-                onChange={onEventInputChange(this, 'comments')}
+                onChange={onEventInputChange(this, "comments")}
               />
 
               <TextField
@@ -239,28 +235,27 @@ export class ComplianceIssueForm extends Component {
                 label="Recommendations"
                 value={recommendations}
                 margin="normal"
-                onChange={onEventInputChange(this, 'recommendations')}
+                onChange={onEventInputChange(this, "recommendations")}
               />
             </form>
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
               >
-                {buttonText ? buttonText : 'Publish'}
+                {buttonText ? buttonText : "Publish"}
               </Button>
             )}
           </CardContent>
@@ -285,4 +280,4 @@ export class ComplianceIssueForm extends Component {
   }
 }
 
-ComplianceIssueForm.contextTypes = contextTypesUnsubscriber
+ComplianceIssueForm.contextType = NavContext

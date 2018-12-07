@@ -24,7 +24,7 @@ export const InspectionTypeList = ({ inspectionTypes, deletePrompt }) => {
     <ListItem>
       <ListItemText
         primary={
-          <Typography component="span" variant="title" align="center">
+          <Typography component="span" variant="h6" align="center">
             Try adding an item to get started!
           </Typography>
         }

@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
-import ModeEditIcon from '@material-ui/icons/Edit'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import { Content } from '../../../components/content/Content'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import ModeEditIcon from "@material-ui/icons/Edit"
+import Paper from "@material-ui/core/Paper"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import { Content } from "../../../components/content/Content"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { EmptyListPlaceholder } from "../../../components/emptyListPlacehoder/EmptyListPlaceholder"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { onComponentDidMount } from './onComponentDidMount'
+} from "../../../functions/"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 export class StandardsList extends Component {
   componentDidMount() {
@@ -58,4 +58,4 @@ export class StandardsList extends Component {
   }
 }
 
-StandardsList.contextTypes = contextTypesTitleLeftNavUnsubscriber
+StandardsList.contextType = NavContext

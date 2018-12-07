@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import { compose } from 'recompose'
-import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { contextTypesTitleLeftNav } from '../../../constants/contextTypesTitleLeftNav'
+import React, { Component } from "react"
+import { compose } from "recompose"
+import { withFeedback } from "../../../hocs/withFeedback/withFeedback"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-} from '../../../functions/'
-import { ImpactSurfaceDetailsForm } from '../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm'
+} from "../../../functions/"
+import { ImpactSurfaceDetailsForm } from "../impactSurfaceDetailsForm/ImpactSurfaceDetailsForm"
 
 class BaseAddImpactSurface extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add Test')
+    onComponentDidMountWithTitleLeftNav(this, "Add Test")
   }
 
   componentWillUnmount() {
@@ -29,7 +29,7 @@ class BaseAddImpactSurface extends Component {
   }
 }
 
-BaseAddImpactSurface.contextTypes = contextTypesTitleLeftNav
+BaseAddImpactSurface.contextType = NavContext
 
 const enhance = compose(withFeedback)
 

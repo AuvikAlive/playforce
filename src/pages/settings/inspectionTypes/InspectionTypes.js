@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import Card from '@material-ui/core/Card'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import Card from "@material-ui/core/Card"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { InspectionTypeList } from '../inspectionTypeList/InspectionTypeList'
-import { InspectionTypeFormContainer } from '../inspectionTypeForm/InspectionTypeFormContainer'
-import { StyledInspectionTypes } from './StyledInspectionTypes'
-import { onComponentDidMount, deleteInspectionType } from './functions/'
+} from "../../../functions/"
+import { InspectionTypeList } from "../inspectionTypeList/InspectionTypeList"
+import { InspectionTypeFormContainer } from "../inspectionTypeForm/InspectionTypeFormContainer"
+import { StyledInspectionTypes } from "./StyledInspectionTypes"
+import { onComponentDidMount, deleteInspectionType } from "./functions/"
 
 export class InspectionTypes extends Component {
   componentDidMount() {
@@ -38,4 +38,4 @@ export class InspectionTypes extends Component {
   }
 }
 
-InspectionTypes.contextTypes = contextTypesTitleLeftNavUnsubscriber
+InspectionTypes.contextType = NavContext

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { compose } from 'recompose'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -34,7 +34,7 @@ class BaseEditImpactSurface extends Component {
   }
 }
 
-BaseEditImpactSurface.contextTypes = contextTypesTitleLeftNav
+BaseEditImpactSurface.contextType = NavContext
 
 const enhance = compose(withFeedback)
 

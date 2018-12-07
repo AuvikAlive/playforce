@@ -1,11 +1,11 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
-import { contextTypesUnsubscriber } from '../../../constants/'
-import ComplianceIssuesList from '../complianceIssuesList'
+import React from "react"
+import { Route, Switch } from "react-router-dom"
+import { NavContext } from "components/NavContextProvider/"
+import ComplianceIssuesList from "../complianceIssuesList"
 import {
   renderAddComplianceIssue,
   renderEditComplianceIssue,
-} from './functions/'
+} from "./functions/"
 
 export const ComplianceIssueRoutes = props => {
   const { match, complianceIssues } = props
@@ -32,4 +32,4 @@ export const ComplianceIssueRoutes = props => {
   )
 }
 
-ComplianceIssueRoutes.contextTypes = contextTypesUnsubscriber
+ComplianceIssueRoutes.contextType = NavContext

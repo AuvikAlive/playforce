@@ -1,30 +1,30 @@
-import React, { Component } from 'react'
-import { compose } from 'recompose'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import AddBoxIcon from '@material-ui/icons/AddBox'
-import DateRangeIcon from '@material-ui/icons/DateRange'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
-import MenuItem from '@material-ui/core/MenuItem'
-import { DatePicker } from 'material-ui-pickers'
-import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
-import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
-import { ClientsDialogContainer } from '../../../components/clientsDialog/ClientsDialogContainer'
-import { contextTypesUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import { compose } from "recompose"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import TextField from "@material-ui/core/TextField"
+import Button from "@material-ui/core/Button"
+import IconButton from "@material-ui/core/IconButton"
+import AddBoxIcon from "@material-ui/icons/AddBox"
+import DateRangeIcon from "@material-ui/icons/DateRange"
+import ArrowBackIcon from "@material-ui/icons/ArrowBack"
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward"
+import MenuItem from "@material-ui/core/MenuItem"
+import { DatePicker } from "material-ui-pickers"
+import { withFeedback } from "../../../hocs/withFeedback/withFeedback"
+import { withFullscreenDialog } from "../../../hocs/withFullscreenDialog/withFullscreenDialog"
+import { AutoComplete } from "../../../components/autoComplete/AutoComplete"
+import { AddSiteDialogContainer } from "../../../components/addSiteDialog/AddSiteDialogContainer"
+import { ClientsDialogContainer } from "../../../components/clientsDialog/ClientsDialogContainer"
+import { NavContext } from "components/NavContextProvider/"
 import {
   showContentWhenLoaded,
   onEventInputChange,
   onValueInputChange,
-} from '../../../functions/'
-import { StyledStandaloneImpactGeneralInfoForm } from './StyledStandaloneImpactGeneralInfoForm'
-import { state } from './state'
+} from "../../../functions/"
+import { StyledStandaloneImpactGeneralInfoForm } from "./StyledStandaloneImpactGeneralInfoForm"
+import { state } from "./state"
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
@@ -32,7 +32,7 @@ import {
   getClientSuggestions,
   onClientSelect,
   submit,
-} from './functions/'
+} from "./functions/"
 
 class BaseStandaloneImpactGeneralInfoForm extends Component {
   state = state
@@ -81,7 +81,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 <AutoComplete
                   label="Location"
                   value={location}
-                  onChange={onValueInputChange(this, 'location')}
+                  onChange={onValueInputChange(this, "location")}
                   getSuggestions={getLocationSuggestions(this)}
                 />
 
@@ -100,7 +100,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 <AutoComplete
                   label="Client"
                   value={client}
-                  onChange={onValueInputChange(this, 'client')}
+                  onChange={onValueInputChange(this, "client")}
                   onSuggestionSelect={onClientSelect(this)}
                   getSuggestions={getClientSuggestions(this)}
                 />
@@ -127,7 +127,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}
                 rightArrowIcon={<ArrowForwardIcon />}
-                onChange={onValueInputChange(this, 'inspectionDate')}
+                onChange={onValueInputChange(this, "inspectionDate")}
                 animateYearScrolling={false}
               />
 
@@ -136,7 +136,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 margin="normal"
                 label="Temperature (°C)"
                 value={temperature}
-                onChange={onEventInputChange(this, 'temperature')}
+                onChange={onEventInputChange(this, "temperature")}
               />
 
               <TextField
@@ -144,7 +144,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 margin="normal"
                 label="Humidity (%)"
                 value={humidity}
-                onChange={onEventInputChange(this, 'humidity')}
+                onChange={onEventInputChange(this, "humidity")}
               />
 
               <TextField
@@ -152,7 +152,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 margin="normal"
                 label="Comment on rain"
                 value={rain}
-                onChange={onEventInputChange(this, 'rain')}
+                onChange={onEventInputChange(this, "rain")}
               />
 
               <TextField
@@ -160,7 +160,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 margin="normal"
                 label="Test apparatus"
                 value={apparatus}
-                onChange={onEventInputChange(this, 'apparatus')}
+                onChange={onEventInputChange(this, "apparatus")}
               />
 
               <TextField
@@ -171,7 +171,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
                 }}
                 label="Applied Standard"
                 value={appliedStandards}
-                onChange={onEventInputChange(this, 'appliedStandards')}
+                onChange={onEventInputChange(this, "appliedStandards")}
                 margin="normal"
               >
                 {standards.length > 0 ? (
@@ -190,22 +190,21 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
               >
-                {buttonText ? buttonText : 'Publish'}
+                {buttonText ? buttonText : "Publish"}
               </Button>
             )}
           </CardContent>
@@ -215,7 +214,7 @@ class BaseStandaloneImpactGeneralInfoForm extends Component {
   }
 }
 
-BaseStandaloneImpactGeneralInfoForm.contextTypes = contextTypesUnsubscriber
+BaseStandaloneImpactGeneralInfoForm.contextType = NavContext
 
 const enhance = compose(
   withFeedback,

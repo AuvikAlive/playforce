@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import { CertificateTextForm } from '../../../components/certificateTextForm/CertificateTextForm'
-import { contextTypesTitleLeftRightNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import Menu from "@material-ui/core/Menu"
+import MenuItem from "@material-ui/core/MenuItem"
+import { CertificateTextForm } from "../../../components/certificateTextForm/CertificateTextForm"
+import { NavContext } from "components/NavContextProvider/"
 import {
   showContentWhenLoaded,
   onComponentWillUnmountWithTitleLeftRightNav,
   replaceCertificateTextPlaceholders,
   closeMenu,
-} from '../../../functions/'
-import { state } from './state'
-import { onComponentDidMount, revertToDefaultText, submit } from './functions/'
+} from "../../../functions/"
+import { state } from "./state"
+import { onComponentDidMount, revertToDefaultText, submit } from "./functions/"
 
 export class CustomCertificateText extends Component {
   state = state
@@ -70,4 +70,4 @@ export class CustomCertificateText extends Component {
   }
 }
 
-CustomCertificateText.contextTypes = contextTypesTitleLeftRightNavUnsubscriber
+CustomCertificateText.contextType = NavContext

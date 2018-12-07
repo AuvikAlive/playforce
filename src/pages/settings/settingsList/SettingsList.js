@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { contextTypesTitle } from '../../../constants/'
+import React, { Component } from "react"
+import Paper from "@material-ui/core/Paper"
+import Grid from "@material-ui/core/Grid"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitle,
   onComponentWillUnmountWithTitle,
-} from '../../../functions/'
-import { StyledSettingsList } from './StyledSettingsList'
-import { links } from './links'
+} from "../../../functions/"
+import { StyledSettingsList } from "./StyledSettingsList"
+import { links } from "./links"
 
 export class SettingsList extends Component {
   componentDidMount() {
-    const title = 'Settings'
+    const title = "Settings"
 
     onComponentDidMountWithTitle(this, title)
   }
@@ -48,4 +48,4 @@ export class SettingsList extends Component {
   }
 }
 
-SettingsList.contextTypes = contextTypesTitle
+SettingsList.contextType = NavContext

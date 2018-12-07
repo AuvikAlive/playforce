@@ -1,14 +1,14 @@
-import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import { StyledEmptyListPlaceholder } from './StyledEmptyListPlaceholder'
-import { SearchIcon } from './SearchIcon'
+import React from "react"
+import Typography from "@material-ui/core/Typography"
+import { StyledEmptyListPlaceholder } from "./StyledEmptyListPlaceholder"
+import { SearchIcon } from "./SearchIcon"
 
 export const EmptyListPlaceholder = ({ text }) => {
   return (
     <StyledEmptyListPlaceholder className="StyledEmptyListPlaceholder">
-      <Typography variant="title" align="center">
+      <Typography variant="h6" align="center">
         <SearchIcon alt="search" className="empty-list-image" />
-        {text || 'Try adding an item to get started!'}
+        {text || "Try adding an item to get started!"}
       </Typography>
     </StyledEmptyListPlaceholder>
   )

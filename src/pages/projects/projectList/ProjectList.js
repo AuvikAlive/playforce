@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { showContentWhenLoaded } from '../../../functions/'
-import { contextTypes } from './contextTypes'
-import { onComponentDidMount, onComponentWillUnmount } from './functions/'
-import { StyledProjectList } from './StyledProjectList'
-import { EmptyListPlaceholder } from '../../../components/emptyListPlacehoder/EmptyListPlaceholder'
+import React, { Component } from "react"
+import Paper from "@material-ui/core/Paper"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { showContentWhenLoaded } from "../../../functions/"
+import { NavContext } from "components/NavContextProvider/"
+import { onComponentDidMount, onComponentWillUnmount } from "./functions/"
+import { StyledProjectList } from "./StyledProjectList"
+import { EmptyListPlaceholder } from "../../../components/emptyListPlacehoder/EmptyListPlaceholder"
 
 export class ProjectList extends Component {
   componentDidMount() {
@@ -27,7 +27,7 @@ export class ProjectList extends Component {
     return showContentWhenLoaded(
       projectsLoaded,
       <StyledProjectList className="StyledProjectList">
-        <AddButton to={match.url + '/addProject'} pulse={!projectsAdded} />
+        <AddButton to={match.url + "/addProject"} pulse={!projectsAdded} />
 
         {projectsAdded ? (
           <Paper className="paper">
@@ -49,4 +49,4 @@ export class ProjectList extends Component {
   }
 }
 
-ProjectList.contextTypes = contextTypes
+ProjectList.contextType = NavContext

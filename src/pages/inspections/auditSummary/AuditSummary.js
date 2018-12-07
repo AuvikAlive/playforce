@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Button from "@material-ui/core/Button"
+import TextField from "@material-ui/core/TextField"
+import FormControl from "@material-ui/core/FormControl"
+import InputLabel from "@material-ui/core/InputLabel"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
-} from '../../../functions/'
-import { onComponentDidMount, submit } from './functions/'
-import { StyledAuditSummary } from './StyledAuditSummary'
+} from "../../../functions/"
+import { onComponentDidMount, submit } from "./functions/"
+import { StyledAuditSummary } from "./StyledAuditSummary"
 
 export class AuditSummary extends Component {
   state = {
-    summary: '',
+    summary: "",
   }
 
   componentDidMount() {
@@ -50,7 +50,7 @@ export class AuditSummary extends Component {
                 label="Summary"
                 value={summary}
                 margin="normal"
-                onChange={onEventInputChange(this, 'summary')}
+                onChange={onEventInputChange(this, "summary")}
               />
 
               {signature && (
@@ -99,17 +99,16 @@ export class AuditSummary extends Component {
             </form>
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -124,4 +123,4 @@ export class AuditSummary extends Component {
   }
 }
 
-AuditSummary.contextTypes = contextTypesTitleLeftNavUnsubscriber
+AuditSummary.contextType = NavContext

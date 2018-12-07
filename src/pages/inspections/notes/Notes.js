@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { Content } from '../../../components/content/Content'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import { onEventInputChange } from '../../../functions/'
 import {
   onComponentDidMount,
@@ -55,7 +55,7 @@ export class Notes extends Component {
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -70,4 +70,4 @@ export class Notes extends Component {
   }
 }
 
-Notes.contextTypes = contextTypesTitleLeftNav
+Notes.contextType = NavContext

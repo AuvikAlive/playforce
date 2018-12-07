@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { contextTypesTitleLeftNavUnsubscriber } from '../../../constants/'
+import React, { Component } from "react"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
-} from '../../../functions/'
-import { CoverFormContainer } from '../coverForm/CoverFormContainer'
-import { submit } from './submit'
+} from "../../../functions/"
+import { CoverFormContainer } from "../coverForm/CoverFormContainer"
+import { submit } from "./submit"
 
 export class EditCover extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Cover')
+    onComponentDidMountWithTitleLeftNav(this, "Cover")
   }
 
   componentWillUnmount() {
@@ -29,4 +29,4 @@ export class EditCover extends Component {
   }
 }
 
-EditCover.contextTypes = contextTypesTitleLeftNavUnsubscriber
+EditCover.contextType = NavContext

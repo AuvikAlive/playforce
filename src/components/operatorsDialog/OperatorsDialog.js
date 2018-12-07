@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import Card from '@material-ui/core/Card'
-import { contextTypesUnsubscriber } from '../../constants/'
-import { showContentWhenLoaded } from '../../functions/'
-import NavBar from '../navBar/'
-import { StyledMainContent } from '../styledMainContent/StyledMainContent'
-import { Content } from '../content/Content'
-import { OperatorList } from '../operatorList/OperatorList'
-import { OperatorFormContainer } from '../operatorForm/OperatorFormContainer'
-import { onComponentDidMount, deleteOperator } from './functions/'
+import React, { Component } from "react"
+import IconButton from "@material-ui/core/IconButton"
+import ArrowBackIcon from "@material-ui/icons/ArrowBack"
+import Card from "@material-ui/core/Card"
+import { NavContext } from "components/NavContextProvider/"
+import { showContentWhenLoaded } from "../../functions/"
+import NavBar from "../navBar/"
+import { StyledMainContent } from "../styledMainContent/StyledMainContent"
+import { Content } from "../content/Content"
+import { OperatorList } from "../operatorList/OperatorList"
+import { OperatorFormContainer } from "../operatorForm/OperatorFormContainer"
+import { onComponentDidMount, deleteOperator } from "./functions/"
 
 export class OperatorsDialog extends Component {
   componentDidMount() {
@@ -50,4 +50,4 @@ export class OperatorsDialog extends Component {
   }
 }
 
-OperatorsDialog.contextTypes = contextTypesUnsubscriber
+OperatorsDialog.contextType = NavContext

@@ -1,13 +1,13 @@
-import React from 'react'
-import Button from '@material-ui/core/Button'
-import ModeEditIcon from '@material-ui/icons/Edit'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import CardContent from '@material-ui/core/CardContent'
-import { format } from 'date-fns'
-import { StyledNavLink } from '../../../components/styledNavLink/StyledNavLink'
-import { capitalize } from '../../../functions/'
-import { StyledGridList } from '../StyledGridList'
+import React from "react"
+import Fab from "@material-ui/core/Fab"
+import ModeEditIcon from "@material-ui/icons/Edit"
+import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
+import CardContent from "@material-ui/core/CardContent"
+import { format } from "date-fns"
+import { StyledNavLink } from "../../../components/styledNavLink/StyledNavLink"
+import { capitalize } from "../../../functions/"
+import { StyledGridList } from "../StyledGridList"
 
 export const ListView = ({ groupedConditionRatings, match, value }) => {
   const items = groupedConditionRatings[value]
@@ -40,45 +40,39 @@ export const ListView = ({ groupedConditionRatings, match, value }) => {
                       to={`${match.url}/edit/${id}`}
                       className="floating-icon"
                     >
-                      <Button
-                        variant="fab"
-                        color="primary"
-                        aria-label="edit compliance issue"
-                      >
+                      <Fab color="primary" aria-label="edit compliance issue">
                         <ModeEditIcon />
-                      </Button>
+                      </Fab>
                     </StyledNavLink>
 
-                    <Typography variant="title">
-                      Equipment: {equipment}
-                    </Typography>
+                    <Typography variant="h6">Equipment: {equipment}</Typography>
 
                     {itemType && (
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Item Type: {capitalize(itemType)}
                       </Typography>
                     )}
 
                     {assetId && (
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Asset Id: {assetId}
                       </Typography>
                     )}
 
                     {manufacturer && (
-                      <Typography variant="subheading">
+                      <Typography variant="subtitle1">
                         Manufacturer: {manufacturer}
                       </Typography>
                     )}
 
-                    <Typography variant="subheading">
+                    <Typography variant="subtitle1">
                       Condition: {condition}
                     </Typography>
 
                     {estimatedDateInstalled && (
-                      <Typography variant="subheading">
-                        Estimated Date Installed:{' '}
-                        {format(estimatedDateInstalled, 'YYYY')}
+                      <Typography variant="subtitle1">
+                        Estimated Date Installed:{" "}
+                        {format(estimatedDateInstalled, "YYYY")}
                       </Typography>
                     )}
                   </CardContent>

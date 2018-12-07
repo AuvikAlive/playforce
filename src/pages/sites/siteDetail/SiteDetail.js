@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { Content } from '../../../components/content/Content'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
+import React, { Component } from "react"
+import { Content } from "../../../components/content/Content"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftRightNav,
   showContentWhenLoaded,
-} from '../../../functions/'
-import { SiteCard } from '../siteCard/SiteCard'
-import { onComponentDidMount, onComponentWillReceiveProps } from './functions/'
+} from "../../../functions/"
+import { SiteCard } from "../siteCard/SiteCard"
+import { onComponentDidMount, onComponentWillReceiveProps } from "./functions/"
 
 export class SiteDetail extends Component {
   componentDidMount() {
@@ -33,4 +33,4 @@ export class SiteDetail extends Component {
   }
 }
 
-SiteDetail.contextTypes = contextTypesTitleLeftRightNav
+SiteDetail.contextType = NavContext

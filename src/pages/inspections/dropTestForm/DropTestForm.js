@@ -1,24 +1,25 @@
-import React, { Component } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { withImageCapture } from '../../../hocs/withImageCapture/withImageCapture'
-import { withFullscreenDialog } from '../../../hocs/withFullscreenDialog/withFullscreenDialog'
-import CropIcon from '@material-ui/icons/Crop'
-import StayCurrentPortraitIcon from '@material-ui/icons/StayCurrentPortrait'
-import { SingleImageLightbox } from '../../../components/singleImageLightbox/SingleImageLightbox'
-import { onEventInputChange, onSingleCrop } from '../../../functions/'
-import { StyledDropTestForm } from './StyledDropTestForm'
-import { state } from './state'
+import React, { Component } from "react"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Fab from "@material-ui/core/Fab"
+import Button from "@material-ui/core/Button"
+import TextField from "@material-ui/core/TextField"
+import { withFeedback } from "../../../hocs/withFeedback/withFeedback"
+import { withImageCapture } from "../../../hocs/withImageCapture/withImageCapture"
+import { withFullscreenDialog } from "../../../hocs/withFullscreenDialog/withFullscreenDialog"
+import CropIcon from "@material-ui/icons/Crop"
+import StayCurrentPortraitIcon from "@material-ui/icons/StayCurrentPortrait"
+import { SingleImageLightbox } from "../../../components/singleImageLightbox/SingleImageLightbox"
+import { onEventInputChange, onSingleCrop } from "../../../functions/"
+import { StyledDropTestForm } from "./StyledDropTestForm"
+import { state } from "./state"
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
   getResult,
   submit,
-} from './functions/'
+} from "./functions/"
 
 class DropTestFormWithout extends Component {
   state = state
@@ -43,20 +44,19 @@ class DropTestFormWithout extends Component {
 
           <CardContent className="card-content">
             {image && (
-              <Button
-                variant="fab"
+              <Fab
                 color="primary"
                 aria-label="crop image"
                 className="floating-icon"
                 onClick={onSingleCrop(this)}
               >
                 <CropIcon />
-              </Button>
+              </Fab>
             )}
 
             <Button
               fullWidth
-              variant="raised"
+              variant="contained"
               color="primary"
               className="submit-button"
               onClick={() =>
@@ -76,7 +76,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Location"
                 value={location}
-                onChange={onEventInputChange(this, 'location')}
+                onChange={onEventInputChange(this, "location")}
               />
 
               <TextField
@@ -85,7 +85,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Drop Height (cm)"
                 value={dropHeight}
-                onChange={onEventInputChange(this, 'dropHeight')}
+                onChange={onEventInputChange(this, "dropHeight")}
               />
 
               <TextField
@@ -94,7 +94,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="HIC"
                 value={hic}
-                onChange={onEventInputChange(this, 'hic')}
+                onChange={onEventInputChange(this, "hic")}
               />
 
               <TextField
@@ -103,7 +103,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="HIC Duration (ms)"
                 value={hicDuration}
-                onChange={onEventInputChange(this, 'hicDuration')}
+                onChange={onEventInputChange(this, "hicDuration")}
               />
 
               <TextField
@@ -112,7 +112,7 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Gmax (g)"
                 value={gmax}
-                onChange={onEventInputChange(this, 'gmax')}
+                onChange={onEventInputChange(this, "gmax")}
               />
 
               <TextField
@@ -121,28 +121,27 @@ class DropTestFormWithout extends Component {
                 margin="normal"
                 label="Result"
                 value={result}
-                onChange={onEventInputChange(this, 'result')}
+                onChange={onEventInputChange(this, "result")}
               />
             </form>
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
               >
-                {buttonText ? buttonText : 'Publish'}
+                {buttonText ? buttonText : "Publish"}
               </Button>
             )}
           </CardContent>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -32,4 +32,4 @@ export class AddCommonIssue extends Component {
   }
 }
 
-AddCommonIssue.contextTypes = contextTypesTitleLeftNav
+AddCommonIssue.contextType = NavContext

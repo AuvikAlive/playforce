@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { compose } from 'recompose'
-import { withDialog } from '../../../hocs/withDialog/withDialog'
-import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
-import { onComponentWillUnmountWithTitleLeftRightNav } from '../../../functions/'
-import { DropTestForm } from '../dropTestForm/DropTestForm'
-import { onComponentDidMount, submit } from './functions/'
+import React, { Component } from "react"
+import { compose } from "recompose"
+import { withDialog } from "../../../hocs/withDialog/withDialog"
+import { withFeedback } from "../../../hocs/withFeedback/withFeedback"
+import { NavContext } from "components/NavContextProvider/"
+import { onComponentWillUnmountWithTitleLeftRightNav } from "../../../functions/"
+import { DropTestForm } from "../dropTestForm/DropTestForm"
+import { onComponentDidMount, submit } from "./functions/"
 
 class BaseEditDropTest extends Component {
   componentDidMount() {
@@ -29,7 +29,7 @@ class BaseEditDropTest extends Component {
   }
 }
 
-BaseEditDropTest.contextTypes = contextTypesTitleLeftRightNav
+BaseEditDropTest.contextType = NavContext
 
 const enhance = compose(
   withDialog,

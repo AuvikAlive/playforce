@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { Content } from '../../../components/content/Content'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentWillUnmountWithTitleLeftNav,
   onEventInputChange,
@@ -56,7 +56,7 @@ class BaseEditImpactComment extends Component {
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
@@ -71,7 +71,7 @@ class BaseEditImpactComment extends Component {
   }
 }
 
-BaseEditImpactComment.contextTypes = contextTypesTitleLeftNav
+BaseEditImpactComment.contextType = NavContext
 
 export const enhance = compose(withFeedback)
 export const EditImpactComment = enhance(BaseEditImpactComment)

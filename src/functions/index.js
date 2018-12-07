@@ -1,95 +1,99 @@
-import { openMenu } from './openMenu'
+import { capitalize } from './capitalize'
 import { closeMenu } from './closeMenu'
-import { showContentWhenLoaded } from './showContentWhenLoaded'
-import { setSelectedItems } from './setSelectedItems'
+import { exportCSV } from './exportCSV'
+import { getAddressFromLocation } from './getAddressFromLocation'
+import { getBase64MimeType } from './getBase64MimeType'
+import { getCurrentPosition } from './getCurrentPosition'
+import { getDataUrlFromBlob } from './getDataUrlFromBlob';
+import { getDisplayName } from './getDisplayName';
+import { getEquipmentSuggestions } from './getEquipmentSuggestions'
+import { getGeocode } from './getGeocode'
+import { getImagesCopy } from './getImagesCopy'
+import { getInitials } from './getInitials'
+import { getRiskLevel } from './getRiskLevel'
 import { getSelectedItems } from './getSelectedItems'
-import { showActionGoBack } from './showActionGoBack'
-import { showActionGo } from './showActionGo'
+import { getSuggestionsByName } from './getSuggestionsByName'
+import { getUserMode } from './getUserMode'
+import { groupCommonIssues } from './groupCommonIssues'
+import { loadImages } from './loadImages'
+import { loadInitialData } from './loadInitialData'
+import { loadInitialDataWithImage } from './loadInitialDataWithImage'
+import { makeReportTitle } from './makeReportTitle'
 import { onComponentDidMountLoadData } from './onComponentDidMountLoadData'
-import { onComponentWillReceivePropsLoadData } from './onComponentWillReceivePropsLoadData'
-import { onComponentWillReceivePropsLoadDataWithLandscapeImage } from './onComponentWillReceivePropsLoadDataWithLandscapeImage'
 import { onComponentDidMountWithTitle } from './onComponentDidMountWithTitle'
 import { onComponentDidMountWithTitleLeftNav } from './onComponentDidMountWithTitleLeftNav'
 import { onComponentDidMountWithTitleLeftRightNavDelete } from './onComponentDidMountWithTitleLeftRightNavDelete'
+import { onComponentWillReceivePropsLoadData } from './onComponentWillReceivePropsLoadData'
+import { onComponentWillReceivePropsLoadDataWithLandscapeImage } from './onComponentWillReceivePropsLoadDataWithLandscapeImage'
+import { onComponentWillUnmountTitleSearchRightNav } from './onComponentWillUnmountTitleSearchRightNav'
 import { onComponentWillUnmountWithTitle } from './onComponentWillUnmountWithTitle'
 import { onComponentWillUnmountWithTitleLeftNav } from './onComponentWillUnmountWithTitleLeftNav'
-import { onComponentWillUnmountWithTitleRightNav } from './onComponentWillUnmountWithTitleRightNav'
 import { onComponentWillUnmountWithTitleLeftRightNav } from './onComponentWillUnmountWithTitleLeftRightNav'
-import { onComponentWillUnmountTitleSearchRightNav } from './onComponentWillUnmountTitleSearchRightNav'
+import { onComponentWillUnmountWithTitleRightNav } from './onComponentWillUnmountWithTitleRightNav'
 import { onEventInputChange } from './onEventInputChange'
-import { onValueInputChange } from './onValueInputChange'
-import { loadInitialData } from './loadInitialData'
-import { loadInitialDataWithImage } from './loadInitialDataWithImage'
-import { loadImages } from './loadImages'
-import { saveEditedImages } from './saveEditedImages'
-import { showImageNumberNotPortraitError } from './showImageNumberNotPortraitError'
-import { getRiskLevel } from './getRiskLevel'
-import { getImagesCopy } from './getImagesCopy'
-import { getEquipmentSuggestions } from './getEquipmentSuggestions'
-import { getSuggestionsByName } from './getSuggestionsByName'
-import { capitalize } from './capitalize'
-import { exportCSV } from './exportCSV'
-import { makeReportTitle } from './makeReportTitle'
-import { groupCommonIssues } from './groupCommonIssues'
-import { submitConditionRatingAndEquipment } from './submitConditionRatingAndEquipment'
-import { getCurrentPosition } from './getCurrentPosition'
-import { getGeocode } from './getGeocode'
-import { getInitials } from './getInitials'
-import { getUserMode } from './getUserMode'
 import { onSingleCrop } from './onSingleCrop'
-import { getBase64MimeType } from './getBase64MimeType'
-import { getAddressFromLocation } from './getAddressFromLocation'
+import { onValueInputChange } from './onValueInputChange'
+import { openMenu } from './openMenu'
+import { replaceCertificateTextPlaceholders } from './replaceCertificateTextPlaceholders'
+import { replaceClientName } from './replaceClientName'
 import { replaceLongDate } from './replaceLongDate'
 import { replaceSiteName } from './replaceSiteName'
-import { replaceClientName } from './replaceClientName'
-import { replaceCertificateTextPlaceholders } from './replaceCertificateTextPlaceholders'
+import { saveEditedImages } from './saveEditedImages'
+import { setSelectedItems } from './setSelectedItems'
+import { showActionGo } from './showActionGo'
+import { showActionGoBack } from './showActionGoBack'
+import { showContentWhenLoaded } from './showContentWhenLoaded'
+import { showImageNumberNotPortraitError } from './showImageNumberNotPortraitError'
+import { submitConditionRatingAndEquipment } from './submitConditionRatingAndEquipment'
 import { trimImage } from './trimImage'
 
 export {
-  openMenu,
+  capitalize,
   closeMenu,
-  showContentWhenLoaded,
-  setSelectedItems,
+  exportCSV,
+  getAddressFromLocation,
+  getBase64MimeType,
+  getCurrentPosition,
+  getDataUrlFromBlob,
+  getDisplayName,
+  getEquipmentSuggestions,
+  getGeocode,
+  getImagesCopy,
+  getInitials,
+  getRiskLevel,
   getSelectedItems,
-  showActionGoBack,
-  showActionGo,
+  getSuggestionsByName,
+  getUserMode,
+  groupCommonIssues,
+  loadImages,
+  loadInitialData,
+  loadInitialDataWithImage,
+  makeReportTitle,
   onComponentDidMountLoadData,
-  onComponentWillReceivePropsLoadData,
-  onComponentWillReceivePropsLoadDataWithLandscapeImage,
   onComponentDidMountWithTitle,
   onComponentDidMountWithTitleLeftNav,
   onComponentDidMountWithTitleLeftRightNavDelete,
+  onComponentWillReceivePropsLoadData,
+  onComponentWillReceivePropsLoadDataWithLandscapeImage,
+  onComponentWillUnmountTitleSearchRightNav,
   onComponentWillUnmountWithTitle,
   onComponentWillUnmountWithTitleLeftNav,
-  onComponentWillUnmountWithTitleRightNav,
   onComponentWillUnmountWithTitleLeftRightNav,
-  onComponentWillUnmountTitleSearchRightNav,
+  onComponentWillUnmountWithTitleRightNav,
   onEventInputChange,
-  onValueInputChange,
-  loadInitialData,
-  loadInitialDataWithImage,
-  loadImages,
-  saveEditedImages,
-  showImageNumberNotPortraitError,
-  getRiskLevel,
-  getImagesCopy,
-  getEquipmentSuggestions,
-  getSuggestionsByName,
-  capitalize,
-  exportCSV,
-  makeReportTitle,
-  groupCommonIssues,
-  submitConditionRatingAndEquipment,
-  getCurrentPosition,
-  getGeocode,
-  getInitials,
-  getUserMode,
   onSingleCrop,
-  getBase64MimeType,
-  getAddressFromLocation,
+  onValueInputChange,
+  openMenu,
+  replaceCertificateTextPlaceholders,
+  replaceClientName,
   replaceLongDate,
   replaceSiteName,
-  replaceClientName,
-  replaceCertificateTextPlaceholders,
+  saveEditedImages,
+  setSelectedItems,
+  showActionGo,
+  showActionGoBack,
+  showContentWhenLoaded,
+  showImageNumberNotPortraitError,
+  submitConditionRatingAndEquipment,
   trimImage,
 }

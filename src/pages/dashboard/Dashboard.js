@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
-import TextField from '@material-ui/core/TextField'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Typography from '@material-ui/core/Typography'
-import { Content } from '../../components/content/Content'
-import {
-  contextTypesTitleUnsubscriber,
-  individualUserMode,
-} from '../../constants/'
-import { showContentWhenLoaded, getUserMode } from '../../functions/'
-import { onComponentDidMount } from './onComponentDidMount'
+import React, { Component } from "react"
+import TextField from "@material-ui/core/TextField"
+import MenuItem from "@material-ui/core/MenuItem"
+import FormControl from "@material-ui/core/FormControl"
+import Typography from "@material-ui/core/Typography"
+import { NavContext } from "components/NavContextProvider/"
+import { Content } from "../../components/content/Content"
+import { individualUserMode } from "../../constants/"
+import { showContentWhenLoaded, getUserMode } from "../../functions/"
+import { onComponentDidMount } from "./onComponentDidMount"
 
 export class Dashboard extends Component {
   componentDidMount() {
@@ -54,7 +52,7 @@ export class Dashboard extends Component {
         </TextField>
 
         <FormControl margin="normal">
-          <Typography variant="subheading">
+          <Typography variant="subtitle1">
             Open inspections: {inspectionCount - inspectionCompleteCount}
           </Typography>
         </FormControl>
@@ -63,4 +61,4 @@ export class Dashboard extends Component {
   }
 }
 
-Dashboard.contextTypes = contextTypesTitleUnsubscriber
+Dashboard.contextType = NavContext

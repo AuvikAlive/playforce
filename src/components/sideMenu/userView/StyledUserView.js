@@ -1,8 +1,8 @@
-import Styled from 'styled-components'
+import Styled from "styled-components"
 
 export const StyledUserView = Styled.div`
   position: relative;
-  height: 169px;
+  height: 197px;
 
   .content {
     position: absolute;
@@ -19,7 +19,7 @@ export const StyledUserView = Styled.div`
 
   .avatar-letters {
     color: black;
-    background: ${props => props.theme.palette.secondary.main};
+    background: ${({ theme }) => theme.palette.secondary.main};
   }
 
   .background {
@@ -27,7 +27,10 @@ export const StyledUserView = Styled.div`
   }
 
   div.background {
-    background: ${props => props.theme.palette.grayBackground};
-    padding-top: 56.25%;
+    background: ${({ theme }) => theme.palette.grayBackground};
+    /* padding-top: 56.25%; */
+    height: 100%;
   }
 `
+
+StyledUserView.displayName = "StyledUserView"

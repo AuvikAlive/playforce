@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { contextTypesTitleLeftRightNav } from '../../../constants/'
+import React, { Component } from "react"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftRightNav,
   showActionGoBack,
-} from '../../../functions/'
-import ComplianceIssueForm from '../complianceIssueForm/'
+} from "../../../functions/"
+import ComplianceIssueForm from "../complianceIssueForm/"
 
 export class AddComplianceIssue extends Component {
   componentDidMount() {
-    onComponentDidMountWithTitleLeftNav(this, 'Add Compliance Issue')
+    onComponentDidMountWithTitleLeftNav(this, "Add Compliance Issue")
   }
 
   componentWillUnmount() {
@@ -22,7 +22,7 @@ export class AddComplianceIssue extends Component {
 
     return (
       <ComplianceIssueForm
-        afterSubmit={showActionGoBack(this, 'Issue published!')}
+        afterSubmit={showActionGoBack(this, "Issue published!")}
         onSubmit={data => addComplianceIssue(data)}
         setNav={context.setRightNavComponent}
         {...{ playingSurfaces }}
@@ -31,4 +31,4 @@ export class AddComplianceIssue extends Component {
   }
 }
 
-AddComplianceIssue.contextTypes = contextTypesTitleLeftRightNav
+AddComplianceIssue.contextType = NavContext

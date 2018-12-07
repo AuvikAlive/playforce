@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { AddButton } from '../../../components/addButton/AddButton'
-import { SelectableList } from '../../../components/selectableList/SelectableList'
-import { showContentWhenLoaded, setSelectedItems } from '../../../functions/'
-import { UserListView } from '../UserListView'
-import { contextTypes } from './contextTypes'
+import React, { Component } from "react"
+import { AddButton } from "../../../components/addButton/AddButton"
+import { SelectableList } from "../../../components/selectableList/SelectableList"
+import { showContentWhenLoaded, setSelectedItems } from "../../../functions/"
+import { UserListView } from "../UserListView"
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMount,
   onComponentWillUnmount,
   setSelectMode,
-} from './functions/'
-import { StyledMemberList } from './StyledMemberList'
+} from "./functions/"
+import { StyledMemberList } from "./StyledMemberList"
 
 export class MemberList extends Component {
   state = {
@@ -33,7 +33,7 @@ export class MemberList extends Component {
     return showContentWhenLoaded(
       membersLoaded,
       <StyledMemberList className="StyledMemberList">
-        <AddButton to={match.url + '/addMember'} pulse={!membersAdded} />
+        <AddButton to={match.url + "/addMember"} pulse={!membersAdded} />
 
         <SelectableList
           ListView={UserListView}
@@ -48,4 +48,4 @@ export class MemberList extends Component {
   }
 }
 
-MemberList.contextTypes = contextTypes
+MemberList.contextType = NavContext

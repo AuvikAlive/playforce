@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withFeedback } from '../../../hocs/withFeedback/withFeedback'
 import { Content } from '../../../components/content/Content'
-import { contextTypesTitleLeftNav } from '../../../constants/'
+import { NavContext } from "components/NavContextProvider/"
 import {
   onComponentDidMountWithTitleLeftNav,
   onComponentWillUnmountWithTitleLeftNav,
@@ -79,7 +79,7 @@ class BaseImpactAreaExtentCalculator extends Component {
   }
 }
 
-BaseImpactAreaExtentCalculator.contextTypes = contextTypesTitleLeftNav
+BaseImpactAreaExtentCalculator.contextType = NavContext
 
 export const ImpactAreaExtentCalculator = withFeedback(
   BaseImpactAreaExtentCalculator

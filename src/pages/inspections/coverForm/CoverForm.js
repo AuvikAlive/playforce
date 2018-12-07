@@ -1,34 +1,32 @@
-import React, { Component } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import CropIcon from '@material-ui/icons/Crop'
-import StayCurrentLandscapeIcon from '@material-ui/icons/StayCurrentLandscape'
-import AddBoxIcon from '@material-ui/icons/AddBox'
-import DateRangeIcon from '@material-ui/icons/DateRange'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
-import TextField from '@material-ui/core/TextField'
-import MenuItem from '@material-ui/core/MenuItem'
-import { DatePicker } from 'material-ui-pickers'
-import { AddSiteDialogContainer } from '../../../components/addSiteDialog/AddSiteDialogContainer'
-import { ClientsDialogContainer } from '../../../components/clientsDialog/ClientsDialogContainer'
-import { AutoComplete } from '../../../components/autoComplete/AutoComplete'
-import { ImageLightbox } from '../../../components/imageLightbox/ImageLightbox'
+import React, { Component } from "react"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import Fab from "@material-ui/core/Fab"
+import Button from "@material-ui/core/Button"
+import IconButton from "@material-ui/core/IconButton"
+import CropIcon from "@material-ui/icons/Crop"
+import StayCurrentLandscapeIcon from "@material-ui/icons/StayCurrentLandscape"
+import AddBoxIcon from "@material-ui/icons/AddBox"
+import DateRangeIcon from "@material-ui/icons/DateRange"
+import ArrowBackIcon from "@material-ui/icons/ArrowBack"
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward"
+import TextField from "@material-ui/core/TextField"
+import MenuItem from "@material-ui/core/MenuItem"
+import { DatePicker } from "material-ui-pickers"
+import { NavContext } from "components/NavContextProvider/"
+import { AddSiteDialogContainer } from "../../../components/addSiteDialog/AddSiteDialogContainer"
+import { ClientsDialogContainer } from "../../../components/clientsDialog/ClientsDialogContainer"
+import { AutoComplete } from "../../../components/autoComplete/AutoComplete"
+import { ImageLightbox } from "../../../components/imageLightbox/ImageLightbox"
 import {
   showContentWhenLoaded,
   onEventInputChange,
   onValueInputChange,
   onSingleCrop,
-} from '../../../functions/'
-import {
-  contextTypesUnsubscriber,
-  // defaultInspectionTypes,
-} from '../../../constants/'
-import { StyledCoverForm } from './StyledCoverForm'
-import { state } from './state'
+} from "../../../functions/"
+import { StyledCoverForm } from "./StyledCoverForm"
+import { state } from "./state"
 import {
   onComponentDidMount,
   onComponentWillReceiveProps,
@@ -36,7 +34,7 @@ import {
   getClientSuggestions,
   onClientSelect,
   submit,
-} from './functions/'
+} from "./functions/"
 
 export class CoverForm extends Component {
   state = state
@@ -88,20 +86,19 @@ export class CoverForm extends Component {
 
           <CardContent className="card-content">
             {image && (
-              <Button
-                variant="fab"
+              <Fab
                 color="primary"
                 aria-label="crop image"
                 className="floating-icon"
                 onClick={onSingleCrop(this)}
               >
                 <CropIcon />
-              </Button>
+              </Fab>
             )}
 
             <Button
               fullWidth
-              variant="raised"
+              variant="contained"
               color="primary"
               className="submit-button"
               onClick={() =>
@@ -116,7 +113,7 @@ export class CoverForm extends Component {
                 <AutoComplete
                   label="Location"
                   value={location}
-                  onChange={onValueInputChange(this, 'location')}
+                  onChange={onValueInputChange(this, "location")}
                   getSuggestions={getLocationSuggestions(this)}
                 />
                 <IconButton
@@ -134,7 +131,7 @@ export class CoverForm extends Component {
                 <AutoComplete
                   label="Client"
                   value={client}
-                  onChange={onValueInputChange(this, 'client')}
+                  onChange={onValueInputChange(this, "client")}
                   onSuggestionSelect={onClientSelect(this)}
                   getSuggestions={getClientSuggestions(this)}
                 />
@@ -160,7 +157,7 @@ export class CoverForm extends Component {
                 keyboardIcon={<DateRangeIcon />}
                 leftArrowIcon={<ArrowBackIcon />}
                 rightArrowIcon={<ArrowForwardIcon />}
-                onChange={onValueInputChange(this, 'inspectionDate')}
+                onChange={onValueInputChange(this, "inspectionDate")}
                 animateYearScrolling={false}
               />
 
@@ -168,7 +165,7 @@ export class CoverForm extends Component {
                 fullWidth
                 label="Inspected By"
                 value={displayName || this.props.displayName}
-                onChange={onEventInputChange(this, 'displayName')}
+                onChange={onEventInputChange(this, "displayName")}
                 margin="normal"
               />
 
@@ -180,7 +177,7 @@ export class CoverForm extends Component {
                 }}
                 label="Applied Standard"
                 value={appliedStandards}
-                onChange={onEventInputChange(this, 'appliedStandards')}
+                onChange={onEventInputChange(this, "appliedStandards")}
                 margin="normal"
               >
                 {standards.length > 0 ? (
@@ -224,22 +221,21 @@ export class CoverForm extends Component {
 
             {error && <p className="error">{error}</p>}
 
-            {!error &&
-              loading && (
-                <div className="loading">
-                  <CircularProgress />
-                </div>
-              )}
+            {!error && loading && (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            )}
 
             {!loading && (
               <Button
                 fullWidth
-                variant="raised"
+                variant="contained"
                 color="primary"
                 className="submit-button"
                 onClick={submit(this)}
               >
-                {buttonText ? buttonText : 'Publish'}
+                {buttonText ? buttonText : "Publish"}
               </Button>
             )}
           </CardContent>
@@ -249,4 +245,4 @@ export class CoverForm extends Component {
   }
 }
 
-CoverForm.contextTypes = contextTypesUnsubscriber
+CoverForm.contextType = NavContext
