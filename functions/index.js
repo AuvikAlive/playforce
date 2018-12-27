@@ -1,5 +1,3 @@
-const { generateReport } = require('./generateReport')
+const functions = require('./build/')
 
-module.exports = {
-  generateReport,
-}
+module.exports = functions
