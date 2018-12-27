@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "firebase-admin": "~6.0.0",
-    "firebase-functions": "^2.1.0"
+    "firebase-functions": "^2.1.0",
+    "pdfmake": "^0.1.40"
   },
   "devDependencies": {
     "eslint": "^4.12.0",

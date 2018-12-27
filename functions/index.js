@@ -1,5 +1,5 @@
-const { helloWorld } = require('./helloWorld')
+const { generateReport } = require('./generateReport')
 
 module.exports = {
-  helloWorld,
+  generateReport,
 }
