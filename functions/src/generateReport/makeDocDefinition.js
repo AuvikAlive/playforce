@@ -7,6 +7,7 @@ import { makeCover } from './makeCover/'
 import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeConditionRatingInfo/'
 import { makeConditionRatings } from './makeConditionRatings/'
+import { makeImpactTests } from './makeImpactTests/'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -17,6 +18,7 @@ export const makeDocDefinition = async requestBody => {
     client,
     author,
     equipment,
+    impactTest,
   } = requestBody
 
   const skipCommonHeaderFooter = 1
@@ -44,6 +46,7 @@ export const makeDocDefinition = async requestBody => {
       await makeAuditSummary(inspection.auditSummary, author, site),
       makeConditionRatingInfo(),
       makeConditionRatings(equipment),
+      makeImpactTests(impactTest, inspection.standards),
     ],
   }
 
