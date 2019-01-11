@@ -5,6 +5,7 @@ import { makeFooter } from './makeFooter'
 import { logo } from './logo'
 import { makeCover } from './makeCover/'
 import { makeAuditSummary } from './makeAuditSummary'
+import { makeConditionRatingInfo } from './makeConditionRatingInfo/'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -39,6 +40,7 @@ export const makeDocDefinition = async requestBody => {
         author,
       }),
       await makeAuditSummary(inspection.auditSummary, author, site),
+      makeConditionRatingInfo(),
     ],
   }
 
