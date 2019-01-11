@@ -4,6 +4,7 @@ import { makeHeader } from './makeHeader'
 import { makeFooter } from './makeFooter'
 import { logo } from './logo'
 import { makeCover } from './makeCover/'
+import { makeAuditSummary } from './makeAuditSummary'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -37,6 +38,7 @@ export const makeDocDefinition = async requestBody => {
         client,
         author,
       }),
+      await makeAuditSummary(inspection.auditSummary, author, site),
     ],
   }
 

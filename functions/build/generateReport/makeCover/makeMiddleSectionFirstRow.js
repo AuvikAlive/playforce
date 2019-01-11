@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeMiddleSectionFirstRow = void 0;
 
-var _getAddressFromLocation = require("../getAddressFromLocation");
+var _utils = require("../utils/");
 
 var _constants = require("../constants");
 
@@ -15,7 +15,7 @@ const makeMiddleSectionFirstRow = ({
   name,
   location
 }) => {
-  const address = (0, _getAddressFromLocation.getAddressFromLocation)(location);
+  const address = (0, _utils.formatSiteAddress)(location);
   return {
     fontSize: sectionFontSize,
     columns: [{
