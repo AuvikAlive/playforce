@@ -1,4 +1,4 @@
-import { getAddressFromLocation } from '../../../../functions/'
+import { getAddressFromLocation } from '../getAddressFromLocation'
 import { verticalMargin } from '../constants'
 
 export const makeMiddleSectionFirstRow = ({

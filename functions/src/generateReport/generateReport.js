@@ -4,8 +4,8 @@ import { makePdf } from './makePdf'
 import * as functions from 'firebase-functions'
 const router = express.Router()
 
-router.post('/', (request, response) => {
-  makePdf(request.body, data => {
+router.post('/', async (request, response) => {
+  await makePdf(request.body, data => {
     response.setHeader('Content-disposition', 'attachment; filename=report.pdf')
     response.setHeader('Content-Type', 'application/pdf')
     response.send(data)

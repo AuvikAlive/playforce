@@ -26,13 +26,14 @@ const makeMiddleSection = ({
   appliedStandards
 }) => {
   const {
-    name
+    name,
+    address
   } = location;
   return [(0, _makeMiddleSectionFirstRow.makeMiddleSectionFirstRow)({
     sectionFontSize,
     firstColumnWidth,
     name,
-    location
+    location: address
   }), (0, _makeMiddleSectionSecondRow.makeMiddleSectionSecondRow)({
     sectionFontSize,
     firstColumnWidth,

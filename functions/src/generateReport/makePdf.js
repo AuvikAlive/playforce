@@ -2,10 +2,10 @@ import pdfMakePrinter from 'pdfmake/src/printer'
 import { fontDescriptors } from './fontDescriptors'
 import { makeDocDefinition } from './makeDocDefinition'
 
-export const makePdf = (requestBody, callback) => {
+export const makePdf = async (requestBody, callback) => {
   try {
     const printer = new pdfMakePrinter(fontDescriptors)
-    const docDefinition = makeDocDefinition(requestBody)
+    const docDefinition = await makeDocDefinition(requestBody)
     const doc = printer.createPdfKitDocument(docDefinition)
 
     let chunks = []

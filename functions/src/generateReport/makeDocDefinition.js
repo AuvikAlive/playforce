@@ -5,8 +5,16 @@ import { makeFooter } from './makeFooter'
 import { logo } from './logo'
 import { makeCover } from './makeCover/'
 
-export const makeDocDefinition = requestBody => {
-  const { reportPreferences, organisation } = requestBody
+export const makeDocDefinition = async requestBody => {
+  const {
+    reportPreferences,
+    organisation,
+    inspection,
+    site,
+    client,
+    author,
+  } = requestBody
+
   const skipCommonHeaderFooter = 1
 
   const docDefinition = {
@@ -20,7 +28,16 @@ export const makeDocDefinition = requestBody => {
     images: {
       logo,
     },
-    content: [makeCover(reportPreferences, organisation)],
+    content: [
+      await makeCover({
+        reportPreferences,
+        organisation,
+        inspection,
+        site,
+        client,
+        author,
+      }),
+    ],
   }
 
   return docDefinition

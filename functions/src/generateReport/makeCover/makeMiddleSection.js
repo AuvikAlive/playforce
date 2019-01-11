@@ -14,14 +14,14 @@ export const makeMiddleSection = ({
   displayName,
   appliedStandards,
 }) => {
-  const { name } = location
+  const { name, address } = location
 
   return [
     makeMiddleSectionFirstRow({
       sectionFontSize,
       firstColumnWidth,
       name,
-      location,
+      location: address,
     }),
     makeMiddleSectionSecondRow({
       sectionFontSize,
