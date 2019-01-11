@@ -1,17 +1,15 @@
 import { pageWidth, pageMarginHorizontal } from '../constants'
-import fetch from 'fetch-base64'
+import { fetchImage } from '../utils/'
 
 export const makeCoverImage = async imageUrl => {
-  try {
-    const data = await fetch.remote(imageUrl)
+  const image = await fetchImage(imageUrl)
 
-    return {
-      image: data[1],
-      width: pageWidth,
-      marginLeft: -pageMarginHorizontal,
-      height: 432,
-    }
-  } catch (error) {
-    return null
-  }
+  return image
+    ? {
+        image,
+        width: pageWidth,
+        marginLeft: -pageMarginHorizontal,
+        height: 432,
+      }
+    : null
 }

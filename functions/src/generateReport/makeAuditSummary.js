@@ -1,7 +1,11 @@
-import fetch from 'fetch-base64'
 import { compose } from 'ramda'
 import { verticalMargin, headerFontSize } from './constants'
-import { insertSiteName, insertSiteAddress, formatSiteAddress } from './utils/'
+import {
+  insertSiteName,
+  insertSiteAddress,
+  formatSiteAddress,
+  fetchImage,
+} from './utils/'
 
 export const makeAuditSummary = async (auditSummary, author, site) => {
   const { signature, name, title } = author
@@ -11,13 +15,7 @@ export const makeAuditSummary = async (auditSummary, author, site) => {
     insertSiteAddress(siteAddress || '')
   )
 
-  let signatureImage
-
-  try {
-    signatureImage = await fetch.remote(signature)
-  } catch (error) {
-    signatureImage = null
-  }
+  const signatureImage = await fetchImage(signature)
 
   return [
     {

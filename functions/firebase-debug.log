@@ -1,27 +1,29 @@
-[debug] [2019-01-11T16:02:12.030Z] ----------------------------------------------------------------------
-[debug] [2019-01-11T16:02:12.032Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\auvik\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
-[debug] [2019-01-11T16:02:12.032Z] CLI Version:   6.2.2
-[debug] [2019-01-11T16:02:12.032Z] Platform:      win32
-[debug] [2019-01-11T16:02:12.032Z] Node Version:  v10.11.0
-[debug] [2019-01-11T16:02:12.033Z] Time:          Fri Jan 11 2019 22:02:12 GMT+0600 (Bangladesh Standard Time)
-[debug] [2019-01-11T16:02:12.033Z] ----------------------------------------------------------------------
+[debug] [2019-01-11T16:19:30.775Z] ----------------------------------------------------------------------
+[debug] [2019-01-11T16:19:30.777Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\auvik\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2019-01-11T16:19:30.777Z] CLI Version:   6.2.2
+[debug] [2019-01-11T16:19:30.777Z] Platform:      win32
+[debug] [2019-01-11T16:19:30.777Z] Node Version:  v10.11.0
+[debug] [2019-01-11T16:19:30.778Z] Time:          Fri Jan 11 2019 22:19:30 GMT+0600 (Bangladesh Standard Time)
+[debug] [2019-01-11T16:19:30.778Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-01-11T16:02:12.044Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-01-11T16:02:12.045Z] > authorizing via signed-in user
-[debug] [2019-01-11T16:02:12.045Z] [iam] checking project inspection-app-49829 for permissions ["firebase.projects.get"]
-[debug] [2019-01-11T16:02:12.047Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829:testIamPermissions  
+[debug] [2019-01-11T16:19:30.789Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-01-11T16:19:30.790Z] > authorizing via signed-in user
+[debug] [2019-01-11T16:19:30.790Z] [iam] checking project inspection-app-49829 for permissions ["firebase.projects.get"]
+[debug] [2019-01-11T16:19:30.792Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829:testIamPermissions  
 
-[debug] [2019-01-11T16:02:17.892Z] <<< HTTP RESPONSE 200
-[debug] [2019-01-11T16:02:17.896Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829  
+[debug] [2019-01-11T16:19:33.573Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-11T16:19:33.574Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829  
  
-[debug] [2019-01-11T16:02:19.502Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-11T16:19:36.231Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from 'C:\Work\justin\pwa'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2019-01-11T16:02:20.310Z] Fetching environment
-[debug] [2019-01-11T16:02:20.314Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/927219938723:getServerAppConfig  
+[debug] [2019-01-11T16:19:36.903Z] Fetching environment
+[debug] [2019-01-11T16:19:36.906Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/927219938723:getServerAppConfig  
  
-[debug] [2019-01-11T16:02:21.720Z] <<< HTTP RESPONSE 200
-[debug] [2019-01-11T16:02:21.721Z] Starting @google-cloud/functions-emulator
-[debug] [2019-01-11T16:02:23.762Z] Parsing function triggers
+[debug] [2019-01-11T16:19:38.445Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-11T16:19:38.446Z] Starting @google-cloud/functions-emulator
+[debug] [2019-01-11T16:19:39.971Z] Parsing function triggers
+[info] +  functions: generateReport: http://localhost:5000/inspection-app-49829/us-central1/generateReport
+[info] Shutting down...

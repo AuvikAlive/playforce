@@ -5,15 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeAuditSummary = void 0;
 
-var _fetchBase = _interopRequireDefault(require("fetch-base64"));
-
 var _ramda = require("ramda");
 
 var _constants = require("./constants");
 
 var _utils = require("./utils/");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -30,14 +26,7 @@ function () {
     } = author;
     const siteAddress = (0, _utils.formatSiteAddress)(site.address);
     const insertPlaceholders = (0, _ramda.compose)((0, _utils.insertSiteName)(site.name || ''), (0, _utils.insertSiteAddress)(siteAddress || ''));
-    let signatureImage;
-
-    try {
-      signatureImage = yield _fetchBase.default.remote(signature);
-    } catch (error) {
-      signatureImage = null;
-    }
-
+    const signatureImage = yield (0, _utils.fetchImage)(signature);
     return [{
       text: 'AUDIT SUMMARY',
       font: 'Oswald',
