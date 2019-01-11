@@ -1,4 +1,4 @@
-import { getAddressFromLocation } from '../../../../functions/'
+import { formatSiteAddress } from '../utils/'
 import { verticalMargin } from '../constants'
 
 export const makeLocation = (firstColumnWidth, location) => ({
@@ -15,7 +15,7 @@ export const makeLocation = (firstColumnWidth, location) => ({
         text: location.name,
       },
       {
-        text: getAddressFromLocation(location),
+        text: formatSiteAddress(location),
       },
     ],
   ],

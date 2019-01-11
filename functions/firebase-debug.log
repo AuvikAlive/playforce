@@ -1,93 +1,29 @@
-[debug] [2019-01-11T16:42:28.577Z] ----------------------------------------------------------------------
-[debug] [2019-01-11T16:42:28.579Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\auvik\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
-[debug] [2019-01-11T16:42:28.579Z] CLI Version:   6.2.2
-[debug] [2019-01-11T16:42:28.580Z] Platform:      win32
-[debug] [2019-01-11T16:42:28.580Z] Node Version:  v10.11.0
-[debug] [2019-01-11T16:42:28.580Z] Time:          Fri Jan 11 2019 22:42:28 GMT+0600 (Bangladesh Standard Time)
-[debug] [2019-01-11T16:42:28.580Z] ----------------------------------------------------------------------
+[debug] [2019-01-11T16:58:05.915Z] ----------------------------------------------------------------------
+[debug] [2019-01-11T16:58:05.917Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\auvik\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2019-01-11T16:58:05.917Z] CLI Version:   6.2.2
+[debug] [2019-01-11T16:58:05.917Z] Platform:      win32
+[debug] [2019-01-11T16:58:05.917Z] Node Version:  v10.11.0
+[debug] [2019-01-11T16:58:05.918Z] Time:          Fri Jan 11 2019 22:58:05 GMT+0600 (Bangladesh Standard Time)
+[debug] [2019-01-11T16:58:05.918Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-01-11T16:42:28.591Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-01-11T16:42:28.591Z] > authorizing via signed-in user
-[debug] [2019-01-11T16:42:28.592Z] [iam] checking project inspection-app-49829 for permissions ["firebase.projects.get"]
-[debug] [2019-01-11T16:42:28.594Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829:testIamPermissions  
+[debug] [2019-01-11T16:58:05.929Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-01-11T16:58:05.930Z] > authorizing via signed-in user
+[debug] [2019-01-11T16:58:05.930Z] [iam] checking project inspection-app-49829 for permissions ["firebase.projects.get"]
+[debug] [2019-01-11T16:58:05.932Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829:testIamPermissions  
 
-[debug] [2019-01-11T16:42:30.963Z] <<< HTTP RESPONSE 200
-[debug] [2019-01-11T16:42:30.965Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829  
+[debug] [2019-01-11T16:58:07.968Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-11T16:58:07.969Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829  
  
-[debug] [2019-01-11T16:42:33.064Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-11T16:58:08.930Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from 'C:\Work\justin\pwa'...
 [info] 
 [info] i  functions: Preparing to emulate functions.
-[debug] [2019-01-11T16:42:33.778Z] Fetching environment
-[debug] [2019-01-11T16:42:33.781Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/927219938723:getServerAppConfig  
+[debug] [2019-01-11T16:58:09.588Z] Fetching environment
+[debug] [2019-01-11T16:58:09.592Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/927219938723:getServerAppConfig  
  
-[debug] [2019-01-11T16:42:35.168Z] <<< HTTP RESPONSE 200
-[debug] [2019-01-11T16:42:35.169Z] Starting @google-cloud/functions-emulator
-[debug] [2019-01-11T16:42:37.218Z] Parsing function triggers
-[warn] !  functions: Failed to load functions source code. Ensure that you have the latest SDK by running npm i --save firebase-functions inside the functions directory.
-[debug] [2019-01-11T16:42:38.153Z] Error during trigger parsing:  Error occurred while parsing your function triggers.
-
-C:\Work\justin\pwa\node_modules\date-fns\esm\index.js:3
-export {default as addDays} from './addDays/index.js'
-^^^^^^
-
-SyntaxError: Unexpected token export
-    at new Script (vm.js:79:7)
-    at createScript (vm.js:251:10)
-    at Object.runInThisContext (vm.js:303:10)
-    at Module._compile (internal/modules/cjs/loader.js:657:28)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:700:10)
-    at Module.load (internal/modules/cjs/loader.js:599:32)
-    at tryModuleLoad (internal/modules/cjs/loader.js:538:12)
-    at Function.Module._load (internal/modules/cjs/loader.js:530:3)
-    at Module.require (internal/modules/cjs/loader.js:637:17)
-    at require (internal/modules/cjs/helpers.js:20:18)
-[warn] !  functions: Error from emulator. Error occurred while parsing your function triggers.
-
-C:\Work\justin\pwa\node_modules\date-fns\esm\index.js:3
-export {default as addDays} from './addDays/index.js'
-^^^^^^
-
-SyntaxError: Unexpected token export
-    at new Script (vm.js:79:7)
-    at createScript (vm.js:251:10)
-    at Object.runInThisContext (vm.js:303:10)
-    at Module._compile (internal/modules/cjs/loader.js:657:28)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:700:10)
-    at Module.load (internal/modules/cjs/loader.js:599:32)
-    at tryModuleLoad (internal/modules/cjs/loader.js:538:12)
-    at Function.Module._load (internal/modules/cjs/loader.js:530:3)
-    at Module.require (internal/modules/cjs/loader.js:637:17)
-    at require (internal/modules/cjs/helpers.js:20:18)
-[debug] [2019-01-11T16:42:38.155Z] 
-[info] Shutting down...
-[debug] [2019-01-11T16:44:41.309Z] ----------------------------------------------------------------------
-[debug] [2019-01-11T16:44:41.311Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\auvik\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
-[debug] [2019-01-11T16:44:41.311Z] CLI Version:   6.2.2
-[debug] [2019-01-11T16:44:41.311Z] Platform:      win32
-[debug] [2019-01-11T16:44:41.311Z] Node Version:  v10.11.0
-[debug] [2019-01-11T16:44:41.312Z] Time:          Fri Jan 11 2019 22:44:41 GMT+0600 (Bangladesh Standard Time)
-[debug] [2019-01-11T16:44:41.312Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2019-01-11T16:44:41.323Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-01-11T16:44:41.324Z] > authorizing via signed-in user
-[debug] [2019-01-11T16:44:41.324Z] [iam] checking project inspection-app-49829 for permissions ["firebase.projects.get"]
-[debug] [2019-01-11T16:44:41.326Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829:testIamPermissions  
-
-[debug] [2019-01-11T16:44:42.809Z] <<< HTTP RESPONSE 200
-[debug] [2019-01-11T16:44:42.810Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829  
- 
-[debug] [2019-01-11T16:44:44.549Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Serving from 'C:\Work\justin\pwa'...
-[info] 
-[info] i  functions: Preparing to emulate functions.
-[debug] [2019-01-11T16:44:45.256Z] Fetching environment
-[debug] [2019-01-11T16:44:45.259Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/927219938723:getServerAppConfig  
- 
-[debug] [2019-01-11T16:44:45.861Z] <<< HTTP RESPONSE 200
-[debug] [2019-01-11T16:44:45.861Z] Starting @google-cloud/functions-emulator
-[debug] [2019-01-11T16:44:47.891Z] Parsing function triggers
+[debug] [2019-01-11T16:58:10.609Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-11T16:58:10.610Z] Starting @google-cloud/functions-emulator
+[debug] [2019-01-11T16:58:12.635Z] Parsing function triggers
 [info] +  functions: generateReport: http://localhost:5000/inspection-app-49829/us-central1/generateReport
 [info] Shutting down...

@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeLocation = void 0;
 
-var _functions = require("../../../../functions/");
+var _utils = require("../utils/");
 
 var _constants = require("../constants");
 
@@ -19,7 +19,7 @@ const makeLocation = (firstColumnWidth, location) => ({
   }, [{
     text: location.name
   }, {
-    text: (0, _functions.getAddressFromLocation)(location)
+    text: (0, _utils.formatSiteAddress)(location)
   }]]
 });
 
