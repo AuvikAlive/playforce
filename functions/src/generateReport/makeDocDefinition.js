@@ -9,6 +9,7 @@ import { makeConditionRatingInfo } from './makeConditionRatingInfo/'
 import { makeConditionRatings } from './makeConditionRatings/'
 import { makeImpactTests } from './makeImpactTests/'
 import { makeComplianceIssues } from './makeComplianceIssues/'
+import { makeMaintenanceIssues } from './makeMaintenanceIssues/'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -51,6 +52,9 @@ export const makeDocDefinition = async requestBody => {
       makeImpactTests(impactTest, inspection.standards),
       await makeComplianceIssues(
         issues.filter(({ type }) => type === 'Compliance')
+      ),
+      await makeMaintenanceIssues(
+        issues.filter(({ type }) => type === 'Maintenance')
       ),
     ],
   }

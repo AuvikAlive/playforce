@@ -27,6 +27,8 @@ var _makeImpactTests = require("./makeImpactTests/");
 
 var _makeComplianceIssues = require("./makeComplianceIssues/");
 
+var _makeMaintenanceIssues = require("./makeMaintenanceIssues/");
+
 const makeDocDefinition = async requestBody => {
   const {
     reportPreferences,
@@ -57,7 +59,9 @@ const makeDocDefinition = async requestBody => {
       author
     }), await (0, _makeAuditSummary.makeAuditSummary)(inspection.auditSummary, author, site), (0, _makeConditionRatingInfo.makeConditionRatingInfo)(), await (0, _makeConditionRatings.makeConditionRatings)(equipment), (0, _makeImpactTests.makeImpactTests)(impactTest, inspection.standards), await (0, _makeComplianceIssues.makeComplianceIssues)(issues.filter(({
       type
-    }) => type === 'Compliance'))]
+    }) => type === 'Compliance')), await (0, _makeMaintenanceIssues.makeMaintenanceIssues)(issues.filter(({
+      type
+    }) => type === 'Maintenance'))]
   };
   return docDefinition;
 };
