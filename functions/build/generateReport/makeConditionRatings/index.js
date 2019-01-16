@@ -5,13 +5,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.makeConditionRatings = void 0;
 
-var _makePlaygroundItems = require("./makePlaygroundItems");
-
 var _makeIndividualItems = require("./makeIndividualItems");
 
 var _makeTitle = require("./makeTitle");
 
-const makeConditionRatings = (conditionRatings, playgroundsCompleted, playgrounds) => [(0, _makeTitle.makeTitle)(), playgroundsCompleted ? (0, _makePlaygroundItems.makePlaygroundItems)(playgrounds) : (0, _makeIndividualItems.makeIndividualItems)(conditionRatings), {
+// import { makePlaygroundItems } from './makePlaygroundItems'
+const makeConditionRatings = async conditionRatings => [(0, _makeTitle.makeTitle)(), await (0, _makeIndividualItems.makeIndividualItems)(conditionRatings), {
   text: '',
   pageBreak: 'after'
 }];

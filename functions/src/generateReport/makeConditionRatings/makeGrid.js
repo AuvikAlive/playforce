@@ -1,4 +1,4 @@
-import chunk from 'lodash/chunk'
+import { chunk } from 'lodash'
 import { verticalMargin } from '../constants'
 import { makeImage } from './makeImage'
 import { makeEquipmentType } from './makeEquipmentType'

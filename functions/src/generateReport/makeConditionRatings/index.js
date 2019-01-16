@@ -1,17 +1,10 @@
-import { makePlaygroundItems } from './makePlaygroundItems'
+// import { makePlaygroundItems } from './makePlaygroundItems'
 import { makeIndividualItems } from './makeIndividualItems'
 import { makeTitle } from './makeTitle'
 
-export const makeConditionRatings = (
-  conditionRatings,
-  playgroundsCompleted,
-  playgrounds
-) => [
+export const makeConditionRatings = async conditionRatings => [
   makeTitle(),
-  playgroundsCompleted
-    ? makePlaygroundItems(playgrounds)
-    : makeIndividualItems(conditionRatings),
-
+  await makeIndividualItems(conditionRatings),
   {
     text: '',
     pageBreak: 'after',

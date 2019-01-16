@@ -23,7 +23,8 @@ export const makePdf = async (requestBody, callback) => {
     })
 
     doc.end()
-  } catch (err) {
-    throw err
+  } catch (error) {
+    console.log(error)
+    // throw error
   }
 }

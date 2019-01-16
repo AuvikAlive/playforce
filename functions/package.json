@@ -16,6 +16,8 @@
     "fetch-base64": "^2.1.2",
     "firebase-admin": "~6.0.0",
     "firebase-functions": "^2.1.0",
+    "lodash": "^4.17.11",
+    "node-fetch": "^2.3.0",
     "pdfmake": "^0.1.40",
     "ramda": "^0.26.1"
   },

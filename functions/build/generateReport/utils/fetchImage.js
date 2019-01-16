@@ -5,29 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchImage = void 0;
 
-var _fetchBase = _interopRequireDefault(require("fetch-base64"));
+var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-const fetchImage =
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(function* (imageUrl) {
-    try {
-      const data = yield _fetchBase.default.remote(imageUrl);
-      return data[1];
-    } catch (error) {
-      return null;
-    }
-  });
-
-  return function fetchImage(_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
+const fetchImage = async imageUrl => {
+  try {
+    const response = await (0, _nodeFetch.default)(imageUrl);
+    const type = response.headers['content-type'];
+    const buffer = await response.buffer();
+    const image = `data:${type};base64,${buffer.toString('base64')}`;
+    return image;
+  } catch (error) {
+    // console.log(error)
+    return null;
+  }
+};
 
 exports.fetchImage = fetchImage;

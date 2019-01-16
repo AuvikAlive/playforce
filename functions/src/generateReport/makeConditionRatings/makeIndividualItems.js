@@ -3,7 +3,7 @@ import { makeAncillaryItems } from './makeAncillaryItems'
 import { equipmentTypes } from './equipmentTypes'
 import { capitalize } from '../utils/'
 
-export const makeIndividualItems = conditionRatings => {
+export const makeIndividualItems = async conditionRatings => {
   const playItems = conditionRatings.filter(
     ({ type }) => capitalize(type) === equipmentTypes[0]
   )
@@ -17,8 +17,8 @@ export const makeIndividualItems = conditionRatings => {
   )
 
   return [
-    makeItems(playItems, 'Play'),
-    makeItems(fitnessItems, 'Fitness'),
+    await makeItems(playItems, 'Play'),
+    await makeItems(fitnessItems, 'Fitness'),
     makeAncillaryItems(ancillaryItems),
   ]
 }

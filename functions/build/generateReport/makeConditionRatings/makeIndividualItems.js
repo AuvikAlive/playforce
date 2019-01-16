@@ -13,7 +13,7 @@ var _equipmentTypes = require("./equipmentTypes");
 
 var _utils = require("../utils/");
 
-const makeIndividualItems = conditionRatings => {
+const makeIndividualItems = async conditionRatings => {
   const playItems = conditionRatings.filter(({
     type
   }) => (0, _utils.capitalize)(type) === _equipmentTypes.equipmentTypes[0]);
@@ -23,7 +23,7 @@ const makeIndividualItems = conditionRatings => {
   const ancillaryItems = conditionRatings.filter(({
     type
   }) => (0, _utils.capitalize)(type) === _equipmentTypes.equipmentTypes[2]);
-  return [(0, _makeItems.makeItems)(playItems, 'Play'), (0, _makeItems.makeItems)(fitnessItems, 'Fitness'), (0, _makeAncillaryItems.makeAncillaryItems)(ancillaryItems)];
+  return [await (0, _makeItems.makeItems)(playItems, 'Play'), await (0, _makeItems.makeItems)(fitnessItems, 'Fitness'), (0, _makeAncillaryItems.makeAncillaryItems)(ancillaryItems)];
 };
 
 exports.makeIndividualItems = makeIndividualItems;

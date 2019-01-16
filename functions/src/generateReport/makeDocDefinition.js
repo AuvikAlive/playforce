@@ -45,7 +45,7 @@ export const makeDocDefinition = async requestBody => {
       }),
       await makeAuditSummary(inspection.auditSummary, author, site),
       makeConditionRatingInfo(),
-      makeConditionRatings(equipment),
+      await makeConditionRatings(equipment),
       makeImpactTests(impactTest, inspection.standards),
     ],
   }

@@ -1,11 +1,15 @@
-import fetch from 'fetch-base64'
+import fetch from 'node-fetch'
 
 export const fetchImage = async imageUrl => {
   try {
-    const data = await fetch.remote(imageUrl)
+    const response = await fetch(imageUrl)
+    const type = response.headers['content-type']
+    const buffer = await response.buffer()
+    const image = `data:${type};base64,${buffer.toString('base64')}`
 
-    return data[1]
+    return image
   } catch (error) {
+    // console.log(error)
     return null
   }
 }
