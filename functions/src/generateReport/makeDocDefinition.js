@@ -11,6 +11,7 @@ import { makeImpactTests } from './makeImpactTests/'
 import { makeComplianceIssues } from './makeComplianceIssues/'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues/'
 import { makeAreasAssessed } from './makeAreasAssessed/'
+import { makeImpactTestImages } from './makeImpactTestImages/'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -58,6 +59,7 @@ export const makeDocDefinition = async requestBody => {
         issues.filter(({ type }) => type === 'Maintenance')
       ),
       makeAreasAssessed(),
+      makeImpactTestImages(impactTest.surfaces),
     ],
   }
 

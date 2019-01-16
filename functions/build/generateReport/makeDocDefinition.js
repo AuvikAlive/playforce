@@ -31,6 +31,8 @@ var _makeMaintenanceIssues = require("./makeMaintenanceIssues/");
 
 var _makeAreasAssessed = require("./makeAreasAssessed/");
 
+var _makeImpactTestImages = require("./makeImpactTestImages/");
+
 const makeDocDefinition = async requestBody => {
   const {
     reportPreferences,
@@ -63,7 +65,7 @@ const makeDocDefinition = async requestBody => {
       type
     }) => type === 'Compliance')), await (0, _makeMaintenanceIssues.makeMaintenanceIssues)(issues.filter(({
       type
-    }) => type === 'Maintenance')), (0, _makeAreasAssessed.makeAreasAssessed)()]
+    }) => type === 'Maintenance')), (0, _makeAreasAssessed.makeAreasAssessed)(), (0, _makeImpactTestImages.makeImpactTestImages)(impactTest.surfaces)]
   };
   return docDefinition;
 };
