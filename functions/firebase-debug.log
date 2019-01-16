@@ -55,3 +55,4 @@
 [debug] [2019-01-16T13:50:53.284Z] Starting @google-cloud/functions-emulator
 [debug] [2019-01-16T13:50:55.330Z] Parsing function triggers
 [info] +  functions: generateReport: http://localhost:5000/inspection-app-49829/us-central1/generateReport
+[info] Shutting down...

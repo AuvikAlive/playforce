@@ -12,6 +12,7 @@ import { makeComplianceIssues } from './makeComplianceIssues/'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues/'
 import { makeAreasAssessed } from './makeAreasAssessed/'
 import { makeImpactTestImages } from './makeImpactTestImages/'
+import { makeReportNotes } from './makeReportNotes/'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -25,6 +26,8 @@ export const makeDocDefinition = async requestBody => {
     impactTest,
     issues,
   } = requestBody
+
+  const { standards } = inspection
 
   const skipCommonHeaderFooter = 1
 
@@ -51,7 +54,7 @@ export const makeDocDefinition = async requestBody => {
       await makeAuditSummary(inspection.auditSummary, author, site),
       makeConditionRatingInfo(),
       await makeConditionRatings(equipment),
-      makeImpactTests(impactTest, inspection.standards),
+      makeImpactTests(impactTest, standards),
       await makeComplianceIssues(
         issues.filter(({ type }) => type === 'Compliance')
       ),
@@ -60,6 +63,7 @@ export const makeDocDefinition = async requestBody => {
       ),
       makeAreasAssessed(),
       makeImpactTestImages(impactTest.surfaces),
+      makeReportNotes(standards),
     ],
   }
 

@@ -33,6 +33,8 @@ var _makeAreasAssessed = require("./makeAreasAssessed/");
 
 var _makeImpactTestImages = require("./makeImpactTestImages/");
 
+var _makeReportNotes = require("./makeReportNotes/");
+
 const makeDocDefinition = async requestBody => {
   const {
     reportPreferences,
@@ -45,6 +47,9 @@ const makeDocDefinition = async requestBody => {
     impactTest,
     issues
   } = requestBody;
+  const {
+    standards
+  } = inspection;
   const skipCommonHeaderFooter = 1;
   const docDefinition = {
     pageMargins: _pageMargins.pageMargins,
@@ -61,11 +66,11 @@ const makeDocDefinition = async requestBody => {
       site,
       client,
       author
-    }), await (0, _makeAuditSummary.makeAuditSummary)(inspection.auditSummary, author, site), (0, _makeConditionRatingInfo.makeConditionRatingInfo)(), await (0, _makeConditionRatings.makeConditionRatings)(equipment), (0, _makeImpactTests.makeImpactTests)(impactTest, inspection.standards), await (0, _makeComplianceIssues.makeComplianceIssues)(issues.filter(({
+    }), await (0, _makeAuditSummary.makeAuditSummary)(inspection.auditSummary, author, site), (0, _makeConditionRatingInfo.makeConditionRatingInfo)(), await (0, _makeConditionRatings.makeConditionRatings)(equipment), (0, _makeImpactTests.makeImpactTests)(impactTest, standards), await (0, _makeComplianceIssues.makeComplianceIssues)(issues.filter(({
       type
     }) => type === 'Compliance')), await (0, _makeMaintenanceIssues.makeMaintenanceIssues)(issues.filter(({
       type
-    }) => type === 'Maintenance')), (0, _makeAreasAssessed.makeAreasAssessed)(), (0, _makeImpactTestImages.makeImpactTestImages)(impactTest.surfaces)]
+    }) => type === 'Maintenance')), (0, _makeAreasAssessed.makeAreasAssessed)(), (0, _makeImpactTestImages.makeImpactTestImages)(impactTest.surfaces), (0, _makeReportNotes.makeReportNotes)(standards)]
   };
   return docDefinition;
 };
