@@ -8,6 +8,7 @@ import { makeAuditSummary } from './makeAuditSummary'
 import { makeConditionRatingInfo } from './makeConditionRatingInfo/'
 import { makeConditionRatings } from './makeConditionRatings/'
 import { makeImpactTests } from './makeImpactTests/'
+import { makeComplianceIssues } from './makeComplianceIssues/'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -19,6 +20,7 @@ export const makeDocDefinition = async requestBody => {
     author,
     equipment,
     impactTest,
+    issues,
   } = requestBody
 
   const skipCommonHeaderFooter = 1
@@ -47,6 +49,9 @@ export const makeDocDefinition = async requestBody => {
       makeConditionRatingInfo(),
       await makeConditionRatings(equipment),
       makeImpactTests(impactTest, inspection.standards),
+      await makeComplianceIssues(
+        issues.filter(({ type }) => type === 'Compliance')
+      ),
     ],
   }
 
