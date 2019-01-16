@@ -27,3 +27,30 @@
 [debug] [2019-01-16T13:46:47.708Z] Parsing function triggers
 [info] +  functions: generateReport: http://localhost:5000/inspection-app-49829/us-central1/generateReport
 [info] Shutting down...
+[debug] [2019-01-16T13:50:49.293Z] ----------------------------------------------------------------------
+[debug] [2019-01-16T13:50:49.295Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\auvik\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2019-01-16T13:50:49.296Z] CLI Version:   6.2.2
+[debug] [2019-01-16T13:50:49.296Z] Platform:      win32
+[debug] [2019-01-16T13:50:49.296Z] Node Version:  v10.11.0
+[debug] [2019-01-16T13:50:49.296Z] Time:          Wed Jan 16 2019 19:50:49 GMT+0600 (Bangladesh Standard Time)
+[debug] [2019-01-16T13:50:49.296Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-01-16T13:50:49.306Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-01-16T13:50:49.307Z] > authorizing via signed-in user
+[debug] [2019-01-16T13:50:49.307Z] [iam] checking project inspection-app-49829 for permissions ["firebase.projects.get"]
+[debug] [2019-01-16T13:50:49.309Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829:testIamPermissions  
+
+[debug] [2019-01-16T13:50:50.718Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-16T13:50:50.719Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/inspection-app-49829  
+ 
+[debug] [2019-01-16T13:50:52.057Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Work\justin\pwa'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2019-01-16T13:50:52.732Z] Fetching environment
+[debug] [2019-01-16T13:50:52.734Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/927219938723:getServerAppConfig  
+ 
+[debug] [2019-01-16T13:50:53.282Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-16T13:50:53.284Z] Starting @google-cloud/functions-emulator
+[debug] [2019-01-16T13:50:55.330Z] Parsing function triggers

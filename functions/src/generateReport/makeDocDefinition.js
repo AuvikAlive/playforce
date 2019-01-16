@@ -10,6 +10,7 @@ import { makeConditionRatings } from './makeConditionRatings/'
 import { makeImpactTests } from './makeImpactTests/'
 import { makeComplianceIssues } from './makeComplianceIssues/'
 import { makeMaintenanceIssues } from './makeMaintenanceIssues/'
+import { makeAreasAssessed } from './makeAreasAssessed/'
 
 export const makeDocDefinition = async requestBody => {
   const {
@@ -56,6 +57,7 @@ export const makeDocDefinition = async requestBody => {
       await makeMaintenanceIssues(
         issues.filter(({ type }) => type === 'Maintenance')
       ),
+      makeAreasAssessed(),
     ],
   }
 

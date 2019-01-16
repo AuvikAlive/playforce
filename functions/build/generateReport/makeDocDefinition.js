@@ -29,6 +29,8 @@ var _makeComplianceIssues = require("./makeComplianceIssues/");
 
 var _makeMaintenanceIssues = require("./makeMaintenanceIssues/");
 
+var _makeAreasAssessed = require("./makeAreasAssessed/");
+
 const makeDocDefinition = async requestBody => {
   const {
     reportPreferences,
@@ -61,7 +63,7 @@ const makeDocDefinition = async requestBody => {
       type
     }) => type === 'Compliance')), await (0, _makeMaintenanceIssues.makeMaintenanceIssues)(issues.filter(({
       type
-    }) => type === 'Maintenance'))]
+    }) => type === 'Maintenance')), (0, _makeAreasAssessed.makeAreasAssessed)()]
   };
   return docDefinition;
 };
